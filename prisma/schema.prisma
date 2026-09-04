@@ -1,0 +1,228 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  PARTICIPANT
+  RESEARCHER
+  ADMIN
+}
+
+enum StudyStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+}
+
+enum QuestionType {
+  SHORT_TEXT
+  LONG_TEXT
+  SINGLE_CHOICE
+  MULTIPLE_CHOICE
+  NUMBER
+  YES_NO
+  DATE
+}
+
+enum TransactionType {
+  EARN
+  SPEND
+  WITHDRAW
+  REFUND
+  ADJUSTMENT
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(PARTICIPANT)
+
+  phone        String?
+  institution  String?
+  fieldOfStudy String?
+  yearOfStudy  Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  studies       Study[]
+responses     Response[]
+wallet        Wallet?
+studyPayments StudyPayment[]
+withdrawals   Withdrawal[]
+}
+
+model Study {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  status      StudyStatus @default(DRAFT)
+
+  rewardCredits Int @default(0)
+
+  // Maximum number of participants
+  participantTarget Int @default(0)
+
+  // Total credits reserved for this study
+  budgetCredits Int @default(0)
+
+  // Credits already awarded to participants
+  creditsPaid Int @default(0)
+
+  researcherId String
+  researcher   User   @relation(fields: [researcherId], references: [id], onDelete: Cascade)
+
+  questions  Question[]
+  responses  Response[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  payments StudyPayment[]
+}
+
+model Question {
+  id       String       @id @default(cuid())
+  studyId  String
+  study    Study        @relation(fields: [studyId], references: [id], onDelete: Cascade)
+
+  text     String
+  type     QuestionType
+  required Boolean      @default(true)
+  order    Int
+
+  options QuestionOption[]
+  answers Answer[]
+
+  createdAt DateTime @default(now())
+}
+
+model QuestionOption {
+  id         String   @id @default(cuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  text  String
+  value String
+  order Int
+}
+
+model Response {
+  id          String   @id @default(cuid())
+  studyId     String
+  participantId String
+
+  study       Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  participant User  @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  answers Answer[]
+
+  submittedAt DateTime @default(now())
+
+  @@unique([studyId, participantId])
+}
+
+model Answer {
+  id         String @id @default(cuid())
+  responseId String
+  questionId String
+
+  response Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  textValue   String?
+  numberValue Float?
+
+  createdAt DateTime @default(now())
+
+  @@unique([responseId, questionId])
+}
+
+model Wallet {
+  id      String @id @default(cuid())
+  userId  String @unique
+  balance Int    @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  transactions TinatCreditTransaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TinatCreditTransaction {
+  id        String          @id @default(cuid())
+  walletId  String
+  amount    Int
+  type      TransactionType
+  reason    String?
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum WithdrawalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+model StudyPayment {
+  id        String        @id @default(cuid())
+
+  studyId   String
+  study     Study         @relation(fields: [studyId], references: [id], onDelete: Cascade)
+
+  researcherId String
+  researcher   User       @relation(fields: [researcherId], references: [id], onDelete: Cascade)
+
+  amount    Float
+  currency  String        @default("ETB")
+
+  txRef     String        @unique
+  chapaRef  String?
+
+  status    PaymentStatus @default(PENDING)
+
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([studyId])
+  @@index([researcherId])
+}
+
+model Withdrawal {
+  id String @id @default(cuid())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  amount Int
+
+  method String
+  accountInfo String
+
+  status WithdrawalStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
