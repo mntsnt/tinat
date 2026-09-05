@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { logActivity } from "@/lib/activityLog";
 
 const allowedStatuses = ["ACTIVE", "PAUSED", "COMPLETED"] as const;
 type AllowedStatus = (typeof allowedStatuses)[number];
@@ -93,6 +94,14 @@ export async function PATCH(
       data: {
         status: status as AllowedStatus,
       },
+    });
+
+    await logActivity({
+      userId: user.id,
+      action: "STUDY_STATUS_CHANGED",
+      description: `Study status changed to ${status}`,
+      resourceId: updatedStudy.id,
+      resourceType: "Study",
     });
 
     return NextResponse.json({

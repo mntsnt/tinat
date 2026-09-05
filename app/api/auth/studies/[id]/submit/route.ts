@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "../../../../../../lib/auth";
 import { prisma } from "../../../../../../lib/prisma";
+import { logActivity } from "../../../../../../lib/activityLog";
 
 export async function POST(
   request: Request,
@@ -57,6 +58,7 @@ export async function POST(
         questions: {
           include: {
             options: true,
+            rows: true,
           },
           orderBy: {
             order: "asc",
@@ -177,8 +179,8 @@ export async function POST(
         answer === undefined ||
         answer === null ||
         answer === "" ||
-        (Array.isArray(answer) &&
-          answer.length === 0);
+        (Array.isArray(answer) && answer.length === 0) ||
+        (typeof answer === "object" && !Array.isArray(answer) && Object.keys(answer).length === 0);
 
       if (empty) {
         return NextResponse.json(
@@ -208,96 +210,81 @@ export async function POST(
       // NUMBER
       if (question.type === "NUMBER") {
         const number = Number(answer);
-
-        if (!Number.isFinite(number)) {
-          return NextResponse.json(
-            {
-              error: `"${question.text}" must be a valid number.`,
-            },
-            { status: 400 }
-          );
-        }
+        if (!Number.isFinite(number)) return NextResponse.json({ error: `"${question.text}" must be a valid number.` }, { status: 400 });
       }
 
       // YES / NO
       if (question.type === "YES_NO") {
-        if (
-          answer !== "Yes" &&
-          answer !== "No"
-        ) {
-          return NextResponse.json(
-            {
-              error: `Invalid answer for "${question.text}".`,
-            },
-            { status: 400 }
-          );
-        }
+        if (answer !== "Yes" && answer !== "No") return NextResponse.json({ error: `Invalid answer for "${question.text}".` }, { status: 400 });
       }
 
-      // SINGLE CHOICE
-      if (question.type === "SINGLE_CHOICE") {
-        const validValues =
-          question.options.map(
-            (option) => option.value
-          );
-
-        if (
-          typeof answer !== "string" ||
-          !validValues.includes(answer)
-        ) {
-          return NextResponse.json(
-            {
-              error: `Invalid choice for "${question.text}".`,
-            },
-            { status: 400 }
-          );
+      // SINGLE CHOICE & DROPDOWN
+      if (question.type === "SINGLE_CHOICE" || question.type === "DROPDOWN") {
+        const validValues = question.options.map((o) => o.value);
+        if (typeof answer !== "string" || !validValues.includes(answer)) {
+          return NextResponse.json({ error: `Invalid choice for "${question.text}".` }, { status: 400 });
         }
       }
 
       // MULTIPLE CHOICE
       if (question.type === "MULTIPLE_CHOICE") {
-        if (!Array.isArray(answer)) {
-          return NextResponse.json(
-            {
-              error: `Invalid choices for "${question.text}".`,
-            },
-            { status: 400 }
-          );
-        }
-
-        const validValues =
-          question.options.map(
-            (option) => option.value
-          );
-
-        const allValid = answer.every(
-          (value: unknown) =>
-            typeof value === "string" &&
-            validValues.includes(value)
-        );
-
-        if (!allValid) {
-          return NextResponse.json(
-            {
-              error: `Invalid choices for "${question.text}".`,
-            },
-            { status: 400 }
-          );
+        if (!Array.isArray(answer)) return NextResponse.json({ error: `Invalid choices for "${question.text}".` }, { status: 400 });
+        const validValues = question.options.map((o) => o.value);
+        if (!answer.every((v) => typeof v === "string" && validValues.includes(v))) {
+          return NextResponse.json({ error: `Invalid choices for "${question.text}".` }, { status: 400 });
         }
       }
 
       // DATE
       if (question.type === "DATE") {
-        if (
-          typeof answer !== "string" ||
-          Number.isNaN(Date.parse(answer))
-        ) {
-          return NextResponse.json(
-            {
-              error: `Invalid date for "${question.text}".`,
-            },
-            { status: 400 }
-          );
+        if (typeof answer !== "string" || Number.isNaN(Date.parse(answer))) {
+          return NextResponse.json({ error: `Invalid date for "${question.text}".` }, { status: 400 });
+        }
+      }
+      
+      // TIME
+      if (question.type === "TIME") {
+        if (typeof answer !== "string" || !/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(answer)) {
+          return NextResponse.json({ error: `Invalid time for "${question.text}".` }, { status: 400 });
+        }
+      }
+
+      // LINEAR SCALE
+      if (question.type === "LINEAR_SCALE") {
+        const num = Number(answer);
+        if (!Number.isInteger(num) || num < (question.scaleMin || 1) || num > (question.scaleMax || 5)) {
+          return NextResponse.json({ error: `Invalid scale value for "${question.text}".` }, { status: 400 });
+        }
+      }
+
+      // FILE UPLOAD (Mock validation)
+      if (question.type === "FILE_UPLOAD") {
+        if (typeof answer !== "string" || !answer.startsWith("pending_upload_url/")) {
+          return NextResponse.json({ error: `Invalid file upload for "${question.text}".` }, { status: 400 });
+        }
+      }
+
+      // MULTIPLE CHOICE GRID
+      if (question.type === "MULTIPLE_CHOICE_GRID") {
+        if (typeof answer !== "object" || Array.isArray(answer)) return NextResponse.json({ error: `Invalid grid for "${question.text}".` }, { status: 400 });
+        const validRows = (question.rows as any[]).map(r => r.value);
+        const validCols = question.options.map(o => o.value);
+        for (const [row, col] of Object.entries(answer as Record<string, string>)) {
+          if (!validRows.includes(row) || !validCols.includes(col)) {
+            return NextResponse.json({ error: `Invalid grid selection for "${question.text}".` }, { status: 400 });
+          }
+        }
+      }
+
+      // CHECKBOX GRID
+      if (question.type === "CHECKBOX_GRID") {
+        if (typeof answer !== "object" || Array.isArray(answer)) return NextResponse.json({ error: `Invalid grid for "${question.text}".` }, { status: 400 });
+        const validRows = (question.rows as any[]).map(r => r.value);
+        const validCols = question.options.map(o => o.value);
+        for (const [row, cols] of Object.entries(answer as Record<string, string[]>)) {
+          if (!validRows.includes(row) || !Array.isArray(cols) || !cols.every(c => validCols.includes(c))) {
+            return NextResponse.json({ error: `Invalid grid selection for "${question.text}".` }, { status: 400 });
+          }
         }
       }
     }
@@ -515,6 +502,14 @@ export async function POST(
     // ---------------------------------------------
     // 12. Success
     // ---------------------------------------------
+
+    await logActivity({
+      userId: user.id,
+      action: "STUDY_SUBMITTED",
+      description: `Participant submitted responses for study ${studyId}`,
+      resourceId: studyId,
+      resourceType: "Study",
+    });
 
     return NextResponse.json({
       message:

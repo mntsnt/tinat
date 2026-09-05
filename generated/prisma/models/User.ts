@@ -44,6 +44,9 @@ export type UserMinAggregateOutputType = {
   institution: string | null
   fieldOfStudy: string | null
   yearOfStudy: number | null
+  bio: string | null
+  avatarUrl: string | null
+  isVerified: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -58,6 +61,9 @@ export type UserMaxAggregateOutputType = {
   institution: string | null
   fieldOfStudy: string | null
   yearOfStudy: number | null
+  bio: string | null
+  avatarUrl: string | null
+  isVerified: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -72,6 +78,9 @@ export type UserCountAggregateOutputType = {
   institution: number
   fieldOfStudy: number
   yearOfStudy: number
+  bio: number
+  avatarUrl: number
+  isVerified: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -96,6 +105,9 @@ export type UserMinAggregateInputType = {
   institution?: true
   fieldOfStudy?: true
   yearOfStudy?: true
+  bio?: true
+  avatarUrl?: true
+  isVerified?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -110,6 +122,9 @@ export type UserMaxAggregateInputType = {
   institution?: true
   fieldOfStudy?: true
   yearOfStudy?: true
+  bio?: true
+  avatarUrl?: true
+  isVerified?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +139,9 @@ export type UserCountAggregateInputType = {
   institution?: true
   fieldOfStudy?: true
   yearOfStudy?: true
+  bio?: true
+  avatarUrl?: true
+  isVerified?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -225,6 +243,9 @@ export type UserGroupByOutputType = {
   institution: string | null
   fieldOfStudy: string | null
   yearOfStudy: number | null
+  bio: string | null
+  avatarUrl: string | null
+  isVerified: boolean
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -262,6 +283,9 @@ export type UserWhereInput = {
   institution?: Prisma.StringNullableFilter<"User"> | string | null
   fieldOfStudy?: Prisma.StringNullableFilter<"User"> | string | null
   yearOfStudy?: Prisma.IntNullableFilter<"User"> | number | null
+  bio?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  isVerified?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   studies?: Prisma.StudyListRelationFilter
@@ -269,6 +293,10 @@ export type UserWhereInput = {
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
   studyPayments?: Prisma.StudyPaymentListRelationFilter
   withdrawals?: Prisma.WithdrawalListRelationFilter
+  bookmarks?: Prisma.StudyBookmarkListRelationFilter
+  ratings?: Prisma.StudyRatingListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  activityLogs?: Prisma.ActivityLogListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -281,6 +309,9 @@ export type UserOrderByWithRelationInput = {
   institution?: Prisma.SortOrderInput | Prisma.SortOrder
   fieldOfStudy?: Prisma.SortOrderInput | Prisma.SortOrder
   yearOfStudy?: Prisma.SortOrderInput | Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   studies?: Prisma.StudyOrderByRelationAggregateInput
@@ -288,6 +319,10 @@ export type UserOrderByWithRelationInput = {
   wallet?: Prisma.WalletOrderByWithRelationInput
   studyPayments?: Prisma.StudyPaymentOrderByRelationAggregateInput
   withdrawals?: Prisma.WithdrawalOrderByRelationAggregateInput
+  bookmarks?: Prisma.StudyBookmarkOrderByRelationAggregateInput
+  ratings?: Prisma.StudyRatingOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  activityLogs?: Prisma.ActivityLogOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -303,6 +338,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   institution?: Prisma.StringNullableFilter<"User"> | string | null
   fieldOfStudy?: Prisma.StringNullableFilter<"User"> | string | null
   yearOfStudy?: Prisma.IntNullableFilter<"User"> | number | null
+  bio?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  isVerified?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   studies?: Prisma.StudyListRelationFilter
@@ -310,6 +348,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
   studyPayments?: Prisma.StudyPaymentListRelationFilter
   withdrawals?: Prisma.WithdrawalListRelationFilter
+  bookmarks?: Prisma.StudyBookmarkListRelationFilter
+  ratings?: Prisma.StudyRatingListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  activityLogs?: Prisma.ActivityLogListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -322,6 +364,9 @@ export type UserOrderByWithAggregationInput = {
   institution?: Prisma.SortOrderInput | Prisma.SortOrder
   fieldOfStudy?: Prisma.SortOrderInput | Prisma.SortOrder
   yearOfStudy?: Prisma.SortOrderInput | Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -344,6 +389,9 @@ export type UserScalarWhereWithAggregatesInput = {
   institution?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   fieldOfStudy?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   yearOfStudy?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -358,6 +406,9 @@ export type UserCreateInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
@@ -365,6 +416,10 @@ export type UserCreateInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -377,6 +432,9 @@ export type UserUncheckedCreateInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
@@ -384,6 +442,10 @@ export type UserUncheckedCreateInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -396,6 +458,9 @@ export type UserUpdateInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
@@ -403,6 +468,10 @@ export type UserUpdateInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -415,6 +484,9 @@ export type UserUncheckedUpdateInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
@@ -422,6 +494,10 @@ export type UserUncheckedUpdateInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -434,6 +510,9 @@ export type UserCreateManyInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -448,6 +527,9 @@ export type UserUpdateManyMutationInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -462,6 +544,9 @@ export type UserUncheckedUpdateManyInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -476,6 +561,9 @@ export type UserCountOrderByAggregateInput = {
   institution?: Prisma.SortOrder
   fieldOfStudy?: Prisma.SortOrder
   yearOfStudy?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -494,6 +582,9 @@ export type UserMaxOrderByAggregateInput = {
   institution?: Prisma.SortOrder
   fieldOfStudy?: Prisma.SortOrder
   yearOfStudy?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -508,6 +599,9 @@ export type UserMinOrderByAggregateInput = {
   institution?: Prisma.SortOrder
   fieldOfStudy?: Prisma.SortOrder
   yearOfStudy?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -541,6 +635,10 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -557,6 +655,62 @@ export type UserUpdateOneRequiredWithoutStudiesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutStudiesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStudiesInput, Prisma.UserUpdateWithoutStudiesInput>, Prisma.UserUncheckedUpdateWithoutStudiesInput>
+}
+
+export type UserCreateNestedOneWithoutBookmarksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookmarksInput, Prisma.UserUncheckedCreateWithoutBookmarksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookmarksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBookmarksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookmarksInput, Prisma.UserUncheckedCreateWithoutBookmarksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookmarksInput
+  upsert?: Prisma.UserUpsertWithoutBookmarksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBookmarksInput, Prisma.UserUpdateWithoutBookmarksInput>, Prisma.UserUncheckedUpdateWithoutBookmarksInput>
+}
+
+export type UserCreateNestedOneWithoutRatingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRatingsInput, Prisma.UserUncheckedCreateWithoutRatingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRatingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRatingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRatingsInput, Prisma.UserUncheckedCreateWithoutRatingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRatingsInput
+  upsert?: Prisma.UserUpsertWithoutRatingsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRatingsInput, Prisma.UserUpdateWithoutRatingsInput>, Prisma.UserUncheckedUpdateWithoutRatingsInput>
+}
+
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserCreateNestedOneWithoutActivityLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActivityLogsInput, Prisma.UserUncheckedCreateWithoutActivityLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivityLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutActivityLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActivityLogsInput, Prisma.UserUncheckedCreateWithoutActivityLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActivityLogsInput
+  upsert?: Prisma.UserUpsertWithoutActivityLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutActivityLogsInput, Prisma.UserUpdateWithoutActivityLogsInput>, Prisma.UserUncheckedUpdateWithoutActivityLogsInput>
 }
 
 export type UserCreateNestedOneWithoutResponsesInput = {
@@ -625,12 +779,19 @@ export type UserCreateWithoutStudiesInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudiesInput = {
@@ -643,12 +804,19 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudiesInput = {
@@ -677,12 +845,19 @@ export type UserUpdateWithoutStudiesInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudiesInput = {
@@ -695,12 +870,483 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBookmarksInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBookmarksInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBookmarksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookmarksInput, Prisma.UserUncheckedCreateWithoutBookmarksInput>
+}
+
+export type UserUpsertWithoutBookmarksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBookmarksInput, Prisma.UserUncheckedUpdateWithoutBookmarksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookmarksInput, Prisma.UserUncheckedCreateWithoutBookmarksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBookmarksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBookmarksInput, Prisma.UserUncheckedUpdateWithoutBookmarksInput>
+}
+
+export type UserUpdateWithoutBookmarksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBookmarksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRatingsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRatingsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRatingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRatingsInput, Prisma.UserUncheckedCreateWithoutRatingsInput>
+}
+
+export type UserUpsertWithoutRatingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRatingsInput, Prisma.UserUncheckedUpdateWithoutRatingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRatingsInput, Prisma.UserUncheckedCreateWithoutRatingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRatingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRatingsInput, Prisma.UserUncheckedUpdateWithoutRatingsInput>
+}
+
+export type UserUpdateWithoutRatingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRatingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutActivityLogsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutActivityLogsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutActivityLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutActivityLogsInput, Prisma.UserUncheckedCreateWithoutActivityLogsInput>
+}
+
+export type UserUpsertWithoutActivityLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutActivityLogsInput, Prisma.UserUncheckedUpdateWithoutActivityLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutActivityLogsInput, Prisma.UserUncheckedCreateWithoutActivityLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutActivityLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutActivityLogsInput, Prisma.UserUncheckedUpdateWithoutActivityLogsInput>
+}
+
+export type UserUpdateWithoutActivityLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutActivityLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutResponsesInput = {
@@ -713,12 +1359,19 @@ export type UserCreateWithoutResponsesInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResponsesInput = {
@@ -731,12 +1384,19 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResponsesInput = {
@@ -765,12 +1425,19 @@ export type UserUpdateWithoutResponsesInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResponsesInput = {
@@ -783,12 +1450,19 @@ export type UserUncheckedUpdateWithoutResponsesInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWalletInput = {
@@ -801,12 +1475,19 @@ export type UserCreateWithoutWalletInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWalletInput = {
@@ -819,12 +1500,19 @@ export type UserUncheckedCreateWithoutWalletInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWalletInput = {
@@ -853,12 +1541,19 @@ export type UserUpdateWithoutWalletInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWalletInput = {
@@ -871,12 +1566,19 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudyPaymentsInput = {
@@ -889,12 +1591,19 @@ export type UserCreateWithoutStudyPaymentsInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudyPaymentsInput = {
@@ -907,12 +1616,19 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudyPaymentsInput = {
@@ -941,12 +1657,19 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
@@ -959,12 +1682,19 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWithdrawalsInput = {
@@ -977,12 +1707,19 @@ export type UserCreateWithoutWithdrawalsInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWithdrawalsInput = {
@@ -995,12 +1732,19 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   institution?: string | null
   fieldOfStudy?: string | null
   yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWithdrawalsInput = {
@@ -1029,12 +1773,19 @@ export type UserUpdateWithoutWithdrawalsInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWithdrawalsInput = {
@@ -1047,12 +1798,19 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1065,6 +1823,10 @@ export type UserCountOutputType = {
   responses: number
   studyPayments: number
   withdrawals: number
+  bookmarks: number
+  ratings: number
+  notifications: number
+  activityLogs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1072,6 +1834,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   responses?: boolean | UserCountOutputTypeCountResponsesArgs
   studyPayments?: boolean | UserCountOutputTypeCountStudyPaymentsArgs
   withdrawals?: boolean | UserCountOutputTypeCountWithdrawalsArgs
+  bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
+  ratings?: boolean | UserCountOutputTypeCountRatingsArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  activityLogs?: boolean | UserCountOutputTypeCountActivityLogsArgs
 }
 
 /**
@@ -1112,6 +1878,34 @@ export type UserCountOutputTypeCountWithdrawalsArgs<ExtArgs extends runtime.Type
   where?: Prisma.WithdrawalWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StudyBookmarkWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRatingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StudyRatingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountActivityLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ActivityLogWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1123,6 +1917,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   institution?: boolean
   fieldOfStudy?: boolean
   yearOfStudy?: boolean
+  bio?: boolean
+  avatarUrl?: boolean
+  isVerified?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   studies?: boolean | Prisma.User$studiesArgs<ExtArgs>
@@ -1130,6 +1927,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
   studyPayments?: boolean | Prisma.User$studyPaymentsArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
+  bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
+  ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1143,6 +1944,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   institution?: boolean
   fieldOfStudy?: boolean
   yearOfStudy?: boolean
+  bio?: boolean
+  avatarUrl?: boolean
+  isVerified?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1157,6 +1961,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   institution?: boolean
   fieldOfStudy?: boolean
   yearOfStudy?: boolean
+  bio?: boolean
+  avatarUrl?: boolean
+  isVerified?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1171,17 +1978,24 @@ export type UserSelectScalar = {
   institution?: boolean
   fieldOfStudy?: boolean
   yearOfStudy?: boolean
+  bio?: boolean
+  avatarUrl?: boolean
+  isVerified?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "phone" | "institution" | "fieldOfStudy" | "yearOfStudy" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "phone" | "institution" | "fieldOfStudy" | "yearOfStudy" | "bio" | "avatarUrl" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   studies?: boolean | Prisma.User$studiesArgs<ExtArgs>
   responses?: boolean | Prisma.User$responsesArgs<ExtArgs>
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
   studyPayments?: boolean | Prisma.User$studyPaymentsArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
+  bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
+  ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1195,6 +2009,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     wallet: Prisma.$WalletPayload<ExtArgs> | null
     studyPayments: Prisma.$StudyPaymentPayload<ExtArgs>[]
     withdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
+    bookmarks: Prisma.$StudyBookmarkPayload<ExtArgs>[]
+    ratings: Prisma.$StudyRatingPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    activityLogs: Prisma.$ActivityLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1206,6 +2024,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     institution: string | null
     fieldOfStudy: string | null
     yearOfStudy: number | null
+    bio: string | null
+    avatarUrl: string | null
+    isVerified: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1607,6 +2428,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   wallet<T extends Prisma.User$walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$walletArgs<ExtArgs>>): Prisma.Prisma__WalletClient<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   studyPayments<T extends Prisma.User$studyPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$studyPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   withdrawals<T extends Prisma.User$withdrawalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$withdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bookmarks<T extends Prisma.User$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ratings<T extends Prisma.User$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  activityLogs<T extends Prisma.User$activityLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1645,6 +2470,9 @@ export interface UserFieldRefs {
   readonly institution: Prisma.FieldRef<"User", 'String'>
   readonly fieldOfStudy: Prisma.FieldRef<"User", 'String'>
   readonly yearOfStudy: Prisma.FieldRef<"User", 'Int'>
+  readonly bio: Prisma.FieldRef<"User", 'String'>
+  readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
+  readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -2152,6 +2980,102 @@ export type User$withdrawalsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.WithdrawalScalarFieldEnum | Prisma.WithdrawalScalarFieldEnum[]
+}
+
+/**
+ * User.bookmarks
+ */
+export type User$bookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudyBookmark
+   */
+  select?: Prisma.StudyBookmarkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StudyBookmark
+   */
+  omit?: Prisma.StudyBookmarkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StudyBookmarkInclude<ExtArgs> | null
+  where?: Prisma.StudyBookmarkWhereInput
+  orderBy?: Prisma.StudyBookmarkOrderByWithRelationInput | Prisma.StudyBookmarkOrderByWithRelationInput[]
+  cursor?: Prisma.StudyBookmarkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StudyBookmarkScalarFieldEnum | Prisma.StudyBookmarkScalarFieldEnum[]
+}
+
+/**
+ * User.ratings
+ */
+export type User$ratingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudyRating
+   */
+  select?: Prisma.StudyRatingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StudyRating
+   */
+  omit?: Prisma.StudyRatingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StudyRatingInclude<ExtArgs> | null
+  where?: Prisma.StudyRatingWhereInput
+  orderBy?: Prisma.StudyRatingOrderByWithRelationInput | Prisma.StudyRatingOrderByWithRelationInput[]
+  cursor?: Prisma.StudyRatingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StudyRatingScalarFieldEnum | Prisma.StudyRatingScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.activityLogs
+ */
+export type User$activityLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ActivityLog
+   */
+  select?: Prisma.ActivityLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ActivityLog
+   */
+  omit?: Prisma.ActivityLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ActivityLogInclude<ExtArgs> | null
+  where?: Prisma.ActivityLogWhereInput
+  orderBy?: Prisma.ActivityLogOrderByWithRelationInput | Prisma.ActivityLogOrderByWithRelationInput[]
+  cursor?: Prisma.ActivityLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ActivityLogScalarFieldEnum | Prisma.ActivityLogScalarFieldEnum[]
 }
 
 /**

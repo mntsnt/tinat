@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "./ui/Button";
 
 type Props = {
   studyId: string;
@@ -54,39 +55,42 @@ export default function StudyStatusButton({
   }
 
   if (currentStatus === "COMPLETED") {
-    return <p><strong>Study completed</strong></p>;
+    return <p className="text-sm font-medium text-muted-foreground">Study completed</p>;
   }
 
   return (
-    <div>
+    <div className="flex flex-wrap gap-2">
       {currentStatus === "ACTIVE" && (
-        <button
-          type="button"
-          disabled={loading}
+        <Button
+          variant="outline"
+          size="sm"
+          isLoading={loading}
           onClick={() => changeStatus("PAUSED")}
         >
-          {loading ? "Updating..." : "Pause Study"}
-        </button>
+          Pause
+        </Button>
       )}
 
       {currentStatus === "PAUSED" && (
-        <button
-          type="button"
-          disabled={loading}
+        <Button
+          variant="outline"
+          size="sm"
+          isLoading={loading}
           onClick={() => changeStatus("ACTIVE")}
         >
-          {loading ? "Updating..." : "Resume Study"}
-        </button>
+          Resume
+        </Button>
       )}
 
       {(currentStatus === "ACTIVE" || currentStatus === "PAUSED") && (
-        <button
-          type="button"
-          disabled={loading}
+        <Button
+          variant="outline"
+          size="sm"
+          isLoading={loading}
           onClick={() => changeStatus("COMPLETED")}
         >
-          {loading ? "Updating..." : "Complete Study"}
-        </button>
+          Complete
+        </Button>
       )}
     </div>
   );

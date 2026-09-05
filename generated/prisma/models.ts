@@ -10,7 +10,12 @@
  */
 export type * from './models/User'
 export type * from './models/Study'
+export type * from './models/StudyBookmark'
+export type * from './models/StudyRating'
+export type * from './models/Notification'
+export type * from './models/ActivityLog'
 export type * from './models/Question'
+export type * from './models/QuestionRow'
 export type * from './models/QuestionOption'
 export type * from './models/Response'
 export type * from './models/Answer'

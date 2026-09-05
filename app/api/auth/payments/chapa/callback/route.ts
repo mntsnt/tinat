@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { logActivity } from "@/lib/activityLog";
 
 type ChapaVerifyResponse = {
   status?: string;
@@ -204,30 +205,44 @@ export async function GET(request: Request) {
     // PAYMENT SUCCESS
     // ---------------------------------------------
 
-    await prisma.$transaction(async (tx) => {
-      // Mark payment as successful
-      await tx.studyPayment.update({
-        where: {
-          txRef,
-        },
-        data: {
-          status: "SUCCESS",
-          chapaRef:
-            chapaData.data?.reference || null,
-        },
+      await prisma.$transaction(async (tx) => {
+        // Mark payment as successful
+        await tx.studyPayment.update({
+          where: { txRef },
+          data: {
+            status: "SUCCESS",
+            chapaRef: chapaData.data?.reference || null,
+          },
+        });
+
+        // Activate study and increment creditsPaid safely
+        await tx.study.update({
+          where: { id: payment.studyId },
+          data: {
+            status: "ACTIVE",
+            // Increment creditsPaid by the funded amount (rounded to int)
+            creditsPaid: {
+              increment: Math.round(payment.amount),
+            },
+          },
+        });
       });
 
-      // Activate study
-      await tx.study.update({
-        where: {
-          id: payment.studyId,
-        },
-        data: {
-          status: "ACTIVE",
-          creditsPaid: payment.amount,
-        },
+      // Log payment success and study activation
+      await logActivity({
+        userId: payment.researcherId,
+        action: "PAYMENT_SUCCESS",
+        description: `Study ${payment.studyId} funded successfully via Chapa`,
+        resourceId: payment.studyId,
+        resourceType: "Study",
       });
-    });
+      await logActivity({
+        userId: payment.researcherId,
+        action: "STUDY_ACTIVATED",
+        description: `Study ${payment.studyId} activated after payment verification`,
+        resourceId: payment.studyId,
+        resourceType: "Study",
+      });
 
     console.log(
       `Study ${payment.studyId} successfully funded and activated.`

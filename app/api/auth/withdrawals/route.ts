@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
+import { logActivity } from "../../../../lib/activityLog";
 
 const ALLOWED_METHODS = [
   "TELEBIRR",
@@ -211,7 +212,14 @@ export async function POST(request: Request) {
     // 8. Success
     // ---------------------------------------------
 
-    return NextResponse.json(
+    await logActivity({
+  userId: user.id,
+  action: "WITHDRAWAL_REQUESTED",
+  description: `Participant requested withdrawal of ${amount} via ${method}`,
+  resourceId: result.withdrawal.id,
+  resourceType: "Withdrawal",
+});
+return NextResponse.json(
       {
         message:
           "Withdrawal request submitted successfully.",

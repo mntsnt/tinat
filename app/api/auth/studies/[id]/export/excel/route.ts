@@ -49,6 +49,7 @@ export async function GET(
       },
       include: {
         questions: {
+          include: { rows: true },
           orderBy: {
             order: "asc",
           },

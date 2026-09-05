@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { logActivity } from "@/lib/activityLog";
 
 type RouteParams = {
   id?: string;
@@ -157,11 +158,17 @@ export async function POST(
         }),
         prisma.study.update({
           where: { id },
-          data: {
-            status: "ACTIVE",
-          },
+          data: { status: "ACTIVE" },
         }),
       ]);
+
+      await logActivity({
+        userId: session.userId,
+        action: "STUDY_FUNDED",
+        description: `Study ${id} funded successfully (dev mode)`,
+        resourceId: id,
+        resourceType: "Study",
+      });
 
       // Return redirect to study page
       return NextResponse.json({

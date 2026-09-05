@@ -53,7 +53,12 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Study: 'Study',
+  StudyBookmark: 'StudyBookmark',
+  StudyRating: 'StudyRating',
+  Notification: 'Notification',
+  ActivityLog: 'ActivityLog',
   Question: 'Question',
+  QuestionRow: 'QuestionRow',
   QuestionOption: 'QuestionOption',
   Response: 'Response',
   Answer: 'Answer',
@@ -89,6 +94,9 @@ export const UserScalarFieldEnum = {
   institution: 'institution',
   fieldOfStudy: 'fieldOfStudy',
   yearOfStudy: 'yearOfStudy',
+  bio: 'bio',
+  avatarUrl: 'avatarUrl',
+  isVerified: 'isVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -105,12 +113,62 @@ export const StudyScalarFieldEnum = {
   participantTarget: 'participantTarget',
   budgetCredits: 'budgetCredits',
   creditsPaid: 'creditsPaid',
+  tags: 'tags',
+  eligibilityCriteria: 'eligibilityCriteria',
   researcherId: 'researcherId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type StudyScalarFieldEnum = (typeof StudyScalarFieldEnum)[keyof typeof StudyScalarFieldEnum]
+
+
+export const StudyBookmarkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  studyId: 'studyId',
+  createdAt: 'createdAt'
+} as const
+
+export type StudyBookmarkScalarFieldEnum = (typeof StudyBookmarkScalarFieldEnum)[keyof typeof StudyBookmarkScalarFieldEnum]
+
+
+export const StudyRatingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  studyId: 'studyId',
+  rating: 'rating',
+  feedback: 'feedback',
+  createdAt: 'createdAt'
+} as const
+
+export type StudyRatingScalarFieldEnum = (typeof StudyRatingScalarFieldEnum)[keyof typeof StudyRatingScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  isRead: 'isRead',
+  linkUrl: 'linkUrl',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const ActivityLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  description: 'description',
+  resourceId: 'resourceId',
+  resourceType: 'resourceType',
+  createdAt: 'createdAt'
+} as const
+
+export type ActivityLogScalarFieldEnum = (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum]
 
 
 export const QuestionScalarFieldEnum = {
@@ -120,10 +178,25 @@ export const QuestionScalarFieldEnum = {
   type: 'type',
   required: 'required',
   order: 'order',
+  scaleMin: 'scaleMin',
+  scaleMax: 'scaleMax',
+  scaleMinLabel: 'scaleMinLabel',
+  scaleMaxLabel: 'scaleMaxLabel',
   createdAt: 'createdAt'
 } as const
 
 export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
+
+
+export const QuestionRowScalarFieldEnum = {
+  id: 'id',
+  questionId: 'questionId',
+  text: 'text',
+  value: 'value',
+  order: 'order'
+} as const
+
+export type QuestionRowScalarFieldEnum = (typeof QuestionRowScalarFieldEnum)[keyof typeof QuestionRowScalarFieldEnum]
 
 
 export const QuestionOptionScalarFieldEnum = {

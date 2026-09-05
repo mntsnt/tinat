@@ -48,6 +48,7 @@ export async function GET(
       },
       include: {
         questions: {
+          include: { rows: true },
           orderBy: {
             order: "asc",
           },
@@ -89,10 +90,15 @@ export async function GET(
     const headers = [
       "Response ID",
       "Submitted At",
-      ...study.questions.map(
-        (question) => question.text
-      ),
     ];
+    study.questions.forEach((question) => {
+      if (question.type === "MULTIPLE_CHOICE_GRID" || question.type === "CHECKBOX_GRID") {
+        const rows = question.rows || [];
+        rows.forEach(r => headers.push(`${question.text} - ${r.text}`));
+      } else {
+        headers.push(question.text);
+      }
+    });
 
     const rows = study.responses.map(
       (response) => {
@@ -103,23 +109,40 @@ export async function GET(
 
         for (const question of study.questions) {
           const answer = response.answers.find(
-            (item) =>
-              item.questionId === question.id
+            (item) => item.questionId === question.id
           );
 
-          let value = "";
-
-          if (answer) {
-            if (answer.numberValue !== null) {
-              value = String(
-                answer.numberValue
-              );
-            } else {
-              value = answer.textValue ?? "";
+          if (question.type === "MULTIPLE_CHOICE_GRID" || question.type === "CHECKBOX_GRID") {
+            const parsed = answer?.textValue ? JSON.parse(answer.textValue) : {};
+            const rows = question.rows || [];
+            rows.forEach(r => {
+              const val = parsed[r.value];
+              if (Array.isArray(val)) {
+                values.push(val.join("; "));
+              } else {
+                values.push(val ?? "");
+              }
+            });
+          } else {
+            let value = "";
+            if (answer) {
+              if (answer.numberValue !== null) {
+                value = String(answer.numberValue);
+              } else if (answer.textValue) {
+                try {
+                  const parsed = JSON.parse(answer.textValue);
+                  if (Array.isArray(parsed)) {
+                    value = parsed.join("; ");
+                  } else {
+                    value = answer.textValue;
+                  }
+                } catch {
+                  value = answer.textValue;
+                }
+              }
             }
+            values.push(value);
           }
-
-          values.push(value);
         }
 
         return values;

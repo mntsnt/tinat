@@ -25,9 +25,15 @@ enum QuestionType {
   LONG_TEXT
   SINGLE_CHOICE
   MULTIPLE_CHOICE
+  DROPDOWN
+  FILE_UPLOAD
+  LINEAR_SCALE
+  MULTIPLE_CHOICE_GRID
+  CHECKBOX_GRID
   NUMBER
   YES_NO
   DATE
+  TIME
 }
 
 enum TransactionType {
@@ -49,15 +55,24 @@ model User {
   institution  String?
   fieldOfStudy String?
   yearOfStudy  Int?
+  
+  // New Profile Fields
+  bio          String?
+  avatarUrl    String?
+  isVerified   Boolean  @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   studies       Study[]
-responses     Response[]
-wallet        Wallet?
-studyPayments StudyPayment[]
-withdrawals   Withdrawal[]
+  responses     Response[]
+  wallet        Wallet?
+  studyPayments StudyPayment[]
+  withdrawals   Withdrawal[]
+  bookmarks     StudyBookmark[]
+  ratings       StudyRating[]
+  notifications Notification[]
+  activityLogs  ActivityLog[]
 }
 
 model Study {
@@ -76,16 +91,75 @@ model Study {
 
   // Credits already awarded to participants
   creditsPaid Int @default(0)
+  
+  // Discoverability & Screening
+  tags               String[]
+  eligibilityCriteria String? // Stored as JSON string
 
   researcherId String
   researcher   User   @relation(fields: [researcherId], references: [id], onDelete: Cascade)
 
   questions  Question[]
   responses  Response[]
+  payments   StudyPayment[]
+  bookmarks  StudyBookmark[]
+  ratings    StudyRating[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  payments StudyPayment[]
+}
+
+model StudyBookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  studyId   String
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, studyId])
+}
+
+model StudyRating {
+  id        String   @id @default(cuid())
+  userId    String
+  studyId   String
+  rating    Int      // 1 to 5
+  feedback  String?
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, studyId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  linkUrl   String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action      String
+  description String?
+  resourceId  String?
+  resourceType String?
+  createdAt   DateTime @default(now())
+
+  @@index([userId, action])
+  @@index([resourceId, resourceType])
+  @@index([createdAt])
 }
 
 model Question {
@@ -98,10 +172,27 @@ model Question {
   required Boolean      @default(true)
   order    Int
 
+  // Linear scale properties
+  scaleMin       Int?
+  scaleMax       Int?
+  scaleMinLabel  String?
+  scaleMaxLabel  String?
+
   options QuestionOption[]
+  rows    QuestionRow[]
   answers Answer[]
 
   createdAt DateTime @default(now())
+}
+
+model QuestionRow {
+  id         String   @id @default(cuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  text  String
+  value String
+  order Int
 }
 
 model QuestionOption {

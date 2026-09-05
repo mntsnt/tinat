@@ -33,9 +33,15 @@ export const QuestionType = {
   LONG_TEXT: 'LONG_TEXT',
   SINGLE_CHOICE: 'SINGLE_CHOICE',
   MULTIPLE_CHOICE: 'MULTIPLE_CHOICE',
+  DROPDOWN: 'DROPDOWN',
+  FILE_UPLOAD: 'FILE_UPLOAD',
+  LINEAR_SCALE: 'LINEAR_SCALE',
+  MULTIPLE_CHOICE_GRID: 'MULTIPLE_CHOICE_GRID',
+  CHECKBOX_GRID: 'CHECKBOX_GRID',
   NUMBER: 'NUMBER',
   YES_NO: 'YES_NO',
-  DATE: 'DATE'
+  DATE: 'DATE',
+  TIME: 'TIME'
 } as const
 
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]

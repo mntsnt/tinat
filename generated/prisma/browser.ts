@@ -28,10 +28,35 @@ export type User = Prisma.UserModel
  */
 export type Study = Prisma.StudyModel
 /**
+ * Model StudyBookmark
+ * 
+ */
+export type StudyBookmark = Prisma.StudyBookmarkModel
+/**
+ * Model StudyRating
+ * 
+ */
+export type StudyRating = Prisma.StudyRatingModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model ActivityLog
+ * 
+ */
+export type ActivityLog = Prisma.ActivityLogModel
+/**
  * Model Question
  * 
  */
 export type Question = Prisma.QuestionModel
+/**
+ * Model QuestionRow
+ * 
+ */
+export type QuestionRow = Prisma.QuestionRowModel
 /**
  * Model QuestionOption
  * 

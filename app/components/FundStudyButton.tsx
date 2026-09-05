@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "./ui/Button";
 
 type FundStudyButtonProps = {
   studyId: string;
@@ -63,16 +64,15 @@ export default function FundStudyButton({
 
   return (
     <div>
-      <button
+      <Button
         type="button"
         onClick={handleFundStudy}
-        disabled={loading}
-        className="rounded bg-amber-600 px-4 py-2 font-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
+        isLoading={loading}
       >
-        {loading ? "Connecting to Chapa..." : `Fund Study — ${amount} ETB`}
-      </button>
+        {loading ? "Connecting..." : `Fund Study — ${amount} ETB`}
+      </Button>
 
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+      {error && <p className="mt-2 text-sm font-medium text-red-600">{error}</p>}
     </div>
   );
 }

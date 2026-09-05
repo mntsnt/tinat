@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getSession } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
 import { QuestionType } from "../../../../generated/prisma/client";
+import { logActivity } from "../../../../lib/activityLog";
 
 /*
 |--------------------------------------------------------------------------
@@ -458,105 +459,107 @@ export async function POST(request: Request) {
     */
 
     const study = await prisma.study.create({
-      data: {
-        title: title.trim(),
+  data: {
+    title: title.trim(),
 
-        description:
-          typeof description === "string" &&
-          description.trim()
-            ? description.trim()
-            : null,
+    description:
+      typeof description === "string" &&
+      description.trim()
+        ? description.trim()
+        : null,
 
-        status: "DRAFT",
+    status: "DRAFT",
 
-        rewardCredits,
+    rewardCredits,
 
-        participantTarget:
-          parsedParticipantTarget,
+    participantTarget:
+      parsedParticipantTarget,
 
-        budgetCredits:
-          parsedBudgetCredits,
+    budgetCredits:
+      parsedBudgetCredits,
 
-        creditsPaid: 0,
+    creditsPaid: 0,
 
-        researcherId: user.id,
+    researcherId: user.id,
 
-        questions: {
-          create: questions.map(
-            (
-              question: {
-                text: string;
-                type: string;
-                required?: boolean;
-                options?: string[];
-              },
-              index: number
-            ) => ({
-              text: question.text.trim(),
+    questions: {
+      create: questions.map(
+        (
+          question: {
+            text: string;
+            type: string;
+            required?: boolean;
+            options?: string[];
+          },
+          index: number
+        ) => ({
+          text: question.text.trim(),
 
-              type:
-                question.type as QuestionType,
+          type:
+            question.type as QuestionType,
 
-              required:
-                question.required ?? true,
+          required:
+            question.required ?? true,
 
-              order: index,
+          order: index,
 
-              options: {
-                create:
-                  Array.isArray(
-                    question.options
+          options: {
+            create:
+              Array.isArray(
+                question.options
+              )
+                ? question.options.map(
+                    (
+                      option,
+                      optionIndex
+                    ) => ({
+                      text:
+                        option.trim(),
+
+                      value:
+                        option.trim(),
+
+                      order:
+                        optionIndex,
+                    })
                   )
-                    ? question.options.map(
-                        (
-                          option,
-                          optionIndex
-                        ) => ({
-                          text:
-                            option.trim(),
+                : [],
+          },
+        })
+      ),
+    },
+  },
 
-                          value:
-                            option.trim(),
-
-                          order:
-                            optionIndex,
-                        })
-                      )
-                    : [],
-              },
-            })
-          ),
-        },
-      },
-
+  include: {
+    questions: {
       include: {
-        questions: {
-          include: {
-            options: true,
-          },
-
-          orderBy: {
-            order: "asc",
-          },
-        },
+        options: true,
       },
-    });
 
-    /*
-    |--------------------------------------------------------------------------
-    | 12. Return created study
-    |--------------------------------------------------------------------------
-    */
-
-    return NextResponse.json(
-      {
-        message:
-          "Research study created successfully.",
-
-        study,
+      orderBy: {
+        order: "asc",
       },
-      { status: 201 }
-    );
+    },
+  },
+});
+
+await logActivity({
+  userId: user.id,
+  action: "STUDY_CREATED",
+  description: `Study "${title.trim()}" created`,
+  resourceId: study.id,
+  resourceType: "Study",
+});
+
+return NextResponse.json(
+  {
+    message:
+      "Research study created successfully.",
+
+    study,
+  },
+  { status: 201 }
+);
   } catch (error) {
     console.error(
       "Study creation error:",
