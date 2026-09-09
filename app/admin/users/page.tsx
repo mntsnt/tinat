@@ -74,7 +74,7 @@ export default async function AdminUsersPage() {
             <table className="w-full text-sm text-left">
               <thead className="bg-muted/50 text-xs uppercase text-muted-foreground font-semibold border-b border-border">
                 <tr>
-                  <th scope="col" className="px-6 py-4">User</th>
+                  <th scope="col" className="px-6 py-4">Users</th>
                   <th scope="col" className="px-6 py-4">Role</th>
                   <th scope="col" className="px-6 py-4">Details</th>
                   <th scope="col" className="px-6 py-4">Activity</th>
