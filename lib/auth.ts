@@ -1,20 +1,20 @@
 import { cookies } from "next/headers";
 import { jwtVerify, SignJWT } from "jose";
 
-const secret = process.env.AUTH_SECRET;
-
-if (!secret) {
-  throw new Error("AUTH_SECRET is not configured");
+function getSecretKey() {
+  const secret = process.env.AUTH_SECRET;
+  if (!secret) {
+    throw new Error("AUTH_SECRET is not configured");
+  }
+  return new TextEncoder().encode(secret);
 }
-
-const secretKey = new TextEncoder().encode(secret);
 
 export async function createSession(userId: string) {
   const token = await new SignJWT({ userId })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
-    .sign(secretKey);
+    .sign(getSecretKey());
 
   const cookieStore = await cookies();
 
@@ -36,7 +36,7 @@ export async function getSession() {
   }
 
   try {
-    const { payload } = await jwtVerify(token, secretKey);
+    const { payload } = await jwtVerify(token, getSecretKey());
 
     return {
       userId: payload.userId as string,
