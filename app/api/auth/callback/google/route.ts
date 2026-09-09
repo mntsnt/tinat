@@ -14,9 +14,10 @@ export async function GET(request: Request) {
 
     const clientId = process.env.GOOGLE_CLIENT_ID;
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-    // We must strictly match the redirect URI registered in Google Console
-    const baseUrl = process.env.BASE_URL || "http://localhost:3000";
-    const redirectUri = `${baseUrl}/api/auth/callback/google`;
+    
+    // Dynamically resolve origin from the request so it exactly matches the request from Google
+    const origin = url.origin;
+    const redirectUri = `${origin}/api/auth/callback/google`;
 
     if (!clientId || !clientSecret) {
       console.error("Missing Google OAuth credentials in .env");

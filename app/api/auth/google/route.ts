@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: Request) {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   if (!clientId) {
     return NextResponse.json({ error: "GOOGLE_CLIENT_ID is not configured in .env" }, { status: 500 });
   }
 
-  // We must strictly match the redirect URI registered in Google Console: http://localhost:3000/api/auth/callback/google
-  const baseUrl = process.env.BASE_URL || "http://localhost:3000";
-  const redirectUri = `${baseUrl}/api/auth/callback/google`;
+  // Dynamically resolve the base URL from the incoming request (handles localhost, ngrok, and vercel)
+  const origin = new URL(request.url).origin;
+  const redirectUri = `${origin}/api/auth/callback/google`;
 
   const authUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
   authUrl.searchParams.set("client_id", clientId);
