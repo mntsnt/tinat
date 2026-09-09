@@ -401,6 +401,8 @@ export const ModelName = {
   Study: 'Study',
   StudyBookmark: 'StudyBookmark',
   StudyRating: 'StudyRating',
+  StudyLike: 'StudyLike',
+  StudyComment: 'StudyComment',
   Notification: 'Notification',
   ActivityLog: 'ActivityLog',
   Question: 'Question',
@@ -427,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "notification" | "activityLog" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -724,6 +726,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.StudyRatingCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.StudyRatingCountAggregateOutputType> | number
+        }
+      }
+    }
+    StudyLike: {
+      payload: Prisma.$StudyLikePayload<ExtArgs>
+      fields: Prisma.StudyLikeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StudyLikeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StudyLikeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload>
+        }
+        findFirst: {
+          args: Prisma.StudyLikeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StudyLikeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload>
+        }
+        findMany: {
+          args: Prisma.StudyLikeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload>[]
+        }
+        create: {
+          args: Prisma.StudyLikeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload>
+        }
+        createMany: {
+          args: Prisma.StudyLikeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StudyLikeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload>[]
+        }
+        delete: {
+          args: Prisma.StudyLikeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload>
+        }
+        update: {
+          args: Prisma.StudyLikeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload>
+        }
+        deleteMany: {
+          args: Prisma.StudyLikeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StudyLikeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StudyLikeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload>[]
+        }
+        upsert: {
+          args: Prisma.StudyLikeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyLikePayload>
+        }
+        aggregate: {
+          args: Prisma.StudyLikeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStudyLike>
+        }
+        groupBy: {
+          args: Prisma.StudyLikeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StudyLikeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StudyLikeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StudyLikeCountAggregateOutputType> | number
+        }
+      }
+    }
+    StudyComment: {
+      payload: Prisma.$StudyCommentPayload<ExtArgs>
+      fields: Prisma.StudyCommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StudyCommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StudyCommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload>
+        }
+        findFirst: {
+          args: Prisma.StudyCommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StudyCommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload>
+        }
+        findMany: {
+          args: Prisma.StudyCommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload>[]
+        }
+        create: {
+          args: Prisma.StudyCommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload>
+        }
+        createMany: {
+          args: Prisma.StudyCommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StudyCommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload>[]
+        }
+        delete: {
+          args: Prisma.StudyCommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload>
+        }
+        update: {
+          args: Prisma.StudyCommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.StudyCommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StudyCommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StudyCommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.StudyCommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyCommentPayload>
+        }
+        aggregate: {
+          args: Prisma.StudyCommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStudyComment>
+        }
+        groupBy: {
+          args: Prisma.StudyCommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StudyCommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StudyCommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StudyCommentCountAggregateOutputType> | number
         }
       }
     }
@@ -1641,6 +1791,28 @@ export const StudyRatingScalarFieldEnum = {
 export type StudyRatingScalarFieldEnum = (typeof StudyRatingScalarFieldEnum)[keyof typeof StudyRatingScalarFieldEnum]
 
 
+export const StudyLikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  studyId: 'studyId',
+  createdAt: 'createdAt'
+} as const
+
+export type StudyLikeScalarFieldEnum = (typeof StudyLikeScalarFieldEnum)[keyof typeof StudyLikeScalarFieldEnum]
+
+
+export const StudyCommentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  studyId: 'studyId',
+  text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StudyCommentScalarFieldEnum = (typeof StudyCommentScalarFieldEnum)[keyof typeof StudyCommentScalarFieldEnum]
+
+
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -2112,6 +2284,8 @@ export type GlobalOmitConfig = {
   study?: Prisma.StudyOmit
   studyBookmark?: Prisma.StudyBookmarkOmit
   studyRating?: Prisma.StudyRatingOmit
+  studyLike?: Prisma.StudyLikeOmit
+  studyComment?: Prisma.StudyCommentOmit
   notification?: Prisma.NotificationOmit
   activityLog?: Prisma.ActivityLogOmit
   question?: Prisma.QuestionOmit

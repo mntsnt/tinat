@@ -74,7 +74,7 @@ export default function CreateStudyPage() {
     setError("");
 
     if (!title.trim()) return setError("Please enter a study title.");
-    if (rewardCredits <= 0) return setError("Reward must be greater than 0.");
+    if (rewardCredits < 0) return setError("Reward cannot be negative.");
     if (participantTarget <= 0) return setError("Participant target must be greater than 0.");
     if (questions.some((q) => !q.text.trim())) return setError("Every question needs text.");
 
@@ -176,7 +176,7 @@ export default function CreateStudyPage() {
                 <label className="block text-sm font-medium text-foreground">Reward per participant (TC)</label>
                 <div className="relative">
                   <input
-                    type="number" min="1"
+                    type="number" min="0"
                     className="flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                     value={rewardCredits}
                     onChange={(e) => setRewardCredits(Number(e.target.value))}
@@ -185,6 +185,7 @@ export default function CreateStudyPage() {
                     <span className="text-muted-foreground sm:text-sm">TC</span>
                   </div>
                 </div>
+                <p className="text-xs text-muted-foreground">Set to 0 to publish an unpaid volunteer study.</p>
               </div>
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-foreground">Number of participants</label>

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;
@@ -35,7 +36,7 @@
   --radius: 0.5rem;
 }
 
-:root[class~="dark"] {
+:root[class~="dark"], .dark {
   --background: #09090b;
   --foreground: #fafafa;
 

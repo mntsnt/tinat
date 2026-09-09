@@ -9,6 +9,7 @@ import {
   CreditCard,
   Activity,
   FileText,
+  Settings,
 } from "lucide-react";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
@@ -33,6 +34,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     { title: "Manage Studies", href: "/admin/studies", icon: <FileText /> },
     { title: "Withdrawals", href: "/admin/withdrawals", icon: <CreditCard /> },
     { title: "Activity Logs", href: "/admin/logs", icon: <Activity /> },
+    { title: "Settings", href: "/admin/settings", icon: <Settings /> },
   ];
 
   return (

@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getSession } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
 import FundStudyButton from "../../../components/FundStudyButton";
+import PublishUnfundedButton from "../../../components/PublishUnfundedButton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../../../components/ui/Card";
 import { Badge } from "../../../components/ui/Badge";
 import { Button, getButtonClasses } from "../../../components/ui/Button";
@@ -26,6 +27,11 @@ export default async function ResearchStudyPage({ params }: Props) {
     include: {
       questions: { include: { options: true, rows: true }, orderBy: { order: "asc" } },
       responses: { include: { answers: true }, orderBy: { submittedAt: "desc" } },
+      likes: true,
+      comments: {
+        include: { user: { select: { name: true, avatarUrl: true } } },
+        orderBy: { createdAt: "desc" }
+      }
     },
   });
 
@@ -82,7 +88,10 @@ export default async function ResearchStudyPage({ params }: Props) {
               <div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
                 <p className="text-sm text-blue-800 mb-2">This study is currently a draft and is not visible to participants.</p>
                 {study.budgetCredits <= 0 ? (
-                  <p className="text-sm font-medium text-blue-900">Set a valid study budget before funding this study.</p>
+                  <div>
+                    <p className="text-sm text-blue-900 mb-3">This study has no budget. You can publish it as an unpaid volunteer study.</p>
+                    <PublishUnfundedButton studyId={study.id} />
+                  </div>
                 ) : (
                   <div>
                     <p className="text-sm text-blue-900 mb-3">Fund this study to make it available to participants.</p>
@@ -152,6 +161,14 @@ export default async function ResearchStudyPage({ params }: Props) {
               <div className="bg-muted/50 p-4 rounded-lg border border-border">
                 <dt className="text-sm text-muted-foreground mb-1">Participant Target</dt>
                 <dd className="text-2xl font-bold text-foreground">{study.participantTarget > 0 ? study.participantTarget : "No limit"}</dd>
+              </div>
+              <div className="bg-muted/50 p-4 rounded-lg border border-border">
+                <dt className="text-sm text-muted-foreground mb-1">Likes</dt>
+                <dd className="text-2xl font-bold text-foreground">{study.likes.length}</dd>
+              </div>
+              <div className="bg-muted/50 p-4 rounded-lg border border-border">
+                <dt className="text-sm text-muted-foreground mb-1">Comments</dt>
+                <dd className="text-2xl font-bold text-foreground">{study.comments.length}</dd>
               </div>
             </dl>
           </CardContent>
@@ -423,6 +440,38 @@ export default async function ResearchStudyPage({ params }: Props) {
           })}
         </div>
       )}
+
+      {/* Researcher Comments View */}
+      <div className="mt-12 mb-8 flex items-center justify-between">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground">Discussion ({study.comments.length})</h2>
+      </div>
+
+      <Card>
+        <CardContent className="pt-6 space-y-6">
+          {study.comments.length === 0 ? (
+            <p className="text-muted-foreground text-center py-6">No comments from participants yet.</p>
+          ) : (
+            study.comments.map((comment) => (
+              <div key={comment.id} className="flex gap-4">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                  {comment.user.avatarUrl ? (
+                    <img src={comment.user.avatarUrl} alt={comment.user.name} className="w-full h-full rounded-full object-cover" />
+                  ) : (
+                    <span className="font-semibold text-primary">{comment.user.name.charAt(0).toUpperCase()}</span>
+                  )}
+                </div>
+                <div className="flex-1 bg-muted/30 rounded-2xl rounded-tl-none p-4 border border-border">
+                  <div className="flex items-baseline justify-between gap-4 mb-2">
+                    <span className="font-semibold text-sm">{comment.user.name}</span>
+                    <span className="text-xs text-muted-foreground">{new Date(comment.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                  </div>
+                  <p className="text-sm text-foreground/90 whitespace-pre-wrap">{comment.text}</p>
+                </div>
+              </div>
+            ))
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

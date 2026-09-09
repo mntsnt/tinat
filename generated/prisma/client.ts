@@ -62,6 +62,16 @@ export type StudyBookmark = Prisma.StudyBookmarkModel
  */
 export type StudyRating = Prisma.StudyRatingModel
 /**
+ * Model StudyLike
+ * 
+ */
+export type StudyLike = Prisma.StudyLikeModel
+/**
+ * Model StudyComment
+ * 
+ */
+export type StudyComment = Prisma.StudyCommentModel
+/**
  * Model Notification
  * 
  */

@@ -182,6 +182,35 @@ export async function PATCH(
             },
           });
 
+        // -----------------------------------------
+        // INITIATE CHAPA TRANSFER
+        // -----------------------------------------
+        
+        // Use bank code 855 for telebirr, or a generic one if bank
+        const bankCode = withdrawal.method === "TELEBIRR" ? "855" : "801"; // Awash bank fallback for generic bank
+        
+        const chapaRes = await fetch("https://api.chapa.co/v1/transfers", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${process.env.CHAPA_SECRET_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            account_name: withdrawal.user.name || "Tinat User",
+            account_number: withdrawal.accountInfo,
+            amount: withdrawal.amount,
+            currency: "ETB",
+            reference: `payout-${withdrawal.id}-${Date.now()}`,
+            bank_code: bankCode
+          })
+        });
+
+        const chapaData = await chapaRes.json();
+
+        if (!chapaRes.ok || chapaData.status !== "success") {
+          throw new Error(`CHAPA_TRANSFER_FAILED: ${chapaData.message || 'Unknown error'}`);
+        }
+
         return {
           withdrawal:
             updatedWithdrawal,
@@ -249,6 +278,15 @@ export async function PATCH(
       "Withdrawal processing error:",
       error
     );
+
+    if (error instanceof Error && error.message.startsWith("CHAPA_TRANSFER_FAILED")) {
+      return NextResponse.json(
+        {
+          error: error.message.replace("CHAPA_TRANSFER_FAILED: ", "Payment gateway error: "),
+        },
+        { status: 400 }
+      );
+    }
 
     return NextResponse.json(
       {

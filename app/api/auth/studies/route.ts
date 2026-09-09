@@ -410,10 +410,11 @@ export async function POST(request: Request) {
       */
 
       if (
-        question.type ===
-          "SINGLE_CHOICE" ||
-        question.type ===
-          "MULTIPLE_CHOICE"
+        question.type === "SINGLE_CHOICE" ||
+        question.type === "MULTIPLE_CHOICE" ||
+        question.type === "DROPDOWN" ||
+        question.type === "MULTIPLE_CHOICE_GRID" ||
+        question.type === "CHECKBOX_GRID"
       ) {
         if (
           !Array.isArray(question.options) ||
@@ -438,6 +439,27 @@ export async function POST(request: Request) {
                 error:
                   `Every option in "${question.text}" must have text.`,
               },
+              { status: 400 }
+            );
+          }
+        }
+      }
+
+      if (
+        question.type === "MULTIPLE_CHOICE_GRID" ||
+        question.type === "CHECKBOX_GRID"
+      ) {
+        if (!Array.isArray(question.rows) || question.rows.length === 0) {
+          return NextResponse.json(
+            { error: `Question "${question.text}" needs at least one row.` },
+            { status: 400 }
+          );
+        }
+
+        for (const row of question.rows) {
+          if (typeof row !== "string" || !row.trim()) {
+            return NextResponse.json(
+              { error: `Every row in "${question.text}" must have text.` },
               { status: 400 }
             );
           }
@@ -490,40 +512,41 @@ export async function POST(request: Request) {
             type: string;
             required?: boolean;
             options?: string[];
+            rows?: string[];
+            scaleMin?: number;
+            scaleMax?: number;
+            scaleMinLabel?: string;
+            scaleMaxLabel?: string;
           },
           index: number
         ) => ({
           text: question.text.trim(),
-
-          type:
-            question.type as QuestionType,
-
-          required:
-            question.required ?? true,
-
+          type: question.type as QuestionType,
+          required: question.required ?? true,
           order: index,
+          
+          scaleMin: question.scaleMin,
+          scaleMax: question.scaleMax,
+          scaleMinLabel: question.scaleMinLabel,
+          scaleMaxLabel: question.scaleMaxLabel,
 
           options: {
-            create:
-              Array.isArray(
-                question.options
-              )
-                ? question.options.map(
-                    (
-                      option,
-                      optionIndex
-                    ) => ({
-                      text:
-                        option.trim(),
-
-                      value:
-                        option.trim(),
-
-                      order:
-                        optionIndex,
-                    })
-                  )
-                : [],
+            create: Array.isArray(question.options)
+              ? question.options.map((option, optionIndex) => ({
+                  text: option.trim(),
+                  value: option.trim(),
+                  order: optionIndex,
+                }))
+              : [],
+          },
+          rows: {
+            create: Array.isArray(question.rows)
+              ? question.rows.map((row, rowIndex) => ({
+                  text: row.trim(),
+                  value: row.trim(),
+                  order: rowIndex,
+                }))
+              : [],
           },
         })
       ),
@@ -534,8 +557,8 @@ export async function POST(request: Request) {
     questions: {
       include: {
         options: true,
+        rows: true,
       },
-
       orderBy: {
         order: "asc",
       },
@@ -569,7 +592,7 @@ return NextResponse.json(
     return NextResponse.json(
       {
         error:
-          "Failed to create research study.",
+          error instanceof Error ? error.message : "Failed to create research study.",
       },
       { status: 500 }
     );

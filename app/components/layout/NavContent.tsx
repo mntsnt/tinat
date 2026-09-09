@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { ThemeToggle } from "../ThemeToggle";
 import { cn } from "../../../lib/utils";
 import { usePathname } from "next/navigation";
 import LogoutButton from "../LogoutButton";
@@ -56,7 +55,6 @@ export default function NavContent({ user, links }: NavContentProps) {
 
         {/* Desktop Right */}
         <div className="hidden md:flex items-center gap-2 ml-auto">
-          <ThemeToggle />
           {user ? (
             <div className="flex items-center gap-2 border-l border-border pl-3 ml-1">
               <span className="text-sm font-medium text-foreground">{user.name}</span>
@@ -82,7 +80,6 @@ export default function NavContent({ user, links }: NavContentProps) {
 
         {/* Mobile Right */}
         <div className="flex md:hidden items-center gap-2 ml-auto">
-          <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="p-2 rounded-md hover:bg-muted transition-colors"

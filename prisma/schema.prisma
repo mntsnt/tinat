@@ -71,6 +71,8 @@ model User {
   withdrawals   Withdrawal[]
   bookmarks     StudyBookmark[]
   ratings       StudyRating[]
+  likes         StudyLike[]
+  comments      StudyComment[]
   notifications Notification[]
   activityLogs  ActivityLog[]
 }
@@ -104,6 +106,8 @@ model Study {
   payments   StudyPayment[]
   bookmarks  StudyBookmark[]
   ratings    StudyRating[]
+  likes      StudyLike[]
+  comments   StudyComment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -133,6 +137,30 @@ model StudyRating {
   study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
 
   @@unique([userId, studyId])
+}
+
+model StudyLike {
+  id        String   @id @default(cuid())
+  userId    String
+  studyId   String
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, studyId])
+}
+
+model StudyComment {
+  id        String   @id @default(cuid())
+  userId    String
+  studyId   String
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
 }
 
 model Notification {

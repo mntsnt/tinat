@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
 import { Badge } from "../../../components/ui/Badge";
+import { Heart, MessageSquare, Copy, Send } from "lucide-react";
 
 type Option = {
   id: string;
@@ -34,6 +35,13 @@ type Question = {
   scaleMaxLabel: string | null;
 };
 
+type StudyComment = {
+  id: string;
+  text: string;
+  createdAt: Date;
+  user: { name: string; avatarUrl: string | null };
+};
+
 type Study = {
   id: string;
   title: string;
@@ -41,6 +49,8 @@ type Study = {
   rewardCredits: number;
   researcher: { name: string };
   questions: Question[];
+  likes: { userId: string }[];
+  comments: StudyComment[];
 };
 
 type SubmitResponse = {
@@ -50,13 +60,63 @@ type SubmitResponse = {
   newBalance?: number;
 };
 
-export default function StudyQuestionnaire({ study }: { study: Study }) {
+export default function StudyQuestionnaire({ study, currentUserId }: { study: Study; currentUserId: string }) {
   const router = useRouter();
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const [hasLiked, setHasLiked] = useState(study.likes.some(l => l.userId === currentUserId));
+  const [likeCount, setLikeCount] = useState(study.likes.length);
+  const [comments, setComments] = useState<StudyComment[]>(study.comments || []);
+  const [newComment, setNewComment] = useState("");
+  const [commenting, setCommenting] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  async function handleToggleLike() {
+    setHasLiked(!hasLiked);
+    setLikeCount(hasLiked ? likeCount - 1 : likeCount + 1);
+    try {
+      await fetch(`/api/auth/studies/${study.id}/like`, { method: "POST" });
+    } catch (err) {
+      // Revert if error
+      setHasLiked(hasLiked);
+      setLikeCount(likeCount);
+    }
+  }
+
+  async function handlePostComment() {
+    if (!newComment.trim()) return;
+    setCommenting(true);
+    try {
+      const res = await fetch(`/api/auth/studies/${study.id}/comment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: newComment }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setComments([data.comment, ...comments]);
+        setNewComment("");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setCommenting(false);
+    }
+  }
+
+  function handleCopyLink() {
+    // Determine base URL dynamically (works on client-side)
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+    const shareUrl = `${baseUrl}/studies/${study.id}`; // Wait, public studies page isn't implemented? We'll just use current URL
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
 
   function updateAnswer(questionId: string, value: any) {
     setAnswers((previous) => ({ ...previous, [questionId]: value }));
@@ -405,6 +465,47 @@ export default function StudyQuestionnaire({ study }: { study: Study }) {
             {study.description}
           </p>
         )}
+
+        <div className="mt-4 flex items-center gap-2 pt-4 border-t border-border text-muted-foreground">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className={`gap-2 rounded-full hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950/50 ${hasLiked ? 'text-red-500' : ''}`}
+            onClick={handleToggleLike}
+          >
+            <Heart className={`w-[18px] h-[18px] ${hasLiked ? 'fill-current text-red-500' : ''}`} />
+            <span className="text-sm font-medium">{likeCount > 0 ? likeCount : 'Like'}</span>
+          </Button>
+          
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="gap-2 rounded-full hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/50" 
+            onClick={() => document.getElementById('comments-section')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            <MessageSquare className="w-[18px] h-[18px]" />
+            <span className="text-sm font-medium">{comments.length > 0 ? comments.length : 'Comment'}</span>
+          </Button>
+
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="gap-2 rounded-full hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100 ml-auto" 
+            onClick={handleCopyLink}
+          >
+            {copied ? (
+              <>
+                <span className="text-success text-xs font-medium mr-1">Copied!</span>
+                <Copy className="w-[18px] h-[18px] text-success" />
+              </>
+            ) : (
+              <>
+                <Copy className="w-[18px] h-[18px]" />
+                <span className="text-sm font-medium hidden sm:inline-block">Copy Link</span>
+              </>
+            )}
+          </Button>
+        </div>
       </div>
 
       {success && (
@@ -438,12 +539,56 @@ export default function StudyQuestionnaire({ study }: { study: Study }) {
           ))}
 
           <div className="flex justify-end pt-4">
-            <Button type="submit" size="lg" isLoading={loading}>
+            <Button type="submit" size="lg" disabled={loading}>
               {loading ? "Submitting..." : `Submit Responses & Earn ${study.rewardCredits} TC`}
             </Button>
           </div>
         </form>
       )}
+
+      {/* Comments Section */}
+      <div id="comments-section" className="mt-12 pt-8 border-t border-border">
+        <h3 className="text-xl font-bold mb-6">Discussion</h3>
+        
+        <div className="flex gap-3 mb-8">
+          <Input 
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment or ask the researcher..."
+            className="flex-1 bg-card"
+            onKeyDown={(e) => e.key === 'Enter' && handlePostComment()}
+          />
+          <Button onClick={handlePostComment} disabled={!newComment.trim() || commenting} className="gap-2">
+            <Send className="w-4 h-4" />
+            Post
+          </Button>
+        </div>
+
+        <div className="space-y-6">
+          {comments.length === 0 ? (
+            <p className="text-muted-foreground text-center py-6 bg-muted/30 rounded-lg">No comments yet. Be the first to start the discussion!</p>
+          ) : (
+            comments.map(comment => (
+              <div key={comment.id} className="flex gap-4">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                  {comment.user.avatarUrl ? (
+                    <img src={comment.user.avatarUrl} alt={comment.user.name} className="w-full h-full rounded-full object-cover" />
+                  ) : (
+                    <span className="font-semibold text-primary">{comment.user.name.charAt(0).toUpperCase()}</span>
+                  )}
+                </div>
+                <div className="flex-1 bg-card rounded-2xl rounded-tl-none p-4 border border-border shadow-sm">
+                  <div className="flex items-baseline justify-between gap-4 mb-2">
+                    <span className="font-semibold text-sm">{comment.user.name}</span>
+                    <span className="text-xs text-muted-foreground">{new Date(comment.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
+                  </div>
+                  <p className="text-sm text-foreground/90 whitespace-pre-wrap">{comment.text}</p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 }

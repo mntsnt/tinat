@@ -1,9 +1,10 @@
 type NavLink = { title: string; href: string; icon?: React.ReactNode };
 
 export const publicLinks: NavLink[] = [
-  { title: "Home", href: "/" },
-  { title: "Get Started", href: "/register" },
-  { title: "Sign In", href: "/login" },
+  { title: "Top Surveys", href: "/#top-surveys" },
+  { title: "How it works", href: "/#how-it-works" },
+  { title: "Pricing", href: "/#pricing" },
+  { title: "Trust", href: "/#trust" },
 ];
 
 export const participantLinks: NavLink[] = [
@@ -11,13 +12,12 @@ export const participantLinks: NavLink[] = [
   { title: "Discover", href: "/participant/studies" },
   { title: "History", href: "/participant/history" },
   { title: "Wallet", href: "/participant/wallet" },
-  { title: "Profile", href: "/profile" },
 ];
 
 export const researcherLinks: NavLink[] = [
   { title: "Dashboard", href: "/researcher" },
+  { title: "Publish a Study", href: "/researcher/studies" },
   { title: "Create Study", href: "/researcher/studies/new" },
-  { title: "Profile", href: "/profile" },
 ];
 
 export const adminLinks: NavLink[] = [
@@ -26,7 +26,6 @@ export const adminLinks: NavLink[] = [
   { title: "Studies", href: "/admin/studies" },
   { title: "Withdrawals", href: "/admin/withdrawals" },
   { title: "Logs", href: "/admin/logs" },
-  { title: "Profile", href: "/profile" },
 ];
 
 export function getLinksForUser(user: { role?: string } | null): NavLink[] {

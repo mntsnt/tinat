@@ -295,6 +295,8 @@ export type UserWhereInput = {
   withdrawals?: Prisma.WithdrawalListRelationFilter
   bookmarks?: Prisma.StudyBookmarkListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
+  likes?: Prisma.StudyLikeListRelationFilter
+  comments?: Prisma.StudyCommentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   activityLogs?: Prisma.ActivityLogListRelationFilter
 }
@@ -321,6 +323,8 @@ export type UserOrderByWithRelationInput = {
   withdrawals?: Prisma.WithdrawalOrderByRelationAggregateInput
   bookmarks?: Prisma.StudyBookmarkOrderByRelationAggregateInput
   ratings?: Prisma.StudyRatingOrderByRelationAggregateInput
+  likes?: Prisma.StudyLikeOrderByRelationAggregateInput
+  comments?: Prisma.StudyCommentOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   activityLogs?: Prisma.ActivityLogOrderByRelationAggregateInput
 }
@@ -350,6 +354,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   withdrawals?: Prisma.WithdrawalListRelationFilter
   bookmarks?: Prisma.StudyBookmarkListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
+  likes?: Prisma.StudyLikeListRelationFilter
+  comments?: Prisma.StudyCommentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   activityLogs?: Prisma.ActivityLogListRelationFilter
 }, "id" | "email">
@@ -418,6 +424,8 @@ export type UserCreateInput = {
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
@@ -444,6 +452,8 @@ export type UserUncheckedCreateInput = {
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
@@ -470,6 +480,8 @@ export type UserUpdateInput = {
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
@@ -496,6 +508,8 @@ export type UserUncheckedUpdateInput = {
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -685,6 +699,34 @@ export type UserUpdateOneRequiredWithoutRatingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRatingsInput, Prisma.UserUpdateWithoutRatingsInput>, Prisma.UserUncheckedUpdateWithoutRatingsInput>
 }
 
+export type UserCreateNestedOneWithoutLikesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLikesInput, Prisma.UserUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLikesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLikesInput, Prisma.UserUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLikesInput
+  upsert?: Prisma.UserUpsertWithoutLikesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLikesInput, Prisma.UserUpdateWithoutLikesInput>, Prisma.UserUncheckedUpdateWithoutLikesInput>
+}
+
+export type UserCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.UserUpsertWithoutCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentsInput, Prisma.UserUpdateWithoutCommentsInput>, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+}
+
 export type UserCreateNestedOneWithoutNotificationsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
@@ -790,6 +832,8 @@ export type UserCreateWithoutStudiesInput = {
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
@@ -815,6 +859,8 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
@@ -856,6 +902,8 @@ export type UserUpdateWithoutStudiesInput = {
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
@@ -881,6 +929,8 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -906,6 +956,8 @@ export type UserCreateWithoutBookmarksInput = {
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
@@ -931,6 +983,8 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
@@ -972,6 +1026,8 @@ export type UserUpdateWithoutBookmarksInput = {
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
@@ -997,6 +1053,8 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1022,6 +1080,8 @@ export type UserCreateWithoutRatingsInput = {
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
@@ -1047,6 +1107,8 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1088,6 +1150,8 @@ export type UserUpdateWithoutRatingsInput = {
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
@@ -1113,6 +1177,256 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLikesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLikesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLikesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLikesInput, Prisma.UserUncheckedCreateWithoutLikesInput>
+}
+
+export type UserUpsertWithoutLikesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLikesInput, Prisma.UserUncheckedUpdateWithoutLikesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLikesInput, Prisma.UserUncheckedCreateWithoutLikesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLikesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLikesInput, Prisma.UserUncheckedUpdateWithoutLikesInput>
+}
+
+export type UserUpdateWithoutLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCommentsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCommentsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  bio?: string | null
+  avatarUrl?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+}
+
+export type UserUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCommentsInput, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCommentsInput, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+}
+
+export type UserUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1139,6 +1453,8 @@ export type UserCreateWithoutNotificationsInput = {
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
 
@@ -1164,6 +1480,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1205,6 +1523,8 @@ export type UserUpdateWithoutNotificationsInput = {
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
 
@@ -1230,6 +1550,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1255,6 +1577,8 @@ export type UserCreateWithoutActivityLogsInput = {
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
@@ -1280,6 +1604,8 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1321,6 +1647,8 @@ export type UserUpdateWithoutActivityLogsInput = {
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
@@ -1346,6 +1674,8 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1370,6 +1700,8 @@ export type UserCreateWithoutResponsesInput = {
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
@@ -1395,6 +1727,8 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1436,6 +1770,8 @@ export type UserUpdateWithoutResponsesInput = {
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
@@ -1461,6 +1797,8 @@ export type UserUncheckedUpdateWithoutResponsesInput = {
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1486,6 +1824,8 @@ export type UserCreateWithoutWalletInput = {
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
@@ -1511,6 +1851,8 @@ export type UserUncheckedCreateWithoutWalletInput = {
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1552,6 +1894,8 @@ export type UserUpdateWithoutWalletInput = {
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
@@ -1577,6 +1921,8 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1602,6 +1948,8 @@ export type UserCreateWithoutStudyPaymentsInput = {
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
@@ -1627,6 +1975,8 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1668,6 +2018,8 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
@@ -1693,6 +2045,8 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1718,6 +2072,8 @@ export type UserCreateWithoutWithdrawalsInput = {
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
 }
@@ -1743,6 +2099,8 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
 }
@@ -1784,6 +2142,8 @@ export type UserUpdateWithoutWithdrawalsInput = {
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
 }
@@ -1809,6 +2169,8 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -1825,6 +2187,8 @@ export type UserCountOutputType = {
   withdrawals: number
   bookmarks: number
   ratings: number
+  likes: number
+  comments: number
   notifications: number
   activityLogs: number
 }
@@ -1836,6 +2200,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   withdrawals?: boolean | UserCountOutputTypeCountWithdrawalsArgs
   bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
   ratings?: boolean | UserCountOutputTypeCountRatingsArgs
+  likes?: boolean | UserCountOutputTypeCountLikesArgs
+  comments?: boolean | UserCountOutputTypeCountCommentsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   activityLogs?: boolean | UserCountOutputTypeCountActivityLogsArgs
 }
@@ -1895,6 +2261,20 @@ export type UserCountOutputTypeCountRatingsArgs<ExtArgs extends runtime.Types.Ex
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StudyLikeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StudyCommentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.NotificationWhereInput
 }
@@ -1929,6 +2309,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
+  likes?: boolean | Prisma.User$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1994,6 +2376,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
+  likes?: boolean | Prisma.User$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2011,6 +2395,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     withdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
     bookmarks: Prisma.$StudyBookmarkPayload<ExtArgs>[]
     ratings: Prisma.$StudyRatingPayload<ExtArgs>[]
+    likes: Prisma.$StudyLikePayload<ExtArgs>[]
+    comments: Prisma.$StudyCommentPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     activityLogs: Prisma.$ActivityLogPayload<ExtArgs>[]
   }
@@ -2430,6 +2816,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   withdrawals<T extends Prisma.User$withdrawalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$withdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookmarks<T extends Prisma.User$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ratings<T extends Prisma.User$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  likes<T extends Prisma.User$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activityLogs<T extends Prisma.User$activityLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -3028,6 +3416,54 @@ export type User$ratingsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.StudyRatingScalarFieldEnum | Prisma.StudyRatingScalarFieldEnum[]
+}
+
+/**
+ * User.likes
+ */
+export type User$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudyLike
+   */
+  select?: Prisma.StudyLikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StudyLike
+   */
+  omit?: Prisma.StudyLikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StudyLikeInclude<ExtArgs> | null
+  where?: Prisma.StudyLikeWhereInput
+  orderBy?: Prisma.StudyLikeOrderByWithRelationInput | Prisma.StudyLikeOrderByWithRelationInput[]
+  cursor?: Prisma.StudyLikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StudyLikeScalarFieldEnum | Prisma.StudyLikeScalarFieldEnum[]
+}
+
+/**
+ * User.comments
+ */
+export type User$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudyComment
+   */
+  select?: Prisma.StudyCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StudyComment
+   */
+  omit?: Prisma.StudyCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StudyCommentInclude<ExtArgs> | null
+  where?: Prisma.StudyCommentWhereInput
+  orderBy?: Prisma.StudyCommentOrderByWithRelationInput | Prisma.StudyCommentOrderByWithRelationInput[]
+  cursor?: Prisma.StudyCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StudyCommentScalarFieldEnum | Prisma.StudyCommentScalarFieldEnum[]
 }
 
 /**

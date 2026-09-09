@@ -73,10 +73,13 @@ export function Sidebar({
   const NavLinks = () => (
     <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
       {links.map((link) => {
-        // Exact match for root dashboard pages, prefix match for sub-pages
-        const isActive =
-          pathname === link.href ||
-          (link.href.split("/").length > 2 && pathname.startsWith(link.href));
+        const isExact = pathname === link.href;
+        const isPrefix = link.href.split("/").length > 2 && pathname.startsWith(link.href + "/");
+        let isActive = isExact || isPrefix;
+
+        if (!isExact && links.some((l) => pathname === l.href)) {
+          isActive = false;
+        }
 
         return (
           <Link
@@ -139,7 +142,7 @@ export function Sidebar({
 
   const SidebarHeader = () => (
     <div className="p-4 border-b border-border">
-      <div className="flex items-center gap-2.5">
+      <Link href="/" className="flex items-center gap-2.5 transition-transform hover:scale-[1.02]">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-sm shadow-sm flex-shrink-0">
           T
         </div>
@@ -154,7 +157,7 @@ export function Sidebar({
             {roleTitle}
           </span>
         </div>
-      </div>
+      </Link>
     </div>
   );
 
@@ -169,14 +172,14 @@ export function Sidebar({
 
       {/* ── Mobile Top Bar ──────────────────────────────── */}
       <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
-        <div className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary font-bold text-primary-foreground text-xs shadow-sm">
             T
           </div>
           <span className="font-semibold text-sm text-foreground">
             Tinat <span className={cn("font-medium text-xs px-1.5 py-0.5 rounded", colors.badge)}>{roleTitle}</span>
           </span>
-        </div>
+        </Link>
         <button
           onClick={() => setMobileOpen(true)}
           className="p-2 rounded-md hover:bg-muted transition-colors"
@@ -197,12 +200,12 @@ export function Sidebar({
           {/* Drawer */}
           <div className="relative flex flex-col w-72 max-w-[85vw] h-full bg-card shadow-2xl border-r border-border">
             <div className="flex items-center justify-between p-4 border-b border-border">
-              <div className="flex items-center gap-2">
+              <Link href="/" className="flex items-center gap-2">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-sm shadow-sm">
                   T
                 </div>
                 <span className="font-bold text-foreground">Tinat</span>
-              </div>
+              </Link>
               <button
                 onClick={() => setMobileOpen(false)}
                 className="p-1.5 rounded-md hover:bg-muted transition-colors"

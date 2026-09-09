@@ -55,6 +55,8 @@ export const ModelName = {
   Study: 'Study',
   StudyBookmark: 'StudyBookmark',
   StudyRating: 'StudyRating',
+  StudyLike: 'StudyLike',
+  StudyComment: 'StudyComment',
   Notification: 'Notification',
   ActivityLog: 'ActivityLog',
   Question: 'Question',
@@ -143,6 +145,28 @@ export const StudyRatingScalarFieldEnum = {
 } as const
 
 export type StudyRatingScalarFieldEnum = (typeof StudyRatingScalarFieldEnum)[keyof typeof StudyRatingScalarFieldEnum]
+
+
+export const StudyLikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  studyId: 'studyId',
+  createdAt: 'createdAt'
+} as const
+
+export type StudyLikeScalarFieldEnum = (typeof StudyLikeScalarFieldEnum)[keyof typeof StudyLikeScalarFieldEnum]
+
+
+export const StudyCommentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  studyId: 'studyId',
+  text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StudyCommentScalarFieldEnum = (typeof StudyCommentScalarFieldEnum)[keyof typeof StudyCommentScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {

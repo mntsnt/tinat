@@ -3,7 +3,7 @@ import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
-import { LayoutDashboard, FilePlus, FolderOpen } from "lucide-react";
+import { LayoutDashboard, FilePlus, FolderOpen, Settings } from "lucide-react";
 
 export default async function ResearcherLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -25,6 +25,7 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
     { title: "Dashboard", href: "/researcher", icon: <LayoutDashboard /> },
     { title: "My Studies", href: "/researcher/studies", icon: <FolderOpen /> },
     { title: "Create Study", href: "/researcher/studies/new", icon: <FilePlus /> },
+    { title: "Settings", href: "/researcher/settings", icon: <Settings /> },
   ];
 
   return (

@@ -81,7 +81,7 @@ export default async function AdminUsersPage() {
                   <th scope="col" className="px-6 py-4">Joined</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-border">
                 {users.map((user) => (
                   <tr key={user.id} className="hover:bg-muted/50/50 transition-colors">
                     <td className="px-6 py-4 align-top">

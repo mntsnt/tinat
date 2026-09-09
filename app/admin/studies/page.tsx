@@ -90,8 +90,8 @@ export default async function AdminStudiesPage() {
                           </Badge>
                         </td>
                         <td className="py-3 px-4">
-                          <div className="font-medium">{study.researcher.name}</div>
-                          <div className="text-xs text-muted-foreground">{study.researcher.email}</div>
+                          <div className="font-medium">{study.researcher?.name || "Unknown Researcher"}</div>
+                          <div className="text-xs text-muted-foreground">{study.researcher?.email || "No email"}</div>
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex flex-col gap-1 text-xs text-muted-foreground">
