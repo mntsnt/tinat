@@ -6,6 +6,7 @@ import {
   validateVerificationCode,
   clearVerificationEntry,
 } from "@/lib/emailVerification";
+import { getBaseUrl } from "@/lib/getRedirectUri";
 
 export async function POST(request: Request) {
   try {
@@ -97,17 +98,19 @@ export async function POST(request: Request) {
 
 // GET handles direct link clicks from email: /api/auth/verify-email?token=...
 export async function GET(request: Request) {
+  const baseUrl = getBaseUrl(request);
+
   try {
     const { searchParams } = new URL(request.url);
     const token = searchParams.get("token");
 
     if (!token) {
-      return NextResponse.redirect(new URL("/verify-email?status=invalid", request.url));
+      return NextResponse.redirect(new URL("/verify-email?status=invalid", baseUrl));
     }
 
     const payload = await verifyVerificationToken(token);
     if (!payload) {
-      return NextResponse.redirect(new URL("/verify-email?status=expired", request.url));
+      return NextResponse.redirect(new URL("/verify-email?status=expired", baseUrl));
     }
 
     const user = await prisma.user.findFirst({
@@ -129,9 +132,9 @@ export async function GET(request: Request) {
       });
     }
 
-    return NextResponse.redirect(new URL("/verify-email?status=success", request.url));
+    return NextResponse.redirect(new URL("/verify-email?status=success", baseUrl));
   } catch (error) {
     console.error("[Verify Email GET] Error:", error);
-    return NextResponse.redirect(new URL("/verify-email?status=error", request.url));
+    return NextResponse.redirect(new URL("/verify-email?status=error", baseUrl));
   }
 }

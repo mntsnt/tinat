@@ -46,6 +46,11 @@ type Study = {
   id: string;
   title: string;
   description: string | null;
+  studyType?: string;
+  category?: string | null;
+  objective?: string | null;
+  targetPopulation?: string | null;
+  estimatedMinutes?: number | null;
   rewardCredits: number;
   researcher: { name: string };
   questions: Question[];
@@ -174,7 +179,11 @@ export default function StudyQuestionnaire({ study, currentUserId }: { study: St
       }
 
       setSubmitted(true);
-      setSuccess(`Research completed successfully! You earned ${data.creditsEarned ?? study.rewardCredits} Tinat Credits.`);
+      if (study.rewardCredits > 0) {
+        setSuccess(`Research completed successfully! You earned ${data.creditsEarned ?? study.rewardCredits} Tinat Credits.`);
+      } else {
+        setSuccess("Thank you! Your health data collection response was recorded successfully.");
+      }
 
       setTimeout(() => {
         router.push("/participant");
@@ -452,16 +461,48 @@ export default function StudyQuestionnaire({ study, currentUserId }: { study: St
           &larr; Back to Dashboard
         </Button>
         <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">{study.title}</h1>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            {study.category && (
+              <Badge variant="outline" className="border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold">
+                {study.category}
+              </Badge>
+            )}
             <Badge variant="secondary">By {study.researcher.name}</Badge>
-            <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-success-foreground">
-              Reward: {study.rewardCredits} TC
-            </Badge>
+            {study.rewardCredits > 0 ? (
+              <Badge variant="outline" className="border-emerald-300 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 font-semibold">
+                Reward: {study.rewardCredits} TC
+              </Badge>
+            ) : (
+              <Badge variant="outline" className="border-blue-300 bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 font-medium">
+                Open Data Collection &bull; Volunteer
+              </Badge>
+            )}
+            {study.estimatedMinutes && (
+              <span className="text-xs text-muted-foreground">
+                ~{study.estimatedMinutes} mins
+              </span>
+            )}
           </div>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">{study.title}</h1>
         </div>
+
+        {study.objective && (
+          <div className="mt-4 p-3 rounded-lg bg-muted/40 border border-border text-sm">
+            <span className="font-semibold text-foreground text-xs uppercase tracking-wider block mb-1">
+              Research Objective
+            </span>
+            <p className="text-muted-foreground italic">"{study.objective}"</p>
+          </div>
+        )}
+
+        {study.targetPopulation && (
+          <div className="mt-2 text-xs text-muted-foreground">
+            <span className="font-semibold text-foreground">Target Cohort:</span> {study.targetPopulation}
+          </div>
+        )}
+
         {study.description && (
-          <p className="mt-6 text-muted-foreground bg-muted/50 p-4 rounded-lg border border-border leading-relaxed whitespace-pre-wrap">
+          <p className="mt-4 text-muted-foreground bg-card p-4 rounded-lg border border-border leading-relaxed whitespace-pre-wrap text-sm">
             {study.description}
           </p>
         )}
@@ -538,10 +579,19 @@ export default function StudyQuestionnaire({ study, currentUserId }: { study: St
             </Card>
           ))}
 
-          <div className="flex justify-end pt-4">
-            <Button type="submit" size="lg" disabled={loading}>
-              {loading ? "Submitting..." : `Submit Responses & Earn ${study.rewardCredits} TC`}
-            </Button>
+          <div className="pt-4 space-y-3">
+            <div className="flex justify-end">
+              <Button type="submit" size="lg" disabled={loading} className="px-8">
+                {loading
+                  ? "Submitting..."
+                  : study.rewardCredits > 0
+                  ? `Submit Responses & Earn ${study.rewardCredits} TC`
+                  : "Submit Health Responses"}
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground text-center">
+              Health Research Protocol &bull; Responses are submitted securely for academic & community health research.
+            </p>
           </div>
         </form>
       )}

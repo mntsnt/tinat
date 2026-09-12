@@ -40,6 +40,11 @@ model Study {
   title               String
   description         String?
   status              StudyStatus     @default(DRAFT)
+  studyType           StudyType       @default(FUNDED)
+  category            String?
+  objective           String?
+  targetPopulation    String?
+  estimatedMinutes    Int?            @default(5)
   rewardCredits       Int             @default(0)
   researcherId        String
   createdAt           DateTime        @default(now())
@@ -256,6 +261,11 @@ enum StudyStatus {
   ACTIVE
   PAUSED
   COMPLETED
+}
+
+enum StudyType {
+  FUNDED
+  FREE_DATA_COLLECTION
 }
 
 enum QuestionType {

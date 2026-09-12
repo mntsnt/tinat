@@ -15,9 +15,8 @@ export function Footer() {
                 Tinat
               </span>
             </Link>
-            <p className="text-sm text-muted-foreground max-w-sm">
-              The premier platform for academic research participation.
-              Connecting researchers with participants to advance human knowledge.
+            <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
+              The specialized platform for medical research, public health investigations, and community healthcare data collection.
             </p>
           </div>
           
@@ -40,8 +39,14 @@ export function Footer() {
           </div>
         </div>
         
-        <div className="mt-12 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Tinat Research Ecosystem. All rights reserved.</p>
+        <div className="mt-8 pt-6 border-t border-border/60 text-center">
+          <p className="text-xs text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <span className="font-semibold text-foreground">Medical & Health Research Notice:</span> Tinat is a technology platform for health data collection, surveys, and clinical studies. Tinat does not provide medical diagnosis, clinical treatment, or medical advice.
+          </p>
+        </div>
+
+        <div className="mt-6 border-t border-border pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-muted-foreground">
+          <p>© {new Date().getFullYear()} Tinat Health Research Ecosystem. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="#" className="hover:text-foreground transition-colors">Privacy Policy</Link>
             <Link href="#" className="hover:text-foreground transition-colors">Terms of Service</Link>

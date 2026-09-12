@@ -212,11 +212,19 @@ export async function POST(request: Request) {
     const {
       title,
       description,
-      rewardCredits,
+      studyType = "FUNDED",
+      category,
+      objective,
+      targetPopulation,
+      estimatedMinutes,
+      rewardCredits = 0,
       participantTarget,
       budgetCredits,
       questions,
+      publishImmediately = false,
     } = body;
+
+    const isFreeDataCollection = studyType === "FREE_DATA_COLLECTION" || rewardCredits === 0;
 
     /*
     |--------------------------------------------------------------------------
@@ -238,26 +246,7 @@ export async function POST(request: Request) {
 
     /*
     |--------------------------------------------------------------------------
-    | 5. Validate reward
-    |--------------------------------------------------------------------------
-    */
-
-    if (
-      !Number.isInteger(rewardCredits) ||
-      rewardCredits < 0
-    ) {
-      return NextResponse.json(
-        {
-          error:
-            "Reward must be a valid non-negative integer.",
-        },
-        { status: 400 }
-      );
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | 6. Validate participant target
+    | 5. Validate reward & budget based on study type
     |--------------------------------------------------------------------------
     */
 
@@ -281,60 +270,35 @@ export async function POST(request: Request) {
       );
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | 7. Calculate / validate budget
-    |--------------------------------------------------------------------------
-    |
-    | If the frontend sends budgetCredits, use it.
-    |
-    | Otherwise:
-    |
-    | rewardCredits × participantTarget
-    |
-    */
+    let finalRewardCredits = 0;
+    let finalBudgetCredits = 0;
+    const finalStudyType = isFreeDataCollection ? "FREE_DATA_COLLECTION" : "FUNDED";
 
-    const calculatedBudget =
-      rewardCredits * parsedParticipantTarget;
+    if (!isFreeDataCollection) {
+      if (!Number.isInteger(rewardCredits) || rewardCredits <= 0) {
+        return NextResponse.json(
+          {
+            error: "Funded research requires a reward of at least 1 TC per participant.",
+          },
+          { status: 400 }
+        );
+      }
 
-    const parsedBudgetCredits =
-      budgetCredits === undefined ||
-      budgetCredits === null ||
-      budgetCredits === ""
-        ? calculatedBudget
-        : Number(budgetCredits);
+      finalRewardCredits = rewardCredits;
+      const calculatedBudget = finalRewardCredits * parsedParticipantTarget;
+      finalBudgetCredits =
+        budgetCredits === undefined || budgetCredits === null || budgetCredits === ""
+          ? calculatedBudget
+          : Number(budgetCredits);
 
-    if (
-      !Number.isInteger(parsedBudgetCredits) ||
-      parsedBudgetCredits < 0
-    ) {
-      return NextResponse.json(
-        {
-          error:
-            "Budget must be a valid non-negative integer.",
-        },
-        { status: 400 }
-      );
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | 8. Make sure budget matches the study
-    |--------------------------------------------------------------------------
-    */
-
-    if (
-      parsedParticipantTarget > 0 &&
-      parsedBudgetCredits <
-        calculatedBudget
-    ) {
-      return NextResponse.json(
-        {
-          error:
-            "Budget is not enough to pay all participants.",
-        },
-        { status: 400 }
-      );
+      if (parsedParticipantTarget > 0 && finalBudgetCredits < calculatedBudget) {
+        return NextResponse.json(
+          {
+            error: "Budget is not enough to pay all participants.",
+          },
+          { status: 400 }
+        );
+      }
     }
 
     /*
@@ -480,29 +444,28 @@ export async function POST(request: Request) {
     |--------------------------------------------------------------------------
     */
 
+    const healthCategory = typeof category === "string" && category.trim() ? category.trim() : "Other Health Research";
+    const initialStatus = isFreeDataCollection && publishImmediately ? "ACTIVE" : "DRAFT";
+
     const study = await prisma.study.create({
-  data: {
-    title: title.trim(),
-
-    description:
-      typeof description === "string" &&
-      description.trim()
-        ? description.trim()
-        : null,
-
-    status: "DRAFT",
-
-    rewardCredits,
-
-    participantTarget:
-      parsedParticipantTarget,
-
-    budgetCredits:
-      parsedBudgetCredits,
-
-    creditsPaid: 0,
-
-    researcherId: user.id,
+      data: {
+        title: title.trim(),
+        description:
+          typeof description === "string" && description.trim()
+            ? description.trim()
+            : null,
+        status: initialStatus,
+        studyType: finalStudyType,
+        category: healthCategory,
+        objective: typeof objective === "string" && objective.trim() ? objective.trim() : null,
+        targetPopulation: typeof targetPopulation === "string" && targetPopulation.trim() ? targetPopulation.trim() : null,
+        estimatedMinutes: Number(estimatedMinutes) > 0 ? Number(estimatedMinutes) : 5,
+        tags: [healthCategory, isFreeDataCollection ? "Open Data Collection" : "Funded Research"],
+        rewardCredits: finalRewardCredits,
+        participantTarget: parsedParticipantTarget,
+        budgetCredits: finalBudgetCredits,
+        creditsPaid: 0,
+        researcherId: user.id,
 
     questions: {
       create: questions.map(

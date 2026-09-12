@@ -146,11 +146,23 @@ export default async function ResearcherDashboard() {
                     <Badge variant={statusVariant(study.status) as "success" | "secondary" | "warning"}>
                       {study.status}
                     </Badge>
-                    {/* Fixed: proper contrast for TC badge - explicit colors instead of relying on bg-emerald-50 */}
-                    <span className="text-xs font-semibold px-2 py-1 rounded-md bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
-                      {study.rewardCredits} TC / response
-                    </span>
+                    {study.rewardCredits > 0 ? (
+                      <span className="text-xs font-semibold px-2 py-1 rounded-md bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                        {study.rewardCredits} TC / response
+                      </span>
+                    ) : (
+                      <span className="text-xs font-semibold px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
+                        Free Data Collection
+                      </span>
+                    )}
                   </div>
+                  {study.category && (
+                    <div className="mb-1">
+                      <span className="text-[11px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">
+                        {study.category}
+                      </span>
+                    </div>
+                  )}
                   <CardTitle className="text-sm leading-snug line-clamp-2">
                     {study.title}
                   </CardTitle>

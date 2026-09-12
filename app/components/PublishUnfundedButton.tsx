@@ -5,10 +5,12 @@ import { Button } from "./ui/Button";
 
 type PublishUnfundedButtonProps = {
   studyId: string;
+  label?: string;
 };
 
 export default function PublishUnfundedButton({
   studyId,
+  label = "Publish Health Study Now",
 }: PublishUnfundedButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -51,7 +53,7 @@ export default function PublishUnfundedButton({
         onClick={handlePublish}
         isLoading={loading}
       >
-        {loading ? "Publishing..." : "Publish as Volunteer Study"}
+        {loading ? "Publishing..." : label}
       </Button>
 
       {error && <p className="mt-2 text-sm font-medium text-red-600">{error}</p>}

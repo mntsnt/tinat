@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { logActivity } from "@/lib/activityLog";
+import { getBaseUrl } from "@/lib/getRedirectUri";
 
 type ChapaVerifyResponse = {
   status?: string;
@@ -13,6 +14,7 @@ type ChapaVerifyResponse = {
 };
 
 export async function GET(request: Request) {
+  const baseUrl = getBaseUrl(request);
   try {
     const { searchParams } = new URL(request.url);
 
@@ -80,7 +82,7 @@ export async function GET(request: Request) {
       return NextResponse.redirect(
         new URL(
           `/researcher/studies/${payment.studyId}?payment=success`,
-          request.url
+          baseUrl
         )
       );
     }
@@ -117,7 +119,7 @@ export async function GET(request: Request) {
       return NextResponse.redirect(
         new URL(
           `/researcher/studies/${payment.studyId}?payment=failed`,
-          request.url
+          baseUrl
         )
       );
     }
@@ -156,7 +158,7 @@ export async function GET(request: Request) {
       return NextResponse.redirect(
         new URL(
           `/researcher/studies/${payment.studyId}?payment=failed`,
-          request.url
+          baseUrl
         )
       );
     }
@@ -196,7 +198,7 @@ export async function GET(request: Request) {
       return NextResponse.redirect(
         new URL(
           `/researcher/studies/${payment.studyId}?payment=failed`,
-          request.url
+          baseUrl
         )
       );
     }
@@ -255,7 +257,7 @@ export async function GET(request: Request) {
     return NextResponse.redirect(
       new URL(
         `/researcher/studies/${payment.studyId}?payment=success`,
-        request.url
+        baseUrl
       )
     );
   } catch (error) {

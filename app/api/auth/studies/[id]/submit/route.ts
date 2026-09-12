@@ -405,7 +405,7 @@ export async function POST(
         }
 
         // -----------------------------------------
-        // Get/create wallet
+        // Get/create wallet and conditionally award credits
         // -----------------------------------------
 
         const wallet =
@@ -420,40 +420,33 @@ export async function POST(
             },
           });
 
-        // -----------------------------------------
-        // Award credits
-        // -----------------------------------------
+        let currentBalance = wallet.balance;
 
-        const updatedWallet =
-          await tx.wallet.update({
+        if (currentStudy.rewardCredits > 0) {
+          const updatedWallet = await tx.wallet.update({
             where: {
               userId: user.id,
             },
             data: {
               balance: {
-                increment:
-                  currentStudy.rewardCredits,
+                increment: currentStudy.rewardCredits,
               },
             },
           });
+          currentBalance = updatedWallet.balance;
+
+          await tx.tinatCreditTransaction.create({
+            data: {
+              walletId: wallet.id,
+              amount: currentStudy.rewardCredits,
+              type: "EARN",
+              reason: `Completed health research study: ${currentStudy.title}`,
+            },
+          });
+        }
 
         // -----------------------------------------
-        // Record transaction
-        // -----------------------------------------
-
-        await tx.tinatCreditTransaction.create({
-          data: {
-            walletId: wallet.id,
-            amount:
-              currentStudy.rewardCredits,
-            type: "EARN",
-            reason:
-              `Completed research study: ${currentStudy.title}`,
-          },
-        });
-
-        // -----------------------------------------
-        // Update study funding
+        // Update study funding and completion
         // -----------------------------------------
 
         const newCreditsPaid =
@@ -469,8 +462,9 @@ export async function POST(
             currentStudy.participantTarget;
 
         const budgetReached =
+          currentStudy.budgetCredits > 0 &&
           newCreditsPaid >=
-          currentStudy.budgetCredits;
+            currentStudy.budgetCredits;
 
         await tx.study.update({
           where: {
@@ -487,8 +481,7 @@ export async function POST(
         });
 
         return {
-          balance:
-            updatedWallet.balance,
+          balance: currentBalance,
 
           creditsEarned:
             currentStudy.rewardCredits,

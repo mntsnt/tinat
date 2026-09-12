@@ -1755,6 +1755,11 @@ export const StudyScalarFieldEnum = {
   title: 'title',
   description: 'description',
   status: 'status',
+  studyType: 'studyType',
+  category: 'category',
+  objective: 'objective',
+  targetPopulation: 'targetPopulation',
+  estimatedMinutes: 'estimatedMinutes',
   rewardCredits: 'rewardCredits',
   researcherId: 'researcherId',
   createdAt: 'createdAt',
@@ -2057,6 +2062,20 @@ export type EnumStudyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'StudyStatus[]'
  */
 export type ListEnumStudyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'StudyType'
+ */
+export type EnumStudyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyType'>
+    
+
+
+/**
+ * Reference to a field of type 'StudyType[]'
+ */
+export type ListEnumStudyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyType[]'>
     
 
 

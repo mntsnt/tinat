@@ -175,8 +175,8 @@ export default async function ParticipantDashboard() {
                         })}
                       </p>
                     </div>
-                    <Badge variant="success" className="ml-3 flex-shrink-0">
-                      +{response.study.rewardCredits} TC
+                    <Badge variant={response.study.rewardCredits > 0 ? "success" : "secondary"} className="ml-3 flex-shrink-0">
+                      {response.study.rewardCredits > 0 ? `+${response.study.rewardCredits} TC` : "Volunteer"}
                     </Badge>
                   </div>
                 ))}
@@ -219,7 +219,7 @@ export default async function ParticipantDashboard() {
                         {bookmark.study.title}
                       </p>
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        {bookmark.study.rewardCredits} TC reward
+                        {bookmark.study.rewardCredits > 0 ? `${bookmark.study.rewardCredits} TC reward` : "Open Data Collection"}
                       </p>
                     </div>
                     <Link href={`/participant/studies/${bookmark.study.id}`} className="ml-3 flex-shrink-0">
@@ -250,11 +250,22 @@ export default async function ParticipantDashboard() {
               <Card key={study.id} className="hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between gap-2 mb-1">
-                    <Badge variant="success">{study.rewardCredits} TC</Badge>
+                    {study.rewardCredits > 0 ? (
+                      <Badge variant="success">{study.rewardCredits} TC</Badge>
+                    ) : (
+                      <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300">Open Data</Badge>
+                    )}
                     <span className="text-xs text-muted-foreground">
                       {study._count.questions} questions
                     </span>
                   </div>
+                  {study.category && (
+                    <div className="mb-1">
+                      <span className="text-[10px] font-medium text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                        {study.category}
+                      </span>
+                    </div>
+                  )}
                   <CardTitle className="text-sm leading-snug line-clamp-2">
                     {study.title}
                   </CardTitle>

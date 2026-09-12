@@ -67,8 +67,40 @@ export default async function ResearchStudyPage({ params }: Props) {
         </Link>
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
           <div>
+            <div className="flex items-center gap-2 flex-wrap mb-2">
+              {study.category && (
+                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
+                  {study.category}
+                </span>
+              )}
+              {study.studyType === "FREE_DATA_COLLECTION" || study.rewardCredits === 0 ? (
+                <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2.5 py-0.5 rounded-full">
+                  Open Data Collection (Free)
+                </span>
+              ) : (
+                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
+                  Funded Research &bull; {study.rewardCredits} TC / response
+                </span>
+              )}
+              {study.estimatedMinutes && (
+                <span className="text-xs text-muted-foreground">
+                  ~{study.estimatedMinutes} mins completion
+                </span>
+              )}
+            </div>
             <h1 className="text-3xl font-bold tracking-tight text-foreground">{study.title}</h1>
-            {study.description && <p className="text-muted-foreground mt-2 max-w-3xl">{study.description}</p>}
+            {study.objective && (
+              <p className="text-sm font-medium text-foreground/80 italic mt-2 bg-muted/40 p-2.5 rounded-lg border border-border">
+                <span className="font-semibold not-italic text-xs uppercase text-muted-foreground block mb-0.5">Objective:</span>
+                "{study.objective}"
+              </p>
+            )}
+            {study.targetPopulation && (
+              <p className="text-xs text-muted-foreground mt-2">
+                <span className="font-semibold text-foreground">Target Cohort:</span> {study.targetPopulation}
+              </p>
+            )}
+            {study.description && <p className="text-muted-foreground mt-2 max-w-3xl text-sm">{study.description}</p>}
           </div>
           <div className="flex gap-2">
             <Badge variant={study.status === "ACTIVE" ? "success" : study.status === "COMPLETED" ? "secondary" : "warning"} className="text-sm">
@@ -85,24 +117,30 @@ export default async function ResearchStudyPage({ params }: Props) {
           </CardHeader>
           <CardContent className="space-y-4">
             {study.status === "DRAFT" && (
-              <div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
-                <p className="text-sm text-blue-800 mb-2">This study is currently a draft and is not visible to participants.</p>
-                {study.budgetCredits <= 0 ? (
+              <div className="rounded-lg bg-blue-500/10 border border-blue-500/20 p-5">
+                <p className="text-sm font-semibold text-foreground mb-1">
+                  This health study is currently in Draft status.
+                </p>
+                {study.studyType === "FREE_DATA_COLLECTION" || study.budgetCredits <= 0 ? (
                   <div>
-                    <p className="text-sm text-blue-900 mb-3">This study has no budget. You can publish it as an unpaid volunteer study.</p>
-                    <PublishUnfundedButton studyId={study.id} />
+                    <p className="text-xs text-muted-foreground mb-4">
+                      This is an Open Data Collection study. No payment or deposit is required. You can publish it immediately to make it accessible to participants.
+                    </p>
+                    <PublishUnfundedButton studyId={study.id} label="Publish Health Study Now" />
                   </div>
                 ) : (
                   <div>
-                    <p className="text-sm text-blue-900 mb-3">Fund this study to make it available to participants.</p>
+                    <p className="text-xs text-muted-foreground mb-4">
+                      This is a Funded Study. Fund the participant reward pool ({study.budgetCredits} TC) to make it active and visible to verified participants.
+                    </p>
                     <FundStudyButton studyId={study.id} amount={study.budgetCredits} />
                   </div>
                 )}
               </div>
             )}
-            {study.status === "ACTIVE" && <p className="text-muted-foreground">This study is active and available to participants.</p>}
-            {study.status === "PAUSED" && <p className="text-muted-foreground">This study is paused and is currently not available to participants.</p>}
-            {study.status === "COMPLETED" && <p className="text-muted-foreground">This study has been completed.</p>}
+            {study.status === "ACTIVE" && <p className="text-muted-foreground">This health study is currently active and collecting responses from participants.</p>}
+            {study.status === "PAUSED" && <p className="text-muted-foreground">This study is paused and is currently not accepting participant responses.</p>}
+            {study.status === "COMPLETED" && <p className="text-muted-foreground">This study has concluded data collection.</p>}
             
             {participantTargetReached && (
               <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3 mt-4">

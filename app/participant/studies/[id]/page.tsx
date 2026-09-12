@@ -68,7 +68,7 @@ export default async function StudyPage(props: Props) {
   const isCompletedOrPaused = study.status === "COMPLETED" || study.status === "PAUSED";
   
   const remaining = study.budgetCredits - study.creditsPaid;
-  const budgetExhausted = study.rewardCredits > remaining;
+  const budgetExhausted = study.rewardCredits > 0 && study.rewardCredits > remaining;
   
   const targetReached = study.participantTarget > 0 && study._count.responses >= study.participantTarget;
 

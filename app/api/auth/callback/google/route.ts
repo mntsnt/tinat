@@ -2,15 +2,17 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createSession } from "@/lib/auth";
 import bcrypt from "bcryptjs";
-import { getGoogleRedirectUri } from "@/lib/getRedirectUri";
+import { getGoogleRedirectUri, getBaseUrl } from "@/lib/getRedirectUri";
 
 export async function GET(request: Request) {
+  const baseUrl = getBaseUrl(request);
+
   try {
     const url = new URL(request.url);
     const code = url.searchParams.get("code");
 
     if (!code) {
-      return NextResponse.redirect(new URL("/login?error=Google_Sign_In_Failed", request.url));
+      return NextResponse.redirect(new URL("/login?error=Google_Sign_In_Failed", baseUrl));
     }
 
     const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -20,7 +22,7 @@ export async function GET(request: Request) {
 
     if (!clientId || !clientSecret) {
       console.error("Missing Google OAuth credentials in .env");
-      return NextResponse.redirect(new URL("/login?error=Configuration_Error", request.url));
+      return NextResponse.redirect(new URL("/login?error=Configuration_Error", baseUrl));
     }
 
     // Exchange code for access token
@@ -38,7 +40,7 @@ export async function GET(request: Request) {
 
     if (!tokenResponse.ok) {
       console.error("Failed to fetch Google token:", await tokenResponse.text());
-      return NextResponse.redirect(new URL("/login?error=Google_Token_Error", request.url));
+      return NextResponse.redirect(new URL("/login?error=Google_Token_Error", baseUrl));
     }
 
     const tokenData = await tokenResponse.json();
@@ -51,14 +53,14 @@ export async function GET(request: Request) {
 
     if (!userResponse.ok) {
       console.error("Failed to fetch Google user profile:", await userResponse.text());
-      return NextResponse.redirect(new URL("/login?error=Google_Profile_Error", request.url));
+      return NextResponse.redirect(new URL("/login?error=Google_Profile_Error", baseUrl));
     }
 
     const userData = await userResponse.json();
     const { email, name, picture } = userData;
 
     if (!email) {
-      return NextResponse.redirect(new URL("/login?error=Google_No_Email", request.url));
+      return NextResponse.redirect(new URL("/login?error=Google_No_Email", baseUrl));
     }
 
     // Find or create user
@@ -110,15 +112,15 @@ export async function GET(request: Request) {
     // Redirect based on role
     switch (user.role) {
       case "ADMIN":
-        return NextResponse.redirect(new URL("/admin", request.url));
+        return NextResponse.redirect(new URL("/admin", baseUrl));
       case "RESEARCHER":
-        return NextResponse.redirect(new URL("/researcher", request.url));
+        return NextResponse.redirect(new URL("/researcher", baseUrl));
       case "PARTICIPANT":
       default:
-        return NextResponse.redirect(new URL("/participant", request.url));
+        return NextResponse.redirect(new URL("/participant", baseUrl));
     }
   } catch (error) {
     console.error("Google Callback Error:", error);
-    return NextResponse.redirect(new URL("/login?error=Internal_Error", request.url));
+    return NextResponse.redirect(new URL("/login?error=Internal_Error", baseUrl));
   }
 }

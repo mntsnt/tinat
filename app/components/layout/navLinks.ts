@@ -1,17 +1,16 @@
 type NavLink = { title: string; href: string; icon?: React.ReactNode };
 
 export const publicLinks: NavLink[] = [
-  { title: "Top Surveys", href: "/#top-surveys" },
-  { title: "How it works", href: "/#how-it-works" },
-  { title: "Pricing", href: "/#pricing" },
-  { title: "Trust", href: "/#trust" },
+  { title: "Health Studies", href: "/participant/studies" },
+  { title: "Pathways", href: "/#how-it-works" },
+  { title: "About Tinat", href: "/#trust" },
 ];
 
 export const participantLinks: NavLink[] = [
   { title: "Dashboard", href: "/participant" },
-  { title: "Discover", href: "/participant/studies" },
-  { title: "History", href: "/participant/history" },
-  { title: "Wallet", href: "/participant/wallet" },
+  { title: "Health Studies", href: "/participant/studies" },
+  { title: "My History", href: "/participant/history" },
+  { title: "TC Wallet", href: "/participant/wallet" },
 ];
 
 export const researcherLinks: NavLink[] = [

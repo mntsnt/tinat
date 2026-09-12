@@ -28,6 +28,14 @@ export const StudyStatus = {
 export type StudyStatus = (typeof StudyStatus)[keyof typeof StudyStatus]
 
 
+export const StudyType = {
+  FUNDED: 'FUNDED',
+  FREE_DATA_COLLECTION: 'FREE_DATA_COLLECTION'
+} as const
+
+export type StudyType = (typeof StudyType)[keyof typeof StudyType]
+
+
 export const QuestionType = {
   SHORT_TEXT: 'SHORT_TEXT',
   LONG_TEXT: 'LONG_TEXT',
