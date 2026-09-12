@@ -1740,11 +1740,11 @@ export const UserScalarFieldEnum = {
   institution: 'institution',
   fieldOfStudy: 'fieldOfStudy',
   yearOfStudy: 'yearOfStudy',
-  bio: 'bio',
-  avatarUrl: 'avatarUrl',
-  isVerified: 'isVerified',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  avatarUrl: 'avatarUrl',
+  bio: 'bio',
+  isVerified: 'isVerified'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1756,14 +1756,14 @@ export const StudyScalarFieldEnum = {
   description: 'description',
   status: 'status',
   rewardCredits: 'rewardCredits',
-  participantTarget: 'participantTarget',
-  budgetCredits: 'budgetCredits',
-  creditsPaid: 'creditsPaid',
-  tags: 'tags',
-  eligibilityCriteria: 'eligibilityCriteria',
   researcherId: 'researcherId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  budgetCredits: 'budgetCredits',
+  creditsPaid: 'creditsPaid',
+  participantTarget: 'participantTarget',
+  eligibilityCriteria: 'eligibilityCriteria',
+  tags: 'tags'
 } as const
 
 export type StudyScalarFieldEnum = (typeof StudyScalarFieldEnum)[keyof typeof StudyScalarFieldEnum]
@@ -1846,11 +1846,11 @@ export const QuestionScalarFieldEnum = {
   type: 'type',
   required: 'required',
   order: 'order',
-  scaleMin: 'scaleMin',
+  createdAt: 'createdAt',
   scaleMax: 'scaleMax',
-  scaleMinLabel: 'scaleMinLabel',
   scaleMaxLabel: 'scaleMaxLabel',
-  createdAt: 'createdAt'
+  scaleMin: 'scaleMin',
+  scaleMinLabel: 'scaleMinLabel'
 } as const
 
 export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
@@ -2026,13 +2026,6 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -2043,6 +2036,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

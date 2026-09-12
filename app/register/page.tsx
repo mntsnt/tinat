@@ -40,7 +40,7 @@ export default function RegisterPage() {
         return;
       }
 
-      router.push("/login");
+      router.push(`/verify-email?email=${encodeURIComponent(email)}`);
     } catch {
       setError("Unable to connect to the server.");
     } finally {

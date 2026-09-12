@@ -256,8 +256,8 @@ export type StudyPaymentWhereInput = {
   status?: Prisma.EnumPaymentStatusFilter<"StudyPayment"> | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeFilter<"StudyPayment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StudyPayment"> | Date | string
-  study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   researcher?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
 }
 
 export type StudyPaymentOrderByWithRelationInput = {
@@ -271,8 +271,8 @@ export type StudyPaymentOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  study?: Prisma.StudyOrderByWithRelationInput
   researcher?: Prisma.UserOrderByWithRelationInput
+  study?: Prisma.StudyOrderByWithRelationInput
 }
 
 export type StudyPaymentWhereUniqueInput = Prisma.AtLeast<{
@@ -289,8 +289,8 @@ export type StudyPaymentWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumPaymentStatusFilter<"StudyPayment"> | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeFilter<"StudyPayment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StudyPayment"> | Date | string
-  study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   researcher?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
 }, "id" | "txRef">
 
 export type StudyPaymentOrderByWithAggregationInput = {
@@ -336,8 +336,8 @@ export type StudyPaymentCreateInput = {
   status?: $Enums.PaymentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  study: Prisma.StudyCreateNestedOneWithoutPaymentsInput
   researcher: Prisma.UserCreateNestedOneWithoutStudyPaymentsInput
+  study: Prisma.StudyCreateNestedOneWithoutPaymentsInput
 }
 
 export type StudyPaymentUncheckedCreateInput = {
@@ -362,8 +362,8 @@ export type StudyPaymentUpdateInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  study?: Prisma.StudyUpdateOneRequiredWithoutPaymentsNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudyPaymentsNestedInput
+  study?: Prisma.StudyUpdateOneRequiredWithoutPaymentsNestedInput
 }
 
 export type StudyPaymentUncheckedUpdateInput = {
@@ -794,8 +794,8 @@ export type StudyPaymentSelect<ExtArgs extends runtime.Types.Extensions.Internal
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["studyPayment"]>
 
 export type StudyPaymentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -809,8 +809,8 @@ export type StudyPaymentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["studyPayment"]>
 
 export type StudyPaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -824,8 +824,8 @@ export type StudyPaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["studyPayment"]>
 
 export type StudyPaymentSelectScalar = {
@@ -843,23 +843,23 @@ export type StudyPaymentSelectScalar = {
 
 export type StudyPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studyId" | "researcherId" | "amount" | "currency" | "txRef" | "chapaRef" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["studyPayment"]>
 export type StudyPaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }
 export type StudyPaymentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }
 export type StudyPaymentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }
 
 export type $StudyPaymentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "StudyPayment"
   objects: {
-    study: Prisma.$StudyPayload<ExtArgs>
     researcher: Prisma.$UserPayload<ExtArgs>
+    study: Prisma.$StudyPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1266,8 +1266,8 @@ readonly fields: StudyPaymentFieldRefs;
  */
 export interface Prisma__StudyPaymentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  study<T extends Prisma.StudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyDefaultArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   researcher<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  study<T extends Prisma.StudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyDefaultArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

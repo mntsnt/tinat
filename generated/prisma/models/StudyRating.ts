@@ -224,8 +224,8 @@ export type StudyRatingWhereInput = {
   rating?: Prisma.IntFilter<"StudyRating"> | number
   feedback?: Prisma.StringNullableFilter<"StudyRating"> | string | null
   createdAt?: Prisma.DateTimeFilter<"StudyRating"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type StudyRatingOrderByWithRelationInput = {
@@ -235,8 +235,8 @@ export type StudyRatingOrderByWithRelationInput = {
   rating?: Prisma.SortOrder
   feedback?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
   study?: Prisma.StudyOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type StudyRatingWhereUniqueInput = Prisma.AtLeast<{
@@ -250,8 +250,8 @@ export type StudyRatingWhereUniqueInput = Prisma.AtLeast<{
   rating?: Prisma.IntFilter<"StudyRating"> | number
   feedback?: Prisma.StringNullableFilter<"StudyRating"> | string | null
   createdAt?: Prisma.DateTimeFilter<"StudyRating"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_studyId">
 
 export type StudyRatingOrderByWithAggregationInput = {
@@ -285,8 +285,8 @@ export type StudyRatingCreateInput = {
   rating: number
   feedback?: string | null
   createdAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutRatingsInput
   study: Prisma.StudyCreateNestedOneWithoutRatingsInput
+  user: Prisma.UserCreateNestedOneWithoutRatingsInput
 }
 
 export type StudyRatingUncheckedCreateInput = {
@@ -303,8 +303,8 @@ export type StudyRatingUpdateInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutRatingsNestedInput
   study?: Prisma.StudyUpdateOneRequiredWithoutRatingsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutRatingsNestedInput
 }
 
 export type StudyRatingUncheckedUpdateInput = {
@@ -644,8 +644,8 @@ export type StudyRatingSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   rating?: boolean
   feedback?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["studyRating"]>
 
 export type StudyRatingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -655,8 +655,8 @@ export type StudyRatingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   rating?: boolean
   feedback?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["studyRating"]>
 
 export type StudyRatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -666,8 +666,8 @@ export type StudyRatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   rating?: boolean
   feedback?: boolean
   createdAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["studyRating"]>
 
 export type StudyRatingSelectScalar = {
@@ -681,23 +681,23 @@ export type StudyRatingSelectScalar = {
 
 export type StudyRatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "studyId" | "rating" | "feedback" | "createdAt", ExtArgs["result"]["studyRating"]>
 export type StudyRatingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type StudyRatingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type StudyRatingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $StudyRatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "StudyRating"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
     study: Prisma.$StudyPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1100,8 +1100,8 @@ readonly fields: StudyRatingFieldRefs;
  */
 export interface Prisma__StudyRatingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   study<T extends Prisma.StudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyDefaultArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "../../../../lib/prisma";
 import { logActivity } from "../../../../lib/activityLog";
+import { generate6DigitCode, generateVerificationToken } from "@/lib/emailVerification";
+import { sendVerificationEmail } from "@/lib/emailService";
+import { getBaseUrl } from "@/lib/getRedirectUri";
 
 export async function POST(request: Request) {
   try {
@@ -65,8 +68,41 @@ export async function POST(request: Request) {
       description: `Registered as ${user.role}`,
     });
 
+    // Generate verification code and dispatch email
+    let simulated = false;
+    let debugCode: string | undefined = undefined;
+    try {
+      const code = generate6DigitCode();
+      const token = await generateVerificationToken({
+        userId: user.id,
+        email: user.email,
+        code,
+      });
+
+      const baseUrl = getBaseUrl(request);
+      const verificationLink = `${baseUrl}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
+
+      const emailResult = await sendVerificationEmail({
+        to: user.email,
+        name: user.name,
+        code,
+        verificationLink,
+      });
+
+      simulated = emailResult.simulated;
+      debugCode = emailResult.simulated ? code : undefined;
+    } catch (emailErr) {
+      console.error("Failed to send initial verification email:", emailErr);
+    }
+
     return NextResponse.json(
-      { message: "Account created successfully.", user },
+      {
+        message: "Account created successfully. Please verify your email.",
+        user,
+        email: user.email,
+        simulated,
+        debugCode,
+      },
       { status: 201 }
     );
   } catch (error) {

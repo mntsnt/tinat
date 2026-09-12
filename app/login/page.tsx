@@ -135,11 +135,19 @@ export default function LoginPage() {
               Google
             </Button>
 
-            <div className="text-center text-sm text-muted-foreground mt-4">
-              Don't have an account?{" "}
-              <Link href="/register" className="font-medium text-primary hover:underline transition-colors">
-                Create one
-              </Link>
+            <div className="text-center text-sm text-muted-foreground mt-4 space-y-1">
+              <div>
+                Don't have an account?{" "}
+                <Link href="/register" className="font-medium text-primary hover:underline transition-colors">
+                  Create one
+                </Link>
+              </div>
+              <div className="text-xs">
+                Already signed up?{" "}
+                <Link href="/verify-email" className="font-medium text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Verify your email
+                </Link>
+              </div>
             </div>
           </CardFooter>
         </form>

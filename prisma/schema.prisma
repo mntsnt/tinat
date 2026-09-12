@@ -7,6 +7,244 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id            String          @id @default(cuid())
+  name          String
+  email         String          @unique
+  passwordHash  String
+  role          UserRole        @default(PARTICIPANT)
+  phone         String?
+  institution   String?
+  fieldOfStudy  String?
+  yearOfStudy   Int?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  avatarUrl     String?
+  bio           String?
+  isVerified    Boolean         @default(false)
+  activityLogs  ActivityLog[]
+  notifications Notification[]
+  responses     Response[]
+  studies       Study[]
+  bookmarks     StudyBookmark[]
+  comments      StudyComment[]
+  likes         StudyLike[]
+  studyPayments StudyPayment[]
+  ratings       StudyRating[]
+  wallet        Wallet?
+  withdrawals   Withdrawal[]
+}
+
+model Study {
+  id                  String          @id @default(cuid())
+  title               String
+  description         String?
+  status              StudyStatus     @default(DRAFT)
+  rewardCredits       Int             @default(0)
+  researcherId        String
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  budgetCredits       Int             @default(0)
+  creditsPaid         Int             @default(0)
+  participantTarget   Int             @default(0)
+  eligibilityCriteria String?
+  tags                String[]
+  questions           Question[]
+  responses           Response[]
+  researcher          User            @relation(fields: [researcherId], references: [id], onDelete: Cascade)
+  bookmarks           StudyBookmark[]
+  comments            StudyComment[]
+  likes               StudyLike[]
+  payments            StudyPayment[]
+  ratings             StudyRating[]
+}
+
+model StudyBookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  studyId   String
+  createdAt DateTime @default(now())
+  study     Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, studyId])
+}
+
+model StudyRating {
+  id        String   @id @default(cuid())
+  userId    String
+  studyId   String
+  rating    Int
+  feedback  String?
+  createdAt DateTime @default(now())
+  study     Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, studyId])
+}
+
+model StudyLike {
+  id        String   @id @default(cuid())
+  userId    String
+  studyId   String
+  createdAt DateTime @default(now())
+  study     Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, studyId])
+}
+
+model StudyComment {
+  id        String   @id @default(cuid())
+  userId    String
+  studyId   String
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  study     Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  linkUrl   String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ActivityLog {
+  id           String   @id @default(cuid())
+  userId       String
+  action       String
+  description  String?
+  resourceId   String?
+  resourceType String?
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, action])
+  @@index([resourceId, resourceType])
+  @@index([createdAt])
+}
+
+model Question {
+  id            String           @id @default(cuid())
+  studyId       String
+  text          String
+  type          QuestionType
+  required      Boolean          @default(true)
+  order         Int
+  createdAt     DateTime         @default(now())
+  scaleMax      Int?
+  scaleMaxLabel String?
+  scaleMin      Int?
+  scaleMinLabel String?
+  answers       Answer[]
+  study         Study            @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  options       QuestionOption[]
+  rows          QuestionRow[]
+}
+
+model QuestionRow {
+  id         String   @id @default(cuid())
+  questionId String
+  text       String
+  value      String
+  order      Int
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model QuestionOption {
+  id         String   @id @default(cuid())
+  questionId String
+  text       String
+  value      String
+  order      Int
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model Response {
+  id            String   @id @default(cuid())
+  studyId       String
+  participantId String
+  submittedAt   DateTime @default(now())
+  answers       Answer[]
+  participant   User     @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  study         Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+
+  @@unique([studyId, participantId])
+}
+
+model Answer {
+  id          String   @id @default(cuid())
+  responseId  String
+  questionId  String
+  textValue   String?
+  numberValue Float?
+  createdAt   DateTime @default(now())
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  response    Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
+
+  @@unique([responseId, questionId])
+}
+
+model Wallet {
+  id           String                   @id @default(cuid())
+  userId       String                   @unique
+  balance      Int                      @default(0)
+  createdAt    DateTime                 @default(now())
+  updatedAt    DateTime                 @updatedAt
+  transactions TinatCreditTransaction[]
+  user         User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TinatCreditTransaction {
+  id        String          @id @default(cuid())
+  walletId  String
+  amount    Int
+  type      TransactionType
+  reason    String?
+  createdAt DateTime        @default(now())
+  wallet    Wallet          @relation(fields: [walletId], references: [id], onDelete: Cascade)
+}
+
+model StudyPayment {
+  id           String        @id @default(cuid())
+  studyId      String
+  researcherId String
+  amount       Float
+  currency     String        @default("ETB")
+  txRef        String        @unique
+  chapaRef     String?
+  status       PaymentStatus @default(PENDING)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  researcher   User          @relation(fields: [researcherId], references: [id], onDelete: Cascade)
+  study        Study         @relation(fields: [studyId], references: [id], onDelete: Cascade)
+
+  @@index([studyId])
+  @@index([researcherId])
+}
+
+model Withdrawal {
+  id          String           @id @default(cuid())
+  userId      String
+  amount      Int
+  method      String
+  accountInfo String
+  status      WithdrawalStatus @default(PENDING)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+}
+
 enum UserRole {
   PARTICIPANT
   RESEARCHER
@@ -25,14 +263,14 @@ enum QuestionType {
   LONG_TEXT
   SINGLE_CHOICE
   MULTIPLE_CHOICE
+  NUMBER
+  YES_NO
+  DATE
   DROPDOWN
   FILE_UPLOAD
   LINEAR_SCALE
   MULTIPLE_CHOICE_GRID
   CHECKBOX_GRID
-  NUMBER
-  YES_NO
-  DATE
   TIME
 }
 
@@ -42,251 +280,6 @@ enum TransactionType {
   WITHDRAW
   REFUND
   ADJUSTMENT
-}
-
-model User {
-  id           String   @id @default(cuid())
-  name         String
-  email        String   @unique
-  passwordHash String
-  role         UserRole @default(PARTICIPANT)
-
-  phone        String?
-  institution  String?
-  fieldOfStudy String?
-  yearOfStudy  Int?
-  
-  // New Profile Fields
-  bio          String?
-  avatarUrl    String?
-  isVerified   Boolean  @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  studies       Study[]
-  responses     Response[]
-  wallet        Wallet?
-  studyPayments StudyPayment[]
-  withdrawals   Withdrawal[]
-  bookmarks     StudyBookmark[]
-  ratings       StudyRating[]
-  likes         StudyLike[]
-  comments      StudyComment[]
-  notifications Notification[]
-  activityLogs  ActivityLog[]
-}
-
-model Study {
-  id          String      @id @default(cuid())
-  title       String
-  description String?
-  status      StudyStatus @default(DRAFT)
-
-  rewardCredits Int @default(0)
-
-  // Maximum number of participants
-  participantTarget Int @default(0)
-
-  // Total credits reserved for this study
-  budgetCredits Int @default(0)
-
-  // Credits already awarded to participants
-  creditsPaid Int @default(0)
-  
-  // Discoverability & Screening
-  tags               String[]
-  eligibilityCriteria String? // Stored as JSON string
-
-  researcherId String
-  researcher   User   @relation(fields: [researcherId], references: [id], onDelete: Cascade)
-
-  questions  Question[]
-  responses  Response[]
-  payments   StudyPayment[]
-  bookmarks  StudyBookmark[]
-  ratings    StudyRating[]
-  likes      StudyLike[]
-  comments   StudyComment[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model StudyBookmark {
-  id        String   @id @default(cuid())
-  userId    String
-  studyId   String
-  createdAt DateTime @default(now())
-
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, studyId])
-}
-
-model StudyRating {
-  id        String   @id @default(cuid())
-  userId    String
-  studyId   String
-  rating    Int      // 1 to 5
-  feedback  String?
-  createdAt DateTime @default(now())
-
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, studyId])
-}
-
-model StudyLike {
-  id        String   @id @default(cuid())
-  userId    String
-  studyId   String
-  createdAt DateTime @default(now())
-
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, studyId])
-}
-
-model StudyComment {
-  id        String   @id @default(cuid())
-  userId    String
-  studyId   String
-  text      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
-}
-
-model Notification {
-  id        String   @id @default(cuid())
-  userId    String
-  title     String
-  message   String
-  isRead    Boolean  @default(false)
-  linkUrl   String?
-  createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model ActivityLog {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  action      String
-  description String?
-  resourceId  String?
-  resourceType String?
-  createdAt   DateTime @default(now())
-
-  @@index([userId, action])
-  @@index([resourceId, resourceType])
-  @@index([createdAt])
-}
-
-model Question {
-  id       String       @id @default(cuid())
-  studyId  String
-  study    Study        @relation(fields: [studyId], references: [id], onDelete: Cascade)
-
-  text     String
-  type     QuestionType
-  required Boolean      @default(true)
-  order    Int
-
-  // Linear scale properties
-  scaleMin       Int?
-  scaleMax       Int?
-  scaleMinLabel  String?
-  scaleMaxLabel  String?
-
-  options QuestionOption[]
-  rows    QuestionRow[]
-  answers Answer[]
-
-  createdAt DateTime @default(now())
-}
-
-model QuestionRow {
-  id         String   @id @default(cuid())
-  questionId String
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  text  String
-  value String
-  order Int
-}
-
-model QuestionOption {
-  id         String   @id @default(cuid())
-  questionId String
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  text  String
-  value String
-  order Int
-}
-
-model Response {
-  id          String   @id @default(cuid())
-  studyId     String
-  participantId String
-
-  study       Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
-  participant User  @relation(fields: [participantId], references: [id], onDelete: Cascade)
-
-  answers Answer[]
-
-  submittedAt DateTime @default(now())
-
-  @@unique([studyId, participantId])
-}
-
-model Answer {
-  id         String @id @default(cuid())
-  responseId String
-  questionId String
-
-  response Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
-  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  textValue   String?
-  numberValue Float?
-
-  createdAt DateTime @default(now())
-
-  @@unique([responseId, questionId])
-}
-
-model Wallet {
-  id      String @id @default(cuid())
-  userId  String @unique
-  balance Int    @default(0)
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  transactions TinatCreditTransaction[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model TinatCreditTransaction {
-  id        String          @id @default(cuid())
-  walletId  String
-  amount    Int
-  type      TransactionType
-  reason    String?
-
-  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
 }
 
 enum PaymentStatus {
@@ -300,48 +293,4 @@ enum WithdrawalStatus {
   APPROVED
   REJECTED
   COMPLETED
-}
-
-model StudyPayment {
-  id        String        @id @default(cuid())
-
-  studyId   String
-  study     Study         @relation(fields: [studyId], references: [id], onDelete: Cascade)
-
-  researcherId String
-  researcher   User       @relation(fields: [researcherId], references: [id], onDelete: Cascade)
-
-  amount    Float
-  currency  String        @default("ETB")
-
-  txRef     String        @unique
-  chapaRef  String?
-
-  status    PaymentStatus @default(PENDING)
-
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
-
-  @@index([studyId])
-  @@index([researcherId])
-}
-
-model Withdrawal {
-  id String @id @default(cuid())
-
-  userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  amount Int
-
-  method String
-  accountInfo String
-
-  status WithdrawalStatus @default(PENDING)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-  @@index([status])
 }

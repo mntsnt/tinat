@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createSession } from "@/lib/auth";
 import bcrypt from "bcryptjs";
+import { getGoogleRedirectUri } from "@/lib/getRedirectUri";
 
 export async function GET(request: Request) {
   try {
@@ -15,9 +16,7 @@ export async function GET(request: Request) {
     const clientId = process.env.GOOGLE_CLIENT_ID;
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
     
-    // Dynamically resolve origin from the request so it exactly matches the request from Google
-    const origin = url.origin;
-    const redirectUri = `${origin}/api/auth/callback/google`;
+    const redirectUri = getGoogleRedirectUri(request);
 
     if (!clientId || !clientSecret) {
       console.error("Missing Google OAuth credentials in .env");

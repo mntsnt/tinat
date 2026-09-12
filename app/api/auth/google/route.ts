@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getGoogleRedirectUri } from "@/lib/getRedirectUri";
 
 export async function GET(request: Request) {
   const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -6,9 +7,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "GOOGLE_CLIENT_ID is not configured in .env" }, { status: 500 });
   }
 
-  // Dynamically resolve the base URL from the incoming request (handles localhost, ngrok, and vercel)
-  const origin = new URL(request.url).origin;
-  const redirectUri = `${origin}/api/auth/callback/google`;
+  const redirectUri = getGoogleRedirectUri(request);
 
   const authUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
   authUrl.searchParams.set("client_id", clientId);

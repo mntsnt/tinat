@@ -15,10 +15,10 @@ type UserData = {
   fieldOfStudy: string | null;
   role: string;
   createdAt: Date;
-  passwordHash: string;
+  isVerified?: boolean;
 };
 
-import { UserCircle, Lock, Edit } from "lucide-react";
+import { UserCircle, Lock, Edit, CheckCircle } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
 export default function SettingsPage({ user }: { user: UserData }) {
@@ -104,7 +104,22 @@ export default function SettingsPage({ user }: { user: UserData }) {
             </div>
             <div>
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Email</p>
-              <p className="font-medium text-foreground">{user.email}</p>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-medium text-foreground">{user.email}</span>
+                {user.isVerified ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                    <CheckCircle className="w-3.5 h-3.5" />
+                    Verified
+                  </span>
+                ) : (
+                  <a
+                    href={`/verify-email?email=${encodeURIComponent(user.email)}`}
+                    className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 transition-colors"
+                  >
+                    Unverified &bull; Verify now
+                  </a>
+                )}
+              </div>
             </div>
             <div>
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Account ID</p>
