@@ -68,6 +68,9 @@ export async function POST(request: Request) {
       description: `Registered as ${user.role}`,
     });
 
+    let emailDeliveryFailed = false;
+    let emailErrorMessage = "";
+
     // Generate verification code and dispatch email
     try {
       const code = generate6DigitCode();
@@ -88,13 +91,19 @@ export async function POST(request: Request) {
       });
     } catch (emailErr) {
       console.error("Failed to send initial verification email:", emailErr);
+      emailDeliveryFailed = true;
+      emailErrorMessage = emailErr instanceof Error ? emailErr.message : "Failed to deliver email";
     }
 
     return NextResponse.json(
       {
-        message: "Account created successfully. A 6-digit verification code has been sent to your email.",
+        message: emailDeliveryFailed
+          ? "Account created, but we had trouble delivering the verification email. Please check your spam folder or click Resend Code on the verification page."
+          : "Account created successfully. A 6-digit verification code has been sent to your email.",
         user,
         email: user.email,
+        emailSent: !emailDeliveryFailed,
+        emailError: emailDeliveryFailed ? emailErrorMessage : undefined,
       },
       { status: 201 }
     );

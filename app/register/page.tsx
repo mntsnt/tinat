@@ -40,7 +40,13 @@ export default function RegisterPage() {
         return;
       }
 
-      router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+      const queryParams = new URLSearchParams();
+      queryParams.set("email", email);
+      if (data.emailSent === false) {
+        queryParams.set("deliveryWarning", "1");
+      }
+
+      router.push(`/verify-email?${queryParams.toString()}`);
     } catch {
       setError("Unable to connect to the server.");
     } finally {

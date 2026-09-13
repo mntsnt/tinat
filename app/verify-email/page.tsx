@@ -14,12 +14,14 @@ function VerifyEmailContent() {
   const emailParam = searchParams.get("email") || "";
   const tokenParam = searchParams.get("token") || "";
   const statusParam = searchParams.get("status") || "";
+  const deliveryWarningParam = searchParams.get("deliveryWarning") === "1";
 
   const [email, setEmail] = useState(emailParam);
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
   const [resendSuccess, setResendSuccess] = useState(false);
+  const [deliveryWarning, setDeliveryWarning] = useState(deliveryWarningParam);
   const [cooldown, setCooldown] = useState(0);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(statusParam === "success");
@@ -142,6 +144,7 @@ function VerifyEmailContent() {
 
       setCooldown(60);
       setResendSuccess(true);
+      setDeliveryWarning(false);
     } catch {
       setError("Failed to connect to the server.");
     } finally {
@@ -229,6 +232,12 @@ function VerifyEmailContent() {
                     required
                   />
                 </div>
+
+                {deliveryWarning && (
+                  <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-md text-sm text-amber-700 dark:text-amber-400 font-medium">
+                    We encountered a delay attempting initial email delivery. Please check your spam folder, or click <strong>Resend Code</strong> below to receive a fresh verification email.
+                  </div>
+                )}
 
                 {resendSuccess && (
                   <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-md text-sm text-emerald-600 dark:text-emerald-400 font-medium text-center">
