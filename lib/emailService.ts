@@ -22,12 +22,18 @@ export async function sendVerificationEmail({
   // If SMTP is configured, send real email
   if (host && user && pass) {
     try {
-      const transporter = nodemailer.createTransport({
-        host,
-        port,
-        secure: port === 465,
-        auth: { user, pass },
-      });
+      const isGmail = host?.includes("gmail");
+      const transporter = isGmail
+        ? nodemailer.createTransport({
+            service: "gmail",
+            auth: { user, pass },
+          })
+        : nodemailer.createTransport({
+            host,
+            port,
+            secure: port === 465,
+            auth: { user, pass },
+          });
 
       const html = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; rounded: 8px;">
