@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
+import { IntroAnimation } from "../ui/IntroAnimation";
 
 // Routes that use their own full shell (sidebar + internal nav).
 // The global Navbar and Footer must NOT render inside these.
@@ -25,11 +26,17 @@ export function ClientShell({ navbar, footer, children }: ClientShellProps) {
   const isDashboard = DASHBOARD_PREFIXES.some((p) => pathname.startsWith(p));
 
   if (isDashboard) {
-    return <>{children}</>;
+    return (
+      <>
+        <IntroAnimation />
+        {children}
+      </>
+    );
   }
 
   return (
     <>
+      <IntroAnimation />
       {navbar}
       <main className="flex-1 flex flex-col">{children}</main>
       {footer}

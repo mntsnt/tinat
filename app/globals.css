@@ -146,3 +146,58 @@
     border-radius: var(--radius-sm);
   }
 }
+
+/* ScholarXIV-inspired Intro Animation */
+@keyframes scholarxiv-line-long {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+
+@keyframes scholarxiv-line-short {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+  100% {
+    left: 107%;
+    right: -8%;
+  }
+}
+
+@keyframes scholarxiv-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.15));
+  }
+  50% {
+    transform: scale(1.03);
+    filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.3));
+  }
+}
+
+.animate-scholarxiv-long {
+  animation: 1.25s cubic-bezier(0.65, 0.815, 0.735, 0.395) 0s infinite normal none running scholarxiv-line-long;
+}
+
+.animate-scholarxiv-short {
+  animation: 1.25s cubic-bezier(0.165, 0.84, 0.44, 1) 0.55s infinite normal none running scholarxiv-line-short;
+}
+
+.animate-scholarxiv-pulse {
+  animation: 2.2s ease-in-out infinite alternate scholarxiv-pulse;
+}
+
