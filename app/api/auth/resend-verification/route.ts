@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     const baseUrl = getBaseUrl(request);
     const verificationLink = `${baseUrl}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
 
-    const emailResult = await sendVerificationEmail({
+    await sendVerificationEmail({
       to: user.email,
       name: user.name,
       code,
@@ -59,9 +59,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       message: "Verification code sent to your email.",
-      simulated: emailResult.simulated,
-      // For testing when running locally without SMTP, expose code if simulated
-      debugCode: emailResult.simulated ? code : undefined,
     });
   } catch (error) {
     console.error("[Resend Verification] Error:", error);

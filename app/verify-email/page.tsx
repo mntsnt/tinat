@@ -14,24 +14,19 @@ function VerifyEmailContent() {
   const emailParam = searchParams.get("email") || "";
   const tokenParam = searchParams.get("token") || "";
   const statusParam = searchParams.get("status") || "";
-  const codeParam = searchParams.get("code") || "";
 
   const [email, setEmail] = useState(emailParam);
-  const [code, setCode] = useState(codeParam);
+  const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
+  const [resendSuccess, setResendSuccess] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(statusParam === "success");
-  const [simulatedCode, setSimulatedCode] = useState<string | null>(codeParam || null);
 
   useEffect(() => {
     if (emailParam && !email) setEmail(emailParam);
-    if (codeParam && !code) {
-      setCode(codeParam);
-      setSimulatedCode(codeParam);
-    }
-  }, [emailParam, codeParam]);
+  }, [emailParam]);
 
   // Auto-verify if token is present in URL
   useEffect(() => {
@@ -128,9 +123,7 @@ function VerifyEmailContent() {
       }
 
       setCooldown(60);
-      if (data.debugCode) {
-        setSimulatedCode(data.debugCode);
-      }
+      setResendSuccess(true);
     } catch {
       setError("Failed to connect to the server.");
     } finally {
@@ -216,17 +209,9 @@ function VerifyEmailContent() {
                   />
                 </div>
 
-                {simulatedCode && (
-                  <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-md text-sm text-emerald-600 dark:text-emerald-400">
-                    <p className="font-semibold">Development Code:</p>
-                    <p className="font-mono text-lg font-bold tracking-widest">{simulatedCode}</p>
-                    <button
-                      type="button"
-                      onClick={() => setCode(simulatedCode)}
-                      className="text-xs underline mt-1 font-medium"
-                    >
-                      Click to autofill
-                    </button>
+                {resendSuccess && (
+                  <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-md text-sm text-emerald-600 dark:text-emerald-400 font-medium text-center">
+                    A fresh 6-digit code has been sent to your email inbox!
                   </div>
                 )}
 

@@ -69,8 +69,6 @@ export async function POST(request: Request) {
     });
 
     // Generate verification code and dispatch email
-    let simulated = false;
-    let debugCode: string | undefined = undefined;
     try {
       const code = generate6DigitCode();
       const token = await generateVerificationToken({
@@ -82,26 +80,21 @@ export async function POST(request: Request) {
       const baseUrl = getBaseUrl(request);
       const verificationLink = `${baseUrl}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
 
-      const emailResult = await sendVerificationEmail({
+      await sendVerificationEmail({
         to: user.email,
         name: user.name,
         code,
         verificationLink,
       });
-
-      simulated = emailResult.simulated;
-      debugCode = emailResult.simulated ? code : undefined;
     } catch (emailErr) {
       console.error("Failed to send initial verification email:", emailErr);
     }
 
     return NextResponse.json(
       {
-        message: "Account created successfully. Please verify your email.",
+        message: "Account created successfully. A 6-digit verification code has been sent to your email.",
         user,
         email: user.email,
-        simulated,
-        debugCode,
       },
       { status: 201 }
     );

@@ -71,17 +71,11 @@ export async function sendVerificationEmail({
       console.log(`[Email Service] Real verification email sent to ${to}`);
       return { success: true, simulated: false };
     } catch (error) {
-      console.error("[Email Service] Failed to send via SMTP, falling back to simulated output:", error);
+      console.error("[Email Service] Failed to send via SMTP:", error);
+      throw new Error(`Failed to deliver verification email to ${to}: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
   }
 
-  // Development / Simulation Fallback (prints clearly to console for instant testing)
-  console.log("\n" + "=".repeat(70));
-  console.log(" 📬 [TINAT EMAIL SIMULATION] VERIFICATION EMAIL DISPATCHED");
-  console.log(` To: ${name} <${to}>`);
-  console.log(` 🔑 6-Digit Code: ${code}`);
-  console.log(` 🔗 Direct Link:  ${verificationLink}`);
-  console.log("=".repeat(70) + "\n");
-
-  return { success: true, simulated: true };
+  console.warn(`[Email Service] SMTP is not configured! Cannot send email to ${to}.`);
+  return { success: false, simulated: true };
 }

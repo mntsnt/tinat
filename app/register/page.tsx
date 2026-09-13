@@ -40,8 +40,7 @@ export default function RegisterPage() {
         return;
       }
 
-      const codeParam = data.debugCode ? `&code=${encodeURIComponent(data.debugCode)}` : "";
-      router.push(`/verify-email?email=${encodeURIComponent(email)}${codeParam}`);
+      router.push(`/verify-email?email=${encodeURIComponent(email)}`);
     } catch {
       setError("Unable to connect to the server.");
     } finally {
