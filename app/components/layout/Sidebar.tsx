@@ -141,9 +141,7 @@ export function Sidebar({
   const SidebarHeader = () => (
     <div className="p-4 border-b border-border">
       <Link href="/" className="flex items-center gap-2.5 transition-transform hover:scale-[1.02]">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-sm shadow-sm flex-shrink-0">
-          T
-        </div>
+        <img src="/tinat-logo.svg" alt="Tinat Logo" className="h-8 w-8 rounded-lg shadow-sm flex-shrink-0" />
         <div>
           <p className="text-sm font-bold text-foreground leading-tight">Tinat</p>
           <span

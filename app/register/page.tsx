@@ -58,6 +58,11 @@ export default function RegisterPage() {
     <main className="flex flex-1 items-center justify-center p-4 py-12 md:py-24">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
+          <div className="flex justify-center mb-3">
+            <Link href="/" className="transition-transform hover:scale-105">
+              <img src="/tinat-logo.svg" alt="Tinat Logo" className="h-12 w-12 rounded-xl shadow-md" />
+            </Link>
+          </div>
           <CardTitle className="text-2xl">Create an account</CardTitle>
           <CardDescription>
             Join Tinat to participate in research or publish studies.

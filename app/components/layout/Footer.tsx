@@ -7,10 +7,8 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12 md:px-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4 group">
-              <div className="flex h-6 w-6 items-center justify-center rounded bg-primary font-bold text-primary-foreground text-xs shadow-sm transition-transform group-hover:scale-110">
-                T
-              </div>
+            <Link href="/" className="flex items-center gap-2.5 mb-4 group">
+              <img src="/tinat-logo.svg" alt="Tinat Logo" className="h-6 w-6 rounded shadow-sm transition-transform group-hover:scale-110" />
               <span className="text-lg font-bold tracking-tight text-foreground">
                 Tinat
               </span>

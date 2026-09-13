@@ -19,6 +19,13 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Tinat | Research Ecosystem",
   description: "Participate in research. Contribute knowledge. Earn Tinat Credits.",
+  icons: {
+    icon: [
+      { url: "/tinat-logo.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
