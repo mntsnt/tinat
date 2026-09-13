@@ -7,6 +7,7 @@ import {
   clearVerificationEntry,
 } from "@/lib/emailVerification";
 import { getBaseUrl } from "@/lib/getRedirectUri";
+import { createSession } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
@@ -80,10 +81,16 @@ export async function POST(request: Request) {
       description: `Email ${user.email} successfully verified`,
     });
 
+    await createSession(user.id);
+
     return NextResponse.json(
       {
         message: "Email verified successfully! You can now access all features.",
         isVerified: true,
+        user: {
+          id: user.id,
+          role: user.role,
+        },
       },
       { status: 200 }
     );
@@ -130,6 +137,8 @@ export async function GET(request: Request) {
         action: "EMAIL_VERIFIED",
         description: `Email ${user.email} verified via email link`,
       });
+
+      await createSession(user.id);
     }
 
     return NextResponse.redirect(new URL("/verify-email?status=success", baseUrl));

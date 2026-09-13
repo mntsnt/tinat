@@ -14,11 +14,15 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { role: true, name: true, email: true },
+    select: { role: true, name: true, email: true, isVerified: true },
   });
 
   if (!user || user.role !== "RESEARCHER") {
     redirect("/dashboard");
+  }
+
+  if (!user.isVerified) {
+    redirect(`/verify-email?email=${encodeURIComponent(user.email)}`);
   }
 
   const links = [

@@ -10,6 +10,8 @@ import { Button } from "../components/ui/Button";
 type LoginResponse = {
   message?: string;
   error?: string;
+  isVerified?: boolean;
+  email?: string;
   user?: {
     id: string;
     name: string;
@@ -25,12 +27,14 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
+  const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setError("");
+    setUnverifiedEmail(null);
     setLoading(true);
 
     try {
@@ -45,6 +49,11 @@ export default function LoginPage() {
       const data = (await response.json()) as LoginResponse;
 
       if (!response.ok) {
+        if (data.isVerified === false) {
+          setUnverifiedEmail(data.email || email);
+          setError(data.error || "Please verify your email before accessing the platform.");
+          return;
+        }
         setError(data.error || "Login failed.");
         return;
       }
@@ -72,7 +81,7 @@ export default function LoginPage() {
 
   return (
     <main className="flex flex-1 items-center justify-center p-4 py-12 md:py-24">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md shadow-lg border-border">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Welcome back</CardTitle>
           <CardDescription>
@@ -97,37 +106,35 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+
             {error && (
-              <p className="text-sm font-medium text-destructive">{error}</p>
+              <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md text-sm text-destructive font-medium">
+                {error}
+              </div>
+            )}
+
+            {unverifiedEmail && (
+              <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-md text-sm space-y-2">
+                <p className="text-amber-700 dark:text-amber-400 font-medium">
+                  Your account requires email verification before access is granted.
+                </p>
+                <Button
+                  type="button"
+                  size="sm"
+                  className="w-full bg-amber-600 hover:bg-amber-700 text-white"
+                  onClick={() => router.push(`/verify-email?email=${encodeURIComponent(unverifiedEmail)}`)}
+                >
+                  Verify Email Now
+                </Button>
+              </div>
             )}
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <Button type="submit" className="w-full" isLoading={loading}>
               Sign In
             </Button>
-            
-            <div className="relative w-full my-4">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-border"></span>
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
-              </div>
-            </div>
 
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full gap-2"
-              onClick={() => { window.location.href = "/api/auth/google"; }}
-            >
-              <svg className="h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
-                <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
-              </svg>
-              Google
-            </Button>
-
-            <div className="text-center text-sm text-muted-foreground mt-4 space-y-1">
+            <div className="text-center text-sm text-muted-foreground mt-4 space-y-2">
               <div>
                 Don't have an account?{" "}
                 <Link href="/register" className="font-medium text-primary hover:underline transition-colors">
@@ -135,7 +142,7 @@ export default function LoginPage() {
                 </Link>
               </div>
               <div className="text-xs">
-                Already signed up?{" "}
+                Already registered but haven't verified?{" "}
                 <Link href="/verify-email" className="font-medium text-muted-foreground hover:text-foreground hover:underline transition-colors">
                   Verify your email
                 </Link>

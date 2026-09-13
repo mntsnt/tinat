@@ -14,11 +14,15 @@ export default async function ParticipantLayout({ children }: { children: ReactN
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { role: true, name: true, email: true },
+    select: { role: true, name: true, email: true, isVerified: true },
   });
 
   if (!user || user.role !== "PARTICIPANT") {
     redirect("/dashboard");
+  }
+
+  if (!user.isVerified) {
+    redirect(`/verify-email?email=${encodeURIComponent(user.email)}`);
   }
 
   const links = [

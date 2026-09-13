@@ -15,11 +15,17 @@ export default async function DashboardPage() {
     },
     select: {
       role: true,
+      email: true,
+      isVerified: true,
     },
   });
 
   if (!user) {
     redirect("/login");
+  }
+
+  if (!user.isVerified) {
+    redirect(`/verify-email?email=${encodeURIComponent(user.email)}`);
   }
 
   if (user.role === "RESEARCHER") {

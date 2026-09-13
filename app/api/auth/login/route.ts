@@ -44,6 +44,17 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!user.isVerified) {
+      return NextResponse.json(
+        {
+          error: "Please verify your email address before accessing the platform.",
+          isVerified: false,
+          email: user.email,
+        },
+        { status: 403 }
+      );
+    }
+
     await createSession(user.id);
 
     return NextResponse.json({

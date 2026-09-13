@@ -156,10 +156,18 @@ function VerifyEmailContent() {
             </CardHeader>
             <CardFooter className="flex flex-col space-y-3 pt-4">
               <Button
-                onClick={() => router.push("/login")}
+                onClick={() => { window.location.href = "/dashboard"; }}
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               >
-                Continue to Sign In
+                Access Platform Now &rarr;
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => { window.location.href = "/login"; }}
+                className="w-full text-xs text-muted-foreground"
+              >
+                Sign In With Password
               </Button>
             </CardFooter>
           </div>
