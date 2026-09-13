@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Ca
 import { Badge } from "../../components/ui/Badge";
 import { UserCircle } from "lucide-react";
 
-export default async function ProfilePage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
-  const { id } = await Promise.resolve(params);
+export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
   const user = await prisma.user.findUnique({
     where: { id },

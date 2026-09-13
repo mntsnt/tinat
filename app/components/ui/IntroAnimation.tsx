@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 
 interface IntroAnimationProps {
   /** Force the animation to play even if already seen in this session */
@@ -9,7 +8,6 @@ interface IntroAnimationProps {
 }
 
 export function IntroAnimation({ force = false }: IntroAnimationProps) {
-  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
@@ -57,7 +55,7 @@ export function IntroAnimation({ force = false }: IntroAnimationProps) {
       clearTimeout(unmountTimer);
       window.removeEventListener("keydown", handleDismiss);
     };
-  }, [force, pathname]);
+  }, [force]);
 
   if (!mounted) return null;
 

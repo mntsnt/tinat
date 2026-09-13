@@ -5,11 +5,11 @@ import { prisma } from "@/lib/prisma";
 import { logActivity } from "@/lib/activityLog";
 
 type RouteParams = {
-  id?: string;
+  id: string;
 };
 
 type Props = {
-  params?: RouteParams | Promise<RouteParams>;
+  params: Promise<RouteParams>;
 };
 
 type ChapaInitializeResponse = {
@@ -35,12 +35,7 @@ export async function POST(
       );
     }
 
-    const rawParams = props?.params;
-    const params = rawParams
-      ? await Promise.resolve(rawParams)
-      : {};
-
-    const { id } = params;
+    const { id } = await props.params;
 
     if (!id) {
       return NextResponse.json(

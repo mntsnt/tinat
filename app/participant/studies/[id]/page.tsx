@@ -5,12 +5,8 @@ import Link from "next/link";
 import StudyQuestionnaire from "./StudyQuestionnaire";
 import { Button } from "../../../components/ui/Button";
 
-type RouteParams = {
-  id?: string;
-};
-
 type Props = {
-  params?: RouteParams | Promise<RouteParams>;
+  params: Promise<{ id: string }>;
 };
 
 export default async function StudyPage(props: Props) {
@@ -20,12 +16,7 @@ export default async function StudyPage(props: Props) {
     redirect("/login");
   }
 
-  const rawParams = props?.params;
-  const params = rawParams
-    ? await Promise.resolve(rawParams)
-    : {};
-
-  const id = params.id;
+  const { id } = await props.params;
 
   if (!id) {
     notFound();

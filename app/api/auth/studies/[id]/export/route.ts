@@ -4,7 +4,7 @@ import { prisma } from "../../../../../../lib/prisma";
 
 export async function GET(
   request: Request,
-  props: { params?: Promise<{ id: string }> | { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getSession();
@@ -29,11 +29,7 @@ export async function GET(
       );
     }
 
-    const rawParams = props?.params;
-    const params = (rawParams
-      ? await Promise.resolve(rawParams)
-      : {}) as { id?: string };
-    const { id } = params;
+    const { id } = await props.params;
 
     if (!id) {
       return NextResponse.json(
