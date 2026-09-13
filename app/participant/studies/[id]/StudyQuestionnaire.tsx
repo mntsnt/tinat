@@ -65,7 +65,17 @@ type SubmitResponse = {
   newBalance?: number;
 };
 
-export default function StudyQuestionnaire({ study, currentUserId }: { study: Study; currentUserId: string }) {
+export default function StudyQuestionnaire({
+  study,
+  currentUserId,
+  initialHasLiked,
+  initialLikeCount,
+}: {
+  study: Study;
+  currentUserId: string;
+  initialHasLiked?: boolean;
+  initialLikeCount?: number;
+}) {
   const router = useRouter();
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [error, setError] = useState("");
@@ -73,8 +83,16 @@ export default function StudyQuestionnaire({ study, currentUserId }: { study: St
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const [hasLiked, setHasLiked] = useState(study.likes.some(l => l.userId === currentUserId));
-  const [likeCount, setLikeCount] = useState(study.likes.length);
+  const [hasLiked, setHasLiked] = useState(
+    initialHasLiked !== undefined
+      ? initialHasLiked
+      : (study.likes ? study.likes.some((l) => l.userId === currentUserId) : false)
+  );
+  const [likeCount, setLikeCount] = useState(
+    initialLikeCount !== undefined
+      ? initialLikeCount
+      : (study.likes ? study.likes.length : 0)
+  );
   const [comments, setComments] = useState<StudyComment[]>(study.comments || []);
   const [newComment, setNewComment] = useState("");
   const [commenting, setCommenting] = useState(false);

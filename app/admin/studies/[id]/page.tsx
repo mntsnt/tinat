@@ -31,7 +31,14 @@ export default async function AdminStudyDetailPage({ params }: Props) {
   const study = await prisma.study.findUnique({
     where: { id },
     include: {
-      researcher: true,
+      researcher: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          institution: true,
+        },
+      },
       questions: {
         include: { options: true },
         orderBy: { order: "asc" }

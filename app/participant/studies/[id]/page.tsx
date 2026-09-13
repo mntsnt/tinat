@@ -51,9 +51,19 @@ export default async function StudyPage(props: Props) {
         },
       },
       _count: {
-        select: { responses: true }
+        select: {
+          responses: true,
+          likes: true,
+        },
       },
-      likes: true,
+      likes: {
+        where: {
+          userId: session.userId,
+        },
+        select: {
+          userId: true,
+        },
+      },
       comments: {
         include: { user: { select: { name: true, avatarUrl: true } } },
         orderBy: { createdAt: "desc" }
@@ -92,5 +102,12 @@ export default async function StudyPage(props: Props) {
     );
   }
 
-  return <StudyQuestionnaire study={study} currentUserId={session.userId} />;
+  return (
+    <StudyQuestionnaire
+      study={study as any}
+      currentUserId={session.userId}
+      initialHasLiked={study.likes.length > 0}
+      initialLikeCount={study._count.likes}
+    />
+  );
 }

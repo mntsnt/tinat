@@ -78,13 +78,33 @@ export async function PATCH(
       );
     }
 
-    if (study.status === "DRAFT" && status !== "ACTIVE") {
-      return NextResponse.json(
-        {
-          error: "A draft study must be activated first.",
-        },
-        { status: 400 }
-      );
+    if (study.status === "DRAFT") {
+      if (status !== "ACTIVE") {
+        return NextResponse.json(
+          {
+            error: "A draft study must be activated first.",
+          },
+          { status: 400 }
+        );
+      }
+
+      if (study.studyType === "FUNDED") {
+        const successfulPayment = await prisma.studyPayment.findFirst({
+          where: {
+            studyId: id,
+            status: "SUCCESS",
+          },
+        });
+
+        if (!successfulPayment) {
+          return NextResponse.json(
+            {
+              error: "Funded research studies must be funded before activation.",
+            },
+            { status: 400 }
+          );
+        }
+      }
     }
 
     const updatedStudy = await prisma.study.update({

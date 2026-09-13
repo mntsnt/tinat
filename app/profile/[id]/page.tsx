@@ -4,18 +4,38 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Ca
 import { Badge } from "../../components/ui/Badge";
 import { UserCircle } from "lucide-react";
 
-export default async function ProfilePage({ params }: { params: { id: string } }) {
+export default async function ProfilePage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
+  const { id } = await Promise.resolve(params);
+
   const user = await prisma.user.findUnique({
-    where: { id: params.id },
-    include: {
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      role: true,
+      avatarUrl: true,
+      bio: true,
+      institution: true,
+      fieldOfStudy: true,
+      isVerified: true,
       studies: {
         where: { status: "ACTIVE" },
         orderBy: { createdAt: "desc" },
-      }
-    }
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          rewardCredits: true,
+          studyType: true,
+          category: true,
+        },
+      },
+    },
   });
 
-  if (!user) notFound();
+  if (!user || user.role !== "RESEARCHER") {
+    notFound();
+  }
 
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 max-w-4xl">

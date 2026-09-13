@@ -16,9 +16,7 @@ const pool =
     connectionTimeoutMillis: 5000,
   });
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.pool = pool;
-}
+globalForPrisma.pool = pool;
 
 export const prisma =
   globalForPrisma.prisma ??
@@ -27,6 +25,4 @@ export const prisma =
     log: ["error"],
   });
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
-}
+globalForPrisma.prisma = prisma;

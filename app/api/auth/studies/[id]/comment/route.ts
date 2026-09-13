@@ -8,14 +8,50 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     const session = await getSession();
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: { id: true, role: true, isVerified: true },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found." }, { status: 404 });
+    }
+
+    if (!user.isVerified) {
+      return NextResponse.json(
+        { error: "Please verify your email address before posting comments." },
+        { status: 403 }
+      );
+    }
+
+    const study = await prisma.study.findUnique({
+      where: { id },
+      select: { id: true, status: true, researcherId: true },
+    });
+
+    if (!study) {
+      return NextResponse.json({ error: "Study not found." }, { status: 404 });
+    }
+
+    if (study.status !== "ACTIVE" && study.researcherId !== user.id && user.role !== "ADMIN") {
+      return NextResponse.json(
+        { error: "Comments are only allowed on active studies." },
+        { status: 403 }
+      );
+    }
+
     const { text } = await request.json();
-    if (!text || text.trim() === "") {
-      return NextResponse.json({ error: "Comment text is required" }, { status: 400 });
+    if (!text || typeof text !== "string" || text.trim() === "") {
+      return NextResponse.json({ error: "Comment text is required." }, { status: 400 });
+    }
+
+    if (text.trim().length > 1000) {
+      return NextResponse.json({ error: "Comment is too long (maximum 1000 characters)." }, { status: 400 });
     }
 
     const comment = await prisma.studyComment.create({
       data: {
-        userId: session.userId,
+        userId: user.id,
         studyId: id,
         text: text.trim(),
       },
