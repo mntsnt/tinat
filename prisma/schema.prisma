@@ -21,8 +21,10 @@ model User {
   updatedAt     DateTime        @updatedAt
   avatarUrl     String?
   bio           String?
-  isVerified    Boolean         @default(false)
-  activityLogs  ActivityLog[]
+  isVerified                Boolean         @default(false)
+  verificationCode          String?
+  verificationCodeExpiresAt DateTime?
+  activityLogs              ActivityLog[]
   notifications Notification[]
   responses     Response[]
   studies       Study[]

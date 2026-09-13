@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { jwtVerify, SignJWT } from "jose";
 
 function getSecretKey() {
@@ -18,9 +18,19 @@ export async function createSession(userId: string) {
 
   const cookieStore = await cookies();
 
+  let isHttps = false;
+  try {
+    const headersList = await headers();
+    const proto = headersList.get("x-forwarded-proto");
+    const referer = headersList.get("referer");
+    isHttps = proto === "https" || (referer?.startsWith("https://") ?? false);
+  } catch {
+    isHttps = process.env.NODE_ENV === "production" && (process.env.APP_URL?.startsWith("https://") ?? false);
+  }
+
   cookieStore.set("tinat_session", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: isHttps,
     sameSite: "lax",
     maxAge: 60 * 60 * 24 * 7,
     path: "/",

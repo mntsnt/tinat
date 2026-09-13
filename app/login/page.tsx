@@ -54,22 +54,14 @@ export default function LoginPage() {
         return;
       }
 
-      router.refresh();
-
-      switch (data.user.role) {
-        case "ADMIN":
-          router.push("/admin");
-          break;
-        case "RESEARCHER":
-          router.push("/researcher");
-          break;
-        case "PARTICIPANT":
-          router.push("/participant");
-          break;
-        default:
-          setError("Unknown user role.");
-          return;
+      let destination = "/participant";
+      if (data.user.role === "ADMIN") {
+        destination = "/admin";
+      } else if (data.user.role === "RESEARCHER") {
+        destination = "/researcher";
       }
+
+      window.location.href = destination;
     } catch (error) {
       console.error("Login error:", error);
       setError("Unable to connect to the server.");

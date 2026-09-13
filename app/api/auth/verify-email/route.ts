@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     } else if (email && code) {
       // 2. Verify via 6-digit code
       const normalizedEmail = String(email).toLowerCase().trim();
-      const isValid = validateVerificationCode(normalizedEmail, String(code));
+      const isValid = await validateVerificationCode(normalizedEmail, String(code));
       if (!isValid) {
         return NextResponse.json(
           { error: "Incorrect or expired verification code." },
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
     });
 
     if (targetEmail) {
-      clearVerificationEntry(targetEmail);
+      await clearVerificationEntry(targetEmail);
     }
 
     await logActivity({
@@ -123,7 +123,7 @@ export async function GET(request: Request) {
         data: { isVerified: true },
       });
 
-      clearVerificationEntry(payload.email);
+      await clearVerificationEntry(payload.email);
 
       await logActivity({
         userId: user.id,

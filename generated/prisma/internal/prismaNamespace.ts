@@ -1744,7 +1744,9 @@ export const UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   avatarUrl: 'avatarUrl',
   bio: 'bio',
-  isVerified: 'isVerified'
+  isVerified: 'isVerified',
+  verificationCode: 'verificationCode',
+  verificationCodeExpiresAt: 'verificationCodeExpiresAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

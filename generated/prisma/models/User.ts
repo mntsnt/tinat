@@ -49,6 +49,8 @@ export type UserMinAggregateOutputType = {
   avatarUrl: string | null
   bio: string | null
   isVerified: boolean | null
+  verificationCode: string | null
+  verificationCodeExpiresAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -66,6 +68,8 @@ export type UserMaxAggregateOutputType = {
   avatarUrl: string | null
   bio: string | null
   isVerified: boolean | null
+  verificationCode: string | null
+  verificationCodeExpiresAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -83,6 +87,8 @@ export type UserCountAggregateOutputType = {
   avatarUrl: number
   bio: number
   isVerified: number
+  verificationCode: number
+  verificationCodeExpiresAt: number
   _all: number
 }
 
@@ -110,6 +116,8 @@ export type UserMinAggregateInputType = {
   avatarUrl?: true
   bio?: true
   isVerified?: true
+  verificationCode?: true
+  verificationCodeExpiresAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -127,6 +135,8 @@ export type UserMaxAggregateInputType = {
   avatarUrl?: true
   bio?: true
   isVerified?: true
+  verificationCode?: true
+  verificationCodeExpiresAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -144,6 +154,8 @@ export type UserCountAggregateInputType = {
   avatarUrl?: true
   bio?: true
   isVerified?: true
+  verificationCode?: true
+  verificationCodeExpiresAt?: true
   _all?: true
 }
 
@@ -248,6 +260,8 @@ export type UserGroupByOutputType = {
   avatarUrl: string | null
   bio: string | null
   isVerified: boolean
+  verificationCode: string | null
+  verificationCodeExpiresAt: Date | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -288,6 +302,8 @@ export type UserWhereInput = {
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  verificationCode?: Prisma.StringNullableFilter<"User"> | string | null
+  verificationCodeExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   activityLogs?: Prisma.ActivityLogListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   responses?: Prisma.ResponseListRelationFilter
@@ -316,6 +332,8 @@ export type UserOrderByWithRelationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  verificationCodeExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   activityLogs?: Prisma.ActivityLogOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   responses?: Prisma.ResponseOrderByRelationAggregateInput
@@ -347,6 +365,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  verificationCode?: Prisma.StringNullableFilter<"User"> | string | null
+  verificationCodeExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   activityLogs?: Prisma.ActivityLogListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   responses?: Prisma.ResponseListRelationFilter
@@ -375,6 +395,8 @@ export type UserOrderByWithAggregationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  verificationCodeExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -400,6 +422,8 @@ export type UserScalarWhereWithAggregatesInput = {
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  verificationCode?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  verificationCodeExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -417,6 +441,8 @@ export type UserCreateInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
@@ -445,6 +471,8 @@ export type UserUncheckedCreateInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
@@ -473,6 +501,8 @@ export type UserUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
@@ -501,6 +531,8 @@ export type UserUncheckedUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
@@ -529,6 +561,8 @@ export type UserCreateManyInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -546,6 +580,8 @@ export type UserUpdateManyMutationInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -563,6 +599,8 @@ export type UserUncheckedUpdateManyInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -580,6 +618,8 @@ export type UserCountOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  verificationCode?: Prisma.SortOrder
+  verificationCodeExpiresAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -601,6 +641,8 @@ export type UserMaxOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  verificationCode?: Prisma.SortOrder
+  verificationCodeExpiresAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -618,6 +660,8 @@ export type UserMinOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  verificationCode?: Prisma.SortOrder
+  verificationCodeExpiresAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -655,6 +699,10 @@ export type DateTimeFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type UserCreateNestedOneWithoutStudiesInput = {
@@ -826,6 +874,8 @@ export type UserCreateWithoutStudiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
@@ -853,6 +903,8 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
@@ -896,6 +948,8 @@ export type UserUpdateWithoutStudiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
@@ -923,6 +977,8 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
@@ -950,6 +1006,8 @@ export type UserCreateWithoutBookmarksInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
@@ -977,6 +1035,8 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
@@ -1020,6 +1080,8 @@ export type UserUpdateWithoutBookmarksInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
@@ -1047,6 +1109,8 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
@@ -1074,6 +1138,8 @@ export type UserCreateWithoutRatingsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
@@ -1101,6 +1167,8 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
@@ -1144,6 +1212,8 @@ export type UserUpdateWithoutRatingsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
@@ -1171,6 +1241,8 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
@@ -1198,6 +1270,8 @@ export type UserCreateWithoutLikesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
@@ -1225,6 +1299,8 @@ export type UserUncheckedCreateWithoutLikesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
@@ -1268,6 +1344,8 @@ export type UserUpdateWithoutLikesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
@@ -1295,6 +1373,8 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
@@ -1322,6 +1402,8 @@ export type UserCreateWithoutCommentsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
@@ -1349,6 +1431,8 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
@@ -1392,6 +1476,8 @@ export type UserUpdateWithoutCommentsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
@@ -1419,6 +1505,8 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
@@ -1446,6 +1534,8 @@ export type UserCreateWithoutNotificationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
@@ -1473,6 +1563,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
@@ -1516,6 +1608,8 @@ export type UserUpdateWithoutNotificationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
@@ -1543,6 +1637,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
@@ -1570,6 +1666,8 @@ export type UserCreateWithoutActivityLogsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
@@ -1597,6 +1695,8 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
@@ -1640,6 +1740,8 @@ export type UserUpdateWithoutActivityLogsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
@@ -1667,6 +1769,8 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
@@ -1694,6 +1798,8 @@ export type UserCreateWithoutResponsesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
@@ -1721,6 +1827,8 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
@@ -1764,6 +1872,8 @@ export type UserUpdateWithoutResponsesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
@@ -1791,6 +1901,8 @@ export type UserUncheckedUpdateWithoutResponsesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
@@ -1818,6 +1930,8 @@ export type UserCreateWithoutWalletInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
@@ -1845,6 +1959,8 @@ export type UserUncheckedCreateWithoutWalletInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
@@ -1888,6 +2004,8 @@ export type UserUpdateWithoutWalletInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
@@ -1915,6 +2033,8 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
@@ -1942,6 +2062,8 @@ export type UserCreateWithoutStudyPaymentsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
@@ -1969,6 +2091,8 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
@@ -2012,6 +2136,8 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
@@ -2039,6 +2165,8 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
@@ -2066,6 +2194,8 @@ export type UserCreateWithoutWithdrawalsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
@@ -2093,6 +2223,8 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
@@ -2136,6 +2268,8 @@ export type UserUpdateWithoutWithdrawalsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
@@ -2163,6 +2297,8 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
@@ -2302,6 +2438,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   avatarUrl?: boolean
   bio?: boolean
   isVerified?: boolean
+  verificationCode?: boolean
+  verificationCodeExpiresAt?: boolean
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   responses?: boolean | Prisma.User$responsesArgs<ExtArgs>
@@ -2331,6 +2469,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   bio?: boolean
   isVerified?: boolean
+  verificationCode?: boolean
+  verificationCodeExpiresAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2348,6 +2488,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   bio?: boolean
   isVerified?: boolean
+  verificationCode?: boolean
+  verificationCodeExpiresAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -2365,9 +2507,11 @@ export type UserSelectScalar = {
   avatarUrl?: boolean
   bio?: boolean
   isVerified?: boolean
+  verificationCode?: boolean
+  verificationCodeExpiresAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "phone" | "institution" | "fieldOfStudy" | "yearOfStudy" | "createdAt" | "updatedAt" | "avatarUrl" | "bio" | "isVerified", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "phone" | "institution" | "fieldOfStudy" | "yearOfStudy" | "createdAt" | "updatedAt" | "avatarUrl" | "bio" | "isVerified" | "verificationCode" | "verificationCodeExpiresAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
@@ -2415,6 +2559,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     avatarUrl: string | null
     bio: string | null
     isVerified: boolean
+    verificationCode: string | null
+    verificationCodeExpiresAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -2863,6 +3009,8 @@ export interface UserFieldRefs {
   readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
   readonly bio: Prisma.FieldRef<"User", 'String'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly verificationCode: Prisma.FieldRef<"User", 'String'>
+  readonly verificationCodeExpiresAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 

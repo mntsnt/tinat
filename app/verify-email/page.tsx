@@ -14,15 +14,24 @@ function VerifyEmailContent() {
   const emailParam = searchParams.get("email") || "";
   const tokenParam = searchParams.get("token") || "";
   const statusParam = searchParams.get("status") || "";
+  const codeParam = searchParams.get("code") || "";
 
   const [email, setEmail] = useState(emailParam);
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(codeParam);
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(statusParam === "success");
-  const [simulatedCode, setSimulatedCode] = useState<string | null>(null);
+  const [simulatedCode, setSimulatedCode] = useState<string | null>(codeParam || null);
+
+  useEffect(() => {
+    if (emailParam && !email) setEmail(emailParam);
+    if (codeParam && !code) {
+      setCode(codeParam);
+      setSimulatedCode(codeParam);
+    }
+  }, [emailParam, codeParam]);
 
   // Auto-verify if token is present in URL
   useEffect(() => {
