@@ -59,5 +59,10 @@ export async function getSession() {
 export async function destroySession() {
   const cookieStore = await cookies();
 
+  cookieStore.set("tinat_session", "", {
+    httpOnly: true,
+    maxAge: 0,
+    path: "/",
+  });
   cookieStore.delete("tinat_session");
 }

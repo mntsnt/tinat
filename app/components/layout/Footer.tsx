@@ -33,8 +33,8 @@ export function Footer() {
             <h4 className="font-semibold text-foreground mb-4">For Researchers</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li><Link href="/register" className="hover:text-foreground transition-colors">Join as Researcher</Link></li>
-              <li><Link href="/researcher/studies" className="hover:text-foreground transition-colors">Publish a Study</Link></li>
-              <li><Link href="#" className="hover:text-foreground transition-colors">Pricing & Guidelines</Link></li>
+              <li><Link href="/researcher/studies/new" className="hover:text-foreground transition-colors">Publish a Study</Link></li>
+              <li><Link href="/#pathways" className="hover:text-foreground transition-colors">Pricing & Pathways</Link></li>
             </ul>
           </div>
         </div>
@@ -49,7 +49,7 @@ export function Footer() {
           <p>© {new Date().getFullYear()} Tinat Health Research Ecosystem. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-foreground transition-colors">Terms of Service</Link>
+            <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

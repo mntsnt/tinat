@@ -31,14 +31,34 @@ export async function POST(request: Request) {
     } else if (email && code) {
       // 2. Verify via 6-digit code
       const normalizedEmail = String(email).toLowerCase().trim();
+      const existingUser = await prisma.user.findFirst({
+        where: { email: normalizedEmail },
+      });
+
+      if (!existingUser) {
+        return NextResponse.json(
+          { error: "No account found with this email address." },
+          { status: 404 }
+        );
+      }
+
+      if (existingUser.isVerified) {
+        await createSession(existingUser.id);
+        return NextResponse.json(
+          { message: "Your email is already verified. Access granted!", isVerified: true },
+          { status: 200 }
+        );
+      }
+
       const isValid = await validateVerificationCode(normalizedEmail, String(code));
       if (!isValid) {
         return NextResponse.json(
-          { error: "Incorrect or expired verification code." },
+          { error: "Incorrect or expired verification code. Please check your email or click Resend Code." },
           { status: 400 }
         );
       }
       targetEmail = normalizedEmail;
+      targetUserId = existingUser.id;
     } else {
       return NextResponse.json(
         { error: "Please provide either a verification token or an email and code." },
@@ -59,6 +79,7 @@ export async function POST(request: Request) {
     }
 
     if (user.isVerified) {
+      await createSession(user.id);
       return NextResponse.json(
         { message: "Email is already verified.", isVerified: true },
         { status: 200 }

@@ -258,7 +258,7 @@ export default async function Home() {
       </section>
 
       {/* Two Study Types Section */}
-      <section className="relative z-10 py-20 lg:py-28 bg-muted/20 border-b border-border">
+      <section id="pathways" className="relative z-10 py-20 lg:py-28 bg-muted/20 border-b border-border scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">

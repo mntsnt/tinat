@@ -23,6 +23,7 @@ function VerifyEmailContent() {
   const [cooldown, setCooldown] = useState(0);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(statusParam === "success");
+  const [redirectCountdown, setRedirectCountdown] = useState(3);
 
   useEffect(() => {
     if (emailParam && !email) setEmail(emailParam);
@@ -66,6 +67,18 @@ function VerifyEmailContent() {
       return () => clearTimeout(timer);
     }
   }, [cooldown]);
+
+  // Auto redirect to dashboard upon successful verification
+  useEffect(() => {
+    if (success) {
+      if (redirectCountdown > 0) {
+        const timer = setTimeout(() => setRedirectCountdown((c) => c - 1), 1000);
+        return () => clearTimeout(timer);
+      } else {
+        window.location.href = "/dashboard";
+      }
+    }
+  }, [success, redirectCountdown]);
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
@@ -122,6 +135,11 @@ function VerifyEmailContent() {
         return;
       }
 
+      if (data.isVerified) {
+        setSuccess(true);
+        return;
+      }
+
       setCooldown(60);
       setResendSuccess(true);
     } catch {
@@ -145,6 +163,9 @@ function VerifyEmailContent() {
               <CardTitle className="text-2xl text-foreground">Email Verified!</CardTitle>
               <CardDescription className="text-muted-foreground">
                 Your email address has been successfully verified. Your account is now fully active.
+                <span className="block mt-2 font-medium text-emerald-600 dark:text-emerald-400">
+                  Redirecting to your dashboard in {redirectCountdown}s...
+                </span>
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex flex-col space-y-3 pt-4">

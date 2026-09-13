@@ -54,6 +54,15 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!user.isVerified) {
+      return NextResponse.json(
+        {
+          error: "Please verify your email address before requesting withdrawals.",
+        },
+        { status: 403 }
+      );
+    }
+
     // ---------------------------------------------
     // 3. Read request body
     // ---------------------------------------------

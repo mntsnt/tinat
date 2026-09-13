@@ -16,8 +16,7 @@ export default function LogoutButton() {
         method: "POST",
       });
 
-      router.push("/login");
-      router.refresh();
+      window.location.href = "/login";
     } catch {
       setLoading(false);
     }

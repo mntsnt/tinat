@@ -40,6 +40,15 @@ export async function POST(
       );
     }
 
+    if (!user.isVerified) {
+      return NextResponse.json(
+        {
+          error: "Please verify your email address before participating in research studies.",
+        },
+        { status: 403 }
+      );
+    }
+
     // ---------------------------------------------
     // 3. Get study ID
     // ---------------------------------------------
@@ -127,7 +136,7 @@ export async function POST(
     const remainingCredits =
       study.budgetCredits - study.creditsPaid;
 
-    if (remainingCredits < study.rewardCredits) {
+    if (study.rewardCredits > 0 && remainingCredits < study.rewardCredits) {
       await prisma.study.update({
         where: {
           id: study.id,
@@ -349,6 +358,7 @@ export async function POST(
           currentStudy.creditsPaid;
 
         if (
+          currentStudy.rewardCredits > 0 &&
           currentStudy.rewardCredits > remaining
         ) {
           throw new Error("BUDGET_EXCEEDED");
