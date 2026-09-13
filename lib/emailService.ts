@@ -13,11 +13,11 @@ export async function sendVerificationEmail({
   code,
   verificationLink,
 }: SendVerificationEmailParams): Promise<{ success: boolean; simulated: boolean }> {
-  const host = process.env.SMTP_HOST;
-  const port = Number(process.env.SMTP_PORT) || 587;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  const from = process.env.SMTP_FROM || '"Tinat Research Platform" <no-reply@tinat.et>';
+  const host = process.env.SMTP_HOST || "smtp.gmail.com";
+  const port = Number(process.env.SMTP_PORT) || 465;
+  const user = process.env.SMTP_USER || "mintesnoh@gmail.com";
+  const pass = process.env.SMTP_PASS || "luodhejdynhzwyoy";
+  const from = process.env.SMTP_FROM || '"Tinat Research Platform" <mintesnoh@gmail.com>';
 
   // If SMTP is configured, send real email
   if (host && user && pass) {
