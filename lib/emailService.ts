@@ -60,9 +60,12 @@ export async function sendVerificationEmail({
         </div>
       `;
 
+      const replyTo = process.env.SUPPORT_EMAIL || "iammintesnot@gmail.com";
+
       await transporter.sendMail({
         from,
         to,
+        replyTo,
         subject: `Verify your email for Tinat (${code})`,
         text: `Welcome to Tinat, ${name}! Your verification code is: ${code}. Or verify using this link: ${verificationLink}`,
         html,

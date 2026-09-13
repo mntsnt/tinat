@@ -110,7 +110,7 @@ export default function TermsOfServicePage() {
             For questions regarding these Terms of Service or research protocol compliance, contact:
           </p>
           <p className="text-sm font-semibold text-foreground">
-            support@tinat.et &bull; mintesnoh@gmail.com
+            support@tinat.et &bull; iammintesnot@gmail.com
           </p>
         </section>
       </div>

@@ -111,7 +111,7 @@ export default function PrivacyPolicyPage() {
             If you have questions about this policy or wish to request the deletion of your account and personal data, please contact the platform administration at:
           </p>
           <p className="text-sm font-semibold text-foreground">
-            support@tinat.et &bull; mintesnoh@gmail.com
+            support@tinat.et &bull; iammintesnot@gmail.com
           </p>
         </section>
       </div>
