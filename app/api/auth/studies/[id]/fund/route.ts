@@ -110,9 +110,7 @@ export async function POST(
     }
 
     const amount = Number(study.budgetCredits);
-    const txRef = `tinat-${study.id}-${crypto
-      .randomBytes(8)
-      .toString("hex")}`;
+    const txRef = `study-${study.id.slice(-10)}-${Date.now()}`;
 
     // Validate and sanitize email
     const email = (study.researcher.email || "").toLowerCase().trim();

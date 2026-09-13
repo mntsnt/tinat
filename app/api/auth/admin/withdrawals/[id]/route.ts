@@ -139,6 +139,7 @@ export async function PATCH(
 
       // Bank code: 855 is Telebirr, 801 is CBE/Awash
       const bankCode = withdrawal.method === "TELEBIRR" ? "855" : "801";
+      const transferReference = `pay-${withdrawal.id.slice(-10)}-${Date.now()}`;
 
       const chapaRes = await fetch("https://api.chapa.co/v1/transfers", {
         method: "POST",
@@ -151,7 +152,7 @@ export async function PATCH(
           account_number: withdrawal.accountInfo,
           amount: withdrawal.amount,
           currency: "ETB",
-          reference: `payout-${withdrawal.id}-${Date.now()}`,
+          reference: transferReference,
           bank_code: bankCode,
         }),
       });
