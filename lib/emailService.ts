@@ -15,9 +15,9 @@ export async function sendVerificationEmail({
 }: SendVerificationEmailParams): Promise<{ success: boolean; simulated: boolean }> {
   const host = process.env.SMTP_HOST || "smtp.gmail.com";
   const port = Number(process.env.SMTP_PORT) || 465;
-  const user = process.env.SMTP_USER || "iammintesnot@gmail.com";
-  const pass = process.env.SMTP_PASS || "cympjvsszaszmerz";
-  const from = process.env.SMTP_FROM || '"Tinat Research Platform" <iammintesnot@gmail.com>';
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  const from = process.env.SMTP_FROM || (user ? `"Tinat Research Platform" <${user}>` : "");
 
   // If SMTP is configured, send real email
   if (host && user && pass) {
