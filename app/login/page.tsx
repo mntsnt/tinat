@@ -85,7 +85,9 @@ export default function LoginPage() {
         <CardHeader className="text-center">
           <div className="flex justify-center mb-3">
             <Link href="/" className="transition-transform hover:scale-105">
-              <img src="/tinat-logo.svg" alt="Tinat Logo" className="h-12 w-12 rounded-xl shadow-md" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-black text-white font-bold text-2xl shadow-md">
+                T
+              </div>
             </Link>
           </div>
           <CardTitle className="text-2xl">Welcome back</CardTitle>

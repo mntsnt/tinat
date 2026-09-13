@@ -26,7 +26,9 @@ export default function NavContent({ user, links }: NavContentProps) {
       <div className="container mx-auto flex h-14 items-center px-4 md:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 mr-6 transition-transform hover:scale-105">
-          <img src="/tinat-logo.svg" alt="Tinat Logo" className="h-7 w-7 rounded-lg shadow-sm" />
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black text-white font-bold text-sm shadow-sm">
+            T
+          </div>
           <span className="text-lg font-bold tracking-tight text-foreground">Tinat</span>
         </Link>
 

@@ -141,7 +141,9 @@ export function Sidebar({
   const SidebarHeader = () => (
     <div className="p-4 border-b border-border">
       <Link href="/" className="flex items-center gap-2.5 transition-transform hover:scale-[1.02]">
-        <img src="/tinat-logo.svg" alt="Tinat Logo" className="h-8 w-8 rounded-lg shadow-sm flex-shrink-0" />
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black text-white font-bold text-sm shadow-sm flex-shrink-0">
+          T
+        </div>
         <div>
           <p className="text-sm font-bold text-foreground leading-tight">Tinat</p>
           <span
@@ -169,7 +171,7 @@ export function Sidebar({
       {/* ── Mobile Top Bar ──────────────────────────────── */}
       <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary font-bold text-primary-foreground text-xs shadow-sm">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black font-bold text-white text-xs shadow-sm">
             T
           </div>
           <span className="font-semibold text-sm text-foreground">
@@ -197,7 +199,7 @@ export function Sidebar({
           <div className="relative flex flex-col w-72 max-w-[85vw] h-full bg-card shadow-2xl border-r border-border">
             <div className="flex items-center justify-between p-4 border-b border-border">
               <Link href="/" className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-sm shadow-sm">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black font-bold text-white text-sm shadow-sm">
                   T
                 </div>
                 <span className="font-bold text-foreground">Tinat</span>
