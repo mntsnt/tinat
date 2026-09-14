@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "../../../components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../../components/ui/Card";
 import { Badge } from "../../../components/ui/Badge";
+import { ResearchReportRenderer } from "./ResearchReportRenderer";
 import {
   Sparkles,
   FileText,
@@ -420,9 +421,7 @@ export function AIAnalysisTab({
             </div>
           </CardHeader>
           <CardContent className="pt-6">
-            <div className="prose dark:prose-invert max-w-none text-sm text-foreground/90 leading-relaxed whitespace-pre-wrap font-sans">
-              {analysisResult}
-            </div>
+            <ResearchReportRenderer content={analysisResult} />
 
             <div className="mt-8 pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-muted-foreground">
               <span className="italic">
@@ -500,17 +499,21 @@ export function AIAnalysisTab({
                   <div
                     className={`max-w-[85%] rounded-2xl p-4 text-sm leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-tr-none shadow-sm"
-                        : "bg-card border border-border text-foreground rounded-tl-none shadow-sm whitespace-pre-wrap"
+                        ? "bg-primary text-primary-foreground rounded-tr-none shadow-sm whitespace-pre-wrap"
+                        : "bg-card border border-border text-foreground rounded-tl-none shadow-sm"
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-4 mb-1">
+                    <div className="flex items-center justify-between gap-4 mb-2 pb-1 border-b border-border/40">
                       <span className="text-[10px] font-semibold uppercase opacity-70">
                         {msg.role === "user" ? "Researcher" : "Tinat Research Assistant"}
                       </span>
                       <span className="text-[10px] opacity-50">{msg.timestamp}</span>
                     </div>
-                    <div>{msg.content}</div>
+                    {msg.role === "user" ? (
+                      <div>{msg.content}</div>
+                    ) : (
+                      <ResearchReportRenderer content={msg.content} compact />
+                    )}
                   </div>
                 </div>
               ))}
