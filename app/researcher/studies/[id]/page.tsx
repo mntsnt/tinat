@@ -250,12 +250,25 @@ export default async function ResearchStudyPage({ params }: Props) {
         </Card>
       </div>
 
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-bold tracking-tight text-foreground">Data Analysis</h2>
+      <div className="mb-10">
+        <AIAnalysisTab
+          studyId={study.id}
+          studyTitle={study.title}
+          responsesCount={totalResponses}
+          participantTarget={study.participantTarget}
+          category={study.category}
+          studyType={study.studyType}
+          questionCount={study.questions.length}
+        />
       </div>
 
-      <div className="mb-8">
-        <AIAnalysisTab studyId={study.id} responsesCount={totalResponses} />
+      <div className="mb-6 flex items-center justify-between border-t border-border pt-10">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">Question-by-Question Breakdown</h2>
+          <p className="text-sm text-muted-foreground mt-0.5">
+            Raw response tallies, linear scale averages, and frequency distributions.
+          </p>
+        </div>
       </div>
 
       {totalResponses === 0 ? (
