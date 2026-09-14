@@ -6,12 +6,37 @@ import { GoogleGenAI } from "@google/genai";
  * The key remains strictly server-side and is never exposed to the client.
  */
 export function getGeminiApiKey(): string | null {
-  return (
+  // Check common explicit names
+  const direct =
     process.env.GEMINI_API_KEY ||
     process.env.GOOGLE_API_KEY ||
     process.env.GOOGLE_GENERATIVE_AI_API_KEY ||
-    null
-  );
+    process.env.GOOGLE_GEMINI_API_KEY ||
+    process.env.NEXT_PUBLIC_GEMINI_API_KEY ||
+    process.env.GEMINI_KEY ||
+    process.env.GEMINI_API ||
+    process.env.GEMINI ||
+    process.env.GOOGLE_AI_API_KEY;
+
+  if (direct && direct.trim().length > 0) {
+    return direct.trim();
+  }
+
+  // Scan process.env for any key with GEMINI or GOOGLE AI
+  for (const [key, val] of Object.entries(process.env)) {
+    if (val && typeof val === "string" && val.trim().length > 10) {
+      const upper = key.toUpperCase();
+      if (
+        (upper.includes("GEMINI") && upper.includes("KEY")) ||
+        (upper.includes("GEMINI") && upper.includes("API")) ||
+        upper.includes("GOOGLE_API")
+      ) {
+        return val.trim();
+      }
+    }
+  }
+
+  return null;
 }
 
 /**
@@ -43,8 +68,8 @@ export interface AIResponse {
   tokensUsed?: number;
 }
 
-const DEFAULT_MODEL = "gemini-2.5-flash";
-const FALLBACK_MODELS = ["gemini-2.0-flash", "gemini-1.5-flash"];
+const DEFAULT_MODEL = "gemini-3.6-flash";
+const FALLBACK_MODELS = ["gemini-3.5-flash", "gemini-flash-latest"];
 
 /**
  * Initializes and executes a Gemini generation request.
@@ -123,29 +148,46 @@ export async function generateGeminiChatResponse(options: GenerateChatOptions): 
     parts: [{ text: msg.content }],
   }));
 
-  try {
-    const response = await client.models.generateContent({
-      model: modelToUse,
-      config: {
-        systemInstruction: options.systemPrompt,
-        temperature: options.temperature ?? 0.25,
-      },
-      contents: formattedContents,
-    });
+  const modelsToTry = [modelToUse, ...FALLBACK_MODELS.filter((m) => m !== modelToUse)];
+  let lastError: any = null;
 
-    const text = response.text || "";
-    if (!text.trim()) {
-      throw new Error("Empty response from AI model.");
+  for (const model of modelsToTry) {
+    try {
+      const response = await client.models.generateContent({
+        model,
+        config: {
+          systemInstruction: options.systemPrompt,
+          temperature: options.temperature ?? 0.25,
+        },
+        contents: formattedContents,
+      });
+
+      const text = response.text || "";
+      if (!text.trim()) {
+        throw new Error("Empty response from AI model.");
+      }
+
+      return {
+        content: text,
+        modelUsed: model,
+      };
+    } catch (err: any) {
+      lastError = err;
+      const msg = err?.message || String(err);
+      const isRecoverableModelError =
+        msg.includes("404") ||
+        msg.includes("not found") ||
+        msg.includes("unsupported") ||
+        msg.includes("deprecated");
+
+      if (!isRecoverableModelError) {
+        break;
+      }
     }
-
-    return {
-      content: text,
-      modelUsed: modelToUse,
-    };
-  } catch (err: any) {
-    handleGeminiError(err);
-    throw err;
   }
+
+  handleGeminiError(lastError);
+  throw lastError;
 }
 
 /**
