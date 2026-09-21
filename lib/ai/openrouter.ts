@@ -1,4 +1,4 @@
-﻿/**
+/**
  * OpenRouter AI Client for NVIDIA Nemotron models.
  * Uses native fetch without adding any third-party npm dependencies.
  * The API key is resolved from TINAT_AI_KEY or OPENROUTER_API_KEY.
@@ -32,8 +32,10 @@ export interface OpenRouterResponse {
 
 export const NEMOTRON_MODEL = "nvidia/nemotron-3-ultra-550b-a55b:free";
 export const NEMOTRON_FALLBACK_MODELS = [
-  "nvidia/nemotron-3-super-120b-a12b:free",
+  "nvidia/nemotron-3-ultra-550b-a55b",
   "nvidia/nemotron-3.5-lightning:free",
+  "nvidia/nemotron-3-super-120b-a12b:free",
+  "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
 ];
 
 /**
@@ -115,7 +117,10 @@ export async function generateOpenRouterResponse(
       if (!res.ok) {
         const errorMsg =
           data?.error?.message || `OpenRouter API returned HTTP ${res.status}`;
-        throw new Error(errorMsg);
+        const error: any = new Error(errorMsg);
+        error.statusCode = res.status;
+        error.rawError = data?.error;
+        throw error;
       }
 
       const content = data?.choices?.[0]?.message?.content || "";
@@ -136,8 +141,13 @@ export async function generateOpenRouterResponse(
         msg.includes("not found") ||
         msg.includes("overloaded") ||
         msg.includes("rate limit") ||
+        msg.includes("busy") ||
         msg.includes("429") ||
-        msg.includes("503")
+        msg.includes("503") ||
+        msg.includes("502") ||
+        err?.statusCode === 429 ||
+        err?.statusCode === 503 ||
+        err?.statusCode === 502
       ) {
         continue;
       }
@@ -201,7 +211,10 @@ export async function generateOpenRouterChatResponse(
       if (!res.ok) {
         const errorMsg =
           data?.error?.message || `OpenRouter API returned HTTP ${res.status}`;
-        throw new Error(errorMsg);
+        const error: any = new Error(errorMsg);
+        error.statusCode = res.status;
+        error.rawError = data?.error;
+        throw error;
       }
 
       const content = data?.choices?.[0]?.message?.content || "";
@@ -221,8 +234,13 @@ export async function generateOpenRouterChatResponse(
         msg.includes("not found") ||
         msg.includes("overloaded") ||
         msg.includes("rate limit") ||
+        msg.includes("busy") ||
         msg.includes("429") ||
-        msg.includes("503")
+        msg.includes("503") ||
+        msg.includes("502") ||
+        err?.statusCode === 429 ||
+        err?.statusCode === 503 ||
+        err?.statusCode === 502
       ) {
         continue;
       }
@@ -235,53 +253,100 @@ export async function generateOpenRouterChatResponse(
 }
 
 /**
- * Maps raw provider errors into safe, readable messages for researchers.
+ * Maps raw provider errors into safe, highly informative messages for researchers.
  * Never leaks API keys or internal stack traces.
  */
 function handleOpenRouterError(err: any): void {
-  const message = (err?.message || "").toLowerCase();
+  const rawMsg = err?.message || "";
+  const message = rawMsg.toLowerCase();
+  const statusCode = err?.statusCode;
 
+  // 1. Authentication errors (Invalid key, missing bearer, 401, 403)
   if (
+    statusCode === 401 ||
+    statusCode === 403 ||
     message.includes("api key") ||
+    message.includes("authentication") ||
     message.includes("unauthorized") ||
+    message.includes("bearer") ||
     message.includes("401") ||
     message.includes("tinat_ai_key")
   ) {
     const safeError: any = new Error(
-      "TINAT_AI_KEY authentication failed. Please verify the OpenRouter API key configured for NVIDIA Nemotron."
+      `OpenRouter authentication failed: ${rawMsg}. Please check that TINAT_AI_KEY in your deployment environment variables is a valid OpenRouter API key (starting with sk-or-v1-).`
     );
     safeError.code = "AUTH_FAILED";
     safeError.statusCode = 401;
     throw safeError;
   }
 
+  // 2. OpenRouter Free Model Privacy / Data Collection Policy
   if (
+    message.includes("data policy") ||
+    message.includes("data collection") ||
+    message.includes("privacy") ||
+    message.includes("terms")
+  ) {
+    const safeError: any = new Error(
+      "OpenRouter requires enabling data collection for free models. Please log into OpenRouter at https://openrouter.ai/settings/privacy and enable 'Allow prompt training / data collection'."
+    );
+    safeError.code = "POLICY_REQUIRED";
+    safeError.statusCode = 403;
+    throw safeError;
+  }
+
+  // 3. Rate limiting / Quota exhaustion
+  if (
+    statusCode === 429 ||
     message.includes("quota") ||
     message.includes("429") ||
     message.includes("rate limit") ||
     message.includes("credits")
   ) {
     const safeError: any = new Error(
-      "NVIDIA Nemotron request limit reached on OpenRouter. Please wait a moment or switch to Gemini."
+      `NVIDIA Nemotron rate limit reached on OpenRouter (${rawMsg}). Free tier models are limited per minute and per day. Please wait a moment or switch to Google Gemini.`
     );
     safeError.code = "RATE_LIMITED";
     safeError.statusCode = 429;
     throw safeError;
   }
 
-  if (message.includes("timeout") || message.includes("deadline")) {
+  // 4. Timeout
+  if (
+    statusCode === 504 ||
+    message.includes("timeout") ||
+    message.includes("deadline")
+  ) {
     const safeError: any = new Error(
-      "NVIDIA Nemotron timed out while analyzing data. Please try again with a narrower question or switch to Gemini."
+      "NVIDIA Nemotron timed out while analyzing data. The model took too long to compute reasoning tokens. Please try again or switch to Google Gemini."
     );
     safeError.code = "TIMEOUT";
     safeError.statusCode = 504;
     throw safeError;
   }
 
+  // 5. Provider capacity / offline / 503 / 502
+  if (
+    statusCode === 503 ||
+    statusCode === 502 ||
+    message.includes("no endpoints") ||
+    message.includes("overloaded") ||
+    message.includes("busy") ||
+    message.includes("offline")
+  ) {
+    const safeError: any = new Error(
+      `NVIDIA Nemotron 3 Ultra free tier is currently overloaded on OpenRouter (${rawMsg}). The NVIDIA free compute cluster is at peak capacity worldwide. Please try again in a few minutes or switch to Google Gemini.`
+    );
+    safeError.code = "SERVICE_UNAVAILABLE";
+    safeError.statusCode = 503;
+    throw safeError;
+  }
+
+  // 6. Generic with exact diagnostic detail
   const genericError: any = new Error(
-    "NVIDIA Nemotron is currently unavailable. Please try again or switch to Google Gemini."
+    `NVIDIA Nemotron unavailable: ${rawMsg || "Service temporarily offline"}. Please switch to Google Gemini or try again shortly.`
   );
   genericError.code = "SERVICE_UNAVAILABLE";
-  genericError.statusCode = 503;
+  genericError.statusCode = statusCode || 503;
   throw genericError;
 }
