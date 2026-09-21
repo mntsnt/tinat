@@ -5,6 +5,7 @@ import { Button } from "../../../components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../../components/ui/Card";
 import { Badge } from "../../../components/ui/Badge";
 import { ResearchReportRenderer } from "./ResearchReportRenderer";
+import { AVAILABLE_MODELS, AIModelId } from "@/lib/ai/models";
 import {
   Sparkles,
   FileText,
@@ -21,6 +22,8 @@ import {
   ShieldCheck,
   MessageSquare,
   BookOpen,
+  Cpu,
+  Zap,
 } from "lucide-react";
 
 interface AIAnalysisTabProps {
@@ -38,6 +41,7 @@ interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp: string;
+  modelUsed?: string;
 }
 
 const ACTION_BUTTONS = [
@@ -104,6 +108,8 @@ export function AIAnalysisTab({
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
   const [analysisResult, setAnalysisResult] = useState<string | null>(null);
   const [actionLabel, setActionLabel] = useState<string>("");
+  const [resultModelUsed, setResultModelUsed] = useState<string>("");
+  const [selectedModel, setSelectedModel] = useState<AIModelId>("gemini");
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -133,7 +139,7 @@ export function AIAnalysisTab({
       const res = await fetch("/api/ai/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ studyId, action: actionId }),
+        body: JSON.stringify({ studyId, action: actionId, model: selectedModel }),
       });
 
       const data = await res.json();
@@ -143,6 +149,7 @@ export function AIAnalysisTab({
       }
 
       setAnalysisResult(data.analysis);
+      setResultModelUsed(data.modelUsed || "");
       if (Array.isArray(data.suggestedQuestions) && data.suggestedQuestions.length > 0) {
         setSuggestedQuestions(data.suggestedQuestions);
       }
@@ -179,6 +186,7 @@ export function AIAnalysisTab({
           studyId,
           message: textToSend,
           history: newHistory.map((m) => ({ role: m.role, content: m.content })),
+          model: selectedModel,
         }),
       });
 
@@ -193,6 +201,7 @@ export function AIAnalysisTab({
         role: "assistant",
         content: data.reply,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        modelUsed: data.modelUsed,
       };
 
       setChatMessages([...newHistory, assistantMsg]);
@@ -296,6 +305,86 @@ export function AIAnalysisTab({
         </CardHeader>
       </Card>
 
+      {/* ── AI Model Engine Selector ────────────────────────────── */}
+      <div className="bg-card border border-border rounded-2xl p-4 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <div className="flex items-center gap-2">
+            <Cpu className="w-4 h-4 text-primary" />
+            <h4 className="text-sm font-bold text-foreground tracking-tight">
+              AI Research Engine
+            </h4>
+            <span className="text-xs text-muted-foreground hidden md:inline">
+              Choose your preferred LLM for statistical synthesis and research inquiries.
+            </span>
+          </div>
+          <Badge variant="outline" className="text-[11px] font-medium w-fit">
+            Active: {AVAILABLE_MODELS.find((m) => m.id === selectedModel)?.name}
+          </Badge>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {AVAILABLE_MODELS.map((model) => {
+            const isSelected = selectedModel === model.id;
+            return (
+              <button
+                key={model.id}
+                type="button"
+                onClick={() => setSelectedModel(model.id)}
+                disabled={Boolean(loadingAction) || chatLoading}
+                className={`relative flex items-start gap-3.5 p-3.5 rounded-xl border text-left transition-all ${
+                  isSelected
+                    ? "border-primary bg-primary/5 ring-2 ring-primary/20 shadow-xs"
+                    : "border-border bg-card hover:bg-muted/40 hover:border-border/80 text-muted-foreground"
+                } disabled:opacity-60 disabled:cursor-not-allowed`}
+              >
+                <div
+                  className={`mt-0.5 h-8 w-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                    isSelected
+                      ? "bg-primary text-primary-foreground shadow-xs"
+                      : "bg-muted text-foreground/70"
+                  }`}
+                >
+                  {model.id === "gemini" ? (
+                    <Sparkles className="h-4 w-4" />
+                  ) : (
+                    <Zap className="h-4 w-4" />
+                  )}
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="font-semibold text-sm text-foreground truncate">
+                      {model.name}
+                    </span>
+                    <Badge
+                      variant={isSelected ? "default" : "outline"}
+                      className="text-[10px] px-2 py-0.5 shrink-0"
+                    >
+                      {model.badge}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground line-clamp-2">
+                    {model.description}
+                  </p>
+                </div>
+
+                <div className="shrink-0 mt-1">
+                  <div
+                    className={`h-4 w-4 rounded-full border flex items-center justify-center transition-colors ${
+                      isSelected
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-muted-foreground/30"
+                    }`}
+                  >
+                    {isSelected && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* ── Error Banner if any ─────────────────────────────────── */}
       {error && (
         <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive flex items-start gap-3">
@@ -303,6 +392,14 @@ export function AIAnalysisTab({
           <div className="flex-1 text-sm">
             <p className="font-semibold">Analysis Error</p>
             <p className="text-destructive/90 mt-0.5">{error}</p>
+            {error.includes("TINAT_AI_KEY") && (
+              <div className="text-xs text-foreground/90 mt-2.5 p-2.5 rounded-lg bg-card border border-border leading-relaxed">
+                <p className="font-semibold text-foreground mb-0.5">Configuration Required:</p>
+                <p className="text-muted-foreground">
+                  The environment variable <code className="bg-muted px-1.5 py-0.5 rounded font-mono font-bold text-foreground">TINAT_AI_KEY</code> was not found on this server. Add your OpenRouter API key to your project environment variables, or switch back to <strong className="text-foreground">Google Gemini 3.6 Flash</strong> above.
+                </p>
+              </div>
+            )}
           </div>
           <Button variant="ghost" size="sm" onClick={() => setError(null)} className="h-7 text-xs">
             Dismiss
@@ -379,10 +476,14 @@ export function AIAnalysisTab({
               <Sparkles className="h-5 w-5 text-primary absolute -top-1 -right-1 animate-bounce" />
             </div>
             <h4 className="text-base font-semibold text-foreground mb-1">
-              Processing Deterministic Statistics & Synthesizing Findings...
+              {selectedModel === "nemotron"
+                ? "Synthesizing with NVIDIA Nemotron 3 Ultra (550B MoE)..."
+                : "Processing Deterministic Statistics with Google Gemini..."}
             </h4>
             <p className="text-xs text-muted-foreground max-w-sm">
-              Calculating exact frequencies, response distributions, and querying Google Gemini for medical research insights.
+              {selectedModel === "nemotron"
+                ? "Executing deep statistical reasoning on verified cohort distributions via OpenRouter."
+                : "Calculating exact frequencies, response distributions, and querying Google Gemini for medical research insights."}
             </p>
           </CardContent>
         </Card>
@@ -393,8 +494,14 @@ export function AIAnalysisTab({
           <CardHeader className="border-b border-border bg-muted/20 pb-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <div className="flex items-center gap-2 mb-1">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
                   <Badge className="bg-primary text-primary-foreground text-xs">{actionLabel}</Badge>
+                  {resultModelUsed && (
+                    <Badge variant="outline" className="text-[11px] font-medium flex items-center gap-1">
+                      <Cpu className="w-3 h-3 text-primary" />
+                      {resultModelUsed}
+                    </Badge>
+                  )}
                   <span className="text-xs text-muted-foreground">Study ID: {studyId.slice(0, 10)}...</span>
                 </div>
                 <CardTitle className="text-lg font-bold text-foreground">Analysis Results</CardTitle>
@@ -504,8 +611,19 @@ export function AIAnalysisTab({
                     }`}
                   >
                     <div className="flex items-center justify-between gap-4 mb-2 pb-1 border-b border-border/40">
-                      <span className="text-[10px] font-semibold uppercase opacity-70">
-                        {msg.role === "user" ? "Researcher" : "Tinat Research Assistant"}
+                      <span className="text-[10px] font-semibold uppercase opacity-70 flex items-center gap-1.5">
+                        {msg.role === "user" ? (
+                          "Researcher"
+                        ) : (
+                          <>
+                            <span>Tinat Research Assistant</span>
+                            {msg.modelUsed && (
+                              <span className="text-[9px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium lowercase">
+                                {msg.modelUsed}
+                              </span>
+                            )}
+                          </>
+                        )}
                       </span>
                       <span className="text-[10px] opacity-50">{msg.timestamp}</span>
                     </div>

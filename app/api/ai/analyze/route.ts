@@ -8,7 +8,7 @@ import {
   ACTION_PROMPTS,
   AnalysisAction,
 } from "@/lib/ai/prompts";
-import { generateGeminiResponse } from "@/lib/ai/gemini";
+import { executeAIAnalysis } from "@/lib/ai/models";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +25,11 @@ export async function POST(request: Request) {
 
     // 2. Parse and validate request body
     const body = await request.json().catch(() => ({}));
-    const { studyId, action } = body as { studyId?: string; action?: AnalysisAction };
+    const { studyId, action, model } = body as {
+      studyId?: string;
+      action?: AnalysisAction;
+      model?: string;
+    };
 
     if (!studyId || typeof studyId !== "string") {
       return NextResponse.json({ error: "A valid studyId is required." }, { status: 400 });
@@ -94,8 +98,9 @@ export async function POST(request: Request) {
     const contextText = formatStudyContext(summary);
     const userPrompt = ACTION_PROMPTS[selectedAction](contextText);
 
-    // 7. Invoke Gemini model
-    const aiResult = await generateGeminiResponse({
+    // 7. Invoke selected AI engine (Google Gemini or NVIDIA Nemotron)
+    const aiResult = await executeAIAnalysis({
+      modelId: model,
       systemPrompt: MEDICAL_RESEARCH_SYSTEM_PROMPT,
       userPrompt,
       temperature: 0.2, // Conservative, highly factual

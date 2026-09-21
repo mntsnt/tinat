@@ -4,7 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { computeStudyStatistics } from "@/lib/ai/data-analysis";
 import { formatStudyContext } from "@/lib/ai/context";
 import { MEDICAL_RESEARCH_SYSTEM_PROMPT } from "@/lib/ai/prompts";
-import { generateGeminiChatResponse, ChatMessage } from "@/lib/ai/gemini";
+import { ChatMessage } from "@/lib/ai/gemini";
+import { executeAIChat } from "@/lib/ai/models";
 
 export const dynamic = "force-dynamic";
 
@@ -21,10 +22,11 @@ export async function POST(request: Request) {
 
     // 2. Parse request body
     const body = await request.json().catch(() => ({}));
-    const { studyId, message, history = [] } = body as {
+    const { studyId, message, history = [], model } = body as {
       studyId?: string;
       message?: string;
       history?: ChatMessage[];
+      model?: string;
     };
 
     if (!studyId || typeof studyId !== "string") {
@@ -104,8 +106,9 @@ Always ground your answers in the numbers and distributions above. If the user a
       content: message.trim().slice(0, 2000),
     });
 
-    // 7. Invoke Gemini multi-turn conversation
-    const aiResult = await generateGeminiChatResponse({
+    // 7. Invoke selected AI engine (Google Gemini or NVIDIA Nemotron)
+    const aiResult = await executeAIChat({
+      modelId: model,
       systemPrompt: studySystemPrompt,
       messages: sanitizedHistory,
       temperature: 0.25,
