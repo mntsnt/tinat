@@ -39,6 +39,17 @@ export const NEMOTRON_FALLBACK_MODELS = [
 ];
 
 /**
+ * Sanitizes input string to prevent invalid character errors in HTTP headers.
+ */
+function sanitizeHeaderString(val: string): string {
+  return val
+    .trim()
+    .replace(/^["'`]|["'`]$/g, "")
+    .replace(/[\r\n\t]/g, "")
+    .trim();
+}
+
+/**
  * Resolves OpenRouter API key from environment variables.
  * Prioritizes the user-specified TINAT_AI_KEY.
  */
@@ -49,7 +60,7 @@ export function getOpenRouterApiKey(): string | null {
     process.env.NVIDIA_API_KEY;
 
   if (direct && direct.trim().length > 0) {
-    return direct.trim();
+    return sanitizeHeaderString(direct).replace(/^Bearer\s+/i, "").trim();
   }
 
   // Scan process.env for any key with TINAT_AI or OPENROUTER
@@ -62,7 +73,7 @@ export function getOpenRouterApiKey(): string | null {
         upper === "NEMOTRON_KEY" ||
         upper === "NVIDIA_KEY"
       ) {
-        return val.trim();
+        return sanitizeHeaderString(val).replace(/^Bearer\s+/i, "").trim();
       }
     }
   }
@@ -90,17 +101,30 @@ export async function generateOpenRouterResponse(
   const modelsToTry = [modelToUse, ...NEMOTRON_FALLBACK_MODELS.filter((m) => m !== modelToUse)];
   let lastError: any = null;
 
+  const isNvidiaDirect = apiKey.startsWith("nvapi-");
+  const endpoint = isNvidiaDirect
+    ? "https://integrate.api.nvidia.com/v1/chat/completions"
+    : "https://openrouter.ai/api/v1/chat/completions";
+
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${apiKey}`,
+    "Content-Type": "application/json",
+  };
+
+  if (!isNvidiaDirect) {
+    const rawReferer = process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || "https://tinat.app";
+    const referer = sanitizeHeaderString(rawReferer);
+    if (referer) {
+      headers["HTTP-Referer"] = referer;
+    }
+    headers["X-Title"] = "Tinat Health & Medical Research Platform";
+  }
+
   for (const model of modelsToTry) {
     try {
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      const res = await fetch(endpoint, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "HTTP-Referer":
-            process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || "https://tinat.app",
-          "X-Title": "Tinat Health & Medical Research Platform",
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify({
           model,
           messages: [
@@ -135,7 +159,9 @@ export async function generateOpenRouterResponse(
       };
     } catch (err: any) {
       lastError = err;
-      const msg = (err?.message || "").toLowerCase();
+      const cause = err?.cause?.message || err?.cause?.code || "";
+      console.error(`AI Model attempt failed for ${model}:`, err?.message, cause);
+      const msg = `${err?.message || ""} ${cause}`.toLowerCase();
       // If error is related to model unavailable / overloaded / rate limit, try fallback
       if (
         msg.includes("not found") ||
@@ -187,17 +213,30 @@ export async function generateOpenRouterChatResponse(
     })),
   ];
 
+  const isNvidiaDirect = apiKey.startsWith("nvapi-");
+  const endpoint = isNvidiaDirect
+    ? "https://integrate.api.nvidia.com/v1/chat/completions"
+    : "https://openrouter.ai/api/v1/chat/completions";
+
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${apiKey}`,
+    "Content-Type": "application/json",
+  };
+
+  if (!isNvidiaDirect) {
+    const rawReferer = process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || "https://tinat.app";
+    const referer = sanitizeHeaderString(rawReferer);
+    if (referer) {
+      headers["HTTP-Referer"] = referer;
+    }
+    headers["X-Title"] = "Tinat Health & Medical Research Platform";
+  }
+
   for (const model of modelsToTry) {
     try {
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      const res = await fetch(endpoint, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "HTTP-Referer":
-            process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || "https://tinat.app",
-          "X-Title": "Tinat Health & Medical Research Platform",
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify({
           model,
           messages: formattedMessages,
@@ -229,7 +268,9 @@ export async function generateOpenRouterChatResponse(
       };
     } catch (err: any) {
       lastError = err;
-      const msg = (err?.message || "").toLowerCase();
+      const cause = err?.cause?.message || err?.cause?.code || "";
+      console.error(`AI Model chat attempt failed for ${model}:`, err?.message, cause);
+      const msg = `${err?.message || ""} ${cause}`.toLowerCase();
       if (
         msg.includes("not found") ||
         msg.includes("overloaded") ||
@@ -257,11 +298,33 @@ export async function generateOpenRouterChatResponse(
  * Never leaks API keys or internal stack traces.
  */
 function handleOpenRouterError(err: any): void {
-  const rawMsg = err?.message || "";
+  const cause =
+    err?.cause?.message ||
+    err?.cause?.code ||
+    (err?.cause ? String(err.cause) : "");
+  const rawMsg = [err?.message, cause].filter(Boolean).join(" - ") || "";
   const message = rawMsg.toLowerCase();
   const statusCode = err?.statusCode;
 
-  // 1. Authentication errors (Invalid key, missing bearer, 401, 403)
+  // 1. Network / DNS / Host unreachable failures (e.g. Docker container egress restrictions)
+  if (
+    message.includes("fetch failed") ||
+    message.includes("econnrefused") ||
+    message.includes("enotfound") ||
+    message.includes("ehostunreach") ||
+    message.includes("enetunreach") ||
+    message.includes("und_err") ||
+    message.includes("econnreset")
+  ) {
+    const safeError: any = new Error(
+      `Network connection failed: server could not reach AI provider endpoint (${rawMsg}). The hosting container cannot establish an outbound connection to OpenRouter. Please switch to Google Gemini.`
+    );
+    safeError.code = "NETWORK_ERROR";
+    safeError.statusCode = 502;
+    throw safeError;
+  }
+
+  // 2. Authentication errors (Invalid key, missing bearer, 401, 403)
   if (
     statusCode === 401 ||
     statusCode === 403 ||
@@ -280,7 +343,7 @@ function handleOpenRouterError(err: any): void {
     throw safeError;
   }
 
-  // 2. OpenRouter Free Model Privacy / Data Collection Policy
+  // 3. OpenRouter Free Model Privacy / Data Collection Policy
   if (
     message.includes("data policy") ||
     message.includes("data collection") ||
@@ -295,7 +358,7 @@ function handleOpenRouterError(err: any): void {
     throw safeError;
   }
 
-  // 3. Rate limiting / Quota exhaustion
+  // 4. Rate limiting / Quota exhaustion
   if (
     statusCode === 429 ||
     message.includes("quota") ||
@@ -311,7 +374,7 @@ function handleOpenRouterError(err: any): void {
     throw safeError;
   }
 
-  // 4. Timeout
+  // 5. Timeout
   if (
     statusCode === 504 ||
     message.includes("timeout") ||
@@ -325,7 +388,7 @@ function handleOpenRouterError(err: any): void {
     throw safeError;
   }
 
-  // 5. Provider capacity / offline / 503 / 502
+  // 6. Provider capacity / offline / 503 / 502
   if (
     statusCode === 503 ||
     statusCode === 502 ||
@@ -342,7 +405,7 @@ function handleOpenRouterError(err: any): void {
     throw safeError;
   }
 
-  // 6. Generic with exact diagnostic detail
+  // 7. Generic with exact diagnostic detail
   const genericError: any = new Error(
     `NVIDIA Nemotron unavailable: ${rawMsg || "Service temporarily offline"}. Please switch to Google Gemini or try again shortly.`
   );
