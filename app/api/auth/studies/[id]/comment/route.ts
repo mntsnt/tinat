@@ -40,7 +40,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       );
     }
 
-    const { text } = await request.json();
+    const { text, parentId } = await request.json();
     if (!text || typeof text !== "string" || text.trim() === "") {
       return NextResponse.json({ error: "Comment text is required." }, { status: 400 });
     }
@@ -49,14 +49,25 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       return NextResponse.json({ error: "Comment is too long (maximum 1000 characters)." }, { status: 400 });
     }
 
+    if (parentId && typeof parentId === "string") {
+      const parentComment = await prisma.studyComment.findUnique({
+        where: { id: parentId },
+        select: { id: true, studyId: true },
+      });
+      if (!parentComment || parentComment.studyId !== id) {
+        return NextResponse.json({ error: "Parent comment not found in this study." }, { status: 404 });
+      }
+    }
+
     const comment = await prisma.studyComment.create({
       data: {
         userId: user.id,
         studyId: id,
+        parentId: parentId || null,
         text: text.trim(),
       },
       include: {
-        user: { select: { name: true, avatarUrl: true } }
+        user: { select: { name: true, avatarUrl: true, role: true } }
       }
     });
 

@@ -56,9 +56,16 @@ export default async function StudyPage(props: Props) {
         },
       },
       comments: {
-        include: { user: { select: { name: true, avatarUrl: true } } },
-        orderBy: { createdAt: "desc" }
-      }
+        where: { parentId: null },
+        include: {
+          user: { select: { name: true, avatarUrl: true, role: true } },
+          replies: {
+            include: { user: { select: { name: true, avatarUrl: true, role: true } } },
+            orderBy: { createdAt: "asc" },
+          },
+        },
+        orderBy: { createdAt: "desc" },
+      },
     },
   });
 

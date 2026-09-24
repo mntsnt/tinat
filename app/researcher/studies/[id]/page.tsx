@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Badge } from "../../../components/ui/Badge";
 import { Button, getButtonClasses } from "../../../components/ui/Button";
 import { AIAnalysisTab } from "./AIAnalysisTab";
+import { Star } from "lucide-react";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -29,6 +30,17 @@ export default async function ResearchStudyPage({ params }: Props) {
       responses: { include: { answers: true }, orderBy: { submittedAt: "desc" } },
       likes: true,
       comments: {
+        where: { parentId: null },
+        include: {
+          user: { select: { name: true, avatarUrl: true, role: true } },
+          replies: {
+            include: { user: { select: { name: true, avatarUrl: true, role: true } } },
+            orderBy: { createdAt: "asc" }
+          }
+        },
+        orderBy: { createdAt: "desc" }
+      },
+      ratings: {
         include: { user: { select: { name: true, avatarUrl: true } } },
         orderBy: { createdAt: "desc" }
       }
@@ -492,9 +504,67 @@ export default async function ResearchStudyPage({ params }: Props) {
         </div>
       )}
 
-      {/* Researcher Comments View */}
-      <div className="mt-12 mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold tracking-tight text-foreground">Discussion ({study.comments.length})</h2>
+      {/* Participant Reviews & Feedback View */}
+      {study.ratings && study.ratings.length > 0 && (
+        <div className="mt-12">
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground">Participant Reviews ({study.ratings.length})</h2>
+              <p className="text-sm text-muted-foreground mt-1">Verified feedback from participants who completed this study.</p>
+            </div>
+            <div className="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1.5 rounded-full">
+              <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
+              <span className="text-sm font-bold text-amber-600 dark:text-amber-400">
+                {(study.ratings.reduce((acc, r) => acc + r.rating, 0) / study.ratings.length).toFixed(1)} / 5.0
+              </span>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {study.ratings.map((rating) => (
+              <Card key={rating.id} className="border border-border">
+                <CardContent className="pt-5">
+                  <div className="flex items-start justify-between gap-4 mb-2">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-xs text-primary">
+                        {rating.user.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold text-foreground">{rating.user.name}</p>
+                        <span className="text-[10px] text-muted-foreground">
+                          {new Date(rating.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-0.5">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star
+                          key={s}
+                          className={`w-3.5 h-3.5 ${s <= rating.rating ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  {rating.feedback ? (
+                    <p className="text-xs text-foreground/80 mt-2 italic bg-muted/30 p-2.5 rounded-lg border border-border/50">
+                      "{rating.feedback}"
+                    </p>
+                  ) : (
+                    <p className="text-xs text-muted-foreground italic mt-1">No written feedback provided.</p>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Researcher Comments & Threaded Discussion View */}
+      <div className="mt-12 mb-6 flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">Discussion ({study.comments.length})</h2>
+          <p className="text-sm text-muted-foreground mt-1">Community inquiry and researcher responses regarding this protocol.</p>
+        </div>
       </div>
 
       <Card>
@@ -503,21 +573,63 @@ export default async function ResearchStudyPage({ params }: Props) {
             <p className="text-muted-foreground text-center py-6">No comments from participants yet.</p>
           ) : (
             study.comments.map((comment) => (
-              <div key={comment.id} className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
-                  {comment.user.avatarUrl ? (
-                    <img src={comment.user.avatarUrl} alt={comment.user.name} className="w-full h-full rounded-full object-cover" />
-                  ) : (
-                    <span className="font-semibold text-primary">{comment.user.name.charAt(0).toUpperCase()}</span>
-                  )}
-                </div>
-                <div className="flex-1 bg-muted/30 rounded-2xl rounded-tl-none p-4 border border-border">
-                  <div className="flex items-baseline justify-between gap-4 mb-2">
-                    <span className="font-semibold text-sm">{comment.user.name}</span>
-                    <span className="text-xs text-muted-foreground">{new Date(comment.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+              <div key={comment.id} className="space-y-3">
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                    {comment.user.avatarUrl ? (
+                      <img src={comment.user.avatarUrl} alt={comment.user.name} className="w-full h-full rounded-full object-cover" />
+                    ) : (
+                      <span className="font-semibold text-primary">{comment.user.name.charAt(0).toUpperCase()}</span>
+                    )}
                   </div>
-                  <p className="text-sm text-foreground/90 whitespace-pre-wrap">{comment.text}</p>
+                  <div className="flex-1 bg-muted/30 rounded-2xl rounded-tl-none p-4 border border-border">
+                    <div className="flex items-baseline justify-between gap-4 mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-sm">{comment.user.name}</span>
+                        {comment.user.role === "RESEARCHER" && (
+                          <span className="text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                            Researcher
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-xs text-muted-foreground">{new Date(comment.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+                    <p className="text-sm text-foreground/90 whitespace-pre-wrap">{comment.text}</p>
+                  </div>
                 </div>
+
+                {/* Nested Threaded Replies */}
+                {comment.replies && comment.replies.length > 0 && (
+                  <div className="pl-10 sm:pl-14 space-y-3">
+                    {comment.replies.map(reply => (
+                      <div key={reply.id} className="flex gap-3">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 text-xs font-semibold text-primary">
+                          {reply.user.avatarUrl ? (
+                            <img src={reply.user.avatarUrl} alt={reply.user.name} className="w-full h-full rounded-full object-cover" />
+                          ) : (
+                            reply.user.name.charAt(0).toUpperCase()
+                          )}
+                        </div>
+                        <div className="flex-1 bg-card rounded-2xl rounded-tl-none p-3.5 border border-border shadow-xs">
+                          <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-semibold text-xs text-foreground">{reply.user.name}</span>
+                              {reply.user.role === "RESEARCHER" && (
+                                <span className="text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.2 rounded-full border border-emerald-500/20">
+                                  Researcher
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[11px] text-muted-foreground">
+                              {new Date(reply.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </div>
+                          <p className="text-xs text-foreground/90 whitespace-pre-wrap leading-relaxed">{reply.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))
           )}

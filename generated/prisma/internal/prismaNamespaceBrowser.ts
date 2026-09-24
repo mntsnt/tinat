@@ -168,6 +168,7 @@ export const StudyCommentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   studyId: 'studyId',
+  parentId: 'parentId',
   text: 'text',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

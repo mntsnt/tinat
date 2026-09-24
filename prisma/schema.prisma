@@ -102,14 +102,20 @@ model StudyLike {
 }
 
 model StudyComment {
-  id        String   @id @default(cuid())
+  id        String         @id @default(cuid())
   userId    String
   studyId   String
+  parentId  String?
   text      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  study     Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  study     Study          @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent    StudyComment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   StudyComment[] @relation("CommentReplies")
+
+  @@index([studyId])
+  @@index([parentId])
 }
 
 model Notification {

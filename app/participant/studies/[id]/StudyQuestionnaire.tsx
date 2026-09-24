@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
 import { Badge } from "../../../components/ui/Badge";
-import { Heart, MessageSquare, Copy, Send } from "lucide-react";
+import { Heart, MessageSquare, Copy, Send, Reply, X } from "lucide-react";
 
 type Option = {
   id: string;
@@ -39,7 +39,9 @@ type StudyComment = {
   id: string;
   text: string;
   createdAt: Date;
-  user: { name: string; avatarUrl: string | null };
+  parentId?: string | null;
+  user: { name: string; avatarUrl: string | null; role?: string };
+  replies?: StudyComment[];
 };
 
 type Study = {
@@ -110,6 +112,10 @@ export default function StudyQuestionnaire({
     }
   }
 
+  const [replyingToId, setReplyingToId] = useState<string | null>(null);
+  const [replyText, setReplyText] = useState("");
+  const [replying, setReplying] = useState(false);
+
   async function handlePostComment() {
     if (!newComment.trim()) return;
     setCommenting(true);
@@ -121,13 +127,45 @@ export default function StudyQuestionnaire({
       });
       if (res.ok) {
         const data = await res.json();
-        setComments([data.comment, ...comments]);
+        setComments([{ ...data.comment, replies: [] }, ...comments]);
         setNewComment("");
       }
     } catch (err) {
       console.error(err);
     } finally {
       setCommenting(false);
+    }
+  }
+
+  async function handlePostReply(parentId: string) {
+    if (!replyText.trim()) return;
+    setReplying(true);
+    try {
+      const res = await fetch(`/api/auth/studies/${study.id}/comment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: replyText.trim(), parentId }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setComments((prevComments) =>
+          prevComments.map((c) => {
+            if (c.id === parentId) {
+              return {
+                ...c,
+                replies: [...(c.replies || []), data.comment],
+              };
+            }
+            return c;
+          })
+        );
+        setReplyText("");
+        setReplyingToId(null);
+      }
+    } catch (err) {
+      console.error("Failed to post reply:", err);
+    } finally {
+      setReplying(false);
     }
   }
 
@@ -637,21 +675,122 @@ export default function StudyQuestionnaire({
             <p className="text-muted-foreground text-center py-6 bg-muted/30 rounded-lg">No comments yet. Be the first to start the discussion!</p>
           ) : (
             comments.map(comment => (
-              <div key={comment.id} className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
-                  {comment.user.avatarUrl ? (
-                    <img src={comment.user.avatarUrl} alt={comment.user.name} className="w-full h-full rounded-full object-cover" />
-                  ) : (
-                    <span className="font-semibold text-primary">{comment.user.name.charAt(0).toUpperCase()}</span>
-                  )}
-                </div>
-                <div className="flex-1 bg-card rounded-2xl rounded-tl-none p-4 border border-border shadow-sm">
-                  <div className="flex items-baseline justify-between gap-4 mb-2">
-                    <span className="font-semibold text-sm">{comment.user.name}</span>
-                    <span className="text-xs text-muted-foreground">{new Date(comment.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
+              <div key={comment.id} className="space-y-3">
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                    {comment.user.avatarUrl ? (
+                      <img src={comment.user.avatarUrl} alt={comment.user.name} className="w-full h-full rounded-full object-cover" />
+                    ) : (
+                      <span className="font-semibold text-primary">{comment.user.name.charAt(0).toUpperCase()}</span>
+                    )}
                   </div>
-                  <p className="text-sm text-foreground/90 whitespace-pre-wrap">{comment.text}</p>
+                  <div className="flex-1 bg-card rounded-2xl rounded-tl-none p-4 border border-border shadow-sm">
+                    <div className="flex items-baseline justify-between gap-4 mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-sm">{comment.user.name}</span>
+                        {comment.user.role === "RESEARCHER" && (
+                          <span className="text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                            Researcher
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-xs text-muted-foreground">{new Date(comment.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
+                    </div>
+                    <p className="text-sm text-foreground/90 whitespace-pre-wrap">{comment.text}</p>
+                    
+                    <div className="mt-3 pt-2 border-t border-border/50 flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (replyingToId === comment.id) {
+                            setReplyingToId(null);
+                            setReplyText("");
+                          } else {
+                            setReplyingToId(comment.id);
+                            setReplyText("");
+                          }
+                        }}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        <Reply className="w-3.5 h-3.5" />
+                        Reply
+                      </button>
+                    </div>
+
+                    {/* Inline reply box */}
+                    {replyingToId === comment.id && (
+                      <div className="mt-3 pt-3 border-t border-border flex flex-col gap-2">
+                        <div className="flex items-center justify-between text-xs text-muted-foreground">
+                          <span>Replying to <strong className="text-foreground">{comment.user.name}</strong></span>
+                          <button
+                            type="button"
+                            onClick={() => { setReplyingToId(null); setReplyText(""); }}
+                            className="p-1 hover:text-foreground rounded"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                        <div className="flex gap-2">
+                          <Input
+                            value={replyText}
+                            onChange={(e) => setReplyText(e.target.value)}
+                            placeholder={`Reply to ${comment.user.name}...`}
+                            className="h-9 text-xs bg-muted/30 flex-1"
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                handlePostReply(comment.id);
+                              }
+                            }}
+                            autoFocus
+                          />
+                          <Button
+                            size="sm"
+                            onClick={() => handlePostReply(comment.id)}
+                            disabled={!replyText.trim() || replying}
+                            className="h-9 px-3 text-xs gap-1.5"
+                          >
+                            <Send className="w-3 h-3" />
+                            {replying ? "Replying..." : "Reply"}
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
+
+                {/* Nested Threaded Replies */}
+                {comment.replies && comment.replies.length > 0 && (
+                  <div className="pl-10 sm:pl-14 space-y-3">
+                    {comment.replies.map(reply => (
+                      <div key={reply.id} className="flex gap-3">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 text-xs font-semibold text-primary">
+                          {reply.user.avatarUrl ? (
+                            <img src={reply.user.avatarUrl} alt={reply.user.name} className="w-full h-full rounded-full object-cover" />
+                          ) : (
+                            reply.user.name.charAt(0).toUpperCase()
+                          )}
+                        </div>
+                        <div className="flex-1 bg-muted/40 rounded-2xl rounded-tl-none p-3.5 border border-border">
+                          <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-semibold text-xs text-foreground">{reply.user.name}</span>
+                              {reply.user.role === "RESEARCHER" && (
+                                <span className="text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.2 rounded-full border border-emerald-500/20">
+                                  Researcher
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[11px] text-muted-foreground">
+                              {new Date(reply.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                            </span>
+                          </div>
+                          <p className="text-xs text-foreground/90 whitespace-pre-wrap leading-relaxed">{reply.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))
           )}

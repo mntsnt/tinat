@@ -28,6 +28,7 @@ export type StudyCommentMinAggregateOutputType = {
   id: string | null
   userId: string | null
   studyId: string | null
+  parentId: string | null
   text: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -37,6 +38,7 @@ export type StudyCommentMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   studyId: string | null
+  parentId: string | null
   text: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -46,6 +48,7 @@ export type StudyCommentCountAggregateOutputType = {
   id: number
   userId: number
   studyId: number
+  parentId: number
   text: number
   createdAt: number
   updatedAt: number
@@ -57,6 +60,7 @@ export type StudyCommentMinAggregateInputType = {
   id?: true
   userId?: true
   studyId?: true
+  parentId?: true
   text?: true
   createdAt?: true
   updatedAt?: true
@@ -66,6 +70,7 @@ export type StudyCommentMaxAggregateInputType = {
   id?: true
   userId?: true
   studyId?: true
+  parentId?: true
   text?: true
   createdAt?: true
   updatedAt?: true
@@ -75,6 +80,7 @@ export type StudyCommentCountAggregateInputType = {
   id?: true
   userId?: true
   studyId?: true
+  parentId?: true
   text?: true
   createdAt?: true
   updatedAt?: true
@@ -157,6 +163,7 @@ export type StudyCommentGroupByOutputType = {
   id: string
   userId: string
   studyId: string
+  parentId: string | null
   text: string
   createdAt: Date
   updatedAt: Date
@@ -187,22 +194,28 @@ export type StudyCommentWhereInput = {
   id?: Prisma.StringFilter<"StudyComment"> | string
   userId?: Prisma.StringFilter<"StudyComment"> | string
   studyId?: Prisma.StringFilter<"StudyComment"> | string
+  parentId?: Prisma.StringNullableFilter<"StudyComment"> | string | null
   text?: Prisma.StringFilter<"StudyComment"> | string
   createdAt?: Prisma.DateTimeFilter<"StudyComment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StudyComment"> | Date | string
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  parent?: Prisma.XOR<Prisma.StudyCommentNullableScalarRelationFilter, Prisma.StudyCommentWhereInput> | null
+  replies?: Prisma.StudyCommentListRelationFilter
 }
 
 export type StudyCommentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   text?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   study?: Prisma.StudyOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
+  parent?: Prisma.StudyCommentOrderByWithRelationInput
+  replies?: Prisma.StudyCommentOrderByRelationAggregateInput
 }
 
 export type StudyCommentWhereUniqueInput = Prisma.AtLeast<{
@@ -212,17 +225,21 @@ export type StudyCommentWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.StudyCommentWhereInput | Prisma.StudyCommentWhereInput[]
   userId?: Prisma.StringFilter<"StudyComment"> | string
   studyId?: Prisma.StringFilter<"StudyComment"> | string
+  parentId?: Prisma.StringNullableFilter<"StudyComment"> | string | null
   text?: Prisma.StringFilter<"StudyComment"> | string
   createdAt?: Prisma.DateTimeFilter<"StudyComment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StudyComment"> | Date | string
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  parent?: Prisma.XOR<Prisma.StudyCommentNullableScalarRelationFilter, Prisma.StudyCommentWhereInput> | null
+  replies?: Prisma.StudyCommentListRelationFilter
 }, "id">
 
 export type StudyCommentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   text?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -238,6 +255,7 @@ export type StudyCommentScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"StudyComment"> | string
   userId?: Prisma.StringWithAggregatesFilter<"StudyComment"> | string
   studyId?: Prisma.StringWithAggregatesFilter<"StudyComment"> | string
+  parentId?: Prisma.StringNullableWithAggregatesFilter<"StudyComment"> | string | null
   text?: Prisma.StringWithAggregatesFilter<"StudyComment"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StudyComment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"StudyComment"> | Date | string
@@ -250,15 +268,19 @@ export type StudyCommentCreateInput = {
   updatedAt?: Date | string
   study: Prisma.StudyCreateNestedOneWithoutCommentsInput
   user: Prisma.UserCreateNestedOneWithoutCommentsInput
+  parent?: Prisma.StudyCommentCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.StudyCommentCreateNestedManyWithoutParentInput
 }
 
 export type StudyCommentUncheckedCreateInput = {
   id?: string
   userId: string
   studyId: string
+  parentId?: string | null
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  replies?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutParentInput
 }
 
 export type StudyCommentUpdateInput = {
@@ -268,21 +290,26 @@ export type StudyCommentUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   study?: Prisma.StudyUpdateOneRequiredWithoutCommentsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutCommentsNestedInput
+  parent?: Prisma.StudyCommentUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.StudyCommentUpdateManyWithoutParentNestedInput
 }
 
 export type StudyCommentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   text?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.StudyCommentUncheckedUpdateManyWithoutParentNestedInput
 }
 
 export type StudyCommentCreateManyInput = {
   id?: string
   userId: string
   studyId: string
+  parentId?: string | null
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -299,6 +326,7 @@ export type StudyCommentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   text?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -314,10 +342,16 @@ export type StudyCommentOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type StudyCommentNullableScalarRelationFilter = {
+  is?: Prisma.StudyCommentWhereInput | null
+  isNot?: Prisma.StudyCommentWhereInput | null
+}
+
 export type StudyCommentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -327,6 +361,7 @@ export type StudyCommentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -336,6 +371,7 @@ export type StudyCommentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -425,20 +461,82 @@ export type StudyCommentUncheckedUpdateManyWithoutStudyNestedInput = {
   deleteMany?: Prisma.StudyCommentScalarWhereInput | Prisma.StudyCommentScalarWhereInput[]
 }
 
+export type StudyCommentCreateNestedOneWithoutRepliesInput = {
+  create?: Prisma.XOR<Prisma.StudyCommentCreateWithoutRepliesInput, Prisma.StudyCommentUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.StudyCommentCreateOrConnectWithoutRepliesInput
+  connect?: Prisma.StudyCommentWhereUniqueInput
+}
+
+export type StudyCommentCreateNestedManyWithoutParentInput = {
+  create?: Prisma.XOR<Prisma.StudyCommentCreateWithoutParentInput, Prisma.StudyCommentUncheckedCreateWithoutParentInput> | Prisma.StudyCommentCreateWithoutParentInput[] | Prisma.StudyCommentUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.StudyCommentCreateOrConnectWithoutParentInput | Prisma.StudyCommentCreateOrConnectWithoutParentInput[]
+  createMany?: Prisma.StudyCommentCreateManyParentInputEnvelope
+  connect?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+}
+
+export type StudyCommentUncheckedCreateNestedManyWithoutParentInput = {
+  create?: Prisma.XOR<Prisma.StudyCommentCreateWithoutParentInput, Prisma.StudyCommentUncheckedCreateWithoutParentInput> | Prisma.StudyCommentCreateWithoutParentInput[] | Prisma.StudyCommentUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.StudyCommentCreateOrConnectWithoutParentInput | Prisma.StudyCommentCreateOrConnectWithoutParentInput[]
+  createMany?: Prisma.StudyCommentCreateManyParentInputEnvelope
+  connect?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+}
+
+export type StudyCommentUpdateOneWithoutRepliesNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCommentCreateWithoutRepliesInput, Prisma.StudyCommentUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.StudyCommentCreateOrConnectWithoutRepliesInput
+  upsert?: Prisma.StudyCommentUpsertWithoutRepliesInput
+  disconnect?: Prisma.StudyCommentWhereInput | boolean
+  delete?: Prisma.StudyCommentWhereInput | boolean
+  connect?: Prisma.StudyCommentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudyCommentUpdateToOneWithWhereWithoutRepliesInput, Prisma.StudyCommentUpdateWithoutRepliesInput>, Prisma.StudyCommentUncheckedUpdateWithoutRepliesInput>
+}
+
+export type StudyCommentUpdateManyWithoutParentNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCommentCreateWithoutParentInput, Prisma.StudyCommentUncheckedCreateWithoutParentInput> | Prisma.StudyCommentCreateWithoutParentInput[] | Prisma.StudyCommentUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.StudyCommentCreateOrConnectWithoutParentInput | Prisma.StudyCommentCreateOrConnectWithoutParentInput[]
+  upsert?: Prisma.StudyCommentUpsertWithWhereUniqueWithoutParentInput | Prisma.StudyCommentUpsertWithWhereUniqueWithoutParentInput[]
+  createMany?: Prisma.StudyCommentCreateManyParentInputEnvelope
+  set?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+  disconnect?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+  delete?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+  connect?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+  update?: Prisma.StudyCommentUpdateWithWhereUniqueWithoutParentInput | Prisma.StudyCommentUpdateWithWhereUniqueWithoutParentInput[]
+  updateMany?: Prisma.StudyCommentUpdateManyWithWhereWithoutParentInput | Prisma.StudyCommentUpdateManyWithWhereWithoutParentInput[]
+  deleteMany?: Prisma.StudyCommentScalarWhereInput | Prisma.StudyCommentScalarWhereInput[]
+}
+
+export type StudyCommentUncheckedUpdateManyWithoutParentNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCommentCreateWithoutParentInput, Prisma.StudyCommentUncheckedCreateWithoutParentInput> | Prisma.StudyCommentCreateWithoutParentInput[] | Prisma.StudyCommentUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.StudyCommentCreateOrConnectWithoutParentInput | Prisma.StudyCommentCreateOrConnectWithoutParentInput[]
+  upsert?: Prisma.StudyCommentUpsertWithWhereUniqueWithoutParentInput | Prisma.StudyCommentUpsertWithWhereUniqueWithoutParentInput[]
+  createMany?: Prisma.StudyCommentCreateManyParentInputEnvelope
+  set?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+  disconnect?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+  delete?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+  connect?: Prisma.StudyCommentWhereUniqueInput | Prisma.StudyCommentWhereUniqueInput[]
+  update?: Prisma.StudyCommentUpdateWithWhereUniqueWithoutParentInput | Prisma.StudyCommentUpdateWithWhereUniqueWithoutParentInput[]
+  updateMany?: Prisma.StudyCommentUpdateManyWithWhereWithoutParentInput | Prisma.StudyCommentUpdateManyWithWhereWithoutParentInput[]
+  deleteMany?: Prisma.StudyCommentScalarWhereInput | Prisma.StudyCommentScalarWhereInput[]
+}
+
 export type StudyCommentCreateWithoutUserInput = {
   id?: string
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
   study: Prisma.StudyCreateNestedOneWithoutCommentsInput
+  parent?: Prisma.StudyCommentCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.StudyCommentCreateNestedManyWithoutParentInput
 }
 
 export type StudyCommentUncheckedCreateWithoutUserInput = {
   id?: string
   studyId: string
+  parentId?: string | null
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  replies?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutParentInput
 }
 
 export type StudyCommentCreateOrConnectWithoutUserInput = {
@@ -474,6 +572,7 @@ export type StudyCommentScalarWhereInput = {
   id?: Prisma.StringFilter<"StudyComment"> | string
   userId?: Prisma.StringFilter<"StudyComment"> | string
   studyId?: Prisma.StringFilter<"StudyComment"> | string
+  parentId?: Prisma.StringNullableFilter<"StudyComment"> | string | null
   text?: Prisma.StringFilter<"StudyComment"> | string
   createdAt?: Prisma.DateTimeFilter<"StudyComment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"StudyComment"> | Date | string
@@ -485,14 +584,18 @@ export type StudyCommentCreateWithoutStudyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCommentsInput
+  parent?: Prisma.StudyCommentCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.StudyCommentCreateNestedManyWithoutParentInput
 }
 
 export type StudyCommentUncheckedCreateWithoutStudyInput = {
   id?: string
   userId: string
+  parentId?: string | null
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  replies?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutParentInput
 }
 
 export type StudyCommentCreateOrConnectWithoutStudyInput = {
@@ -521,9 +624,112 @@ export type StudyCommentUpdateManyWithWhereWithoutStudyInput = {
   data: Prisma.XOR<Prisma.StudyCommentUpdateManyMutationInput, Prisma.StudyCommentUncheckedUpdateManyWithoutStudyInput>
 }
 
+export type StudyCommentCreateWithoutRepliesInput = {
+  id?: string
+  text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  study: Prisma.StudyCreateNestedOneWithoutCommentsInput
+  user: Prisma.UserCreateNestedOneWithoutCommentsInput
+  parent?: Prisma.StudyCommentCreateNestedOneWithoutRepliesInput
+}
+
+export type StudyCommentUncheckedCreateWithoutRepliesInput = {
+  id?: string
+  userId: string
+  studyId: string
+  parentId?: string | null
+  text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type StudyCommentCreateOrConnectWithoutRepliesInput = {
+  where: Prisma.StudyCommentWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCommentCreateWithoutRepliesInput, Prisma.StudyCommentUncheckedCreateWithoutRepliesInput>
+}
+
+export type StudyCommentCreateWithoutParentInput = {
+  id?: string
+  text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  study: Prisma.StudyCreateNestedOneWithoutCommentsInput
+  user: Prisma.UserCreateNestedOneWithoutCommentsInput
+  replies?: Prisma.StudyCommentCreateNestedManyWithoutParentInput
+}
+
+export type StudyCommentUncheckedCreateWithoutParentInput = {
+  id?: string
+  userId: string
+  studyId: string
+  text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  replies?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutParentInput
+}
+
+export type StudyCommentCreateOrConnectWithoutParentInput = {
+  where: Prisma.StudyCommentWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCommentCreateWithoutParentInput, Prisma.StudyCommentUncheckedCreateWithoutParentInput>
+}
+
+export type StudyCommentCreateManyParentInputEnvelope = {
+  data: Prisma.StudyCommentCreateManyParentInput | Prisma.StudyCommentCreateManyParentInput[]
+  skipDuplicates?: boolean
+}
+
+export type StudyCommentUpsertWithoutRepliesInput = {
+  update: Prisma.XOR<Prisma.StudyCommentUpdateWithoutRepliesInput, Prisma.StudyCommentUncheckedUpdateWithoutRepliesInput>
+  create: Prisma.XOR<Prisma.StudyCommentCreateWithoutRepliesInput, Prisma.StudyCommentUncheckedCreateWithoutRepliesInput>
+  where?: Prisma.StudyCommentWhereInput
+}
+
+export type StudyCommentUpdateToOneWithWhereWithoutRepliesInput = {
+  where?: Prisma.StudyCommentWhereInput
+  data: Prisma.XOR<Prisma.StudyCommentUpdateWithoutRepliesInput, Prisma.StudyCommentUncheckedUpdateWithoutRepliesInput>
+}
+
+export type StudyCommentUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  study?: Prisma.StudyUpdateOneRequiredWithoutCommentsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutCommentsNestedInput
+  parent?: Prisma.StudyCommentUpdateOneWithoutRepliesNestedInput
+}
+
+export type StudyCommentUncheckedUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type StudyCommentUpsertWithWhereUniqueWithoutParentInput = {
+  where: Prisma.StudyCommentWhereUniqueInput
+  update: Prisma.XOR<Prisma.StudyCommentUpdateWithoutParentInput, Prisma.StudyCommentUncheckedUpdateWithoutParentInput>
+  create: Prisma.XOR<Prisma.StudyCommentCreateWithoutParentInput, Prisma.StudyCommentUncheckedCreateWithoutParentInput>
+}
+
+export type StudyCommentUpdateWithWhereUniqueWithoutParentInput = {
+  where: Prisma.StudyCommentWhereUniqueInput
+  data: Prisma.XOR<Prisma.StudyCommentUpdateWithoutParentInput, Prisma.StudyCommentUncheckedUpdateWithoutParentInput>
+}
+
+export type StudyCommentUpdateManyWithWhereWithoutParentInput = {
+  where: Prisma.StudyCommentScalarWhereInput
+  data: Prisma.XOR<Prisma.StudyCommentUpdateManyMutationInput, Prisma.StudyCommentUncheckedUpdateManyWithoutParentInput>
+}
+
 export type StudyCommentCreateManyUserInput = {
   id?: string
   studyId: string
+  parentId?: string | null
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -535,19 +741,24 @@ export type StudyCommentUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   study?: Prisma.StudyUpdateOneRequiredWithoutCommentsNestedInput
+  parent?: Prisma.StudyCommentUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.StudyCommentUpdateManyWithoutParentNestedInput
 }
 
 export type StudyCommentUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   text?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.StudyCommentUncheckedUpdateManyWithoutParentNestedInput
 }
 
 export type StudyCommentUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   text?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -556,6 +767,7 @@ export type StudyCommentUncheckedUpdateManyWithoutUserInput = {
 export type StudyCommentCreateManyStudyInput = {
   id?: string
   userId: string
+  parentId?: string | null
   text: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -567,80 +779,166 @@ export type StudyCommentUpdateWithoutStudyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCommentsNestedInput
+  parent?: Prisma.StudyCommentUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.StudyCommentUpdateManyWithoutParentNestedInput
 }
 
 export type StudyCommentUncheckedUpdateWithoutStudyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   text?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.StudyCommentUncheckedUpdateManyWithoutParentNestedInput
 }
 
 export type StudyCommentUncheckedUpdateManyWithoutStudyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   text?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type StudyCommentCreateManyParentInput = {
+  id?: string
+  userId: string
+  studyId: string
+  text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type StudyCommentUpdateWithoutParentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  study?: Prisma.StudyUpdateOneRequiredWithoutCommentsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutCommentsNestedInput
+  replies?: Prisma.StudyCommentUpdateManyWithoutParentNestedInput
+}
+
+export type StudyCommentUncheckedUpdateWithoutParentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.StudyCommentUncheckedUpdateManyWithoutParentNestedInput
+}
+
+export type StudyCommentUncheckedUpdateManyWithoutParentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type StudyCommentCountOutputType
+ */
+
+export type StudyCommentCountOutputType = {
+  replies: number
+}
+
+export type StudyCommentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  replies?: boolean | StudyCommentCountOutputTypeCountRepliesArgs
+}
+
+/**
+ * StudyCommentCountOutputType without action
+ */
+export type StudyCommentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudyCommentCountOutputType
+   */
+  select?: Prisma.StudyCommentCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * StudyCommentCountOutputType without action
+ */
+export type StudyCommentCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StudyCommentWhereInput
+}
 
 
 export type StudyCommentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   studyId?: boolean
+  parentId?: boolean
   text?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.StudyComment$parentArgs<ExtArgs>
+  replies?: boolean | Prisma.StudyComment$repliesArgs<ExtArgs>
+  _count?: boolean | Prisma.StudyCommentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["studyComment"]>
 
 export type StudyCommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   studyId?: boolean
+  parentId?: boolean
   text?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.StudyComment$parentArgs<ExtArgs>
 }, ExtArgs["result"]["studyComment"]>
 
 export type StudyCommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   studyId?: boolean
+  parentId?: boolean
   text?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.StudyComment$parentArgs<ExtArgs>
 }, ExtArgs["result"]["studyComment"]>
 
 export type StudyCommentSelectScalar = {
   id?: boolean
   userId?: boolean
   studyId?: boolean
+  parentId?: boolean
   text?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type StudyCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "studyId" | "text" | "createdAt" | "updatedAt", ExtArgs["result"]["studyComment"]>
+export type StudyCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "studyId" | "parentId" | "text" | "createdAt" | "updatedAt", ExtArgs["result"]["studyComment"]>
 export type StudyCommentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.StudyComment$parentArgs<ExtArgs>
+  replies?: boolean | Prisma.StudyComment$repliesArgs<ExtArgs>
+  _count?: boolean | Prisma.StudyCommentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StudyCommentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.StudyComment$parentArgs<ExtArgs>
 }
 export type StudyCommentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  parent?: boolean | Prisma.StudyComment$parentArgs<ExtArgs>
 }
 
 export type $StudyCommentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -648,11 +946,14 @@ export type $StudyCommentPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     study: Prisma.$StudyPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs>
+    parent: Prisma.$StudyCommentPayload<ExtArgs> | null
+    replies: Prisma.$StudyCommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
     studyId: string
+    parentId: string | null
     text: string
     createdAt: Date
     updatedAt: Date
@@ -1052,6 +1353,8 @@ export interface Prisma__StudyCommentClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   study<T extends Prisma.StudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyDefaultArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  parent<T extends Prisma.StudyComment$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyComment$parentArgs<ExtArgs>>): Prisma.Prisma__StudyCommentClient<runtime.Types.Result.GetResult<Prisma.$StudyCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  replies<T extends Prisma.StudyComment$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyComment$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1084,6 +1387,7 @@ export interface StudyCommentFieldRefs {
   readonly id: Prisma.FieldRef<"StudyComment", 'String'>
   readonly userId: Prisma.FieldRef<"StudyComment", 'String'>
   readonly studyId: Prisma.FieldRef<"StudyComment", 'String'>
+  readonly parentId: Prisma.FieldRef<"StudyComment", 'String'>
   readonly text: Prisma.FieldRef<"StudyComment", 'String'>
   readonly createdAt: Prisma.FieldRef<"StudyComment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"StudyComment", 'DateTime'>
@@ -1485,6 +1789,49 @@ export type StudyCommentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many StudyComments to delete.
    */
   limit?: number
+}
+
+/**
+ * StudyComment.parent
+ */
+export type StudyComment$parentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudyComment
+   */
+  select?: Prisma.StudyCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StudyComment
+   */
+  omit?: Prisma.StudyCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StudyCommentInclude<ExtArgs> | null
+  where?: Prisma.StudyCommentWhereInput
+}
+
+/**
+ * StudyComment.replies
+ */
+export type StudyComment$repliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudyComment
+   */
+  select?: Prisma.StudyCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StudyComment
+   */
+  omit?: Prisma.StudyCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StudyCommentInclude<ExtArgs> | null
+  where?: Prisma.StudyCommentWhereInput
+  orderBy?: Prisma.StudyCommentOrderByWithRelationInput | Prisma.StudyCommentOrderByWithRelationInput[]
+  cursor?: Prisma.StudyCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StudyCommentScalarFieldEnum | Prisma.StudyCommentScalarFieldEnum[]
 }
 
 /**
