@@ -322,7 +322,7 @@ export function AIAnalysisTab({
           </Badge>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {AVAILABLE_MODELS.map((model) => {
             const isSelected = selectedModel === model.id;
             return (
@@ -346,8 +346,16 @@ export function AIAnalysisTab({
                 >
                   {model.id === "gemini" ? (
                     <Sparkles className="h-4 w-4" />
+                  ) : model.id === "ling-sante" ? (
+                    <Activity className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-emerald-500"}`} />
+                  ) : model.id === "nemotron" ? (
+                    <Cpu className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-purple-500"}`} />
+                  ) : model.id === "gemma-31b" ? (
+                    <Sparkles className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-blue-500"}`} />
+                  ) : model.id === "nemotron-lightning" ? (
+                    <Zap className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-amber-500"}`} />
                   ) : (
-                    <Zap className="h-4 w-4" />
+                    <BookOpen className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-indigo-500"}`} />
                   )}
                 </div>
 
@@ -476,14 +484,10 @@ export function AIAnalysisTab({
               <Sparkles className="h-5 w-5 text-primary absolute -top-1 -right-1 animate-bounce" />
             </div>
             <h4 className="text-base font-semibold text-foreground mb-1">
-              {selectedModel === "nemotron"
-                ? "Synthesizing with NVIDIA Nemotron 3 Ultra (550B MoE)..."
-                : "Processing Deterministic Statistics with Google Gemini..."}
+              Synthesizing with {AVAILABLE_MODELS.find((m) => m.id === selectedModel)?.name || "AI"}...
             </h4>
             <p className="text-xs text-muted-foreground max-w-sm">
-              {selectedModel === "nemotron"
-                ? "Executing deep statistical reasoning on verified cohort distributions via OpenRouter."
-                : "Calculating exact frequencies, response distributions, and querying Google Gemini for medical research insights."}
+              Calculating exact frequencies, response distributions, and querying {AVAILABLE_MODELS.find((m) => m.id === selectedModel)?.name || "AI Engine"} for medical research insights.
             </p>
           </CardContent>
         </Card>
