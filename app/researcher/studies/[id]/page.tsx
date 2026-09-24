@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Badge } from "../../../components/ui/Badge";
 import { Button, getButtonClasses } from "../../../components/ui/Button";
 import { AIAnalysisTab } from "./AIAnalysisTab";
+import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { Star } from "lucide-react";
 
 type Props = {
@@ -273,6 +274,17 @@ export default async function ResearchStudyPage({ params }: Props) {
           questionCount={study.questions.length}
         />
       </div>
+
+      {totalResponses > 0 && (
+        <div className="mb-10">
+          <DataVisualizationStudio
+            studyTitle={study.title}
+            questions={study.questions}
+            responses={study.responses}
+            participantTarget={study.participantTarget}
+          />
+        </div>
+      )}
 
       <div className="mb-6 flex items-center justify-between border-t border-border pt-10">
         <div>
