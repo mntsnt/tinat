@@ -231,3 +231,18 @@ export type AIArtifact = Prisma.AIArtifactModel
  * 
  */
 export type AIUsage = Prisma.AIUsageModel
+/**
+ * Model Verification
+ * 
+ */
+export type Verification = Prisma.VerificationModel
+/**
+ * Model StudyDataCollector
+ * 
+ */
+export type StudyDataCollector = Prisma.StudyDataCollectorModel
+/**
+ * Model CollectorInvitation
+ * 
+ */
+export type CollectorInvitation = Prisma.CollectorInvitationModel

@@ -15,6 +15,10 @@ export function formatStudyContext(summary: StudyDatasetSummary): string {
   if (summary.objective) parts.push(`Research Objective: "${summary.objective}"`);
   if (summary.targetPopulation) parts.push(`Target Population: "${summary.targetPopulation}"`);
   parts.push(`Total Participants (Completed Responses): ${summary.totalResponses}`);
+  if (summary.fieldCollectedResponses > 0) {
+    parts.push(`- Self-Collected (App): ${summary.selfCollectedResponses}`);
+    parts.push(`- Field-Collected (By Verified Data Collectors): ${summary.fieldCollectedResponses}`);
+  }
   if (summary.participantTarget > 0) {
     parts.push(`Participant Target: ${summary.participantTarget}`);
     if (summary.completionRate !== null) {

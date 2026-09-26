@@ -88,7 +88,10 @@ export const ModelName = {
   AIConversation: 'AIConversation',
   AIMessage: 'AIMessage',
   AIArtifact: 'AIArtifact',
-  AIUsage: 'AIUsage'
+  AIUsage: 'AIUsage',
+  Verification: 'Verification',
+  StudyDataCollector: 'StudyDataCollector',
+  CollectorInvitation: 'CollectorInvitation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -267,7 +270,9 @@ export const ResponseScalarFieldEnum = {
   id: 'id',
   studyId: 'studyId',
   participantId: 'participantId',
-  submittedAt: 'submittedAt'
+  submittedAt: 'submittedAt',
+  collectionMethod: 'collectionMethod',
+  collectorId: 'collectorId'
 } as const
 
 export type ResponseScalarFieldEnum = (typeof ResponseScalarFieldEnum)[keyof typeof ResponseScalarFieldEnum]
@@ -673,6 +678,46 @@ export const AIUsageScalarFieldEnum = {
 } as const
 
 export type AIUsageScalarFieldEnum = (typeof AIUsageScalarFieldEnum)[keyof typeof AIUsageScalarFieldEnum]
+
+
+export const VerificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  verificationType: 'verificationType',
+  status: 'status',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  reviewedById: 'reviewedById',
+  rejectionReason: 'rejectionReason',
+  verificationReference: 'verificationReference',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const StudyDataCollectorScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  userId: 'userId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type StudyDataCollectorScalarFieldEnum = (typeof StudyDataCollectorScalarFieldEnum)[keyof typeof StudyDataCollectorScalarFieldEnum]
+
+
+export const CollectorInvitationScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  inviterId: 'inviterId',
+  inviteeId: 'inviteeId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CollectorInvitationScalarFieldEnum = (typeof CollectorInvitationScalarFieldEnum)[keyof typeof CollectorInvitationScalarFieldEnum]
 
 
 export const SortOrder = {

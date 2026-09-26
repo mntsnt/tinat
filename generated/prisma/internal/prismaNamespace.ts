@@ -434,7 +434,10 @@ export const ModelName = {
   AIConversation: 'AIConversation',
   AIMessage: 'AIMessage',
   AIArtifact: 'AIArtifact',
-  AIUsage: 'AIUsage'
+  AIUsage: 'AIUsage',
+  Verification: 'Verification',
+  StudyDataCollector: 'StudyDataCollector',
+  CollectorInvitation: 'CollectorInvitation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -450,7 +453,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3266,6 +3269,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Verification: {
+      payload: Prisma.$VerificationPayload<ExtArgs>
+      fields: Prisma.VerificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VerificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VerificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload>
+        }
+        findFirst: {
+          args: Prisma.VerificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VerificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload>
+        }
+        findMany: {
+          args: Prisma.VerificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload>[]
+        }
+        create: {
+          args: Prisma.VerificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload>
+        }
+        createMany: {
+          args: Prisma.VerificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VerificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload>[]
+        }
+        delete: {
+          args: Prisma.VerificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload>
+        }
+        update: {
+          args: Prisma.VerificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.VerificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VerificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VerificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.VerificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationPayload>
+        }
+        aggregate: {
+          args: Prisma.VerificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVerification>
+        }
+        groupBy: {
+          args: Prisma.VerificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VerificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VerificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VerificationCountAggregateOutputType> | number
+        }
+      }
+    }
+    StudyDataCollector: {
+      payload: Prisma.$StudyDataCollectorPayload<ExtArgs>
+      fields: Prisma.StudyDataCollectorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StudyDataCollectorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StudyDataCollectorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload>
+        }
+        findFirst: {
+          args: Prisma.StudyDataCollectorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StudyDataCollectorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload>
+        }
+        findMany: {
+          args: Prisma.StudyDataCollectorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload>[]
+        }
+        create: {
+          args: Prisma.StudyDataCollectorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload>
+        }
+        createMany: {
+          args: Prisma.StudyDataCollectorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StudyDataCollectorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload>[]
+        }
+        delete: {
+          args: Prisma.StudyDataCollectorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload>
+        }
+        update: {
+          args: Prisma.StudyDataCollectorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload>
+        }
+        deleteMany: {
+          args: Prisma.StudyDataCollectorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StudyDataCollectorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StudyDataCollectorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload>[]
+        }
+        upsert: {
+          args: Prisma.StudyDataCollectorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StudyDataCollectorPayload>
+        }
+        aggregate: {
+          args: Prisma.StudyDataCollectorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStudyDataCollector>
+        }
+        groupBy: {
+          args: Prisma.StudyDataCollectorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StudyDataCollectorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StudyDataCollectorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StudyDataCollectorCountAggregateOutputType> | number
+        }
+      }
+    }
+    CollectorInvitation: {
+      payload: Prisma.$CollectorInvitationPayload<ExtArgs>
+      fields: Prisma.CollectorInvitationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CollectorInvitationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CollectorInvitationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload>
+        }
+        findFirst: {
+          args: Prisma.CollectorInvitationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CollectorInvitationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload>
+        }
+        findMany: {
+          args: Prisma.CollectorInvitationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload>[]
+        }
+        create: {
+          args: Prisma.CollectorInvitationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload>
+        }
+        createMany: {
+          args: Prisma.CollectorInvitationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CollectorInvitationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload>[]
+        }
+        delete: {
+          args: Prisma.CollectorInvitationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload>
+        }
+        update: {
+          args: Prisma.CollectorInvitationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CollectorInvitationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CollectorInvitationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CollectorInvitationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload>[]
+        }
+        upsert: {
+          args: Prisma.CollectorInvitationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorInvitationPayload>
+        }
+        aggregate: {
+          args: Prisma.CollectorInvitationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCollectorInvitation>
+        }
+        groupBy: {
+          args: Prisma.CollectorInvitationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectorInvitationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CollectorInvitationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectorInvitationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3465,7 +3690,9 @@ export const ResponseScalarFieldEnum = {
   id: 'id',
   studyId: 'studyId',
   participantId: 'participantId',
-  submittedAt: 'submittedAt'
+  submittedAt: 'submittedAt',
+  collectionMethod: 'collectionMethod',
+  collectorId: 'collectorId'
 } as const
 
 export type ResponseScalarFieldEnum = (typeof ResponseScalarFieldEnum)[keyof typeof ResponseScalarFieldEnum]
@@ -3873,6 +4100,46 @@ export const AIUsageScalarFieldEnum = {
 export type AIUsageScalarFieldEnum = (typeof AIUsageScalarFieldEnum)[keyof typeof AIUsageScalarFieldEnum]
 
 
+export const VerificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  verificationType: 'verificationType',
+  status: 'status',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  reviewedById: 'reviewedById',
+  rejectionReason: 'rejectionReason',
+  verificationReference: 'verificationReference',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const StudyDataCollectorScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  userId: 'userId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type StudyDataCollectorScalarFieldEnum = (typeof StudyDataCollectorScalarFieldEnum)[keyof typeof StudyDataCollectorScalarFieldEnum]
+
+
+export const CollectorInvitationScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  inviterId: 'inviterId',
+  inviteeId: 'inviteeId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CollectorInvitationScalarFieldEnum = (typeof CollectorInvitationScalarFieldEnum)[keyof typeof CollectorInvitationScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4022,6 +4289,20 @@ export type EnumQuestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'QuestionType[]'
  */
 export type ListEnumQuestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuestionType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CollectionMethod'
+ */
+export type EnumCollectionMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CollectionMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'CollectionMethod[]'
+ */
+export type ListEnumCollectionMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CollectionMethod[]'>
     
 
 
@@ -4304,6 +4585,34 @@ export type EnumAIArtifactTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 export type ListEnumAIArtifactTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AIArtifactType[]'>
     
 
+
+/**
+ * Reference to a field of type 'VerificationType'
+ */
+export type EnumVerificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationType'>
+    
+
+
+/**
+ * Reference to a field of type 'VerificationType[]'
+ */
+export type ListEnumVerificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'VerificationStatus'
+ */
+export type EnumVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'VerificationStatus[]'
+ */
+export type ListEnumVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -4493,6 +4802,9 @@ export type GlobalOmitConfig = {
   aIMessage?: Prisma.AIMessageOmit
   aIArtifact?: Prisma.AIArtifactOmit
   aIUsage?: Prisma.AIUsageOmit
+  verification?: Prisma.VerificationOmit
+  studyDataCollector?: Prisma.StudyDataCollectorOmit
+  collectorInvitation?: Prisma.CollectorInvitationOmit
 }
 
 /* Types for Logging */

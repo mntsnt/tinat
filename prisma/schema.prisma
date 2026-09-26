@@ -52,6 +52,12 @@ model User {
   linkedProjectStudies        ProjectLinkedStudy[]
   aiConversations             AIConversation[]
   aiUsages                    AIUsage[]
+  verifications               Verification[] @relation("UserVerifications")
+  reviewedVerifications       Verification[] @relation("AdminReviews")
+  assignedStudies             StudyDataCollector[] @relation("AssignedCollector")
+  sentCollectorInvitations    CollectorInvitation[] @relation("CollectorInviter")
+  receivedCollectorInvitations CollectorInvitation[] @relation("CollectorInvitee")
+  collectedResponses          Response[] @relation("CollectedResponses")
 }
 
 model Study {
@@ -83,6 +89,8 @@ model Study {
   ratings             StudyRating[]
   linkedProjects      ProjectLinkedStudy[]
   aiConversations     AIConversation[]
+  dataCollectors      StudyDataCollector[] @relation("StudyDataCollectors")
+  collectorInvitations CollectorInvitation[] @relation("StudyCollectorInvitations")
 }
 
 model StudyBookmark {
@@ -200,13 +208,16 @@ model QuestionOption {
 }
 
 model Response {
-  id            String   @id @default(cuid())
-  studyId       String
-  participantId String
-  submittedAt   DateTime @default(now())
-  answers       Answer[]
-  participant   User     @relation(fields: [participantId], references: [id], onDelete: Cascade)
-  study         Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  id               String           @id @default(cuid())
+  studyId          String
+  participantId    String
+  submittedAt      DateTime         @default(now())
+  collectionMethod CollectionMethod @default(SELF)
+  collectorId      String?
+  answers          Answer[]
+  participant      User             @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  study            Study            @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  collector        User?            @relation("CollectedResponses", fields: [collectorId], references: [id], onDelete: SetNull)
 
   @@unique([studyId, participantId])
 }
@@ -862,4 +873,70 @@ model AIUsage {
 
   @@index([userId])
   @@index([conversationId])
+}
+
+enum VerificationType {
+  RESEARCHER
+  DATA_COLLECTOR
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  PENDING
+  VERIFIED
+  REJECTED
+  SUSPENDED
+}
+
+model Verification {
+  id                    String              @id @default(cuid())
+  userId                String
+  verificationType      VerificationType
+  status                VerificationStatus  @default(PENDING)
+  submittedAt           DateTime            @default(now())
+  reviewedAt            DateTime?
+  reviewedById          String?
+  rejectionReason       String?
+  verificationReference String?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  user                  User                @relation("UserVerifications", fields: [userId], references: [id], onDelete: Cascade)
+  reviewedBy            User?               @relation("AdminReviews", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@unique([userId, verificationType])
+  @@index([status])
+}
+
+model StudyDataCollector {
+  id        String   @id @default(cuid())
+  studyId   String
+  userId    String
+  assignedAt DateTime @default(now())
+
+  study     Study    @relation("StudyDataCollectors", fields: [studyId], references: [id], onDelete: Cascade)
+  user      User     @relation("AssignedCollector", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([studyId, userId])
+}
+
+model CollectorInvitation {
+  id          String   @id @default(cuid())
+  studyId     String
+  inviterId   String
+  inviteeId   String
+  status      InvitationStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  study       Study    @relation("StudyCollectorInvitations", fields: [studyId], references: [id], onDelete: Cascade)
+  inviter     User     @relation("CollectorInviter", fields: [inviterId], references: [id], onDelete: Cascade)
+  invitee     User     @relation("CollectorInvitee", fields: [inviteeId], references: [id], onDelete: Cascade)
+
+  @@unique([studyId, inviteeId])
+}
+
+enum CollectionMethod {
+  SELF
+  FIELD_COLLECTED
 }

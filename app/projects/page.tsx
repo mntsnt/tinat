@@ -316,19 +316,21 @@ function ProjectCard({ project }: { project: any }) {
   };
 
   const health = progress.health || "ON_TRACK";
+  const healthStatus = typeof health === "object" ? (health as any).status : health;
+
   const healthColorMap: Record<string, string> = {
     ON_TRACK: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
     ATTENTION_NEEDED: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800",
     AT_RISK: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800",
   };
-  const healthColor = healthColorMap[health] || healthColorMap.ON_TRACK;
+  const healthColor = healthColorMap[healthStatus] || healthColorMap.ON_TRACK;
 
   const healthLabelMap: Record<string, string> = {
     ON_TRACK: "On Track",
     ATTENTION_NEEDED: "Needs Review",
     AT_RISK: "At Risk",
   };
-  const healthLabel = healthLabelMap[health] || "On Track";
+  const healthLabel = healthLabelMap[healthStatus] || "On Track";
 
   const linkedStudiesCount = project._count?.linkedStudies ?? 0;
   const members = Array.isArray(project.members) ? project.members : [];

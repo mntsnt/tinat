@@ -65,7 +65,28 @@ export function ArtifactRenderer({ content }: { content: string }) {
                   <button className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition" title="Save to Project">
                     <Save className="w-4 h-4" />
                   </button>
-                  <button className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition" title="Download CSV">
+                  <button 
+                    className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition" 
+                    title="Download CSV"
+                    onClick={() => {
+                      const csvRows = [headers.join(',')];
+                      data.forEach((r: any) => {
+                        const values = headers.map(header => {
+                          const val = r[header] || '';
+                          return `"${String(val).replace(/"/g, '""')}"`;
+                        });
+                        csvRows.push(values.join(','));
+                      });
+                      const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+                      const url = window.URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.setAttribute('href', url);
+                      a.setAttribute('download', `${part.title.replace(/\s+/g, '_').toLowerCase()}.csv`);
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);
+                    }}
+                  >
                     <Download className="w-4 h-4" />
                   </button>
                 </div>

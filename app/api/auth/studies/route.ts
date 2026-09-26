@@ -210,6 +210,24 @@ export async function POST(request: Request) {
       );
     }
 
+    const researcherVerification = await prisma.verification.findUnique({
+      where: {
+        userId_verificationType: {
+          userId: user.id,
+          verificationType: "RESEARCHER",
+        }
+      }
+    });
+
+    if (!researcherVerification || researcherVerification.status !== "VERIFIED") {
+      return NextResponse.json(
+        {
+          error: "You must complete identity verification as a Researcher before creating studies.",
+        },
+        { status: 403 }
+      );
+    }
+
     /*
     |--------------------------------------------------------------------------
     | 3. Read request body

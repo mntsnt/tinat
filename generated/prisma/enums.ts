@@ -249,3 +249,30 @@ export const AIArtifactType = {
 } as const
 
 export type AIArtifactType = (typeof AIArtifactType)[keyof typeof AIArtifactType]
+
+
+export const VerificationType = {
+  RESEARCHER: 'RESEARCHER',
+  DATA_COLLECTOR: 'DATA_COLLECTOR'
+} as const
+
+export type VerificationType = (typeof VerificationType)[keyof typeof VerificationType]
+
+
+export const VerificationStatus = {
+  UNVERIFIED: 'UNVERIFIED',
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type VerificationStatus = (typeof VerificationStatus)[keyof typeof VerificationStatus]
+
+
+export const CollectionMethod = {
+  SELF: 'SELF',
+  FIELD_COLLECTED: 'FIELD_COLLECTED'
+} as const
+
+export type CollectionMethod = (typeof CollectionMethod)[keyof typeof CollectionMethod]

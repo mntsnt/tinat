@@ -63,6 +63,8 @@ export interface StudyDatasetSummary {
   targetPopulation: string | null;
   studyType: string;
   totalResponses: number;
+  selfCollectedResponses: number;
+  fieldCollectedResponses: number;
   participantTarget: number;
   completionRate: number | null; // e.g. 93.5%
   questionCount: number;
@@ -96,6 +98,7 @@ export function computeStudyStatistics(study: {
   responses: Array<{
     id: string;
     submittedAt: Date;
+    collectionMethod?: string;
     answers: Array<{
       questionId: string;
       textValue: string | null;
@@ -104,6 +107,9 @@ export function computeStudyStatistics(study: {
   }>;
 }): StudyDatasetSummary {
   const totalResponses = study.responses.length;
+  const selfCollectedResponses = study.responses.filter(r => !r.collectionMethod || r.collectionMethod === "SELF").length;
+  const fieldCollectedResponses = study.responses.filter(r => r.collectionMethod === "FIELD_COLLECTED").length;
+
   const questionCount = study.questions.length;
   const completionRate =
     study.participantTarget > 0
@@ -296,6 +302,8 @@ export function computeStudyStatistics(study: {
     targetPopulation: study.targetPopulation,
     studyType: study.studyType,
     totalResponses,
+    selfCollectedResponses,
+    fieldCollectedResponses,
     participantTarget: study.participantTarget,
     completionRate,
     questionCount,

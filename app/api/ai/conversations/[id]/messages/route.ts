@@ -7,14 +7,13 @@ import { computeStudyStatistics } from "@/lib/ai/data-analysis";
 import { formatStudyContext } from "@/lib/ai/context";
 import { AVAILABLE_MODELS } from "@/lib/ai/models";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id: conversationId } = await params;
     const session = await getSession();
     if (!session || !session.userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    const { id: conversationId } = params;
 
     const messages = await prisma.aIMessage.findMany({
       where: {
@@ -31,14 +30,14 @@ export async function GET(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function POST(request: Request, { params }: { params: { id: string } }) {
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id: conversationId } = await params;
     const session = await getSession();
     if (!session || !session.userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id: conversationId } = params;
     const body = await request.json();
     const { content } = body;
 
