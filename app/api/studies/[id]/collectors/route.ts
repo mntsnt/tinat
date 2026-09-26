@@ -76,6 +76,15 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       }
     });
 
+    await prisma.notification.create({
+      data: {
+        userId: collectorUser.id,
+        title: "New Data Collection Invitation",
+        message: `You have been invited to collect data for study: ${study.title}`,
+        linkUrl: "/collector/dashboard",
+      }
+    });
+
     return NextResponse.json({ success: true, invitation });
   } catch (error) {
     return NextResponse.json({ error: "Internal error" }, { status: 500 });

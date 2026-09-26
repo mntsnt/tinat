@@ -58,6 +58,7 @@ model User {
   sentCollectorInvitations    CollectorInvitation[] @relation("CollectorInviter")
   receivedCollectorInvitations CollectorInvitation[] @relation("CollectorInvitee")
   collectedResponses          Response[] @relation("CollectedResponses")
+  collectionSessions           CollectionSession[]      @relation("CollectorSessions")
 }
 
 model Study {
@@ -91,6 +92,7 @@ model Study {
   aiConversations     AIConversation[]
   dataCollectors      StudyDataCollector[] @relation("StudyDataCollectors")
   collectorInvitations CollectorInvitation[] @relation("StudyCollectorInvitations")
+  collectionSessions   CollectionSession[] @relation("StudyCollectionSessions")
 }
 
 model StudyBookmark {
@@ -214,10 +216,12 @@ model Response {
   submittedAt      DateTime         @default(now())
   collectionMethod CollectionMethod @default(SELF)
   collectorId      String?
+  collectionSessionId String?
   answers          Answer[]
   participant      User             @relation(fields: [participantId], references: [id], onDelete: Cascade)
   study            Study            @relation(fields: [studyId], references: [id], onDelete: Cascade)
   collector        User?            @relation("CollectedResponses", fields: [collectorId], references: [id], onDelete: SetNull)
+  session          CollectionSession? @relation("SessionResponses", fields: [collectionSessionId], references: [id], onDelete: SetNull)
 
   @@unique([studyId, participantId])
 }
@@ -939,4 +943,27 @@ model CollectorInvitation {
 enum CollectionMethod {
   SELF
   FIELD_COLLECTED
+}
+
+
+model CollectionSession {
+  id          String   @id @default(cuid())
+  studyId     String
+  collectorId String
+  startTime   DateTime @default(now())
+  endTime     DateTime?
+  status      SessionStatus @default(ACTIVE)
+
+  study       Study    @relation("StudyCollectionSessions", fields: [studyId], references: [id], onDelete: Cascade)
+  collector   User     @relation("CollectorSessions", fields: [collectorId], references: [id], onDelete: Cascade)
+  responses   Response[] @relation("SessionResponses")
+
+  @@index([studyId])
+  @@index([collectorId])
+}
+
+enum SessionStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
 }

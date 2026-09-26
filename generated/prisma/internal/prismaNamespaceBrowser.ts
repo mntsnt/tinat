@@ -91,7 +91,8 @@ export const ModelName = {
   AIUsage: 'AIUsage',
   Verification: 'Verification',
   StudyDataCollector: 'StudyDataCollector',
-  CollectorInvitation: 'CollectorInvitation'
+  CollectorInvitation: 'CollectorInvitation',
+  CollectionSession: 'CollectionSession'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -272,7 +273,8 @@ export const ResponseScalarFieldEnum = {
   participantId: 'participantId',
   submittedAt: 'submittedAt',
   collectionMethod: 'collectionMethod',
-  collectorId: 'collectorId'
+  collectorId: 'collectorId',
+  collectionSessionId: 'collectionSessionId'
 } as const
 
 export type ResponseScalarFieldEnum = (typeof ResponseScalarFieldEnum)[keyof typeof ResponseScalarFieldEnum]
@@ -718,6 +720,18 @@ export const CollectorInvitationScalarFieldEnum = {
 } as const
 
 export type CollectorInvitationScalarFieldEnum = (typeof CollectorInvitationScalarFieldEnum)[keyof typeof CollectorInvitationScalarFieldEnum]
+
+
+export const CollectionSessionScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  collectorId: 'collectorId',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  status: 'status'
+} as const
+
+export type CollectionSessionScalarFieldEnum = (typeof CollectionSessionScalarFieldEnum)[keyof typeof CollectionSessionScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -246,3 +246,8 @@ export type StudyDataCollector = Prisma.StudyDataCollectorModel
  * 
  */
 export type CollectorInvitation = Prisma.CollectorInvitationModel
+/**
+ * Model CollectionSession
+ * 
+ */
+export type CollectionSession = Prisma.CollectionSessionModel

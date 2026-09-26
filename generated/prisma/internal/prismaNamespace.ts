@@ -437,7 +437,8 @@ export const ModelName = {
   AIUsage: 'AIUsage',
   Verification: 'Verification',
   StudyDataCollector: 'StudyDataCollector',
-  CollectorInvitation: 'CollectorInvitation'
+  CollectorInvitation: 'CollectorInvitation',
+  CollectionSession: 'CollectionSession'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -453,7 +454,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectionSession"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3491,6 +3492,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CollectionSession: {
+      payload: Prisma.$CollectionSessionPayload<ExtArgs>
+      fields: Prisma.CollectionSessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CollectionSessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CollectionSessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload>
+        }
+        findFirst: {
+          args: Prisma.CollectionSessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CollectionSessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload>
+        }
+        findMany: {
+          args: Prisma.CollectionSessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload>[]
+        }
+        create: {
+          args: Prisma.CollectionSessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload>
+        }
+        createMany: {
+          args: Prisma.CollectionSessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CollectionSessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload>[]
+        }
+        delete: {
+          args: Prisma.CollectionSessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload>
+        }
+        update: {
+          args: Prisma.CollectionSessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.CollectionSessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CollectionSessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CollectionSessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.CollectionSessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectionSessionPayload>
+        }
+        aggregate: {
+          args: Prisma.CollectionSessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCollectionSession>
+        }
+        groupBy: {
+          args: Prisma.CollectionSessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectionSessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CollectionSessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectionSessionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3692,7 +3767,8 @@ export const ResponseScalarFieldEnum = {
   participantId: 'participantId',
   submittedAt: 'submittedAt',
   collectionMethod: 'collectionMethod',
-  collectorId: 'collectorId'
+  collectorId: 'collectorId',
+  collectionSessionId: 'collectionSessionId'
 } as const
 
 export type ResponseScalarFieldEnum = (typeof ResponseScalarFieldEnum)[keyof typeof ResponseScalarFieldEnum]
@@ -4138,6 +4214,18 @@ export const CollectorInvitationScalarFieldEnum = {
 } as const
 
 export type CollectorInvitationScalarFieldEnum = (typeof CollectorInvitationScalarFieldEnum)[keyof typeof CollectorInvitationScalarFieldEnum]
+
+
+export const CollectionSessionScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  collectorId: 'collectorId',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  status: 'status'
+} as const
+
+export type CollectionSessionScalarFieldEnum = (typeof CollectionSessionScalarFieldEnum)[keyof typeof CollectionSessionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -4613,6 +4701,20 @@ export type EnumVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 export type ListEnumVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'SessionStatus'
+ */
+export type EnumSessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SessionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SessionStatus[]'
+ */
+export type ListEnumSessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SessionStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -4805,6 +4907,7 @@ export type GlobalOmitConfig = {
   verification?: Prisma.VerificationOmit
   studyDataCollector?: Prisma.StudyDataCollectorOmit
   collectorInvitation?: Prisma.CollectorInvitationOmit
+  collectionSession?: Prisma.CollectionSessionOmit
 }
 
 /* Types for Logging */

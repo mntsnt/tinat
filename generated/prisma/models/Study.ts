@@ -344,6 +344,7 @@ export type StudyWhereInput = {
   aiConversations?: Prisma.AIConversationListRelationFilter
   dataCollectors?: Prisma.StudyDataCollectorListRelationFilter
   collectorInvitations?: Prisma.CollectorInvitationListRelationFilter
+  collectionSessions?: Prisma.CollectionSessionListRelationFilter
 }
 
 export type StudyOrderByWithRelationInput = {
@@ -377,6 +378,7 @@ export type StudyOrderByWithRelationInput = {
   aiConversations?: Prisma.AIConversationOrderByRelationAggregateInput
   dataCollectors?: Prisma.StudyDataCollectorOrderByRelationAggregateInput
   collectorInvitations?: Prisma.CollectorInvitationOrderByRelationAggregateInput
+  collectionSessions?: Prisma.CollectionSessionOrderByRelationAggregateInput
 }
 
 export type StudyWhereUniqueInput = Prisma.AtLeast<{
@@ -413,6 +415,7 @@ export type StudyWhereUniqueInput = Prisma.AtLeast<{
   aiConversations?: Prisma.AIConversationListRelationFilter
   dataCollectors?: Prisma.StudyDataCollectorListRelationFilter
   collectorInvitations?: Prisma.CollectorInvitationListRelationFilter
+  collectionSessions?: Prisma.CollectionSessionListRelationFilter
 }, "id">
 
 export type StudyOrderByWithAggregationInput = {
@@ -495,6 +498,7 @@ export type StudyCreateInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateInput = {
@@ -527,6 +531,7 @@ export type StudyUncheckedCreateInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUpdateInput = {
@@ -559,6 +564,7 @@ export type StudyUpdateInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateInput = {
@@ -591,6 +597,7 @@ export type StudyUncheckedUpdateInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateManyInput = {
@@ -983,6 +990,20 @@ export type StudyUpdateOneRequiredWithoutCollectorInvitationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutCollectorInvitationsInput, Prisma.StudyUpdateWithoutCollectorInvitationsInput>, Prisma.StudyUncheckedUpdateWithoutCollectorInvitationsInput>
 }
 
+export type StudyCreateNestedOneWithoutCollectionSessionsInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutCollectionSessionsInput, Prisma.StudyUncheckedCreateWithoutCollectionSessionsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutCollectionSessionsInput
+  connect?: Prisma.StudyWhereUniqueInput
+}
+
+export type StudyUpdateOneRequiredWithoutCollectionSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutCollectionSessionsInput, Prisma.StudyUncheckedCreateWithoutCollectionSessionsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutCollectionSessionsInput
+  upsert?: Prisma.StudyUpsertWithoutCollectionSessionsInput
+  connect?: Prisma.StudyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutCollectionSessionsInput, Prisma.StudyUpdateWithoutCollectionSessionsInput>, Prisma.StudyUncheckedUpdateWithoutCollectionSessionsInput>
+}
+
 export type StudyCreateWithoutResearcherInput = {
   id?: string
   title: string
@@ -1012,6 +1033,7 @@ export type StudyCreateWithoutResearcherInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutResearcherInput = {
@@ -1043,6 +1065,7 @@ export type StudyUncheckedCreateWithoutResearcherInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutResearcherInput = {
@@ -1124,6 +1147,7 @@ export type StudyCreateWithoutBookmarksInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutBookmarksInput = {
@@ -1155,6 +1179,7 @@ export type StudyUncheckedCreateWithoutBookmarksInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutBookmarksInput = {
@@ -1202,6 +1227,7 @@ export type StudyUpdateWithoutBookmarksInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutBookmarksInput = {
@@ -1233,6 +1259,7 @@ export type StudyUncheckedUpdateWithoutBookmarksInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutRatingsInput = {
@@ -1264,6 +1291,7 @@ export type StudyCreateWithoutRatingsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutRatingsInput = {
@@ -1295,6 +1323,7 @@ export type StudyUncheckedCreateWithoutRatingsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutRatingsInput = {
@@ -1342,6 +1371,7 @@ export type StudyUpdateWithoutRatingsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutRatingsInput = {
@@ -1373,6 +1403,7 @@ export type StudyUncheckedUpdateWithoutRatingsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutLikesInput = {
@@ -1404,6 +1435,7 @@ export type StudyCreateWithoutLikesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutLikesInput = {
@@ -1435,6 +1467,7 @@ export type StudyUncheckedCreateWithoutLikesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutLikesInput = {
@@ -1482,6 +1515,7 @@ export type StudyUpdateWithoutLikesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutLikesInput = {
@@ -1513,6 +1547,7 @@ export type StudyUncheckedUpdateWithoutLikesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutCommentsInput = {
@@ -1544,6 +1579,7 @@ export type StudyCreateWithoutCommentsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutCommentsInput = {
@@ -1575,6 +1611,7 @@ export type StudyUncheckedCreateWithoutCommentsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutCommentsInput = {
@@ -1622,6 +1659,7 @@ export type StudyUpdateWithoutCommentsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutCommentsInput = {
@@ -1653,6 +1691,7 @@ export type StudyUncheckedUpdateWithoutCommentsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutQuestionsInput = {
@@ -1684,6 +1723,7 @@ export type StudyCreateWithoutQuestionsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutQuestionsInput = {
@@ -1715,6 +1755,7 @@ export type StudyUncheckedCreateWithoutQuestionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutQuestionsInput = {
@@ -1762,6 +1803,7 @@ export type StudyUpdateWithoutQuestionsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutQuestionsInput = {
@@ -1793,6 +1835,7 @@ export type StudyUncheckedUpdateWithoutQuestionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutResponsesInput = {
@@ -1824,6 +1867,7 @@ export type StudyCreateWithoutResponsesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutResponsesInput = {
@@ -1855,6 +1899,7 @@ export type StudyUncheckedCreateWithoutResponsesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutResponsesInput = {
@@ -1902,6 +1947,7 @@ export type StudyUpdateWithoutResponsesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutResponsesInput = {
@@ -1933,6 +1979,7 @@ export type StudyUncheckedUpdateWithoutResponsesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutPaymentsInput = {
@@ -1964,6 +2011,7 @@ export type StudyCreateWithoutPaymentsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutPaymentsInput = {
@@ -1995,6 +2043,7 @@ export type StudyUncheckedCreateWithoutPaymentsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutPaymentsInput = {
@@ -2042,6 +2091,7 @@ export type StudyUpdateWithoutPaymentsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutPaymentsInput = {
@@ -2073,6 +2123,7 @@ export type StudyUncheckedUpdateWithoutPaymentsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutLinkedProjectsInput = {
@@ -2104,6 +2155,7 @@ export type StudyCreateWithoutLinkedProjectsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutLinkedProjectsInput = {
@@ -2135,6 +2187,7 @@ export type StudyUncheckedCreateWithoutLinkedProjectsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutLinkedProjectsInput = {
@@ -2182,6 +2235,7 @@ export type StudyUpdateWithoutLinkedProjectsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutLinkedProjectsInput = {
@@ -2213,6 +2267,7 @@ export type StudyUncheckedUpdateWithoutLinkedProjectsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutAiConversationsInput = {
@@ -2244,6 +2299,7 @@ export type StudyCreateWithoutAiConversationsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutAiConversationsInput = {
@@ -2275,6 +2331,7 @@ export type StudyUncheckedCreateWithoutAiConversationsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutAiConversationsInput = {
@@ -2322,6 +2379,7 @@ export type StudyUpdateWithoutAiConversationsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutAiConversationsInput = {
@@ -2353,6 +2411,7 @@ export type StudyUncheckedUpdateWithoutAiConversationsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutDataCollectorsInput = {
@@ -2384,6 +2443,7 @@ export type StudyCreateWithoutDataCollectorsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutDataCollectorsInput = {
@@ -2415,6 +2475,7 @@ export type StudyUncheckedCreateWithoutDataCollectorsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutDataCollectorsInput = {
@@ -2462,6 +2523,7 @@ export type StudyUpdateWithoutDataCollectorsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutDataCollectorsInput = {
@@ -2493,6 +2555,7 @@ export type StudyUncheckedUpdateWithoutDataCollectorsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutCollectorInvitationsInput = {
@@ -2524,6 +2587,7 @@ export type StudyCreateWithoutCollectorInvitationsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutCollectorInvitationsInput = {
@@ -2555,6 +2619,7 @@ export type StudyUncheckedCreateWithoutCollectorInvitationsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutCollectorInvitationsInput = {
@@ -2602,6 +2667,7 @@ export type StudyUpdateWithoutCollectorInvitationsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutCollectorInvitationsInput = {
@@ -2633,6 +2699,151 @@ export type StudyUncheckedUpdateWithoutCollectorInvitationsInput = {
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyCreateWithoutCollectionSessionsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.StudyStatus
+  studyType?: $Enums.StudyType
+  category?: string | null
+  objective?: string | null
+  targetPopulation?: string | null
+  estimatedMinutes?: number | null
+  rewardCredits?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+}
+
+export type StudyUncheckedCreateWithoutCollectionSessionsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  status?: $Enums.StudyStatus
+  studyType?: $Enums.StudyType
+  category?: string | null
+  objective?: string | null
+  targetPopulation?: string | null
+  estimatedMinutes?: number | null
+  rewardCredits?: number
+  researcherId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+}
+
+export type StudyCreateOrConnectWithoutCollectionSessionsInput = {
+  where: Prisma.StudyWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCreateWithoutCollectionSessionsInput, Prisma.StudyUncheckedCreateWithoutCollectionSessionsInput>
+}
+
+export type StudyUpsertWithoutCollectionSessionsInput = {
+  update: Prisma.XOR<Prisma.StudyUpdateWithoutCollectionSessionsInput, Prisma.StudyUncheckedUpdateWithoutCollectionSessionsInput>
+  create: Prisma.XOR<Prisma.StudyCreateWithoutCollectionSessionsInput, Prisma.StudyUncheckedCreateWithoutCollectionSessionsInput>
+  where?: Prisma.StudyWhereInput
+}
+
+export type StudyUpdateToOneWithWhereWithoutCollectionSessionsInput = {
+  where?: Prisma.StudyWhereInput
+  data: Prisma.XOR<Prisma.StudyUpdateWithoutCollectionSessionsInput, Prisma.StudyUncheckedUpdateWithoutCollectionSessionsInput>
+}
+
+export type StudyUpdateWithoutCollectionSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyUncheckedUpdateWithoutCollectionSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  researcherId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateManyResearcherInput = {
@@ -2684,6 +2895,7 @@ export type StudyUpdateWithoutResearcherInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutResearcherInput = {
@@ -2715,6 +2927,7 @@ export type StudyUncheckedUpdateWithoutResearcherInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateManyWithoutResearcherInput = {
@@ -2754,6 +2967,7 @@ export type StudyCountOutputType = {
   aiConversations: number
   dataCollectors: number
   collectorInvitations: number
+  collectionSessions: number
 }
 
 export type StudyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2768,6 +2982,7 @@ export type StudyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   aiConversations?: boolean | StudyCountOutputTypeCountAiConversationsArgs
   dataCollectors?: boolean | StudyCountOutputTypeCountDataCollectorsArgs
   collectorInvitations?: boolean | StudyCountOutputTypeCountCollectorInvitationsArgs
+  collectionSessions?: boolean | StudyCountOutputTypeCountCollectionSessionsArgs
 }
 
 /**
@@ -2857,6 +3072,13 @@ export type StudyCountOutputTypeCountCollectorInvitationsArgs<ExtArgs extends ru
   where?: Prisma.CollectorInvitationWhereInput
 }
 
+/**
+ * StudyCountOutputType without action
+ */
+export type StudyCountOutputTypeCountCollectionSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CollectionSessionWhereInput
+}
+
 
 export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2889,6 +3111,7 @@ export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   aiConversations?: boolean | Prisma.Study$aiConversationsArgs<ExtArgs>
   dataCollectors?: boolean | Prisma.Study$dataCollectorsArgs<ExtArgs>
   collectorInvitations?: boolean | Prisma.Study$collectorInvitationsArgs<ExtArgs>
+  collectionSessions?: boolean | Prisma.Study$collectionSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.StudyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["study"]>
 
@@ -2971,6 +3194,7 @@ export type StudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   aiConversations?: boolean | Prisma.Study$aiConversationsArgs<ExtArgs>
   dataCollectors?: boolean | Prisma.Study$dataCollectorsArgs<ExtArgs>
   collectorInvitations?: boolean | Prisma.Study$collectorInvitationsArgs<ExtArgs>
+  collectionSessions?: boolean | Prisma.Study$collectionSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.StudyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StudyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2995,6 +3219,7 @@ export type $StudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     aiConversations: Prisma.$AIConversationPayload<ExtArgs>[]
     dataCollectors: Prisma.$StudyDataCollectorPayload<ExtArgs>[]
     collectorInvitations: Prisma.$CollectorInvitationPayload<ExtArgs>[]
+    collectionSessions: Prisma.$CollectionSessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3421,6 +3646,7 @@ export interface Prisma__StudyClient<T, Null = never, ExtArgs extends runtime.Ty
   aiConversations<T extends Prisma.Study$aiConversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$aiConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dataCollectors<T extends Prisma.Study$dataCollectorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$dataCollectorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyDataCollectorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   collectorInvitations<T extends Prisma.Study$collectorInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$collectorInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  collectionSessions<T extends Prisma.Study$collectionSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$collectionSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectionSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4130,6 +4356,30 @@ export type Study$collectorInvitationsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.CollectorInvitationScalarFieldEnum | Prisma.CollectorInvitationScalarFieldEnum[]
+}
+
+/**
+ * Study.collectionSessions
+ */
+export type Study$collectionSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CollectionSession
+   */
+  select?: Prisma.CollectionSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CollectionSession
+   */
+  omit?: Prisma.CollectionSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CollectionSessionInclude<ExtArgs> | null
+  where?: Prisma.CollectionSessionWhereInput
+  orderBy?: Prisma.CollectionSessionOrderByWithRelationInput | Prisma.CollectionSessionOrderByWithRelationInput[]
+  cursor?: Prisma.CollectionSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CollectionSessionScalarFieldEnum | Prisma.CollectionSessionScalarFieldEnum[]
 }
 
 /**

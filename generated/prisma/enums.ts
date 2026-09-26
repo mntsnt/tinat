@@ -276,3 +276,12 @@ export const CollectionMethod = {
 } as const
 
 export type CollectionMethod = (typeof CollectionMethod)[keyof typeof CollectionMethod]
+
+
+export const SessionStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type SessionStatus = (typeof SessionStatus)[keyof typeof SessionStatus]

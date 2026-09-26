@@ -338,6 +338,7 @@ export type UserWhereInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationListRelationFilter
   receivedCollectorInvitations?: Prisma.CollectorInvitationListRelationFilter
   collectedResponses?: Prisma.ResponseListRelationFilter
+  collectionSessions?: Prisma.CollectionSessionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -391,6 +392,7 @@ export type UserOrderByWithRelationInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationOrderByRelationAggregateInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationOrderByRelationAggregateInput
   collectedResponses?: Prisma.ResponseOrderByRelationAggregateInput
+  collectionSessions?: Prisma.CollectionSessionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -447,6 +449,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sentCollectorInvitations?: Prisma.CollectorInvitationListRelationFilter
   receivedCollectorInvitations?: Prisma.CollectorInvitationListRelationFilter
   collectedResponses?: Prisma.ResponseListRelationFilter
+  collectionSessions?: Prisma.CollectionSessionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -546,6 +549,7 @@ export type UserCreateInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -599,6 +603,7 @@ export type UserUncheckedCreateInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUpdateInput = {
@@ -652,6 +657,7 @@ export type UserUpdateInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -705,6 +711,7 @@ export type UserUncheckedUpdateInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1353,6 +1360,20 @@ export type UserUpdateOneRequiredWithoutReceivedCollectorInvitationsNestedInput 
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedCollectorInvitationsInput, Prisma.UserUpdateWithoutReceivedCollectorInvitationsInput>, Prisma.UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput>
 }
 
+export type UserCreateNestedOneWithoutCollectionSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectionSessionsInput, Prisma.UserUncheckedCreateWithoutCollectionSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectionSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCollectionSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectionSessionsInput, Prisma.UserUncheckedCreateWithoutCollectionSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectionSessionsInput
+  upsert?: Prisma.UserUpsertWithoutCollectionSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCollectionSessionsInput, Prisma.UserUpdateWithoutCollectionSessionsInput>, Prisma.UserUncheckedUpdateWithoutCollectionSessionsInput>
+}
+
 export type UserCreateWithoutStudiesInput = {
   id?: string
   name: string
@@ -1403,6 +1424,7 @@ export type UserCreateWithoutStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutStudiesInput = {
@@ -1455,6 +1477,7 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutStudiesInput = {
@@ -1523,6 +1546,7 @@ export type UserUpdateWithoutStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudiesInput = {
@@ -1575,6 +1599,7 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutBookmarksInput = {
@@ -1627,6 +1652,7 @@ export type UserCreateWithoutBookmarksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutBookmarksInput = {
@@ -1679,6 +1705,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutBookmarksInput = {
@@ -1747,6 +1774,7 @@ export type UserUpdateWithoutBookmarksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookmarksInput = {
@@ -1799,6 +1827,7 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutRatingsInput = {
@@ -1851,6 +1880,7 @@ export type UserCreateWithoutRatingsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutRatingsInput = {
@@ -1903,6 +1933,7 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutRatingsInput = {
@@ -1971,6 +2002,7 @@ export type UserUpdateWithoutRatingsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -2023,6 +2055,7 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutLikesInput = {
@@ -2075,6 +2108,7 @@ export type UserCreateWithoutLikesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutLikesInput = {
@@ -2127,6 +2161,7 @@ export type UserUncheckedCreateWithoutLikesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutLikesInput = {
@@ -2195,6 +2230,7 @@ export type UserUpdateWithoutLikesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLikesInput = {
@@ -2247,6 +2283,7 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -2299,6 +2336,7 @@ export type UserCreateWithoutCommentsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -2351,6 +2389,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -2419,6 +2458,7 @@ export type UserUpdateWithoutCommentsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -2471,6 +2511,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -2523,6 +2564,7 @@ export type UserCreateWithoutNotificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -2575,6 +2617,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -2643,6 +2686,7 @@ export type UserUpdateWithoutNotificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -2695,6 +2739,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutActivityLogsInput = {
@@ -2747,6 +2792,7 @@ export type UserCreateWithoutActivityLogsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutActivityLogsInput = {
@@ -2799,6 +2845,7 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutActivityLogsInput = {
@@ -2867,6 +2914,7 @@ export type UserUpdateWithoutActivityLogsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityLogsInput = {
@@ -2919,6 +2967,7 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutResponsesInput = {
@@ -2971,6 +3020,7 @@ export type UserCreateWithoutResponsesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutResponsesInput = {
@@ -3023,6 +3073,7 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutResponsesInput = {
@@ -3080,6 +3131,7 @@ export type UserCreateWithoutCollectedResponsesInput = {
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutCollectedResponsesInput = {
@@ -3132,6 +3184,7 @@ export type UserUncheckedCreateWithoutCollectedResponsesInput = {
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutCollectedResponsesInput = {
@@ -3200,6 +3253,7 @@ export type UserUpdateWithoutResponsesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResponsesInput = {
@@ -3252,6 +3306,7 @@ export type UserUncheckedUpdateWithoutResponsesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUpsertWithoutCollectedResponsesInput = {
@@ -3315,6 +3370,7 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
@@ -3367,6 +3423,7 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutWalletInput = {
@@ -3419,6 +3476,7 @@ export type UserCreateWithoutWalletInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutWalletInput = {
@@ -3471,6 +3529,7 @@ export type UserUncheckedCreateWithoutWalletInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutWalletInput = {
@@ -3539,6 +3598,7 @@ export type UserUpdateWithoutWalletInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWalletInput = {
@@ -3591,6 +3651,7 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutStudyPaymentsInput = {
@@ -3643,6 +3704,7 @@ export type UserCreateWithoutStudyPaymentsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutStudyPaymentsInput = {
@@ -3695,6 +3757,7 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutStudyPaymentsInput = {
@@ -3763,6 +3826,7 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
@@ -3815,6 +3879,7 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutWithdrawalsInput = {
@@ -3867,6 +3932,7 @@ export type UserCreateWithoutWithdrawalsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutWithdrawalsInput = {
@@ -3919,6 +3985,7 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutWithdrawalsInput = {
@@ -3987,6 +4054,7 @@ export type UserUpdateWithoutWithdrawalsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWithdrawalsInput = {
@@ -4039,6 +4107,7 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutAskProfileInput = {
@@ -4091,6 +4160,7 @@ export type UserCreateWithoutAskProfileInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutAskProfileInput = {
@@ -4143,6 +4213,7 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutAskProfileInput = {
@@ -4211,6 +4282,7 @@ export type UserUpdateWithoutAskProfileInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAskProfileInput = {
@@ -4263,6 +4335,7 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutLeadProjectsInput = {
@@ -4315,6 +4388,7 @@ export type UserCreateWithoutLeadProjectsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutLeadProjectsInput = {
@@ -4367,6 +4441,7 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutLeadProjectsInput = {
@@ -4435,6 +4510,7 @@ export type UserUpdateWithoutLeadProjectsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLeadProjectsInput = {
@@ -4487,6 +4563,7 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutProjectMembershipsInput = {
@@ -4539,6 +4616,7 @@ export type UserCreateWithoutProjectMembershipsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutProjectMembershipsInput = {
@@ -4591,6 +4669,7 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutProjectMembershipsInput = {
@@ -4659,6 +4738,7 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
@@ -4711,6 +4791,7 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutSentProjectInvitationsInput = {
@@ -4763,6 +4844,7 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
@@ -4815,6 +4897,7 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutSentProjectInvitationsInput = {
@@ -4883,6 +4966,7 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
@@ -4935,6 +5019,7 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutCreatedProjectTasksInput = {
@@ -4987,6 +5072,7 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
@@ -5039,6 +5125,7 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutCreatedProjectTasksInput = {
@@ -5096,6 +5183,7 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
@@ -5148,6 +5236,7 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutAssignedProjectTasksInput = {
@@ -5216,6 +5305,7 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
@@ -5268,6 +5358,7 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUpsertWithoutAssignedProjectTasksInput = {
@@ -5331,6 +5422,7 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
@@ -5383,6 +5475,7 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutUploadedProjectFilesInput = {
@@ -5435,6 +5528,7 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
@@ -5487,6 +5581,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutUploadedProjectFilesInput = {
@@ -5555,6 +5650,7 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
@@ -5607,6 +5703,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutUploadedProjectFileVersionsInput = {
@@ -5659,6 +5756,7 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
@@ -5711,6 +5809,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutUploadedProjectFileVersionsInput = {
@@ -5779,6 +5878,7 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
@@ -5831,6 +5931,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutProjectNotesInput = {
@@ -5883,6 +5984,7 @@ export type UserCreateWithoutProjectNotesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutProjectNotesInput = {
@@ -5935,6 +6037,7 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutProjectNotesInput = {
@@ -6003,6 +6106,7 @@ export type UserUpdateWithoutProjectNotesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectNotesInput = {
@@ -6055,6 +6159,7 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutProjectDiscussionsInput = {
@@ -6107,6 +6212,7 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
@@ -6159,6 +6265,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutProjectDiscussionsInput = {
@@ -6227,6 +6334,7 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
@@ -6279,6 +6387,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutProjectDiscussionRepliesInput = {
@@ -6331,6 +6440,7 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
@@ -6383,6 +6493,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutProjectDiscussionRepliesInput = {
@@ -6451,6 +6562,7 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
@@ -6503,6 +6615,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutProjectDecisionsInput = {
@@ -6555,6 +6668,7 @@ export type UserCreateWithoutProjectDecisionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutProjectDecisionsInput = {
@@ -6607,6 +6721,7 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutProjectDecisionsInput = {
@@ -6675,6 +6790,7 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
@@ -6727,6 +6843,7 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutProjectActivitiesInput = {
@@ -6779,6 +6896,7 @@ export type UserCreateWithoutProjectActivitiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutProjectActivitiesInput = {
@@ -6831,6 +6949,7 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutProjectActivitiesInput = {
@@ -6899,6 +7018,7 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
@@ -6951,6 +7071,7 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutProjectChatMessagesInput = {
@@ -7003,6 +7124,7 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
@@ -7055,6 +7177,7 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutProjectChatMessagesInput = {
@@ -7123,6 +7246,7 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
@@ -7175,6 +7299,7 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutLinkedProjectStudiesInput = {
@@ -7227,6 +7352,7 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
@@ -7279,6 +7405,7 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutLinkedProjectStudiesInput = {
@@ -7347,6 +7474,7 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
@@ -7399,6 +7527,7 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutAiConversationsInput = {
@@ -7451,6 +7580,7 @@ export type UserCreateWithoutAiConversationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutAiConversationsInput = {
@@ -7503,6 +7633,7 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutAiConversationsInput = {
@@ -7571,6 +7702,7 @@ export type UserUpdateWithoutAiConversationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiConversationsInput = {
@@ -7623,6 +7755,7 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutAiUsagesInput = {
@@ -7675,6 +7808,7 @@ export type UserCreateWithoutAiUsagesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutAiUsagesInput = {
@@ -7727,6 +7861,7 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutAiUsagesInput = {
@@ -7795,6 +7930,7 @@ export type UserUpdateWithoutAiUsagesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiUsagesInput = {
@@ -7847,6 +7983,7 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutVerificationsInput = {
@@ -7899,6 +8036,7 @@ export type UserCreateWithoutVerificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutVerificationsInput = {
@@ -7951,6 +8089,7 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutVerificationsInput = {
@@ -8008,6 +8147,7 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
@@ -8060,6 +8200,7 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutReviewedVerificationsInput = {
@@ -8128,6 +8269,7 @@ export type UserUpdateWithoutVerificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerificationsInput = {
@@ -8180,6 +8322,7 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUpsertWithoutReviewedVerificationsInput = {
@@ -8243,6 +8386,7 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
@@ -8295,6 +8439,7 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutAssignedStudiesInput = {
@@ -8347,6 +8492,7 @@ export type UserCreateWithoutAssignedStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutAssignedStudiesInput = {
@@ -8399,6 +8545,7 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutAssignedStudiesInput = {
@@ -8467,6 +8614,7 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
@@ -8519,6 +8667,7 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserCreateWithoutSentCollectorInvitationsInput = {
@@ -8571,6 +8720,7 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
@@ -8623,6 +8773,7 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutSentCollectorInvitationsInput = {
@@ -8680,6 +8831,7 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
 }
 
 export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
@@ -8732,6 +8884,7 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
 }
 
 export type UserCreateOrConnectWithoutReceivedCollectorInvitationsInput = {
@@ -8800,6 +8953,7 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
@@ -8852,6 +9006,7 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUpsertWithoutReceivedCollectorInvitationsInput = {
@@ -8915,6 +9070,7 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
@@ -8967,6 +9123,235 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+}
+
+export type UserCreateWithoutCollectionSessionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+}
+
+export type UserUncheckedCreateWithoutCollectionSessionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+}
+
+export type UserCreateOrConnectWithoutCollectionSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCollectionSessionsInput, Prisma.UserUncheckedCreateWithoutCollectionSessionsInput>
+}
+
+export type UserUpsertWithoutCollectionSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCollectionSessionsInput, Prisma.UserUncheckedUpdateWithoutCollectionSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCollectionSessionsInput, Prisma.UserUncheckedCreateWithoutCollectionSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCollectionSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCollectionSessionsInput, Prisma.UserUncheckedUpdateWithoutCollectionSessionsInput>
+}
+
+export type UserUpdateWithoutCollectionSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
 }
 
 
@@ -9007,6 +9392,7 @@ export type UserCountOutputType = {
   sentCollectorInvitations: number
   receivedCollectorInvitations: number
   collectedResponses: number
+  collectionSessions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -9042,6 +9428,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sentCollectorInvitations?: boolean | UserCountOutputTypeCountSentCollectorInvitationsArgs
   receivedCollectorInvitations?: boolean | UserCountOutputTypeCountReceivedCollectorInvitationsArgs
   collectedResponses?: boolean | UserCountOutputTypeCountCollectedResponsesArgs
+  collectionSessions?: boolean | UserCountOutputTypeCountCollectionSessionsArgs
 }
 
 /**
@@ -9278,6 +9665,13 @@ export type UserCountOutputTypeCountCollectedResponsesArgs<ExtArgs extends runti
   where?: Prisma.ResponseWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCollectionSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CollectionSessionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -9330,6 +9724,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sentCollectorInvitations?: boolean | Prisma.User$sentCollectorInvitationsArgs<ExtArgs>
   receivedCollectorInvitations?: boolean | Prisma.User$receivedCollectorInvitationsArgs<ExtArgs>
   collectedResponses?: boolean | Prisma.User$collectedResponsesArgs<ExtArgs>
+  collectionSessions?: boolean | Prisma.User$collectionSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -9426,6 +9821,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sentCollectorInvitations?: boolean | Prisma.User$sentCollectorInvitationsArgs<ExtArgs>
   receivedCollectorInvitations?: boolean | Prisma.User$receivedCollectorInvitationsArgs<ExtArgs>
   collectedResponses?: boolean | Prisma.User$collectedResponsesArgs<ExtArgs>
+  collectionSessions?: boolean | Prisma.User$collectionSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -9468,6 +9864,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sentCollectorInvitations: Prisma.$CollectorInvitationPayload<ExtArgs>[]
     receivedCollectorInvitations: Prisma.$CollectorInvitationPayload<ExtArgs>[]
     collectedResponses: Prisma.$ResponsePayload<ExtArgs>[]
+    collectionSessions: Prisma.$CollectionSessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -9914,6 +10311,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sentCollectorInvitations<T extends Prisma.User$sentCollectorInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentCollectorInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receivedCollectorInvitations<T extends Prisma.User$receivedCollectorInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedCollectorInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   collectedResponses<T extends Prisma.User$collectedResponsesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectedResponsesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  collectionSessions<T extends Prisma.User$collectionSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectionSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectionSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11155,6 +11553,30 @@ export type User$collectedResponsesArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.ResponseScalarFieldEnum | Prisma.ResponseScalarFieldEnum[]
+}
+
+/**
+ * User.collectionSessions
+ */
+export type User$collectionSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CollectionSession
+   */
+  select?: Prisma.CollectionSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CollectionSession
+   */
+  omit?: Prisma.CollectionSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CollectionSessionInclude<ExtArgs> | null
+  where?: Prisma.CollectionSessionWhereInput
+  orderBy?: Prisma.CollectionSessionOrderByWithRelationInput | Prisma.CollectionSessionOrderByWithRelationInput[]
+  cursor?: Prisma.CollectionSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CollectionSessionScalarFieldEnum | Prisma.CollectionSessionScalarFieldEnum[]
 }
 
 /**

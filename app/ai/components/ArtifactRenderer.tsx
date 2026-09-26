@@ -1,5 +1,7 @@
 import React from 'react';
 import { Download, Save } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export function ArtifactRenderer({ content }: { content: string }) {
   // Regex to extract <ai_artifact type="..." title="...">...</ai_artifact>
@@ -35,14 +37,22 @@ export function ArtifactRenderer({ content }: { content: string }) {
   }
 
   if (parts.length === 0) {
-    return <div className="whitespace-pre-wrap font-sans text-sm leading-relaxed">{content}</div>;
+    return (
+      <div className="prose prose-slate prose-sm dark:prose-invert max-w-none">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
       {parts.map((part, idx) => {
         if (part.type === 'text') {
-          return <div key={idx} className="whitespace-pre-wrap font-sans text-sm leading-relaxed">{part.content}</div>;
+          return (
+            <div key={idx} className="prose prose-slate prose-sm dark:prose-invert max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{part.content}</ReactMarkdown>
+            </div>
+          );
         }
 
         if (part.type === 'artifact' && part.artifactType === 'table') {
