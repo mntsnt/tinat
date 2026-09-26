@@ -10,6 +10,7 @@ export const publicLinks: NavLink[] = [
 export const participantLinks: NavLink[] = [
   { title: "Dashboard", href: "/participant" },
   { title: "Health Studies", href: "/participant/studies" },
+  { title: "Research Projects", href: "/projects" },
   { title: "My History", href: "/participant/history" },
   { title: "TC Wallet", href: "/participant/wallet" },
   { title: "Tinat Ask", href: "/ask" },
@@ -17,6 +18,7 @@ export const participantLinks: NavLink[] = [
 
 export const researcherLinks: NavLink[] = [
   { title: "Dashboard", href: "/researcher" },
+  { title: "Research Projects", href: "/projects" },
   { title: "Publish a Study", href: "/researcher/studies" },
   { title: "Create Study", href: "/researcher/studies/new" },
   { title: "Tinat Ask", href: "/ask" },
@@ -24,6 +26,7 @@ export const researcherLinks: NavLink[] = [
 
 export const adminLinks: NavLink[] = [
   { title: "Overview", href: "/admin" },
+  { title: "Research Projects", href: "/projects" },
   { title: "Users", href: "/admin/users" },
   { title: "Studies", href: "/admin/studies" },
   { title: "Tinat Ask", href: "/ask" },

@@ -69,7 +69,22 @@ export const ModelName = {
   StudyPayment: 'StudyPayment',
   Withdrawal: 'Withdrawal',
   AskProfile: 'AskProfile',
-  AskQuestion: 'AskQuestion'
+  AskQuestion: 'AskQuestion',
+  ResearchProject: 'ResearchProject',
+  ProjectMember: 'ProjectMember',
+  ProjectInvitation: 'ProjectInvitation',
+  ProjectMilestone: 'ProjectMilestone',
+  ProjectTask: 'ProjectTask',
+  ProjectFile: 'ProjectFile',
+  ProjectFileVersion: 'ProjectFileVersion',
+  ProjectNote: 'ProjectNote',
+  ProjectDiscussion: 'ProjectDiscussion',
+  ProjectDiscussionReply: 'ProjectDiscussionReply',
+  ProjectDecision: 'ProjectDecision',
+  ProjectActivity: 'ProjectActivity',
+  ProjectChatMessage: 'ProjectChatMessage',
+  ProjectLinkedStudy: 'ProjectLinkedStudy',
+  ProjectOutput: 'ProjectOutput'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -352,6 +367,250 @@ export const AskQuestionScalarFieldEnum = {
 } as const
 
 export type AskQuestionScalarFieldEnum = (typeof AskQuestionScalarFieldEnum)[keyof typeof AskQuestionScalarFieldEnum]
+
+
+export const ResearchProjectScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  description: 'description',
+  researchQuestion: 'researchQuestion',
+  objective: 'objective',
+  category: 'category',
+  studyDesign: 'studyDesign',
+  researchArea: 'researchArea',
+  institution: 'institution',
+  projectLeadId: 'projectLeadId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  currentPhase: 'currentPhase',
+  visibility: 'visibility',
+  customPhases: 'customPhases',
+  isArchived: 'isArchived',
+  inviteToken: 'inviteToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResearchProjectScalarFieldEnum = (typeof ResearchProjectScalarFieldEnum)[keyof typeof ResearchProjectScalarFieldEnum]
+
+
+export const ProjectMemberScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  role: 'role',
+  title: 'title',
+  joinedAt: 'joinedAt',
+  customPermissions: 'customPermissions'
+} as const
+
+export type ProjectMemberScalarFieldEnum = (typeof ProjectMemberScalarFieldEnum)[keyof typeof ProjectMemberScalarFieldEnum]
+
+
+export const ProjectInvitationScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  inviterId: 'inviterId',
+  inviteeEmail: 'inviteeEmail',
+  role: 'role',
+  message: 'message',
+  token: 'token',
+  status: 'status',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectInvitationScalarFieldEnum = (typeof ProjectInvitationScalarFieldEnum)[keyof typeof ProjectInvitationScalarFieldEnum]
+
+
+export const ProjectMilestoneScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  title: 'title',
+  description: 'description',
+  deadline: 'deadline',
+  phase: 'phase',
+  isCompleted: 'isCompleted',
+  completedAt: 'completedAt',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectMilestoneScalarFieldEnum = (typeof ProjectMilestoneScalarFieldEnum)[keyof typeof ProjectMilestoneScalarFieldEnum]
+
+
+export const ProjectTaskScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  milestoneId: 'milestoneId',
+  creatorId: 'creatorId',
+  assigneeId: 'assigneeId',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  priority: 'priority',
+  phase: 'phase',
+  dueDate: 'dueDate',
+  labels: 'labels',
+  subtasks: 'subtasks',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectTaskScalarFieldEnum = (typeof ProjectTaskScalarFieldEnum)[keyof typeof ProjectTaskScalarFieldEnum]
+
+
+export const ProjectFileScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  uploaderId: 'uploaderId',
+  folder: 'folder',
+  name: 'name',
+  fileUrl: 'fileUrl',
+  fileType: 'fileType',
+  fileSize: 'fileSize',
+  version: 'version',
+  isSensitiveHealthData: 'isSensitiveHealthData',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectFileScalarFieldEnum = (typeof ProjectFileScalarFieldEnum)[keyof typeof ProjectFileScalarFieldEnum]
+
+
+export const ProjectFileVersionScalarFieldEnum = {
+  id: 'id',
+  fileId: 'fileId',
+  uploaderId: 'uploaderId',
+  version: 'version',
+  fileUrl: 'fileUrl',
+  fileSize: 'fileSize',
+  changeSummary: 'changeSummary',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectFileVersionScalarFieldEnum = (typeof ProjectFileVersionScalarFieldEnum)[keyof typeof ProjectFileVersionScalarFieldEnum]
+
+
+export const ProjectNoteScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  authorId: 'authorId',
+  category: 'category',
+  title: 'title',
+  content: 'content',
+  isPinned: 'isPinned',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectNoteScalarFieldEnum = (typeof ProjectNoteScalarFieldEnum)[keyof typeof ProjectNoteScalarFieldEnum]
+
+
+export const ProjectDiscussionScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  authorId: 'authorId',
+  title: 'title',
+  content: 'content',
+  category: 'category',
+  isResolved: 'isResolved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectDiscussionScalarFieldEnum = (typeof ProjectDiscussionScalarFieldEnum)[keyof typeof ProjectDiscussionScalarFieldEnum]
+
+
+export const ProjectDiscussionReplyScalarFieldEnum = {
+  id: 'id',
+  discussionId: 'discussionId',
+  authorId: 'authorId',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectDiscussionReplyScalarFieldEnum = (typeof ProjectDiscussionReplyScalarFieldEnum)[keyof typeof ProjectDiscussionReplyScalarFieldEnum]
+
+
+export const ProjectDecisionScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  decisionNumber: 'decisionNumber',
+  decision: 'decision',
+  reason: 'reason',
+  status: 'status',
+  madeById: 'madeById',
+  supersededById: 'supersededById',
+  relatedDoc: 'relatedDoc',
+  date: 'date',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectDecisionScalarFieldEnum = (typeof ProjectDecisionScalarFieldEnum)[keyof typeof ProjectDecisionScalarFieldEnum]
+
+
+export const ProjectActivityScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  action: 'action',
+  description: 'description',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectActivityScalarFieldEnum = (typeof ProjectActivityScalarFieldEnum)[keyof typeof ProjectActivityScalarFieldEnum]
+
+
+export const ProjectChatMessageScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  senderId: 'senderId',
+  content: 'content',
+  taskId: 'taskId',
+  fileUrl: 'fileUrl',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectChatMessageScalarFieldEnum = (typeof ProjectChatMessageScalarFieldEnum)[keyof typeof ProjectChatMessageScalarFieldEnum]
+
+
+export const ProjectLinkedStudyScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  studyId: 'studyId',
+  linkedById: 'linkedById',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectLinkedStudyScalarFieldEnum = (typeof ProjectLinkedStudyScalarFieldEnum)[keyof typeof ProjectLinkedStudyScalarFieldEnum]
+
+
+export const ProjectOutputScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  title: 'title',
+  type: 'type',
+  status: 'status',
+  targetJournal: 'targetJournal',
+  linkUrl: 'linkUrl',
+  fileUrl: 'fileUrl',
+  submissionDeadline: 'submissionDeadline',
+  publicationDate: 'publicationDate',
+  contributors: 'contributors',
+  manuscriptSections: 'manuscriptSections',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectOutputScalarFieldEnum = (typeof ProjectOutputScalarFieldEnum)[keyof typeof ProjectOutputScalarFieldEnum]
 
 
 export const SortOrder = {

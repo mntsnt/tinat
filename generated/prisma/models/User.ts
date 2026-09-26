@@ -316,6 +316,20 @@ export type UserWhereInput = {
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
   withdrawals?: Prisma.WithdrawalListRelationFilter
   askProfile?: Prisma.XOR<Prisma.AskProfileNullableScalarRelationFilter, Prisma.AskProfileWhereInput> | null
+  leadProjects?: Prisma.ResearchProjectListRelationFilter
+  projectMemberships?: Prisma.ProjectMemberListRelationFilter
+  sentProjectInvitations?: Prisma.ProjectInvitationListRelationFilter
+  createdProjectTasks?: Prisma.ProjectTaskListRelationFilter
+  assignedProjectTasks?: Prisma.ProjectTaskListRelationFilter
+  uploadedProjectFiles?: Prisma.ProjectFileListRelationFilter
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionListRelationFilter
+  projectNotes?: Prisma.ProjectNoteListRelationFilter
+  projectDiscussions?: Prisma.ProjectDiscussionListRelationFilter
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyListRelationFilter
+  projectDecisions?: Prisma.ProjectDecisionListRelationFilter
+  projectActivities?: Prisma.ProjectActivityListRelationFilter
+  projectChatMessages?: Prisma.ProjectChatMessageListRelationFilter
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -347,6 +361,20 @@ export type UserOrderByWithRelationInput = {
   wallet?: Prisma.WalletOrderByWithRelationInput
   withdrawals?: Prisma.WithdrawalOrderByRelationAggregateInput
   askProfile?: Prisma.AskProfileOrderByWithRelationInput
+  leadProjects?: Prisma.ResearchProjectOrderByRelationAggregateInput
+  projectMemberships?: Prisma.ProjectMemberOrderByRelationAggregateInput
+  sentProjectInvitations?: Prisma.ProjectInvitationOrderByRelationAggregateInput
+  createdProjectTasks?: Prisma.ProjectTaskOrderByRelationAggregateInput
+  assignedProjectTasks?: Prisma.ProjectTaskOrderByRelationAggregateInput
+  uploadedProjectFiles?: Prisma.ProjectFileOrderByRelationAggregateInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionOrderByRelationAggregateInput
+  projectNotes?: Prisma.ProjectNoteOrderByRelationAggregateInput
+  projectDiscussions?: Prisma.ProjectDiscussionOrderByRelationAggregateInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyOrderByRelationAggregateInput
+  projectDecisions?: Prisma.ProjectDecisionOrderByRelationAggregateInput
+  projectActivities?: Prisma.ProjectActivityOrderByRelationAggregateInput
+  projectChatMessages?: Prisma.ProjectChatMessageOrderByRelationAggregateInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -381,6 +409,20 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
   withdrawals?: Prisma.WithdrawalListRelationFilter
   askProfile?: Prisma.XOR<Prisma.AskProfileNullableScalarRelationFilter, Prisma.AskProfileWhereInput> | null
+  leadProjects?: Prisma.ResearchProjectListRelationFilter
+  projectMemberships?: Prisma.ProjectMemberListRelationFilter
+  sentProjectInvitations?: Prisma.ProjectInvitationListRelationFilter
+  createdProjectTasks?: Prisma.ProjectTaskListRelationFilter
+  assignedProjectTasks?: Prisma.ProjectTaskListRelationFilter
+  uploadedProjectFiles?: Prisma.ProjectFileListRelationFilter
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionListRelationFilter
+  projectNotes?: Prisma.ProjectNoteListRelationFilter
+  projectDiscussions?: Prisma.ProjectDiscussionListRelationFilter
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyListRelationFilter
+  projectDecisions?: Prisma.ProjectDecisionListRelationFilter
+  projectActivities?: Prisma.ProjectActivityListRelationFilter
+  projectChatMessages?: Prisma.ProjectChatMessageListRelationFilter
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -458,6 +500,20 @@ export type UserCreateInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -489,6 +545,20 @@ export type UserUncheckedCreateInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUpdateInput = {
@@ -520,6 +590,20 @@ export type UserUpdateInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -551,6 +635,20 @@ export type UserUncheckedUpdateInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -678,6 +776,11 @@ export type UserSumOrderByAggregateInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -880,6 +983,204 @@ export type UserUpdateOneRequiredWithoutAskProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAskProfileInput, Prisma.UserUpdateWithoutAskProfileInput>, Prisma.UserUncheckedUpdateWithoutAskProfileInput>
 }
 
+export type UserCreateNestedOneWithoutLeadProjectsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLeadProjectsInput, Prisma.UserUncheckedCreateWithoutLeadProjectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLeadProjectsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLeadProjectsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLeadProjectsInput, Prisma.UserUncheckedCreateWithoutLeadProjectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLeadProjectsInput
+  upsert?: Prisma.UserUpsertWithoutLeadProjectsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLeadProjectsInput, Prisma.UserUpdateWithoutLeadProjectsInput>, Prisma.UserUncheckedUpdateWithoutLeadProjectsInput>
+}
+
+export type UserCreateNestedOneWithoutProjectMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectMembershipsInput, Prisma.UserUncheckedCreateWithoutProjectMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectMembershipsInput, Prisma.UserUncheckedCreateWithoutProjectMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutProjectMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectMembershipsInput, Prisma.UserUpdateWithoutProjectMembershipsInput>, Prisma.UserUncheckedUpdateWithoutProjectMembershipsInput>
+}
+
+export type UserCreateNestedOneWithoutSentProjectInvitationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentProjectInvitationsInput, Prisma.UserUncheckedCreateWithoutSentProjectInvitationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentProjectInvitationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSentProjectInvitationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentProjectInvitationsInput, Prisma.UserUncheckedCreateWithoutSentProjectInvitationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentProjectInvitationsInput
+  upsert?: Prisma.UserUpsertWithoutSentProjectInvitationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentProjectInvitationsInput, Prisma.UserUpdateWithoutSentProjectInvitationsInput>, Prisma.UserUncheckedUpdateWithoutSentProjectInvitationsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedProjectTasksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedProjectTasksInput, Prisma.UserUncheckedCreateWithoutCreatedProjectTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedProjectTasksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAssignedProjectTasksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedProjectTasksInput, Prisma.UserUncheckedCreateWithoutAssignedProjectTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedProjectTasksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedProjectTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedProjectTasksInput, Prisma.UserUncheckedCreateWithoutCreatedProjectTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedProjectTasksInput
+  upsert?: Prisma.UserUpsertWithoutCreatedProjectTasksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedProjectTasksInput, Prisma.UserUpdateWithoutCreatedProjectTasksInput>, Prisma.UserUncheckedUpdateWithoutCreatedProjectTasksInput>
+}
+
+export type UserUpdateOneWithoutAssignedProjectTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedProjectTasksInput, Prisma.UserUncheckedCreateWithoutAssignedProjectTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedProjectTasksInput
+  upsert?: Prisma.UserUpsertWithoutAssignedProjectTasksInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedProjectTasksInput, Prisma.UserUpdateWithoutAssignedProjectTasksInput>, Prisma.UserUncheckedUpdateWithoutAssignedProjectTasksInput>
+}
+
+export type UserCreateNestedOneWithoutUploadedProjectFilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedProjectFilesInput, Prisma.UserUncheckedCreateWithoutUploadedProjectFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedProjectFilesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutUploadedProjectFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedProjectFilesInput, Prisma.UserUncheckedCreateWithoutUploadedProjectFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedProjectFilesInput
+  upsert?: Prisma.UserUpsertWithoutUploadedProjectFilesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUploadedProjectFilesInput, Prisma.UserUpdateWithoutUploadedProjectFilesInput>, Prisma.UserUncheckedUpdateWithoutUploadedProjectFilesInput>
+}
+
+export type UserCreateNestedOneWithoutUploadedProjectFileVersionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedProjectFileVersionsInput, Prisma.UserUncheckedCreateWithoutUploadedProjectFileVersionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedProjectFileVersionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutUploadedProjectFileVersionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedProjectFileVersionsInput, Prisma.UserUncheckedCreateWithoutUploadedProjectFileVersionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedProjectFileVersionsInput
+  upsert?: Prisma.UserUpsertWithoutUploadedProjectFileVersionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUploadedProjectFileVersionsInput, Prisma.UserUpdateWithoutUploadedProjectFileVersionsInput>, Prisma.UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput>
+}
+
+export type UserCreateNestedOneWithoutProjectNotesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectNotesInput, Prisma.UserUncheckedCreateWithoutProjectNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectNotesInput, Prisma.UserUncheckedCreateWithoutProjectNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectNotesInput
+  upsert?: Prisma.UserUpsertWithoutProjectNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectNotesInput, Prisma.UserUpdateWithoutProjectNotesInput>, Prisma.UserUncheckedUpdateWithoutProjectNotesInput>
+}
+
+export type UserCreateNestedOneWithoutProjectDiscussionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDiscussionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectDiscussionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDiscussionsInput
+  upsert?: Prisma.UserUpsertWithoutProjectDiscussionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectDiscussionsInput, Prisma.UserUpdateWithoutProjectDiscussionsInput>, Prisma.UserUncheckedUpdateWithoutProjectDiscussionsInput>
+}
+
+export type UserCreateNestedOneWithoutProjectDiscussionRepliesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionRepliesInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionRepliesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDiscussionRepliesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectDiscussionRepliesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionRepliesInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionRepliesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDiscussionRepliesInput
+  upsert?: Prisma.UserUpsertWithoutProjectDiscussionRepliesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectDiscussionRepliesInput, Prisma.UserUpdateWithoutProjectDiscussionRepliesInput>, Prisma.UserUncheckedUpdateWithoutProjectDiscussionRepliesInput>
+}
+
+export type UserCreateNestedOneWithoutProjectDecisionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDecisionsInput, Prisma.UserUncheckedCreateWithoutProjectDecisionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDecisionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectDecisionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDecisionsInput, Prisma.UserUncheckedCreateWithoutProjectDecisionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDecisionsInput
+  upsert?: Prisma.UserUpsertWithoutProjectDecisionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectDecisionsInput, Prisma.UserUpdateWithoutProjectDecisionsInput>, Prisma.UserUncheckedUpdateWithoutProjectDecisionsInput>
+}
+
+export type UserCreateNestedOneWithoutProjectActivitiesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectActivitiesInput, Prisma.UserUncheckedCreateWithoutProjectActivitiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectActivitiesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectActivitiesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectActivitiesInput, Prisma.UserUncheckedCreateWithoutProjectActivitiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectActivitiesInput
+  upsert?: Prisma.UserUpsertWithoutProjectActivitiesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectActivitiesInput, Prisma.UserUpdateWithoutProjectActivitiesInput>, Prisma.UserUncheckedUpdateWithoutProjectActivitiesInput>
+}
+
+export type UserCreateNestedOneWithoutProjectChatMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectChatMessagesInput, Prisma.UserUncheckedCreateWithoutProjectChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectChatMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectChatMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectChatMessagesInput, Prisma.UserUncheckedCreateWithoutProjectChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectChatMessagesInput
+  upsert?: Prisma.UserUpsertWithoutProjectChatMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectChatMessagesInput, Prisma.UserUpdateWithoutProjectChatMessagesInput>, Prisma.UserUncheckedUpdateWithoutProjectChatMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutLinkedProjectStudiesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLinkedProjectStudiesInput, Prisma.UserUncheckedCreateWithoutLinkedProjectStudiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLinkedProjectStudiesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLinkedProjectStudiesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLinkedProjectStudiesInput, Prisma.UserUncheckedCreateWithoutLinkedProjectStudiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLinkedProjectStudiesInput
+  upsert?: Prisma.UserUpsertWithoutLinkedProjectStudiesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLinkedProjectStudiesInput, Prisma.UserUpdateWithoutLinkedProjectStudiesInput>, Prisma.UserUncheckedUpdateWithoutLinkedProjectStudiesInput>
+}
+
 export type UserCreateWithoutStudiesInput = {
   id?: string
   name: string
@@ -908,6 +1209,20 @@ export type UserCreateWithoutStudiesInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutStudiesInput = {
@@ -938,6 +1253,20 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutStudiesInput = {
@@ -984,6 +1313,20 @@ export type UserUpdateWithoutStudiesInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudiesInput = {
@@ -1014,6 +1357,20 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutBookmarksInput = {
@@ -1044,6 +1401,20 @@ export type UserCreateWithoutBookmarksInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutBookmarksInput = {
@@ -1074,6 +1445,20 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutBookmarksInput = {
@@ -1120,6 +1505,20 @@ export type UserUpdateWithoutBookmarksInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookmarksInput = {
@@ -1150,6 +1549,20 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutRatingsInput = {
@@ -1180,6 +1593,20 @@ export type UserCreateWithoutRatingsInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutRatingsInput = {
@@ -1210,6 +1637,20 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutRatingsInput = {
@@ -1256,6 +1697,20 @@ export type UserUpdateWithoutRatingsInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -1286,6 +1741,20 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutLikesInput = {
@@ -1316,6 +1785,20 @@ export type UserCreateWithoutLikesInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutLikesInput = {
@@ -1346,6 +1829,20 @@ export type UserUncheckedCreateWithoutLikesInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutLikesInput = {
@@ -1392,6 +1889,20 @@ export type UserUpdateWithoutLikesInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLikesInput = {
@@ -1422,6 +1933,20 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -1452,6 +1977,20 @@ export type UserCreateWithoutCommentsInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -1482,6 +2021,20 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -1528,6 +2081,20 @@ export type UserUpdateWithoutCommentsInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -1558,6 +2125,20 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1588,6 +2169,20 @@ export type UserCreateWithoutNotificationsInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1618,6 +2213,20 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1664,6 +2273,20 @@ export type UserUpdateWithoutNotificationsInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1694,6 +2317,20 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutActivityLogsInput = {
@@ -1724,6 +2361,20 @@ export type UserCreateWithoutActivityLogsInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutActivityLogsInput = {
@@ -1754,6 +2405,20 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutActivityLogsInput = {
@@ -1800,6 +2465,20 @@ export type UserUpdateWithoutActivityLogsInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityLogsInput = {
@@ -1830,6 +2509,20 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutResponsesInput = {
@@ -1860,6 +2553,20 @@ export type UserCreateWithoutResponsesInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutResponsesInput = {
@@ -1890,6 +2597,20 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutResponsesInput = {
@@ -1936,6 +2657,20 @@ export type UserUpdateWithoutResponsesInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResponsesInput = {
@@ -1966,6 +2701,20 @@ export type UserUncheckedUpdateWithoutResponsesInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutWalletInput = {
@@ -1996,6 +2745,20 @@ export type UserCreateWithoutWalletInput = {
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutWalletInput = {
@@ -2026,6 +2789,20 @@ export type UserUncheckedCreateWithoutWalletInput = {
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutWalletInput = {
@@ -2072,6 +2849,20 @@ export type UserUpdateWithoutWalletInput = {
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWalletInput = {
@@ -2102,6 +2893,20 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutStudyPaymentsInput = {
@@ -2132,6 +2937,20 @@ export type UserCreateWithoutStudyPaymentsInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutStudyPaymentsInput = {
@@ -2162,6 +2981,20 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutStudyPaymentsInput = {
@@ -2208,6 +3041,20 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
@@ -2238,6 +3085,20 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutWithdrawalsInput = {
@@ -2268,6 +3129,20 @@ export type UserCreateWithoutWithdrawalsInput = {
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutWithdrawalsInput = {
@@ -2298,6 +3173,20 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutWithdrawalsInput = {
@@ -2344,6 +3233,20 @@ export type UserUpdateWithoutWithdrawalsInput = {
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWithdrawalsInput = {
@@ -2374,6 +3277,20 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserCreateWithoutAskProfileInput = {
@@ -2404,6 +3321,20 @@ export type UserCreateWithoutAskProfileInput = {
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserUncheckedCreateWithoutAskProfileInput = {
@@ -2434,6 +3365,20 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
 }
 
 export type UserCreateOrConnectWithoutAskProfileInput = {
@@ -2480,6 +3425,20 @@ export type UserUpdateWithoutAskProfileInput = {
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAskProfileInput = {
@@ -2510,6 +3469,2708 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutLeadProjectsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutLeadProjectsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutLeadProjectsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLeadProjectsInput, Prisma.UserUncheckedCreateWithoutLeadProjectsInput>
+}
+
+export type UserUpsertWithoutLeadProjectsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLeadProjectsInput, Prisma.UserUncheckedUpdateWithoutLeadProjectsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLeadProjectsInput, Prisma.UserUncheckedCreateWithoutLeadProjectsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLeadProjectsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLeadProjectsInput, Prisma.UserUncheckedUpdateWithoutLeadProjectsInput>
+}
+
+export type UserUpdateWithoutLeadProjectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLeadProjectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutProjectMembershipsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutProjectMembershipsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutProjectMembershipsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectMembershipsInput, Prisma.UserUncheckedCreateWithoutProjectMembershipsInput>
+}
+
+export type UserUpsertWithoutProjectMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectMembershipsInput, Prisma.UserUncheckedUpdateWithoutProjectMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectMembershipsInput, Prisma.UserUncheckedCreateWithoutProjectMembershipsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectMembershipsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectMembershipsInput, Prisma.UserUncheckedUpdateWithoutProjectMembershipsInput>
+}
+
+export type UserUpdateWithoutProjectMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutSentProjectInvitationsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutSentProjectInvitationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentProjectInvitationsInput, Prisma.UserUncheckedCreateWithoutSentProjectInvitationsInput>
+}
+
+export type UserUpsertWithoutSentProjectInvitationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentProjectInvitationsInput, Prisma.UserUncheckedUpdateWithoutSentProjectInvitationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentProjectInvitationsInput, Prisma.UserUncheckedCreateWithoutSentProjectInvitationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentProjectInvitationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentProjectInvitationsInput, Prisma.UserUncheckedUpdateWithoutSentProjectInvitationsInput>
+}
+
+export type UserUpdateWithoutSentProjectInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutCreatedProjectTasksInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedProjectTasksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedProjectTasksInput, Prisma.UserUncheckedCreateWithoutCreatedProjectTasksInput>
+}
+
+export type UserCreateWithoutAssignedProjectTasksInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedProjectTasksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedProjectTasksInput, Prisma.UserUncheckedCreateWithoutAssignedProjectTasksInput>
+}
+
+export type UserUpsertWithoutCreatedProjectTasksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedProjectTasksInput, Prisma.UserUncheckedUpdateWithoutCreatedProjectTasksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedProjectTasksInput, Prisma.UserUncheckedCreateWithoutCreatedProjectTasksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedProjectTasksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedProjectTasksInput, Prisma.UserUncheckedUpdateWithoutCreatedProjectTasksInput>
+}
+
+export type UserUpdateWithoutCreatedProjectTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUpsertWithoutAssignedProjectTasksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedProjectTasksInput, Prisma.UserUncheckedUpdateWithoutAssignedProjectTasksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedProjectTasksInput, Prisma.UserUncheckedCreateWithoutAssignedProjectTasksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedProjectTasksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedProjectTasksInput, Prisma.UserUncheckedUpdateWithoutAssignedProjectTasksInput>
+}
+
+export type UserUpdateWithoutAssignedProjectTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutUploadedProjectFilesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutUploadedProjectFilesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedProjectFilesInput, Prisma.UserUncheckedCreateWithoutUploadedProjectFilesInput>
+}
+
+export type UserUpsertWithoutUploadedProjectFilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUploadedProjectFilesInput, Prisma.UserUncheckedUpdateWithoutUploadedProjectFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedProjectFilesInput, Prisma.UserUncheckedCreateWithoutUploadedProjectFilesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUploadedProjectFilesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUploadedProjectFilesInput, Prisma.UserUncheckedUpdateWithoutUploadedProjectFilesInput>
+}
+
+export type UserUpdateWithoutUploadedProjectFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutUploadedProjectFileVersionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutUploadedProjectFileVersionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedProjectFileVersionsInput, Prisma.UserUncheckedCreateWithoutUploadedProjectFileVersionsInput>
+}
+
+export type UserUpsertWithoutUploadedProjectFileVersionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUploadedProjectFileVersionsInput, Prisma.UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUploadedProjectFileVersionsInput, Prisma.UserUncheckedCreateWithoutUploadedProjectFileVersionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUploadedProjectFileVersionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUploadedProjectFileVersionsInput, Prisma.UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput>
+}
+
+export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutProjectNotesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutProjectNotesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutProjectNotesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectNotesInput, Prisma.UserUncheckedCreateWithoutProjectNotesInput>
+}
+
+export type UserUpsertWithoutProjectNotesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectNotesInput, Prisma.UserUncheckedUpdateWithoutProjectNotesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectNotesInput, Prisma.UserUncheckedCreateWithoutProjectNotesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectNotesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectNotesInput, Prisma.UserUncheckedUpdateWithoutProjectNotesInput>
+}
+
+export type UserUpdateWithoutProjectNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutProjectDiscussionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutProjectDiscussionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionsInput>
+}
+
+export type UserUpsertWithoutProjectDiscussionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectDiscussionsInput, Prisma.UserUncheckedUpdateWithoutProjectDiscussionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectDiscussionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectDiscussionsInput, Prisma.UserUncheckedUpdateWithoutProjectDiscussionsInput>
+}
+
+export type UserUpdateWithoutProjectDiscussionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutProjectDiscussionRepliesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutProjectDiscussionRepliesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionRepliesInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionRepliesInput>
+}
+
+export type UserUpsertWithoutProjectDiscussionRepliesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectDiscussionRepliesInput, Prisma.UserUncheckedUpdateWithoutProjectDiscussionRepliesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionRepliesInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionRepliesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectDiscussionRepliesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectDiscussionRepliesInput, Prisma.UserUncheckedUpdateWithoutProjectDiscussionRepliesInput>
+}
+
+export type UserUpdateWithoutProjectDiscussionRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutProjectDecisionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutProjectDecisionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutProjectDecisionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDecisionsInput, Prisma.UserUncheckedCreateWithoutProjectDecisionsInput>
+}
+
+export type UserUpsertWithoutProjectDecisionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectDecisionsInput, Prisma.UserUncheckedUpdateWithoutProjectDecisionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDecisionsInput, Prisma.UserUncheckedCreateWithoutProjectDecisionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectDecisionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectDecisionsInput, Prisma.UserUncheckedUpdateWithoutProjectDecisionsInput>
+}
+
+export type UserUpdateWithoutProjectDecisionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutProjectActivitiesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutProjectActivitiesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutProjectActivitiesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectActivitiesInput, Prisma.UserUncheckedCreateWithoutProjectActivitiesInput>
+}
+
+export type UserUpsertWithoutProjectActivitiesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectActivitiesInput, Prisma.UserUncheckedUpdateWithoutProjectActivitiesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectActivitiesInput, Prisma.UserUncheckedCreateWithoutProjectActivitiesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectActivitiesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectActivitiesInput, Prisma.UserUncheckedUpdateWithoutProjectActivitiesInput>
+}
+
+export type UserUpdateWithoutProjectActivitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutProjectChatMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+}
+
+export type UserCreateOrConnectWithoutProjectChatMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectChatMessagesInput, Prisma.UserUncheckedCreateWithoutProjectChatMessagesInput>
+}
+
+export type UserUpsertWithoutProjectChatMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectChatMessagesInput, Prisma.UserUncheckedUpdateWithoutProjectChatMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectChatMessagesInput, Prisma.UserUncheckedCreateWithoutProjectChatMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectChatMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectChatMessagesInput, Prisma.UserUncheckedUpdateWithoutProjectChatMessagesInput>
+}
+
+export type UserUpdateWithoutProjectChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+}
+
+export type UserCreateWithoutLinkedProjectStudiesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutLinkedProjectStudiesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLinkedProjectStudiesInput, Prisma.UserUncheckedCreateWithoutLinkedProjectStudiesInput>
+}
+
+export type UserUpsertWithoutLinkedProjectStudiesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLinkedProjectStudiesInput, Prisma.UserUncheckedUpdateWithoutLinkedProjectStudiesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLinkedProjectStudiesInput, Prisma.UserUncheckedCreateWithoutLinkedProjectStudiesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLinkedProjectStudiesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLinkedProjectStudiesInput, Prisma.UserUncheckedUpdateWithoutLinkedProjectStudiesInput>
+}
+
+export type UserUpdateWithoutLinkedProjectStudiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 
@@ -2528,6 +6189,20 @@ export type UserCountOutputType = {
   studyPayments: number
   ratings: number
   withdrawals: number
+  leadProjects: number
+  projectMemberships: number
+  sentProjectInvitations: number
+  createdProjectTasks: number
+  assignedProjectTasks: number
+  uploadedProjectFiles: number
+  uploadedProjectFileVersions: number
+  projectNotes: number
+  projectDiscussions: number
+  projectDiscussionReplies: number
+  projectDecisions: number
+  projectActivities: number
+  projectChatMessages: number
+  linkedProjectStudies: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2541,6 +6216,20 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   studyPayments?: boolean | UserCountOutputTypeCountStudyPaymentsArgs
   ratings?: boolean | UserCountOutputTypeCountRatingsArgs
   withdrawals?: boolean | UserCountOutputTypeCountWithdrawalsArgs
+  leadProjects?: boolean | UserCountOutputTypeCountLeadProjectsArgs
+  projectMemberships?: boolean | UserCountOutputTypeCountProjectMembershipsArgs
+  sentProjectInvitations?: boolean | UserCountOutputTypeCountSentProjectInvitationsArgs
+  createdProjectTasks?: boolean | UserCountOutputTypeCountCreatedProjectTasksArgs
+  assignedProjectTasks?: boolean | UserCountOutputTypeCountAssignedProjectTasksArgs
+  uploadedProjectFiles?: boolean | UserCountOutputTypeCountUploadedProjectFilesArgs
+  uploadedProjectFileVersions?: boolean | UserCountOutputTypeCountUploadedProjectFileVersionsArgs
+  projectNotes?: boolean | UserCountOutputTypeCountProjectNotesArgs
+  projectDiscussions?: boolean | UserCountOutputTypeCountProjectDiscussionsArgs
+  projectDiscussionReplies?: boolean | UserCountOutputTypeCountProjectDiscussionRepliesArgs
+  projectDecisions?: boolean | UserCountOutputTypeCountProjectDecisionsArgs
+  projectActivities?: boolean | UserCountOutputTypeCountProjectActivitiesArgs
+  projectChatMessages?: boolean | UserCountOutputTypeCountProjectChatMessagesArgs
+  linkedProjectStudies?: boolean | UserCountOutputTypeCountLinkedProjectStudiesArgs
 }
 
 /**
@@ -2623,6 +6312,104 @@ export type UserCountOutputTypeCountWithdrawalsArgs<ExtArgs extends runtime.Type
   where?: Prisma.WithdrawalWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLeadProjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResearchProjectWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectMemberWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentProjectInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectInvitationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedProjectTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectTaskWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedProjectTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectTaskWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUploadedProjectFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectFileWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUploadedProjectFileVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectFileVersionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectNoteWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectDiscussionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectDiscussionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectDiscussionRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectDiscussionReplyWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectDecisionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectDecisionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectActivityWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectChatMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLinkedProjectStudiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectLinkedStudyWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2653,6 +6440,20 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   askProfile?: boolean | Prisma.User$askProfileArgs<ExtArgs>
+  leadProjects?: boolean | Prisma.User$leadProjectsArgs<ExtArgs>
+  projectMemberships?: boolean | Prisma.User$projectMembershipsArgs<ExtArgs>
+  sentProjectInvitations?: boolean | Prisma.User$sentProjectInvitationsArgs<ExtArgs>
+  createdProjectTasks?: boolean | Prisma.User$createdProjectTasksArgs<ExtArgs>
+  assignedProjectTasks?: boolean | Prisma.User$assignedProjectTasksArgs<ExtArgs>
+  uploadedProjectFiles?: boolean | Prisma.User$uploadedProjectFilesArgs<ExtArgs>
+  uploadedProjectFileVersions?: boolean | Prisma.User$uploadedProjectFileVersionsArgs<ExtArgs>
+  projectNotes?: boolean | Prisma.User$projectNotesArgs<ExtArgs>
+  projectDiscussions?: boolean | Prisma.User$projectDiscussionsArgs<ExtArgs>
+  projectDiscussionReplies?: boolean | Prisma.User$projectDiscussionRepliesArgs<ExtArgs>
+  projectDecisions?: boolean | Prisma.User$projectDecisionsArgs<ExtArgs>
+  projectActivities?: boolean | Prisma.User$projectActivitiesArgs<ExtArgs>
+  projectChatMessages?: boolean | Prisma.User$projectChatMessagesArgs<ExtArgs>
+  linkedProjectStudies?: boolean | Prisma.User$linkedProjectStudiesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2727,6 +6528,20 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   askProfile?: boolean | Prisma.User$askProfileArgs<ExtArgs>
+  leadProjects?: boolean | Prisma.User$leadProjectsArgs<ExtArgs>
+  projectMemberships?: boolean | Prisma.User$projectMembershipsArgs<ExtArgs>
+  sentProjectInvitations?: boolean | Prisma.User$sentProjectInvitationsArgs<ExtArgs>
+  createdProjectTasks?: boolean | Prisma.User$createdProjectTasksArgs<ExtArgs>
+  assignedProjectTasks?: boolean | Prisma.User$assignedProjectTasksArgs<ExtArgs>
+  uploadedProjectFiles?: boolean | Prisma.User$uploadedProjectFilesArgs<ExtArgs>
+  uploadedProjectFileVersions?: boolean | Prisma.User$uploadedProjectFileVersionsArgs<ExtArgs>
+  projectNotes?: boolean | Prisma.User$projectNotesArgs<ExtArgs>
+  projectDiscussions?: boolean | Prisma.User$projectDiscussionsArgs<ExtArgs>
+  projectDiscussionReplies?: boolean | Prisma.User$projectDiscussionRepliesArgs<ExtArgs>
+  projectDecisions?: boolean | Prisma.User$projectDecisionsArgs<ExtArgs>
+  projectActivities?: boolean | Prisma.User$projectActivitiesArgs<ExtArgs>
+  projectChatMessages?: boolean | Prisma.User$projectChatMessagesArgs<ExtArgs>
+  linkedProjectStudies?: boolean | Prisma.User$linkedProjectStudiesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2747,6 +6562,20 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     wallet: Prisma.$WalletPayload<ExtArgs> | null
     withdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
     askProfile: Prisma.$AskProfilePayload<ExtArgs> | null
+    leadProjects: Prisma.$ResearchProjectPayload<ExtArgs>[]
+    projectMemberships: Prisma.$ProjectMemberPayload<ExtArgs>[]
+    sentProjectInvitations: Prisma.$ProjectInvitationPayload<ExtArgs>[]
+    createdProjectTasks: Prisma.$ProjectTaskPayload<ExtArgs>[]
+    assignedProjectTasks: Prisma.$ProjectTaskPayload<ExtArgs>[]
+    uploadedProjectFiles: Prisma.$ProjectFilePayload<ExtArgs>[]
+    uploadedProjectFileVersions: Prisma.$ProjectFileVersionPayload<ExtArgs>[]
+    projectNotes: Prisma.$ProjectNotePayload<ExtArgs>[]
+    projectDiscussions: Prisma.$ProjectDiscussionPayload<ExtArgs>[]
+    projectDiscussionReplies: Prisma.$ProjectDiscussionReplyPayload<ExtArgs>[]
+    projectDecisions: Prisma.$ProjectDecisionPayload<ExtArgs>[]
+    projectActivities: Prisma.$ProjectActivityPayload<ExtArgs>[]
+    projectChatMessages: Prisma.$ProjectChatMessagePayload<ExtArgs>[]
+    linkedProjectStudies: Prisma.$ProjectLinkedStudyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3171,6 +7000,20 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   wallet<T extends Prisma.User$walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$walletArgs<ExtArgs>>): Prisma.Prisma__WalletClient<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   withdrawals<T extends Prisma.User$withdrawalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$withdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   askProfile<T extends Prisma.User$askProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$askProfileArgs<ExtArgs>>): Prisma.Prisma__AskProfileClient<runtime.Types.Result.GetResult<Prisma.$AskProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  leadProjects<T extends Prisma.User$leadProjectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$leadProjectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectMemberships<T extends Prisma.User$projectMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentProjectInvitations<T extends Prisma.User$sentProjectInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentProjectInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdProjectTasks<T extends Prisma.User$createdProjectTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdProjectTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedProjectTasks<T extends Prisma.User$assignedProjectTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedProjectTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  uploadedProjectFiles<T extends Prisma.User$uploadedProjectFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedProjectFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  uploadedProjectFileVersions<T extends Prisma.User$uploadedProjectFileVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedProjectFileVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectFileVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectNotes<T extends Prisma.User$projectNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectDiscussions<T extends Prisma.User$projectDiscussionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectDiscussionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectDiscussionReplies<T extends Prisma.User$projectDiscussionRepliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectDiscussionRepliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectDecisions<T extends Prisma.User$projectDecisionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectDecisionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDecisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectActivities<T extends Prisma.User$projectActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectChatMessages<T extends Prisma.User$projectChatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectChatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  linkedProjectStudies<T extends Prisma.User$linkedProjectStudiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$linkedProjectStudiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectLinkedStudyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3884,6 +7727,342 @@ export type User$askProfileArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   include?: Prisma.AskProfileInclude<ExtArgs> | null
   where?: Prisma.AskProfileWhereInput
+}
+
+/**
+ * User.leadProjects
+ */
+export type User$leadProjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResearchProject
+   */
+  select?: Prisma.ResearchProjectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResearchProject
+   */
+  omit?: Prisma.ResearchProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResearchProjectInclude<ExtArgs> | null
+  where?: Prisma.ResearchProjectWhereInput
+  orderBy?: Prisma.ResearchProjectOrderByWithRelationInput | Prisma.ResearchProjectOrderByWithRelationInput[]
+  cursor?: Prisma.ResearchProjectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResearchProjectScalarFieldEnum | Prisma.ResearchProjectScalarFieldEnum[]
+}
+
+/**
+ * User.projectMemberships
+ */
+export type User$projectMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectMember
+   */
+  select?: Prisma.ProjectMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectMember
+   */
+  omit?: Prisma.ProjectMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectMemberInclude<ExtArgs> | null
+  where?: Prisma.ProjectMemberWhereInput
+  orderBy?: Prisma.ProjectMemberOrderByWithRelationInput | Prisma.ProjectMemberOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectMemberScalarFieldEnum | Prisma.ProjectMemberScalarFieldEnum[]
+}
+
+/**
+ * User.sentProjectInvitations
+ */
+export type User$sentProjectInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectInvitation
+   */
+  select?: Prisma.ProjectInvitationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectInvitation
+   */
+  omit?: Prisma.ProjectInvitationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInvitationInclude<ExtArgs> | null
+  where?: Prisma.ProjectInvitationWhereInput
+  orderBy?: Prisma.ProjectInvitationOrderByWithRelationInput | Prisma.ProjectInvitationOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectInvitationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectInvitationScalarFieldEnum | Prisma.ProjectInvitationScalarFieldEnum[]
+}
+
+/**
+ * User.createdProjectTasks
+ */
+export type User$createdProjectTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectTask
+   */
+  select?: Prisma.ProjectTaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectTask
+   */
+  omit?: Prisma.ProjectTaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectTaskInclude<ExtArgs> | null
+  where?: Prisma.ProjectTaskWhereInput
+  orderBy?: Prisma.ProjectTaskOrderByWithRelationInput | Prisma.ProjectTaskOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectTaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectTaskScalarFieldEnum | Prisma.ProjectTaskScalarFieldEnum[]
+}
+
+/**
+ * User.assignedProjectTasks
+ */
+export type User$assignedProjectTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectTask
+   */
+  select?: Prisma.ProjectTaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectTask
+   */
+  omit?: Prisma.ProjectTaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectTaskInclude<ExtArgs> | null
+  where?: Prisma.ProjectTaskWhereInput
+  orderBy?: Prisma.ProjectTaskOrderByWithRelationInput | Prisma.ProjectTaskOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectTaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectTaskScalarFieldEnum | Prisma.ProjectTaskScalarFieldEnum[]
+}
+
+/**
+ * User.uploadedProjectFiles
+ */
+export type User$uploadedProjectFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectFile
+   */
+  select?: Prisma.ProjectFileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectFile
+   */
+  omit?: Prisma.ProjectFileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectFileInclude<ExtArgs> | null
+  where?: Prisma.ProjectFileWhereInput
+  orderBy?: Prisma.ProjectFileOrderByWithRelationInput | Prisma.ProjectFileOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectFileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectFileScalarFieldEnum | Prisma.ProjectFileScalarFieldEnum[]
+}
+
+/**
+ * User.uploadedProjectFileVersions
+ */
+export type User$uploadedProjectFileVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectFileVersion
+   */
+  select?: Prisma.ProjectFileVersionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectFileVersion
+   */
+  omit?: Prisma.ProjectFileVersionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectFileVersionInclude<ExtArgs> | null
+  where?: Prisma.ProjectFileVersionWhereInput
+  orderBy?: Prisma.ProjectFileVersionOrderByWithRelationInput | Prisma.ProjectFileVersionOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectFileVersionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectFileVersionScalarFieldEnum | Prisma.ProjectFileVersionScalarFieldEnum[]
+}
+
+/**
+ * User.projectNotes
+ */
+export type User$projectNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectNote
+   */
+  select?: Prisma.ProjectNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectNote
+   */
+  omit?: Prisma.ProjectNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectNoteInclude<ExtArgs> | null
+  where?: Prisma.ProjectNoteWhereInput
+  orderBy?: Prisma.ProjectNoteOrderByWithRelationInput | Prisma.ProjectNoteOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectNoteScalarFieldEnum | Prisma.ProjectNoteScalarFieldEnum[]
+}
+
+/**
+ * User.projectDiscussions
+ */
+export type User$projectDiscussionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectDiscussion
+   */
+  select?: Prisma.ProjectDiscussionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectDiscussion
+   */
+  omit?: Prisma.ProjectDiscussionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectDiscussionInclude<ExtArgs> | null
+  where?: Prisma.ProjectDiscussionWhereInput
+  orderBy?: Prisma.ProjectDiscussionOrderByWithRelationInput | Prisma.ProjectDiscussionOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectDiscussionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectDiscussionScalarFieldEnum | Prisma.ProjectDiscussionScalarFieldEnum[]
+}
+
+/**
+ * User.projectDiscussionReplies
+ */
+export type User$projectDiscussionRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectDiscussionReply
+   */
+  select?: Prisma.ProjectDiscussionReplySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectDiscussionReply
+   */
+  omit?: Prisma.ProjectDiscussionReplyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectDiscussionReplyInclude<ExtArgs> | null
+  where?: Prisma.ProjectDiscussionReplyWhereInput
+  orderBy?: Prisma.ProjectDiscussionReplyOrderByWithRelationInput | Prisma.ProjectDiscussionReplyOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectDiscussionReplyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectDiscussionReplyScalarFieldEnum | Prisma.ProjectDiscussionReplyScalarFieldEnum[]
+}
+
+/**
+ * User.projectDecisions
+ */
+export type User$projectDecisionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectDecision
+   */
+  select?: Prisma.ProjectDecisionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectDecision
+   */
+  omit?: Prisma.ProjectDecisionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectDecisionInclude<ExtArgs> | null
+  where?: Prisma.ProjectDecisionWhereInput
+  orderBy?: Prisma.ProjectDecisionOrderByWithRelationInput | Prisma.ProjectDecisionOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectDecisionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectDecisionScalarFieldEnum | Prisma.ProjectDecisionScalarFieldEnum[]
+}
+
+/**
+ * User.projectActivities
+ */
+export type User$projectActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectActivity
+   */
+  select?: Prisma.ProjectActivitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectActivity
+   */
+  omit?: Prisma.ProjectActivityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectActivityInclude<ExtArgs> | null
+  where?: Prisma.ProjectActivityWhereInput
+  orderBy?: Prisma.ProjectActivityOrderByWithRelationInput | Prisma.ProjectActivityOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectActivityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectActivityScalarFieldEnum | Prisma.ProjectActivityScalarFieldEnum[]
+}
+
+/**
+ * User.projectChatMessages
+ */
+export type User$projectChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectChatMessage
+   */
+  select?: Prisma.ProjectChatMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectChatMessage
+   */
+  omit?: Prisma.ProjectChatMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectChatMessageInclude<ExtArgs> | null
+  where?: Prisma.ProjectChatMessageWhereInput
+  orderBy?: Prisma.ProjectChatMessageOrderByWithRelationInput | Prisma.ProjectChatMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectChatMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectChatMessageScalarFieldEnum | Prisma.ProjectChatMessageScalarFieldEnum[]
+}
+
+/**
+ * User.linkedProjectStudies
+ */
+export type User$linkedProjectStudiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectLinkedStudy
+   */
+  select?: Prisma.ProjectLinkedStudySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectLinkedStudy
+   */
+  omit?: Prisma.ProjectLinkedStudyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectLinkedStudyInclude<ExtArgs> | null
+  where?: Prisma.ProjectLinkedStudyWhereInput
+  orderBy?: Prisma.ProjectLinkedStudyOrderByWithRelationInput | Prisma.ProjectLinkedStudyOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectLinkedStudyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectLinkedStudyScalarFieldEnum | Prisma.ProjectLinkedStudyScalarFieldEnum[]
 }
 
 /**

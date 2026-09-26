@@ -93,3 +93,130 @@ export const AskQuestionStatus = {
 } as const
 
 export type AskQuestionStatus = (typeof AskQuestionStatus)[keyof typeof AskQuestionStatus]
+
+
+export const ProjectStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  COMPLETED: 'COMPLETED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
+
+
+export const ProjectVisibility = {
+  PRIVATE: 'PRIVATE',
+  TEAM: 'TEAM',
+  PUBLIC: 'PUBLIC'
+} as const
+
+export type ProjectVisibility = (typeof ProjectVisibility)[keyof typeof ProjectVisibility]
+
+
+export const ProjectPhase = {
+  IDEA: 'IDEA',
+  PLANNING: 'PLANNING',
+  LITERATURE_REVIEW: 'LITERATURE_REVIEW',
+  PROTOCOL: 'PROTOCOL',
+  ETHICS_APPROVAL: 'ETHICS_APPROVAL',
+  DATA_COLLECTION: 'DATA_COLLECTION',
+  DATA_CLEANING: 'DATA_CLEANING',
+  ANALYSIS: 'ANALYSIS',
+  MANUSCRIPT: 'MANUSCRIPT',
+  SUBMISSION: 'SUBMISSION',
+  PUBLICATION: 'PUBLICATION',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type ProjectPhase = (typeof ProjectPhase)[keyof typeof ProjectPhase]
+
+
+export const ProjectRole = {
+  PROJECT_OWNER: 'PROJECT_OWNER',
+  PRINCIPAL_INVESTIGATOR: 'PRINCIPAL_INVESTIGATOR',
+  RESEARCHER: 'RESEARCHER',
+  DATA_ANALYST: 'DATA_ANALYST',
+  RESEARCH_ASSISTANT: 'RESEARCH_ASSISTANT',
+  ADVISOR_VIEWER: 'ADVISOR_VIEWER'
+} as const
+
+export type ProjectRole = (typeof ProjectRole)[keyof typeof ProjectRole]
+
+
+export const ProjectTaskStatus = {
+  TODO: 'TODO',
+  IN_PROGRESS: 'IN_PROGRESS',
+  IN_REVIEW: 'IN_REVIEW',
+  BLOCKED: 'BLOCKED',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type ProjectTaskStatus = (typeof ProjectTaskStatus)[keyof typeof ProjectTaskStatus]
+
+
+export const ProjectTaskPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type ProjectTaskPriority = (typeof ProjectTaskPriority)[keyof typeof ProjectTaskPriority]
+
+
+export const ProjectFileFolder = {
+  PROTOCOL: 'PROTOCOL',
+  LITERATURE: 'LITERATURE',
+  ETHICS: 'ETHICS',
+  DATA: 'DATA',
+  ANALYSIS: 'ANALYSIS',
+  MANUSCRIPT: 'MANUSCRIPT',
+  FIGURES: 'FIGURES',
+  PRESENTATIONS: 'PRESENTATIONS',
+  OTHER: 'OTHER'
+} as const
+
+export type ProjectFileFolder = (typeof ProjectFileFolder)[keyof typeof ProjectFileFolder]
+
+
+export const ProjectOutputType = {
+  RESEARCH_PAPER: 'RESEARCH_PAPER',
+  POSTER: 'POSTER',
+  PRESENTATION: 'PRESENTATION',
+  DATASET: 'DATASET',
+  ABSTRACT: 'ABSTRACT',
+  PREPRINT: 'PREPRINT',
+  PUBLICATION: 'PUBLICATION'
+} as const
+
+export type ProjectOutputType = (typeof ProjectOutputType)[keyof typeof ProjectOutputType]
+
+
+export const ProjectOutputStatus = {
+  DRAFT: 'DRAFT',
+  IN_REVIEW: 'IN_REVIEW',
+  SUBMITTED: 'SUBMITTED',
+  ACCEPTED: 'ACCEPTED',
+  PUBLISHED: 'PUBLISHED'
+} as const
+
+export type ProjectOutputStatus = (typeof ProjectOutputStatus)[keyof typeof ProjectOutputStatus]
+
+
+export const InvitationStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type InvitationStatus = (typeof InvitationStatus)[keyof typeof InvitationStatus]
+
+
+export const DecisionStatus = {
+  ACTIVE: 'ACTIVE',
+  SUPERSEDED: 'SUPERSEDED'
+} as const
+
+export type DecisionStatus = (typeof DecisionStatus)[keyof typeof DecisionStatus]

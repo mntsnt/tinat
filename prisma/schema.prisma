@@ -36,6 +36,20 @@ model User {
   wallet        Wallet?
   withdrawals   Withdrawal[]
   askProfile    AskProfile?
+  leadProjects                ResearchProject[]        @relation("ProjectLead")
+  projectMemberships          ProjectMember[]
+  sentProjectInvitations      ProjectInvitation[]      @relation("ProjectInviter")
+  createdProjectTasks         ProjectTask[]            @relation("TaskCreator")
+  assignedProjectTasks        ProjectTask[]            @relation("TaskAssignee")
+  uploadedProjectFiles        ProjectFile[]
+  uploadedProjectFileVersions ProjectFileVersion[]
+  projectNotes                ProjectNote[]
+  projectDiscussions          ProjectDiscussion[]
+  projectDiscussionReplies    ProjectDiscussionReply[]
+  projectDecisions            ProjectDecision[]        @relation("DecisionMadeBy")
+  projectActivities           ProjectActivity[]
+  projectChatMessages         ProjectChatMessage[]
+  linkedProjectStudies        ProjectLinkedStudy[]
 }
 
 model Study {
@@ -65,6 +79,7 @@ model Study {
   likes               StudyLike[]
   payments            StudyPayment[]
   ratings             StudyRating[]
+  linkedProjects      ProjectLinkedStudy[]
 }
 
 model StudyBookmark {
@@ -358,4 +373,398 @@ model AskQuestion {
   @@index([profileId, createdAt])
   @@index([profileId, isPublic])
 }
+
+enum ProjectStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ARCHIVED
+}
+
+enum ProjectVisibility {
+  PRIVATE
+  TEAM
+  PUBLIC
+}
+
+enum ProjectPhase {
+  IDEA
+  PLANNING
+  LITERATURE_REVIEW
+  PROTOCOL
+  ETHICS_APPROVAL
+  DATA_COLLECTION
+  DATA_CLEANING
+  ANALYSIS
+  MANUSCRIPT
+  SUBMISSION
+  PUBLICATION
+  COMPLETED
+}
+
+enum ProjectRole {
+  PROJECT_OWNER
+  PRINCIPAL_INVESTIGATOR
+  RESEARCHER
+  DATA_ANALYST
+  RESEARCH_ASSISTANT
+  ADVISOR_VIEWER
+}
+
+enum ProjectTaskStatus {
+  TODO
+  IN_PROGRESS
+  IN_REVIEW
+  BLOCKED
+  COMPLETED
+}
+
+enum ProjectTaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum ProjectFileFolder {
+  PROTOCOL
+  LITERATURE
+  ETHICS
+  DATA
+  ANALYSIS
+  MANUSCRIPT
+  FIGURES
+  PRESENTATIONS
+  OTHER
+}
+
+enum ProjectOutputType {
+  RESEARCH_PAPER
+  POSTER
+  PRESENTATION
+  DATASET
+  ABSTRACT
+  PREPRINT
+  PUBLICATION
+}
+
+enum ProjectOutputStatus {
+  DRAFT
+  IN_REVIEW
+  SUBMITTED
+  ACCEPTED
+  PUBLISHED
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  EXPIRED
+}
+
+enum DecisionStatus {
+  ACTIVE
+  SUPERSEDED
+}
+
+model ResearchProject {
+  id               String            @id @default(cuid())
+  title            String
+  slug             String?           @unique
+  description      String?
+  researchQuestion String?
+  objective        String?
+  category         String
+  studyDesign      String
+  researchArea     String?
+  institution      String?
+  projectLeadId    String
+  startDate        DateTime?
+  endDate          DateTime?
+  status           ProjectStatus     @default(ACTIVE)
+  currentPhase     ProjectPhase      @default(PLANNING)
+  visibility       ProjectVisibility @default(TEAM)
+  customPhases     String[]          @default([])
+  isArchived       Boolean           @default(false)
+  inviteToken      String?           @unique
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  lead          User                 @relation("ProjectLead", fields: [projectLeadId], references: [id], onDelete: Cascade)
+  members       ProjectMember[]
+  invitations   ProjectInvitation[]
+  tasks         ProjectTask[]
+  milestones    ProjectMilestone[]
+  files         ProjectFile[]
+  notes         ProjectNote[]
+  discussions   ProjectDiscussion[]
+  decisions     ProjectDecision[]
+  activities    ProjectActivity[]
+  chatMessages  ProjectChatMessage[]
+  linkedStudies ProjectLinkedStudy[]
+  outputs       ProjectOutput[]
+
+  @@index([projectLeadId])
+  @@index([status])
+  @@index([category])
+  @@index([visibility])
+}
+
+model ProjectMember {
+  id                String       @id @default(cuid())
+  projectId         String
+  userId            String
+  role              ProjectRole  @default(RESEARCHER)
+  title             String?
+  joinedAt          DateTime     @default(now())
+  customPermissions Json?
+
+  project ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@index([userId])
+}
+
+model ProjectInvitation {
+  id           String           @id @default(cuid())
+  projectId    String
+  inviterId    String
+  inviteeEmail String
+  role         ProjectRole      @default(RESEARCHER)
+  message      String?
+  token        String           @unique
+  status       InvitationStatus @default(PENDING)
+  expiresAt    DateTime
+  createdAt    DateTime         @default(now())
+
+  project ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  inviter User            @relation("ProjectInviter", fields: [inviterId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([inviteeEmail])
+  @@index([token])
+}
+
+model ProjectMilestone {
+  id          String       @id @default(cuid())
+  projectId   String
+  title       String
+  description String?
+  deadline    DateTime?
+  phase       ProjectPhase @default(PLANNING)
+  isCompleted Boolean      @default(false)
+  completedAt DateTime?
+  order       Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  project ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks   ProjectTask[]
+
+  @@index([projectId, phase])
+}
+
+model ProjectTask {
+  id          String              @id @default(cuid())
+  projectId   String
+  milestoneId String?
+  creatorId   String
+  assigneeId  String?
+  title       String
+  description String?
+  status      ProjectTaskStatus   @default(TODO)
+  priority    ProjectTaskPriority @default(MEDIUM)
+  phase       ProjectPhase        @default(PLANNING)
+  dueDate     DateTime?
+  labels      String[]            @default([])
+  subtasks    Json?
+  completedAt DateTime?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  project   ResearchProject   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  milestone ProjectMilestone? @relation(fields: [milestoneId], references: [id], onDelete: SetNull)
+  creator   User              @relation("TaskCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  assignee  User?             @relation("TaskAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  @@index([projectId, status])
+  @@index([assigneeId])
+  @@index([milestoneId])
+}
+
+model ProjectFile {
+  id                    String            @id @default(cuid())
+  projectId             String
+  uploaderId            String
+  folder                ProjectFileFolder @default(PROTOCOL)
+  name                  String
+  fileUrl               String
+  fileType              String
+  fileSize              Int               @default(0)
+  version               Int               @default(1)
+  isSensitiveHealthData Boolean           @default(false)
+  notes                 String?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  project  ResearchProject      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  uploader User                 @relation(fields: [uploaderId], references: [id], onDelete: Cascade)
+  versions ProjectFileVersion[]
+
+  @@index([projectId, folder])
+}
+
+model ProjectFileVersion {
+  id            String   @id @default(cuid())
+  fileId        String
+  uploaderId    String
+  version       Int
+  fileUrl       String
+  fileSize      Int      @default(0)
+  changeSummary String?
+  createdAt     DateTime @default(now())
+
+  file     ProjectFile @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  uploader User        @relation(fields: [uploaderId], references: [id], onDelete: Cascade)
+
+  @@index([fileId])
+}
+
+model ProjectNote {
+  id        String   @id @default(cuid())
+  projectId String
+  authorId  String
+  category  String
+  title     String
+  content   String
+  isPinned  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  author  User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, category])
+}
+
+model ProjectDiscussion {
+  id         String   @id @default(cuid())
+  projectId  String
+  authorId   String
+  title      String
+  content    String
+  category   String   @default("General")
+  isResolved Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  project ResearchProject          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  author  User                     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  replies ProjectDiscussionReply[]
+
+  @@index([projectId])
+}
+
+model ProjectDiscussionReply {
+  id           String   @id @default(cuid())
+  discussionId String
+  authorId     String
+  content      String
+  createdAt    DateTime @default(now())
+
+  discussion ProjectDiscussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  author     User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([discussionId])
+}
+
+model ProjectDecision {
+  id             String         @id @default(cuid())
+  projectId      String
+  decisionNumber Int
+  decision       String
+  reason         String?
+  status         DecisionStatus @default(ACTIVE)
+  madeById       String
+  supersededById String?
+  relatedDoc     String?
+  date           DateTime       @default(now())
+  createdAt      DateTime       @default(now())
+
+  project ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  madeBy  User            @relation("DecisionMadeBy", fields: [madeById], references: [id], onDelete: Cascade)
+
+  @@index([projectId, decisionNumber])
+}
+
+model ProjectActivity {
+  id          String   @id @default(cuid())
+  projectId   String
+  userId      String
+  action      String
+  description String
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  project ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, createdAt])
+}
+
+model ProjectChatMessage {
+  id        String   @id @default(cuid())
+  projectId String
+  senderId  String
+  content   String
+  taskId    String?
+  fileUrl   String?
+  createdAt DateTime @default(now())
+
+  project ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sender  User            @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, createdAt])
+}
+
+model ProjectLinkedStudy {
+  id         String   @id @default(cuid())
+  projectId  String
+  studyId    String
+  linkedById String
+  notes      String?
+  createdAt  DateTime @default(now())
+
+  project  ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  study    Study           @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  linkedBy User            @relation(fields: [linkedById], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, studyId])
+  @@index([projectId])
+  @@index([studyId])
+}
+
+model ProjectOutput {
+  id                 String              @id @default(cuid())
+  projectId          String
+  title              String
+  type               ProjectOutputType   @default(RESEARCH_PAPER)
+  status             ProjectOutputStatus @default(DRAFT)
+  targetJournal      String?
+  linkUrl            String?
+  fileUrl            String?
+  submissionDeadline DateTime?
+  publicationDate    DateTime?
+  contributors       String[]            @default([])
+  manuscriptSections Json?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  project ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, type])
+}
+
 

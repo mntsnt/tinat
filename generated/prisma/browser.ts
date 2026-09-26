@@ -112,3 +112,78 @@ export type AskProfile = Prisma.AskProfileModel
  * 
  */
 export type AskQuestion = Prisma.AskQuestionModel
+/**
+ * Model ResearchProject
+ * 
+ */
+export type ResearchProject = Prisma.ResearchProjectModel
+/**
+ * Model ProjectMember
+ * 
+ */
+export type ProjectMember = Prisma.ProjectMemberModel
+/**
+ * Model ProjectInvitation
+ * 
+ */
+export type ProjectInvitation = Prisma.ProjectInvitationModel
+/**
+ * Model ProjectMilestone
+ * 
+ */
+export type ProjectMilestone = Prisma.ProjectMilestoneModel
+/**
+ * Model ProjectTask
+ * 
+ */
+export type ProjectTask = Prisma.ProjectTaskModel
+/**
+ * Model ProjectFile
+ * 
+ */
+export type ProjectFile = Prisma.ProjectFileModel
+/**
+ * Model ProjectFileVersion
+ * 
+ */
+export type ProjectFileVersion = Prisma.ProjectFileVersionModel
+/**
+ * Model ProjectNote
+ * 
+ */
+export type ProjectNote = Prisma.ProjectNoteModel
+/**
+ * Model ProjectDiscussion
+ * 
+ */
+export type ProjectDiscussion = Prisma.ProjectDiscussionModel
+/**
+ * Model ProjectDiscussionReply
+ * 
+ */
+export type ProjectDiscussionReply = Prisma.ProjectDiscussionReplyModel
+/**
+ * Model ProjectDecision
+ * 
+ */
+export type ProjectDecision = Prisma.ProjectDecisionModel
+/**
+ * Model ProjectActivity
+ * 
+ */
+export type ProjectActivity = Prisma.ProjectActivityModel
+/**
+ * Model ProjectChatMessage
+ * 
+ */
+export type ProjectChatMessage = Prisma.ProjectChatMessageModel
+/**
+ * Model ProjectLinkedStudy
+ * 
+ */
+export type ProjectLinkedStudy = Prisma.ProjectLinkedStudyModel
+/**
+ * Model ProjectOutput
+ * 
+ */
+export type ProjectOutput = Prisma.ProjectOutputModel

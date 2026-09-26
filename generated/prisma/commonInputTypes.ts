@@ -443,6 +443,193 @@ export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
   _max?: Prisma.NestedJsonNullableFilter<$PrismaModel>
 }
 
+export type EnumProjectStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectStatus | Prisma.EnumProjectStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus
+}
+
+export type EnumProjectPhaseFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectPhase | Prisma.EnumProjectPhaseFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectPhase[] | Prisma.ListEnumProjectPhaseFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectPhase[] | Prisma.ListEnumProjectPhaseFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectPhaseFilter<$PrismaModel> | $Enums.ProjectPhase
+}
+
+export type EnumProjectVisibilityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectVisibility | Prisma.EnumProjectVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectVisibility[] | Prisma.ListEnumProjectVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectVisibility[] | Prisma.ListEnumProjectVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectVisibilityFilter<$PrismaModel> | $Enums.ProjectVisibility
+}
+
+export type EnumProjectStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectStatus | Prisma.EnumProjectStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProjectStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectStatusFilter<$PrismaModel>
+}
+
+export type EnumProjectPhaseWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectPhase | Prisma.EnumProjectPhaseFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectPhase[] | Prisma.ListEnumProjectPhaseFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectPhase[] | Prisma.ListEnumProjectPhaseFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectPhaseWithAggregatesFilter<$PrismaModel> | $Enums.ProjectPhase
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectPhaseFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectPhaseFilter<$PrismaModel>
+}
+
+export type EnumProjectVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectVisibility | Prisma.EnumProjectVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectVisibility[] | Prisma.ListEnumProjectVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectVisibility[] | Prisma.ListEnumProjectVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.ProjectVisibility
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectVisibilityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectVisibilityFilter<$PrismaModel>
+}
+
+export type EnumProjectRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectRole | Prisma.EnumProjectRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel> | $Enums.ProjectRole
+}
+
+export type EnumProjectRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectRole | Prisma.EnumProjectRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectRoleWithAggregatesFilter<$PrismaModel> | $Enums.ProjectRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel>
+}
+
+export type EnumInvitationStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvitationStatus | Prisma.EnumInvitationStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.InvitationStatus[] | Prisma.ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvitationStatus[] | Prisma.ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvitationStatusFilter<$PrismaModel> | $Enums.InvitationStatus
+}
+
+export type EnumInvitationStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvitationStatus | Prisma.EnumInvitationStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.InvitationStatus[] | Prisma.ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvitationStatus[] | Prisma.ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvitationStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInvitationStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInvitationStatusFilter<$PrismaModel>
+}
+
+export type EnumProjectTaskStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectTaskStatus | Prisma.EnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectTaskStatus[] | Prisma.ListEnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectTaskStatus[] | Prisma.ListEnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectTaskStatusFilter<$PrismaModel> | $Enums.ProjectTaskStatus
+}
+
+export type EnumProjectTaskPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectTaskPriority | Prisma.EnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectTaskPriority[] | Prisma.ListEnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectTaskPriority[] | Prisma.ListEnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectTaskPriorityFilter<$PrismaModel> | $Enums.ProjectTaskPriority
+}
+
+export type EnumProjectTaskStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectTaskStatus | Prisma.EnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectTaskStatus[] | Prisma.ListEnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectTaskStatus[] | Prisma.ListEnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectTaskStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProjectTaskStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectTaskStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectTaskStatusFilter<$PrismaModel>
+}
+
+export type EnumProjectTaskPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectTaskPriority | Prisma.EnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectTaskPriority[] | Prisma.ListEnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectTaskPriority[] | Prisma.ListEnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectTaskPriorityWithAggregatesFilter<$PrismaModel> | $Enums.ProjectTaskPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectTaskPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectTaskPriorityFilter<$PrismaModel>
+}
+
+export type EnumProjectFileFolderFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectFileFolder | Prisma.EnumProjectFileFolderFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectFileFolder[] | Prisma.ListEnumProjectFileFolderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectFileFolder[] | Prisma.ListEnumProjectFileFolderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectFileFolderFilter<$PrismaModel> | $Enums.ProjectFileFolder
+}
+
+export type EnumProjectFileFolderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectFileFolder | Prisma.EnumProjectFileFolderFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectFileFolder[] | Prisma.ListEnumProjectFileFolderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectFileFolder[] | Prisma.ListEnumProjectFileFolderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectFileFolderWithAggregatesFilter<$PrismaModel> | $Enums.ProjectFileFolder
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectFileFolderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectFileFolderFilter<$PrismaModel>
+}
+
+export type EnumDecisionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DecisionStatus | Prisma.EnumDecisionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DecisionStatus[] | Prisma.ListEnumDecisionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DecisionStatus[] | Prisma.ListEnumDecisionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDecisionStatusFilter<$PrismaModel> | $Enums.DecisionStatus
+}
+
+export type EnumDecisionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DecisionStatus | Prisma.EnumDecisionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DecisionStatus[] | Prisma.ListEnumDecisionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DecisionStatus[] | Prisma.ListEnumDecisionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDecisionStatusWithAggregatesFilter<$PrismaModel> | $Enums.DecisionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDecisionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDecisionStatusFilter<$PrismaModel>
+}
+
+export type EnumProjectOutputTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectOutputType | Prisma.EnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectOutputType[] | Prisma.ListEnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectOutputType[] | Prisma.ListEnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectOutputTypeFilter<$PrismaModel> | $Enums.ProjectOutputType
+}
+
+export type EnumProjectOutputStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectOutputStatus | Prisma.EnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectOutputStatus[] | Prisma.ListEnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectOutputStatus[] | Prisma.ListEnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectOutputStatusFilter<$PrismaModel> | $Enums.ProjectOutputStatus
+}
+
+export type EnumProjectOutputTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectOutputType | Prisma.EnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectOutputType[] | Prisma.ListEnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectOutputType[] | Prisma.ListEnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectOutputTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProjectOutputType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectOutputTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectOutputTypeFilter<$PrismaModel>
+}
+
+export type EnumProjectOutputStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectOutputStatus | Prisma.EnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectOutputStatus[] | Prisma.ListEnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectOutputStatus[] | Prisma.ListEnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectOutputStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProjectOutputStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectOutputStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectOutputStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -834,6 +1021,193 @@ export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type NestedEnumProjectStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectStatus | Prisma.EnumProjectStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus
+}
+
+export type NestedEnumProjectPhaseFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectPhase | Prisma.EnumProjectPhaseFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectPhase[] | Prisma.ListEnumProjectPhaseFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectPhase[] | Prisma.ListEnumProjectPhaseFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectPhaseFilter<$PrismaModel> | $Enums.ProjectPhase
+}
+
+export type NestedEnumProjectVisibilityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectVisibility | Prisma.EnumProjectVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectVisibility[] | Prisma.ListEnumProjectVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectVisibility[] | Prisma.ListEnumProjectVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectVisibilityFilter<$PrismaModel> | $Enums.ProjectVisibility
+}
+
+export type NestedEnumProjectStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectStatus | Prisma.EnumProjectStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProjectStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumProjectPhaseWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectPhase | Prisma.EnumProjectPhaseFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectPhase[] | Prisma.ListEnumProjectPhaseFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectPhase[] | Prisma.ListEnumProjectPhaseFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectPhaseWithAggregatesFilter<$PrismaModel> | $Enums.ProjectPhase
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectPhaseFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectPhaseFilter<$PrismaModel>
+}
+
+export type NestedEnumProjectVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectVisibility | Prisma.EnumProjectVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectVisibility[] | Prisma.ListEnumProjectVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectVisibility[] | Prisma.ListEnumProjectVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.ProjectVisibility
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectVisibilityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectVisibilityFilter<$PrismaModel>
+}
+
+export type NestedEnumProjectRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectRole | Prisma.EnumProjectRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel> | $Enums.ProjectRole
+}
+
+export type NestedEnumProjectRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectRole | Prisma.EnumProjectRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectRole[] | Prisma.ListEnumProjectRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectRoleWithAggregatesFilter<$PrismaModel> | $Enums.ProjectRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumInvitationStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvitationStatus | Prisma.EnumInvitationStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.InvitationStatus[] | Prisma.ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvitationStatus[] | Prisma.ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvitationStatusFilter<$PrismaModel> | $Enums.InvitationStatus
+}
+
+export type NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvitationStatus | Prisma.EnumInvitationStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.InvitationStatus[] | Prisma.ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvitationStatus[] | Prisma.ListEnumInvitationStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvitationStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInvitationStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInvitationStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumProjectTaskStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectTaskStatus | Prisma.EnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectTaskStatus[] | Prisma.ListEnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectTaskStatus[] | Prisma.ListEnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectTaskStatusFilter<$PrismaModel> | $Enums.ProjectTaskStatus
+}
+
+export type NestedEnumProjectTaskPriorityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectTaskPriority | Prisma.EnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectTaskPriority[] | Prisma.ListEnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectTaskPriority[] | Prisma.ListEnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectTaskPriorityFilter<$PrismaModel> | $Enums.ProjectTaskPriority
+}
+
+export type NestedEnumProjectTaskStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectTaskStatus | Prisma.EnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectTaskStatus[] | Prisma.ListEnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectTaskStatus[] | Prisma.ListEnumProjectTaskStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectTaskStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProjectTaskStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectTaskStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectTaskStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumProjectTaskPriorityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectTaskPriority | Prisma.EnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectTaskPriority[] | Prisma.ListEnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectTaskPriority[] | Prisma.ListEnumProjectTaskPriorityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectTaskPriorityWithAggregatesFilter<$PrismaModel> | $Enums.ProjectTaskPriority
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectTaskPriorityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectTaskPriorityFilter<$PrismaModel>
+}
+
+export type NestedEnumProjectFileFolderFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectFileFolder | Prisma.EnumProjectFileFolderFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectFileFolder[] | Prisma.ListEnumProjectFileFolderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectFileFolder[] | Prisma.ListEnumProjectFileFolderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectFileFolderFilter<$PrismaModel> | $Enums.ProjectFileFolder
+}
+
+export type NestedEnumProjectFileFolderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectFileFolder | Prisma.EnumProjectFileFolderFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectFileFolder[] | Prisma.ListEnumProjectFileFolderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectFileFolder[] | Prisma.ListEnumProjectFileFolderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectFileFolderWithAggregatesFilter<$PrismaModel> | $Enums.ProjectFileFolder
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectFileFolderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectFileFolderFilter<$PrismaModel>
+}
+
+export type NestedEnumDecisionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DecisionStatus | Prisma.EnumDecisionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DecisionStatus[] | Prisma.ListEnumDecisionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DecisionStatus[] | Prisma.ListEnumDecisionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDecisionStatusFilter<$PrismaModel> | $Enums.DecisionStatus
+}
+
+export type NestedEnumDecisionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DecisionStatus | Prisma.EnumDecisionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DecisionStatus[] | Prisma.ListEnumDecisionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DecisionStatus[] | Prisma.ListEnumDecisionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDecisionStatusWithAggregatesFilter<$PrismaModel> | $Enums.DecisionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDecisionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDecisionStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumProjectOutputTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectOutputType | Prisma.EnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectOutputType[] | Prisma.ListEnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectOutputType[] | Prisma.ListEnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectOutputTypeFilter<$PrismaModel> | $Enums.ProjectOutputType
+}
+
+export type NestedEnumProjectOutputStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectOutputStatus | Prisma.EnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectOutputStatus[] | Prisma.ListEnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectOutputStatus[] | Prisma.ListEnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectOutputStatusFilter<$PrismaModel> | $Enums.ProjectOutputStatus
+}
+
+export type NestedEnumProjectOutputTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectOutputType | Prisma.EnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectOutputType[] | Prisma.ListEnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectOutputType[] | Prisma.ListEnumProjectOutputTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectOutputTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProjectOutputType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectOutputTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectOutputTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumProjectOutputStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProjectOutputStatus | Prisma.EnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ProjectOutputStatus[] | Prisma.ListEnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProjectOutputStatus[] | Prisma.ListEnumProjectOutputStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProjectOutputStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProjectOutputStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProjectOutputStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProjectOutputStatusFilter<$PrismaModel>
 }
 
 
