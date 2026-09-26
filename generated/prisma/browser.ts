@@ -102,3 +102,13 @@ export type StudyPayment = Prisma.StudyPaymentModel
  * 
  */
 export type Withdrawal = Prisma.WithdrawalModel
+/**
+ * Model AskProfile
+ * 
+ */
+export type AskProfile = Prisma.AskProfileModel
+/**
+ * Model AskQuestion
+ * 
+ */
+export type AskQuestion = Prisma.AskQuestionModel

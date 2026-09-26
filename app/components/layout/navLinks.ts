@@ -2,6 +2,7 @@ type NavLink = { title: string; href: string; icon?: React.ReactNode };
 
 export const publicLinks: NavLink[] = [
   { title: "Health Studies", href: "/participant/studies" },
+  { title: "Tinat Ask", href: "/ask" },
   { title: "Pathways", href: "/#how-it-works" },
   { title: "About Tinat", href: "/#trust" },
 ];
@@ -11,18 +12,21 @@ export const participantLinks: NavLink[] = [
   { title: "Health Studies", href: "/participant/studies" },
   { title: "My History", href: "/participant/history" },
   { title: "TC Wallet", href: "/participant/wallet" },
+  { title: "Tinat Ask", href: "/ask" },
 ];
 
 export const researcherLinks: NavLink[] = [
   { title: "Dashboard", href: "/researcher" },
   { title: "Publish a Study", href: "/researcher/studies" },
   { title: "Create Study", href: "/researcher/studies/new" },
+  { title: "Tinat Ask", href: "/ask" },
 ];
 
 export const adminLinks: NavLink[] = [
   { title: "Overview", href: "/admin" },
   { title: "Users", href: "/admin/users" },
   { title: "Studies", href: "/admin/studies" },
+  { title: "Tinat Ask", href: "/ask" },
   { title: "Withdrawals", href: "/admin/withdrawals" },
   { title: "Logs", href: "/admin/logs" },
 ];

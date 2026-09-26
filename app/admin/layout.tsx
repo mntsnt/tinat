@@ -10,6 +10,7 @@ import {
   Activity,
   FileText,
   Settings,
+  MessageCircleQuestion,
 } from "lucide-react";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
@@ -36,6 +37,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     { title: "Overview", href: "/admin", icon: <LayoutDashboard /> },
     { title: "User Management", href: "/admin/users", icon: <Users /> },
     { title: "Manage Studies", href: "/admin/studies", icon: <FileText /> },
+    { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
     { title: "Withdrawals", href: "/admin/withdrawals", icon: <CreditCard /> },
     { title: "Activity Logs", href: "/admin/logs", icon: <Activity /> },
     { title: "Settings", href: "/admin/settings", icon: <Settings /> },

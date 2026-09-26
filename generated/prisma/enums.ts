@@ -83,3 +83,13 @@ export const WithdrawalStatus = {
 } as const
 
 export type WithdrawalStatus = (typeof WithdrawalStatus)[keyof typeof WithdrawalStatus]
+
+
+export const AskQuestionStatus = {
+  UNANSWERED: 'UNANSWERED',
+  ANSWERED: 'ANSWERED',
+  ARCHIVED: 'ARCHIVED',
+  DELETED: 'DELETED'
+} as const
+
+export type AskQuestionStatus = (typeof AskQuestionStatus)[keyof typeof AskQuestionStatus]

@@ -67,7 +67,9 @@ export const ModelName = {
   Wallet: 'Wallet',
   TinatCreditTransaction: 'TinatCreditTransaction',
   StudyPayment: 'StudyPayment',
-  Withdrawal: 'Withdrawal'
+  Withdrawal: 'Withdrawal',
+  AskProfile: 'AskProfile',
+  AskQuestion: 'AskQuestion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -317,12 +319,55 @@ export const WithdrawalScalarFieldEnum = {
 export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
 
 
+export const AskProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  username: 'username',
+  displayName: 'displayName',
+  bio: 'bio',
+  avatarUrl: 'avatarUrl',
+  theme: 'theme',
+  isEnabled: 'isEnabled',
+  allowPublicAnswers: 'allowPublicAnswers',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AskProfileScalarFieldEnum = (typeof AskProfileScalarFieldEnum)[keyof typeof AskProfileScalarFieldEnum]
+
+
+export const AskQuestionScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  questionText: 'questionText',
+  status: 'status',
+  answerText: 'answerText',
+  answeredAt: 'answeredAt',
+  isPublic: 'isPublic',
+  deckConfig: 'deckConfig',
+  reportCount: 'reportCount',
+  isBlocked: 'isBlocked',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AskQuestionScalarFieldEnum = (typeof AskQuestionScalarFieldEnum)[keyof typeof AskQuestionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -339,4 +384,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

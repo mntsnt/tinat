@@ -3,7 +3,7 @@ import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
-import { LayoutDashboard, Compass, History, Wallet, Settings } from "lucide-react";
+import { LayoutDashboard, Compass, History, Wallet, Settings, MessageCircleQuestion } from "lucide-react";
 
 export default async function ParticipantLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -30,6 +30,7 @@ export default async function ParticipantLayout({ children }: { children: ReactN
     { title: "Discover Studies", href: "/participant/studies", icon: <Compass /> },
     { title: "History", href: "/participant/history", icon: <History /> },
     { title: "Wallet", href: "/participant/wallet", icon: <Wallet /> },
+    { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
     { title: "Settings", href: "/participant/settings", icon: <Settings /> },
   ];
 

@@ -413,7 +413,9 @@ export const ModelName = {
   Wallet: 'Wallet',
   TinatCreditTransaction: 'TinatCreditTransaction',
   StudyPayment: 'StudyPayment',
-  Withdrawal: 'Withdrawal'
+  Withdrawal: 'Withdrawal',
+  AskProfile: 'AskProfile',
+  AskQuestion: 'AskQuestion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -429,7 +431,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1691,6 +1693,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AskProfile: {
+      payload: Prisma.$AskProfilePayload<ExtArgs>
+      fields: Prisma.AskProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AskProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AskProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.AskProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AskProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload>
+        }
+        findMany: {
+          args: Prisma.AskProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload>[]
+        }
+        create: {
+          args: Prisma.AskProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload>
+        }
+        createMany: {
+          args: Prisma.AskProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AskProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload>[]
+        }
+        delete: {
+          args: Prisma.AskProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload>
+        }
+        update: {
+          args: Prisma.AskProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.AskProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AskProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AskProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload>[]
+        }
+        upsert: {
+          args: Prisma.AskProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.AskProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAskProfile>
+        }
+        groupBy: {
+          args: Prisma.AskProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AskProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AskProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AskProfileCountAggregateOutputType> | number
+        }
+      }
+    }
+    AskQuestion: {
+      payload: Prisma.$AskQuestionPayload<ExtArgs>
+      fields: Prisma.AskQuestionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AskQuestionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AskQuestionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload>
+        }
+        findFirst: {
+          args: Prisma.AskQuestionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AskQuestionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload>
+        }
+        findMany: {
+          args: Prisma.AskQuestionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload>[]
+        }
+        create: {
+          args: Prisma.AskQuestionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload>
+        }
+        createMany: {
+          args: Prisma.AskQuestionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AskQuestionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload>[]
+        }
+        delete: {
+          args: Prisma.AskQuestionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload>
+        }
+        update: {
+          args: Prisma.AskQuestionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload>
+        }
+        deleteMany: {
+          args: Prisma.AskQuestionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AskQuestionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AskQuestionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload>[]
+        }
+        upsert: {
+          args: Prisma.AskQuestionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AskQuestionPayload>
+        }
+        aggregate: {
+          args: Prisma.AskQuestionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAskQuestion>
+        }
+        groupBy: {
+          args: Prisma.AskQuestionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AskQuestionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AskQuestionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AskQuestionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1961,12 +2111,55 @@ export const WithdrawalScalarFieldEnum = {
 export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
 
 
+export const AskProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  username: 'username',
+  displayName: 'displayName',
+  bio: 'bio',
+  avatarUrl: 'avatarUrl',
+  theme: 'theme',
+  isEnabled: 'isEnabled',
+  allowPublicAnswers: 'allowPublicAnswers',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AskProfileScalarFieldEnum = (typeof AskProfileScalarFieldEnum)[keyof typeof AskProfileScalarFieldEnum]
+
+
+export const AskQuestionScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  questionText: 'questionText',
+  status: 'status',
+  answerText: 'answerText',
+  answeredAt: 'answeredAt',
+  isPublic: 'isPublic',
+  deckConfig: 'deckConfig',
+  reportCount: 'reportCount',
+  isBlocked: 'isBlocked',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AskQuestionScalarFieldEnum = (typeof AskQuestionScalarFieldEnum)[keyof typeof AskQuestionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -1983,6 +2176,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -2149,6 +2351,34 @@ export type EnumWithdrawalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'WithdrawalStatus[]'
  */
 export type ListEnumWithdrawalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WithdrawalStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AskQuestionStatus'
+ */
+export type EnumAskQuestionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AskQuestionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AskQuestionStatus[]'
+ */
+export type ListEnumAskQuestionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AskQuestionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 /**
@@ -2319,6 +2549,8 @@ export type GlobalOmitConfig = {
   tinatCreditTransaction?: Prisma.TinatCreditTransactionOmit
   studyPayment?: Prisma.StudyPaymentOmit
   withdrawal?: Prisma.WithdrawalOmit
+  askProfile?: Prisma.AskProfileOmit
+  askQuestion?: Prisma.AskQuestionOmit
 }
 
 /* Types for Logging */
