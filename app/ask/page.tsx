@@ -90,9 +90,9 @@ export default async function AskPage() {
 
   // --- PUBLIC MARKETING LANDING (When unauthenticated) ---
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-muted/20 to-background flex flex-col justify-between">
+    <div className="flex-1 max-w-5xl mx-auto px-4 py-12 sm:py-16 space-y-12">
       {/* Hero Section */}
-      <div className="max-w-5xl mx-auto px-4 pt-16 pb-12 sm:pt-24 sm:pb-16 text-center space-y-6">
+      <div className="text-center space-y-6">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold shadow-sm">
           <Sparkles className="w-3.5 h-3.5" />
           Introducing Tinat Ask • Anonymous Social Q&A
@@ -143,7 +143,7 @@ export default async function AskPage() {
       </div>
 
       {/* Visual Feature Previews */}
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="pt-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1: Honest Q&A */}
           <div className="bg-card border border-border rounded-2xl p-6 space-y-4 shadow-sm">
@@ -179,27 +179,6 @@ export default async function AskPage() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="border-t border-border/50 py-8 text-center text-xs text-muted-foreground bg-muted/10 mt-12">
-        <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-foreground">Tinat Ask</span>
-            <span>— Shareable Social Q&A</span>
-          </div>
-          <div className="flex items-center gap-6">
-            <Link href="/register?redirect=/ask" className="hover:underline">
-              Get Started
-            </Link>
-            <Link href="/login?redirect=/ask" className="hover:underline">
-              Sign In
-            </Link>
-            <Link href="/" className="hover:underline">
-              Home
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -94,30 +94,8 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
     .toUpperCase();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-muted/20 to-background flex flex-col justify-between">
-      {/* Top Navbar */}
-      <header className="border-b border-border/50 bg-background/80 backdrop-blur-md sticky top-0 z-20">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-lg font-black tracking-tight bg-gradient-to-r from-primary to-indigo-600 bg-clip-text text-transparent">
-              Tinat
-            </span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-bold">
-              Ask
-            </span>
-          </Link>
-          <Link
-            href="/ask"
-            className="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
-          >
-            Create Your Page <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-      </header>
-
-      {/* Main Container */}
-      <main className="flex-1 max-w-xl w-full mx-auto px-4 py-8 sm:py-12 space-y-8">
-        {/* Recipient Profile Card */}
+    <div className="flex-1 max-w-xl w-full mx-auto px-4 py-8 sm:py-12 space-y-8">
+      {/* Recipient Profile Card */}
         <div className="text-center space-y-4">
           <div className="relative inline-block">
             <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-primary to-indigo-500 text-white flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-background mx-auto">
@@ -337,28 +315,6 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
             </div>
           </div>
         )}
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-border/50 py-6 text-center text-xs text-muted-foreground bg-muted/10">
-        <div className="max-w-2xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5">
-            <span>Powered by</span>
-            <Link href="/" className="font-bold text-foreground hover:underline">
-              Tinat
-            </Link>
-            <span>— Anonymous Social Q&A</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link href="/ask" className="hover:underline">
-              Create Your Ask Link
-            </Link>
-            <Link href="/" className="hover:underline">
-              Home
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

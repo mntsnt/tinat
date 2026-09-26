@@ -107,11 +107,13 @@ export function AskDashboardClient({
   // Link copy state
   const [copiedLink, setCopiedLink] = useState(false);
 
+  const profileId = profile?.id;
+
   useEffect(() => {
-    if (profile) {
+    if (profileId) {
       fetchQuestions(tab);
     }
-  }, [profile, tab]);
+  }, [profileId, tab]);
 
   async function fetchQuestions(currentTab: "unanswered" | "answered" | "archived") {
     setLoadingQuestions(true);
@@ -121,7 +123,6 @@ export function AskDashboardClient({
       if (res.ok) {
         setQuestions(data.questions || []);
         if (data.stats) setStats(data.stats);
-        if (data.profile) setProfile(data.profile);
       }
     } catch (err) {
       console.error("Error fetching questions:", err);
@@ -645,11 +646,13 @@ export function AskDashboardClient({
         </div>
 
         {/* Question List */}
-        {loadingQuestions ? (
-          <div className="py-12 text-center text-sm text-muted-foreground">
-            Loading questions...
-          </div>
-        ) : questions.length === 0 ? (
+        <div className="min-h-[320px]">
+          {loadingQuestions ? (
+            <div className="py-16 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+              <span className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+              Loading questions...
+            </div>
+          ) : questions.length === 0 ? (
           <div className="py-16 text-center space-y-3 bg-card border border-dashed border-border rounded-2xl p-8">
             <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground mx-auto">
               <MessageCircleQuestion className="w-6 h-6" />
@@ -844,6 +847,7 @@ export function AskDashboardClient({
             })}
           </div>
         )}
+        </div>
       </div>
 
       {/* Settings Modal */}
