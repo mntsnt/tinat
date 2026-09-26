@@ -143,7 +143,9 @@ export async function GET(req: NextRequest) {
           title: m.title,
           user: m.user,
         })),
+        _count: p._count,
         stats,
+        progress: stats,
       };
     });
 

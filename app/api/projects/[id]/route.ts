@@ -140,9 +140,14 @@ export async function GET(
     });
 
     return NextResponse.json({
-      project,
+      project: {
+        ...project,
+        progress: stats,
+        stats,
+      },
       auth,
       stats,
+      progress: stats,
     });
   } catch (error) {
     console.error("Error fetching project details:", error);

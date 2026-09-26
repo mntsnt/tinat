@@ -589,8 +589,17 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     );
   }
 
-  const { progress } = project;
-  const currentPhaseIndex = LIFECYCLE_PHASES.indexOf(project.currentPhase);
+  const progress = project.progress || project.stats || {
+    percentage: 0,
+    taskPercentage: 0,
+    milestonePercentage: 0,
+    totalTasks: 0,
+    completedTasks: 0,
+    totalMilestones: 0,
+    completedMilestones: 0,
+    health: "ON_TRACK",
+  };
+  const currentPhaseIndex = LIFECYCLE_PHASES.indexOf(project.currentPhase || "PLANNING");
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col">

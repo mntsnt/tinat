@@ -307,20 +307,31 @@ export default function ProjectsPage() {
   );
 }
 
-function ProjectCard({ project }: { project: ProjectSummary }) {
-  const { progress } = project;
+function ProjectCard({ project }: { project: any }) {
+  const progress = project.progress || project.stats || {
+    percentage: 0,
+    completedTasks: 0,
+    totalTasks: 0,
+    health: "ON_TRACK",
+  };
 
-  const healthColor = {
+  const health = progress.health || "ON_TRACK";
+  const healthColorMap: Record<string, string> = {
     ON_TRACK: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
     ATTENTION_NEEDED: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800",
     AT_RISK: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800",
-  }[progress.health || "ON_TRACK"];
+  };
+  const healthColor = healthColorMap[health] || healthColorMap.ON_TRACK;
 
-  const healthLabel = {
+  const healthLabelMap: Record<string, string> = {
     ON_TRACK: "On Track",
     ATTENTION_NEEDED: "Needs Review",
     AT_RISK: "At Risk",
-  }[progress.health || "ON_TRACK"];
+  };
+  const healthLabel = healthLabelMap[health] || "On Track";
+
+  const linkedStudiesCount = project._count?.linkedStudies ?? 0;
+  const members = Array.isArray(project.members) ? project.members : [];
 
   return (
     <Link
@@ -330,7 +341,7 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
       {/* Top Badges */}
       <div className="flex items-center justify-between gap-2 mb-3">
         <span className="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-          {project.studyDesign || project.category}
+          {project.studyDesign || project.category || "Research Project"}
         </span>
         <div className="flex items-center gap-1.5">
           <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full border ${healthColor}`}>
@@ -359,7 +370,7 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
       <div className="mt-4 flex items-center justify-between text-xs">
         <span className="text-slate-500 dark:text-slate-400">Current Phase:</span>
         <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-          {project.currentPhase.replace(/_/g, " ")}
+          {(project.currentPhase || "PLANNING").replace(/_/g, " ")}
         </span>
       </div>
 
@@ -367,12 +378,12 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
       <div className="mt-3">
         <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
           <span>Overall Progress</span>
-          <span className="font-semibold text-slate-900 dark:text-white">{progress.percentage}%</span>
+          <span className="font-semibold text-slate-900 dark:text-white">{progress.percentage ?? 0}%</span>
         </div>
         <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
           <div
             className="h-full rounded-full bg-indigo-600 dark:bg-indigo-500 transition-all duration-500"
-            style={{ width: `${progress.percentage}%` }}
+            style={{ width: `${progress.percentage ?? 0}%` }}
           />
         </div>
       </div>
@@ -383,30 +394,30 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
           <div className="flex items-center gap-1">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
             <span>
-              {progress.completedTasks}/{progress.totalTasks} tasks
+              {progress.completedTasks ?? 0}/{progress.totalTasks ?? 0} tasks
             </span>
           </div>
-          {project._count.linkedStudies > 0 && (
+          {linkedStudiesCount > 0 && (
             <div className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400 font-medium">
               <Activity className="w-3.5 h-3.5" />
-              <span>{project._count.linkedStudies} study</span>
+              <span>{linkedStudiesCount} study</span>
             </div>
           )}
         </div>
 
         {/* Member Avatars */}
         <div className="flex items-center -space-x-1.5 overflow-hidden">
-          {project.members.slice(0, 3).map((m, idx) => (
+          {members.slice(0, 3).map((m: any, idx: number) => (
             <div
               key={idx}
               className="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-slate-900 bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center uppercase"
             >
-              {m.user.name?.charAt(0) || "U"}
+              {m.user?.name?.charAt(0) || "U"}
             </div>
           ))}
-          {project.members.length > 3 && (
+          {members.length > 3 && (
             <div className="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-slate-900 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] font-bold flex items-center justify-center">
-              +{project.members.length - 3}
+              +{members.length - 3}
             </div>
           )}
         </div>

@@ -50,6 +50,8 @@ model User {
   projectActivities           ProjectActivity[]
   projectChatMessages         ProjectChatMessage[]
   linkedProjectStudies        ProjectLinkedStudy[]
+  aiConversations             AIConversation[]
+  aiUsages                    AIUsage[]
 }
 
 model Study {
@@ -80,6 +82,7 @@ model Study {
   payments            StudyPayment[]
   ratings             StudyRating[]
   linkedProjects      ProjectLinkedStudy[]
+  aiConversations     AIConversation[]
 }
 
 model StudyBookmark {
@@ -504,6 +507,7 @@ model ResearchProject {
   chatMessages  ProjectChatMessage[]
   linkedStudies ProjectLinkedStudy[]
   outputs       ProjectOutput[]
+  aiConversations AIConversation[]
 
   @@index([projectLeadId])
   @@index([status])
@@ -768,3 +772,94 @@ model ProjectOutput {
 }
 
 
+
+enum AIProvider {
+  GEMINI
+  OPENROUTER
+  GROQ
+}
+
+model AIConversation {
+  id             String       @id @default(cuid())
+  userId         String
+  title          String?
+  projectId      String?
+  studyId        String?
+  provider       AIProvider   @default(GEMINI)
+  model          String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project        ResearchProject? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  study          Study?       @relation(fields: [studyId], references: [id], onDelete: SetNull)
+  messages       AIMessage[]
+  artifacts      AIArtifact[]
+  usage          AIUsage[]
+
+  @@index([userId])
+  @@index([projectId])
+  @@index([studyId])
+}
+
+enum AIMessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+  TOOL
+}
+
+model AIMessage {
+  id             String         @id @default(cuid())
+  conversationId String
+  role           AIMessageRole
+  content        String
+  toolCalls      Json?
+  toolResults    Json?
+  createdAt      DateTime       @default(now())
+
+  conversation   AIConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+}
+
+enum AIArtifactType {
+  TABLE
+  FIGURE
+  MARKDOWN
+  CODE
+}
+
+model AIArtifact {
+  id             String         @id @default(cuid())
+  conversationId String
+  type           AIArtifactType
+  title          String
+  content        String
+  metadata       Json?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  conversation   AIConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+}
+
+model AIUsage {
+  id             String         @id @default(cuid())
+  conversationId String
+  userId         String
+  provider       AIProvider
+  model          String
+  promptTokens   Int            @default(0)
+  completionTokens Int          @default(0)
+  totalTokens    Int            @default(0)
+  cost           Float          @default(0)
+  createdAt      DateTime       @default(now())
+
+  conversation   AIConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([conversationId])
+}

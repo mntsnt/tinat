@@ -18,6 +18,7 @@ export const participantLinks: NavLink[] = [
 
 export const researcherLinks: NavLink[] = [
   { title: "Dashboard", href: "/researcher" },
+  { title: "AI Chat", href: "/ai" },
   { title: "Research Projects", href: "/projects" },
   { title: "Publish a Study", href: "/researcher/studies" },
   { title: "Create Study", href: "/researcher/studies/new" },
@@ -26,6 +27,7 @@ export const researcherLinks: NavLink[] = [
 
 export const adminLinks: NavLink[] = [
   { title: "Overview", href: "/admin" },
+  { title: "AI Chat", href: "/ai" },
   { title: "Research Projects", href: "/projects" },
   { title: "Users", href: "/admin/users" },
   { title: "Studies", href: "/admin/studies" },

@@ -220,3 +220,32 @@ export const DecisionStatus = {
 } as const
 
 export type DecisionStatus = (typeof DecisionStatus)[keyof typeof DecisionStatus]
+
+
+export const AIProvider = {
+  GEMINI: 'GEMINI',
+  OPENROUTER: 'OPENROUTER',
+  GROQ: 'GROQ'
+} as const
+
+export type AIProvider = (typeof AIProvider)[keyof typeof AIProvider]
+
+
+export const AIMessageRole = {
+  USER: 'USER',
+  ASSISTANT: 'ASSISTANT',
+  SYSTEM: 'SYSTEM',
+  TOOL: 'TOOL'
+} as const
+
+export type AIMessageRole = (typeof AIMessageRole)[keyof typeof AIMessageRole]
+
+
+export const AIArtifactType = {
+  TABLE: 'TABLE',
+  FIGURE: 'FIGURE',
+  MARKDOWN: 'MARKDOWN',
+  CODE: 'CODE'
+} as const
+
+export type AIArtifactType = (typeof AIArtifactType)[keyof typeof AIArtifactType]

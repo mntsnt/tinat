@@ -84,7 +84,11 @@ export const ModelName = {
   ProjectActivity: 'ProjectActivity',
   ProjectChatMessage: 'ProjectChatMessage',
   ProjectLinkedStudy: 'ProjectLinkedStudy',
-  ProjectOutput: 'ProjectOutput'
+  ProjectOutput: 'ProjectOutput',
+  AIConversation: 'AIConversation',
+  AIMessage: 'AIMessage',
+  AIArtifact: 'AIArtifact',
+  AIUsage: 'AIUsage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -611,6 +615,64 @@ export const ProjectOutputScalarFieldEnum = {
 } as const
 
 export type ProjectOutputScalarFieldEnum = (typeof ProjectOutputScalarFieldEnum)[keyof typeof ProjectOutputScalarFieldEnum]
+
+
+export const AIConversationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  projectId: 'projectId',
+  studyId: 'studyId',
+  provider: 'provider',
+  model: 'model',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AIConversationScalarFieldEnum = (typeof AIConversationScalarFieldEnum)[keyof typeof AIConversationScalarFieldEnum]
+
+
+export const AIMessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  role: 'role',
+  content: 'content',
+  toolCalls: 'toolCalls',
+  toolResults: 'toolResults',
+  createdAt: 'createdAt'
+} as const
+
+export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
+
+
+export const AIArtifactScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  type: 'type',
+  title: 'title',
+  content: 'content',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AIArtifactScalarFieldEnum = (typeof AIArtifactScalarFieldEnum)[keyof typeof AIArtifactScalarFieldEnum]
+
+
+export const AIUsageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  userId: 'userId',
+  provider: 'provider',
+  model: 'model',
+  promptTokens: 'promptTokens',
+  completionTokens: 'completionTokens',
+  totalTokens: 'totalTokens',
+  cost: 'cost',
+  createdAt: 'createdAt'
+} as const
+
+export type AIUsageScalarFieldEnum = (typeof AIUsageScalarFieldEnum)[keyof typeof AIUsageScalarFieldEnum]
 
 
 export const SortOrder = {

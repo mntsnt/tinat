@@ -187,3 +187,23 @@ export type ProjectLinkedStudy = Prisma.ProjectLinkedStudyModel
  * 
  */
 export type ProjectOutput = Prisma.ProjectOutputModel
+/**
+ * Model AIConversation
+ * 
+ */
+export type AIConversation = Prisma.AIConversationModel
+/**
+ * Model AIMessage
+ * 
+ */
+export type AIMessage = Prisma.AIMessageModel
+/**
+ * Model AIArtifact
+ * 
+ */
+export type AIArtifact = Prisma.AIArtifactModel
+/**
+ * Model AIUsage
+ * 
+ */
+export type AIUsage = Prisma.AIUsageModel
