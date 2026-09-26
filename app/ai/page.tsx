@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { MessageSquare, Settings, Plus, Send, Menu, BrainCircuit } from "lucide-react";
 import { AIChatMessage } from "@/lib/ai/providers";
 import { AVAILABLE_MODELS } from "@/lib/ai/models";
+import { ArtifactRenderer } from "./components/ArtifactRenderer";
 
 export default function AIChatPage() {
   const [messages, setMessages] = useState<AIChatMessage[]>([
@@ -96,10 +97,14 @@ export default function AIChatPage() {
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
           {messages.map((msg, idx) => (
             <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[75%] rounded-lg p-4 ${
+              <div className={`max-w-[85%] rounded-lg p-4 ${
                 msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-white border border-gray-200 text-gray-800 shadow-sm'
               }`}>
-                <div className="whitespace-pre-wrap font-sans text-sm">{msg.content}</div>
+                {msg.role === 'user' ? (
+                  <div className="whitespace-pre-wrap font-sans text-sm">{msg.content}</div>
+                ) : (
+                  <ArtifactRenderer content={msg.content} />
+                )}
               </div>
             </div>
           ))}

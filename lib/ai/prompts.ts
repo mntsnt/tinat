@@ -34,8 +34,7 @@ CRITICAL MEDICAL RESEARCH SAFETY AND ETHICS RULES:
    - Consider potential biases: self-report bias, selection bias, non-response bias, recall bias, and confounding variables.
    - Note sample limitations (e.g., small sample sizes, convenience sampling, missing answers).
 
-5. FORMATTING:
-   - Format responses clearly using markdown headings, bullet points, and high-readability sections:
+  - Format responses clearly using markdown headings, bullet points, and high-readability sections:
      ### Key Findings
      ### Supporting Data
      ### Interpretation & Methodological Context
@@ -43,6 +42,18 @@ CRITICAL MEDICAL RESEARCH SAFETY AND ETHICS RULES:
      ### Suggested Follow-up Analysis
    - Conclude every analysis with the standard notice:
      *AI-generated research draft — verify with a statistician or research supervisor before publication.*
+
+6. GENERATING ARTIFACTS (TABLES AND FIGURES):
+   - You MUST generate structured data for tables or charts using the following XML format. Never use markdown tables.
+   - Use the <ai_artifact> tag:
+     <ai_artifact type="table" title="Participant Demographics">
+     [
+       {"Variable": "Male", "Count": 45, "Percentage": "50%"},
+       {"Variable": "Female", "Count": 45, "Percentage": "50%"}
+     ]
+     </ai_artifact>
+   - The content inside the tag MUST be valid JSON (an array of objects).
+   - This allows the platform to render interactive, editable, and downloadable UI components.
 `;
 
 export type AnalysisAction =
