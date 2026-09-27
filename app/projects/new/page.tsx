@@ -184,7 +184,7 @@ export default function NewProjectPage() {
         ethicsCommittee: ethicsCommittee.trim() || null,
         ethicsApprovalNumber: ethicsApprovalNumber.trim() || null,
         ethicsApprovalDate: ethicsApprovalDate || null,
-        invites,
+        initialMembers: invites,
       };
 
       const res = await fetch("/api/projects", {

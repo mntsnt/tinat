@@ -125,8 +125,8 @@ export default function ProjectsPage() {
         const matchesTitle = p.title.toLowerCase().includes(query);
         const matchesDesc = p.description?.toLowerCase().includes(query);
         const matchesInst = p.institution?.toLowerCase().includes(query);
-        const matchesLead = p.lead?.name.toLowerCase().includes(query);
-        const matchesDesign = p.studyDesign.toLowerCase().includes(query);
+        const matchesLead = p.lead?.name?.toLowerCase().includes(query) ?? false;
+        const matchesDesign = p.studyDesign?.toLowerCase().includes(query) ?? false;
         return matchesTitle || matchesDesc || matchesInst || matchesLead || matchesDesign;
       }
 
@@ -427,3 +427,4 @@ function ProjectCard({ project }: { project: any }) {
     </Link>
   );
 }
+

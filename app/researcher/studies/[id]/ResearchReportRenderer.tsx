@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useMemo } from "react";
 
@@ -70,7 +70,7 @@ function parseInline(text: string): React.ReactNode[] {
   // 3. **bold** or __bold__
   // 4. *italic* or _italic_
   // 5. [link text](url)
-  const regex = /(`[^`]+`|\*\*\*[^*]+\*\*\*|\*\*[^*]+\*\*|__[^_]+__|\*[^*]+\*|_[^_]+_|\[[^\]]+\]\([^)]+\))/g;
+  const regex = /(`[^`]+`|\*\*\*.*?\*\*\*|\*\*.*?\*\*|__.*?__|\*[^*]+\*|_[^_]+_|\[[^\]]+\]\([^)]+\))/g;
 
   const parts: React.ReactNode[] = [];
   let lastIndex = 0;

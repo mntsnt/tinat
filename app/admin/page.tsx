@@ -138,7 +138,7 @@ export default async function AdminDashboard() {
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
                 Total Credits in Wallets
               </p>
-              <p className="text-4xl font-bold text-foreground">
+              <p className="text-3xl font-bold text-foreground">
                 {totalCredits.toLocaleString()}
                 <span className="text-lg text-muted-foreground font-normal ml-1">TC</span>
               </p>

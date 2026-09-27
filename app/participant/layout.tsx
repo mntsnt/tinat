@@ -3,7 +3,7 @@ import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
-import { LayoutDashboard, Compass, History, Wallet, Settings, MessageCircleQuestion } from "lucide-react";
+import { LayoutDashboard, Compass, History, Wallet, Settings, MessageCircleQuestion, ClipboardList } from "lucide-react";
 
 export default async function ParticipantLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -14,7 +14,7 @@ export default async function ParticipantLayout({ children }: { children: ReactN
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { role: true, name: true, email: true, isVerified: true },
+    select: { id: true, role: true, name: true, email: true, isVerified: true },
   });
 
   if (!user || user.role !== "PARTICIPANT") {
@@ -31,11 +31,25 @@ export default async function ParticipantLayout({ children }: { children: ReactN
     { title: "History", href: "/participant/history", icon: <History /> },
     { title: "Wallet", href: "/participant/wallet", icon: <Wallet /> },
     { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
-    { title: "Settings", href: "/participant/settings", icon: <Settings /> },
   ];
 
+  const verification = await prisma.verification.findUnique({
+    where: {
+      userId_verificationType: {
+        userId: user.id,
+        verificationType: "DATA_COLLECTOR"
+      }
+    }
+  });
+
+  if (verification?.status === "VERIFIED") {
+    links.push({ title: "Field Collection", href: "/collector/dashboard", icon: <ClipboardList /> });
+  }
+
+  links.push({ title: "Settings", href: "/participant/settings", icon: <Settings /> });
+
   return (
-    <div className="flex flex-col md:flex-row flex-1 min-h-screen">
+    <div className="flex flex-col md:flex-row h-screen overflow-hidden">
       <Sidebar
         links={links}
         roleTitle="Participant"
@@ -43,9 +57,9 @@ export default async function ParticipantLayout({ children }: { children: ReactN
         userEmail={user.email}
         roleColor="emerald"
       />
-      <div className="flex-1 overflow-y-auto bg-muted/10">
+      <main className="flex-1 overflow-y-auto bg-muted/10">
         {children}
-      </div>
+      </main>
     </div>
   );
 }

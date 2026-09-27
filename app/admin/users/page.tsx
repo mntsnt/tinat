@@ -83,7 +83,7 @@ export default async function AdminUsersPage() {
               </thead>
               <tbody className="divide-y divide-border">
                 {users.map((user) => (
-                  <tr key={user.id} className="hover:bg-muted/50/50 transition-colors">
+                  <tr key={user.id} className="hover:bg-muted/50 transition-colors">
                     <td className="px-6 py-4 align-top">
                       <div className="font-medium text-foreground">{user.name}</div>
                       <div className="text-muted-foreground">{user.email}</div>

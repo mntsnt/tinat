@@ -68,13 +68,13 @@ export default function AIChatPage() {
   const selectedModelName = AVAILABLE_MODELS.find(m => m.id === selectedModel)?.name || "Model";
 
   return (
-    <div className="flex h-screen bg-white dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="flex h-screen bg-background font-sans text-foreground overflow-hidden selection:bg-indigo-100 selection:text-indigo-900">
       
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col h-full relative max-w-4xl mx-auto w-full border-x border-slate-100 dark:border-slate-800/50">
+      <div className="flex-1 flex flex-col h-full relative max-w-4xl mx-auto w-full border-x border-border">
         
         {/* Sleek Header */}
-        <header className="h-16 flex items-center justify-between px-6 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-10">
+        <header className="h-16 flex items-center justify-between px-6 bg-background/80 backdrop-blur-md sticky top-0 z-10">
           <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold tracking-tight">
             <Sparkles className="w-5 h-5" />
             <span>Tinat AI</span>
@@ -83,19 +83,19 @@ export default function AIChatPage() {
           <div className="flex items-center gap-2">
             <button 
               onClick={() => setSettingsOpen(!isSettingsOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 text-xs font-medium transition-colors border border-slate-200 dark:border-slate-800"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted hover:bg-muted/80 text-xs font-medium transition-colors border border-border"
             >
-              <Database className="w-3.5 h-3.5 text-slate-500" />
+              <Database className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="truncate max-w-[120px]">{selectedStudyTitle}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
             </button>
             <button 
               onClick={() => setSettingsOpen(!isSettingsOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 text-xs font-medium transition-colors border border-slate-200 dark:border-slate-800"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted hover:bg-muted/80 text-xs font-medium transition-colors border border-border"
             >
               <BrainCircuit className="w-3.5 h-3.5 text-indigo-500" />
               <span className="truncate max-w-[100px]">{selectedModelName}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
             </button>
           </div>
         </header>
@@ -106,7 +106,7 @@ export default function AIChatPage() {
             <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[85%] sm:max-w-[75%] ${
                 msg.role === 'user' 
-                  ? 'bg-slate-100 dark:bg-slate-800 rounded-3xl rounded-tr-sm px-5 py-3.5 text-[15px]' 
+                  ? 'bg-muted rounded-3xl rounded-tr-sm px-5 py-3.5 text-[15px]' 
                   : 'bg-transparent text-[15px] leading-relaxed w-full'
               }`}>
                 {msg.role === 'user' ? (
@@ -131,7 +131,7 @@ export default function AIChatPage() {
                   <div className="w-3 h-3 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
                 </div>
                 <div className="flex items-center">
-                  <span className="text-sm text-slate-400 animate-pulse">Analyzing...</span>
+                  <span className="text-sm text-muted-foreground animate-pulse">Analyzing...</span>
                 </div>
               </div>
             </div>
@@ -140,13 +140,13 @@ export default function AIChatPage() {
         </div>
 
         {/* Input Area */}
-        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white to-transparent dark:from-slate-950 dark:via-slate-950 pb-6 pt-10 px-6">
-          <div className="relative max-w-3xl mx-auto flex items-end gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-2 shadow-sm focus-within:shadow-md focus-within:border-indigo-300 dark:focus-within:border-indigo-700/50 transition-all">
-            <button className="p-2.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors rounded-full shrink-0">
+        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-background via-background to-transparent pb-6 pt-10 px-6">
+          <div className="relative max-w-3xl mx-auto flex items-end gap-2 bg-card border border-border rounded-3xl p-2 shadow-sm focus-within:shadow-md focus-within:border-indigo-300 dark:focus-within:border-indigo-700/50 transition-all">
+            <button className="p-2.5 text-muted-foreground hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors rounded-full shrink-0">
               <Plus className="w-5 h-5" />
             </button>
             <textarea
-              className="flex-1 max-h-48 min-h-[44px] resize-none bg-transparent p-2.5 text-[15px] focus:outline-none placeholder:text-slate-400"
+              className="flex-1 max-h-48 min-h-[44px] resize-none bg-transparent p-2.5 text-[15px] focus:outline-none placeholder:text-muted-foreground"
               rows={1}
               placeholder="Ask about relationships, outliers, or request a table..."
               value={input}
@@ -170,23 +170,23 @@ export default function AIChatPage() {
                 if(ta) ta.style.height = 'auto';
               }}
               disabled={!input.trim() || isGenerating}
-              className="p-2.5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:bg-slate-200 disabled:text-slate-400 shrink-0 mb-0.5 mr-0.5"
+              className="p-2.5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground shrink-0 mb-0.5 mr-0.5"
             >
               <Send className="w-4 h-4" />
             </button>
           </div>
           <div className="text-center mt-3">
-            <span className="text-[10px] text-slate-400">Tinat AI can make mistakes. Always verify clinical inferences.</span>
+            <span className="text-[10px] text-muted-foreground">Tinat AI can make mistakes. Always verify clinical inferences.</span>
           </div>
         </div>
 
         {/* Settings Overlay */}
         {isSettingsOpen && (
-          <div className="absolute top-16 right-6 w-72 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-xl z-20">
+          <div className="absolute top-16 right-6 w-72 bg-card border border-border rounded-2xl p-5 shadow-xl z-20">
             <div className="mb-4">
-              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Context Study</h3>
+              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Context Study</h3>
               <select
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none focus:border-indigo-500"
+                className="w-full bg-muted border border-border rounded-xl p-2.5 text-sm outline-none focus:border-indigo-500"
                 value={selectedStudyId}
                 onChange={(e) => { setSelectedStudyId(e.target.value); setSettingsOpen(false); }}
               >
@@ -198,9 +198,9 @@ export default function AIChatPage() {
             </div>
             
             <div>
-              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">AI Model</h3>
+              <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">AI Model</h3>
               <select
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none focus:border-indigo-500"
+                className="w-full bg-muted border border-border rounded-xl p-2.5 text-sm outline-none focus:border-indigo-500"
                 value={selectedModel}
                 onChange={(e) => { setSelectedModel(e.target.value); setSettingsOpen(false); }}
               >
@@ -215,3 +215,5 @@ export default function AIChatPage() {
     </div>
   );
 }
+
+

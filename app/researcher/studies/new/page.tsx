@@ -69,6 +69,20 @@ export default function CreateStudyPage() {
     setQuestions(questions.filter((_, i) => i !== index));
   }
 
+  function moveQuestionUp(index: number) {
+    if (index === 0) return;
+    const updated = [...questions];
+    [updated[index - 1], updated[index]] = [updated[index], updated[index - 1]];
+    setQuestions(updated);
+  }
+
+  function moveQuestionDown(index: number) {
+    if (index === questions.length - 1) return;
+    const updated = [...questions];
+    [updated[index + 1], updated[index]] = [updated[index], updated[index + 1]];
+    setQuestions(updated);
+  }
+
   function updateQuestion(index: number, field: keyof Question, value: any) {
     const updated = [...questions];
     updated[index] = { ...updated[index], [field]: value };
@@ -669,3 +683,4 @@ export default function CreateStudyPage() {
     </div>
   );
 }
+

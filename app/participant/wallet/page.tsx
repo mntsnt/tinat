@@ -71,7 +71,7 @@ export default async function ParticipantWalletPage() {
             <CardTitle className="text-sm font-medium text-primary-foreground/80">Available Balance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-bold">
+            <div className="text-3xl font-bold">
               {balance} <span className="text-xl font-normal text-muted-foreground">TC</span>
             </div>
             <div className="mt-6">

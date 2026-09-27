@@ -35,7 +35,7 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
   ];
 
   return (
-    <div className="flex flex-col md:flex-row flex-1 min-h-screen">
+    <div className="flex flex-col md:flex-row h-screen overflow-hidden">
       <Sidebar
         links={links}
         roleTitle="Researcher"
@@ -43,9 +43,9 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
         userEmail={user.email}
         roleColor="indigo"
       />
-      <div className="flex-1 overflow-y-auto bg-muted/10">
+      <main className="flex-1 overflow-y-auto bg-muted/10">
         {children}
-      </div>
+      </main>
     </div>
   );
 }

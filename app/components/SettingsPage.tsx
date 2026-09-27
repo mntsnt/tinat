@@ -20,6 +20,7 @@ type UserData = {
 
 import { UserCircle, Lock, Edit, CheckCircle } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { VerificationSection } from "./VerificationSection";
 
 export default function SettingsPage({ user }: { user: UserData }) {
   const router = useRouter();
@@ -249,6 +250,10 @@ export default function SettingsPage({ user }: { user: UserData }) {
           <ThemeToggle />
         </CardContent>
       </Card>
+
+      {(user.role === "PARTICIPANT" || user.role === "RESEARCHER") && (
+        <VerificationSection role={user.role} />
+      )}
     </div>
   );
 }
