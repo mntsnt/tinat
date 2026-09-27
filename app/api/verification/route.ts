@@ -56,6 +56,15 @@ export async function POST(req: Request) {
       }
     });
 
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        title: "Verification Application Submitted",
+        message: `Your application to become a ${verificationType === "RESEARCHER" ? "Researcher" : "Data Collector"} has been submitted successfully and is awaiting review.`,
+        linkUrl: verificationType === "RESEARCHER" ? "/researcher/settings" : "/participant/settings"
+      }
+    });
+
     return NextResponse.json({ success: true, verification });
   } catch (error) {
     console.error("Verification error:", error);

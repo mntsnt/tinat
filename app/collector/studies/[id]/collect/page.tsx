@@ -12,6 +12,14 @@ export default function FieldCollectionPage() {
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
+  const [language, setLanguage] = useState("en");
+
+  const t = {
+    en: { consent: "Participant Consent", agree: "I confirm the participant has agreed", next: "Next", prev: "Previous", submit: "Submit Field Response", submitting: "Submitting...", required: "Required" },
+    am: { consent: "የተሳታፊ ስምምነት", agree: "ተሳታፊው መስማማቱን አረጋግጣለሁ", next: "ቀጣይ", prev: "ቀዳሚ", submit: "ምላሹን አስገባ", submitting: "በማስገባት ላይ...", required: "ያስፈልጋል" },
+    om: { consent: "Eeyyama Hirmaataa", agree: "Hirmaataan walii galuu isaa nan mirkaneessa", next: "Itti aanu", prev: "Duraa", submit: "Deebii Galchi", submitting: "Galchaa jira...", required: "Dirqama" },
+    ti: { consent: "ስምምነት ተሳታፊ", agree: "እቲ ተሳታፊ ከምዝተሰማምዐ አረጋግፅ", next: "ቀፃሊ", prev: "ቅድሚኡ", submit: "ምላሽ አእቱ", submitting: "እየተልእከ እዩ...", required: "የድሊ" }
+  }[language] as any;
 
   useEffect(() => {
     // In a real app we would have an endpoint specifically for collectors to fetch study definition
@@ -62,14 +70,30 @@ export default function FieldCollectionPage() {
   const isDone = currentStep >= questions.length;
   const progress = Math.round(((currentStep + 1) / (questions.length + 1)) * 100);
 
+  const LanguageSelector = () => (
+    <div className="absolute top-4 right-4 z-50">
+      <select 
+        value={language} 
+        onChange={(e) => setLanguage(e.target.value)}
+        className="bg-white border border-gray-300 text-gray-700 py-1 px-2 rounded-md shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="en">English</option>
+        <option value="am">አማርኛ</option>
+        <option value="om">Afaan Oromoo</option>
+        <option value="ti">ትግርኛ</option>
+      </select>
+    </div>
+  );
+
   if (currentStep === -1) {
     return (
-      <div className="min-h-screen bg-white flex flex-col p-6 max-w-lg mx-auto">
+      <div className="min-h-screen bg-white flex flex-col p-6 max-w-lg mx-auto relative">
+        <LanguageSelector />
         <div className="flex-1 flex flex-col justify-center">
           <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6 mx-auto">
             <ShieldCheck className="w-8 h-8" />
           </div>
-          <h1 className="text-2xl font-bold text-center text-gray-900 mb-2">Participant Consent</h1>
+          <h1 className="text-2xl font-bold text-center text-gray-900 mb-2">{t.consent}</h1>
           <p className="text-center text-gray-600 mb-8 px-4">
             Before continuing, confirm that the participant has received the study information and has agreed to participate.
           </p>
@@ -83,7 +107,7 @@ export default function FieldCollectionPage() {
             onClick={() => { setConsentGiven(true); setCurrentStep(0); }}
             className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-md active:scale-[0.98]"
           >
-            Participant has consented
+            {t.agree}
           </button>
           
           <button 
@@ -99,7 +123,8 @@ export default function FieldCollectionPage() {
 
   if (isDone) {
     return (
-      <div className="min-h-screen bg-white flex flex-col p-6 max-w-lg mx-auto">
+      <div className="min-h-screen bg-white flex flex-col p-6 max-w-lg mx-auto relative">
+        <LanguageSelector />
         <div className="flex-1 flex flex-col justify-center items-center text-center">
           <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-6 mx-auto shadow-sm">
             <CheckCircle2 className="w-10 h-10" />
@@ -116,7 +141,7 @@ export default function FieldCollectionPage() {
               isSubmitting ? "opacity-50" : "hover:bg-emerald-700 active:scale-[0.98]"
             }`}
           >
-            {isSubmitting ? "Saving locally/syncing..." : "Submit Response"}
+            {isSubmitting ? t.submitting : t.submit}
           </button>
           
           <button 
@@ -141,7 +166,7 @@ export default function FieldCollectionPage() {
         </button>
         <div className="flex-1">
           <div className="flex justify-between text-xs font-semibold text-gray-500 mb-1">
-            <span>Question {currentStep + 1} of {questions.length}</span>
+            <span>{currentStep + 1} / {questions.length}</span>
             <span>{progress}%</span>
           </div>
           <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -203,7 +228,7 @@ export default function FieldCollectionPage() {
               : "bg-gray-900 text-white hover:bg-black active:scale-[0.98]"
           }`}
         >
-          {currentStep === questions.length - 1 ? "Review" : "Next Question"}
+          {currentStep === questions.length - 1 ? t.next : t.next}
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>

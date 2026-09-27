@@ -54,6 +54,15 @@ export async function PATCH(req: Request) {
           }
         });
       }
+
+      await tx.notification.create({
+        data: {
+          userId: invitation.inviterId,
+          title: "Collector Invitation " + (status === "ACCEPTED" ? "Accepted" : "Declined"),
+          message: `${user.name} has ${status.toLowerCase()} your invitation to collect data for study ID: ${invitation.studyId}`,
+          linkUrl: `/researcher/studies/${invitation.studyId}`
+        }
+      });
     });
 
     return NextResponse.json({ success: true });

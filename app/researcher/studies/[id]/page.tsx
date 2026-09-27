@@ -28,7 +28,7 @@ export default async function ResearchStudyPage({ params }: Props) {
     where: { id },
     include: {
       questions: { include: { options: true, rows: true }, orderBy: { order: "asc" } },
-      responses: { include: { answers: true }, orderBy: { submittedAt: "desc" } },
+      responses: { include: { answers: true, collector: { select: { id: true, name: true } } }, orderBy: { submittedAt: "desc" } },
       likes: true,
       comments: {
         where: { parentId: null },
@@ -59,6 +59,18 @@ export default async function ResearchStudyPage({ params }: Props) {
   }
 
   const totalResponses = activeStudy.responses.length;
+  const fieldCollectedResponses = activeStudy.responses.filter(r => r.collectionMethod === "FIELD_COLLECTED").length;
+  const selfResponses = totalResponses - fieldCollectedResponses;
+
+  // Group by collector
+  const collectorStats = activeStudy.responses
+    .filter(r => r.collectionMethod === "FIELD_COLLECTED" && r.collector)
+    .reduce((acc, r) => {
+      const name = r.collector!.name || "Unknown";
+      acc[name] = (acc[name] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
   const remainingCredits = Math.max(0, study.budgetCredits - study.creditsPaid);
   const participantTargetReached = study.participantTarget > 0 && totalResponses >= study.participantTarget;
   const fundingComplete = study.budgetCredits > 0 && study.creditsPaid >= study.budgetCredits;
@@ -222,6 +234,36 @@ export default async function ResearchStudyPage({ params }: Props) {
                 <dd className="text-2xl font-bold text-foreground">{study.comments.length}</dd>
               </div>
             </dl>
+            
+            {fieldCollectedResponses > 0 && (
+              <div className="mt-6 border-t border-border pt-4">
+                <h4 className="text-sm font-semibold mb-3">Collection Breakdown</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-muted/30 p-3 rounded-lg border border-border">
+                    <dt className="text-xs text-muted-foreground mb-1">Self Responses</dt>
+                    <dd className="text-lg font-bold">{selfResponses}</dd>
+                  </div>
+                  <div className="bg-muted/30 p-3 rounded-lg border border-border">
+                    <dt className="text-xs text-muted-foreground mb-1">Field Collected</dt>
+                    <dd className="text-lg font-bold">{fieldCollectedResponses}</dd>
+                  </div>
+                </div>
+                
+                {Object.keys(collectorStats).length > 0 && (
+                  <div className="mt-4">
+                    <dt className="text-xs text-muted-foreground mb-2">By Data Collector:</dt>
+                    <div className="space-y-2">
+                      {Object.entries(collectorStats).map(([name, count]) => (
+                        <div key={name} className="flex justify-between text-sm items-center bg-muted/20 px-3 py-2 rounded">
+                          <span className="font-medium text-foreground">{name}</span>
+                          <span className="text-muted-foreground">{count} responses</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
 

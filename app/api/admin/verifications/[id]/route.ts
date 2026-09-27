@@ -26,6 +26,20 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       }
     });
 
+    let message = "";
+    if (status === "VERIFIED") message = `Your ${verification.verificationType === "RESEARCHER" ? "Researcher" : "Data Collector"} verification has been approved!`;
+    else if (status === "REJECTED") message = `Your ${verification.verificationType === "RESEARCHER" ? "Researcher" : "Data Collector"} verification was rejected. Reason: ${rejectionReason || "N/A"}`;
+    else if (status === "SUSPENDED") message = `Your ${verification.verificationType === "RESEARCHER" ? "Researcher" : "Data Collector"} verification has been suspended.`;
+
+    await prisma.notification.create({
+      data: {
+        userId: verification.userId,
+        title: "Verification Status Update",
+        message,
+        linkUrl: verification.verificationType === "RESEARCHER" ? "/researcher/settings" : "/participant/settings"
+      }
+    });
+
     return NextResponse.json({ success: true, verification });
   } catch (error) {
     console.error("Admin verification update error:", error);
