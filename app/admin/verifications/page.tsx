@@ -59,20 +59,20 @@ export default function AdminVerificationsPage() {
   return (
     <div className="p-8 max-w-7xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+        <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
           <ShieldCheck className="w-8 h-8 text-blue-600" />
           Verification Requests
         </h1>
-        <p className="text-gray-600 mt-2">Manage identity verifications for Researchers and Data Collectors.</p>
+        <p className="text-muted-foreground mt-2">Manage identity verifications for Researchers and Data Collectors.</p>
       </div>
 
-      <div className="flex border-b border-gray-200 space-x-8 mb-6">
+      <div className="flex border-b border-border space-x-8 mb-6">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`pb-4 px-2 font-medium text-sm transition-colors ${
-              activeTab === tab ? "border-b-2 border-blue-600 text-blue-600" : "text-gray-500 hover:text-gray-700"
+              activeTab === tab ? "border-b-2 border-primary text-primary" : "text-muted-foreground hover:text-muted-foreground"
             }`}
           >
             {tab}
@@ -81,19 +81,19 @@ export default function AdminVerificationsPage() {
       </div>
 
       {isLoading ? (
-        <div className="py-12 text-center text-gray-500">Loading requests...</div>
+        <div className="py-12 text-center text-muted-foreground">Loading requests...</div>
       ) : verifications.length === 0 ? (
-        <div className="py-12 text-center text-gray-500 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+        <div className="py-12 text-center text-muted-foreground bg-muted/50 rounded-lg border border-dashed border-border">
           No {activeTab.toLowerCase()} requests found.
         </div>
       ) : (
         <div className="space-y-4">
           {verifications.map((v) => (
-            <div key={v.id} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div key={v.id} className="bg-card border border-border rounded-lg p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-lg font-bold text-gray-900">{v.user.name}</h3>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">
+                  <h3 className="text-lg font-bold text-foreground">{v.user.name}</h3>
+                  <span className="px-2 py-1 bg-muted text-muted-foreground text-xs font-semibold rounded-full">
                     {v.verificationType}
                   </span>
                   <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
@@ -103,7 +103,7 @@ export default function AdminVerificationsPage() {
                     {v.status}
                   </span>
                 </div>
-                <div className="text-sm text-gray-600 grid grid-cols-2 gap-x-8 gap-y-1">
+                <div className="text-sm text-muted-foreground grid grid-cols-2 gap-x-8 gap-y-1">
                   <p><strong>Email:</strong> {v.user.email}</p>
                   <p><strong>Ref (FAN):</strong> {v.verificationReference || "N/A"}</p>
                   <p><strong>Submitted:</strong> {new Date(v.submittedAt).toLocaleDateString()}</p>
@@ -160,3 +160,5 @@ export default function AdminVerificationsPage() {
     </div>
   );
 }
+
+

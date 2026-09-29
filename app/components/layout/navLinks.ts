@@ -10,7 +10,6 @@ export const publicLinks: NavLink[] = [
 export const participantLinks: NavLink[] = [
   { title: "Dashboard", href: "/participant" },
   { title: "Health Studies", href: "/participant/studies" },
-  { title: "Research Projects", href: "/projects" },
   { title: "My History", href: "/participant/history" },
   { title: "TC Wallet", href: "/participant/wallet" },
   { title: "Tinat Ask", href: "/ask" },
@@ -18,22 +17,17 @@ export const participantLinks: NavLink[] = [
 
 export const researcherLinks: NavLink[] = [
   { title: "Dashboard", href: "/researcher" },
-  { title: "AI Chat", href: "/ai" },
   { title: "Research Projects", href: "/projects" },
-  { title: "Publish a Study", href: "/researcher/studies" },
-  { title: "Create Study", href: "/researcher/studies/new" },
+  { title: "My Studies", href: "/researcher/studies" },
   { title: "Tinat Ask", href: "/ask" },
 ];
 
 export const adminLinks: NavLink[] = [
   { title: "Overview", href: "/admin" },
-  { title: "AI Chat", href: "/ai" },
-  { title: "Research Projects", href: "/projects" },
   { title: "Users", href: "/admin/users" },
   { title: "Studies", href: "/admin/studies" },
-  { title: "Tinat Ask", href: "/ask" },
+  { title: "Verifications", href: "/admin/verifications" },
   { title: "Withdrawals", href: "/admin/withdrawals" },
-  { title: "Logs", href: "/admin/logs" },
 ];
 
 export function getLinksForUser(user: { role?: string } | null): NavLink[] {

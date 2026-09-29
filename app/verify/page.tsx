@@ -31,7 +31,7 @@ export default function VerifyPage() {
     fetchVerifications();
   }, []);
 
-  const fetchVerifications = async () => {
+  async function fetchVerifications() {
     try {
       const res = await fetch("/api/verification");
       if (res.ok) {
@@ -80,31 +80,31 @@ export default function VerifyPage() {
   };
 
   if (isLoading) {
-    return <div className="flex justify-center items-center h-screen bg-gray-50"><p>Loading...</p></div>;
+    return <div className="flex justify-center items-center h-screen bg-muted/50"><p>Loading...</p></div>;
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-muted/50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-8">
         
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto w-16 h-16 bg-blue-100 text-primary rounded-full flex items-center justify-center mb-4">
             <ShieldCheck className="w-8 h-8" />
           </div>
-          <h2 className="text-3xl font-extrabold text-gray-900">Identity Verification</h2>
-          <p className="mt-2 text-sm text-gray-600 max-w-xl mx-auto">
+          <h2 className="text-3xl font-extrabold text-foreground">Identity Verification</h2>
+          <p className="mt-2 text-sm text-muted-foreground max-w-xl mx-auto">
             To protect participants and maintain research integrity, Tinat requires identity verification for core roles. 
             Your information is securely encrypted and never visible to participants or in public analytics.
           </p>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200 justify-center space-x-8">
+        <div className="flex border-b border-border justify-center space-x-8">
           <button
             onClick={() => { setActiveTab("RESEARCHER"); setError(""); setSuccess(""); }}
             className={`pb-4 px-2 font-medium text-sm transition-colors ${
-              activeTab === "RESEARCHER" ? "border-b-2 border-blue-600 text-blue-600" : "text-gray-500 hover:text-gray-700"
+              activeTab === "RESEARCHER" ? "border-b-2 border-blue-600 text-primary" : "text-muted-foreground hover:text-muted-foreground"
             }`}
           >
             Become a Researcher
@@ -112,7 +112,7 @@ export default function VerifyPage() {
           <button
             onClick={() => { setActiveTab("DATA_COLLECTOR"); setError(""); setSuccess(""); }}
             className={`pb-4 px-2 font-medium text-sm transition-colors ${
-              activeTab === "DATA_COLLECTOR" ? "border-b-2 border-blue-600 text-blue-600" : "text-gray-500 hover:text-gray-700"
+              activeTab === "DATA_COLLECTOR" ? "border-b-2 border-blue-600 text-primary" : "text-muted-foreground hover:text-muted-foreground"
             }`}
           >
             Become a Data Collector
@@ -120,13 +120,13 @@ export default function VerifyPage() {
         </div>
 
         {/* Content Area */}
-        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-card p-8 rounded-xl shadow-sm border border-border">
           
           <div className="mb-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
+            <h3 className="text-xl font-bold text-foreground mb-2">
               {activeTab === "RESEARCHER" ? "Researcher Verification" : "Data Collector Verification"}
             </h3>
-            <p className="text-gray-600 text-sm">
+            <p className="text-muted-foreground text-sm">
               {activeTab === "RESEARCHER" 
                 ? "Verified researchers can create studies, publish research, and recruit participants. You must verify your identity before publishing."
                 : "Verified data collectors help researchers reach participants who may have limited access to smartphones or the internet."}
@@ -141,7 +141,7 @@ export default function VerifyPage() {
             }`}>
               <div className="flex items-start gap-4">
                 {currentVerification.status === "VERIFIED" && <ShieldCheck className="w-8 h-8 text-emerald-600 shrink-0" />}
-                {currentVerification.status === "PENDING" && <ShieldQuestion className="w-8 h-8 text-blue-600 shrink-0" />}
+                {currentVerification.status === "PENDING" && <ShieldQuestion className="w-8 h-8 text-primary shrink-0" />}
                 {currentVerification.status === "SUSPENDED" && <ShieldAlert className="w-8 h-8 text-rose-600 shrink-0" />}
                 
                 <div>
@@ -193,7 +193,7 @@ export default function VerifyPage() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-muted-foreground mb-1">
                   National ID (FAN Number)
                 </label>
                 <div className="relative">
@@ -201,11 +201,11 @@ export default function VerifyPage() {
                     type="password"
                     required
                     placeholder="Enter your exact National ID number"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow bg-white text-gray-900 placeholder:text-gray-400"
+                    className="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow bg-card text-foreground placeholder:text-gray-400"
                     value={fanNumber}
                     onChange={(e) => setFanNumber(e.target.value)}
                   />
-                  <p className="mt-2 text-xs text-gray-500 flex items-center gap-1">
+                  <p className="mt-2 text-xs text-muted-foreground flex items-center gap-1">
                     <ShieldCheck className="w-3 h-3" /> Securely encrypted and never visible to other users.
                   </p>
                 </div>
@@ -214,7 +214,7 @@ export default function VerifyPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors ${isSubmitting ? "opacity-75 cursor-not-allowed" : ""}`}
+                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors ${isSubmitting ? "opacity-75 cursor-not-allowed" : ""}`}
               >
                 {isSubmitting ? "Submitting securely..." : "Submit for Verification"}
               </button>
@@ -225,3 +225,5 @@ export default function VerifyPage() {
     </div>
   );
 }
+
+

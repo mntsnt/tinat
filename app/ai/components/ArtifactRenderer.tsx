@@ -68,15 +68,15 @@ export function ArtifactRenderer({ content }: { content: string }) {
           const headers = Object.keys(data[0]);
 
           return (
-            <div key={idx} className="my-6 border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">
-              <div className="bg-gray-50 border-b border-gray-200 px-4 py-3 flex justify-between items-center">
-                <h4 className="font-semibold text-gray-800 text-sm">{part.title}</h4>
+            <div key={idx} className="my-6 border border-border rounded-lg overflow-hidden shadow-sm bg-card">
+              <div className="bg-muted border-b border-border px-4 py-3 flex justify-between items-center">
+                <h4 className="font-semibold text-foreground text-sm">{part.title}</h4>
                 <div className="flex gap-2">
-                  <button className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition" title="Save to Project">
+                  <button className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded transition" title="Save to Project">
                     <Save className="w-4 h-4" />
                   </button>
                   <button 
-                    className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition" 
+                    className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded transition" 
                     title="Download CSV"
                     onClick={() => {
                       const csvRows = [headers.join(',')];
@@ -103,7 +103,7 @@ export function ArtifactRenderer({ content }: { content: string }) {
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left">
-                  <thead className="text-xs text-gray-500 uppercase bg-gray-50/50">
+                  <thead className="text-xs text-muted-foreground uppercase bg-muted/50">
                     <tr>
                       {headers.map(h => (
                         <th key={h} className="px-4 py-2 font-medium">{h}</th>
@@ -112,9 +112,9 @@ export function ArtifactRenderer({ content }: { content: string }) {
                   </thead>
                   <tbody>
                     {data.map((row, rIdx) => (
-                      <tr key={rIdx} className="border-t border-gray-100 hover:bg-gray-50/50 transition">
+                      <tr key={rIdx} className="border-t border-border hover:bg-muted/50 transition">
                         {headers.map(h => (
-                          <td key={h} className="px-4 py-2.5 text-gray-700">{row[h]}</td>
+                          <td key={h} className="px-4 py-2.5 text-muted-foreground">{row[h]}</td>
                         ))}
                       </tr>
                     ))}
@@ -125,8 +125,9 @@ export function ArtifactRenderer({ content }: { content: string }) {
           );
         }
 
-        return <div key={idx} className="text-gray-500 italic text-sm">[Unsupported Artifact Type: {part.artifactType}]</div>;
+        return <div key={idx} className="text-muted-foreground italic text-sm">[Unsupported Artifact Type: {part.artifactType}]</div>;
       })}
     </div>
   );
 }
+

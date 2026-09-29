@@ -290,3 +290,4 @@ export default async function ParticipantDashboard() {
     </div>
   );
 }
+

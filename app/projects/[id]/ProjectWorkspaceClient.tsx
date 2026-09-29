@@ -79,14 +79,9 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const [activeTab, setActiveTab] = useState<
     | "overview"
     | "tasks"
-    | "milestones"
     | "team"
     | "files"
-    | "notes"
-    | "discussions"
-    | "decisions"
     | "studies"
-    | "outputs"
     | "ai"
   >("overview");
 
@@ -182,12 +177,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     }
   }
 
-  // Load chat messages when opening discussions / chat tab
-  useEffect(() => {
-    if (activeTab === "discussions" && discussionTab === "chat") {
-      fetchChatMessages();
-    }
-  }, [activeTab, discussionTab]);
+  
 
   async function fetchChatMessages() {
     try {
@@ -742,14 +732,9 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             {[
               { id: "overview", label: "Overview", icon: Layers },
               { id: "tasks", label: `Tasks (${project.tasks?.length || 0})`, icon: CheckCircle2 },
-              { id: "milestones", label: `Milestones (${project.milestones?.length || 0})`, icon: Calendar },
               { id: "team", label: `Team (${project.members?.length || 0})`, icon: Users },
               { id: "files", label: `Files & Data (${project.files?.length || 0})`, icon: FileText },
-              { id: "notes", label: `Notes (${project.notes?.length || 0})`, icon: BookOpen },
-              { id: "discussions", label: "Discussions & Chat", icon: MessageSquare },
-              { id: "decisions", label: `Decisions (${project.decisions?.length || 0})`, icon: Scale },
               { id: "studies", label: `Linked Studies (${project.linkedStudies?.length || 0})`, icon: Activity },
-              { id: "outputs", label: `Outputs (${project.outputs?.length || 0})`, icon: FileCode },
               { id: "ai", label: "Project AI", icon: Sparkles },
             ].map((tab) => {
               const Icon = tab.icon;
@@ -854,12 +839,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     <Calendar className="w-4 h-4 text-indigo-600" />
                     Key Milestones
                   </h3>
-                  <button
-                    onClick={() => setActiveTab("milestones")}
-                    className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
-                  >
-                    View All Timeline
-                  </button>
+                  
                 </div>
 
                 <div className="space-y-3">
@@ -1118,81 +1098,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         )}
 
         {/* TAB 3: MILESTONES & TIMELINE */}
-        {activeTab === "milestones" && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                  Research Milestones Roadmap
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Target deadlines aligned with study phases and institutional deliverable gates.
-                </p>
-              </div>
-              {auth?.canEditTasks && (
-                <button
-                  onClick={() => setShowMilestoneModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  Add Milestone
-                </button>
-              )}
-            </div>
-
-            <div className="space-y-3">
-              {project.milestones?.map((m: any, idx: number) => (
-                <div
-                  key={m.id}
-                  className={`p-4 rounded-2xl border transition-all text-xs flex items-center justify-between gap-4 ${
-                    m.isCompleted
-                      ? "border-emerald-200 dark:border-emerald-900/40 bg-emerald-50/30 dark:bg-emerald-950/10"
-                      : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => handleToggleMilestone(m.id, m.isCompleted)}
-                      className={`w-5 h-5 rounded border flex items-center justify-center ${
-                        m.isCompleted
-                          ? "bg-emerald-600 border-emerald-600 text-white"
-                          : "border-slate-300 dark:border-slate-700"
-                      }`}
-                    >
-                      {m.isCompleted && <Check className="w-3.5 h-3.5" />}
-                    </button>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900 dark:text-white text-sm">
-                          {m.title}
-                        </span>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                          {m.phase}
-                        </span>
-                      </div>
-                      {m.description && (
-                        <p className="text-slate-500 dark:text-slate-400 mt-1">{m.description}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="text-right shrink-0">
-                    <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                      {m.deadline ? new Date(m.deadline).toLocaleDateString() : "Flexible Deadline"}
-                    </div>
-                    <span
-                      className={`text-[10px] font-bold ${
-                        m.isCompleted ? "text-emerald-600" : "text-amber-600"
-                      }`}
-                    >
-                      {m.isCompleted ? "Completed" : "Pending"}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        
 
         {/* TAB 4: TEAM & PERMISSIONS */}
         {activeTab === "team" && (
@@ -1376,306 +1282,13 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         )}
 
         {/* TAB 6: NOTES & WIKI */}
-        {activeTab === "notes" && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                  Research Notebook & Scientific Wiki
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Shared documentation for literature notes, lab logs, and protocol amendments.
-                </p>
-              </div>
-              <button
-                onClick={() => setShowNoteModal(true)}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                New Note
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {project.notes?.length === 0 ? (
-                <div className="col-span-full p-8 text-center text-slate-400 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
-                  No notes recorded yet. Add your first protocol note or literature synthesis.
-                </div>
-              ) : (
-                project.notes?.map((n: any) => (
-                  <div
-                    key={n.id}
-                    className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
-                          {n.category}
-                        </span>
-                        <span className="text-[10px] text-slate-400">
-                          {new Date(n.updatedAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-2">
-                        {n.title}
-                      </h4>
-                      <p className="text-slate-600 dark:text-slate-300 whitespace-pre-wrap line-clamp-6 leading-relaxed">
-                        {n.content}
-                      </p>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[10px] text-slate-400">
-                      Author: {n.author?.name || "Team Member"}
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        )}
+        
 
         {/* TAB 7: DISCUSSIONS & CHAT */}
-        {activeTab === "discussions" && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center p-1 rounded-xl bg-slate-200/60 dark:bg-slate-800 text-xs font-semibold">
-                <button
-                  onClick={() => setDiscussionTab("threads")}
-                  className={`px-3.5 py-1.5 rounded-lg transition-all ${
-                    discussionTab === "threads"
-                      ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs"
-                      : "text-slate-600 dark:text-slate-400"
-                  }`}
-                >
-                  Methodological Threads
-                </button>
-                <button
-                  onClick={() => setDiscussionTab("chat")}
-                  className={`px-3.5 py-1.5 rounded-lg transition-all ${
-                    discussionTab === "chat"
-                      ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs"
-                      : "text-slate-600 dark:text-slate-400"
-                  }`}
-                >
-                  Live Team Chat
-                </button>
-              </div>
-
-              {discussionTab === "threads" && (
-                <button
-                  onClick={() => setShowDiscussionModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  Start Discussion
-                </button>
-              )}
-            </div>
-
-            {discussionTab === "threads" ? (
-              <div className="space-y-4">
-                {project.discussions?.length === 0 ? (
-                  <div className="p-8 text-center text-slate-400 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
-                    No discussions started yet. Create a thread to debate statistical models or sample sizing.
-                  </div>
-                ) : (
-                  project.discussions?.map((disc: any) => (
-                    <div
-                      key={disc.id}
-                      className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs"
-                    >
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold text-sm text-slate-900 dark:text-white">
-                            {disc.title}
-                          </span>
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                            {disc.category}
-                          </span>
-                        </div>
-                        {disc.isResolved ? (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
-                            Resolved
-                          </span>
-                        ) : (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300">
-                            Active Debate
-                          </span>
-                        )}
-                      </div>
-
-                      <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-3">
-                        {disc.content}
-                      </p>
-
-                      <div className="text-[10px] text-slate-400 mb-3">
-                        Posted by {disc.author?.name} • {new Date(disc.createdAt).toLocaleDateString()}
-                      </div>
-
-                      {/* Replies */}
-                      {disc.replies?.length > 0 && (
-                        <div className="pl-4 border-l-2 border-indigo-200 dark:border-indigo-900 space-y-2 mb-3">
-                          {disc.replies.map((rep: any) => (
-                            <div key={rep.id} className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40">
-                              <span className="font-semibold text-slate-900 dark:text-white">
-                                {rep.author?.name}:
-                              </span>{" "}
-                              <span className="text-slate-700 dark:text-slate-300">{rep.content}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Reply Box */}
-                      <div className="flex items-center gap-2 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-                        <input
-                          type="text"
-                          placeholder="Write a reply..."
-                          value={replyContent}
-                          onChange={(e) => setReplyContent(e.target.value)}
-                          className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950"
-                        />
-                        <button
-                          onClick={() => handleReplyDiscussion(disc.id)}
-                          className="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-semibold text-xs"
-                        >
-                          Reply
-                        </button>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-            ) : (
-              /* Live Chat */
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col h-[500px]">
-                <div className="flex-1 p-4 overflow-y-auto space-y-3">
-                  {chatMessages.length === 0 ? (
-                    <div className="h-full flex items-center justify-center text-xs text-slate-400">
-                      No team messages yet. Say hello to your co-investigators!
-                    </div>
-                  ) : (
-                    chatMessages.map((msg) => {
-                      const isMe = msg.senderId === currentUserId;
-                      return (
-                        <div
-                          key={msg.id}
-                          className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}
-                        >
-                          <span className="text-[10px] text-slate-400 mb-0.5">
-                            {msg.sender?.name || "Investigator"}
-                          </span>
-                          <div
-                            className={`p-3 rounded-2xl max-w-sm text-xs ${
-                              isMe
-                                ? "bg-indigo-600 text-white"
-                                : "bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200"
-                            }`}
-                          >
-                            {msg.content}
-                          </div>
-                        </div>
-                      );
-                    })
-                  )}
-                </div>
-
-                <form onSubmit={handleSendChatMessage} className="p-3 border-t border-slate-200 dark:border-slate-800 flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Type team message..."
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                    className="flex-1 px-4 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
-                  />
-                  <button
-                    type="submit"
-                    className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold flex items-center gap-1.5"
-                  >
-                    <Send className="w-3.5 h-3.5" />
-                    Send
-                  </button>
-                </form>
-              </div>
-            )}
-          </div>
-        )}
+        
 
         {/* TAB 8: DECISION LOG */}
-        {activeTab === "decisions" && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                  Methodological Decision Register
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Sequential, audit-trailed log of protocol, sampling, statistical, and operational decisions.
-                </p>
-              </div>
-              {auth?.canMakeDecisions && (
-                <button
-                  onClick={() => setShowDecisionModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  Log Decision
-                </button>
-              )}
-            </div>
-
-            <div className="space-y-3">
-              {project.decisions?.length === 0 ? (
-                <div className="p-8 text-center text-slate-400 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
-                  No methodological decisions logged yet. Document changes to sample size or analysis plans.
-                </div>
-              ) : (
-                project.decisions?.map((dec: any) => (
-                  <div
-                    key={dec.id}
-                    className={`p-5 rounded-2xl border text-xs ${
-                      dec.status === "ACTIVE"
-                        ? "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
-                        : "border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40 opacity-75"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">
-                          #{dec.decisionNumber}
-                        </span>
-                        <span className="font-bold text-slate-900 dark:text-white text-sm">
-                          {dec.decision}
-                        </span>
-                      </div>
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                          dec.status === "ACTIVE"
-                            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
-                            : "bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
-                        }`}
-                      >
-                        {dec.status}
-                      </span>
-                    </div>
-
-                    {dec.reason && (
-                      <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
-                        <span className="font-semibold text-slate-800 dark:text-slate-200">Rationale:</span>{" "}
-                        {dec.reason}
-                      </p>
-                    )}
-
-                    <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
-                      <span>Recorded by {dec.madeBy?.name}</span>
-                      <span>{new Date(dec.date).toLocaleDateString()}</span>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        )}
+        
 
         {/* TAB 9: LINKED STUDIES */}
         {activeTab === "studies" && (
@@ -1756,81 +1369,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         )}
 
         {/* TAB 10: OUTPUTS & MANUSCRIPT */}
-        {activeTab === "outputs" && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                  Research Deliverables & Manuscript Pipeline
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Track papers, conference abstracts, posters, and target journal submission deadlines.
-                </p>
-              </div>
-              {auth?.canEditTasks && (
-                <button
-                  onClick={() => setShowOutputModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  Add Deliverable
-                </button>
-              )}
-            </div>
-
-            <div className="space-y-4">
-              {project.outputs?.length === 0 ? (
-                <div className="p-8 text-center text-slate-400 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
-                  No deliverables registered yet. Track target manuscripts, conference posters, or policy briefs.
-                </div>
-              ) : (
-                project.outputs?.map((out: any) => (
-                  <div
-                    key={out.id}
-                    className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900 dark:text-white text-sm">
-                          {out.title}
-                        </span>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600">
-                          {out.type.replace(/_/g, " ")}
-                        </span>
-                      </div>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
-                        {out.status}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 my-3 text-slate-600 dark:text-slate-300">
-                      <div>
-                        <span className="text-slate-400">Target Journal:</span>
-                        <div className="font-medium text-slate-800 dark:text-slate-200">
-                          {out.targetJournal || "Not specified"}
-                        </div>
-                      </div>
-                      <div>
-                        <span className="text-slate-400">Submission Deadline:</span>
-                        <div className="font-medium text-slate-800 dark:text-slate-200">
-                          {out.submissionDeadline
-                            ? new Date(out.submissionDeadline).toLocaleDateString()
-                            : "Open"}
-                        </div>
-                      </div>
-                      <div>
-                        <span className="text-slate-400">Contributors:</span>
-                        <div className="font-medium text-slate-800 dark:text-slate-200">
-                          {out.contributors?.length > 0 ? out.contributors.join(", ") : "All co-investigators"}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        )}
+        
 
         {/* TAB 11: ASK PROJECT AI */}
         {activeTab === "ai" && (
@@ -2467,3 +2006,5 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     </div>
   );
 }
+
+

@@ -109,3 +109,4 @@ export default async function StudyPage(props: Props) {
     />
   );
 }
+

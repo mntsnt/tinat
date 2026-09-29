@@ -9,7 +9,7 @@ import { Badge } from "../../../components/ui/Badge";
 import { Button, getButtonClasses } from "../../../components/ui/Button";
 import { AIAnalysisTab } from "./AIAnalysisTab";
 import { DataVisualizationStudio } from "./DataVisualizationStudio";
-import { Star } from "lucide-react";
+import { Star, Paperclip } from "lucide-react";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -542,7 +542,7 @@ export default async function ResearchStudyPage({ params }: Props) {
                         answers.map((answer) => (
                           <div key={answer.id} className="bg-muted/50 p-3 rounded-md border border-border text-sm text-foreground">
                             {question.type === "FILE_UPLOAD" ? (
-                              <a href="#" className="text-blue-500 hover:underline">{answer.textValue}</a>
+                              <a href={answer.textValue || "#"} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline flex items-center gap-1.5"><Paperclip className="w-3.5 h-3.5" /> View File</a>
                             ) : (
                               answer.textValue
                             )}
@@ -692,3 +692,4 @@ export default async function ResearchStudyPage({ params }: Props) {
     </div>
   );
 }
+

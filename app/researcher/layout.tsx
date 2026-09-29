@@ -29,7 +29,6 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
     { title: "Dashboard", href: "/researcher", icon: <LayoutDashboard /> },
     { title: "Research Projects", href: "/projects", icon: <FolderKanban /> },
     { title: "My Studies", href: "/researcher/studies", icon: <FolderOpen /> },
-    { title: "Create Study", href: "/researcher/studies/new", icon: <FilePlus /> },
     { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
     { title: "Settings", href: "/researcher/settings", icon: <Settings /> },
   ];

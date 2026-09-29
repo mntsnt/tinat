@@ -36,7 +36,6 @@ export default async function AdminLayout({ children }: { children: ReactNode })
 
   const links = [
     { title: "Overview", href: "/admin", icon: <LayoutDashboard /> },
-    { title: "Research Projects", href: "/projects", icon: <FolderKanban /> },
     { title: "User Management", href: "/admin/users", icon: <Users /> },
     { title: "Manage Studies", href: "/admin/studies", icon: <FileText /> },
     { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
