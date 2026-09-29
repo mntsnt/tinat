@@ -45,7 +45,7 @@ export default async function CollectorLayout({ children }: { children: ReactNod
         roleTitle="Data Collector"
         userName={user.name}
         userEmail={user.email}
-        roleColor="emerald"
+        roleColor="primary"
       />
       <main className="flex-1 overflow-y-auto bg-muted/10">
         {children}
@@ -53,3 +53,4 @@ export default async function CollectorLayout({ children }: { children: ReactNod
     </div>
   );
 }
+

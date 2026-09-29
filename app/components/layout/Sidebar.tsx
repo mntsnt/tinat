@@ -25,7 +25,7 @@ export function Sidebar({
   roleTitle,
   userName,
   userEmail,
-  roleColor = "indigo",
+  roleColor = "primary",
 }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -205,6 +205,7 @@ export function Sidebar({
     </>
   );
 }
+
 
 
 

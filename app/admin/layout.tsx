@@ -51,7 +51,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
         roleTitle="System Admin"
         userName={user.name}
         userEmail={user.email}
-        roleColor="rose"
+        roleColor="primary"
       />
       <main className="flex-1 overflow-y-auto bg-muted/10">
         {children}
@@ -59,3 +59,4 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     </div>
   );
 }
+

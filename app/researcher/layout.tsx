@@ -40,7 +40,7 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
         roleTitle="Researcher"
         userName={user.name}
         userEmail={user.email}
-        roleColor="indigo"
+        roleColor="primary"
       />
       <main className="flex-1 overflow-y-auto bg-muted/10">
         {children}
@@ -48,3 +48,4 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
     </div>
   );
 }
+
