@@ -98,7 +98,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
       {/* Recipient Profile Card */}
         <div className="text-center space-y-4">
           <div className="relative inline-block">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-primary to-indigo-500 text-white flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-background mx-auto">
+            <div className="w-20 h-20 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-background mx-auto">
               {initials}
             </div>
             <div className="absolute -bottom-1 -right-1 bg-emerald-500 text-white rounded-full p-1 shadow">
@@ -227,7 +227,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
             </div>
 
             {/* High-converting prompt to sign up and get their own link */}
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-primary/10 via-indigo-500/10 to-primary/5 border border-primary/20 space-y-3">
+            <div className="p-5 rounded-2xl bg-primary/5 border border-primary/20 space-y-3">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/20 text-primary text-xs font-bold">
                 <Sparkles className="w-3.5 h-3.5" /> Viral Social Q&A
               </div>

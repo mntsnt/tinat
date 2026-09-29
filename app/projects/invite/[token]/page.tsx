@@ -86,7 +86,7 @@ export default function ProjectInvitePage({
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
             Loading Collaboration Invitation...
           </p>
@@ -140,7 +140,7 @@ export default function ProjectInvitePage({
           </div>
         ) : (
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-xs mb-2 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-primary dark:text-primary font-semibold text-xs mb-2 uppercase tracking-wider">
               <FolderKanban className="w-4 h-4" />
               Research Collaboration Request
             </div>
@@ -150,7 +150,7 @@ export default function ProjectInvitePage({
             </h1>
 
             <div className="flex items-center gap-2 mt-2 flex-wrap">
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-primary/5 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
                 {project.studyDesign}
               </span>
               {project.institution && (
@@ -177,7 +177,7 @@ export default function ProjectInvitePage({
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-slate-400">Offered Role:</span>
-                <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                <span className="font-bold text-primary dark:text-primary">
                   {invitation.role.replace(/_/g, " ")}
                 </span>
               </div>
@@ -205,7 +205,7 @@ export default function ProjectInvitePage({
                 type="button"
                 disabled={acting}
                 onClick={() => handleAction("ACCEPT")}
-                className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/20 disabled:opacity-50 transition-all flex items-center gap-1.5"
+                className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-xs shadow-md shadow-indigo-600/20 disabled:opacity-50 transition-all flex items-center gap-1.5"
               >
                 {acting ? (
                   <>

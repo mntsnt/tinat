@@ -247,7 +247,7 @@ export default function NewProjectPage() {
                       isPast
                         ? "bg-emerald-600 text-white"
                         : isActive
-                        ? "bg-indigo-600 text-white ring-4 ring-indigo-100 dark:ring-indigo-900/40"
+                        ? "bg-primary text-white ring-4 ring-indigo-100 dark:ring-indigo-900/40"
                         : "bg-white dark:bg-slate-800 text-slate-500 border border-slate-300 dark:border-slate-700"
                     }`}
                   >
@@ -255,7 +255,7 @@ export default function NewProjectPage() {
                   </button>
                   <span
                     className={`text-[11px] mt-1.5 font-medium hidden sm:block ${
-                      isActive ? "text-indigo-600 dark:text-indigo-400 font-bold" : "text-slate-500"
+                      isActive ? "text-primary dark:text-primary font-bold" : "text-slate-500"
                     }`}
                   >
                     {s.label}
@@ -288,7 +288,7 @@ export default function NewProjectPage() {
                   placeholder="e.g. Prevalence and Determinants of Diabetic Retinopathy in Sub-Saharan Urban Clinics"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm"
                 />
               </div>
 
@@ -300,7 +300,7 @@ export default function NewProjectPage() {
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                   >
                     {CATEGORIES.map((c) => (
                       <option key={c} value={c}>
@@ -319,7 +319,7 @@ export default function NewProjectPage() {
                     placeholder="e.g. Addis Ababa University / Black Lion Hospital"
                     value={institution}
                     onChange={(e) => setInstitution(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                   />
                 </div>
               </div>
@@ -343,7 +343,7 @@ export default function NewProjectPage() {
                         onClick={() => setTemplate(tmpl.id)}
                         className={`cursor-pointer p-4 rounded-xl border transition-all text-left ${
                           isSelected
-                            ? "border-indigo-600 bg-indigo-50/40 dark:bg-indigo-950/30 ring-2 ring-indigo-500/20"
+                            ? "border-primary bg-primary/5/40 dark:bg-indigo-950/30 ring-2 ring-primary/20"
                             : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50"
                         }`}
                       >
@@ -352,7 +352,7 @@ export default function NewProjectPage() {
                             <div
                               className={`p-2 rounded-lg ${
                                 isSelected
-                                  ? "bg-indigo-600 text-white"
+                                  ? "bg-primary text-white"
                                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
                               }`}
                             >
@@ -362,12 +362,12 @@ export default function NewProjectPage() {
                               <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">
                                 {tmpl.title}
                               </h4>
-                              <span className="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">
+                              <span className="text-[10px] font-semibold text-primary dark:text-primary">
                                 {tmpl.badge}
                               </span>
                             </div>
                           </div>
-                          {isSelected && <Check className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />}
+                          {isSelected && <Check className="w-4 h-4 text-primary dark:text-primary shrink-0" />}
                         </div>
                         <p className="text-xs text-slate-500 dark:text-slate-400 mt-2.5 line-clamp-2 leading-relaxed">
                           {tmpl.description}
@@ -400,7 +400,7 @@ export default function NewProjectPage() {
                         onClick={() => setVisibility(v.id as any)}
                         className={`p-3 rounded-xl border text-left transition-all ${
                           visibility === v.id
-                            ? "border-indigo-600 bg-indigo-50/40 dark:bg-indigo-950/20 text-indigo-950 dark:text-indigo-200"
+                            ? "border-primary bg-primary/5/40 dark:bg-indigo-950/20 text-indigo-950 dark:text-indigo-200"
                             : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
                         }`}
                       >
@@ -432,7 +432,7 @@ export default function NewProjectPage() {
                   placeholder="e.g. In adult patients with type 2 diabetes residing in urban healthcare catchment areas, does community-based peer support compared to standard care improve glycemic control (HbA1c < 7.0%) over 12 months?"
                   value={researchQuestion}
                   onChange={(e) => setResearchQuestion(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                 />
               </div>
 
@@ -445,7 +445,7 @@ export default function NewProjectPage() {
                   placeholder="e.g. To estimate the prevalence of undiagnosed hypertension and identify its associated socio-demographic and dietary correlates among adults attending primary health centers."
                   value={objective}
                   onChange={(e) => setObjective(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                 />
               </div>
 
@@ -458,7 +458,7 @@ export default function NewProjectPage() {
                   placeholder="e.g. Non-Communicable Diseases, Primary Care Epidemiology"
                   value={researchArea}
                   onChange={(e) => setResearchArea(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                 />
               </div>
             </div>
@@ -469,7 +469,7 @@ export default function NewProjectPage() {
             <div className="space-y-6">
               {/* Ethics / IRB Box */}
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-                <div className="flex items-center gap-2 text-indigo-700 dark:text-indigo-400 font-semibold text-xs mb-3 uppercase tracking-wider">
+                <div className="flex items-center gap-2 text-indigo-700 dark:text-primary font-semibold text-xs mb-3 uppercase tracking-wider">
                   <ShieldCheck className="w-4 h-4" />
                   Ethics & Institutional Review Board (IRB)
                 </div>
@@ -562,7 +562,7 @@ export default function NewProjectPage() {
                       >
                         <span className="font-medium text-slate-800 dark:text-slate-200">{inv.email}</span>
                         <div className="flex items-center gap-2">
-                          <span className="px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-semibold text-[10px]">
+                          <span className="px-2 py-0.5 rounded-md bg-primary/5 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-semibold text-[10px]">
                             {inv.role.replace(/_/g, " ")}
                           </span>
                           <button
@@ -584,9 +584,9 @@ export default function NewProjectPage() {
           {/* STEP 4: Review & Launch */}
           {step === 4 && (
             <div className="space-y-6">
-              <div className="p-4 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40">
+              <div className="p-4 rounded-xl bg-primary/5/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40">
                 <div className="flex items-center gap-2 font-bold text-sm text-indigo-900 dark:text-indigo-300 mb-1">
-                  <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                  <Sparkles className="w-4 h-4 text-primary dark:text-primary" />
                   Ready to Auto-Scaffold Project Workspace
                 </div>
                 <p className="text-xs text-indigo-700 dark:text-indigo-300 leading-relaxed">
@@ -602,7 +602,7 @@ export default function NewProjectPage() {
                 </div>
                 <div className="py-2.5 flex items-center justify-between">
                   <span className="text-slate-500">Study Design:</span>
-                  <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+                  <span className="font-semibold text-primary dark:text-primary">
                     {TEMPLATES.find((t) => t.id === template)?.title}
                   </span>
                 </div>
@@ -648,7 +648,7 @@ export default function NewProjectPage() {
                   setError(null);
                   setStep(step + 1);
                 }}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-xs transition-colors"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold text-xs shadow-xs transition-colors"
               >
                 Continue
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -658,7 +658,7 @@ export default function NewProjectPage() {
                 type="button"
                 disabled={submitting}
                 onClick={handleLaunch}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-600/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-xs shadow-md shadow-indigo-600/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
               >
                 {submitting ? (
                   <>

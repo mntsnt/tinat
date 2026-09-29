@@ -569,7 +569,7 @@ export function DataVisualizationStudio({
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Sliders className="w-3.5 h-3.5 text-blue-500" />
+              <Sliders className="w-3.5 h-3.5 text-primary" />
               <span>Power Simulation</span>
             </button>
           </div>
@@ -1008,7 +1008,7 @@ export function DataVisualizationStudio({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <Badge className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30 text-xs">
+                  <Badge className="bg-primary/10 text-primary dark:text-blue-400 border-primary/30 text-xs">
                     Clinical Trial Simulator
                   </Badge>
                   <span className="text-xs text-muted-foreground">Post-Hoc & Prospective Power Modeling</span>

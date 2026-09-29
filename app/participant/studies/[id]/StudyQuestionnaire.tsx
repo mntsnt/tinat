@@ -529,7 +529,7 @@ export default function StudyQuestionnaire({
                 Reward: {study.rewardCredits} TC
               </Badge>
             ) : (
-              <Badge variant="outline" className="border-blue-300 bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 font-medium">
+              <Badge variant="outline" className="border-blue-300 bg-primary/5 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 font-medium">
                 Open Data Collection &bull; Volunteer
               </Badge>
             )}
@@ -577,7 +577,7 @@ export default function StudyQuestionnaire({
           <Button 
             variant="ghost" 
             size="sm" 
-            className="gap-2 rounded-full hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/50" 
+            className="gap-2 rounded-full hover:bg-primary/5 hover:text-primary dark:hover:bg-blue-950/50" 
             onClick={() => document.getElementById('comments-section')?.scrollIntoView({ behavior: 'smooth' })}
           >
             <MessageSquare className="w-[18px] h-[18px]" />

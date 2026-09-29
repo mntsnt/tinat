@@ -351,11 +351,11 @@ export function AIAnalysisTab({
                   ) : model.id === "nemotron" ? (
                     <Cpu className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-purple-500"}`} />
                   ) : model.id === "gemma-31b" ? (
-                    <Sparkles className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-blue-500"}`} />
+                    <Sparkles className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-primary"}`} />
                   ) : model.id === "nemotron-lightning" ? (
                     <Zap className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-amber-500"}`} />
                   ) : (
-                    <BookOpen className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-indigo-500"}`} />
+                    <BookOpen className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-primary"}`} />
                   )}
                 </div>
 

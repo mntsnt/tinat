@@ -51,7 +51,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
           <div className="flex items-center gap-3 justify-center md:justify-start mb-2">
             <h1 className="text-3xl font-bold text-foreground">{user.name}</h1>
             {user.role === "RESEARCHER" && user.isVerified && (
-              <Badge variant="success" className="bg-blue-100 text-blue-700 hover:bg-blue-200 border-0">Verified Researcher</Badge>
+              <Badge variant="success" className="bg-primary/10 text-blue-700 hover:bg-blue-200 border-0">Verified Researcher</Badge>
             )}
           </div>
           <p className="text-lg text-muted-foreground mb-4">

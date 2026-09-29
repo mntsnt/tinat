@@ -79,7 +79,7 @@ export function VerificationSection({ role }: { role: string }) {
   const description = isCollector
     ? "Data collectors help researchers gather offline field data from communities without digital access. You will earn Tinat Credits for each valid response collected."
     : "Verified researchers can publish studies and assign data collectors to conduct field research on their behalf.";
-  const icon = isCollector ? <ClipboardList className="w-5 h-5 text-emerald-500" /> : <BookOpen className="w-5 h-5 text-indigo-500" />;
+  const icon = isCollector ? <ClipboardList className="w-5 h-5 text-emerald-500" /> : <BookOpen className="w-5 h-5 text-primary" />;
 
   if (verification?.status === "APPROVED") {
     return (

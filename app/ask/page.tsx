@@ -100,7 +100,7 @@ export default async function AskPage() {
 
         <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-foreground max-w-3xl mx-auto leading-[1.1]">
           Ask Anything. <br />
-          <span className="bg-gradient-to-r from-primary via-indigo-500 to-purple-600 bg-clip-text text-transparent">
+          <span className="bg-primary bg-clip-text text-transparent">
             Answer What Matters.
           </span>
         </h1>
@@ -132,7 +132,7 @@ export default async function AskPage() {
             100% Anonymous Senders
           </span>
           <span className="flex items-center gap-1.5">
-            <Smartphone className="w-3.5 h-3.5 text-indigo-500" />
+            <Smartphone className="w-3.5 h-3.5 text-primary" />
             Story & Post Decks
           </span>
           <span className="flex items-center gap-1.5">
@@ -169,7 +169,7 @@ export default async function AskPage() {
 
           {/* Card 3: Instant Social Export */}
           <div className="bg-card border border-border rounded-2xl p-6 space-y-4 shadow-sm">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
               <Share2 className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold">Story & Post Formats</h3>

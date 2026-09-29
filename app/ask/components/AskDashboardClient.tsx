@@ -418,7 +418,7 @@ export function AskDashboardClient({
       <div className="bg-card border border-border rounded-2xl shadow-sm p-6 sm:p-8 space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-primary to-indigo-600 text-white font-bold text-xl flex items-center justify-center shadow-md shrink-0">
+            <div className="w-16 h-16 rounded-2xl bg-primary text-primary-foreground font-bold text-xl flex items-center justify-center shadow-md shrink-0">
               {(profile.displayName || profile.username)
                 .split(" ")
                 .map((n) => n[0])
@@ -573,7 +573,7 @@ export function AskDashboardClient({
           <span className="text-xs text-muted-foreground font-medium">
             Public Showcased
           </span>
-          <div className="text-2xl font-black mt-1 text-indigo-600">
+          <div className="text-2xl font-black mt-1 text-primary">
             {stats.public}
           </div>
         </div>
@@ -734,7 +734,7 @@ export function AskDashboardClient({
                             type="button"
                             onClick={() => handleSaveAnswer(q.id, true)}
                             disabled={isSavingAnswer || !answerDraft.trim()}
-                            className="px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-indigo-600 text-white text-xs font-semibold shadow hover:opacity-95 transition-all disabled:opacity-50 flex items-center gap-1.5"
+                            className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold shadow hover:opacity-95 transition-all disabled:opacity-50 flex items-center gap-1.5"
                           >
                             <Sparkles className="w-3.5 h-3.5" />
                             Save & Generate Deck
@@ -784,7 +784,7 @@ export function AskDashboardClient({
                             <button
                               type="button"
                               onClick={() => setDeckModalQuestion(q)}
-                              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-primary to-indigo-600 text-white text-xs font-semibold shadow hover:opacity-95 transition-all flex items-center gap-1.5"
+                              className="px-3.5 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold shadow hover:opacity-95 transition-all flex items-center gap-1.5"
                             >
                               <Sparkles className="w-3.5 h-3.5" />
                               Social Deck 🎨
@@ -946,3 +946,4 @@ export function AskDashboardClient({
     </div>
   );
 }
+

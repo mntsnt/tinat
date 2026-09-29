@@ -89,7 +89,7 @@ export default function VerifyPage() {
         
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto w-16 h-16 bg-blue-100 text-primary rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">
             <ShieldCheck className="w-8 h-8" />
           </div>
           <h2 className="text-3xl font-extrabold text-foreground">Identity Verification</h2>
@@ -104,7 +104,7 @@ export default function VerifyPage() {
           <button
             onClick={() => { setActiveTab("RESEARCHER"); setError(""); setSuccess(""); }}
             className={`pb-4 px-2 font-medium text-sm transition-colors ${
-              activeTab === "RESEARCHER" ? "border-b-2 border-blue-600 text-primary" : "text-muted-foreground hover:text-muted-foreground"
+              activeTab === "RESEARCHER" ? "border-b-2 border-primary text-primary" : "text-muted-foreground hover:text-muted-foreground"
             }`}
           >
             Become a Researcher
@@ -112,7 +112,7 @@ export default function VerifyPage() {
           <button
             onClick={() => { setActiveTab("DATA_COLLECTOR"); setError(""); setSuccess(""); }}
             className={`pb-4 px-2 font-medium text-sm transition-colors ${
-              activeTab === "DATA_COLLECTOR" ? "border-b-2 border-blue-600 text-primary" : "text-muted-foreground hover:text-muted-foreground"
+              activeTab === "DATA_COLLECTOR" ? "border-b-2 border-primary text-primary" : "text-muted-foreground hover:text-muted-foreground"
             }`}
           >
             Become a Data Collector
@@ -136,7 +136,7 @@ export default function VerifyPage() {
           {currentVerification && (currentVerification.status === "PENDING" || currentVerification.status === "VERIFIED" || currentVerification.status === "SUSPENDED") ? (
             <div className={`p-6 rounded-lg border ${
               currentVerification.status === "VERIFIED" ? "bg-emerald-50 border-emerald-200" :
-              currentVerification.status === "PENDING" ? "bg-blue-50 border-blue-200" :
+              currentVerification.status === "PENDING" ? "bg-primary/5 border-blue-200" :
               "bg-rose-50 border-rose-200"
             }`}>
               <div className="flex items-start gap-4">
@@ -201,7 +201,7 @@ export default function VerifyPage() {
                     type="password"
                     required
                     placeholder="Enter your exact National ID number"
-                    className="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow bg-card text-foreground placeholder:text-gray-400"
+                    className="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary focus:border-primary transition-shadow bg-card text-foreground placeholder:text-gray-400"
                     value={fanNumber}
                     onChange={(e) => setFanNumber(e.target.value)}
                   />
@@ -214,7 +214,7 @@ export default function VerifyPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors ${isSubmitting ? "opacity-75 cursor-not-allowed" : ""}`}
+                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors ${isSubmitting ? "opacity-75 cursor-not-allowed" : ""}`}
               >
                 {isSubmitting ? "Submitting securely..." : "Submit for Verification"}
               </button>

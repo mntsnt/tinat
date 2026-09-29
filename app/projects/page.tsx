@@ -154,7 +154,7 @@ export default function ProjectsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold text-sm mb-1 tracking-wide uppercase">
+              <div className="flex items-center gap-2 text-primary dark:text-primary font-semibold text-sm mb-1 tracking-wide uppercase">
                 <FolderKanban className="w-4 h-4" />
                 Collaborative Health Research
               </div>
@@ -168,7 +168,7 @@ export default function ProjectsPage() {
             <div className="flex items-center gap-3">
               <Link
                 href="/projects/new"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-sm shadow-indigo-600/20 transition-all hover:shadow hover:scale-[1.01] active:scale-[0.99] text-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-medium shadow-sm shadow-indigo-600/20 transition-all hover:shadow hover:scale-[1.01] active:scale-[0.99] text-sm"
               >
                 <Plus className="w-4 h-4" />
                 New Research Project
@@ -182,8 +182,8 @@ export default function ProjectsPage() {
               <div className="text-xs font-medium text-slate-500 dark:text-slate-400">Total Workspaces</div>
               <div className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">{stats.total}</div>
             </div>
-            <div className="p-3.5 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30">
-              <div className="text-xs font-medium text-indigo-700 dark:text-indigo-400">Active Investigations</div>
+            <div className="p-3.5 rounded-xl bg-primary/5/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30">
+              <div className="text-xs font-medium text-indigo-700 dark:text-primary">Active Investigations</div>
               <div className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mt-0.5">{stats.active}</div>
             </div>
             <div className="p-3.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30">
@@ -209,7 +209,7 @@ export default function ProjectsPage() {
               placeholder="Search by title, study design, lead researcher, or institution..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+              className="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
             />
           </div>
 
@@ -235,7 +235,7 @@ export default function ProjectsPage() {
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="px-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                className="px-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/20"
               >
                 <option value="ALL">All Disciplines</option>
                 {categories.map((c) => (
@@ -272,7 +272,7 @@ export default function ProjectsPage() {
           </div>
         ) : filteredProjects.length === 0 ? (
           <div className="p-12 text-center rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/30">
-            <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-primary/5 dark:bg-indigo-950/40 text-primary dark:text-primary flex items-center justify-center mx-auto mb-4">
               <FolderKanban className="w-7 h-7" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white">
@@ -288,7 +288,7 @@ export default function ProjectsPage() {
             <div className="mt-6 flex items-center justify-center gap-3">
               <Link
                 href="/projects/new"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-medium text-sm transition-all"
               >
                 <Plus className="w-4 h-4" />
                 Launch First Project
@@ -358,7 +358,7 @@ function ProjectCard({ project }: { project: any }) {
       </div>
 
       {/* Project Title */}
-      <h3 className="font-bold text-slate-900 dark:text-white text-base group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
+      <h3 className="font-bold text-slate-900 dark:text-white text-base group-hover:text-primary dark:group-hover:text-primary transition-colors line-clamp-2">
         {project.title}
       </h3>
 
@@ -371,7 +371,7 @@ function ProjectCard({ project }: { project: any }) {
       {/* Current Phase Pill */}
       <div className="mt-4 flex items-center justify-between text-xs">
         <span className="text-slate-500 dark:text-slate-400">Current Phase:</span>
-        <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+        <span className="font-semibold text-primary dark:text-primary">
           {(project.currentPhase || "PLANNING").replace(/_/g, " ")}
         </span>
       </div>
@@ -384,7 +384,7 @@ function ProjectCard({ project }: { project: any }) {
         </div>
         <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
           <div
-            className="h-full rounded-full bg-indigo-600 dark:bg-indigo-500 transition-all duration-500"
+            className="h-full rounded-full bg-primary dark:bg-primary transition-all duration-500"
             style={{ width: `${progress.percentage ?? 0}%` }}
           />
         </div>
@@ -400,7 +400,7 @@ function ProjectCard({ project }: { project: any }) {
             </span>
           </div>
           {linkedStudiesCount > 0 && (
-            <div className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400 font-medium">
+            <div className="flex items-center gap-1 text-primary dark:text-primary font-medium">
               <Activity className="w-3.5 h-3.5" />
               <span>{linkedStudiesCount} study</span>
             </div>
@@ -412,7 +412,7 @@ function ProjectCard({ project }: { project: any }) {
           {members.slice(0, 3).map((m: any, idx: number) => (
             <div
               key={idx}
-              className="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-slate-900 bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center uppercase"
+              className="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-slate-900 bg-primary text-white text-[10px] font-bold flex items-center justify-center uppercase"
             >
               {m.user?.name?.charAt(0) || "U"}
             </div>

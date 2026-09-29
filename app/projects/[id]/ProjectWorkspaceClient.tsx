@@ -551,7 +551,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-10 h-10 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <div className="w-10 h-10 border-3 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
             Loading Research Workspace...
           </p>
@@ -599,7 +599,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
           {/* Breadcrumb & Navigation */}
           <div className="flex items-center justify-between gap-4 mb-3">
             <div className="flex items-center gap-2 text-xs text-slate-500">
-              <Link href="/projects" className="hover:text-indigo-600 transition-colors flex items-center gap-1">
+              <Link href="/projects" className="hover:text-primary transition-colors flex items-center gap-1">
                 <FolderKanban className="w-3.5 h-3.5" />
                 Projects
               </Link>
@@ -647,7 +647,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                   {project.title}
                 </h1>
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-primary/5 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
                   {project.studyDesign || project.category}
                 </span>
               </div>
@@ -662,7 +662,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             <div className="flex items-center gap-2 flex-wrap">
               <button
                 onClick={() => setActiveTab("ai")}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-semibold shadow-xs hover:opacity-95 transition-opacity"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-white text-xs font-semibold shadow-xs hover:opacity-95 transition-opacity"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 Ask Project AI
@@ -696,7 +696,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Research Lifecycle Phase ({currentPhaseIndex + 1}/{LIFECYCLE_PHASES.length})
               </span>
-              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">
+              <span className="text-xs font-bold text-primary dark:text-primary">
                 {project.currentPhase.replace(/_/g, " ")}
               </span>
             </div>
@@ -714,7 +714,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     title={`Phase ${idx + 1}: ${phase.replace(/_/g, " ")}`}
                     className={`h-2 rounded-full transition-all ${
                       isCurrent
-                        ? "bg-indigo-600 dark:bg-indigo-500 ring-2 ring-indigo-300 dark:ring-indigo-800"
+                        ? "bg-primary dark:bg-primary ring-2 ring-indigo-300 dark:ring-indigo-800"
                         : isPast
                         ? "bg-emerald-500 dark:bg-emerald-600"
                         : "bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -745,7 +745,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-1.5 px-3.5 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
                     isActive
-                      ? "border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400"
+                      ? "border-primary text-primary dark:border-indigo-400 dark:text-primary"
                       : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   }`}
                 >
@@ -769,13 +769,13 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
                   <span className="font-semibold uppercase tracking-wider">Project Progress</span>
-                  <span className="font-bold text-indigo-600 dark:text-indigo-400 text-sm">
+                  <span className="font-bold text-primary dark:text-primary text-sm">
                     {progress.percentage}%
                   </span>
                 </div>
                 <div className="w-full h-2.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden mb-4">
                   <div
-                    className="h-full rounded-full bg-indigo-600 transition-all duration-500"
+                    className="h-full rounded-full bg-primary transition-all duration-500"
                     style={{ width: `${progress.percentage}%` }}
                   />
                 </div>
@@ -813,7 +813,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
               {/* Ethics & Compliance Card */}
               <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-2 uppercase tracking-wider">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-primary mb-2 uppercase tracking-wider">
                   <ShieldCheck className="w-4 h-4" />
                   IRB / Ethics Status
                 </div>
@@ -836,7 +836,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               <div className="lg:col-span-2 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-indigo-600" />
+                    <Calendar className="w-4 h-4 text-primary" />
                     Key Milestones
                   </h3>
                   
@@ -886,7 +886,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               {/* Recent Activity Log */}
               <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-indigo-600" />
+                  <Activity className="w-4 h-4 text-primary" />
                   Recent Audit Activity
                 </h3>
 
@@ -943,7 +943,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               {auth?.canEditTasks && (
                 <button
                   onClick={() => setShowTaskModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-semibold shadow-xs"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Add Research Task
@@ -956,7 +956,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 {[
                   { id: "TODO", label: "To Do", bg: "bg-slate-100 dark:bg-slate-900/60" },
-                  { id: "IN_PROGRESS", label: "In Progress", bg: "bg-blue-50/50 dark:bg-blue-950/20" },
+                  { id: "IN_PROGRESS", label: "In Progress", bg: "bg-primary/5/50 dark:bg-blue-950/20" },
                   { id: "IN_REVIEW", label: "Review & PI Check", bg: "bg-purple-50/50 dark:bg-purple-950/20" },
                   { id: "BLOCKED", label: "Blocked / Ethics Gate", bg: "bg-rose-50/50 dark:bg-rose-950/20" },
                   { id: "COMPLETED", label: "Completed", bg: "bg-emerald-50/50 dark:bg-emerald-950/20" },
@@ -1115,7 +1115,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               {auth?.canManageTeam && (
                 <button
                   onClick={() => setShowInviteModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-semibold"
                 >
                   <Users className="w-3.5 h-3.5" />
                   Invite Collaborator
@@ -1137,7 +1137,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs"
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-sm uppercase">
+                      <div className="w-10 h-10 rounded-full bg-primary text-white font-bold flex items-center justify-center text-sm uppercase">
                         {member.user.name?.charAt(0) || "U"}
                       </div>
                       <div>
@@ -1151,7 +1151,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-slate-400">Research Role:</span>
-                        <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                        <span className="font-bold text-primary dark:text-primary">
                           {member.role.replace(/_/g, " ")}
                         </span>
                       </div>
@@ -1200,7 +1200,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   onClick={() => setFileFolderFilter(f.id)}
                   className={`px-3 py-1.5 rounded-xl border transition-all whitespace-nowrap ${
                     fileFolderFilter === f.id
-                      ? "bg-indigo-600 text-white border-indigo-600 font-semibold"
+                      ? "bg-primary text-white border-primary font-semibold"
                       : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800"
                   }`}
                 >
@@ -1238,7 +1238,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   .map((file: any) => (
                     <div key={file.id} className="p-4 flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
-                        <FileText className="w-5 h-5 text-indigo-500 shrink-0" />
+                        <FileText className="w-5 h-5 text-primary shrink-0" />
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="font-bold text-slate-900 dark:text-white">
@@ -1264,7 +1264,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                           href={file.fileUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-indigo-50 hover:text-indigo-600 transition-colors font-medium text-xs"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-primary/5 hover:text-primary transition-colors font-medium text-xs"
                         >
                           <Download className="w-3.5 h-3.5" />
                           Download
@@ -1305,7 +1305,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               {auth?.canManageStudies && (
                 <button
                   onClick={() => setShowStudyModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-semibold"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Connect Study
@@ -1328,7 +1328,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                       <span className="font-bold text-sm text-slate-900 dark:text-white">
                         {ls.study.title}
                       </span>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/5 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
                         {ls.study.status}
                       </span>
                     </div>
@@ -1339,7 +1339,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
                     <div className="grid grid-cols-2 gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 text-center mb-3">
                       <div>
-                        <div className="text-base font-bold text-indigo-600 dark:text-indigo-400">
+                        <div className="text-base font-bold text-primary dark:text-primary">
                           {ls.study._count?.responses || 0}
                         </div>
                         <span className="text-[10px] text-slate-400">Participant Responses</span>
@@ -1356,7 +1356,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                       <span>Linked by {ls.linkedBy?.name}</span>
                       <Link
                         href={`/researcher/studies`}
-                        className="text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1 hover:underline"
+                        className="text-primary dark:text-primary font-semibold flex items-center gap-1 hover:underline"
                       >
                         Open In Study Manager <ChevronRight className="w-3 h-3" />
                       </Link>
@@ -1377,7 +1377,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-indigo-600" />
+                  <Sparkles className="w-4 h-4 text-primary" />
                   Grounded Clinical Research AI
                 </h3>
                 <p className="text-xs text-slate-500">
@@ -1429,7 +1429,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   key={act.id}
                   disabled={aiLoading}
                   onClick={() => handleAskAI(undefined, act.id)}
-                  className="p-3.5 rounded-xl border border-indigo-100 dark:border-indigo-900/40 bg-indigo-50/40 dark:bg-indigo-950/20 text-left hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-xs"
+                  className="p-3.5 rounded-xl border border-indigo-100 dark:border-indigo-900/40 bg-primary/5/40 dark:bg-indigo-950/20 text-left hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-xs"
                 >
                   <div className="font-bold text-indigo-900 dark:text-indigo-300">{act.label}</div>
                   <div className="text-[10px] text-slate-500 mt-0.5">{act.desc}</div>
@@ -1442,7 +1442,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               <div className="flex-1 p-5 overflow-y-auto space-y-4">
                 {aiHistory.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center text-center p-8 text-slate-400">
-                    <Sparkles className="w-8 h-8 text-indigo-400 mb-2" />
+                    <Sparkles className="w-8 h-8 text-primary mb-2" />
                     <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200">
                       Project AI Research Assistant
                     </h4>
@@ -1457,7 +1457,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                       className={`p-4 rounded-xl text-xs leading-relaxed ${
                         item.role === "assistant"
                           ? "bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 border border-slate-200/60 dark:border-slate-800"
-                          : "bg-indigo-50 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200 font-medium ml-8"
+                          : "bg-primary/5 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200 font-medium ml-8"
                       }`}
                     >
                       <div className="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">
@@ -1468,8 +1468,8 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   ))
                 )}
                 {aiLoading && (
-                  <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2 text-xs text-indigo-600">
-                    <div className="w-3.5 h-3.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                  <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2 text-xs text-primary">
+                    <div className="w-3.5 h-3.5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                     <span>Analyzing project state and synthesizing clinical context...</span>
                   </div>
                 )}
@@ -1489,7 +1489,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 <button
                   onClick={() => handleAskAI()}
                   disabled={aiLoading || !aiPrompt.trim()}
-                  className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-semibold text-xs flex items-center gap-1.5 transition-all"
+                  className="px-5 py-2 rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 text-white font-semibold text-xs flex items-center gap-1.5 transition-all"
                 >
                   <Send className="w-3.5 h-3.5" />
                   Send
@@ -1599,7 +1599,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
                 >
                   Create Task
                 </button>
@@ -1665,7 +1665,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
                 >
                   Send Invitation
                 </button>
@@ -1727,7 +1727,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
                 >
                   Record Decision
                 </button>
@@ -1792,7 +1792,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
                 >
                   Save Note
                 </button>
@@ -1854,7 +1854,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
                 >
                   Post Thread
                 </button>
@@ -1917,7 +1917,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 <button
                   type="submit"
                   disabled={!selectedStudyToLink}
-                  className="px-5 py-2 rounded-xl bg-indigo-600 disabled:opacity-50 text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary disabled:opacity-50 text-white font-semibold"
                 >
                   Connect Study
                 </button>
@@ -1994,7 +1994,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
                 >
                   Register Deliverable
                 </button>

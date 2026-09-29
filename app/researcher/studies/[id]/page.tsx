@@ -99,7 +99,7 @@ export default async function ResearchStudyPage({ params }: Props) {
                 </span>
               )}
               {study.studyType === "FREE_DATA_COLLECTION" || study.rewardCredits === 0 ? (
-                <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2.5 py-0.5 rounded-full">
+                <span className="text-xs font-medium text-primary dark:text-blue-400 bg-primary/10 px-2.5 py-0.5 rounded-full">
                   Open Data Collection (Free)
                 </span>
               ) : (
@@ -142,7 +142,7 @@ export default async function ResearchStudyPage({ params }: Props) {
           </CardHeader>
           <CardContent className="space-y-4">
             {study.status === "DRAFT" && (
-              <div className="rounded-lg bg-blue-500/10 border border-blue-500/20 p-5">
+              <div className="rounded-lg bg-primary/10 border border-primary/20 p-5">
                 <p className="text-sm font-semibold text-foreground mb-1">
                   This health study is currently in Draft status.
                 </p>

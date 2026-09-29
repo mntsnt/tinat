@@ -311,13 +311,13 @@ export default async function Home() {
             </div>
 
             {/* Pathway 2: Free Data Collection */}
-            <div className="rounded-2xl border-2 border-blue-500/30 bg-card p-8 shadow-lg relative flex flex-col justify-between">
+            <div className="rounded-2xl border-2 border-primary/30 bg-card p-8 shadow-lg relative flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="p-3 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                  <div className="p-3 rounded-xl bg-primary/10 text-primary dark:text-blue-400">
                     <ClipboardCheck className="w-6 h-6" />
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full">
+                  <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 px-3 py-1 rounded-full">
                     100% Free &bull; Direct Publish
                   </span>
                 </div>
@@ -327,21 +327,21 @@ export default async function Home() {
                 </p>
                 <ul className="space-y-2.5 text-xs text-foreground/90 mb-8">
                   <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                     Zero cost to publish &mdash; no credit deposit required
                   </li>
                   <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                     Full analytics, answer breakdowns, and Excel/CSV export
                   </li>
                   <li className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                     Ideal for pilot testing, class assignments, and feedback
                   </li>
                 </ul>
               </div>
               <Link href="/researcher/studies/new">
-                <Button variant="outline" className="w-full border-blue-500/40 text-foreground hover:bg-blue-500/10">
+                <Button variant="outline" className="w-full border-primary/40 text-foreground hover:bg-primary/10">
                   Publish Free Health Form
                 </Button>
               </Link>

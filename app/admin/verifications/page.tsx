@@ -60,7 +60,7 @@ export default function AdminVerificationsPage() {
     <div className="p-8 max-w-7xl mx-auto">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-          <ShieldCheck className="w-8 h-8 text-blue-600" />
+          <ShieldCheck className="w-8 h-8 text-primary" />
           Verification Requests
         </h1>
         <p className="text-muted-foreground mt-2">Manage identity verifications for Researchers and Data Collectors.</p>
@@ -98,7 +98,7 @@ export default function AdminVerificationsPage() {
                   </span>
                   <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
                     v.status === "VERIFIED" ? "bg-emerald-100 text-emerald-800" :
-                    v.status === "PENDING" ? "bg-blue-100 text-blue-800" : "bg-rose-100 text-rose-800"
+                    v.status === "PENDING" ? "bg-primary/10 text-primary" : "bg-rose-100 text-rose-800"
                   }`}>
                     {v.status}
                   </span>
@@ -160,5 +160,6 @@ export default function AdminVerificationsPage() {
     </div>
   );
 }
+
 
 

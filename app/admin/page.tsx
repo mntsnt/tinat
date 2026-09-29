@@ -53,7 +53,7 @@ export default async function AdminDashboard() {
       value: totalUsers,
       sub: `${totalParticipants} participants · ${totalResearchers} researchers`,
       icon: <Users className="w-5 h-5" />,
-      color: "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400",
+      color: "text-primary bg-primary/5 dark:bg-blue-900/20 dark:text-blue-400",
     },
     {
       label: "Active Studies",
@@ -67,7 +67,7 @@ export default async function AdminDashboard() {
       value: totalResponses,
       sub: `Across ${totalStudies} studies`,
       icon: <TrendingUp className="w-5 h-5" />,
-      color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 dark:text-indigo-400",
+      color: "text-primary bg-primary/5 dark:bg-indigo-900/20 dark:text-primary",
     },
     {
       label: "Pending Withdrawals",
@@ -88,7 +88,7 @@ export default async function AdminDashboard() {
 
   function roleColor(role: string) {
     if (role === "ADMIN") return "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300";
-    if (role === "RESEARCHER") return "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300";
+    if (role === "RESEARCHER") return "bg-primary/10 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300";
     return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300";
   }
 
@@ -186,8 +186,8 @@ export default async function AdminDashboard() {
               href="/admin/users"
               className="flex items-center gap-3 p-3 rounded-lg border border-border hover:bg-muted/60 transition-colors group"
             >
-              <div className="w-9 h-9 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
-                <Users className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <div className="w-9 h-9 rounded-lg bg-primary/10 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                <Users className="w-4 h-4 text-primary dark:text-blue-400" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-foreground">User Management</p>

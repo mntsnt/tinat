@@ -17,7 +17,7 @@ interface SidebarProps {
   roleTitle: string;
   userName: string;
   userEmail?: string;
-  roleColor?: "indigo" | "emerald" | "rose"; // participant=emerald, researcher=indigo, admin=rose
+  roleColor?: "primary"; // participant=emerald, researcher=indigo, admin=rose
 }
 
 export function Sidebar({
@@ -32,25 +32,11 @@ export function Sidebar({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
-  const colorMap = {
-    indigo: {
-      badge: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300",
-      avatar: "bg-indigo-600 text-white",
-      active: "bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 border-l-2 border-indigo-600",
-    },
-    emerald: {
-      badge: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-      avatar: "bg-emerald-600 text-white",
-      active: "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 border-l-2 border-emerald-600",
-    },
-    rose: {
-      badge: "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
-      avatar: "bg-rose-600 text-white",
-      active: "bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300 border-l-2 border-rose-600",
-    },
-  };
-
-  const colors = colorMap[roleColor];
+  const colors = {
+      badge: "bg-primary/10 text-primary dark:bg-primary/20",
+      avatar: "bg-primary text-primary-foreground",
+      active: "bg-muted/50 text-foreground border-l-2 border-primary",
+    };
 
   async function handleLogout() {
     setLoggingOut(true);
@@ -219,3 +205,6 @@ export function Sidebar({
     </>
   );
 }
+
+
+

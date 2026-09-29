@@ -75,7 +75,7 @@ export default async function ParticipantDashboard() {
       value: user.responses.length,
       sub: "All time submissions",
       icon: <CheckCircle className="w-5 h-5" />,
-      color: "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400",
+      color: "text-primary bg-primary/5 dark:bg-blue-900/20 dark:text-blue-400",
       href: "/participant/history",
     },
     {
@@ -83,7 +83,7 @@ export default async function ParticipantDashboard() {
       value: availableStudies.length,
       sub: "Open for participation",
       icon: <Compass className="w-5 h-5" />,
-      color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 dark:text-indigo-400",
+      color: "text-primary bg-primary/5 dark:bg-indigo-900/20 dark:text-primary",
       href: "/participant/studies",
     },
     {

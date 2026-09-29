@@ -68,14 +68,14 @@ export default function AIChatPage() {
   const selectedModelName = AVAILABLE_MODELS.find(m => m.id === selectedModel)?.name || "Model";
 
   return (
-    <div className="flex h-screen bg-background font-sans text-foreground overflow-hidden selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="flex h-screen bg-background font-sans text-foreground overflow-hidden selection:bg-primary/10 selection:text-indigo-900">
       
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-full relative max-w-4xl mx-auto w-full border-x border-border">
         
         {/* Sleek Header */}
         <header className="h-16 flex items-center justify-between px-6 bg-background/80 backdrop-blur-md sticky top-0 z-10">
-          <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold tracking-tight">
+          <div className="flex items-center gap-2 text-primary dark:text-primary font-semibold tracking-tight">
             <Sparkles className="w-5 h-5" />
             <span>Tinat AI</span>
           </div>
@@ -93,7 +93,7 @@ export default function AIChatPage() {
               onClick={() => setSettingsOpen(!isSettingsOpen)}
               className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted hover:bg-muted/80 text-xs font-medium transition-colors border border-border"
             >
-              <BrainCircuit className="w-3.5 h-3.5 text-indigo-500" />
+              <BrainCircuit className="w-3.5 h-3.5 text-primary" />
               <span className="truncate max-w-[100px]">{selectedModelName}</span>
               <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
             </button>
@@ -113,8 +113,8 @@ export default function AIChatPage() {
                   <div className="whitespace-pre-wrap">{msg.content}</div>
                 ) : (
                   <div className="flex gap-4">
-                    <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center shrink-0 mt-0.5">
-                      <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                    <div className="w-8 h-8 rounded-full bg-primary/5 dark:bg-indigo-900/30 flex items-center justify-center shrink-0 mt-0.5">
+                      <Sparkles className="w-4 h-4 text-primary dark:text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <ArtifactRenderer content={msg.content} />
@@ -127,8 +127,8 @@ export default function AIChatPage() {
           {isGenerating && (
             <div className="flex justify-start">
               <div className="flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center shrink-0">
-                  <div className="w-3 h-3 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                <div className="w-8 h-8 rounded-full bg-primary/5 dark:bg-indigo-900/30 flex items-center justify-center shrink-0">
+                  <div className="w-3 h-3 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
                 <div className="flex items-center">
                   <span className="text-sm text-muted-foreground animate-pulse">Analyzing...</span>
@@ -142,7 +142,7 @@ export default function AIChatPage() {
         {/* Input Area */}
         <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-background via-background to-transparent pb-6 pt-10 px-6">
           <div className="relative max-w-3xl mx-auto flex items-end gap-2 bg-card border border-border rounded-3xl p-2 shadow-sm focus-within:shadow-md focus-within:border-indigo-300 dark:focus-within:border-indigo-700/50 transition-all">
-            <button className="p-2.5 text-muted-foreground hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors rounded-full shrink-0">
+            <button className="p-2.5 text-muted-foreground hover:text-primary dark:hover:text-primary transition-colors rounded-full shrink-0">
               <Plus className="w-5 h-5" />
             </button>
             <textarea
@@ -170,7 +170,7 @@ export default function AIChatPage() {
                 if(ta) ta.style.height = 'auto';
               }}
               disabled={!input.trim() || isGenerating}
-              className="p-2.5 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground shrink-0 mb-0.5 mr-0.5"
+              className="p-2.5 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground shrink-0 mb-0.5 mr-0.5"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -186,7 +186,7 @@ export default function AIChatPage() {
             <div className="mb-4">
               <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Context Study</h3>
               <select
-                className="w-full bg-muted border border-border rounded-xl p-2.5 text-sm outline-none focus:border-indigo-500"
+                className="w-full bg-muted border border-border rounded-xl p-2.5 text-sm outline-none focus:border-primary"
                 value={selectedStudyId}
                 onChange={(e) => { setSelectedStudyId(e.target.value); setSettingsOpen(false); }}
               >
@@ -200,7 +200,7 @@ export default function AIChatPage() {
             <div>
               <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">AI Model</h3>
               <select
-                className="w-full bg-muted border border-border rounded-xl p-2.5 text-sm outline-none focus:border-indigo-500"
+                className="w-full bg-muted border border-border rounded-xl p-2.5 text-sm outline-none focus:border-primary"
                 value={selectedModel}
                 onChange={(e) => { setSelectedModel(e.target.value); setSettingsOpen(false); }}
               >
