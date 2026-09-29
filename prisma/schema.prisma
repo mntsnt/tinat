@@ -22,6 +22,9 @@ model User {
   avatarUrl     String?
   bio           String?
   isVerified                Boolean         @default(false)
+  faydaVerified             Boolean         @default(false)
+  faydaFanHash              String?         @unique
+  faydaVerifiedAt           DateTime?
   verificationCode          String?
   verificationCodeExpiresAt DateTime?
   activityLogs              ActivityLog[]
@@ -967,3 +970,4 @@ enum SessionStatus {
   PAUSED
   COMPLETED
 }
+

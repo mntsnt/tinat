@@ -16,11 +16,14 @@ type UserData = {
   role: string;
   createdAt: Date;
   isVerified?: boolean;
+  faydaVerified?: boolean;
+  faydaVerifiedAt?: Date | null;
 };
 
 import { UserCircle, Lock, Edit, CheckCircle } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { VerificationSection } from "./VerificationSection";
+import { FaydaVerification } from "./FaydaVerification";
 
 export default function SettingsPage({ user }: { user: UserData }) {
   const router = useRouter();
@@ -251,9 +254,11 @@ export default function SettingsPage({ user }: { user: UserData }) {
         </CardContent>
       </Card>
 
-      {(user.role === "PARTICIPANT" || user.role === "RESEARCHER") && (
+      <FaydaVerification isVerified={user.faydaVerified || false} verifiedAt={user.faydaVerifiedAt} />`n`n        {(user.role === "PARTICIPANT" || user.role === "RESEARCHER") && (
         <VerificationSection role={user.role} />
       )}
     </div>
   );
 }
+
+

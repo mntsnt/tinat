@@ -49,6 +49,9 @@ export type UserMinAggregateOutputType = {
   avatarUrl: string | null
   bio: string | null
   isVerified: boolean | null
+  faydaVerified: boolean | null
+  faydaFanHash: string | null
+  faydaVerifiedAt: Date | null
   verificationCode: string | null
   verificationCodeExpiresAt: Date | null
 }
@@ -68,6 +71,9 @@ export type UserMaxAggregateOutputType = {
   avatarUrl: string | null
   bio: string | null
   isVerified: boolean | null
+  faydaVerified: boolean | null
+  faydaFanHash: string | null
+  faydaVerifiedAt: Date | null
   verificationCode: string | null
   verificationCodeExpiresAt: Date | null
 }
@@ -87,6 +93,9 @@ export type UserCountAggregateOutputType = {
   avatarUrl: number
   bio: number
   isVerified: number
+  faydaVerified: number
+  faydaFanHash: number
+  faydaVerifiedAt: number
   verificationCode: number
   verificationCodeExpiresAt: number
   _all: number
@@ -116,6 +125,9 @@ export type UserMinAggregateInputType = {
   avatarUrl?: true
   bio?: true
   isVerified?: true
+  faydaVerified?: true
+  faydaFanHash?: true
+  faydaVerifiedAt?: true
   verificationCode?: true
   verificationCodeExpiresAt?: true
 }
@@ -135,6 +147,9 @@ export type UserMaxAggregateInputType = {
   avatarUrl?: true
   bio?: true
   isVerified?: true
+  faydaVerified?: true
+  faydaFanHash?: true
+  faydaVerifiedAt?: true
   verificationCode?: true
   verificationCodeExpiresAt?: true
 }
@@ -154,6 +169,9 @@ export type UserCountAggregateInputType = {
   avatarUrl?: true
   bio?: true
   isVerified?: true
+  faydaVerified?: true
+  faydaFanHash?: true
+  faydaVerifiedAt?: true
   verificationCode?: true
   verificationCodeExpiresAt?: true
   _all?: true
@@ -260,6 +278,9 @@ export type UserGroupByOutputType = {
   avatarUrl: string | null
   bio: string | null
   isVerified: boolean
+  faydaVerified: boolean
+  faydaFanHash: string | null
+  faydaVerifiedAt: Date | null
   verificationCode: string | null
   verificationCodeExpiresAt: Date | null
   _count: UserCountAggregateOutputType | null
@@ -302,6 +323,9 @@ export type UserWhereInput = {
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  faydaVerified?: Prisma.BoolFilter<"User"> | boolean
+  faydaFanHash?: Prisma.StringNullableFilter<"User"> | string | null
+  faydaVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verificationCode?: Prisma.StringNullableFilter<"User"> | string | null
   verificationCodeExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   activityLogs?: Prisma.ActivityLogListRelationFilter
@@ -356,6 +380,9 @@ export type UserOrderByWithRelationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  faydaVerified?: Prisma.SortOrder
+  faydaFanHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  faydaVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   activityLogs?: Prisma.ActivityLogOrderByRelationAggregateInput
@@ -398,6 +425,7 @@ export type UserOrderByWithRelationInput = {
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
+  faydaFanHash?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -413,6 +441,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  faydaVerified?: Prisma.BoolFilter<"User"> | boolean
+  faydaVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verificationCode?: Prisma.StringNullableFilter<"User"> | string | null
   verificationCodeExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   activityLogs?: Prisma.ActivityLogListRelationFilter
@@ -450,7 +480,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   receivedCollectorInvitations?: Prisma.CollectorInvitationListRelationFilter
   collectedResponses?: Prisma.ResponseListRelationFilter
   collectionSessions?: Prisma.CollectionSessionListRelationFilter
-}, "id" | "email">
+}, "id" | "email" | "faydaFanHash">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -467,6 +497,9 @@ export type UserOrderByWithAggregationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  faydaVerified?: Prisma.SortOrder
+  faydaFanHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  faydaVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -494,6 +527,9 @@ export type UserScalarWhereWithAggregatesInput = {
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  faydaVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  faydaFanHash?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  faydaVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   verificationCode?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   verificationCodeExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
@@ -513,6 +549,9 @@ export type UserCreateInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -567,6 +606,9 @@ export type UserUncheckedCreateInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -621,6 +663,9 @@ export type UserUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -675,6 +720,9 @@ export type UserUncheckedUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -729,6 +777,9 @@ export type UserCreateManyInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
 }
@@ -748,6 +799,9 @@ export type UserUpdateManyMutationInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -767,6 +821,9 @@ export type UserUncheckedUpdateManyInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -786,6 +843,9 @@ export type UserCountOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  faydaVerified?: Prisma.SortOrder
+  faydaFanHash?: Prisma.SortOrder
+  faydaVerifiedAt?: Prisma.SortOrder
   verificationCode?: Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrder
 }
@@ -809,6 +869,9 @@ export type UserMaxOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  faydaVerified?: Prisma.SortOrder
+  faydaFanHash?: Prisma.SortOrder
+  faydaVerifiedAt?: Prisma.SortOrder
   verificationCode?: Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrder
 }
@@ -828,6 +891,9 @@ export type UserMinOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  faydaVerified?: Prisma.SortOrder
+  faydaFanHash?: Prisma.SortOrder
+  faydaVerifiedAt?: Prisma.SortOrder
   verificationCode?: Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrder
 }
@@ -1389,6 +1455,9 @@ export type UserCreateWithoutStudiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -1442,6 +1511,9 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -1511,6 +1583,9 @@ export type UserUpdateWithoutStudiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -1564,6 +1639,9 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1617,6 +1695,9 @@ export type UserCreateWithoutBookmarksInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -1670,6 +1751,9 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -1739,6 +1823,9 @@ export type UserUpdateWithoutBookmarksInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -1792,6 +1879,9 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1845,6 +1935,9 @@ export type UserCreateWithoutRatingsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -1898,6 +1991,9 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -1967,6 +2063,9 @@ export type UserUpdateWithoutRatingsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -2020,6 +2119,9 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2073,6 +2175,9 @@ export type UserCreateWithoutLikesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -2126,6 +2231,9 @@ export type UserUncheckedCreateWithoutLikesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -2195,6 +2303,9 @@ export type UserUpdateWithoutLikesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -2248,6 +2359,9 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2301,6 +2415,9 @@ export type UserCreateWithoutCommentsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -2354,6 +2471,9 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -2423,6 +2543,9 @@ export type UserUpdateWithoutCommentsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -2476,6 +2599,9 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2529,6 +2655,9 @@ export type UserCreateWithoutNotificationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -2582,6 +2711,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -2651,6 +2783,9 @@ export type UserUpdateWithoutNotificationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -2704,6 +2839,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2757,6 +2895,9 @@ export type UserCreateWithoutActivityLogsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
@@ -2810,6 +2951,9 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -2879,6 +3023,9 @@ export type UserUpdateWithoutActivityLogsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
@@ -2932,6 +3079,9 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -2985,6 +3135,9 @@ export type UserCreateWithoutResponsesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -3038,6 +3191,9 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -3096,6 +3252,9 @@ export type UserCreateWithoutCollectedResponsesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -3149,6 +3308,9 @@ export type UserUncheckedCreateWithoutCollectedResponsesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -3218,6 +3380,9 @@ export type UserUpdateWithoutResponsesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -3271,6 +3436,9 @@ export type UserUncheckedUpdateWithoutResponsesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3335,6 +3503,9 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -3388,6 +3559,9 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3441,6 +3615,9 @@ export type UserCreateWithoutWalletInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -3494,6 +3671,9 @@ export type UserUncheckedCreateWithoutWalletInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -3563,6 +3743,9 @@ export type UserUpdateWithoutWalletInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -3616,6 +3799,9 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3669,6 +3855,9 @@ export type UserCreateWithoutStudyPaymentsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -3722,6 +3911,9 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -3791,6 +3983,9 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -3844,6 +4039,9 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3897,6 +4095,9 @@ export type UserCreateWithoutWithdrawalsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -3950,6 +4151,9 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -4019,6 +4223,9 @@ export type UserUpdateWithoutWithdrawalsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -4072,6 +4279,9 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -4125,6 +4335,9 @@ export type UserCreateWithoutAskProfileInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -4178,6 +4391,9 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -4247,6 +4463,9 @@ export type UserUpdateWithoutAskProfileInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -4300,6 +4519,9 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -4353,6 +4575,9 @@ export type UserCreateWithoutLeadProjectsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -4406,6 +4631,9 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -4475,6 +4703,9 @@ export type UserUpdateWithoutLeadProjectsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -4528,6 +4759,9 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -4581,6 +4815,9 @@ export type UserCreateWithoutProjectMembershipsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -4634,6 +4871,9 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -4703,6 +4943,9 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -4756,6 +4999,9 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -4809,6 +5055,9 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -4862,6 +5111,9 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -4931,6 +5183,9 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -4984,6 +5239,9 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5037,6 +5295,9 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -5090,6 +5351,9 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -5148,6 +5412,9 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -5201,6 +5468,9 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -5270,6 +5540,9 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -5323,6 +5596,9 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5387,6 +5663,9 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -5440,6 +5719,9 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5493,6 +5775,9 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -5546,6 +5831,9 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -5615,6 +5903,9 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -5668,6 +5959,9 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5721,6 +6015,9 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -5774,6 +6071,9 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -5843,6 +6143,9 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -5896,6 +6199,9 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5949,6 +6255,9 @@ export type UserCreateWithoutProjectNotesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -6002,6 +6311,9 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -6071,6 +6383,9 @@ export type UserUpdateWithoutProjectNotesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -6124,6 +6439,9 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6177,6 +6495,9 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -6230,6 +6551,9 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -6299,6 +6623,9 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -6352,6 +6679,9 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6405,6 +6735,9 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -6458,6 +6791,9 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -6527,6 +6863,9 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -6580,6 +6919,9 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6633,6 +6975,9 @@ export type UserCreateWithoutProjectDecisionsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -6686,6 +7031,9 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -6755,6 +7103,9 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -6808,6 +7159,9 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6861,6 +7215,9 @@ export type UserCreateWithoutProjectActivitiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -6914,6 +7271,9 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -6983,6 +7343,9 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -7036,6 +7399,9 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7089,6 +7455,9 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -7142,6 +7511,9 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -7211,6 +7583,9 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -7264,6 +7639,9 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7317,6 +7695,9 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -7370,6 +7751,9 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -7439,6 +7823,9 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -7492,6 +7879,9 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7545,6 +7935,9 @@ export type UserCreateWithoutAiConversationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -7598,6 +7991,9 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -7667,6 +8063,9 @@ export type UserUpdateWithoutAiConversationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -7720,6 +8119,9 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7773,6 +8175,9 @@ export type UserCreateWithoutAiUsagesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -7826,6 +8231,9 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -7895,6 +8303,9 @@ export type UserUpdateWithoutAiUsagesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -7948,6 +8359,9 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8001,6 +8415,9 @@ export type UserCreateWithoutVerificationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -8054,6 +8471,9 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -8112,6 +8532,9 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -8165,6 +8588,9 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -8234,6 +8660,9 @@ export type UserUpdateWithoutVerificationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -8287,6 +8716,9 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8351,6 +8783,9 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -8404,6 +8839,9 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8457,6 +8895,9 @@ export type UserCreateWithoutAssignedStudiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -8510,6 +8951,9 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -8579,6 +9023,9 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -8632,6 +9079,9 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8685,6 +9135,9 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -8738,6 +9191,9 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -8796,6 +9252,9 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -8849,6 +9308,9 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -8918,6 +9380,9 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -8971,6 +9436,9 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -9035,6 +9503,9 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -9088,6 +9559,9 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -9141,6 +9615,9 @@ export type UserCreateWithoutCollectionSessionsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -9194,6 +9671,9 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   avatarUrl?: string | null
   bio?: string | null
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -9263,6 +9743,9 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -9316,6 +9799,9 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -9688,6 +10174,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   avatarUrl?: boolean
   bio?: boolean
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: boolean
+  faydaVerifiedAt?: boolean
   verificationCode?: boolean
   verificationCodeExpiresAt?: boolean
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
@@ -9743,6 +10232,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   bio?: boolean
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: boolean
+  faydaVerifiedAt?: boolean
   verificationCode?: boolean
   verificationCodeExpiresAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -9762,6 +10254,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   bio?: boolean
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: boolean
+  faydaVerifiedAt?: boolean
   verificationCode?: boolean
   verificationCodeExpiresAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -9781,11 +10276,14 @@ export type UserSelectScalar = {
   avatarUrl?: boolean
   bio?: boolean
   isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: boolean
+  faydaVerifiedAt?: boolean
   verificationCode?: boolean
   verificationCodeExpiresAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "phone" | "institution" | "fieldOfStudy" | "yearOfStudy" | "createdAt" | "updatedAt" | "avatarUrl" | "bio" | "isVerified" | "verificationCode" | "verificationCodeExpiresAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "phone" | "institution" | "fieldOfStudy" | "yearOfStudy" | "createdAt" | "updatedAt" | "avatarUrl" | "bio" | "isVerified" | "faydaVerified" | "faydaFanHash" | "faydaVerifiedAt" | "verificationCode" | "verificationCodeExpiresAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
@@ -9881,6 +10379,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     avatarUrl: string | null
     bio: string | null
     isVerified: boolean
+    faydaVerified: boolean
+    faydaFanHash: string | null
+    faydaVerifiedAt: Date | null
     verificationCode: string | null
     verificationCodeExpiresAt: Date | null
   }, ExtArgs["result"]["user"]>
@@ -10355,6 +10856,9 @@ export interface UserFieldRefs {
   readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
   readonly bio: Prisma.FieldRef<"User", 'String'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly faydaVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly faydaFanHash: Prisma.FieldRef<"User", 'String'>
+  readonly faydaVerifiedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly verificationCode: Prisma.FieldRef<"User", 'String'>
   readonly verificationCodeExpiresAt: Prisma.FieldRef<"User", 'DateTime'>
 }

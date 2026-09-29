@@ -126,6 +126,9 @@ export const UserScalarFieldEnum = {
   avatarUrl: 'avatarUrl',
   bio: 'bio',
   isVerified: 'isVerified',
+  faydaVerified: 'faydaVerified',
+  faydaFanHash: 'faydaFanHash',
+  faydaVerifiedAt: 'faydaVerifiedAt',
   verificationCode: 'verificationCode',
   verificationCodeExpiresAt: 'verificationCodeExpiresAt'
 } as const
