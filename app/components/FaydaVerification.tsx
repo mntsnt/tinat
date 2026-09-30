@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/Card";
 import { Button } from "./ui/Button";
 import { ShieldCheck, Camera, UploadCloud, AlertTriangle, Loader2 } from "lucide-react";
-import { decodeImage, prepareQrEngine } from "fayda-decoder";
 
 type UIState = 
   | "IDLE" 
@@ -20,11 +19,13 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
 
   useEffect(() => {
     // Pre-load the WASM engine locally so we don't depend on CDN
-    prepareQrEngine({
-      overrides: {
-        locateFile: () => "/zxing_reader.wasm",
-      },
-    });
+    import("fayda-decoder").then((mod) => {
+      mod.prepareQrEngine({
+        overrides: {
+          locateFile: () => "/zxing_reader.wasm",
+        },
+      });
+    }).catch(console.error);
   }, []);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +41,7 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
 
       // 1. Decode locally
       // We don't request the face image to respect privacy
+      const { decodeImage } = await import("fayda-decoder");
       const result = await decodeImage(bytes, { includeFace: false });
 
       if (!result.ok) {
