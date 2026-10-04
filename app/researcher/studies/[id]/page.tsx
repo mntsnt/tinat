@@ -113,7 +113,7 @@ export default async function ResearchStudyPage({ params }: Props) {
                 </span>
               )}
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">{study.title}</h1>
+            <h1 className="text-xl font-bold tracking-tight text-foreground">{study.title}</h1>
             {study.objective && (
               <p className="text-sm font-medium text-foreground/80 italic mt-2 bg-muted/40 p-2.5 rounded-lg border border-border">
                 <span className="font-semibold not-italic text-xs uppercase text-muted-foreground block mb-0.5">Objective:</span>

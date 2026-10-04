@@ -38,7 +38,7 @@ export default async function AdminWithdrawalsPage() {
         </Link>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">Withdrawal Requests</h1>
+            <h1 className="text-xl font-bold tracking-tight text-foreground">Withdrawal Requests</h1>
             <p className="text-muted-foreground mt-1">Review and process participant payout requests.</p>
           </div>
           <Badge variant="warning" className="text-sm px-3 py-1">

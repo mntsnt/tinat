@@ -91,7 +91,7 @@ export default async function StudyDiscoveryPage({
               Health Research Discovery
             </span>
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          <h1 className="text-xl font-bold tracking-tight text-foreground">
             Medical & Health Studies
           </h1>
           <p className="text-muted-foreground mt-1">

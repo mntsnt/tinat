@@ -563,7 +563,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   if (error || !project) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
-        <div className="max-w-md w-full p-6 rounded-2xl border border-rose-200 dark:border-rose-900 bg-white dark:bg-slate-900 text-center">
+        <div className="max-w-md w-full p-5 rounded-2xl border border-rose-200 dark:border-rose-900 bg-white dark:bg-slate-900 text-center">
           <AlertCircle className="w-10 h-10 text-rose-500 mx-auto mb-3" />
           <h2 className="text-lg font-bold text-slate-900 dark:text-white">Workspace Unavailable</h2>
           <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{error || "Project not found or access denied."}</p>
@@ -766,7 +766,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             {/* Top Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Progress Card */}
-              <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
                   <span className="font-semibold uppercase tracking-wider">Project Progress</span>
                   <span className="font-bold text-primary dark:text-primary text-sm">
@@ -796,7 +796,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               </div>
 
               {/* Research Protocol Card */}
-              <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
                   Hypothesis / Research Question
                 </span>
@@ -812,7 +812,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               </div>
 
               {/* Ethics & Compliance Card */}
-              <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <div className="flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-primary mb-2 uppercase tracking-wider">
                   <ShieldCheck className="w-4 h-4" />
                   IRB / Ethics Status
@@ -833,7 +833,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             {/* Upcoming Milestones & Recent Activity */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Upcoming Milestones */}
-              <div className="lg:col-span-2 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+              <div className="lg:col-span-2 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-primary" />
@@ -884,7 +884,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               </div>
 
               {/* Recent Activity Log */}
-              <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                   <Activity className="w-4 h-4 text-primary" />
                   Recent Audit Activity
@@ -1227,7 +1227,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               {project.files?.filter((f: any) =>
                 fileFolderFilter === "ALL" ? true : f.folder === fileFolderFilter
               ).length === 0 ? (
-                <div className="p-8 text-center text-slate-400">
+                <div className="p-6 text-center text-slate-400">
                   No files uploaded in this folder yet.
                 </div>
               ) : (
@@ -1315,7 +1315,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.linkedStudies?.length === 0 ? (
-                <div className="col-span-full p-8 text-center text-slate-400 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
+                <div className="col-span-full p-6 text-center text-slate-400 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
                   No data-collection studies linked to this project yet. Connect a study to see live participant metrics.
                 </div>
               ) : (
@@ -1441,7 +1441,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col min-h-[450px]">
               <div className="flex-1 p-5 overflow-y-auto space-y-4">
                 {aiHistory.length === 0 ? (
-                  <div className="h-full flex flex-col items-center justify-center text-center p-8 text-slate-400">
+                  <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
                     <Sparkles className="w-8 h-8 text-primary mb-2" />
                     <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200">
                       Project AI Research Assistant
@@ -1505,7 +1505,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       {/* Task Modal */}
       {showTaskModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-5 border border-slate-200 dark:border-slate-800 shadow-xl">
             <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
               Add Research Task
             </h3>
@@ -1612,7 +1612,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       {/* Invite Modal */}
       {showInviteModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 border border-slate-200 dark:border-slate-800 shadow-xl">
             <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
               Invite Collaborator to Workspace
             </h3>
@@ -1678,7 +1678,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       {/* Decision Modal */}
       {showDecisionModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-5 border border-slate-200 dark:border-slate-800 shadow-xl">
             <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
               Log Methodological Decision
             </h3>
@@ -1740,7 +1740,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       {/* Note Modal */}
       {showNoteModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-5 border border-slate-200 dark:border-slate-800 shadow-xl">
             <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
               Create Research Note
             </h3>
@@ -1805,7 +1805,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       {/* Discussion Modal */}
       {showDiscussionModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-5 border border-slate-200 dark:border-slate-800 shadow-xl">
             <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
               Start Methodological Discussion
             </h3>
@@ -1867,7 +1867,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       {/* Connect Study Modal */}
       {showStudyModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-5 border border-slate-200 dark:border-slate-800 shadow-xl">
             <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
               Connect Tinat Study
             </h3>
@@ -1930,7 +1930,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       {/* Output Modal */}
       {showOutputModal && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-5 border border-slate-200 dark:border-slate-800 shadow-xl">
             <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
               Add Deliverable / Manuscript
             </h3>

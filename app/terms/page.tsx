@@ -20,7 +20,7 @@ export default function TermsOfServicePage() {
             <Scale className="w-3.5 h-3.5" />
             Terms & Governance
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+          <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground">
             Terms of Service
           </h1>
           <p className="text-sm text-muted-foreground mt-2">

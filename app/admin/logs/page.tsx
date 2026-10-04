@@ -42,7 +42,7 @@ export default async function AdminLogsPage() {
           <Link href="/admin" className={getButtonClasses("ghost", "md", "-ml-4 mb-4")}>
             &larr; Back to Admin Dashboard
           </Link>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">Activity Logs</h1>
+          <h1 className="text-xl font-bold tracking-tight text-foreground">Activity Logs</h1>
           <p className="text-muted-foreground mt-1">Monitor recent platform activity across all users.</p>
         </div>
         <div className="bg-muted/50 border border-border rounded-lg px-4 py-2 flex items-center gap-3">

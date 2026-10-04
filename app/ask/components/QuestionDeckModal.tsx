@@ -536,7 +536,7 @@ export function QuestionDeckModal({
         </div>
 
         {/* Content Body: Preview & Controls */}
-        <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 gap-6 p-6">
+        <div className="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 gap-6 p-5">
           {/* Controls Column */}
           <div className="md:col-span-6 space-y-6 flex flex-col justify-between order-2 md:order-1">
             <div className="space-y-5">

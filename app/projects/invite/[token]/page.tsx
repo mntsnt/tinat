@@ -98,7 +98,7 @@ export default function ProjectInvitePage({
   if (error || !invitation) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
-        <div className="max-w-md w-full p-8 rounded-2xl border border-rose-200 dark:border-rose-900 bg-white dark:bg-slate-900 text-center shadow-xs">
+        <div className="max-w-md w-full p-6 rounded-2xl border border-rose-200 dark:border-rose-900 bg-white dark:bg-slate-900 text-center shadow-xs">
           <AlertCircle className="w-10 h-10 text-rose-500 mx-auto mb-3" />
           <h2 className="text-lg font-bold text-slate-900 dark:text-white">Invitation Unavailable</h2>
           <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
@@ -119,7 +119,7 @@ export default function ProjectInvitePage({
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
-      <div className="max-w-xl w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-xl">
+      <div className="max-w-xl w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-xl">
         {actionDone === "ACCEPTED" ? (
           <div className="text-center py-6">
             <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-3" />

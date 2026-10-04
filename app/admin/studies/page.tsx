@@ -41,7 +41,7 @@ export default async function AdminStudiesPage() {
     <div className="container mx-auto px-4 py-8 md:px-6 md:py-12">
       <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">Manage Studies</h1>
+          <h1 className="text-xl font-bold tracking-tight text-foreground">Manage Studies</h1>
           <p className="text-muted-foreground mt-1">View and administer all research studies on the platform.</p>
         </div>
       </div>

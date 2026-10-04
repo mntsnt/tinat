@@ -98,7 +98,7 @@ export default async function AskPage() {
           Introducing Tinat Ask • Anonymous Social Q&A
         </div>
 
-        <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-foreground max-w-3xl mx-auto leading-[1.1]">
+        <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-foreground max-w-3xl mx-auto leading-[1.1]">
           Ask Anything. <br />
           <span className="bg-primary bg-clip-text text-transparent">
             Answer What Matters.
@@ -146,7 +146,7 @@ export default async function AskPage() {
       <div className="pt-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1: Honest Q&A */}
-          <div className="bg-card border border-border rounded-2xl p-6 space-y-4 shadow-sm">
+          <div className="bg-card border border-border rounded-2xl p-5 space-y-4 shadow-sm">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
               <MessageCircleQuestion className="w-5 h-5" />
             </div>
@@ -157,7 +157,7 @@ export default async function AskPage() {
           </div>
 
           {/* Card 2: 7 Aesthetic Decks */}
-          <div className="bg-card border border-border rounded-2xl p-6 space-y-4 shadow-sm">
+          <div className="bg-card border border-border rounded-2xl p-5 space-y-4 shadow-sm">
             <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
               <Sparkles className="w-5 h-5" />
             </div>
@@ -168,7 +168,7 @@ export default async function AskPage() {
           </div>
 
           {/* Card 3: Instant Social Export */}
-          <div className="bg-card border border-border rounded-2xl p-6 space-y-4 shadow-sm">
+          <div className="bg-card border border-border rounded-2xl p-5 space-y-4 shadow-sm">
             <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
               <Share2 className="w-5 h-5" />
             </div>

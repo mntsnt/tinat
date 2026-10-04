@@ -62,7 +62,7 @@ export default async function ParticipantWalletPage() {
         <Link href="/participant" className={getButtonClasses("ghost", "md", "-ml-4 mb-4")}>
           &larr; Back to Dashboard
         </Link>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Wallet</h1>
+        <h1 className="text-xl font-bold tracking-tight text-foreground">Wallet</h1>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3 mb-10">
@@ -71,7 +71,7 @@ export default async function ParticipantWalletPage() {
             <CardTitle className="text-sm font-medium text-primary-foreground/80">Available Balance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">
+            <div className="text-xl font-bold">
               {balance} <span className="text-xl font-normal text-muted-foreground">TC</span>
             </div>
             <div className="mt-6">

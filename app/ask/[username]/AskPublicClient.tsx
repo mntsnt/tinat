@@ -128,7 +128,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
 
         {/* Question Submission / Post-Submission Box */}
         {!submitted ? (
-          <div className="bg-card border border-border/80 rounded-2xl shadow-xl p-5 sm:p-6 space-y-5 transition-all">
+          <div className="bg-card border border-border/80 rounded-2xl shadow-xl p-5 sm:p-5 space-y-5 transition-all">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="sr-only">Your Question</label>
@@ -212,7 +212,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
           </div>
         ) : (
           /* Post-Submission Viral Conversion Card */
-          <div className="bg-card border border-border/80 rounded-2xl shadow-xl p-6 sm:p-8 space-y-6 text-center animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-card border border-border/80 rounded-2xl shadow-xl p-5 sm:p-6 space-y-6 text-center animate-in fade-in zoom-in-95 duration-200">
             <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>

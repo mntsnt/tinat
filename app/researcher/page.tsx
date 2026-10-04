@@ -96,7 +96,7 @@ export default async function ResearcherDashboard() {
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">
                     {card.label}
                   </p>
-                  <p className="text-3xl font-bold text-foreground leading-none">{card.value}</p>
+                  <p className="text-xl font-bold text-foreground leading-none">{card.value}</p>
                   <p className="text-xs text-muted-foreground mt-1.5">{card.sub}</p>
                 </div>
                 <div className={`p-2.5 rounded-xl flex-shrink-0 ${card.color}`}>

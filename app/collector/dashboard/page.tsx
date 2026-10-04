@@ -54,7 +54,7 @@ export default function CollectorDashboardPage() {
     }
   };
 
-  if (isLoading) return <div className="p-8 text-center text-muted-foreground">Loading Data Collection Dashboard...</div>;
+  if (isLoading) return <div className="p-6 text-center text-muted-foreground">Loading Data Collection Dashboard...</div>;
 
   return (
     <div className="container mx-auto px-4 py-8 md:px-8 max-w-4xl">
@@ -106,7 +106,7 @@ export default function CollectorDashboardPage() {
           <h2 className="text-lg font-bold text-foreground mb-4">My Assigned Studies</h2>
           
           {studies.length === 0 ? (
-            <div className="bg-card rounded-xl border border-dashed border-border p-8 text-center text-muted-foreground">
+            <div className="bg-card rounded-xl border border-dashed border-border p-6 text-center text-muted-foreground">
               <ShieldCheck className="w-8 h-8 mx-auto mb-3 text-emerald-500 opacity-50" />
               <p className="font-medium text-foreground mb-1">No active assignments</p>
               <p className="text-sm">You have not been assigned to collect data for any studies yet.</p>

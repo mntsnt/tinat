@@ -80,7 +80,7 @@ export function IntroAnimation({ force = false }: IntroAnimationProps) {
           <div className="absolute -inset-2 rounded-3xl bg-black/5 dark:bg-white/10 blur-xl transition-all" />
           
           <div className="relative flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center rounded-2xl sm:rounded-3xl bg-[#09090b] text-white shadow-2xl border border-zinc-800/80 transition-transform">
-            <span className="font-extrabold text-4xl sm:text-5xl tracking-tight select-none">
+            <span className="font-extrabold text-2xl sm:text-3xl tracking-tight select-none">
               T
             </span>
           </div>

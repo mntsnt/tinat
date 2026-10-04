@@ -158,7 +158,7 @@ export default function ProjectsPage() {
                 <FolderKanban className="w-4 h-4" />
                 Collaborative Health Research
               </div>
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+              <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                 Research Projects & Teams
               </h1>
               <p className="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl text-sm leading-relaxed">
@@ -254,12 +254,12 @@ export default function ProjectsPage() {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="h-64 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 animate-pulse p-6"
+                className="h-64 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 animate-pulse p-5"
               />
             ))}
           </div>
         ) : error ? (
-          <div className="p-8 rounded-2xl border border-rose-200 dark:border-rose-900/50 bg-rose-50/50 dark:bg-rose-950/20 text-center">
+          <div className="p-6 rounded-2xl border border-rose-200 dark:border-rose-900/50 bg-rose-50/50 dark:bg-rose-950/20 text-center">
             <AlertCircle className="w-8 h-8 text-rose-600 dark:text-rose-400 mx-auto mb-2" />
             <h3 className="text-base font-semibold text-rose-800 dark:text-rose-200">Unable to load projects</h3>
             <p className="text-sm text-rose-600 dark:text-rose-400 mt-1">{error}</p>
@@ -338,7 +338,7 @@ function ProjectCard({ project }: { project: any }) {
   return (
     <Link
       href={`/projects/${project.id}`}
-      className="group block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700/60 transition-all duration-200"
+      className="group block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700/60 transition-all duration-200"
     >
       {/* Top Badges */}
       <div className="flex items-center justify-between gap-2 mb-3">

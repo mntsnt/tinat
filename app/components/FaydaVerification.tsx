@@ -147,7 +147,7 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="bg-muted/50 rounded-xl p-6 border border-dashed border-border text-center">
+            <div className="bg-muted/50 rounded-xl p-5 border border-dashed border-border text-center">
               <p className="text-sm font-medium text-foreground mb-4">
                 Take a clear photo of the <strong>back</strong> of your Fayda ID card.
               </p>

@@ -67,7 +67,7 @@ export default async function AdminStudyDetailPage({ params }: Props) {
           </Link>
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight text-foreground">{study.title}</h1>
+              <h1 className="text-xl font-bold tracking-tight text-foreground">{study.title}</h1>
               <div className="flex items-center gap-2 mt-2">
                 <Badge variant={study.status === "ACTIVE" ? "success" : study.status === "COMPLETED" ? "secondary" : study.status === "PAUSED" ? "warning" : "outline"}>
                   {study.status}

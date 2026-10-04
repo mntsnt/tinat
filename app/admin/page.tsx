@@ -113,7 +113,7 @@ export default async function AdminDashboard() {
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">
                     {card.label}
                   </p>
-                  <p className="text-3xl font-bold text-foreground leading-none">{card.value}</p>
+                  <p className="text-xl font-bold text-foreground leading-none">{card.value}</p>
                   <p className="text-xs text-muted-foreground mt-1.5">{card.sub}</p>
                 </div>
                 <div className={`p-2.5 rounded-xl flex-shrink-0 ${card.color}`}>
@@ -134,11 +134,11 @@ export default async function AdminDashboard() {
             <CardDescription>Credits circulating across all wallets</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="rounded-xl border border-border bg-gradient-to-br from-muted/60 to-muted/20 p-6 text-center">
+            <div className="rounded-xl border border-border bg-gradient-to-br from-muted/60 to-muted/20 p-5 text-center">
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
                 Total Credits in Wallets
               </p>
-              <p className="text-3xl font-bold text-foreground">
+              <p className="text-xl font-bold text-foreground">
                 {totalCredits.toLocaleString()}
                 <span className="text-lg text-muted-foreground font-normal ml-1">TC</span>
               </p>

@@ -80,7 +80,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex flex-1 items-center justify-center p-4 py-12 md:py-24">
+    <main className="flex flex-1 items-center justify-center p-4 py-12 md:py-16">
       <Card className="w-full max-w-md shadow-lg border-border">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-3">
@@ -160,4 +160,4 @@ export default function LoginPage() {
       </Card>
     </main>
   );
-}
+}

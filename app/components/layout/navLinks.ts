@@ -12,6 +12,7 @@ export const participantLinks: NavLink[] = [
   { title: "Health Studies", href: "/participant/studies" },
   { title: "My History", href: "/participant/history" },
   { title: "TC Wallet", href: "/participant/wallet" },
+  { title: "Field Collection", href: "/collector/dashboard" },
   { title: "Tinat Ask", href: "/ask" },
 ];
 

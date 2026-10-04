@@ -92,7 +92,7 @@ export default function VerifyPage() {
           <div className="mx-auto w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">
             <ShieldCheck className="w-8 h-8" />
           </div>
-          <h2 className="text-3xl font-extrabold text-foreground">Identity Verification</h2>
+          <h2 className="text-xl font-extrabold text-foreground">Identity Verification</h2>
           <p className="mt-2 text-sm text-muted-foreground max-w-xl mx-auto">
             To protect participants and maintain research integrity, Tinat requires identity verification for core roles. 
             Your information is securely encrypted and never visible to participants or in public analytics.
@@ -120,7 +120,7 @@ export default function VerifyPage() {
         </div>
 
         {/* Content Area */}
-        <div className="bg-card p-8 rounded-xl shadow-sm border border-border">
+        <div className="bg-card p-6 rounded-xl shadow-sm border border-border">
           
           <div className="mb-6">
             <h3 className="text-xl font-bold text-foreground mb-2">
@@ -134,7 +134,7 @@ export default function VerifyPage() {
           </div>
 
           {currentVerification && (currentVerification.status === "PENDING" || currentVerification.status === "VERIFIED" || currentVerification.status === "SUSPENDED") ? (
-            <div className={`p-6 rounded-lg border ${
+            <div className={`p-5 rounded-lg border ${
               currentVerification.status === "VERIFIED" ? "bg-emerald-50 border-emerald-200" :
               currentVerification.status === "PENDING" ? "bg-primary/5 border-blue-200" :
               "bg-rose-50 border-rose-200"

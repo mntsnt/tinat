@@ -85,7 +85,7 @@ export default async function StudyPage(props: Props) {
   if (cannotParticipate) {
     return (
       <div className="container mx-auto px-4 py-16 flex flex-col items-center text-center">
-        <div className="bg-muted/50 border border-border p-8 rounded-lg max-w-md w-full">
+        <div className="bg-muted/50 border border-border p-6 rounded-lg max-w-md w-full">
           <h2 className="text-2xl font-bold mb-4">Study Closed</h2>
           <p className="text-muted-foreground mb-6">
             {isCompletedOrPaused 

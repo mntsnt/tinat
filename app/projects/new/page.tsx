@@ -222,7 +222,7 @@ export default function NewProjectPage() {
 
         {/* Wizard Stepper Header */}
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-2xl sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white">
             Create Research Project Workspace
           </h1>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
@@ -275,7 +275,7 @@ export default function NewProjectPage() {
         )}
 
         {/* Step Cards Container */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-xs">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-xs">
           {/* STEP 1: Template & Fundamentals */}
           {step === 1 && (
             <div className="space-y-6">

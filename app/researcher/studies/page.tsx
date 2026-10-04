@@ -43,7 +43,7 @@ export default async function ResearcherStudiesPage() {
     <div className="container mx-auto px-4 py-8 md:px-6 md:py-12 max-w-7xl">
       <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">My Studies</h1>
+          <h1 className="text-xl font-bold tracking-tight text-foreground">My Studies</h1>
           <p className="text-muted-foreground mt-1">Manage and track your research studies.</p>
         </div>
         <Link href="/researcher/studies/new">

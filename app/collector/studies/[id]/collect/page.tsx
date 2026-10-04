@@ -64,7 +64,7 @@ export default function FieldCollectionPage() {
     }
   };
 
-  if (!study) return <div className="p-8 text-center">Loading Study...</div>;
+  if (!study) return <div className="p-6 text-center">Loading Study...</div>;
 
   const questions = study.questions || [];
   const isDone = currentStep >= questions.length;
@@ -87,7 +87,7 @@ export default function FieldCollectionPage() {
 
   if (currentStep === -1) {
     return (
-      <div className="min-h-screen bg-background flex flex-col p-6 max-w-lg mx-auto relative">
+      <div className="min-h-screen bg-background flex flex-col p-5 max-w-lg mx-auto relative">
         <LanguageSelector />
         <div className="flex-1 flex flex-col justify-center">
           <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-6 mx-auto">
@@ -123,13 +123,13 @@ export default function FieldCollectionPage() {
 
   if (isDone) {
     return (
-      <div className="min-h-screen bg-background flex flex-col p-6 max-w-lg mx-auto relative">
+      <div className="min-h-screen bg-background flex flex-col p-5 max-w-lg mx-auto relative">
         <LanguageSelector />
         <div className="flex-1 flex flex-col justify-center items-center text-center">
           <div className="w-20 h-20 bg-emerald-500/10 text-emerald-600 rounded-full flex items-center justify-center mb-6 mx-auto shadow-sm">
             <CheckCircle2 className="w-10 h-10" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground mb-4">Ready to Submit</h1>
+          <h1 className="text-xl font-bold text-foreground mb-4">Ready to Submit</h1>
           <p className="text-muted-foreground mb-10 text-lg">
             You have completed all questions for this participant.
           </p>
@@ -176,7 +176,7 @@ export default function FieldCollectionPage() {
       </div>
 
       {/* Question Content */}
-      <div className="flex-1 p-6 overflow-y-auto">
+      <div className="flex-1 p-5 overflow-y-auto">
         <h2 className="text-2xl font-bold text-foreground mb-6 leading-tight">{q.text}</h2>
         
         {/* Large Mobile Inputs based on type */}

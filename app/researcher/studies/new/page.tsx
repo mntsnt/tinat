@@ -201,7 +201,7 @@ export default function CreateStudyPage() {
             Medical & Health Research
           </span>
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Create Health Study</h1>
+        <h1 className="text-xl font-bold tracking-tight text-foreground">Create Health Study</h1>
         <p className="text-muted-foreground mt-1">
           Design your clinical questionnaire or health survey and define participant criteria.
         </p>

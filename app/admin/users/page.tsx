@@ -52,7 +52,7 @@ export default async function AdminUsersPage() {
           <Link href="/admin" className={getButtonClasses("ghost", "md", "-ml-4 mb-4")}>
             &larr; Back to Admin Dashboard
           </Link>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">Manage Users</h1>
+          <h1 className="text-xl font-bold tracking-tight text-foreground">Manage Users</h1>
           <p className="text-muted-foreground mt-1">View and manage all registered users on the platform.</p>
         </div>
         <div className="bg-muted/50 border border-border rounded-lg px-4 py-2 flex items-center gap-3">

@@ -153,7 +153,7 @@ function VerifyEmailContent() {
   }
 
   return (
-    <main className="flex flex-1 items-center justify-center p-4 py-12 md:py-24">
+    <main className="flex flex-1 items-center justify-center p-4 py-12 md:py-16">
       <Card className="w-full max-w-md shadow-lg border-border">
         {success ? (
           <div>
@@ -285,7 +285,7 @@ function VerifyEmailContent() {
 
 export default function VerifyEmailPage() {
   return (
-    <Suspense fallback={<div className="flex flex-1 items-center justify-center p-8">Loading verification...</div>}>
+    <Suspense fallback={<div className="flex flex-1 items-center justify-center p-6">Loading verification...</div>}>
       <VerifyEmailContent />
     </Suspense>
   );

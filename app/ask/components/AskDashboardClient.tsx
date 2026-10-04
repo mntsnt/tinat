@@ -312,7 +312,7 @@ export function AskDashboardClient({
   if (!profile) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
-        <div className="bg-card border border-border rounded-2xl shadow-xl p-6 sm:p-10 space-y-6">
+        <div className="bg-card border border-border rounded-2xl shadow-xl p-5 sm:p-10 space-y-6">
           <div className="text-center space-y-2">
             <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-2">
               <Sparkles className="w-7 h-7" />
@@ -415,7 +415,7 @@ export function AskDashboardClient({
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
       {/* Top Banner Card */}
-      <div className="bg-card border border-border rounded-2xl shadow-sm p-6 sm:p-8 space-y-6">
+      <div className="bg-card border border-border rounded-2xl shadow-sm p-5 sm:p-6 space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl bg-primary text-primary-foreground font-bold text-xl flex items-center justify-center shadow-md shrink-0">
@@ -653,7 +653,7 @@ export function AskDashboardClient({
               Loading questions...
             </div>
           ) : questions.length === 0 ? (
-          <div className="py-16 text-center space-y-3 bg-card border border-dashed border-border rounded-2xl p-8">
+          <div className="py-16 text-center space-y-3 bg-card border border-dashed border-border rounded-2xl p-6">
             <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground mx-auto">
               <MessageCircleQuestion className="w-6 h-6" />
             </div>
@@ -681,7 +681,7 @@ export function AskDashboardClient({
               return (
                 <div
                   key={q.id}
-                  className="bg-card border border-border rounded-2xl p-5 sm:p-6 shadow-sm space-y-4 transition-all"
+                  className="bg-card border border-border rounded-2xl p-5 sm:p-5 shadow-sm space-y-4 transition-all"
                 >
                   {/* Question header info */}
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
@@ -853,7 +853,7 @@ export function AskDashboardClient({
       {/* Settings Modal */}
       {editModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-card border border-border rounded-2xl shadow-xl w-full max-w-md p-6 space-y-5">
+          <div className="bg-card border border-border rounded-2xl shadow-xl w-full max-w-md p-5 space-y-5">
             <div className="flex items-center justify-between border-b border-border pb-3">
               <h2 className="text-base font-semibold">Tinat Ask Settings</h2>
               <button

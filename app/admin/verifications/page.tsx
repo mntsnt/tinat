@@ -57,9 +57,9 @@ export default function AdminVerificationsPage() {
   const tabs = ["PENDING", "VERIFIED", "REJECTED", "SUSPENDED"] as const;
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
+    <div className="p-6 max-w-7xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
+        <h1 className="text-xl font-bold text-foreground flex items-center gap-3">
           <ShieldCheck className="w-8 h-8 text-primary" />
           Verification Requests
         </h1>
@@ -89,7 +89,7 @@ export default function AdminVerificationsPage() {
       ) : (
         <div className="space-y-4">
           {verifications.map((v) => (
-            <div key={v.id} className="bg-card border border-border rounded-lg p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div key={v.id} className="bg-card border border-border rounded-lg p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-2">
                   <h3 className="text-lg font-bold text-foreground">{v.user.name}</h3>
