@@ -3,8 +3,6 @@ type NavLink = { title: string; href: string; icon?: React.ReactNode };
 export const publicLinks: NavLink[] = [
   { title: "Health Studies", href: "/participant/studies" },
   { title: "Tinat Ask", href: "/ask" },
-  { title: "Pathways", href: "/#how-it-works" },
-  { title: "About Tinat", href: "/#trust" },
 ];
 
 export const participantLinks: NavLink[] = [
