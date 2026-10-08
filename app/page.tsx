@@ -68,14 +68,14 @@ export default async function Home() {
       {/* Hero Section */}
       <section className="relative z-10 pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pb-32 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-8">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
                 <Stethoscope className="w-4 h-4" />
                 Medical & Health Research Ecosystem
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
                 Advance health research.<br />
                 <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 bg-clip-text text-transparent">
                   Collect verified data.
@@ -117,7 +117,7 @@ export default async function Home() {
 
             {/* Interactive Hero Study Preview - Live from DB */}
             <div className="relative hidden lg:block perspective-1000">
-              <div className="relative animate-float rounded-2xl border border-border bg-card p-5 shadow-2xl">
+              <div className="relative animate-float rounded-2xl border border-border bg-card p-6 shadow-2xl">
                 <div className="flex items-center justify-between mb-6 pb-3 border-b border-border">
                   <div className="flex items-center gap-2">
                     <div className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
@@ -202,7 +202,7 @@ export default async function Home() {
 
       {/* Live Platform Real-time Metrics Banner */}
       <section className="relative z-10 -mt-8 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-border bg-card/95 backdrop-blur shadow-xl p-5 sm:p-6">
+        <div className="rounded-2xl border border-border bg-card/95 backdrop-blur shadow-xl p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-border">
             <div className="flex items-center gap-2.5">
               <span className="relative flex h-3 w-3">
@@ -223,7 +223,7 @@ export default async function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6">
             <div>
-              <p className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground">
+              <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
                 {stats.activeStudies.toLocaleString()}
               </p>
               <p className="text-xs font-semibold text-foreground mt-1">Active Studies</p>
@@ -231,7 +231,7 @@ export default async function Home() {
             </div>
 
             <div>
-              <p className="text-xl sm:text-2xl font-extrabold tracking-tight text-emerald-600 dark:text-emerald-400">
+              <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-emerald-600 dark:text-emerald-400">
                 {stats.totalResponses.toLocaleString()}
               </p>
               <p className="text-xs font-semibold text-foreground mt-1">Verified Responses</p>
@@ -239,7 +239,7 @@ export default async function Home() {
             </div>
 
             <div>
-              <p className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground">
+              <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
                 {stats.totalUsers.toLocaleString()}
               </p>
               <p className="text-xs font-semibold text-foreground mt-1">Platform Members</p>
@@ -247,7 +247,7 @@ export default async function Home() {
             </div>
 
             <div>
-              <p className="text-xl sm:text-2xl font-extrabold tracking-tight text-teal-600 dark:text-teal-400">
+              <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-teal-600 dark:text-teal-400">
                 14
               </p>
               <p className="text-xs font-semibold text-foreground mt-1">Health Domains</p>
@@ -258,13 +258,13 @@ export default async function Home() {
       </section>
 
       {/* Two Study Types Section */}
-      <section id="pathways" className="relative z-10 py-12 lg:py-28 bg-muted/20 border-b border-border scroll-mt-16">
+      <section id="pathways" className="relative z-10 py-20 lg:py-28 bg-muted/20 border-b border-border scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
               Two Research Pathways
             </span>
-            <h2 className="text-2xl lg:text-3xl font-extrabold tracking-tight">
+            <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
               Designed for every health investigation
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg">
@@ -274,7 +274,7 @@ export default async function Home() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Pathway 1: Funded Research */}
-            <div className="rounded-2xl border-2 border-emerald-500/30 bg-card p-6 shadow-lg relative flex flex-col justify-between">
+            <div className="rounded-2xl border-2 border-emerald-500/30 bg-card p-8 shadow-lg relative flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
@@ -311,7 +311,7 @@ export default async function Home() {
             </div>
 
             {/* Pathway 2: Free Data Collection */}
-            <div className="rounded-2xl border-2 border-primary/30 bg-card p-6 shadow-lg relative flex flex-col justify-between">
+            <div className="rounded-2xl border-2 border-primary/30 bg-card p-8 shadow-lg relative flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="p-3 rounded-xl bg-primary/10 text-primary dark:text-blue-400">
@@ -351,13 +351,13 @@ export default async function Home() {
       </section>
 
       {/* Health Domains Showcase */}
-      <section className="relative z-10 py-12 lg:py-28 bg-background">
+      <section className="relative z-10 py-20 lg:py-28 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
               Specialized Domains
             </span>
-            <h2 className="text-2xl lg:text-3xl font-extrabold tracking-tight">
+            <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
               Medical & Health Research Disciplines
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg">
