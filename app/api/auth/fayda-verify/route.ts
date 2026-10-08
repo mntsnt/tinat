@@ -5,6 +5,8 @@ import { decodePayload } from "fayda-decoder";
 import { verifySignature } from "fayda-decoder/verify";
 import crypto from "crypto";
 
+export const runtime = "nodejs";
+
 export async function POST(req: Request) {
   try {
     const session = await getSession();
@@ -58,7 +60,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true, verifiedAt: new Date().toISOString() });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Fayda verification error:", error);
     return NextResponse.json({ error: "Internal server error during verification" }, { status: 500 });
   }

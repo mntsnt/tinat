@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/Card";
 import { Button } from "./ui/Button";
 import { ShieldCheck, Camera, UploadCloud, AlertTriangle, Loader2 } from "lucide-react";
+import { prepareZXingModule, readBarcodes } from "zxing-wasm/reader";
 
 type UIState = 
   | "IDLE" 
@@ -19,13 +20,11 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
 
   useEffect(() => {
     // Pre-load the WASM engine locally so we don't depend on CDN
-    import("fayda-decoder").then((mod) => {
-      mod.prepareQrEngine({
-        overrides: {
-          locateFile: () => "/zxing_reader.wasm",
-        },
-      });
-    }).catch(console.error);
+    prepareZXingModule({
+      overrides: {
+        locateFile: (path) => path.endsWith(".wasm") ? "/zxing_reader.wasm" : path,
+      },
+    });
   }, []);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,17 +35,19 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
     setUiState("PROCESSING_LOCAL");
 
     try {
-      const arrayBuffer = await file.arrayBuffer();
-      const bytes = new Uint8Array(arrayBuffer);
+      // Decode the QR locally; only its signed payload leaves the device.
+      const results = await readBarcodes(file, {
+        formats: ["QRCode"],
+        tryHarder: true,
+        maxNumberOfSymbols: 4,
+      });
+      const validQrResults = results.filter((result) => result.isValid && result.text);
+      if (validQrResults.length === 0) throw new Error("NO_QR_FOUND");
 
-      // 1. Decode locally
-      // We don't request the face image to respect privacy
-      const { decodeImage } = await import("fayda-decoder");
-      const result = await decodeImage(bytes, { includeFace: false });
-
-      if (!result.ok) {
-        throw new Error("NOT_FAYDA");
-      }
+      const faydaQr = validQrResults.find(
+        (result) => result.text.includes(":DLT:") && result.text.includes(":SIGN:")
+      );
+      if (!faydaQr) throw new Error("NOT_FAYDA");
 
       // 2. Send payload to server for signature verification and database storage
       setUiState("VERIFYING_SERVER");
@@ -54,7 +55,7 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
       const res = await fetch("/api/auth/fayda-verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ payload: result.raw.payload })
+        body: JSON.stringify({ payload: faydaQr.text })
       });
       
       const data = await res.json();
@@ -64,11 +65,11 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
       }
 
       setUiState("VERIFIED");
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       setUiState("FAILED");
       
-      const msg = err.message || "";
+      const msg = err instanceof Error ? err.message : "";
       if (msg.includes("NO_QR_FOUND")) {
         setErrorMsg("We couldn't find the Fayda QR code. Make sure you're photographing the back of the card.");
       } else if (msg.includes("QR_UNREADABLE")) {
