@@ -35,7 +35,7 @@ export default async function ResearcherDashboard() {
       value: studies.length,
       sub: `${activeStudies} currently active`,
       icon: <BookOpen className="w-5 h-5" />,
-      color: "text-primary bg-primary/5 dark:bg-indigo-900/20 dark:text-primary",
+      color: "text-cyan-900 bg-cyan-50 dark:bg-cyan-950/40 dark:text-cyan-300",
     },
     {
       label: "Total Responses",
@@ -49,7 +49,7 @@ export default async function ResearcherDashboard() {
       value: activeStudies,
       sub: "Collecting responses now",
       icon: <Users className="w-5 h-5" />,
-      color: "text-primary bg-primary/5 dark:bg-blue-900/20 dark:text-blue-400",
+      color: "text-primary bg-primary/5 dark:bg-primary/15",
     },
     {
       label: "Credits Paid Out",
@@ -67,12 +67,12 @@ export default async function ResearcherDashboard() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-8 md:py-10 max-w-7xl">
+    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
       {/* Page Header */}
       <div className="mb-8 flex items-center justify-between gap-4 flex-wrap">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            Welcome back, {user.name.split(" ")[0]} 👋
+            Welcome back, {user.name.split(" ")[0]}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
             Manage your research studies and track responses.
@@ -90,7 +90,7 @@ export default async function ResearcherDashboard() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
         {statCards.map((card) => (
           <Card key={card.label}>
-            <CardContent className="p-5">
+            <CardContent className="p-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">
@@ -99,7 +99,7 @@ export default async function ResearcherDashboard() {
                   <p className="text-xl font-bold text-foreground leading-none">{card.value}</p>
                   <p className="text-xs text-muted-foreground mt-1.5">{card.sub}</p>
                 </div>
-                <div className={`p-2.5 rounded-xl flex-shrink-0 ${card.color}`}>
+                <div className={`flex-shrink-0 rounded-md p-2 ${card.color}`}>
                   {card.icon}
                 </div>
               </div>
@@ -122,7 +122,7 @@ export default async function ResearcherDashboard() {
         {studies.length === 0 ? (
           <Card className="border-dashed">
             <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-primary/5 dark:bg-indigo-900/20 flex items-center justify-center mb-4">
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-md bg-cyan-50 dark:bg-cyan-950/40">
                 <BookOpen className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-1">No studies yet</h3>
@@ -140,14 +140,14 @@ export default async function ResearcherDashboard() {
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {studies.map((study) => (
-              <Card key={study.id} className="flex flex-col hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors">
+              <Card key={study.id} className="flex flex-col transition-colors hover:border-cyan-700/50 dark:hover:border-cyan-400/50">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <Badge variant={statusVariant(study.status) as "success" | "secondary" | "warning"}>
                       {study.status}
                     </Badge>
                     {study.rewardCredits > 0 ? (
-                      <span className="text-xs font-semibold px-2 py-1 rounded-md bg-primary/10 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                      <span className="rounded px-2 py-1 text-xs font-semibold bg-cyan-50 text-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300">
                         {study.rewardCredits} TC / response
                       </span>
                     ) : (

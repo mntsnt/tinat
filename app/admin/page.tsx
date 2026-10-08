@@ -53,7 +53,7 @@ export default async function AdminDashboard() {
       value: totalUsers,
       sub: `${totalParticipants} participants · ${totalResearchers} researchers`,
       icon: <Users className="w-5 h-5" />,
-      color: "text-primary bg-primary/5 dark:bg-blue-900/20 dark:text-blue-400",
+      color: "text-rose-800 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-300",
     },
     {
       label: "Active Studies",
@@ -67,7 +67,7 @@ export default async function AdminDashboard() {
       value: totalResponses,
       sub: `Across ${totalStudies} studies`,
       icon: <TrendingUp className="w-5 h-5" />,
-      color: "text-primary bg-primary/5 dark:bg-indigo-900/20 dark:text-primary",
+      color: "text-cyan-800 bg-cyan-50 dark:bg-cyan-950/40 dark:text-cyan-300",
     },
     {
       label: "Pending Withdrawals",
@@ -88,12 +88,12 @@ export default async function AdminDashboard() {
 
   function roleColor(role: string) {
     if (role === "ADMIN") return "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300";
-    if (role === "RESEARCHER") return "bg-primary/10 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300";
+    if (role === "RESEARCHER") return "bg-cyan-50 text-cyan-900 dark:bg-cyan-950/40 dark:text-cyan-300";
     return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300";
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-8 md:py-10 max-w-7xl">
+    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight text-foreground">Overview</h1>
@@ -107,7 +107,7 @@ export default async function AdminDashboard() {
             key={card.label}
             className={card.urgent ? "border-amber-300 dark:border-amber-700 shadow-amber-100 dark:shadow-none" : ""}
           >
-            <CardContent className="p-5">
+            <CardContent className="p-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">
@@ -116,7 +116,7 @@ export default async function AdminDashboard() {
                   <p className="text-xl font-bold text-foreground leading-none">{card.value}</p>
                   <p className="text-xs text-muted-foreground mt-1.5">{card.sub}</p>
                 </div>
-                <div className={`p-2.5 rounded-xl flex-shrink-0 ${card.color}`}>
+                <div className={`flex-shrink-0 rounded-md p-2 ${card.color}`}>
                   {card.icon}
                 </div>
               </div>

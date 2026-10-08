@@ -55,7 +55,7 @@ export default async function ParticipantLayout({ children }: { children: ReactN
         roleTitle="Participant"
         userName={user.name}
         userEmail={user.email}
-        roleColor="primary"
+        roleColor="participant"
       />
       <main className="flex-1 overflow-y-auto bg-muted/10">
         {children}

@@ -75,7 +75,7 @@ export default async function ParticipantDashboard() {
       value: user.responses.length,
       sub: "All time submissions",
       icon: <CheckCircle className="w-5 h-5" />,
-      color: "text-primary bg-primary/5 dark:bg-blue-900/20 dark:text-blue-400",
+      color: "text-primary bg-primary/5 dark:bg-primary/15",
       href: "/participant/history",
     },
     {
@@ -83,7 +83,7 @@ export default async function ParticipantDashboard() {
       value: availableStudies.length,
       sub: "Open for participation",
       icon: <Compass className="w-5 h-5" />,
-      color: "text-primary bg-primary/5 dark:bg-indigo-900/20 dark:text-primary",
+      color: "text-cyan-800 bg-cyan-50 dark:bg-cyan-950/40 dark:text-cyan-300",
       href: "/participant/studies",
     },
     {
@@ -97,14 +97,14 @@ export default async function ParticipantDashboard() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-8 md:py-10 max-w-7xl">
+    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          Welcome back, {user.name.split(" ")[0]} 👋
+          Welcome back, {user.name.split(" ")[0]}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Here's what's happening with your account today.
+          Here&apos;s what&apos;s happening with your account today.
         </p>
       </div>
 
@@ -113,7 +113,7 @@ export default async function ParticipantDashboard() {
         {statsCards.map((card) => (
           <Link key={card.label} href={card.href}>
             <Card className="hover:border-primary/40 transition-colors cursor-pointer h-full">
-              <CardContent className="p-5">
+              <CardContent className="p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">
@@ -122,7 +122,7 @@ export default async function ParticipantDashboard() {
                     <p className="text-2xl font-bold text-foreground leading-none">{card.value}</p>
                     <p className="text-xs text-muted-foreground mt-1.5">{card.sub}</p>
                   </div>
-                  <div className={`p-2.5 rounded-xl flex-shrink-0 ${card.color}`}>
+                  <div className={`flex-shrink-0 rounded-md p-2 ${card.color}`}>
                     {card.icon}
                   </div>
                 </div>

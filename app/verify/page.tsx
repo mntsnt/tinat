@@ -135,9 +135,9 @@ export default function VerifyPage() {
 
           {currentVerification && (currentVerification.status === "PENDING" || currentVerification.status === "VERIFIED" || currentVerification.status === "SUSPENDED") ? (
             <div className={`p-5 rounded-lg border ${
-              currentVerification.status === "VERIFIED" ? "bg-emerald-50 border-emerald-200" :
-              currentVerification.status === "PENDING" ? "bg-primary/5 border-blue-200" :
-              "bg-rose-50 border-rose-200"
+              currentVerification.status === "VERIFIED" ? "bg-emerald-50 border-emerald-200 dark:bg-emerald-950/30 dark:border-emerald-800" :
+              currentVerification.status === "PENDING" ? "bg-cyan-50 border-cyan-200 dark:bg-cyan-950/30 dark:border-cyan-800" :
+              "bg-rose-50 border-rose-200 dark:bg-rose-950/30 dark:border-rose-800"
             }`}>
               <div className="flex items-start gap-4">
                 {currentVerification.status === "VERIFIED" && <ShieldCheck className="w-8 h-8 text-emerald-600 shrink-0" />}
@@ -147,13 +147,13 @@ export default function VerifyPage() {
                 <div>
                   <h4 className={`font-semibold ${
                     currentVerification.status === "VERIFIED" ? "text-emerald-900" :
-                    currentVerification.status === "PENDING" ? "text-blue-900" : "text-rose-900"
+                    currentVerification.status === "PENDING" ? "text-cyan-900 dark:text-cyan-200" : "text-rose-900 dark:text-rose-200"
                   }`}>
                     Status: {currentVerification.status}
                   </h4>
                   <p className={`text-sm mt-1 ${
                     currentVerification.status === "VERIFIED" ? "text-emerald-700" :
-                    currentVerification.status === "PENDING" ? "text-blue-700" : "text-rose-700"
+                    currentVerification.status === "PENDING" ? "text-cyan-800 dark:text-cyan-300" : "text-rose-800 dark:text-rose-300"
                   }`}>
                     {currentVerification.status === "VERIFIED" && "Your identity has been successfully verified. You can now access full platform features."}
                     {currentVerification.status === "PENDING" && "Your verification request has been submitted and is currently under review by an administrator."}
@@ -161,7 +161,7 @@ export default function VerifyPage() {
                   </p>
                   
                   {currentVerification.status === "VERIFIED" && activeTab === "RESEARCHER" && (
-                    <button onClick={() => router.push("/researcher/dashboard")} className="mt-4 flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition text-sm">
+                    <button onClick={() => router.push("/researcher")} className="mt-4 flex items-center gap-2 bg-emerald-700 px-4 py-2 text-sm text-white transition hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500">
                       Go to Dashboard <ArrowRight className="w-4 h-4" />
                     </button>
                   )}
@@ -172,22 +172,22 @@ export default function VerifyPage() {
             <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
               
               {currentVerification?.status === "REJECTED" && (
-                <div className="p-4 bg-rose-50 border border-rose-200 rounded-md">
-                  <h4 className="text-rose-800 font-semibold text-sm flex items-center gap-2">
+                <div className="rounded-md border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-950/30">
+                  <h4 className="flex items-center gap-2 text-sm font-semibold text-rose-800 dark:text-rose-200">
                     <ShieldAlert className="w-4 h-4" /> Verification Rejected
                   </h4>
-                  <p className="text-rose-700 text-sm mt-1">Reason: {currentVerification.rejectionReason || "Please verify your information and try again."}</p>
+                  <p className="mt-1 text-sm text-rose-800 dark:text-rose-300">Reason: {currentVerification.rejectionReason || "Please verify your information and try again."}</p>
                 </div>
               )}
 
               {error && (
-                <div className="p-3 bg-red-50 text-red-600 border border-red-200 rounded-md text-sm">
+                <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/30 dark:text-red-300">
                   {error}
                 </div>
               )}
 
               {success && (
-                <div className="p-3 bg-green-50 text-green-700 border border-green-200 rounded-md text-sm">
+                <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
                   {success}
                 </div>
               )}
@@ -201,7 +201,7 @@ export default function VerifyPage() {
                     type="password"
                     required
                     placeholder="Enter your exact National ID number"
-                    className="w-full px-4 py-3 rounded-lg border border-border focus:ring-2 focus:ring-primary focus:border-primary transition-shadow bg-card text-foreground placeholder:text-gray-400"
+                    className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     value={fanNumber}
                     onChange={(e) => setFanNumber(e.target.value)}
                   />

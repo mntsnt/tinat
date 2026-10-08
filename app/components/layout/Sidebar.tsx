@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { Menu, X, LogOut, ChevronRight } from "lucide-react";
 
@@ -17,7 +17,7 @@ interface SidebarProps {
   roleTitle: string;
   userName: string;
   userEmail?: string;
-  roleColor?: "primary"; // participant=emerald, researcher=indigo, admin=rose
+  roleColor?: "participant" | "researcher" | "admin";
 }
 
 export function Sidebar({
@@ -25,23 +25,55 @@ export function Sidebar({
   roleTitle,
   userName,
   userEmail,
-  roleColor = "primary",
+  roleColor = "participant",
 }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
-  const colors = {
-      badge: "bg-primary/10 text-primary dark:bg-primary/20",
-      avatar: "bg-primary text-primary-foreground",
-      active: "bg-muted/50 text-foreground border-l-2 border-primary",
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const roleColors = {
+    participant: {
+      badge: "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300",
+      avatar: "bg-emerald-700 text-white dark:bg-emerald-600",
+      active: "border-l-2 border-emerald-700 bg-emerald-50 text-emerald-900 dark:border-emerald-400 dark:bg-emerald-950/50 dark:text-emerald-200",
+    },
+    researcher: {
+      badge: "bg-cyan-50 text-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300",
+      avatar: "bg-cyan-800 text-white dark:bg-cyan-700",
+      active: "border-l-2 border-cyan-800 bg-cyan-50 text-cyan-950 dark:border-cyan-400 dark:bg-cyan-950/50 dark:text-cyan-200",
+    },
+    admin: {
+      badge: "bg-rose-50 text-rose-900 dark:bg-rose-950/50 dark:text-rose-300",
+      avatar: "bg-rose-700 text-white dark:bg-rose-600",
+      active: "border-l-2 border-rose-700 bg-rose-50 text-rose-950 dark:border-rose-400 dark:bg-rose-950/50 dark:text-rose-200",
+    },
+  };
+  const colors = roleColors[roleColor];
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    closeButtonRef.current?.focus();
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMobileMenu();
     };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
+  function closeMobileMenu() {
+    setMobileOpen(false);
+    menuButtonRef.current?.focus();
+  }
 
   async function handleLogout() {
     setLoggingOut(true);
     try {
-      window.location.href = "/login";
+      await fetch("/api/auth/logout", { method: "POST" });
+      router.replace("/login");
     } catch {
       setLoggingOut(false);
     }
@@ -54,8 +86,9 @@ export function Sidebar({
     .toUpperCase()
     .slice(0, 2);
 
-  const NavLinks = () => (
-    <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
+  function renderNavLinks() {
+    return (
+    <nav className="flex-1 space-y-0.5 overflow-y-auto px-2.5 py-3">
       {links.map((link) => {
         const isExact = pathname === link.href;
         const isPrefix = link.href.split("/").length > 2 && pathname.startsWith(link.href + "/");
@@ -71,10 +104,10 @@ export function Sidebar({
             href={link.href}
             onClick={() => setMobileOpen(false)}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all group",
+              "group flex min-h-9 items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-colors active:scale-[0.99]",
               isActive
                 ? colors.active
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
             )}
           >
             <span
@@ -93,21 +126,23 @@ export function Sidebar({
         );
       })}
     </nav>
-  );
+    );
+  }
 
-  const UserFooter = () => (
-    <div className="p-3 border-t border-border">
-      <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg">
+  function renderUserFooter() {
+    return (
+    <div className="border-t border-border p-2.5">
+      <div className="flex items-center gap-2.5 rounded-md px-2 py-2">
         <div
           className={cn(
-            "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0",
+            "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold",
             colors.avatar
           )}
         >
           {initials}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-foreground truncate">{userName}</p>
+          <p className="truncate text-[13px] font-semibold text-foreground">{userName}</p>
           {userEmail && (
             <p className="text-xs text-muted-foreground truncate">{userEmail}</p>
           )}
@@ -116,25 +151,27 @@ export function Sidebar({
       <button
         onClick={handleLogout}
         disabled={loggingOut}
-        className="mt-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors disabled:opacity-60"
+        className="mt-1 flex min-h-9 w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive active:scale-[0.99] disabled:opacity-60"
       >
         <LogOut className="w-4 h-4 flex-shrink-0" />
         {loggingOut ? "Logging out…" : "Log out"}
       </button>
     </div>
-  );
+    );
+  }
 
-  const SidebarHeader = () => (
-    <div className="p-4 border-b border-border">
-      <Link href="/" className="flex items-center gap-2.5 transition-transform hover:scale-[1.02]">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black text-white font-bold text-sm shadow-sm flex-shrink-0">
+  function renderSidebarHeader() {
+    return (
+    <div className="border-b border-border px-3.5 py-3">
+      <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-80">
+        <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-foreground text-xs font-bold text-background">
           T
         </div>
         <div>
           <p className="text-sm font-bold text-foreground leading-tight">Tinat</p>
           <span
             className={cn(
-              "text-xs font-medium px-1.5 py-0.5 rounded",
+              "mt-1 inline-flex rounded px-1.5 py-0.5 text-[10px] font-semibold",
               colors.badge
             )}
           >
@@ -143,15 +180,16 @@ export function Sidebar({
         </div>
       </Link>
     </div>
-  );
+    );
+  }
 
   return (
     <>
       {/* ── Desktop Sidebar ─────────────────────────────── */}
-      <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-border bg-card/60 min-h-[calc(100vh-0px)]">
-        <SidebarHeader />
-        <NavLinks />
-        <UserFooter />
+      <aside className="hidden min-h-screen w-56 shrink-0 flex-col border-r border-border bg-card/70 md:flex">
+        {renderSidebarHeader()}
+        {renderNavLinks()}
+        {renderUserFooter()}
       </aside>
 
       {/* ── Mobile Top Bar ──────────────────────────────── */}
@@ -165,8 +203,11 @@ export function Sidebar({
           </span>
         </Link>
         <button
+          ref={menuButtonRef}
           onClick={() => setMobileOpen(true)}
-          className="p-2 rounded-md hover:bg-muted transition-colors"
+          aria-expanded={mobileOpen}
+          aria-controls="dashboard-mobile-navigation"
+          className="rounded-md p-2 transition-colors hover:bg-muted active:scale-95"
           aria-label="Open menu"
         >
           <Menu className="w-5 h-5" />
@@ -175,15 +216,21 @@ export function Sidebar({
 
       {/* ── Mobile Drawer Overlay ───────────────────────── */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 z-50 flex">
+        <div className="fixed inset-0 z-50 flex md:hidden">
           {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setMobileOpen(false)}
+            onClick={closeMobileMenu}
           />
           {/* Drawer */}
-          <div className="relative flex flex-col w-72 max-w-[85vw] h-full bg-card shadow-2xl border-r border-border">
-            <div className="flex items-center justify-between p-4 border-b border-border">
+          <div
+            id="dashboard-mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${roleTitle} navigation`}
+            className="relative flex h-full w-64 max-w-[85vw] flex-col border-r border-border bg-card shadow-2xl"
+          >
+            <div className="flex items-center justify-between border-b border-border p-3.5">
               <Link href="/" className="flex items-center gap-2">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black font-bold text-white text-sm shadow-sm">
                   T
@@ -191,14 +238,16 @@ export function Sidebar({
                 <span className="font-bold text-foreground">Tinat</span>
               </Link>
               <button
-                onClick={() => setMobileOpen(false)}
-                className="p-1.5 rounded-md hover:bg-muted transition-colors"
+                ref={closeButtonRef}
+                onClick={closeMobileMenu}
+                aria-label="Close menu"
+                className="rounded-md p-2 transition-colors hover:bg-muted active:scale-95"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <NavLinks />
-            <UserFooter />
+            {renderNavLinks()}
+            {renderUserFooter()}
           </div>
         </div>
       )}
