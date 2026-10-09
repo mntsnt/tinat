@@ -5,6 +5,8 @@ import { prisma } from "../../lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/Card";
 import { getButtonClasses } from "../components/ui/Button";
 import { Users, BookOpen, Activity, CreditCard, TrendingUp, Clock, CheckCircle } from "lucide-react";
+import { AdminCharts } from "./AdminCharts";
+import os from "os";
 
 export default async function AdminDashboard() {
   const session = await getSession();
@@ -12,6 +14,9 @@ export default async function AdminDashboard() {
 
   const user = await prisma.user.findUnique({ where: { id: session.userId } });
   if (!user || user.role !== "ADMIN") redirect("/dashboard");
+
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
   const [
     totalUsers,
@@ -26,6 +31,8 @@ export default async function AdminDashboard() {
     totalWithdrawals,
     walletTotals,
     recentLogs,
+    recentUsersRaw,
+    recentStudiesRaw,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { role: "PARTICIPANT" } }),
@@ -43,36 +50,90 @@ export default async function AdminDashboard() {
       orderBy: { createdAt: "desc" },
       include: { user: { select: { name: true, role: true } } },
     }),
+    prisma.user.findMany({
+      where: { createdAt: { gte: thirtyDaysAgo } },
+      select: { createdAt: true },
+      orderBy: { createdAt: "asc" }
+    }),
+    prisma.study.findMany({
+      where: { createdAt: { gte: thirtyDaysAgo } },
+      select: { createdAt: true },
+      orderBy: { createdAt: "asc" }
+    })
   ]);
 
   const totalCredits = walletTotals._sum.balance ?? 0;
 
+  // Compile Growth Data
+  const growthMap: Record<string, { users: number; studies: number }> = {};
+  
+  // Initialize last 30 days
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    growthMap[d.toISOString().split("T")[0]] = { users: 0, studies: 0 };
+  }
+
+  recentUsersRaw.forEach(u => {
+    const date = u.createdAt.toISOString().split("T")[0];
+    if (growthMap[date]) growthMap[date].users += 1;
+  });
+
+  recentStudiesRaw.forEach(s => {
+    const date = s.createdAt.toISOString().split("T")[0];
+    if (growthMap[date]) growthMap[date].studies += 1;
+  });
+
+  const growthData = Object.keys(growthMap).map(date => ({
+    date,
+    users: growthMap[date].users,
+    studies: growthMap[date].studies,
+  }));
+
+  // Compile Role Distribution
+  const roleDistribution = [
+    { name: "Participants", value: totalParticipants },
+    { name: "Researchers", value: totalResearchers },
+    { name: "Admins", value: totalUsers - totalParticipants - totalResearchers },
+  ];
+
+  // System Metrics
+  const systemMetrics = {
+    memory: process.memoryUsage(),
+    uptime: process.uptime(),
+    loadAvg: os.loadavg(),
+    dbRecords: totalUsers + totalStudies + totalResponses
+  };
+
   const statCards = [
     {
       label: "Total Users",
-      value: totalUsers,
-      sub: `${totalParticipants} participants · ${totalResearchers} researchers`,
+      value: totalUsers.toLocaleString(),
+      sub: `${totalParticipants} Participants, ${totalResearchers} Researchers`,
       icon: <Users className="w-5 h-5" />,
-      color: "text-rose-800 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-300",
+      color: "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400",
+      urgent: false,
     },
     {
-      label: "Active Studies",
-      value: activeStudies,
-      sub: `${draftStudies} draft · ${completedStudies} completed`,
+      label: "Research Studies",
+      value: totalStudies.toLocaleString(),
+      sub: `${activeStudies} Active, ${completedStudies} Completed`,
       icon: <BookOpen className="w-5 h-5" />,
       color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400",
+      urgent: false,
     },
     {
-      label: "Total Responses",
-      value: totalResponses,
-      sub: `Across ${totalStudies} studies`,
-      icon: <TrendingUp className="w-5 h-5" />,
-      color: "text-cyan-800 bg-cyan-50 dark:bg-cyan-950/40 dark:text-cyan-300",
+      label: "Responses Collected",
+      value: totalResponses.toLocaleString(),
+      sub: "Total field and remote submissions",
+      icon: <Activity className="w-5 h-5" />,
+      color: "text-purple-600 bg-purple-50 dark:bg-purple-900/20 dark:text-purple-400",
+      urgent: false,
     },
     {
       label: "Pending Withdrawals",
-      value: pendingWithdrawals,
-      sub: `${totalWithdrawals} total requests`,
+      value: pendingWithdrawals.toLocaleString(),
+      sub: `${totalWithdrawals} total requests processed`,
       icon: <CreditCard className="w-5 h-5" />,
       color:
         pendingWithdrawals > 0
@@ -242,7 +303,12 @@ export default async function AdminDashboard() {
           </CardContent>
         </Card>
       </div>
+
+      <AdminCharts 
+        growthData={growthData}
+        roleDistribution={roleDistribution}
+        systemMetrics={systemMetrics}
+      />
     </div>
   );
 }
-
