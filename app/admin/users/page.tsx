@@ -6,6 +6,7 @@ import { prisma } from "../../../lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../components/ui/Card";
 import { getButtonClasses } from "../../components/ui/Button";
 import { Badge } from "../../components/ui/Badge";
+import { ShieldCheck } from "lucide-react";
 
 export default async function AdminUsersPage() {
   const session = await getSession();
@@ -32,9 +33,13 @@ export default async function AdminUsersPage() {
       role: true,
       institution: true,
       fieldOfStudy: true,
+      
       yearOfStudy: true,
       createdAt: true,
+      faydaVerified: true,
+      faydaVerifiedAt: true,
       wallet: { select: { balance: true } },
+
       _count: {
         select: {
           studies: true,
@@ -85,7 +90,15 @@ export default async function AdminUsersPage() {
                 {users.map((user) => (
                   <tr key={user.id} className="hover:bg-muted/50 transition-colors">
                     <td className="px-6 py-4 align-top">
-                      <div className="font-medium text-foreground">{user.name}</div>
+                      <div className="font-medium text-foreground flex items-center gap-2">
+                        {user.name}
+                        {user.faydaVerified && (
+                          <div title={`Fayda Verified on ${user.faydaVerifiedAt?.toLocaleDateString()}`} className="flex items-center text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 rounded-full px-1.5 py-0.5 border border-emerald-200 dark:border-emerald-800">
+                            <ShieldCheck className="w-3.5 h-3.5 mr-1" />
+                            <span className="text-[10px] font-bold uppercase tracking-wider">Verified</span>
+                          </div>
+                        )}
+                      </div>
                       <div className="text-muted-foreground">{user.email}</div>
                     </td>
                     <td className="px-6 py-4 align-top">

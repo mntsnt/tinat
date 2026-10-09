@@ -3,12 +3,13 @@
 import { useState, useRef, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/Card";
 import { Button } from "./ui/Button";
-import { ShieldCheck, Camera, UploadCloud, AlertTriangle, Loader2 } from "lucide-react";
+import { ShieldCheck, Camera, UploadCloud, AlertTriangle, Loader2, UserCheck, X } from "lucide-react";
 import { prepareZXingModule, readBarcodes } from "zxing-wasm/reader";
 
 type UIState = 
   | "IDLE" 
   | "PROCESSING_LOCAL" 
+  | "PREVIEW_DATA"
   | "VERIFYING_SERVER" 
   | "VERIFIED" 
   | "FAILED";
@@ -16,6 +17,8 @@ type UIState =
 export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: boolean, verifiedAt?: Date | null }) {
   const [uiState, setUiState] = useState<UIState>(isVerified ? "VERIFIED" : "IDLE");
   const [errorMsg, setErrorMsg] = useState("");
+  const [faydaPayload, setFaydaPayload] = useState("");
+  const [previewData, setPreviewData] = useState<any>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -49,22 +52,23 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
       );
       if (!faydaQr) throw new Error("NOT_FAYDA");
 
-      // 2. Send payload to server for signature verification and database storage
-      setUiState("VERIFYING_SERVER");
-      
-      const res = await fetch("/api/auth/fayda-verify", {
+      // Hit preview endpoint to get decoded data before final verification
+      const previewRes = await fetch("/api/auth/fayda-preview", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ payload: faydaQr.text })
       });
       
-      const data = await res.json();
+      const previewResData = await previewRes.json();
       
-      if (!res.ok) {
-        throw new Error(data.error || "Server verification failed");
+      if (!previewRes.ok) {
+        throw new Error(previewResData.error || "Server validation failed");
       }
 
-      setUiState("VERIFIED");
+      setPreviewData(previewResData.data);
+      setFaydaPayload(faydaQr.text);
+      setUiState("PREVIEW_DATA");
+
     } catch (err: unknown) {
       console.error(err);
       setUiState("FAILED");
@@ -85,6 +89,29 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
+    }
+  };
+
+  const confirmAndVerify = async () => {
+    setUiState("VERIFYING_SERVER");
+    try {
+      const res = await fetch("/api/auth/fayda-verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ payload: faydaPayload })
+      });
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || "Server verification failed");
+      }
+
+      setUiState("VERIFIED");
+    } catch (err: unknown) {
+      console.error(err);
+      setUiState("FAILED");
+      setErrorMsg(err instanceof Error ? err.message : "Verification failed");
     }
   };
 
@@ -133,6 +160,9 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
               <p className="text-sm font-semibold text-destructive mb-1">Verification Failed</p>
               <p className="text-xs text-destructive/90">{errorMsg}</p>
             </div>
+            <Button variant="outline" size="sm" className="ml-auto" onClick={() => setUiState("IDLE")}>
+              Try Again
+            </Button>
           </div>
         )}
 
@@ -145,6 +175,59 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
             <p className="text-xs text-muted-foreground mt-1 text-center max-w-sm">
               Please wait while we process your card. This may take a few moments.
             </p>
+          </div>
+        ) : uiState === "PREVIEW_DATA" && previewData ? (
+          <div className="space-y-6">
+            <div className="bg-primary/5 border border-primary/20 rounded-xl p-5">
+              <div className="flex items-center gap-3 border-b border-primary/10 pb-4 mb-4">
+                <div className="p-2 bg-primary/10 rounded-full text-primary">
+                  <UserCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-foreground">Fayda ID Found</h4>
+                  <p className="text-xs text-muted-foreground">Please confirm your details below</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-y-4 gap-x-2 text-sm">
+                <div>
+                  <span className="text-muted-foreground text-xs block mb-1">Full Name</span>
+                  <span className="font-medium text-foreground">{previewData.fullName}</span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground text-xs block mb-1">Fayda Number (FAN)</span>
+                  <span className="font-mono bg-muted px-1.5 py-0.5 rounded text-foreground">
+                    {previewData.fan?.slice(0, 4)} **** ****
+                  </span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground text-xs block mb-1">Date of Birth</span>
+                  <span className="font-medium text-foreground">{previewData.dateOfBirth}</span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground text-xs block mb-1">Sex</span>
+                  <span className="font-medium text-foreground">{previewData.sex}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-end gap-3">
+              <Button 
+                variant="outline" 
+                onClick={() => setUiState("IDLE")} 
+                className="w-full sm:w-auto"
+              >
+                <X className="w-4 h-4 mr-2" />
+                Cancel
+              </Button>
+              <Button 
+                onClick={confirmAndVerify} 
+                className="w-full sm:w-auto"
+              >
+                <ShieldCheck className="w-4 h-4 mr-2" />
+                Yes, this is me (Verify)
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="space-y-4">
@@ -176,7 +259,6 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
                     if (fileInputRef.current) {
                       fileInputRef.current.removeAttribute("capture");
                       fileInputRef.current.click();
-                      // Re-add capture after short delay so mobile scan button stays "Scan"
                       setTimeout(() => fileInputRef.current?.setAttribute("capture", "environment"), 1000);
                     }
                   }} 
