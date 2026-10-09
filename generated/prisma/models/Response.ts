@@ -199,10 +199,10 @@ export type ResponseWhereInput = {
   collectorId?: Prisma.StringNullableFilter<"Response"> | string | null
   collectionSessionId?: Prisma.StringNullableFilter<"Response"> | string | null
   answers?: Prisma.AnswerListRelationFilter
+  session?: Prisma.XOR<Prisma.CollectionSessionNullableScalarRelationFilter, Prisma.CollectionSessionWhereInput> | null
+  collector?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   participant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
-  collector?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  session?: Prisma.XOR<Prisma.CollectionSessionNullableScalarRelationFilter, Prisma.CollectionSessionWhereInput> | null
 }
 
 export type ResponseOrderByWithRelationInput = {
@@ -214,10 +214,10 @@ export type ResponseOrderByWithRelationInput = {
   collectorId?: Prisma.SortOrderInput | Prisma.SortOrder
   collectionSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
   answers?: Prisma.AnswerOrderByRelationAggregateInput
+  session?: Prisma.CollectionSessionOrderByWithRelationInput
+  collector?: Prisma.UserOrderByWithRelationInput
   participant?: Prisma.UserOrderByWithRelationInput
   study?: Prisma.StudyOrderByWithRelationInput
-  collector?: Prisma.UserOrderByWithRelationInput
-  session?: Prisma.CollectionSessionOrderByWithRelationInput
 }
 
 export type ResponseWhereUniqueInput = Prisma.AtLeast<{
@@ -233,10 +233,10 @@ export type ResponseWhereUniqueInput = Prisma.AtLeast<{
   collectorId?: Prisma.StringNullableFilter<"Response"> | string | null
   collectionSessionId?: Prisma.StringNullableFilter<"Response"> | string | null
   answers?: Prisma.AnswerListRelationFilter
+  session?: Prisma.XOR<Prisma.CollectionSessionNullableScalarRelationFilter, Prisma.CollectionSessionWhereInput> | null
+  collector?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   participant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
-  collector?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  session?: Prisma.XOR<Prisma.CollectionSessionNullableScalarRelationFilter, Prisma.CollectionSessionWhereInput> | null
 }, "id" | "studyId_participantId">
 
 export type ResponseOrderByWithAggregationInput = {
@@ -270,10 +270,10 @@ export type ResponseCreateInput = {
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   answers?: Prisma.AnswerCreateNestedManyWithoutResponseInput
+  session?: Prisma.CollectionSessionCreateNestedOneWithoutResponsesInput
+  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
   participant: Prisma.UserCreateNestedOneWithoutResponsesInput
   study: Prisma.StudyCreateNestedOneWithoutResponsesInput
-  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
-  session?: Prisma.CollectionSessionCreateNestedOneWithoutResponsesInput
 }
 
 export type ResponseUncheckedCreateInput = {
@@ -292,10 +292,10 @@ export type ResponseUpdateInput = {
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   answers?: Prisma.AnswerUpdateManyWithoutResponseNestedInput
+  session?: Prisma.CollectionSessionUpdateOneWithoutResponsesNestedInput
+  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
   participant?: Prisma.UserUpdateOneRequiredWithoutResponsesNestedInput
   study?: Prisma.StudyUpdateOneRequiredWithoutResponsesNestedInput
-  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
-  session?: Prisma.CollectionSessionUpdateOneWithoutResponsesNestedInput
 }
 
 export type ResponseUncheckedUpdateInput = {
@@ -385,13 +385,6 @@ export type ResponseScalarRelationFilter = {
   isNot?: Prisma.ResponseWhereInput
 }
 
-export type ResponseCreateNestedManyWithoutParticipantInput = {
-  create?: Prisma.XOR<Prisma.ResponseCreateWithoutParticipantInput, Prisma.ResponseUncheckedCreateWithoutParticipantInput> | Prisma.ResponseCreateWithoutParticipantInput[] | Prisma.ResponseUncheckedCreateWithoutParticipantInput[]
-  connectOrCreate?: Prisma.ResponseCreateOrConnectWithoutParticipantInput | Prisma.ResponseCreateOrConnectWithoutParticipantInput[]
-  createMany?: Prisma.ResponseCreateManyParticipantInputEnvelope
-  connect?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
-}
-
 export type ResponseCreateNestedManyWithoutCollectorInput = {
   create?: Prisma.XOR<Prisma.ResponseCreateWithoutCollectorInput, Prisma.ResponseUncheckedCreateWithoutCollectorInput> | Prisma.ResponseCreateWithoutCollectorInput[] | Prisma.ResponseUncheckedCreateWithoutCollectorInput[]
   connectOrCreate?: Prisma.ResponseCreateOrConnectWithoutCollectorInput | Prisma.ResponseCreateOrConnectWithoutCollectorInput[]
@@ -399,7 +392,7 @@ export type ResponseCreateNestedManyWithoutCollectorInput = {
   connect?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
 }
 
-export type ResponseUncheckedCreateNestedManyWithoutParticipantInput = {
+export type ResponseCreateNestedManyWithoutParticipantInput = {
   create?: Prisma.XOR<Prisma.ResponseCreateWithoutParticipantInput, Prisma.ResponseUncheckedCreateWithoutParticipantInput> | Prisma.ResponseCreateWithoutParticipantInput[] | Prisma.ResponseUncheckedCreateWithoutParticipantInput[]
   connectOrCreate?: Prisma.ResponseCreateOrConnectWithoutParticipantInput | Prisma.ResponseCreateOrConnectWithoutParticipantInput[]
   createMany?: Prisma.ResponseCreateManyParticipantInputEnvelope
@@ -413,18 +406,11 @@ export type ResponseUncheckedCreateNestedManyWithoutCollectorInput = {
   connect?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
 }
 
-export type ResponseUpdateManyWithoutParticipantNestedInput = {
+export type ResponseUncheckedCreateNestedManyWithoutParticipantInput = {
   create?: Prisma.XOR<Prisma.ResponseCreateWithoutParticipantInput, Prisma.ResponseUncheckedCreateWithoutParticipantInput> | Prisma.ResponseCreateWithoutParticipantInput[] | Prisma.ResponseUncheckedCreateWithoutParticipantInput[]
   connectOrCreate?: Prisma.ResponseCreateOrConnectWithoutParticipantInput | Prisma.ResponseCreateOrConnectWithoutParticipantInput[]
-  upsert?: Prisma.ResponseUpsertWithWhereUniqueWithoutParticipantInput | Prisma.ResponseUpsertWithWhereUniqueWithoutParticipantInput[]
   createMany?: Prisma.ResponseCreateManyParticipantInputEnvelope
-  set?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
-  disconnect?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
-  delete?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
   connect?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
-  update?: Prisma.ResponseUpdateWithWhereUniqueWithoutParticipantInput | Prisma.ResponseUpdateWithWhereUniqueWithoutParticipantInput[]
-  updateMany?: Prisma.ResponseUpdateManyWithWhereWithoutParticipantInput | Prisma.ResponseUpdateManyWithWhereWithoutParticipantInput[]
-  deleteMany?: Prisma.ResponseScalarWhereInput | Prisma.ResponseScalarWhereInput[]
 }
 
 export type ResponseUpdateManyWithoutCollectorNestedInput = {
@@ -441,7 +427,7 @@ export type ResponseUpdateManyWithoutCollectorNestedInput = {
   deleteMany?: Prisma.ResponseScalarWhereInput | Prisma.ResponseScalarWhereInput[]
 }
 
-export type ResponseUncheckedUpdateManyWithoutParticipantNestedInput = {
+export type ResponseUpdateManyWithoutParticipantNestedInput = {
   create?: Prisma.XOR<Prisma.ResponseCreateWithoutParticipantInput, Prisma.ResponseUncheckedCreateWithoutParticipantInput> | Prisma.ResponseCreateWithoutParticipantInput[] | Prisma.ResponseUncheckedCreateWithoutParticipantInput[]
   connectOrCreate?: Prisma.ResponseCreateOrConnectWithoutParticipantInput | Prisma.ResponseCreateOrConnectWithoutParticipantInput[]
   upsert?: Prisma.ResponseUpsertWithWhereUniqueWithoutParticipantInput | Prisma.ResponseUpsertWithWhereUniqueWithoutParticipantInput[]
@@ -466,6 +452,20 @@ export type ResponseUncheckedUpdateManyWithoutCollectorNestedInput = {
   connect?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
   update?: Prisma.ResponseUpdateWithWhereUniqueWithoutCollectorInput | Prisma.ResponseUpdateWithWhereUniqueWithoutCollectorInput[]
   updateMany?: Prisma.ResponseUpdateManyWithWhereWithoutCollectorInput | Prisma.ResponseUpdateManyWithWhereWithoutCollectorInput[]
+  deleteMany?: Prisma.ResponseScalarWhereInput | Prisma.ResponseScalarWhereInput[]
+}
+
+export type ResponseUncheckedUpdateManyWithoutParticipantNestedInput = {
+  create?: Prisma.XOR<Prisma.ResponseCreateWithoutParticipantInput, Prisma.ResponseUncheckedCreateWithoutParticipantInput> | Prisma.ResponseCreateWithoutParticipantInput[] | Prisma.ResponseUncheckedCreateWithoutParticipantInput[]
+  connectOrCreate?: Prisma.ResponseCreateOrConnectWithoutParticipantInput | Prisma.ResponseCreateOrConnectWithoutParticipantInput[]
+  upsert?: Prisma.ResponseUpsertWithWhereUniqueWithoutParticipantInput | Prisma.ResponseUpsertWithWhereUniqueWithoutParticipantInput[]
+  createMany?: Prisma.ResponseCreateManyParticipantInputEnvelope
+  set?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
+  disconnect?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
+  delete?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
+  connect?: Prisma.ResponseWhereUniqueInput | Prisma.ResponseWhereUniqueInput[]
+  update?: Prisma.ResponseUpdateWithWhereUniqueWithoutParticipantInput | Prisma.ResponseUpdateWithWhereUniqueWithoutParticipantInput[]
+  updateMany?: Prisma.ResponseUpdateManyWithWhereWithoutParticipantInput | Prisma.ResponseUpdateManyWithWhereWithoutParticipantInput[]
   deleteMany?: Prisma.ResponseScalarWhereInput | Prisma.ResponseScalarWhereInput[]
 }
 
@@ -571,44 +571,14 @@ export type ResponseUncheckedUpdateManyWithoutSessionNestedInput = {
   deleteMany?: Prisma.ResponseScalarWhereInput | Prisma.ResponseScalarWhereInput[]
 }
 
-export type ResponseCreateWithoutParticipantInput = {
-  id?: string
-  submittedAt?: Date | string
-  collectionMethod?: $Enums.CollectionMethod
-  answers?: Prisma.AnswerCreateNestedManyWithoutResponseInput
-  study: Prisma.StudyCreateNestedOneWithoutResponsesInput
-  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
-  session?: Prisma.CollectionSessionCreateNestedOneWithoutResponsesInput
-}
-
-export type ResponseUncheckedCreateWithoutParticipantInput = {
-  id?: string
-  studyId: string
-  submittedAt?: Date | string
-  collectionMethod?: $Enums.CollectionMethod
-  collectorId?: string | null
-  collectionSessionId?: string | null
-  answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutResponseInput
-}
-
-export type ResponseCreateOrConnectWithoutParticipantInput = {
-  where: Prisma.ResponseWhereUniqueInput
-  create: Prisma.XOR<Prisma.ResponseCreateWithoutParticipantInput, Prisma.ResponseUncheckedCreateWithoutParticipantInput>
-}
-
-export type ResponseCreateManyParticipantInputEnvelope = {
-  data: Prisma.ResponseCreateManyParticipantInput | Prisma.ResponseCreateManyParticipantInput[]
-  skipDuplicates?: boolean
-}
-
 export type ResponseCreateWithoutCollectorInput = {
   id?: string
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   answers?: Prisma.AnswerCreateNestedManyWithoutResponseInput
+  session?: Prisma.CollectionSessionCreateNestedOneWithoutResponsesInput
   participant: Prisma.UserCreateNestedOneWithoutResponsesInput
   study: Prisma.StudyCreateNestedOneWithoutResponsesInput
-  session?: Prisma.CollectionSessionCreateNestedOneWithoutResponsesInput
 }
 
 export type ResponseUncheckedCreateWithoutCollectorInput = {
@@ -631,33 +601,34 @@ export type ResponseCreateManyCollectorInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type ResponseUpsertWithWhereUniqueWithoutParticipantInput = {
+export type ResponseCreateWithoutParticipantInput = {
+  id?: string
+  submittedAt?: Date | string
+  collectionMethod?: $Enums.CollectionMethod
+  answers?: Prisma.AnswerCreateNestedManyWithoutResponseInput
+  session?: Prisma.CollectionSessionCreateNestedOneWithoutResponsesInput
+  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
+  study: Prisma.StudyCreateNestedOneWithoutResponsesInput
+}
+
+export type ResponseUncheckedCreateWithoutParticipantInput = {
+  id?: string
+  studyId: string
+  submittedAt?: Date | string
+  collectionMethod?: $Enums.CollectionMethod
+  collectorId?: string | null
+  collectionSessionId?: string | null
+  answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutResponseInput
+}
+
+export type ResponseCreateOrConnectWithoutParticipantInput = {
   where: Prisma.ResponseWhereUniqueInput
-  update: Prisma.XOR<Prisma.ResponseUpdateWithoutParticipantInput, Prisma.ResponseUncheckedUpdateWithoutParticipantInput>
   create: Prisma.XOR<Prisma.ResponseCreateWithoutParticipantInput, Prisma.ResponseUncheckedCreateWithoutParticipantInput>
 }
 
-export type ResponseUpdateWithWhereUniqueWithoutParticipantInput = {
-  where: Prisma.ResponseWhereUniqueInput
-  data: Prisma.XOR<Prisma.ResponseUpdateWithoutParticipantInput, Prisma.ResponseUncheckedUpdateWithoutParticipantInput>
-}
-
-export type ResponseUpdateManyWithWhereWithoutParticipantInput = {
-  where: Prisma.ResponseScalarWhereInput
-  data: Prisma.XOR<Prisma.ResponseUpdateManyMutationInput, Prisma.ResponseUncheckedUpdateManyWithoutParticipantInput>
-}
-
-export type ResponseScalarWhereInput = {
-  AND?: Prisma.ResponseScalarWhereInput | Prisma.ResponseScalarWhereInput[]
-  OR?: Prisma.ResponseScalarWhereInput[]
-  NOT?: Prisma.ResponseScalarWhereInput | Prisma.ResponseScalarWhereInput[]
-  id?: Prisma.StringFilter<"Response"> | string
-  studyId?: Prisma.StringFilter<"Response"> | string
-  participantId?: Prisma.StringFilter<"Response"> | string
-  submittedAt?: Prisma.DateTimeFilter<"Response"> | Date | string
-  collectionMethod?: Prisma.EnumCollectionMethodFilter<"Response"> | $Enums.CollectionMethod
-  collectorId?: Prisma.StringNullableFilter<"Response"> | string | null
-  collectionSessionId?: Prisma.StringNullableFilter<"Response"> | string | null
+export type ResponseCreateManyParticipantInputEnvelope = {
+  data: Prisma.ResponseCreateManyParticipantInput | Prisma.ResponseCreateManyParticipantInput[]
+  skipDuplicates?: boolean
 }
 
 export type ResponseUpsertWithWhereUniqueWithoutCollectorInput = {
@@ -676,14 +647,43 @@ export type ResponseUpdateManyWithWhereWithoutCollectorInput = {
   data: Prisma.XOR<Prisma.ResponseUpdateManyMutationInput, Prisma.ResponseUncheckedUpdateManyWithoutCollectorInput>
 }
 
+export type ResponseScalarWhereInput = {
+  AND?: Prisma.ResponseScalarWhereInput | Prisma.ResponseScalarWhereInput[]
+  OR?: Prisma.ResponseScalarWhereInput[]
+  NOT?: Prisma.ResponseScalarWhereInput | Prisma.ResponseScalarWhereInput[]
+  id?: Prisma.StringFilter<"Response"> | string
+  studyId?: Prisma.StringFilter<"Response"> | string
+  participantId?: Prisma.StringFilter<"Response"> | string
+  submittedAt?: Prisma.DateTimeFilter<"Response"> | Date | string
+  collectionMethod?: Prisma.EnumCollectionMethodFilter<"Response"> | $Enums.CollectionMethod
+  collectorId?: Prisma.StringNullableFilter<"Response"> | string | null
+  collectionSessionId?: Prisma.StringNullableFilter<"Response"> | string | null
+}
+
+export type ResponseUpsertWithWhereUniqueWithoutParticipantInput = {
+  where: Prisma.ResponseWhereUniqueInput
+  update: Prisma.XOR<Prisma.ResponseUpdateWithoutParticipantInput, Prisma.ResponseUncheckedUpdateWithoutParticipantInput>
+  create: Prisma.XOR<Prisma.ResponseCreateWithoutParticipantInput, Prisma.ResponseUncheckedCreateWithoutParticipantInput>
+}
+
+export type ResponseUpdateWithWhereUniqueWithoutParticipantInput = {
+  where: Prisma.ResponseWhereUniqueInput
+  data: Prisma.XOR<Prisma.ResponseUpdateWithoutParticipantInput, Prisma.ResponseUncheckedUpdateWithoutParticipantInput>
+}
+
+export type ResponseUpdateManyWithWhereWithoutParticipantInput = {
+  where: Prisma.ResponseScalarWhereInput
+  data: Prisma.XOR<Prisma.ResponseUpdateManyMutationInput, Prisma.ResponseUncheckedUpdateManyWithoutParticipantInput>
+}
+
 export type ResponseCreateWithoutStudyInput = {
   id?: string
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   answers?: Prisma.AnswerCreateNestedManyWithoutResponseInput
-  participant: Prisma.UserCreateNestedOneWithoutResponsesInput
-  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
   session?: Prisma.CollectionSessionCreateNestedOneWithoutResponsesInput
+  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
+  participant: Prisma.UserCreateNestedOneWithoutResponsesInput
 }
 
 export type ResponseUncheckedCreateWithoutStudyInput = {
@@ -726,10 +726,10 @@ export type ResponseCreateWithoutAnswersInput = {
   id?: string
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
+  session?: Prisma.CollectionSessionCreateNestedOneWithoutResponsesInput
+  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
   participant: Prisma.UserCreateNestedOneWithoutResponsesInput
   study: Prisma.StudyCreateNestedOneWithoutResponsesInput
-  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
-  session?: Prisma.CollectionSessionCreateNestedOneWithoutResponsesInput
 }
 
 export type ResponseUncheckedCreateWithoutAnswersInput = {
@@ -762,10 +762,10 @@ export type ResponseUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
+  session?: Prisma.CollectionSessionUpdateOneWithoutResponsesNestedInput
+  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
   participant?: Prisma.UserUpdateOneRequiredWithoutResponsesNestedInput
   study?: Prisma.StudyUpdateOneRequiredWithoutResponsesNestedInput
-  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
-  session?: Prisma.CollectionSessionUpdateOneWithoutResponsesNestedInput
 }
 
 export type ResponseUncheckedUpdateWithoutAnswersInput = {
@@ -783,9 +783,9 @@ export type ResponseCreateWithoutSessionInput = {
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   answers?: Prisma.AnswerCreateNestedManyWithoutResponseInput
+  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
   participant: Prisma.UserCreateNestedOneWithoutResponsesInput
   study: Prisma.StudyCreateNestedOneWithoutResponsesInput
-  collector?: Prisma.UserCreateNestedOneWithoutCollectedResponsesInput
 }
 
 export type ResponseUncheckedCreateWithoutSessionInput = {
@@ -824,15 +824,6 @@ export type ResponseUpdateManyWithWhereWithoutSessionInput = {
   data: Prisma.XOR<Prisma.ResponseUpdateManyMutationInput, Prisma.ResponseUncheckedUpdateManyWithoutSessionInput>
 }
 
-export type ResponseCreateManyParticipantInput = {
-  id?: string
-  studyId: string
-  submittedAt?: Date | string
-  collectionMethod?: $Enums.CollectionMethod
-  collectorId?: string | null
-  collectionSessionId?: string | null
-}
-
 export type ResponseCreateManyCollectorInput = {
   id?: string
   studyId: string
@@ -842,33 +833,13 @@ export type ResponseCreateManyCollectorInput = {
   collectionSessionId?: string | null
 }
 
-export type ResponseUpdateWithoutParticipantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
-  answers?: Prisma.AnswerUpdateManyWithoutResponseNestedInput
-  study?: Prisma.StudyUpdateOneRequiredWithoutResponsesNestedInput
-  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
-  session?: Prisma.CollectionSessionUpdateOneWithoutResponsesNestedInput
-}
-
-export type ResponseUncheckedUpdateWithoutParticipantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  studyId?: Prisma.StringFieldUpdateOperationsInput | string
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
-  collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  collectionSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  answers?: Prisma.AnswerUncheckedUpdateManyWithoutResponseNestedInput
-}
-
-export type ResponseUncheckedUpdateManyWithoutParticipantInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  studyId?: Prisma.StringFieldUpdateOperationsInput | string
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
-  collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  collectionSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+export type ResponseCreateManyParticipantInput = {
+  id?: string
+  studyId: string
+  submittedAt?: Date | string
+  collectionMethod?: $Enums.CollectionMethod
+  collectorId?: string | null
+  collectionSessionId?: string | null
 }
 
 export type ResponseUpdateWithoutCollectorInput = {
@@ -876,9 +847,9 @@ export type ResponseUpdateWithoutCollectorInput = {
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   answers?: Prisma.AnswerUpdateManyWithoutResponseNestedInput
+  session?: Prisma.CollectionSessionUpdateOneWithoutResponsesNestedInput
   participant?: Prisma.UserUpdateOneRequiredWithoutResponsesNestedInput
   study?: Prisma.StudyUpdateOneRequiredWithoutResponsesNestedInput
-  session?: Prisma.CollectionSessionUpdateOneWithoutResponsesNestedInput
 }
 
 export type ResponseUncheckedUpdateWithoutCollectorInput = {
@@ -900,6 +871,35 @@ export type ResponseUncheckedUpdateManyWithoutCollectorInput = {
   collectionSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
+export type ResponseUpdateWithoutParticipantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
+  answers?: Prisma.AnswerUpdateManyWithoutResponseNestedInput
+  session?: Prisma.CollectionSessionUpdateOneWithoutResponsesNestedInput
+  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
+  study?: Prisma.StudyUpdateOneRequiredWithoutResponsesNestedInput
+}
+
+export type ResponseUncheckedUpdateWithoutParticipantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
+  collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  collectionSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answers?: Prisma.AnswerUncheckedUpdateManyWithoutResponseNestedInput
+}
+
+export type ResponseUncheckedUpdateManyWithoutParticipantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
+  collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  collectionSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 export type ResponseCreateManyStudyInput = {
   id?: string
   participantId: string
@@ -914,9 +914,9 @@ export type ResponseUpdateWithoutStudyInput = {
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   answers?: Prisma.AnswerUpdateManyWithoutResponseNestedInput
-  participant?: Prisma.UserUpdateOneRequiredWithoutResponsesNestedInput
-  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
   session?: Prisma.CollectionSessionUpdateOneWithoutResponsesNestedInput
+  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
+  participant?: Prisma.UserUpdateOneRequiredWithoutResponsesNestedInput
 }
 
 export type ResponseUncheckedUpdateWithoutStudyInput = {
@@ -952,9 +952,9 @@ export type ResponseUpdateWithoutSessionInput = {
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   answers?: Prisma.AnswerUpdateManyWithoutResponseNestedInput
+  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
   participant?: Prisma.UserUpdateOneRequiredWithoutResponsesNestedInput
   study?: Prisma.StudyUpdateOneRequiredWithoutResponsesNestedInput
-  collector?: Prisma.UserUpdateOneWithoutCollectedResponsesNestedInput
 }
 
 export type ResponseUncheckedUpdateWithoutSessionInput = {
@@ -1016,10 +1016,10 @@ export type ResponseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   collectorId?: boolean
   collectionSessionId?: boolean
   answers?: boolean | Prisma.Response$answersArgs<ExtArgs>
+  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
+  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
   participant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
-  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
   _count?: boolean | Prisma.ResponseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["response"]>
 
@@ -1031,10 +1031,10 @@ export type ResponseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   collectionMethod?: boolean
   collectorId?: boolean
   collectionSessionId?: boolean
+  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
+  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
   participant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
-  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
 }, ExtArgs["result"]["response"]>
 
 export type ResponseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1045,10 +1045,10 @@ export type ResponseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   collectionMethod?: boolean
   collectorId?: boolean
   collectionSessionId?: boolean
+  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
+  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
   participant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
-  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
 }, ExtArgs["result"]["response"]>
 
 export type ResponseSelectScalar = {
@@ -1064,33 +1064,33 @@ export type ResponseSelectScalar = {
 export type ResponseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studyId" | "participantId" | "submittedAt" | "collectionMethod" | "collectorId" | "collectionSessionId", ExtArgs["result"]["response"]>
 export type ResponseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   answers?: boolean | Prisma.Response$answersArgs<ExtArgs>
+  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
+  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
   participant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
-  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
   _count?: boolean | Prisma.ResponseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ResponseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
+  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
   participant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
-  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
 }
 export type ResponseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
+  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
   participant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  collector?: boolean | Prisma.Response$collectorArgs<ExtArgs>
-  session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
 }
 
 export type $ResponsePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Response"
   objects: {
     answers: Prisma.$AnswerPayload<ExtArgs>[]
+    session: Prisma.$CollectionSessionPayload<ExtArgs> | null
+    collector: Prisma.$UserPayload<ExtArgs> | null
     participant: Prisma.$UserPayload<ExtArgs>
     study: Prisma.$StudyPayload<ExtArgs>
-    collector: Prisma.$UserPayload<ExtArgs> | null
-    session: Prisma.$CollectionSessionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1495,10 +1495,10 @@ readonly fields: ResponseFieldRefs;
 export interface Prisma__ResponseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   answers<T extends Prisma.Response$answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Response$answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  session<T extends Prisma.Response$sessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Response$sessionArgs<ExtArgs>>): Prisma.Prisma__CollectionSessionClient<runtime.Types.Result.GetResult<Prisma.$CollectionSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  collector<T extends Prisma.Response$collectorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Response$collectorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   participant<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   study<T extends Prisma.StudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyDefaultArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  collector<T extends Prisma.Response$collectorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Response$collectorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  session<T extends Prisma.Response$sessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Response$sessionArgs<ExtArgs>>): Prisma.Prisma__CollectionSessionClient<runtime.Types.Result.GetResult<Prisma.$CollectionSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1960,25 +1960,6 @@ export type Response$answersArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Response.collector
- */
-export type Response$collectorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
-}
-
-/**
  * Response.session
  */
 export type Response$sessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1995,6 +1976,25 @@ export type Response$sessionArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   include?: Prisma.CollectionSessionInclude<ExtArgs> | null
   where?: Prisma.CollectionSessionWhereInput
+}
+
+/**
+ * Response.collector
+ */
+export type Response$collectorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

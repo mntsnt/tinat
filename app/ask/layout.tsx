@@ -5,7 +5,7 @@ import { prisma } from "../../lib/prisma";
 import { Sidebar } from "../components/layout/Sidebar";
 import { getLinksForUser } from "../components/layout/navLinks";
 
-export default async function ProjectsLayout({ children }: { children: ReactNode }) {
+export default async function AskLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
 
   if (!session) {
@@ -17,20 +17,31 @@ export default async function ProjectsLayout({ children }: { children: ReactNode
     select: { role: true, name: true, email: true },
   });
 
-  if (!user || user.role !== "RESEARCHER") {
-    redirect("/dashboard");
+  if (!user) {
+    redirect("/login");
   }
 
   const links = getLinksForUser(user);
+
+  let roleTitle = "Participant";
+  let roleColor: "participant" | "researcher" | "admin" = "participant";
+
+  if (user.role === "RESEARCHER") {
+    roleTitle = "Researcher";
+    roleColor = "researcher";
+  } else if (user.role === "ADMIN") {
+    roleTitle = "Admin";
+    roleColor = "admin";
+  }
 
   return (
     <div className="flex flex-col md:flex-row h-screen overflow-hidden">
       <Sidebar
         links={links}
-        roleTitle="Researcher"
+        roleTitle={roleTitle}
         userName={user.name}
         userEmail={user.email}
-        roleColor="researcher"
+        roleColor={roleColor}
       />
       <main className="flex-1 overflow-y-auto bg-muted/10">
         {children}

@@ -190,8 +190,8 @@ export type CollectionSessionWhereInput = {
   startTime?: Prisma.DateTimeFilter<"CollectionSession"> | Date | string
   endTime?: Prisma.DateTimeNullableFilter<"CollectionSession"> | Date | string | null
   status?: Prisma.EnumSessionStatusFilter<"CollectionSession"> | $Enums.SessionStatus
-  study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   collector?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   responses?: Prisma.ResponseListRelationFilter
 }
 
@@ -202,8 +202,8 @@ export type CollectionSessionOrderByWithRelationInput = {
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  study?: Prisma.StudyOrderByWithRelationInput
   collector?: Prisma.UserOrderByWithRelationInput
+  study?: Prisma.StudyOrderByWithRelationInput
   responses?: Prisma.ResponseOrderByRelationAggregateInput
 }
 
@@ -217,8 +217,8 @@ export type CollectionSessionWhereUniqueInput = Prisma.AtLeast<{
   startTime?: Prisma.DateTimeFilter<"CollectionSession"> | Date | string
   endTime?: Prisma.DateTimeNullableFilter<"CollectionSession"> | Date | string | null
   status?: Prisma.EnumSessionStatusFilter<"CollectionSession"> | $Enums.SessionStatus
-  study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   collector?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   responses?: Prisma.ResponseListRelationFilter
 }, "id">
 
@@ -251,8 +251,8 @@ export type CollectionSessionCreateInput = {
   startTime?: Date | string
   endTime?: Date | string | null
   status?: $Enums.SessionStatus
-  study: Prisma.StudyCreateNestedOneWithoutCollectionSessionsInput
   collector: Prisma.UserCreateNestedOneWithoutCollectionSessionsInput
+  study: Prisma.StudyCreateNestedOneWithoutCollectionSessionsInput
   responses?: Prisma.ResponseCreateNestedManyWithoutSessionInput
 }
 
@@ -271,8 +271,8 @@ export type CollectionSessionUpdateInput = {
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
-  study?: Prisma.StudyUpdateOneRequiredWithoutCollectionSessionsNestedInput
   collector?: Prisma.UserUpdateOneRequiredWithoutCollectionSessionsNestedInput
+  study?: Prisma.StudyUpdateOneRequiredWithoutCollectionSessionsNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutSessionNestedInput
 }
 
@@ -562,8 +562,8 @@ export type CollectionSessionCreateWithoutResponsesInput = {
   startTime?: Date | string
   endTime?: Date | string | null
   status?: $Enums.SessionStatus
-  study: Prisma.StudyCreateNestedOneWithoutCollectionSessionsInput
   collector: Prisma.UserCreateNestedOneWithoutCollectionSessionsInput
+  study: Prisma.StudyCreateNestedOneWithoutCollectionSessionsInput
 }
 
 export type CollectionSessionUncheckedCreateWithoutResponsesInput = {
@@ -596,8 +596,8 @@ export type CollectionSessionUpdateWithoutResponsesInput = {
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumSessionStatusFieldUpdateOperationsInput | $Enums.SessionStatus
-  study?: Prisma.StudyUpdateOneRequiredWithoutCollectionSessionsNestedInput
   collector?: Prisma.UserUpdateOneRequiredWithoutCollectionSessionsNestedInput
+  study?: Prisma.StudyUpdateOneRequiredWithoutCollectionSessionsNestedInput
 }
 
 export type CollectionSessionUncheckedUpdateWithoutResponsesInput = {
@@ -715,8 +715,8 @@ export type CollectionSessionSelect<ExtArgs extends runtime.Types.Extensions.Int
   startTime?: boolean
   endTime?: boolean
   status?: boolean
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   collector?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   responses?: boolean | Prisma.CollectionSession$responsesArgs<ExtArgs>
   _count?: boolean | Prisma.CollectionSessionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["collectionSession"]>
@@ -728,8 +728,8 @@ export type CollectionSessionSelectCreateManyAndReturn<ExtArgs extends runtime.T
   startTime?: boolean
   endTime?: boolean
   status?: boolean
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   collector?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["collectionSession"]>
 
 export type CollectionSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -739,8 +739,8 @@ export type CollectionSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   startTime?: boolean
   endTime?: boolean
   status?: boolean
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   collector?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["collectionSession"]>
 
 export type CollectionSessionSelectScalar = {
@@ -754,25 +754,25 @@ export type CollectionSessionSelectScalar = {
 
 export type CollectionSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studyId" | "collectorId" | "startTime" | "endTime" | "status", ExtArgs["result"]["collectionSession"]>
 export type CollectionSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   collector?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   responses?: boolean | Prisma.CollectionSession$responsesArgs<ExtArgs>
   _count?: boolean | Prisma.CollectionSessionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CollectionSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   collector?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }
 export type CollectionSessionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   collector?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
 }
 
 export type $CollectionSessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CollectionSession"
   objects: {
-    study: Prisma.$StudyPayload<ExtArgs>
     collector: Prisma.$UserPayload<ExtArgs>
+    study: Prisma.$StudyPayload<ExtArgs>
     responses: Prisma.$ResponsePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1176,8 +1176,8 @@ readonly fields: CollectionSessionFieldRefs;
  */
 export interface Prisma__CollectionSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  study<T extends Prisma.StudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyDefaultArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   collector<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  study<T extends Prisma.StudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyDefaultArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   responses<T extends Prisma.CollectionSession$responsesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CollectionSession$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

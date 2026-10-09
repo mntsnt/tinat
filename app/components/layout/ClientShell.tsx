@@ -6,7 +6,7 @@ import { IntroAnimation } from "../ui/IntroAnimation";
 
 // Routes that use their own full shell (sidebar + internal nav).
 // The global Navbar and Footer must NOT render inside these.
-const DASHBOARD_PREFIXES = ["/admin", "/participant", "/researcher", "/collector"];
+const DASHBOARD_PREFIXES = ["/admin", "/participant", "/researcher", "/collector", "/projects", "/ask"];
 
 interface ClientShellProps {
   navbar: ReactNode;

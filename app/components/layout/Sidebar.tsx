@@ -4,12 +4,12 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "../../../lib/utils";
-import { Menu, X, LogOut, ChevronRight } from "lucide-react";
+import { Menu, X, LogOut, ChevronRight, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 export type SidebarLink = {
   title: string;
   href: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
 };
 
 interface SidebarProps {
@@ -31,9 +31,24 @@ export function Sidebar({
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("tinat_sidebar_collapsed");
+    if (stored === "true") setIsCollapsed(true);
+  }, []);
+
+  const toggleCollapse = () => {
+    setIsCollapsed(prev => {
+      const next = !prev;
+      localStorage.setItem("tinat_sidebar_collapsed", String(next));
+      return next;
+    });
+  };
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  
   const roleColors = {
     participant: {
       badge: "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300",
@@ -86,7 +101,9 @@ export function Sidebar({
     .toUpperCase()
     .slice(0, 2);
 
-  function renderNavLinks() {
+  function renderNavLinks(mobile = false) {
+    const collapsed = !mobile && isCollapsed;
+    
     return (
     <nav className="flex-1 space-y-0.5 overflow-y-auto px-2.5 py-3">
       {links.map((link) => {
@@ -102,9 +119,11 @@ export function Sidebar({
           <Link
             key={link.href}
             href={link.href}
+            title={collapsed ? link.title : undefined}
             onClick={() => setMobileOpen(false)}
             className={cn(
-              "group flex min-h-9 items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-colors active:scale-[0.99]",
+              "group flex min-h-9 items-center rounded-md px-2.5 py-2 text-[13px] font-medium transition-all active:scale-[0.99]",
+              collapsed ? "justify-center gap-0" : "gap-2.5",
               isActive
                 ? colors.active
                 : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
@@ -112,15 +131,17 @@ export function Sidebar({
           >
             <span
               className={cn(
-                "flex-shrink-0 w-5 h-5 [&>svg]:w-4 [&>svg]:h-4",
+                "flex-shrink-0 w-5 h-5 [&>svg]:w-4 [&>svg]:h-4 flex items-center justify-center",
                 isActive ? "" : "opacity-70 group-hover:opacity-100"
               )}
             >
               {link.icon}
             </span>
-            <span className="flex-1">{link.title}</span>
-            {isActive && (
-              <ChevronRight className="w-3.5 h-3.5 opacity-60" />
+            {!collapsed && (
+              <>
+                <span className="flex-1">{link.title}</span>
+                {isActive && <ChevronRight className="w-3.5 h-3.5 opacity-60" />}
+              </>
             )}
           </Link>
         );
@@ -129,55 +150,90 @@ export function Sidebar({
     );
   }
 
-  function renderUserFooter() {
+  function renderUserFooter(mobile = false) {
+    const collapsed = !mobile && isCollapsed;
+    
     return (
-    <div className="border-t border-border p-2.5">
-      <div className="flex items-center gap-2.5 rounded-md px-2 py-2">
-        <div
-          className={cn(
-            "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold",
-            colors.avatar
-          )}
-        >
-          {initials}
+    <div className="border-t border-border p-2.5 space-y-1">
+      {!collapsed && (
+        <div className="flex items-center gap-2.5 rounded-md px-2 py-2">
+          <div
+            className={cn(
+              "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold",
+              colors.avatar
+            )}
+          >
+            {initials}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="truncate text-[13px] font-semibold text-foreground">{userName}</p>
+            {userEmail && (
+              <p className="text-xs text-muted-foreground truncate">{userEmail}</p>
+            )}
+          </div>
         </div>
-        <div className="flex-1 min-w-0">
-          <p className="truncate text-[13px] font-semibold text-foreground">{userName}</p>
-          {userEmail && (
-            <p className="text-xs text-muted-foreground truncate">{userEmail}</p>
-          )}
+      )}
+      
+      {collapsed && (
+        <div className="flex justify-center py-2">
+          <div className={cn("flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold", colors.avatar)}>
+            {initials}
+          </div>
         </div>
-      </div>
+      )}
+
       <button
         onClick={handleLogout}
         disabled={loggingOut}
-        className="mt-1 flex min-h-9 w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive active:scale-[0.99] disabled:opacity-60"
+        title={collapsed ? "Log out" : undefined}
+        className={cn(
+          "flex min-h-9 items-center rounded-md px-2.5 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive active:scale-[0.99] disabled:opacity-60",
+          collapsed ? "justify-center w-full" : "gap-2.5 w-full"
+        )}
       >
         <LogOut className="w-4 h-4 flex-shrink-0" />
-        {loggingOut ? "Logging out…" : "Log out"}
+        {!collapsed && <span>{loggingOut ? "Logging out..." : "Log out"}</span>}
       </button>
+      
+      {!mobile && (
+        <button
+          onClick={toggleCollapse}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          className={cn(
+            "flex min-h-9 items-center rounded-md px-2.5 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-muted active:scale-[0.99] w-full",
+            collapsed ? "justify-center" : "gap-2.5"
+          )}
+        >
+          {collapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
+          {!collapsed && <span>Collapse</span>}
+        </button>
+      )}
     </div>
     );
   }
 
-  function renderSidebarHeader() {
+  function renderSidebarHeader(mobile = false) {
+    const collapsed = !mobile && isCollapsed;
+    
     return (
-    <div className="border-b border-border px-3.5 py-3">
-      <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-80">
+    <div className={cn("border-b border-border py-3 flex items-center", collapsed ? "px-0 justify-center h-16" : "px-3.5 h-16")}>
+      <Link href="/" className={cn("flex items-center transition-opacity hover:opacity-80", collapsed ? "justify-center" : "gap-2.5")}>
         <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-foreground text-xs font-bold text-background">
           T
         </div>
-        <div>
-          <p className="text-sm font-bold text-foreground leading-tight">Tinat</p>
-          <span
-            className={cn(
-              "mt-1 inline-flex rounded px-1.5 py-0.5 text-[10px] font-semibold",
-              colors.badge
-            )}
-          >
-            {roleTitle}
-          </span>
-        </div>
+        {!collapsed && (
+          <div>
+            <p className="text-sm font-bold text-foreground leading-tight">Tinat</p>
+            <span
+              className={cn(
+                "mt-0.5 inline-flex rounded px-1.5 py-0.5 text-[10px] font-semibold",
+                colors.badge
+              )}
+            >
+              {roleTitle}
+            </span>
+          </div>
+        )}
       </Link>
     </div>
     );
@@ -185,14 +241,17 @@ export function Sidebar({
 
   return (
     <>
-      {/* ── Desktop Sidebar ─────────────────────────────── */}
-      <aside className="hidden min-h-screen w-56 shrink-0 flex-col border-r border-border bg-card/70 md:flex">
+      {/* Desktop Sidebar */}
+      <aside className={cn(
+        "hidden min-h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex transition-all duration-300 ease-in-out",
+        isCollapsed ? "w-16" : "w-56"
+      )}>
         {renderSidebarHeader()}
         {renderNavLinks()}
         {renderUserFooter()}
       </aside>
 
-      {/* ── Mobile Top Bar ──────────────────────────────── */}
+      {/* Mobile Top Bar */}
       <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black font-bold text-white text-xs shadow-sm">
@@ -214,7 +273,7 @@ export function Sidebar({
         </button>
       </div>
 
-      {/* ── Mobile Drawer Overlay ───────────────────────── */}
+      {/* Mobile Drawer Overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 flex md:hidden">
           {/* Backdrop */}
@@ -246,15 +305,11 @@ export function Sidebar({
                 <X className="w-5 h-5" />
               </button>
             </div>
-            {renderNavLinks()}
-            {renderUserFooter()}
+            {renderNavLinks(true)}
+            {renderUserFooter(true)}
           </div>
         </div>
       )}
     </>
   );
 }
-
-
-
-

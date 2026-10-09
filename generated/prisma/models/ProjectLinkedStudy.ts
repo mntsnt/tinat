@@ -190,9 +190,9 @@ export type ProjectLinkedStudyWhereInput = {
   linkedById?: Prisma.StringFilter<"ProjectLinkedStudy"> | string
   notes?: Prisma.StringNullableFilter<"ProjectLinkedStudy"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectLinkedStudy"> | Date | string
+  linkedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
-  linkedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ProjectLinkedStudyOrderByWithRelationInput = {
@@ -202,9 +202,9 @@ export type ProjectLinkedStudyOrderByWithRelationInput = {
   linkedById?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  linkedBy?: Prisma.UserOrderByWithRelationInput
   project?: Prisma.ResearchProjectOrderByWithRelationInput
   study?: Prisma.StudyOrderByWithRelationInput
-  linkedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ProjectLinkedStudyWhereUniqueInput = Prisma.AtLeast<{
@@ -218,9 +218,9 @@ export type ProjectLinkedStudyWhereUniqueInput = Prisma.AtLeast<{
   linkedById?: Prisma.StringFilter<"ProjectLinkedStudy"> | string
   notes?: Prisma.StringNullableFilter<"ProjectLinkedStudy"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectLinkedStudy"> | Date | string
+  linkedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
-  linkedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "projectId_studyId">
 
 export type ProjectLinkedStudyOrderByWithAggregationInput = {
@@ -251,9 +251,9 @@ export type ProjectLinkedStudyCreateInput = {
   id?: string
   notes?: string | null
   createdAt?: Date | string
+  linkedBy: Prisma.UserCreateNestedOneWithoutLinkedProjectStudiesInput
   project: Prisma.ResearchProjectCreateNestedOneWithoutLinkedStudiesInput
   study: Prisma.StudyCreateNestedOneWithoutLinkedProjectsInput
-  linkedBy: Prisma.UserCreateNestedOneWithoutLinkedProjectStudiesInput
 }
 
 export type ProjectLinkedStudyUncheckedCreateInput = {
@@ -269,9 +269,9 @@ export type ProjectLinkedStudyUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  linkedBy?: Prisma.UserUpdateOneRequiredWithoutLinkedProjectStudiesNestedInput
   project?: Prisma.ResearchProjectUpdateOneRequiredWithoutLinkedStudiesNestedInput
   study?: Prisma.StudyUpdateOneRequiredWithoutLinkedProjectsNestedInput
-  linkedBy?: Prisma.UserUpdateOneRequiredWithoutLinkedProjectStudiesNestedInput
 }
 
 export type ProjectLinkedStudyUncheckedUpdateInput = {
@@ -533,8 +533,8 @@ export type ProjectLinkedStudyCreateWithoutStudyInput = {
   id?: string
   notes?: string | null
   createdAt?: Date | string
-  project: Prisma.ResearchProjectCreateNestedOneWithoutLinkedStudiesInput
   linkedBy: Prisma.UserCreateNestedOneWithoutLinkedProjectStudiesInput
+  project: Prisma.ResearchProjectCreateNestedOneWithoutLinkedStudiesInput
 }
 
 export type ProjectLinkedStudyUncheckedCreateWithoutStudyInput = {
@@ -575,8 +575,8 @@ export type ProjectLinkedStudyCreateWithoutProjectInput = {
   id?: string
   notes?: string | null
   createdAt?: Date | string
-  study: Prisma.StudyCreateNestedOneWithoutLinkedProjectsInput
   linkedBy: Prisma.UserCreateNestedOneWithoutLinkedProjectStudiesInput
+  study: Prisma.StudyCreateNestedOneWithoutLinkedProjectsInput
 }
 
 export type ProjectLinkedStudyUncheckedCreateWithoutProjectInput = {
@@ -657,8 +657,8 @@ export type ProjectLinkedStudyUpdateWithoutStudyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutLinkedStudiesNestedInput
   linkedBy?: Prisma.UserUpdateOneRequiredWithoutLinkedProjectStudiesNestedInput
+  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutLinkedStudiesNestedInput
 }
 
 export type ProjectLinkedStudyUncheckedUpdateWithoutStudyInput = {
@@ -689,8 +689,8 @@ export type ProjectLinkedStudyUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  study?: Prisma.StudyUpdateOneRequiredWithoutLinkedProjectsNestedInput
   linkedBy?: Prisma.UserUpdateOneRequiredWithoutLinkedProjectStudiesNestedInput
+  study?: Prisma.StudyUpdateOneRequiredWithoutLinkedProjectsNestedInput
 }
 
 export type ProjectLinkedStudyUncheckedUpdateWithoutProjectInput = {
@@ -718,9 +718,9 @@ export type ProjectLinkedStudySelect<ExtArgs extends runtime.Types.Extensions.In
   linkedById?: boolean
   notes?: boolean
   createdAt?: boolean
+  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectLinkedStudy"]>
 
 export type ProjectLinkedStudySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -730,9 +730,9 @@ export type ProjectLinkedStudySelectCreateManyAndReturn<ExtArgs extends runtime.
   linkedById?: boolean
   notes?: boolean
   createdAt?: boolean
+  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectLinkedStudy"]>
 
 export type ProjectLinkedStudySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -742,9 +742,9 @@ export type ProjectLinkedStudySelectUpdateManyAndReturn<ExtArgs extends runtime.
   linkedById?: boolean
   notes?: boolean
   createdAt?: boolean
+  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectLinkedStudy"]>
 
 export type ProjectLinkedStudySelectScalar = {
@@ -758,27 +758,27 @@ export type ProjectLinkedStudySelectScalar = {
 
 export type ProjectLinkedStudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "studyId" | "linkedById" | "notes" | "createdAt", ExtArgs["result"]["projectLinkedStudy"]>
 export type ProjectLinkedStudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ProjectLinkedStudyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ProjectLinkedStudyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
-  linkedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ProjectLinkedStudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProjectLinkedStudy"
   objects: {
+    linkedBy: Prisma.$UserPayload<ExtArgs>
     project: Prisma.$ResearchProjectPayload<ExtArgs>
     study: Prisma.$StudyPayload<ExtArgs>
-    linkedBy: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1181,9 +1181,9 @@ readonly fields: ProjectLinkedStudyFieldRefs;
  */
 export interface Prisma__ProjectLinkedStudyClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  linkedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   project<T extends Prisma.ResearchProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   study<T extends Prisma.StudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyDefaultArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  linkedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

@@ -214,11 +214,11 @@ export type AIConversationWhereInput = {
   model?: Prisma.StringNullableFilter<"AIConversation"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AIConversation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AIConversation"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  artifacts?: Prisma.AIArtifactListRelationFilter
   project?: Prisma.XOR<Prisma.ResearchProjectNullableScalarRelationFilter, Prisma.ResearchProjectWhereInput> | null
   study?: Prisma.XOR<Prisma.StudyNullableScalarRelationFilter, Prisma.StudyWhereInput> | null
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   messages?: Prisma.AIMessageListRelationFilter
-  artifacts?: Prisma.AIArtifactListRelationFilter
   usage?: Prisma.AIUsageListRelationFilter
 }
 
@@ -232,11 +232,11 @@ export type AIConversationOrderByWithRelationInput = {
   model?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
+  artifacts?: Prisma.AIArtifactOrderByRelationAggregateInput
   project?: Prisma.ResearchProjectOrderByWithRelationInput
   study?: Prisma.StudyOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
   messages?: Prisma.AIMessageOrderByRelationAggregateInput
-  artifacts?: Prisma.AIArtifactOrderByRelationAggregateInput
   usage?: Prisma.AIUsageOrderByRelationAggregateInput
 }
 
@@ -253,11 +253,11 @@ export type AIConversationWhereUniqueInput = Prisma.AtLeast<{
   model?: Prisma.StringNullableFilter<"AIConversation"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AIConversation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AIConversation"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  artifacts?: Prisma.AIArtifactListRelationFilter
   project?: Prisma.XOR<Prisma.ResearchProjectNullableScalarRelationFilter, Prisma.ResearchProjectWhereInput> | null
   study?: Prisma.XOR<Prisma.StudyNullableScalarRelationFilter, Prisma.StudyWhereInput> | null
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   messages?: Prisma.AIMessageListRelationFilter
-  artifacts?: Prisma.AIArtifactListRelationFilter
   usage?: Prisma.AIUsageListRelationFilter
 }, "id">
 
@@ -298,11 +298,11 @@ export type AIConversationCreateInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
+  artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
   project?: Prisma.ResearchProjectCreateNestedOneWithoutAiConversationsInput
   study?: Prisma.StudyCreateNestedOneWithoutAiConversationsInput
+  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
   messages?: Prisma.AIMessageCreateNestedManyWithoutConversationInput
-  artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
   usage?: Prisma.AIUsageCreateNestedManyWithoutConversationInput
 }
 
@@ -316,8 +316,8 @@ export type AIConversationUncheckedCreateInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
   artifacts?: Prisma.AIArtifactUncheckedCreateNestedManyWithoutConversationInput
+  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
   usage?: Prisma.AIUsageUncheckedCreateNestedManyWithoutConversationInput
 }
 
@@ -328,11 +328,11 @@ export type AIConversationUpdateInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
+  artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
   project?: Prisma.ResearchProjectUpdateOneWithoutAiConversationsNestedInput
   study?: Prisma.StudyUpdateOneWithoutAiConversationsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
   messages?: Prisma.AIMessageUpdateManyWithoutConversationNestedInput
-  artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
   usage?: Prisma.AIUsageUpdateManyWithoutConversationNestedInput
 }
 
@@ -346,8 +346,8 @@ export type AIConversationUncheckedUpdateInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
   artifacts?: Prisma.AIArtifactUncheckedUpdateManyWithoutConversationNestedInput
+  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
   usage?: Prisma.AIUsageUncheckedUpdateManyWithoutConversationNestedInput
 }
 
@@ -614,10 +614,10 @@ export type AIConversationCreateWithoutUserInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
   project?: Prisma.ResearchProjectCreateNestedOneWithoutAiConversationsInput
   study?: Prisma.StudyCreateNestedOneWithoutAiConversationsInput
   messages?: Prisma.AIMessageCreateNestedManyWithoutConversationInput
-  artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
   usage?: Prisma.AIUsageCreateNestedManyWithoutConversationInput
 }
 
@@ -630,8 +630,8 @@ export type AIConversationUncheckedCreateWithoutUserInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
   artifacts?: Prisma.AIArtifactUncheckedCreateNestedManyWithoutConversationInput
+  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
   usage?: Prisma.AIUsageUncheckedCreateNestedManyWithoutConversationInput
 }
 
@@ -683,10 +683,10 @@ export type AIConversationCreateWithoutStudyInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
-  project?: Prisma.ResearchProjectCreateNestedOneWithoutAiConversationsInput
-  messages?: Prisma.AIMessageCreateNestedManyWithoutConversationInput
   artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
+  project?: Prisma.ResearchProjectCreateNestedOneWithoutAiConversationsInput
+  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
+  messages?: Prisma.AIMessageCreateNestedManyWithoutConversationInput
   usage?: Prisma.AIUsageCreateNestedManyWithoutConversationInput
 }
 
@@ -699,8 +699,8 @@ export type AIConversationUncheckedCreateWithoutStudyInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
   artifacts?: Prisma.AIArtifactUncheckedCreateNestedManyWithoutConversationInput
+  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
   usage?: Prisma.AIUsageUncheckedCreateNestedManyWithoutConversationInput
 }
 
@@ -737,10 +737,10 @@ export type AIConversationCreateWithoutProjectInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
-  study?: Prisma.StudyCreateNestedOneWithoutAiConversationsInput
-  messages?: Prisma.AIMessageCreateNestedManyWithoutConversationInput
   artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
+  study?: Prisma.StudyCreateNestedOneWithoutAiConversationsInput
+  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
+  messages?: Prisma.AIMessageCreateNestedManyWithoutConversationInput
   usage?: Prisma.AIUsageCreateNestedManyWithoutConversationInput
 }
 
@@ -753,8 +753,8 @@ export type AIConversationUncheckedCreateWithoutProjectInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
   artifacts?: Prisma.AIArtifactUncheckedCreateNestedManyWithoutConversationInput
+  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
   usage?: Prisma.AIUsageUncheckedCreateNestedManyWithoutConversationInput
 }
 
@@ -791,10 +791,10 @@ export type AIConversationCreateWithoutMessagesInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
+  artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
   project?: Prisma.ResearchProjectCreateNestedOneWithoutAiConversationsInput
   study?: Prisma.StudyCreateNestedOneWithoutAiConversationsInput
-  artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
+  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
   usage?: Prisma.AIUsageCreateNestedManyWithoutConversationInput
 }
 
@@ -835,10 +835,10 @@ export type AIConversationUpdateWithoutMessagesInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
+  artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
   project?: Prisma.ResearchProjectUpdateOneWithoutAiConversationsNestedInput
   study?: Prisma.StudyUpdateOneWithoutAiConversationsNestedInput
-  artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
   usage?: Prisma.AIUsageUpdateManyWithoutConversationNestedInput
 }
 
@@ -863,9 +863,9 @@ export type AIConversationCreateWithoutArtifactsInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
   project?: Prisma.ResearchProjectCreateNestedOneWithoutAiConversationsInput
   study?: Prisma.StudyCreateNestedOneWithoutAiConversationsInput
+  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
   messages?: Prisma.AIMessageCreateNestedManyWithoutConversationInput
   usage?: Prisma.AIUsageCreateNestedManyWithoutConversationInput
 }
@@ -907,9 +907,9 @@ export type AIConversationUpdateWithoutArtifactsInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
   project?: Prisma.ResearchProjectUpdateOneWithoutAiConversationsNestedInput
   study?: Prisma.StudyUpdateOneWithoutAiConversationsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
   messages?: Prisma.AIMessageUpdateManyWithoutConversationNestedInput
   usage?: Prisma.AIUsageUpdateManyWithoutConversationNestedInput
 }
@@ -935,11 +935,11 @@ export type AIConversationCreateWithoutUsageInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
+  artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
   project?: Prisma.ResearchProjectCreateNestedOneWithoutAiConversationsInput
   study?: Prisma.StudyCreateNestedOneWithoutAiConversationsInput
+  user: Prisma.UserCreateNestedOneWithoutAiConversationsInput
   messages?: Prisma.AIMessageCreateNestedManyWithoutConversationInput
-  artifacts?: Prisma.AIArtifactCreateNestedManyWithoutConversationInput
 }
 
 export type AIConversationUncheckedCreateWithoutUsageInput = {
@@ -952,8 +952,8 @@ export type AIConversationUncheckedCreateWithoutUsageInput = {
   model?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
   artifacts?: Prisma.AIArtifactUncheckedCreateNestedManyWithoutConversationInput
+  messages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutConversationInput
 }
 
 export type AIConversationCreateOrConnectWithoutUsageInput = {
@@ -979,11 +979,11 @@ export type AIConversationUpdateWithoutUsageInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
+  artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
   project?: Prisma.ResearchProjectUpdateOneWithoutAiConversationsNestedInput
   study?: Prisma.StudyUpdateOneWithoutAiConversationsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
   messages?: Prisma.AIMessageUpdateManyWithoutConversationNestedInput
-  artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
 }
 
 export type AIConversationUncheckedUpdateWithoutUsageInput = {
@@ -996,8 +996,8 @@ export type AIConversationUncheckedUpdateWithoutUsageInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
   artifacts?: Prisma.AIArtifactUncheckedUpdateManyWithoutConversationNestedInput
+  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
 }
 
 export type AIConversationCreateManyUserInput = {
@@ -1018,10 +1018,10 @@ export type AIConversationUpdateWithoutUserInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
   project?: Prisma.ResearchProjectUpdateOneWithoutAiConversationsNestedInput
   study?: Prisma.StudyUpdateOneWithoutAiConversationsNestedInput
   messages?: Prisma.AIMessageUpdateManyWithoutConversationNestedInput
-  artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
   usage?: Prisma.AIUsageUpdateManyWithoutConversationNestedInput
 }
 
@@ -1034,8 +1034,8 @@ export type AIConversationUncheckedUpdateWithoutUserInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
   artifacts?: Prisma.AIArtifactUncheckedUpdateManyWithoutConversationNestedInput
+  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
   usage?: Prisma.AIUsageUncheckedUpdateManyWithoutConversationNestedInput
 }
 
@@ -1068,10 +1068,10 @@ export type AIConversationUpdateWithoutStudyInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
-  project?: Prisma.ResearchProjectUpdateOneWithoutAiConversationsNestedInput
-  messages?: Prisma.AIMessageUpdateManyWithoutConversationNestedInput
   artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
+  project?: Prisma.ResearchProjectUpdateOneWithoutAiConversationsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
+  messages?: Prisma.AIMessageUpdateManyWithoutConversationNestedInput
   usage?: Prisma.AIUsageUpdateManyWithoutConversationNestedInput
 }
 
@@ -1084,8 +1084,8 @@ export type AIConversationUncheckedUpdateWithoutStudyInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
   artifacts?: Prisma.AIArtifactUncheckedUpdateManyWithoutConversationNestedInput
+  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
   usage?: Prisma.AIUsageUncheckedUpdateManyWithoutConversationNestedInput
 }
 
@@ -1118,10 +1118,10 @@ export type AIConversationUpdateWithoutProjectInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
-  study?: Prisma.StudyUpdateOneWithoutAiConversationsNestedInput
-  messages?: Prisma.AIMessageUpdateManyWithoutConversationNestedInput
   artifacts?: Prisma.AIArtifactUpdateManyWithoutConversationNestedInput
+  study?: Prisma.StudyUpdateOneWithoutAiConversationsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAiConversationsNestedInput
+  messages?: Prisma.AIMessageUpdateManyWithoutConversationNestedInput
   usage?: Prisma.AIUsageUpdateManyWithoutConversationNestedInput
 }
 
@@ -1134,8 +1134,8 @@ export type AIConversationUncheckedUpdateWithoutProjectInput = {
   model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
   artifacts?: Prisma.AIArtifactUncheckedUpdateManyWithoutConversationNestedInput
+  messages?: Prisma.AIMessageUncheckedUpdateManyWithoutConversationNestedInput
   usage?: Prisma.AIUsageUncheckedUpdateManyWithoutConversationNestedInput
 }
 
@@ -1156,14 +1156,14 @@ export type AIConversationUncheckedUpdateManyWithoutProjectInput = {
  */
 
 export type AIConversationCountOutputType = {
-  messages: number
   artifacts: number
+  messages: number
   usage: number
 }
 
 export type AIConversationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  messages?: boolean | AIConversationCountOutputTypeCountMessagesArgs
   artifacts?: boolean | AIConversationCountOutputTypeCountArtifactsArgs
+  messages?: boolean | AIConversationCountOutputTypeCountMessagesArgs
   usage?: boolean | AIConversationCountOutputTypeCountUsageArgs
 }
 
@@ -1180,15 +1180,15 @@ export type AIConversationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Typ
 /**
  * AIConversationCountOutputType without action
  */
-export type AIConversationCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AIMessageWhereInput
+export type AIConversationCountOutputTypeCountArtifactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AIArtifactWhereInput
 }
 
 /**
  * AIConversationCountOutputType without action
  */
-export type AIConversationCountOutputTypeCountArtifactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AIArtifactWhereInput
+export type AIConversationCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AIMessageWhereInput
 }
 
 /**
@@ -1209,11 +1209,11 @@ export type AIConversationSelect<ExtArgs extends runtime.Types.Extensions.Intern
   model?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  artifacts?: boolean | Prisma.AIConversation$artifactsArgs<ExtArgs>
   project?: boolean | Prisma.AIConversation$projectArgs<ExtArgs>
   study?: boolean | Prisma.AIConversation$studyArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.AIConversation$messagesArgs<ExtArgs>
-  artifacts?: boolean | Prisma.AIConversation$artifactsArgs<ExtArgs>
   usage?: boolean | Prisma.AIConversation$usageArgs<ExtArgs>
   _count?: boolean | Prisma.AIConversationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["aIConversation"]>
@@ -1228,9 +1228,9 @@ export type AIConversationSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   model?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.AIConversation$projectArgs<ExtArgs>
   study?: boolean | Prisma.AIConversation$studyArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["aIConversation"]>
 
 export type AIConversationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1243,9 +1243,9 @@ export type AIConversationSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   model?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.AIConversation$projectArgs<ExtArgs>
   study?: boolean | Prisma.AIConversation$studyArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["aIConversation"]>
 
 export type AIConversationSelectScalar = {
@@ -1262,33 +1262,33 @@ export type AIConversationSelectScalar = {
 
 export type AIConversationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "projectId" | "studyId" | "provider" | "model" | "createdAt" | "updatedAt", ExtArgs["result"]["aIConversation"]>
 export type AIConversationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  artifacts?: boolean | Prisma.AIConversation$artifactsArgs<ExtArgs>
   project?: boolean | Prisma.AIConversation$projectArgs<ExtArgs>
   study?: boolean | Prisma.AIConversation$studyArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.AIConversation$messagesArgs<ExtArgs>
-  artifacts?: boolean | Prisma.AIConversation$artifactsArgs<ExtArgs>
   usage?: boolean | Prisma.AIConversation$usageArgs<ExtArgs>
   _count?: boolean | Prisma.AIConversationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AIConversationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.AIConversation$projectArgs<ExtArgs>
   study?: boolean | Prisma.AIConversation$studyArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type AIConversationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.AIConversation$projectArgs<ExtArgs>
   study?: boolean | Prisma.AIConversation$studyArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $AIConversationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AIConversation"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
+    artifacts: Prisma.$AIArtifactPayload<ExtArgs>[]
     project: Prisma.$ResearchProjectPayload<ExtArgs> | null
     study: Prisma.$StudyPayload<ExtArgs> | null
+    user: Prisma.$UserPayload<ExtArgs>
     messages: Prisma.$AIMessagePayload<ExtArgs>[]
-    artifacts: Prisma.$AIArtifactPayload<ExtArgs>[]
     usage: Prisma.$AIUsagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1695,11 +1695,11 @@ readonly fields: AIConversationFieldRefs;
  */
 export interface Prisma__AIConversationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  artifacts<T extends Prisma.AIConversation$artifactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AIConversation$artifactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIArtifactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   project<T extends Prisma.AIConversation$projectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AIConversation$projectArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   study<T extends Prisma.AIConversation$studyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AIConversation$studyArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   messages<T extends Prisma.AIConversation$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AIConversation$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  artifacts<T extends Prisma.AIConversation$artifactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AIConversation$artifactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIArtifactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   usage<T extends Prisma.AIConversation$usageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AIConversation$usageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2140,6 +2140,30 @@ export type AIConversationDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * AIConversation.artifacts
+ */
+export type AIConversation$artifactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AIArtifact
+   */
+  select?: Prisma.AIArtifactSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AIArtifact
+   */
+  omit?: Prisma.AIArtifactOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AIArtifactInclude<ExtArgs> | null
+  where?: Prisma.AIArtifactWhereInput
+  orderBy?: Prisma.AIArtifactOrderByWithRelationInput | Prisma.AIArtifactOrderByWithRelationInput[]
+  cursor?: Prisma.AIArtifactWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AIArtifactScalarFieldEnum | Prisma.AIArtifactScalarFieldEnum[]
+}
+
+/**
  * AIConversation.project
  */
 export type AIConversation$projectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2199,30 +2223,6 @@ export type AIConversation$messagesArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.AIMessageScalarFieldEnum | Prisma.AIMessageScalarFieldEnum[]
-}
-
-/**
- * AIConversation.artifacts
- */
-export type AIConversation$artifactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AIArtifact
-   */
-  select?: Prisma.AIArtifactSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AIArtifact
-   */
-  omit?: Prisma.AIArtifactOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AIArtifactInclude<ExtArgs> | null
-  where?: Prisma.AIArtifactWhereInput
-  orderBy?: Prisma.AIArtifactOrderByWithRelationInput | Prisma.AIArtifactOrderByWithRelationInput[]
-  cursor?: Prisma.AIArtifactWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AIArtifactScalarFieldEnum | Prisma.AIArtifactScalarFieldEnum[]
 }
 
 /**

@@ -141,11 +141,6 @@ export const StudyScalarFieldEnum = {
   title: 'title',
   description: 'description',
   status: 'status',
-  studyType: 'studyType',
-  category: 'category',
-  objective: 'objective',
-  targetPopulation: 'targetPopulation',
-  estimatedMinutes: 'estimatedMinutes',
   rewardCredits: 'rewardCredits',
   researcherId: 'researcherId',
   createdAt: 'createdAt',
@@ -154,7 +149,12 @@ export const StudyScalarFieldEnum = {
   creditsPaid: 'creditsPaid',
   participantTarget: 'participantTarget',
   eligibilityCriteria: 'eligibilityCriteria',
-  tags: 'tags'
+  tags: 'tags',
+  category: 'category',
+  estimatedMinutes: 'estimatedMinutes',
+  objective: 'objective',
+  studyType: 'studyType',
+  targetPopulation: 'targetPopulation'
 } as const
 
 export type StudyScalarFieldEnum = (typeof StudyScalarFieldEnum)[keyof typeof StudyScalarFieldEnum]
@@ -196,10 +196,10 @@ export const StudyCommentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   studyId: 'studyId',
-  parentId: 'parentId',
   text: 'text',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  parentId: 'parentId'
 } as const
 
 export type StudyCommentScalarFieldEnum = (typeof StudyCommentScalarFieldEnum)[keyof typeof StudyCommentScalarFieldEnum]

@@ -214,8 +214,8 @@ export type ProjectNoteWhereInput = {
   isPinned?: Prisma.BoolFilter<"ProjectNote"> | boolean
   createdAt?: Prisma.DateTimeFilter<"ProjectNote"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProjectNote"> | Date | string
-  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
 }
 
 export type ProjectNoteOrderByWithRelationInput = {
@@ -228,8 +228,8 @@ export type ProjectNoteOrderByWithRelationInput = {
   isPinned?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  project?: Prisma.ResearchProjectOrderByWithRelationInput
   author?: Prisma.UserOrderByWithRelationInput
+  project?: Prisma.ResearchProjectOrderByWithRelationInput
 }
 
 export type ProjectNoteWhereUniqueInput = Prisma.AtLeast<{
@@ -245,8 +245,8 @@ export type ProjectNoteWhereUniqueInput = Prisma.AtLeast<{
   isPinned?: Prisma.BoolFilter<"ProjectNote"> | boolean
   createdAt?: Prisma.DateTimeFilter<"ProjectNote"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProjectNote"> | Date | string
-  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
 }, "id">
 
 export type ProjectNoteOrderByWithAggregationInput = {
@@ -287,8 +287,8 @@ export type ProjectNoteCreateInput = {
   isPinned?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  project: Prisma.ResearchProjectCreateNestedOneWithoutNotesInput
   author: Prisma.UserCreateNestedOneWithoutProjectNotesInput
+  project: Prisma.ResearchProjectCreateNestedOneWithoutNotesInput
 }
 
 export type ProjectNoteUncheckedCreateInput = {
@@ -311,8 +311,8 @@ export type ProjectNoteUpdateInput = {
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutNotesNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutProjectNotesNestedInput
+  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutNotesNestedInput
 }
 
 export type ProjectNoteUncheckedUpdateInput = {
@@ -702,8 +702,8 @@ export type ProjectNoteSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   isPinned?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectNote"]>
 
 export type ProjectNoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -716,8 +716,8 @@ export type ProjectNoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   isPinned?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectNote"]>
 
 export type ProjectNoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -730,8 +730,8 @@ export type ProjectNoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   isPinned?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectNote"]>
 
 export type ProjectNoteSelectScalar = {
@@ -748,23 +748,23 @@ export type ProjectNoteSelectScalar = {
 
 export type ProjectNoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "authorId" | "category" | "title" | "content" | "isPinned" | "createdAt" | "updatedAt", ExtArgs["result"]["projectNote"]>
 export type ProjectNoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 export type ProjectNoteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 export type ProjectNoteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 
 export type $ProjectNotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProjectNote"
   objects: {
-    project: Prisma.$ResearchProjectPayload<ExtArgs>
     author: Prisma.$UserPayload<ExtArgs>
+    project: Prisma.$ResearchProjectPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1170,8 +1170,8 @@ readonly fields: ProjectNoteFieldRefs;
  */
 export interface Prisma__ProjectNoteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  project<T extends Prisma.ResearchProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  project<T extends Prisma.ResearchProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

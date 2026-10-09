@@ -306,20 +306,20 @@ export type ResearchProjectWhereInput = {
   inviteToken?: Prisma.StringNullableFilter<"ResearchProject"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ResearchProject"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ResearchProject"> | Date | string
-  lead?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  members?: Prisma.ProjectMemberListRelationFilter
-  invitations?: Prisma.ProjectInvitationListRelationFilter
-  tasks?: Prisma.ProjectTaskListRelationFilter
-  milestones?: Prisma.ProjectMilestoneListRelationFilter
-  files?: Prisma.ProjectFileListRelationFilter
-  notes?: Prisma.ProjectNoteListRelationFilter
-  discussions?: Prisma.ProjectDiscussionListRelationFilter
-  decisions?: Prisma.ProjectDecisionListRelationFilter
+  aiConversations?: Prisma.AIConversationListRelationFilter
   activities?: Prisma.ProjectActivityListRelationFilter
   chatMessages?: Prisma.ProjectChatMessageListRelationFilter
+  decisions?: Prisma.ProjectDecisionListRelationFilter
+  discussions?: Prisma.ProjectDiscussionListRelationFilter
+  files?: Prisma.ProjectFileListRelationFilter
+  invitations?: Prisma.ProjectInvitationListRelationFilter
   linkedStudies?: Prisma.ProjectLinkedStudyListRelationFilter
+  members?: Prisma.ProjectMemberListRelationFilter
+  milestones?: Prisma.ProjectMilestoneListRelationFilter
+  notes?: Prisma.ProjectNoteListRelationFilter
   outputs?: Prisma.ProjectOutputListRelationFilter
-  aiConversations?: Prisma.AIConversationListRelationFilter
+  tasks?: Prisma.ProjectTaskListRelationFilter
+  lead?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ResearchProjectOrderByWithRelationInput = {
@@ -344,20 +344,20 @@ export type ResearchProjectOrderByWithRelationInput = {
   inviteToken?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  lead?: Prisma.UserOrderByWithRelationInput
-  members?: Prisma.ProjectMemberOrderByRelationAggregateInput
-  invitations?: Prisma.ProjectInvitationOrderByRelationAggregateInput
-  tasks?: Prisma.ProjectTaskOrderByRelationAggregateInput
-  milestones?: Prisma.ProjectMilestoneOrderByRelationAggregateInput
-  files?: Prisma.ProjectFileOrderByRelationAggregateInput
-  notes?: Prisma.ProjectNoteOrderByRelationAggregateInput
-  discussions?: Prisma.ProjectDiscussionOrderByRelationAggregateInput
-  decisions?: Prisma.ProjectDecisionOrderByRelationAggregateInput
+  aiConversations?: Prisma.AIConversationOrderByRelationAggregateInput
   activities?: Prisma.ProjectActivityOrderByRelationAggregateInput
   chatMessages?: Prisma.ProjectChatMessageOrderByRelationAggregateInput
+  decisions?: Prisma.ProjectDecisionOrderByRelationAggregateInput
+  discussions?: Prisma.ProjectDiscussionOrderByRelationAggregateInput
+  files?: Prisma.ProjectFileOrderByRelationAggregateInput
+  invitations?: Prisma.ProjectInvitationOrderByRelationAggregateInput
   linkedStudies?: Prisma.ProjectLinkedStudyOrderByRelationAggregateInput
+  members?: Prisma.ProjectMemberOrderByRelationAggregateInput
+  milestones?: Prisma.ProjectMilestoneOrderByRelationAggregateInput
+  notes?: Prisma.ProjectNoteOrderByRelationAggregateInput
   outputs?: Prisma.ProjectOutputOrderByRelationAggregateInput
-  aiConversations?: Prisma.AIConversationOrderByRelationAggregateInput
+  tasks?: Prisma.ProjectTaskOrderByRelationAggregateInput
+  lead?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ResearchProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -385,20 +385,20 @@ export type ResearchProjectWhereUniqueInput = Prisma.AtLeast<{
   isArchived?: Prisma.BoolFilter<"ResearchProject"> | boolean
   createdAt?: Prisma.DateTimeFilter<"ResearchProject"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ResearchProject"> | Date | string
-  lead?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  members?: Prisma.ProjectMemberListRelationFilter
-  invitations?: Prisma.ProjectInvitationListRelationFilter
-  tasks?: Prisma.ProjectTaskListRelationFilter
-  milestones?: Prisma.ProjectMilestoneListRelationFilter
-  files?: Prisma.ProjectFileListRelationFilter
-  notes?: Prisma.ProjectNoteListRelationFilter
-  discussions?: Prisma.ProjectDiscussionListRelationFilter
-  decisions?: Prisma.ProjectDecisionListRelationFilter
+  aiConversations?: Prisma.AIConversationListRelationFilter
   activities?: Prisma.ProjectActivityListRelationFilter
   chatMessages?: Prisma.ProjectChatMessageListRelationFilter
+  decisions?: Prisma.ProjectDecisionListRelationFilter
+  discussions?: Prisma.ProjectDiscussionListRelationFilter
+  files?: Prisma.ProjectFileListRelationFilter
+  invitations?: Prisma.ProjectInvitationListRelationFilter
   linkedStudies?: Prisma.ProjectLinkedStudyListRelationFilter
+  members?: Prisma.ProjectMemberListRelationFilter
+  milestones?: Prisma.ProjectMilestoneListRelationFilter
+  notes?: Prisma.ProjectNoteListRelationFilter
   outputs?: Prisma.ProjectOutputListRelationFilter
-  aiConversations?: Prisma.AIConversationListRelationFilter
+  tasks?: Prisma.ProjectTaskListRelationFilter
+  lead?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "slug" | "inviteToken">
 
 export type ResearchProjectOrderByWithAggregationInput = {
@@ -476,20 +476,20 @@ export type ResearchProjectCreateInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateInput = {
@@ -514,19 +514,19 @@ export type ResearchProjectUncheckedCreateInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectUpdateInput = {
@@ -550,20 +550,20 @@ export type ResearchProjectUpdateInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateInput = {
@@ -588,19 +588,19 @@ export type ResearchProjectUncheckedUpdateInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateManyInput = {
@@ -1032,19 +1032,19 @@ export type ResearchProjectCreateWithoutLeadInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutLeadInput = {
@@ -1068,19 +1068,19 @@ export type ResearchProjectUncheckedCreateWithoutLeadInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutLeadInput = {
@@ -1157,19 +1157,19 @@ export type ResearchProjectCreateWithoutMembersInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutMembersInput = {
@@ -1194,18 +1194,18 @@ export type ResearchProjectUncheckedCreateWithoutMembersInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutMembersInput = {
@@ -1245,19 +1245,19 @@ export type ResearchProjectUpdateWithoutMembersInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutMembersInput = {
@@ -1282,18 +1282,18 @@ export type ResearchProjectUncheckedUpdateWithoutMembersInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutInvitationsInput = {
@@ -1317,19 +1317,19 @@ export type ResearchProjectCreateWithoutInvitationsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutInvitationsInput = {
@@ -1354,18 +1354,18 @@ export type ResearchProjectUncheckedCreateWithoutInvitationsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutInvitationsInput = {
@@ -1405,19 +1405,19 @@ export type ResearchProjectUpdateWithoutInvitationsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutInvitationsInput = {
@@ -1442,18 +1442,18 @@ export type ResearchProjectUncheckedUpdateWithoutInvitationsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutMilestonesInput = {
@@ -1477,19 +1477,19 @@ export type ResearchProjectCreateWithoutMilestonesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutMilestonesInput = {
@@ -1514,18 +1514,18 @@ export type ResearchProjectUncheckedCreateWithoutMilestonesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutMilestonesInput = {
@@ -1565,19 +1565,19 @@ export type ResearchProjectUpdateWithoutMilestonesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutMilestonesInput = {
@@ -1602,18 +1602,18 @@ export type ResearchProjectUncheckedUpdateWithoutMilestonesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutTasksInput = {
@@ -1637,19 +1637,19 @@ export type ResearchProjectCreateWithoutTasksInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutTasksInput = {
@@ -1674,18 +1674,18 @@ export type ResearchProjectUncheckedCreateWithoutTasksInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutTasksInput = {
@@ -1725,19 +1725,19 @@ export type ResearchProjectUpdateWithoutTasksInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutTasksInput = {
@@ -1762,18 +1762,18 @@ export type ResearchProjectUncheckedUpdateWithoutTasksInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutFilesInput = {
@@ -1797,19 +1797,19 @@ export type ResearchProjectCreateWithoutFilesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutFilesInput = {
@@ -1834,18 +1834,18 @@ export type ResearchProjectUncheckedCreateWithoutFilesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutFilesInput = {
@@ -1885,19 +1885,19 @@ export type ResearchProjectUpdateWithoutFilesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutFilesInput = {
@@ -1922,18 +1922,18 @@ export type ResearchProjectUncheckedUpdateWithoutFilesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutNotesInput = {
@@ -1957,19 +1957,19 @@ export type ResearchProjectCreateWithoutNotesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutNotesInput = {
@@ -1994,18 +1994,18 @@ export type ResearchProjectUncheckedCreateWithoutNotesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutNotesInput = {
@@ -2045,19 +2045,19 @@ export type ResearchProjectUpdateWithoutNotesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutNotesInput = {
@@ -2082,18 +2082,18 @@ export type ResearchProjectUncheckedUpdateWithoutNotesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutDiscussionsInput = {
@@ -2117,19 +2117,19 @@ export type ResearchProjectCreateWithoutDiscussionsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutDiscussionsInput = {
@@ -2154,18 +2154,18 @@ export type ResearchProjectUncheckedCreateWithoutDiscussionsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutDiscussionsInput = {
@@ -2205,19 +2205,19 @@ export type ResearchProjectUpdateWithoutDiscussionsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutDiscussionsInput = {
@@ -2242,18 +2242,18 @@ export type ResearchProjectUncheckedUpdateWithoutDiscussionsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutDecisionsInput = {
@@ -2277,19 +2277,19 @@ export type ResearchProjectCreateWithoutDecisionsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutDecisionsInput = {
@@ -2314,18 +2314,18 @@ export type ResearchProjectUncheckedCreateWithoutDecisionsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutDecisionsInput = {
@@ -2365,19 +2365,19 @@ export type ResearchProjectUpdateWithoutDecisionsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutDecisionsInput = {
@@ -2402,18 +2402,18 @@ export type ResearchProjectUncheckedUpdateWithoutDecisionsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutActivitiesInput = {
@@ -2437,19 +2437,19 @@ export type ResearchProjectCreateWithoutActivitiesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
-  chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
-  linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
-  outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
+  linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
+  outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutActivitiesInput = {
@@ -2474,18 +2474,18 @@ export type ResearchProjectUncheckedCreateWithoutActivitiesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
-  chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
-  linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
-  outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
+  linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
+  outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutActivitiesInput = {
@@ -2525,19 +2525,19 @@ export type ResearchProjectUpdateWithoutActivitiesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
-  chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
-  linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
-  outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
+  linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
+  outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutActivitiesInput = {
@@ -2562,18 +2562,18 @@ export type ResearchProjectUncheckedUpdateWithoutActivitiesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
-  chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
-  linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
-  outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
+  linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
+  outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutChatMessagesInput = {
@@ -2597,19 +2597,19 @@ export type ResearchProjectCreateWithoutChatMessagesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
-  activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
-  linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
-  outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
+  linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
+  outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutChatMessagesInput = {
@@ -2634,18 +2634,18 @@ export type ResearchProjectUncheckedCreateWithoutChatMessagesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
-  activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
-  linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
-  outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
+  linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
+  outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutChatMessagesInput = {
@@ -2685,19 +2685,19 @@ export type ResearchProjectUpdateWithoutChatMessagesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
-  activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
-  linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
-  outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
+  linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
+  outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutChatMessagesInput = {
@@ -2722,18 +2722,18 @@ export type ResearchProjectUncheckedUpdateWithoutChatMessagesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
-  activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
-  linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
-  outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
+  linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
+  outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutLinkedStudiesInput = {
@@ -2757,19 +2757,19 @@ export type ResearchProjectCreateWithoutLinkedStudiesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutLinkedStudiesInput = {
@@ -2794,18 +2794,18 @@ export type ResearchProjectUncheckedCreateWithoutLinkedStudiesInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutLinkedStudiesInput = {
@@ -2845,19 +2845,19 @@ export type ResearchProjectUpdateWithoutLinkedStudiesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutLinkedStudiesInput = {
@@ -2882,18 +2882,18 @@ export type ResearchProjectUncheckedUpdateWithoutLinkedStudiesInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutOutputsInput = {
@@ -2917,19 +2917,19 @@ export type ResearchProjectCreateWithoutOutputsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutOutputsInput = {
@@ -2954,18 +2954,18 @@ export type ResearchProjectUncheckedCreateWithoutOutputsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutOutputsInput = {
@@ -3005,19 +3005,19 @@ export type ResearchProjectUpdateWithoutOutputsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutOutputsInput = {
@@ -3042,18 +3042,18 @@ export type ResearchProjectUncheckedUpdateWithoutOutputsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateWithoutAiConversationsInput = {
@@ -3077,19 +3077,19 @@ export type ResearchProjectCreateWithoutAiConversationsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
-  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskCreateNestedManyWithoutProjectInput
+  lead: Prisma.UserCreateNestedOneWithoutLeadProjectsInput
 }
 
 export type ResearchProjectUncheckedCreateWithoutAiConversationsInput = {
@@ -3114,18 +3114,18 @@ export type ResearchProjectUncheckedCreateWithoutAiConversationsInput = {
   inviteToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
-  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
-  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
-  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
-  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
-  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
-  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutProjectInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  decisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutProjectInput
+  discussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutProjectInput
+  files?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutProjectInput
+  invitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutProjectInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  milestones?: Prisma.ProjectMilestoneUncheckedCreateNestedManyWithoutProjectInput
+  notes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutProjectInput
   outputs?: Prisma.ProjectOutputUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ResearchProjectCreateOrConnectWithoutAiConversationsInput = {
@@ -3165,19 +3165,19 @@ export type ResearchProjectUpdateWithoutAiConversationsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
+  lead?: Prisma.UserUpdateOneRequiredWithoutLeadProjectsNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutAiConversationsInput = {
@@ -3202,18 +3202,18 @@ export type ResearchProjectUncheckedUpdateWithoutAiConversationsInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectCreateManyLeadInput = {
@@ -3260,19 +3260,19 @@ export type ResearchProjectUpdateWithoutLeadInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateWithoutLeadInput = {
@@ -3296,19 +3296,19 @@ export type ResearchProjectUncheckedUpdateWithoutLeadInput = {
   inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
-  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
-  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
-  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
-  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
-  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
-  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutProjectNestedInput
   chatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  decisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutProjectNestedInput
+  discussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutProjectNestedInput
+  files?: Prisma.ProjectFileUncheckedUpdateManyWithoutProjectNestedInput
+  invitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutProjectNestedInput
   linkedStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  milestones?: Prisma.ProjectMilestoneUncheckedUpdateManyWithoutProjectNestedInput
+  notes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutProjectNestedInput
   outputs?: Prisma.ProjectOutputUncheckedUpdateManyWithoutProjectNestedInput
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ResearchProjectUncheckedUpdateManyWithoutLeadInput = {
@@ -3340,35 +3340,35 @@ export type ResearchProjectUncheckedUpdateManyWithoutLeadInput = {
  */
 
 export type ResearchProjectCountOutputType = {
-  members: number
-  invitations: number
-  tasks: number
-  milestones: number
-  files: number
-  notes: number
-  discussions: number
-  decisions: number
+  aiConversations: number
   activities: number
   chatMessages: number
+  decisions: number
+  discussions: number
+  files: number
+  invitations: number
   linkedStudies: number
+  members: number
+  milestones: number
+  notes: number
   outputs: number
-  aiConversations: number
+  tasks: number
 }
 
 export type ResearchProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  members?: boolean | ResearchProjectCountOutputTypeCountMembersArgs
-  invitations?: boolean | ResearchProjectCountOutputTypeCountInvitationsArgs
-  tasks?: boolean | ResearchProjectCountOutputTypeCountTasksArgs
-  milestones?: boolean | ResearchProjectCountOutputTypeCountMilestonesArgs
-  files?: boolean | ResearchProjectCountOutputTypeCountFilesArgs
-  notes?: boolean | ResearchProjectCountOutputTypeCountNotesArgs
-  discussions?: boolean | ResearchProjectCountOutputTypeCountDiscussionsArgs
-  decisions?: boolean | ResearchProjectCountOutputTypeCountDecisionsArgs
+  aiConversations?: boolean | ResearchProjectCountOutputTypeCountAiConversationsArgs
   activities?: boolean | ResearchProjectCountOutputTypeCountActivitiesArgs
   chatMessages?: boolean | ResearchProjectCountOutputTypeCountChatMessagesArgs
+  decisions?: boolean | ResearchProjectCountOutputTypeCountDecisionsArgs
+  discussions?: boolean | ResearchProjectCountOutputTypeCountDiscussionsArgs
+  files?: boolean | ResearchProjectCountOutputTypeCountFilesArgs
+  invitations?: boolean | ResearchProjectCountOutputTypeCountInvitationsArgs
   linkedStudies?: boolean | ResearchProjectCountOutputTypeCountLinkedStudiesArgs
+  members?: boolean | ResearchProjectCountOutputTypeCountMembersArgs
+  milestones?: boolean | ResearchProjectCountOutputTypeCountMilestonesArgs
+  notes?: boolean | ResearchProjectCountOutputTypeCountNotesArgs
   outputs?: boolean | ResearchProjectCountOutputTypeCountOutputsArgs
-  aiConversations?: boolean | ResearchProjectCountOutputTypeCountAiConversationsArgs
+  tasks?: boolean | ResearchProjectCountOutputTypeCountTasksArgs
 }
 
 /**
@@ -3384,57 +3384,8 @@ export type ResearchProjectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Ty
 /**
  * ResearchProjectCountOutputType without action
  */
-export type ResearchProjectCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectMemberWhereInput
-}
-
-/**
- * ResearchProjectCountOutputType without action
- */
-export type ResearchProjectCountOutputTypeCountInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectInvitationWhereInput
-}
-
-/**
- * ResearchProjectCountOutputType without action
- */
-export type ResearchProjectCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectTaskWhereInput
-}
-
-/**
- * ResearchProjectCountOutputType without action
- */
-export type ResearchProjectCountOutputTypeCountMilestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectMilestoneWhereInput
-}
-
-/**
- * ResearchProjectCountOutputType without action
- */
-export type ResearchProjectCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectFileWhereInput
-}
-
-/**
- * ResearchProjectCountOutputType without action
- */
-export type ResearchProjectCountOutputTypeCountNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectNoteWhereInput
-}
-
-/**
- * ResearchProjectCountOutputType without action
- */
-export type ResearchProjectCountOutputTypeCountDiscussionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectDiscussionWhereInput
-}
-
-/**
- * ResearchProjectCountOutputType without action
- */
-export type ResearchProjectCountOutputTypeCountDecisionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectDecisionWhereInput
+export type ResearchProjectCountOutputTypeCountAiConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AIConversationWhereInput
 }
 
 /**
@@ -3454,8 +3405,57 @@ export type ResearchProjectCountOutputTypeCountChatMessagesArgs<ExtArgs extends 
 /**
  * ResearchProjectCountOutputType without action
  */
+export type ResearchProjectCountOutputTypeCountDecisionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectDecisionWhereInput
+}
+
+/**
+ * ResearchProjectCountOutputType without action
+ */
+export type ResearchProjectCountOutputTypeCountDiscussionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectDiscussionWhereInput
+}
+
+/**
+ * ResearchProjectCountOutputType without action
+ */
+export type ResearchProjectCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectFileWhereInput
+}
+
+/**
+ * ResearchProjectCountOutputType without action
+ */
+export type ResearchProjectCountOutputTypeCountInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectInvitationWhereInput
+}
+
+/**
+ * ResearchProjectCountOutputType without action
+ */
 export type ResearchProjectCountOutputTypeCountLinkedStudiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProjectLinkedStudyWhereInput
+}
+
+/**
+ * ResearchProjectCountOutputType without action
+ */
+export type ResearchProjectCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectMemberWhereInput
+}
+
+/**
+ * ResearchProjectCountOutputType without action
+ */
+export type ResearchProjectCountOutputTypeCountMilestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectMilestoneWhereInput
+}
+
+/**
+ * ResearchProjectCountOutputType without action
+ */
+export type ResearchProjectCountOutputTypeCountNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectNoteWhereInput
 }
 
 /**
@@ -3468,8 +3468,8 @@ export type ResearchProjectCountOutputTypeCountOutputsArgs<ExtArgs extends runti
 /**
  * ResearchProjectCountOutputType without action
  */
-export type ResearchProjectCountOutputTypeCountAiConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AIConversationWhereInput
+export type ResearchProjectCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectTaskWhereInput
 }
 
 
@@ -3495,20 +3495,20 @@ export type ResearchProjectSelect<ExtArgs extends runtime.Types.Extensions.Inter
   inviteToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  lead?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  members?: boolean | Prisma.ResearchProject$membersArgs<ExtArgs>
-  invitations?: boolean | Prisma.ResearchProject$invitationsArgs<ExtArgs>
-  tasks?: boolean | Prisma.ResearchProject$tasksArgs<ExtArgs>
-  milestones?: boolean | Prisma.ResearchProject$milestonesArgs<ExtArgs>
-  files?: boolean | Prisma.ResearchProject$filesArgs<ExtArgs>
-  notes?: boolean | Prisma.ResearchProject$notesArgs<ExtArgs>
-  discussions?: boolean | Prisma.ResearchProject$discussionsArgs<ExtArgs>
-  decisions?: boolean | Prisma.ResearchProject$decisionsArgs<ExtArgs>
+  aiConversations?: boolean | Prisma.ResearchProject$aiConversationsArgs<ExtArgs>
   activities?: boolean | Prisma.ResearchProject$activitiesArgs<ExtArgs>
   chatMessages?: boolean | Prisma.ResearchProject$chatMessagesArgs<ExtArgs>
+  decisions?: boolean | Prisma.ResearchProject$decisionsArgs<ExtArgs>
+  discussions?: boolean | Prisma.ResearchProject$discussionsArgs<ExtArgs>
+  files?: boolean | Prisma.ResearchProject$filesArgs<ExtArgs>
+  invitations?: boolean | Prisma.ResearchProject$invitationsArgs<ExtArgs>
   linkedStudies?: boolean | Prisma.ResearchProject$linkedStudiesArgs<ExtArgs>
+  members?: boolean | Prisma.ResearchProject$membersArgs<ExtArgs>
+  milestones?: boolean | Prisma.ResearchProject$milestonesArgs<ExtArgs>
+  notes?: boolean | Prisma.ResearchProject$notesArgs<ExtArgs>
   outputs?: boolean | Prisma.ResearchProject$outputsArgs<ExtArgs>
-  aiConversations?: boolean | Prisma.ResearchProject$aiConversationsArgs<ExtArgs>
+  tasks?: boolean | Prisma.ResearchProject$tasksArgs<ExtArgs>
+  lead?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ResearchProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["researchProject"]>
 
@@ -3588,20 +3588,20 @@ export type ResearchProjectSelectScalar = {
 
 export type ResearchProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "description" | "researchQuestion" | "objective" | "category" | "studyDesign" | "researchArea" | "institution" | "projectLeadId" | "startDate" | "endDate" | "status" | "currentPhase" | "visibility" | "customPhases" | "isArchived" | "inviteToken" | "createdAt" | "updatedAt", ExtArgs["result"]["researchProject"]>
 export type ResearchProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  lead?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  members?: boolean | Prisma.ResearchProject$membersArgs<ExtArgs>
-  invitations?: boolean | Prisma.ResearchProject$invitationsArgs<ExtArgs>
-  tasks?: boolean | Prisma.ResearchProject$tasksArgs<ExtArgs>
-  milestones?: boolean | Prisma.ResearchProject$milestonesArgs<ExtArgs>
-  files?: boolean | Prisma.ResearchProject$filesArgs<ExtArgs>
-  notes?: boolean | Prisma.ResearchProject$notesArgs<ExtArgs>
-  discussions?: boolean | Prisma.ResearchProject$discussionsArgs<ExtArgs>
-  decisions?: boolean | Prisma.ResearchProject$decisionsArgs<ExtArgs>
+  aiConversations?: boolean | Prisma.ResearchProject$aiConversationsArgs<ExtArgs>
   activities?: boolean | Prisma.ResearchProject$activitiesArgs<ExtArgs>
   chatMessages?: boolean | Prisma.ResearchProject$chatMessagesArgs<ExtArgs>
+  decisions?: boolean | Prisma.ResearchProject$decisionsArgs<ExtArgs>
+  discussions?: boolean | Prisma.ResearchProject$discussionsArgs<ExtArgs>
+  files?: boolean | Prisma.ResearchProject$filesArgs<ExtArgs>
+  invitations?: boolean | Prisma.ResearchProject$invitationsArgs<ExtArgs>
   linkedStudies?: boolean | Prisma.ResearchProject$linkedStudiesArgs<ExtArgs>
+  members?: boolean | Prisma.ResearchProject$membersArgs<ExtArgs>
+  milestones?: boolean | Prisma.ResearchProject$milestonesArgs<ExtArgs>
+  notes?: boolean | Prisma.ResearchProject$notesArgs<ExtArgs>
   outputs?: boolean | Prisma.ResearchProject$outputsArgs<ExtArgs>
-  aiConversations?: boolean | Prisma.ResearchProject$aiConversationsArgs<ExtArgs>
+  tasks?: boolean | Prisma.ResearchProject$tasksArgs<ExtArgs>
+  lead?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ResearchProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ResearchProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3614,20 +3614,20 @@ export type ResearchProjectIncludeUpdateManyAndReturn<ExtArgs extends runtime.Ty
 export type $ResearchProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ResearchProject"
   objects: {
-    lead: Prisma.$UserPayload<ExtArgs>
-    members: Prisma.$ProjectMemberPayload<ExtArgs>[]
-    invitations: Prisma.$ProjectInvitationPayload<ExtArgs>[]
-    tasks: Prisma.$ProjectTaskPayload<ExtArgs>[]
-    milestones: Prisma.$ProjectMilestonePayload<ExtArgs>[]
-    files: Prisma.$ProjectFilePayload<ExtArgs>[]
-    notes: Prisma.$ProjectNotePayload<ExtArgs>[]
-    discussions: Prisma.$ProjectDiscussionPayload<ExtArgs>[]
-    decisions: Prisma.$ProjectDecisionPayload<ExtArgs>[]
+    aiConversations: Prisma.$AIConversationPayload<ExtArgs>[]
     activities: Prisma.$ProjectActivityPayload<ExtArgs>[]
     chatMessages: Prisma.$ProjectChatMessagePayload<ExtArgs>[]
+    decisions: Prisma.$ProjectDecisionPayload<ExtArgs>[]
+    discussions: Prisma.$ProjectDiscussionPayload<ExtArgs>[]
+    files: Prisma.$ProjectFilePayload<ExtArgs>[]
+    invitations: Prisma.$ProjectInvitationPayload<ExtArgs>[]
     linkedStudies: Prisma.$ProjectLinkedStudyPayload<ExtArgs>[]
+    members: Prisma.$ProjectMemberPayload<ExtArgs>[]
+    milestones: Prisma.$ProjectMilestonePayload<ExtArgs>[]
+    notes: Prisma.$ProjectNotePayload<ExtArgs>[]
     outputs: Prisma.$ProjectOutputPayload<ExtArgs>[]
-    aiConversations: Prisma.$AIConversationPayload<ExtArgs>[]
+    tasks: Prisma.$ProjectTaskPayload<ExtArgs>[]
+    lead: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4045,20 +4045,20 @@ readonly fields: ResearchProjectFieldRefs;
  */
 export interface Prisma__ResearchProjectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  lead<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  members<T extends Prisma.ResearchProject$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  invitations<T extends Prisma.ResearchProject$invitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  tasks<T extends Prisma.ResearchProject$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  milestones<T extends Prisma.ResearchProject$milestonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$milestonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  files<T extends Prisma.ResearchProject$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  notes<T extends Prisma.ResearchProject$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  discussions<T extends Prisma.ResearchProject$discussionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$discussionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  decisions<T extends Prisma.ResearchProject$decisionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$decisionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDecisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiConversations<T extends Prisma.ResearchProject$aiConversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$aiConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activities<T extends Prisma.ResearchProject$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   chatMessages<T extends Prisma.ResearchProject$chatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  decisions<T extends Prisma.ResearchProject$decisionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$decisionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDecisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  discussions<T extends Prisma.ResearchProject$discussionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$discussionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  files<T extends Prisma.ResearchProject$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  invitations<T extends Prisma.ResearchProject$invitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   linkedStudies<T extends Prisma.ResearchProject$linkedStudiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$linkedStudiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectLinkedStudyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  members<T extends Prisma.ResearchProject$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  milestones<T extends Prisma.ResearchProject$milestonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$milestonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMilestonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notes<T extends Prisma.ResearchProject$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   outputs<T extends Prisma.ResearchProject$outputsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$outputsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectOutputPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  aiConversations<T extends Prisma.ResearchProject$aiConversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$aiConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tasks<T extends Prisma.ResearchProject$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProject$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  lead<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4510,195 +4510,27 @@ export type ResearchProjectDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
 }
 
 /**
- * ResearchProject.members
+ * ResearchProject.aiConversations
  */
-export type ResearchProject$membersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ResearchProject$aiConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ProjectMember
+   * Select specific fields to fetch from the AIConversation
    */
-  select?: Prisma.ProjectMemberSelect<ExtArgs> | null
+  select?: Prisma.AIConversationSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ProjectMember
+   * Omit specific fields from the AIConversation
    */
-  omit?: Prisma.ProjectMemberOmit<ExtArgs> | null
+  omit?: Prisma.AIConversationOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ProjectMemberInclude<ExtArgs> | null
-  where?: Prisma.ProjectMemberWhereInput
-  orderBy?: Prisma.ProjectMemberOrderByWithRelationInput | Prisma.ProjectMemberOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectMemberWhereUniqueInput
+  include?: Prisma.AIConversationInclude<ExtArgs> | null
+  where?: Prisma.AIConversationWhereInput
+  orderBy?: Prisma.AIConversationOrderByWithRelationInput | Prisma.AIConversationOrderByWithRelationInput[]
+  cursor?: Prisma.AIConversationWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ProjectMemberScalarFieldEnum | Prisma.ProjectMemberScalarFieldEnum[]
-}
-
-/**
- * ResearchProject.invitations
- */
-export type ResearchProject$invitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectInvitation
-   */
-  select?: Prisma.ProjectInvitationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectInvitation
-   */
-  omit?: Prisma.ProjectInvitationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectInvitationInclude<ExtArgs> | null
-  where?: Prisma.ProjectInvitationWhereInput
-  orderBy?: Prisma.ProjectInvitationOrderByWithRelationInput | Prisma.ProjectInvitationOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectInvitationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectInvitationScalarFieldEnum | Prisma.ProjectInvitationScalarFieldEnum[]
-}
-
-/**
- * ResearchProject.tasks
- */
-export type ResearchProject$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectTask
-   */
-  select?: Prisma.ProjectTaskSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectTask
-   */
-  omit?: Prisma.ProjectTaskOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectTaskInclude<ExtArgs> | null
-  where?: Prisma.ProjectTaskWhereInput
-  orderBy?: Prisma.ProjectTaskOrderByWithRelationInput | Prisma.ProjectTaskOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectTaskWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectTaskScalarFieldEnum | Prisma.ProjectTaskScalarFieldEnum[]
-}
-
-/**
- * ResearchProject.milestones
- */
-export type ResearchProject$milestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectMilestone
-   */
-  select?: Prisma.ProjectMilestoneSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectMilestone
-   */
-  omit?: Prisma.ProjectMilestoneOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectMilestoneInclude<ExtArgs> | null
-  where?: Prisma.ProjectMilestoneWhereInput
-  orderBy?: Prisma.ProjectMilestoneOrderByWithRelationInput | Prisma.ProjectMilestoneOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectMilestoneWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectMilestoneScalarFieldEnum | Prisma.ProjectMilestoneScalarFieldEnum[]
-}
-
-/**
- * ResearchProject.files
- */
-export type ResearchProject$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectFile
-   */
-  select?: Prisma.ProjectFileSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectFile
-   */
-  omit?: Prisma.ProjectFileOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectFileInclude<ExtArgs> | null
-  where?: Prisma.ProjectFileWhereInput
-  orderBy?: Prisma.ProjectFileOrderByWithRelationInput | Prisma.ProjectFileOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectFileWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectFileScalarFieldEnum | Prisma.ProjectFileScalarFieldEnum[]
-}
-
-/**
- * ResearchProject.notes
- */
-export type ResearchProject$notesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectNote
-   */
-  select?: Prisma.ProjectNoteSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectNote
-   */
-  omit?: Prisma.ProjectNoteOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectNoteInclude<ExtArgs> | null
-  where?: Prisma.ProjectNoteWhereInput
-  orderBy?: Prisma.ProjectNoteOrderByWithRelationInput | Prisma.ProjectNoteOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectNoteWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectNoteScalarFieldEnum | Prisma.ProjectNoteScalarFieldEnum[]
-}
-
-/**
- * ResearchProject.discussions
- */
-export type ResearchProject$discussionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectDiscussion
-   */
-  select?: Prisma.ProjectDiscussionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectDiscussion
-   */
-  omit?: Prisma.ProjectDiscussionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectDiscussionInclude<ExtArgs> | null
-  where?: Prisma.ProjectDiscussionWhereInput
-  orderBy?: Prisma.ProjectDiscussionOrderByWithRelationInput | Prisma.ProjectDiscussionOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectDiscussionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectDiscussionScalarFieldEnum | Prisma.ProjectDiscussionScalarFieldEnum[]
-}
-
-/**
- * ResearchProject.decisions
- */
-export type ResearchProject$decisionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectDecision
-   */
-  select?: Prisma.ProjectDecisionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectDecision
-   */
-  omit?: Prisma.ProjectDecisionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectDecisionInclude<ExtArgs> | null
-  where?: Prisma.ProjectDecisionWhereInput
-  orderBy?: Prisma.ProjectDecisionOrderByWithRelationInput | Prisma.ProjectDecisionOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectDecisionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectDecisionScalarFieldEnum | Prisma.ProjectDecisionScalarFieldEnum[]
+  distinct?: Prisma.AIConversationScalarFieldEnum | Prisma.AIConversationScalarFieldEnum[]
 }
 
 /**
@@ -4750,6 +4582,102 @@ export type ResearchProject$chatMessagesArgs<ExtArgs extends runtime.Types.Exten
 }
 
 /**
+ * ResearchProject.decisions
+ */
+export type ResearchProject$decisionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectDecision
+   */
+  select?: Prisma.ProjectDecisionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectDecision
+   */
+  omit?: Prisma.ProjectDecisionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectDecisionInclude<ExtArgs> | null
+  where?: Prisma.ProjectDecisionWhereInput
+  orderBy?: Prisma.ProjectDecisionOrderByWithRelationInput | Prisma.ProjectDecisionOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectDecisionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectDecisionScalarFieldEnum | Prisma.ProjectDecisionScalarFieldEnum[]
+}
+
+/**
+ * ResearchProject.discussions
+ */
+export type ResearchProject$discussionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectDiscussion
+   */
+  select?: Prisma.ProjectDiscussionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectDiscussion
+   */
+  omit?: Prisma.ProjectDiscussionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectDiscussionInclude<ExtArgs> | null
+  where?: Prisma.ProjectDiscussionWhereInput
+  orderBy?: Prisma.ProjectDiscussionOrderByWithRelationInput | Prisma.ProjectDiscussionOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectDiscussionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectDiscussionScalarFieldEnum | Prisma.ProjectDiscussionScalarFieldEnum[]
+}
+
+/**
+ * ResearchProject.files
+ */
+export type ResearchProject$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectFile
+   */
+  select?: Prisma.ProjectFileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectFile
+   */
+  omit?: Prisma.ProjectFileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectFileInclude<ExtArgs> | null
+  where?: Prisma.ProjectFileWhereInput
+  orderBy?: Prisma.ProjectFileOrderByWithRelationInput | Prisma.ProjectFileOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectFileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectFileScalarFieldEnum | Prisma.ProjectFileScalarFieldEnum[]
+}
+
+/**
+ * ResearchProject.invitations
+ */
+export type ResearchProject$invitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectInvitation
+   */
+  select?: Prisma.ProjectInvitationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectInvitation
+   */
+  omit?: Prisma.ProjectInvitationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInvitationInclude<ExtArgs> | null
+  where?: Prisma.ProjectInvitationWhereInput
+  orderBy?: Prisma.ProjectInvitationOrderByWithRelationInput | Prisma.ProjectInvitationOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectInvitationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectInvitationScalarFieldEnum | Prisma.ProjectInvitationScalarFieldEnum[]
+}
+
+/**
  * ResearchProject.linkedStudies
  */
 export type ResearchProject$linkedStudiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4771,6 +4699,78 @@ export type ResearchProject$linkedStudiesArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.ProjectLinkedStudyScalarFieldEnum | Prisma.ProjectLinkedStudyScalarFieldEnum[]
+}
+
+/**
+ * ResearchProject.members
+ */
+export type ResearchProject$membersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectMember
+   */
+  select?: Prisma.ProjectMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectMember
+   */
+  omit?: Prisma.ProjectMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectMemberInclude<ExtArgs> | null
+  where?: Prisma.ProjectMemberWhereInput
+  orderBy?: Prisma.ProjectMemberOrderByWithRelationInput | Prisma.ProjectMemberOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectMemberScalarFieldEnum | Prisma.ProjectMemberScalarFieldEnum[]
+}
+
+/**
+ * ResearchProject.milestones
+ */
+export type ResearchProject$milestonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectMilestone
+   */
+  select?: Prisma.ProjectMilestoneSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectMilestone
+   */
+  omit?: Prisma.ProjectMilestoneOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectMilestoneInclude<ExtArgs> | null
+  where?: Prisma.ProjectMilestoneWhereInput
+  orderBy?: Prisma.ProjectMilestoneOrderByWithRelationInput | Prisma.ProjectMilestoneOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectMilestoneWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectMilestoneScalarFieldEnum | Prisma.ProjectMilestoneScalarFieldEnum[]
+}
+
+/**
+ * ResearchProject.notes
+ */
+export type ResearchProject$notesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectNote
+   */
+  select?: Prisma.ProjectNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectNote
+   */
+  omit?: Prisma.ProjectNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectNoteInclude<ExtArgs> | null
+  where?: Prisma.ProjectNoteWhereInput
+  orderBy?: Prisma.ProjectNoteOrderByWithRelationInput | Prisma.ProjectNoteOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectNoteScalarFieldEnum | Prisma.ProjectNoteScalarFieldEnum[]
 }
 
 /**
@@ -4798,27 +4798,27 @@ export type ResearchProject$outputsArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * ResearchProject.aiConversations
+ * ResearchProject.tasks
  */
-export type ResearchProject$aiConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ResearchProject$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the AIConversation
+   * Select specific fields to fetch from the ProjectTask
    */
-  select?: Prisma.AIConversationSelect<ExtArgs> | null
+  select?: Prisma.ProjectTaskSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the AIConversation
+   * Omit specific fields from the ProjectTask
    */
-  omit?: Prisma.AIConversationOmit<ExtArgs> | null
+  omit?: Prisma.ProjectTaskOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AIConversationInclude<ExtArgs> | null
-  where?: Prisma.AIConversationWhereInput
-  orderBy?: Prisma.AIConversationOrderByWithRelationInput | Prisma.AIConversationOrderByWithRelationInput[]
-  cursor?: Prisma.AIConversationWhereUniqueInput
+  include?: Prisma.ProjectTaskInclude<ExtArgs> | null
+  where?: Prisma.ProjectTaskWhereInput
+  orderBy?: Prisma.ProjectTaskOrderByWithRelationInput | Prisma.ProjectTaskOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectTaskWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AIConversationScalarFieldEnum | Prisma.AIConversationScalarFieldEnum[]
+  distinct?: Prisma.ProjectTaskScalarFieldEnum | Prisma.ProjectTaskScalarFieldEnum[]
 }
 
 /**

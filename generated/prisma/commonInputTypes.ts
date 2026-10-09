@@ -199,13 +199,6 @@ export type EnumStudyStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumStudyStatusFilter<$PrismaModel> | $Enums.StudyStatus
 }
 
-export type EnumStudyTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.StudyType | Prisma.EnumStudyTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel> | $Enums.StudyType
-}
-
 export type IntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -217,6 +210,13 @@ export type IntFilter<$PrismaModel = never> = {
   not?: Prisma.NestedIntFilter<$PrismaModel> | number
 }
 
+export type EnumStudyTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyType | Prisma.EnumStudyTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel> | $Enums.StudyType
+}
+
 export type EnumStudyStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.StudyStatus | Prisma.EnumStudyStatusFieldRefInput<$PrismaModel>
   in?: $Enums.StudyStatus[] | Prisma.ListEnumStudyStatusFieldRefInput<$PrismaModel>
@@ -225,16 +225,6 @@ export type EnumStudyStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumStudyStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumStudyStatusFilter<$PrismaModel>
-}
-
-export type EnumStudyTypeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.StudyType | Prisma.EnumStudyTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumStudyTypeWithAggregatesFilter<$PrismaModel> | $Enums.StudyType
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
 }
 
 export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -251,6 +241,16 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedIntFilter<$PrismaModel>
   _max?: Prisma.NestedIntFilter<$PrismaModel>
+}
+
+export type EnumStudyTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyType | Prisma.EnumStudyTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudyTypeWithAggregatesFilter<$PrismaModel> | $Enums.StudyType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
 }
 
 export type EnumQuestionTypeFilter<$PrismaModel = never> = {
@@ -964,16 +964,6 @@ export type NestedEnumStudyStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumStudyStatusFilter<$PrismaModel>
 }
 
-export type NestedEnumStudyTypeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.StudyType | Prisma.EnumStudyTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumStudyTypeWithAggregatesFilter<$PrismaModel> | $Enums.StudyType
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
-}
-
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -999,6 +989,16 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumStudyTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyType | Prisma.EnumStudyTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudyTypeWithAggregatesFilter<$PrismaModel> | $Enums.StudyType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumQuestionTypeFilter<$PrismaModel = never> = {

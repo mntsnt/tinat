@@ -214,8 +214,8 @@ export type ProjectDiscussionWhereInput = {
   isResolved?: Prisma.BoolFilter<"ProjectDiscussion"> | boolean
   createdAt?: Prisma.DateTimeFilter<"ProjectDiscussion"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProjectDiscussion"> | Date | string
-  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   replies?: Prisma.ProjectDiscussionReplyListRelationFilter
 }
 
@@ -229,8 +229,8 @@ export type ProjectDiscussionOrderByWithRelationInput = {
   isResolved?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  project?: Prisma.ResearchProjectOrderByWithRelationInput
   author?: Prisma.UserOrderByWithRelationInput
+  project?: Prisma.ResearchProjectOrderByWithRelationInput
   replies?: Prisma.ProjectDiscussionReplyOrderByRelationAggregateInput
 }
 
@@ -247,8 +247,8 @@ export type ProjectDiscussionWhereUniqueInput = Prisma.AtLeast<{
   isResolved?: Prisma.BoolFilter<"ProjectDiscussion"> | boolean
   createdAt?: Prisma.DateTimeFilter<"ProjectDiscussion"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProjectDiscussion"> | Date | string
-  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   replies?: Prisma.ProjectDiscussionReplyListRelationFilter
 }, "id">
 
@@ -290,8 +290,8 @@ export type ProjectDiscussionCreateInput = {
   isResolved?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  project: Prisma.ResearchProjectCreateNestedOneWithoutDiscussionsInput
   author: Prisma.UserCreateNestedOneWithoutProjectDiscussionsInput
+  project: Prisma.ResearchProjectCreateNestedOneWithoutDiscussionsInput
   replies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutDiscussionInput
 }
 
@@ -316,8 +316,8 @@ export type ProjectDiscussionUpdateInput = {
   isResolved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutDiscussionsNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutProjectDiscussionsNestedInput
+  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutDiscussionsNestedInput
   replies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutDiscussionNestedInput
 }
 
@@ -640,8 +640,8 @@ export type ProjectDiscussionCreateWithoutRepliesInput = {
   isResolved?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  project: Prisma.ResearchProjectCreateNestedOneWithoutDiscussionsInput
   author: Prisma.UserCreateNestedOneWithoutProjectDiscussionsInput
+  project: Prisma.ResearchProjectCreateNestedOneWithoutDiscussionsInput
 }
 
 export type ProjectDiscussionUncheckedCreateWithoutRepliesInput = {
@@ -680,8 +680,8 @@ export type ProjectDiscussionUpdateWithoutRepliesInput = {
   isResolved?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutDiscussionsNestedInput
   author?: Prisma.UserUpdateOneRequiredWithoutProjectDiscussionsNestedInput
+  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutDiscussionsNestedInput
 }
 
 export type ProjectDiscussionUncheckedUpdateWithoutRepliesInput = {
@@ -829,8 +829,8 @@ export type ProjectDiscussionSelect<ExtArgs extends runtime.Types.Extensions.Int
   isResolved?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   replies?: boolean | Prisma.ProjectDiscussion$repliesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectDiscussionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectDiscussion"]>
@@ -845,8 +845,8 @@ export type ProjectDiscussionSelectCreateManyAndReturn<ExtArgs extends runtime.T
   isResolved?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectDiscussion"]>
 
 export type ProjectDiscussionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -859,8 +859,8 @@ export type ProjectDiscussionSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   isResolved?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectDiscussion"]>
 
 export type ProjectDiscussionSelectScalar = {
@@ -877,25 +877,25 @@ export type ProjectDiscussionSelectScalar = {
 
 export type ProjectDiscussionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "authorId" | "title" | "content" | "category" | "isResolved" | "createdAt" | "updatedAt", ExtArgs["result"]["projectDiscussion"]>
 export type ProjectDiscussionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   replies?: boolean | Prisma.ProjectDiscussion$repliesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectDiscussionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectDiscussionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 export type ProjectDiscussionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 
 export type $ProjectDiscussionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProjectDiscussion"
   objects: {
-    project: Prisma.$ResearchProjectPayload<ExtArgs>
     author: Prisma.$UserPayload<ExtArgs>
+    project: Prisma.$ResearchProjectPayload<ExtArgs>
     replies: Prisma.$ProjectDiscussionReplyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1302,8 +1302,8 @@ readonly fields: ProjectDiscussionFieldRefs;
  */
 export interface Prisma__ProjectDiscussionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  project<T extends Prisma.ResearchProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  project<T extends Prisma.ResearchProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   replies<T extends Prisma.ProjectDiscussion$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDiscussion$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

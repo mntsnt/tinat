@@ -264,8 +264,8 @@ export type ProjectDecisionWhereInput = {
   relatedDoc?: Prisma.StringNullableFilter<"ProjectDecision"> | string | null
   date?: Prisma.DateTimeFilter<"ProjectDecision"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"ProjectDecision"> | Date | string
-  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   madeBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
 }
 
 export type ProjectDecisionOrderByWithRelationInput = {
@@ -280,8 +280,8 @@ export type ProjectDecisionOrderByWithRelationInput = {
   relatedDoc?: Prisma.SortOrderInput | Prisma.SortOrder
   date?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  project?: Prisma.ResearchProjectOrderByWithRelationInput
   madeBy?: Prisma.UserOrderByWithRelationInput
+  project?: Prisma.ResearchProjectOrderByWithRelationInput
 }
 
 export type ProjectDecisionWhereUniqueInput = Prisma.AtLeast<{
@@ -299,8 +299,8 @@ export type ProjectDecisionWhereUniqueInput = Prisma.AtLeast<{
   relatedDoc?: Prisma.StringNullableFilter<"ProjectDecision"> | string | null
   date?: Prisma.DateTimeFilter<"ProjectDecision"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"ProjectDecision"> | Date | string
-  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   madeBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
 }, "id">
 
 export type ProjectDecisionOrderByWithAggregationInput = {
@@ -349,8 +349,8 @@ export type ProjectDecisionCreateInput = {
   relatedDoc?: string | null
   date?: Date | string
   createdAt?: Date | string
-  project: Prisma.ResearchProjectCreateNestedOneWithoutDecisionsInput
   madeBy: Prisma.UserCreateNestedOneWithoutProjectDecisionsInput
+  project: Prisma.ResearchProjectCreateNestedOneWithoutDecisionsInput
 }
 
 export type ProjectDecisionUncheckedCreateInput = {
@@ -377,8 +377,8 @@ export type ProjectDecisionUpdateInput = {
   relatedDoc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutDecisionsNestedInput
   madeBy?: Prisma.UserUpdateOneRequiredWithoutProjectDecisionsNestedInput
+  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutDecisionsNestedInput
 }
 
 export type ProjectDecisionUncheckedUpdateInput = {
@@ -822,8 +822,8 @@ export type ProjectDecisionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   relatedDoc?: boolean
   date?: boolean
   createdAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   madeBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectDecision"]>
 
 export type ProjectDecisionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -838,8 +838,8 @@ export type ProjectDecisionSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   relatedDoc?: boolean
   date?: boolean
   createdAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   madeBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectDecision"]>
 
 export type ProjectDecisionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -854,8 +854,8 @@ export type ProjectDecisionSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   relatedDoc?: boolean
   date?: boolean
   createdAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   madeBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectDecision"]>
 
 export type ProjectDecisionSelectScalar = {
@@ -874,23 +874,23 @@ export type ProjectDecisionSelectScalar = {
 
 export type ProjectDecisionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "decisionNumber" | "decision" | "reason" | "status" | "madeById" | "supersededById" | "relatedDoc" | "date" | "createdAt", ExtArgs["result"]["projectDecision"]>
 export type ProjectDecisionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   madeBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 export type ProjectDecisionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   madeBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 export type ProjectDecisionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   madeBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 
 export type $ProjectDecisionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProjectDecision"
   objects: {
-    project: Prisma.$ResearchProjectPayload<ExtArgs>
     madeBy: Prisma.$UserPayload<ExtArgs>
+    project: Prisma.$ResearchProjectPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1298,8 +1298,8 @@ readonly fields: ProjectDecisionFieldRefs;
  */
 export interface Prisma__ProjectDecisionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  project<T extends Prisma.ResearchProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   madeBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  project<T extends Prisma.ResearchProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

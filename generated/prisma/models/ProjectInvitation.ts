@@ -222,8 +222,8 @@ export type ProjectInvitationWhereInput = {
   status?: Prisma.EnumInvitationStatusFilter<"ProjectInvitation"> | $Enums.InvitationStatus
   expiresAt?: Prisma.DateTimeFilter<"ProjectInvitation"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"ProjectInvitation"> | Date | string
-  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   inviter?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
 }
 
 export type ProjectInvitationOrderByWithRelationInput = {
@@ -237,8 +237,8 @@ export type ProjectInvitationOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  project?: Prisma.ResearchProjectOrderByWithRelationInput
   inviter?: Prisma.UserOrderByWithRelationInput
+  project?: Prisma.ResearchProjectOrderByWithRelationInput
 }
 
 export type ProjectInvitationWhereUniqueInput = Prisma.AtLeast<{
@@ -255,8 +255,8 @@ export type ProjectInvitationWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumInvitationStatusFilter<"ProjectInvitation"> | $Enums.InvitationStatus
   expiresAt?: Prisma.DateTimeFilter<"ProjectInvitation"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"ProjectInvitation"> | Date | string
-  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
   inviter?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  project?: Prisma.XOR<Prisma.ResearchProjectScalarRelationFilter, Prisma.ResearchProjectWhereInput>
 }, "id" | "token">
 
 export type ProjectInvitationOrderByWithAggregationInput = {
@@ -300,8 +300,8 @@ export type ProjectInvitationCreateInput = {
   status?: $Enums.InvitationStatus
   expiresAt: Date | string
   createdAt?: Date | string
-  project: Prisma.ResearchProjectCreateNestedOneWithoutInvitationsInput
   inviter: Prisma.UserCreateNestedOneWithoutSentProjectInvitationsInput
+  project: Prisma.ResearchProjectCreateNestedOneWithoutInvitationsInput
 }
 
 export type ProjectInvitationUncheckedCreateInput = {
@@ -326,8 +326,8 @@ export type ProjectInvitationUpdateInput = {
   status?: Prisma.EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutInvitationsNestedInput
   inviter?: Prisma.UserUpdateOneRequiredWithoutSentProjectInvitationsNestedInput
+  project?: Prisma.ResearchProjectUpdateOneRequiredWithoutInvitationsNestedInput
 }
 
 export type ProjectInvitationUncheckedUpdateInput = {
@@ -742,8 +742,8 @@ export type ProjectInvitationSelect<ExtArgs extends runtime.Types.Extensions.Int
   status?: boolean
   expiresAt?: boolean
   createdAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   inviter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectInvitation"]>
 
 export type ProjectInvitationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -757,8 +757,8 @@ export type ProjectInvitationSelectCreateManyAndReturn<ExtArgs extends runtime.T
   status?: boolean
   expiresAt?: boolean
   createdAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   inviter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectInvitation"]>
 
 export type ProjectInvitationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -772,8 +772,8 @@ export type ProjectInvitationSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   status?: boolean
   expiresAt?: boolean
   createdAt?: boolean
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   inviter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectInvitation"]>
 
 export type ProjectInvitationSelectScalar = {
@@ -791,23 +791,23 @@ export type ProjectInvitationSelectScalar = {
 
 export type ProjectInvitationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "inviterId" | "inviteeEmail" | "role" | "message" | "token" | "status" | "expiresAt" | "createdAt", ExtArgs["result"]["projectInvitation"]>
 export type ProjectInvitationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   inviter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 export type ProjectInvitationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   inviter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 export type ProjectInvitationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
   inviter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.ResearchProjectDefaultArgs<ExtArgs>
 }
 
 export type $ProjectInvitationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProjectInvitation"
   objects: {
-    project: Prisma.$ResearchProjectPayload<ExtArgs>
     inviter: Prisma.$UserPayload<ExtArgs>
+    project: Prisma.$ResearchProjectPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1214,8 +1214,8 @@ readonly fields: ProjectInvitationFieldRefs;
  */
 export interface Prisma__ProjectInvitationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  project<T extends Prisma.ResearchProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   inviter<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  project<T extends Prisma.ResearchProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ResearchProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ResearchProjectClient<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
