@@ -3,7 +3,7 @@ import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
-import { LayoutDashboard, Compass, History, Wallet, Settings, MessageCircleQuestion, ClipboardList } from "lucide-react";
+import { getLinksForUser } from "../components/layout/navLinks";
 
 export default async function ParticipantLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -25,14 +25,6 @@ export default async function ParticipantLayout({ children }: { children: ReactN
     redirect(`/verify-email?email=${encodeURIComponent(user.email)}`);
   }
 
-  const links = [
-    { title: "Dashboard", href: "/participant", icon: <LayoutDashboard /> },
-    { title: "Discover Studies", href: "/participant/studies", icon: <Compass /> },
-    { title: "History", href: "/participant/history", icon: <History /> },
-    { title: "Wallet", href: "/participant/wallet", icon: <Wallet /> },
-    { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
-  ];
-
   const verification = await prisma.verification.findUnique({
     where: {
       userId_verificationType: {
@@ -42,11 +34,7 @@ export default async function ParticipantLayout({ children }: { children: ReactN
     }
   });
 
-  if (verification?.status === "VERIFIED") {
-    links.push({ title: "Field Collection", href: "/collector/dashboard", icon: <ClipboardList /> });
-  }
-
-  links.push({ title: "Settings", href: "/participant/settings", icon: <Settings /> });
+  const links = getLinksForUser({ ...user, isCollector: verification?.status === "VERIFIED" });
 
   return (
     <div className="flex flex-col md:flex-row h-screen overflow-hidden">
@@ -63,4 +51,3 @@ export default async function ParticipantLayout({ children }: { children: ReactN
     </div>
   );
 }
-

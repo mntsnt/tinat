@@ -3,16 +3,7 @@ import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
-import {
-  LayoutDashboard,
-  Users,
-  CreditCard,
-  Activity,
-  FileText,
-  Settings,
-  MessageCircleQuestion,
-  FolderKanban,
-} from "lucide-react";
+import { getLinksForUser } from "../components/layout/navLinks";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -34,15 +25,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     redirect(`/verify-email?email=${encodeURIComponent(user.email)}`);
   }
 
-  const links = [
-    { title: "Overview", href: "/admin", icon: <LayoutDashboard /> },
-    { title: "User Management", href: "/admin/users", icon: <Users /> },
-    { title: "Manage Studies", href: "/admin/studies", icon: <FileText /> },
-    { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
-    { title: "Withdrawals", href: "/admin/withdrawals", icon: <CreditCard /> },
-    { title: "Activity Logs", href: "/admin/logs", icon: <Activity /> },
-    { title: "Settings", href: "/admin/settings", icon: <Settings /> },
-  ];
+  const links = getLinksForUser(user);
 
   return (
     <div className="flex flex-col md:flex-row h-screen overflow-hidden">
@@ -59,4 +42,3 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     </div>
   );
 }
-

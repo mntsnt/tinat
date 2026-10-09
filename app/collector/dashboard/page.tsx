@@ -57,7 +57,7 @@ export default function CollectorDashboardPage() {
   if (isLoading) return <div className="p-6 text-center text-muted-foreground">Loading Data Collection Dashboard...</div>;
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-8 max-w-4xl">
+    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
           <ClipboardList className="w-6 h-6 text-emerald-600" />

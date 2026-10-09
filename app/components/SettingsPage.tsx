@@ -77,7 +77,7 @@ export default function SettingsPage({ user }: { user: UserData }) {
   const shortId = `#${user.id.slice(-4).toUpperCase()}`;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-3xl space-y-8">
+    <div className="container mx-auto max-w-3xl px-4 py-6 md:px-7 md:py-8 space-y-8">
       <div>
         <h1 className="text-xl font-bold mb-2">Settings</h1>
         <p className="text-muted-foreground">Manage your account and payment preferences</p>

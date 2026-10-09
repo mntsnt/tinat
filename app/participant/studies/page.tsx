@@ -79,7 +79,7 @@ export default async function StudyDiscoveryPage({
   );
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6">
+    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
       {/* Header */}
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end justify-between">
         <div>

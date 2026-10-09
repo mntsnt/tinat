@@ -3,7 +3,7 @@ import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
-import { LayoutDashboard, FilePlus, FolderOpen, Settings, MessageCircleQuestion, FolderKanban } from "lucide-react";
+import { getLinksForUser } from "../components/layout/navLinks";
 
 export default async function ResearcherLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -25,13 +25,7 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
     redirect(`/verify-email?email=${encodeURIComponent(user.email)}`);
   }
 
-  const links = [
-    { title: "Dashboard", href: "/researcher", icon: <LayoutDashboard /> },
-    { title: "Research Projects", href: "/projects", icon: <FolderKanban /> },
-    { title: "My Studies", href: "/researcher/studies", icon: <FolderOpen /> },
-    { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
-    { title: "Settings", href: "/researcher/settings", icon: <Settings /> },
-  ];
+  const links = getLinksForUser(user);
 
   return (
     <div className="flex flex-col md:flex-row h-screen overflow-hidden">
@@ -48,4 +42,3 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
     </div>
   );
 }
-

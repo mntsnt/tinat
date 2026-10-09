@@ -148,60 +148,53 @@ export default function ProjectsPage() {
   }, [projects]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
-      {/* Header Banner */}
-      <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-primary dark:text-primary font-semibold text-sm mb-1 tracking-wide uppercase">
-                <FolderKanban className="w-4 h-4" />
-                Collaborative Health Research
-              </div>
-              <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-                Research Projects & Teams
-              </h1>
-              <p className="mt-1 text-slate-600 dark:text-slate-400 max-w-2xl text-sm leading-relaxed">
-                End-to-end academic and clinical research workspaces from hypothesis and protocol to data collection, analysis, and peer-reviewed publication.
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <Link
-                href="/projects/new"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-medium shadow-sm shadow-indigo-600/20 transition-all hover:shadow hover:scale-[1.01] active:scale-[0.99] text-sm"
-              >
-                <Plus className="w-4 h-4" />
-                New Research Project
-              </Link>
-            </div>
+    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
+      {/* Page Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <div>
+          <div className="flex items-center gap-2 text-primary font-semibold text-sm mb-1 tracking-wide uppercase">
+            <FolderKanban className="w-4 h-4" />
+            Collaborative Health Research
           </div>
-
-          {/* Quick Metrics Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/80">
-            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800">
-              <div className="text-xs font-medium text-slate-500 dark:text-slate-400">Total Workspaces</div>
-              <div className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">{stats.total}</div>
-            </div>
-            <div className="p-3.5 rounded-xl bg-primary/5/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/30">
-              <div className="text-xs font-medium text-indigo-700 dark:text-primary">Active Investigations</div>
-              <div className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mt-0.5">{stats.active}</div>
-            </div>
-            <div className="p-3.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30">
-              <div className="text-xs font-medium text-emerald-700 dark:text-emerald-400">Completed & Published</div>
-              <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-300 mt-0.5">{stats.completed}</div>
-            </div>
-            <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800">
-              <div className="text-xs font-medium text-slate-500 dark:text-slate-400">Active Collaborators</div>
-              <div className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">{stats.totalMembers}</div>
-            </div>
-          </div>
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">
+            Research Projects & Teams
+          </h1>
+          <p className="mt-1 text-muted-foreground max-w-2xl text-sm leading-relaxed">
+            End-to-end academic and clinical research workspaces from hypothesis and protocol to data collection, analysis, and peer-reviewed publication.
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/projects/new"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-medium shadow-sm transition-all hover:shadow text-sm"
+          >
+            <Plus className="w-4 h-4" />
+            New Research Project
+          </Link>
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Search & Filters */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-8">
+      {/* Quick Metrics Bar */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        <div className="p-3.5 rounded-xl bg-card border border-border shadow-sm">
+          <div className="text-xs font-medium text-muted-foreground">Total Workspaces</div>
+          <div className="text-2xl font-bold text-foreground mt-0.5">{stats.total}</div>
+        </div>
+        <div className="p-3.5 rounded-xl bg-primary/10 border border-primary/20 shadow-sm">
+          <div className="text-xs font-medium text-primary">Active Investigations</div>
+          <div className="text-2xl font-bold text-primary mt-0.5">{stats.active}</div>
+        </div>
+        <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 shadow-sm dark:bg-emerald-500/10 dark:border-emerald-500/20">
+          <div className="text-xs font-medium text-emerald-600 dark:text-emerald-400">Completed & Published</div>
+          <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">{stats.completed}</div>
+        </div>
+        <div className="p-3.5 rounded-xl bg-card border border-border shadow-sm">
+          <div className="text-xs font-medium text-muted-foreground">Team Members</div>
+          <div className="text-2xl font-bold text-foreground mt-0.5">{stats.totalMembers}</div>
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-8">
           <div className="relative flex-1 max-w-md">
             <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
@@ -302,7 +295,6 @@ export default function ProjectsPage() {
             ))}
           </div>
         )}
-      </div>
     </div>
   );
 }
