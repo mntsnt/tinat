@@ -22,7 +22,7 @@ type UserData = {
 
 import { UserCircle, Lock, Edit, CheckCircle } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
-import { VerificationSection } from "./VerificationSection";
+
 import { FaydaVerification } from "./FaydaVerification";
 
 export default function SettingsPage({ user }: { user: UserData }) {
@@ -254,9 +254,7 @@ export default function SettingsPage({ user }: { user: UserData }) {
         </CardContent>
       </Card>
 
-      <FaydaVerification isVerified={user.faydaVerified || false} verifiedAt={user.faydaVerifiedAt} />`n`n        {(user.role === "PARTICIPANT" || user.role === "RESEARCHER") && (
-        <VerificationSection role={user.role} />
-      )}
+      <FaydaVerification isVerified={user.faydaVerified || false} verifiedAt={user.faydaVerifiedAt} />
     </div>
   );
 }
