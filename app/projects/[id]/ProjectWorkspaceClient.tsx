@@ -1373,36 +1373,20 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
         {/* TAB 11: ASK PROJECT AI */}
         {activeTab === "ai" && (
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+                <h3 className="font-bold text-base text-foreground flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-primary" />
-                  Grounded Clinical Research AI
+                  Project assistant
                 </h3>
-                <p className="text-xs text-slate-500">
-                  Synthesize project status, conduct ethical gap checks, outline manuscripts, and query methodology.
+                <p className="text-sm text-muted-foreground mt-1">
+                  Ask about this project or choose a research task to get started.
                 </p>
-              </div>
-
-              {/* Model Selector */}
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-slate-400">Model:</span>
-                <select
-                  value={aiModel}
-                  onChange={(e) => setAiModel(e.target.value)}
-                  className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs font-semibold"
-                >
-                  <option value="gemini">Google Gemini 3.6 Flash (Recommended)</option>
-                  <option value="ling-sante">InclusionAI: Ling Santé MoE (Free)</option>
-                  <option value="nemotron">NVIDIA: Nemotron 3 Ultra (Free)</option>
-                  <option value="gemma-31b">Google: Gemma 4 31B (Free)</option>
-                </select>
               </div>
             </div>
 
-            {/* Quick Action Prompt Chips */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="flex flex-wrap gap-2">
               {[
                 {
                   id: "SUMMARIZE_STATUS",
@@ -1429,38 +1413,38 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   key={act.id}
                   disabled={aiLoading}
                   onClick={() => handleAskAI(undefined, act.id)}
-                  className="p-3.5 rounded-xl border border-indigo-100 dark:border-indigo-900/40 bg-primary/5/40 dark:bg-indigo-950/20 text-left hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-xs"
+                  title={act.desc}
+                  aria-label={`${act.label}: ${act.desc}`}
+                  className="rounded-md border border-border bg-card px-3 py-2 text-left text-sm text-foreground transition-colors hover:bg-muted disabled:opacity-50"
                 >
-                  <div className="font-bold text-indigo-900 dark:text-indigo-300">{act.label}</div>
-                  <div className="text-[10px] text-slate-500 mt-0.5">{act.desc}</div>
+                  <span className="font-medium">{act.label}</span>
                 </button>
               ))}
             </div>
 
-            {/* Chat Response Stream */}
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col min-h-[450px]">
-              <div className="flex-1 p-5 overflow-y-auto space-y-4">
+            <div className="flex h-[min(58vh,620px)] min-h-[320px] flex-col overflow-hidden rounded-lg border border-border bg-card">
+              <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4 sm:p-5">
                 {aiHistory.length === 0 ? (
-                  <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
-                    <Sparkles className="w-8 h-8 text-primary mb-2" />
-                    <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200">
-                      Project AI Research Assistant
+                  <div className="flex h-full flex-col items-center justify-center p-6 text-center text-muted-foreground">
+                    <Sparkles className="mb-2 h-7 w-7 text-primary" />
+                    <h4 className="font-semibold text-sm text-foreground">
+                      Research, with your project in context
                     </h4>
-                    <p className="text-xs max-w-md mt-1">
-                      Ask any question regarding this project’s timeline, statistical methodology, sample size, or select a preset prompt above.
+                    <p className="mt-1 max-w-md text-sm">
+                      Ask about project progress, methodology, sample size, or your next steps.
                     </p>
                   </div>
                 ) : (
                   aiHistory.map((item, idx) => (
                     <div
                       key={idx}
-                      className={`p-4 rounded-xl text-xs leading-relaxed ${
+                      className={`rounded-lg border p-4 text-sm leading-relaxed ${
                         item.role === "assistant"
-                          ? "bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 border border-slate-200/60 dark:border-slate-800"
-                          : "bg-primary/5 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200 font-medium ml-8"
+                          ? "border-border bg-muted/50 text-foreground"
+                          : "ml-8 border-primary/20 bg-primary/5 text-foreground"
                       }`}
                     >
-                      <div className="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">
+                      <div className="mb-1 text-xs font-semibold text-muted-foreground">
                         {item.role === "assistant" ? "Project AI" : "You"}
                       </div>
                       <div className="whitespace-pre-wrap">{item.content}</div>
@@ -1468,33 +1452,56 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   ))
                 )}
                 {aiLoading && (
-                  <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2 text-xs text-primary">
-                    <div className="w-3.5 h-3.5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                    <span>Analyzing project state and synthesizing clinical context...</span>
+                  <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 p-4 text-sm text-muted-foreground" role="status">
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                    <span>Reviewing project context...</span>
                   </div>
                 )}
               </div>
 
-              {/* Chat Input */}
-              <div className="p-3 border-t border-slate-200 dark:border-slate-800 flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Ask a question about this project, methodology, or analysis..."
-                  value={aiPrompt}
-                  onChange={(e) => setAiPrompt(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleAskAI()}
-                  disabled={aiLoading}
-                  className="flex-1 px-4 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
-                />
-                <button
-                  onClick={() => handleAskAI()}
-                  disabled={aiLoading || !aiPrompt.trim()}
-                  className="px-5 py-2 rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 text-white font-semibold text-xs flex items-center gap-1.5 transition-all"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  Send
-                </button>
-              </div>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  handleAskAI();
+                }}
+                className="shrink-0 space-y-2 border-t border-border bg-background p-3"
+              >
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <label htmlFor="project-ai-model" className="text-xs font-medium text-muted-foreground">
+                    AI model
+                  </label>
+                  <select
+                    id="project-ai-model"
+                    value={aiModel}
+                    onChange={(e) => setAiModel(e.target.value)}
+                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground sm:w-auto"
+                  >
+                    <option value="gemini">Google Gemini 3.6 Flash (Recommended)</option>
+                    <option value="ling-sante">InclusionAI: Ling Santé MoE (Free)</option>
+                    <option value="nemotron">NVIDIA: Nemotron 3 Ultra (Free)</option>
+                    <option value="gemma-31b">Google: Gemma 4 31B (Free)</option>
+                  </select>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Ask a question about this project..."
+                    value={aiPrompt}
+                    onChange={(e) => setAiPrompt(e.target.value)}
+                    disabled={aiLoading}
+                    aria-label="Ask a question about this project"
+                    className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                  />
+                  <button
+                    type="submit"
+                    disabled={aiLoading || !aiPrompt.trim()}
+                    className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+                  >
+                    <Send className="h-4 w-4" />
+                    Send
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

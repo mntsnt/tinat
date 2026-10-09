@@ -152,21 +152,21 @@ export default function ProjectsPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
         <div>
-          <div className="flex items-center gap-2 text-primary font-semibold text-sm mb-1 tracking-wide uppercase">
+          <div className="flex items-center gap-2 text-primary font-semibold text-xs mb-1 uppercase">
             <FolderKanban className="w-4 h-4" />
-            Collaborative Health Research
+            Research workspace
           </div>
           <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">
-            Research Projects & Teams
+            Research Projects
           </h1>
           <p className="mt-1 text-muted-foreground max-w-2xl text-sm leading-relaxed">
-            End-to-end academic and clinical research workspaces from hypothesis and protocol to data collection, analysis, and peer-reviewed publication.
+            Organize your research, collaborators, milestones, and linked studies in one workspace.
           </p>
         </div>
         <div className="flex items-center gap-3">
           <Link
             href="/projects/new"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-medium shadow-sm transition-all hover:shadow text-sm"
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <Plus className="w-4 h-4" />
             New Research Project
@@ -175,48 +175,50 @@ export default function ProjectsPage() {
       </div>
 
       {/* Quick Metrics Bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-        <div className="p-3.5 rounded-xl bg-card border border-border shadow-sm">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        <div className="rounded-lg border border-border bg-card p-3.5">
           <div className="text-xs font-medium text-muted-foreground">Total Workspaces</div>
           <div className="text-2xl font-bold text-foreground mt-0.5">{stats.total}</div>
         </div>
-        <div className="p-3.5 rounded-xl bg-primary/10 border border-primary/20 shadow-sm">
+        <div className="rounded-lg border border-border bg-card p-3.5">
           <div className="text-xs font-medium text-primary">Active Investigations</div>
           <div className="text-2xl font-bold text-primary mt-0.5">{stats.active}</div>
         </div>
-        <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 shadow-sm dark:bg-emerald-500/10 dark:border-emerald-500/20">
+        <div className="rounded-lg border border-border bg-card p-3.5">
           <div className="text-xs font-medium text-emerald-600 dark:text-emerald-400">Completed & Published</div>
           <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">{stats.completed}</div>
         </div>
-        <div className="p-3.5 rounded-xl bg-card border border-border shadow-sm">
+        <div className="rounded-lg border border-border bg-card p-3.5">
           <div className="text-xs font-medium text-muted-foreground">Team Members</div>
           <div className="text-2xl font-bold text-foreground mt-0.5">{stats.totalMembers}</div>
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
           <div className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search by title, study design, lead researcher, or institution..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+              aria-label="Search research projects"
+              className="w-full rounded-md border border-input bg-background py-2 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             {/* Status Pills */}
-            <div className="flex items-center p-1 rounded-xl bg-slate-200/60 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-xs font-medium">
+            <div className="flex items-center rounded-md border border-border bg-muted p-1 text-xs font-medium" role="group" aria-label="Filter projects by status">
               {(["ALL", "ACTIVE", "COMPLETED", "ARCHIVED"] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setStatusFilter(tab)}
-                  className={`px-3 py-1.5 rounded-lg transition-all ${
+                  aria-pressed={statusFilter === tab}
+                  className={`rounded px-3 py-1.5 transition-colors ${
                     statusFilter === tab
-                      ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-semibold"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                      ? "bg-background text-foreground shadow-xs font-semibold"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {tab === "ALL" ? "All Projects" : tab.charAt(0) + tab.slice(1).toLowerCase()}
@@ -228,7 +230,8 @@ export default function ProjectsPage() {
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="px-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                aria-label="Filter projects by discipline"
+                className="rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <option value="ALL">All Disciplines</option>
                 {categories.map((c) => (
@@ -247,7 +250,7 @@ export default function ProjectsPage() {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="h-64 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 animate-pulse p-5"
+                className="h-64 rounded-lg border border-border bg-card animate-pulse p-5"
               />
             ))}
           </div>
@@ -264,16 +267,16 @@ export default function ProjectsPage() {
             </button>
           </div>
         ) : filteredProjects.length === 0 ? (
-          <div className="p-12 text-center rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/30">
-            <div className="w-14 h-14 rounded-2xl bg-primary/5 dark:bg-indigo-950/40 text-primary dark:text-primary flex items-center justify-center mx-auto mb-4">
+          <div className="rounded-lg border border-dashed border-border bg-card p-12 text-center">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-muted text-primary">
               <FolderKanban className="w-7 h-7" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-foreground">
               {searchQuery || statusFilter !== "ALL"
                 ? "No matching research projects found"
                 : "No research projects yet"}
             </h3>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+            <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
               {searchQuery || statusFilter !== "ALL"
                 ? "Try adjusting your search terms or filters to find what you are looking for."
                 : "Launch a structured clinical or health research project with pre-scaffolded milestones, IRB compliance tools, and collaborator roles."}
@@ -281,7 +284,7 @@ export default function ProjectsPage() {
             <div className="mt-6 flex items-center justify-center gap-3">
               <Link
                 href="/projects/new"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-medium text-sm transition-all"
+                className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
               >
                 <Plus className="w-4 h-4" />
                 Launch First Project
@@ -330,7 +333,7 @@ function ProjectCard({ project }: { project: any }) {
   return (
     <Link
       href={`/projects/${project.id}`}
-      className="group block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700/60 transition-all duration-200"
+      className="group block rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary/40"
     >
       {/* Top Badges */}
       <div className="flex items-center justify-between gap-2 mb-3">
@@ -350,7 +353,7 @@ function ProjectCard({ project }: { project: any }) {
       </div>
 
       {/* Project Title */}
-      <h3 className="font-bold text-slate-900 dark:text-white text-base group-hover:text-primary dark:group-hover:text-primary transition-colors line-clamp-2">
+      <h3 className="font-semibold text-foreground text-base group-hover:text-primary transition-colors line-clamp-2">
         {project.title}
       </h3>
 
