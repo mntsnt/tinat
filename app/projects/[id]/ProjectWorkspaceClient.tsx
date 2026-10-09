@@ -42,6 +42,74 @@ interface ProjectWorkspaceClientProps {
   currentUserId: string;
 }
 
+interface ProjectMilestoneView {
+  id: string;
+  title: string;
+  description: string | null;
+  deadline: string | null;
+  phase: string;
+  isCompleted: boolean;
+  tasks?: { id: string }[];
+}
+
+interface ProjectNoteView {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  isPinned: boolean;
+  updatedAt: string;
+  author?: { name: string | null } | null;
+}
+
+interface ProjectDiscussionReplyView {
+  id: string;
+  content: string;
+  createdAt: string;
+  author?: { name: string | null } | null;
+}
+
+interface ProjectDiscussionView {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  isResolved: boolean;
+  createdAt: string;
+  author?: { id: string; name: string | null } | null;
+  replies?: ProjectDiscussionReplyView[];
+}
+
+interface ProjectDecisionView {
+  id: string;
+  decisionNumber: number;
+  decision: string;
+  reason: string | null;
+  relatedDoc: string | null;
+  status: string;
+  date: string;
+  madeBy?: { name: string | null } | null;
+}
+
+interface ProjectOutputView {
+  id: string;
+  title: string;
+  type: string;
+  status: string;
+  targetJournal: string | null;
+  submissionDeadline: string | null;
+  linkUrl: string | null;
+  fileUrl: string | null;
+}
+
+interface ProjectChatMessageView {
+  id: string;
+  senderId: string;
+  content: string;
+  createdAt: string;
+  sender?: { name: string | null } | null;
+}
+
 const LIFECYCLE_PHASES = [
   "IDEA",
   "PLANNING",
@@ -82,14 +150,15 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     | "team"
     | "files"
     | "studies"
+    | "records"
     | "ai"
   >("overview");
+  const [recordTab, setRecordTab] = useState<"milestones" | "notes" | "discussions" | "decisions" | "outputs" | "chat">("milestones");
 
   // Tab sub-states
   const [taskView, setTaskView] = useState<"kanban" | "list">("kanban");
   const [fileFolderFilter, setFileFolderFilter] = useState("ALL");
   const [notesCategoryFilter, setNotesCategoryFilter] = useState("ALL");
-  const [discussionTab, setDiscussionTab] = useState<"threads" | "chat">("threads");
 
   // Modals state
   const [showTaskModal, setShowTaskModal] = useState(false);
@@ -133,8 +202,9 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const [replyContent, setReplyContent] = useState("");
 
   // Chat state
-  const [chatMessages, setChatMessages] = useState<any[]>([]);
+  const [chatMessages, setChatMessages] = useState<ProjectChatMessageView[]>([]);
   const [chatInput, setChatInput] = useState("");
+  const [chatLoading, setChatLoading] = useState(false);
 
   // Studies state
   const [availableStudies, setAvailableStudies] = useState<any[]>([]);
@@ -152,14 +222,17 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const [aiHistory, setAiHistory] = useState<Array<{ role: string; content: string }>>([]);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiModel, setAiModel] = useState("gemini");
+  const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchProject();
   }, [projectId]);
 
-  async function fetchProject() {
-    setLoading(true);
-    setError(null);
+  async function fetchProject(showLoading = true) {
+    if (showLoading) {
+      setLoading(true);
+      setError(null);
+    }
     try {
       const res = await fetch(`/api/projects/${projectId}`);
       if (!res.ok) {
@@ -171,23 +244,54 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       setTaskPhase(data.project.currentPhase || "PLANNING");
       setMilestonePhase(data.project.currentPhase || "PLANNING");
     } catch (err: any) {
-      setError(err.message || "An error occurred");
+      if (showLoading) {
+        setError(err.message || "An error occurred");
+      } else {
+        setActionError("Your change was saved, but the project could not refresh. Reload to see the latest data.");
+      }
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
+    }
+  }
+
+  async function mutateProjectResource(
+    path: string,
+    method: "POST" | "PATCH" | "DELETE",
+    body?: Record<string, unknown>,
+    fallbackMessage = "The project could not be updated."
+  ) {
+    setActionError(null);
+    try {
+      const response = await fetch(path, {
+        method,
+        ...(body ? {
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        } : {}),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || fallbackMessage);
+      await fetchProject(false);
+      return true;
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : fallbackMessage);
+      return false;
     }
   }
 
   
 
   async function fetchChatMessages() {
+    setChatLoading(true);
     try {
       const res = await fetch(`/api/projects/${projectId}/chat`);
-      if (res.ok) {
-        const data = await res.json();
-        setChatMessages(data.messages || []);
-      }
-    } catch (e) {
-      console.error(e);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Project chat could not be loaded.");
+      setChatMessages(data.messages || []);
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : "Project chat could not be loaded.");
+    } finally {
+      setChatLoading(false);
     }
   }
 
@@ -213,18 +317,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   // Phase advance / update
   async function handlePhaseChange(newPhase: string) {
     if (!auth?.canManageProject) return;
-    try {
-      const res = await fetch(`/api/projects/${projectId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ currentPhase: newPhase }),
-      });
-      if (res.ok) {
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    await mutateProjectResource(`/api/projects/${projectId}`, "PATCH", { currentPhase: newPhase }, "Project phase could not be updated.");
   }
 
   // Task creation
@@ -232,110 +325,92 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     e.preventDefault();
     if (!taskTitle.trim()) return;
 
-    try {
-      const res = await fetch(`/api/projects/${projectId}/tasks`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+    const saved = await mutateProjectResource(
+      `/api/projects/${projectId}/tasks`,
+      "POST",
+      {
           title: taskTitle.trim(),
           description: taskDesc.trim() || null,
           priority: taskPriority,
           phase: taskPhase,
           assigneeId: taskAssignee || null,
           dueDate: taskDueDate || null,
-        }),
-      });
-      if (res.ok) {
-        setShowTaskModal(false);
-        setTaskTitle("");
-        setTaskDesc("");
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
+      },
+      "Task could not be created."
+    );
+    if (saved) {
+      setShowTaskModal(false);
+      setTaskTitle("");
+      setTaskDesc("");
     }
   }
 
   // Task status toggle
   async function handleTaskStatusChange(taskId: string, newStatus: string) {
-    try {
-      const res = await fetch(`/api/projects/${projectId}/tasks/${taskId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (res.ok) {
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    await mutateProjectResource(`/api/projects/${projectId}/tasks/${taskId}`, "PATCH", { status: newStatus }, "Task status could not be updated.");
   }
 
   // Milestone toggle
   async function handleToggleMilestone(milestoneId: string, currentVal: boolean) {
-    try {
-      const res = await fetch(`/api/projects/${projectId}/milestones/${milestoneId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ isCompleted: !currentVal }),
-      });
-      if (res.ok) {
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    await mutateProjectResource(
+      `/api/projects/${projectId}/milestones/${milestoneId}`,
+      "PATCH",
+      { isCompleted: !currentVal },
+      "Milestone status could not be changed."
+    );
   }
 
   // Add Milestone
   async function handleCreateMilestone(e: React.FormEvent) {
     e.preventDefault();
     if (!milestoneTitle.trim()) return;
-    try {
-      const res = await fetch(`/api/projects/${projectId}/milestones`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: milestoneTitle.trim(),
-          description: milestoneDesc.trim() || null,
-          phase: milestonePhase,
-          deadline: milestoneDeadline || null,
-        }),
-      });
-      if (res.ok) {
-        setShowMilestoneModal(false);
-        setMilestoneTitle("");
-        setMilestoneDesc("");
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
+    const saved = await mutateProjectResource(
+      `/api/projects/${projectId}/milestones`,
+      "POST",
+      {
+        title: milestoneTitle.trim(),
+        description: milestoneDesc.trim() || null,
+        phase: milestonePhase,
+        deadline: milestoneDeadline || null,
+      },
+      "Milestone could not be created."
+    );
+    if (saved) {
+      setShowMilestoneModal(false);
+      setMilestoneTitle("");
+      setMilestoneDesc("");
+      setMilestoneDeadline("");
     }
+  }
+
+  async function handleDeleteMilestone(milestoneId: string, title: string) {
+    if (!window.confirm(`Delete milestone "${title}"?`)) return;
+    await mutateProjectResource(
+      `/api/projects/${projectId}/milestones/${milestoneId}`,
+      "DELETE",
+      undefined,
+      "Milestone could not be deleted."
+    );
   }
 
   // Send Invitation
   async function handleInviteMember(e: React.FormEvent) {
     e.preventDefault();
     if (!inviteEmail.trim()) return;
-    try {
-      const res = await fetch(`/api/projects/${projectId}/members`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+    const saved = await mutateProjectResource(
+      `/api/projects/${projectId}/members`,
+      "POST",
+      {
           email: inviteEmail.trim(),
           role: inviteRole,
           message: inviteMessage.trim() || null,
-        }),
-      });
-      if (res.ok) {
-        setShowInviteModal(false);
-        setInviteEmail("");
-        setInviteMessage("");
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
+      },
+      "Invitation could not be sent."
+    );
+    if (saved) {
+      setShowInviteModal(false);
+      setInviteEmail("");
+      setInviteMessage("");
     }
   }
 
@@ -343,25 +418,21 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   async function handleCreateDecision(e: React.FormEvent) {
     e.preventDefault();
     if (!decisionText.trim()) return;
-    try {
-      const res = await fetch(`/api/projects/${projectId}/decisions`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          decision: decisionText.trim(),
-          reason: decisionReason.trim() || null,
-          relatedDoc: decisionRelatedDoc.trim() || null,
-        }),
-      });
-      if (res.ok) {
-        setShowDecisionModal(false);
-        setDecisionText("");
-        setDecisionReason("");
-        setDecisionRelatedDoc("");
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
+    const saved = await mutateProjectResource(
+      `/api/projects/${projectId}/decisions`,
+      "POST",
+      {
+        decision: decisionText.trim(),
+        reason: decisionReason.trim() || null,
+        relatedDoc: decisionRelatedDoc.trim() || null,
+      },
+      "Decision could not be recorded."
+    );
+    if (saved) {
+      setShowDecisionModal(false);
+      setDecisionText("");
+      setDecisionReason("");
+      setDecisionRelatedDoc("");
     }
   }
 
@@ -369,86 +440,112 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   async function handleCreateNote(e: React.FormEvent) {
     e.preventDefault();
     if (!noteTitle.trim() || !noteContent.trim()) return;
-    try {
-      const res = await fetch(`/api/projects/${projectId}/notes`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: noteTitle.trim(),
-          content: noteContent.trim(),
-          category: noteCategory,
-        }),
-      });
-      if (res.ok) {
-        setShowNoteModal(false);
-        setNoteTitle("");
-        setNoteContent("");
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
+    const saved = await mutateProjectResource(
+      `/api/projects/${projectId}/notes`,
+      "POST",
+      { title: noteTitle.trim(), content: noteContent.trim(), category: noteCategory },
+      "Research note could not be saved."
+    );
+    if (saved) {
+      setShowNoteModal(false);
+      setNoteTitle("");
+      setNoteContent("");
     }
+  }
+
+  async function handleToggleNotePinned(noteId: string, isPinned: boolean) {
+    await mutateProjectResource(
+      `/api/projects/${projectId}/notes/${noteId}`,
+      "PATCH",
+      { isPinned: !isPinned },
+      "Note pin status could not be changed."
+    );
+  }
+
+  async function handleDeleteNote(noteId: string, title: string) {
+    if (!window.confirm(`Delete note "${title}"?`)) return;
+    await mutateProjectResource(
+      `/api/projects/${projectId}/notes/${noteId}`,
+      "DELETE",
+      undefined,
+      "Research note could not be deleted."
+    );
   }
 
   // Create Discussion Thread
   async function handleCreateDiscussion(e: React.FormEvent) {
     e.preventDefault();
     if (!discTitle.trim() || !discContent.trim()) return;
-    try {
-      const res = await fetch(`/api/projects/${projectId}/discussions`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: discTitle.trim(),
-          content: discContent.trim(),
-          category: discCategory,
-        }),
-      });
-      if (res.ok) {
-        setShowDiscussionModal(false);
-        setDiscTitle("");
-        setDiscContent("");
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
+    const saved = await mutateProjectResource(
+      `/api/projects/${projectId}/discussions`,
+      "POST",
+      { title: discTitle.trim(), content: discContent.trim(), category: discCategory },
+      "Discussion could not be posted."
+    );
+    if (saved) {
+      setShowDiscussionModal(false);
+      setDiscTitle("");
+      setDiscContent("");
     }
+  }
+
+  async function handleToggleDiscussionResolved(discussionId: string, isResolved: boolean) {
+    await mutateProjectResource(
+      `/api/projects/${projectId}/discussions/${discussionId}`,
+      "PATCH",
+      { isResolved: !isResolved },
+      "Discussion status could not be changed."
+    );
+  }
+
+  async function handleDeleteDiscussion(discussionId: string, title: string) {
+    if (!window.confirm(`Delete discussion "${title}"?`)) return;
+    await mutateProjectResource(
+      `/api/projects/${projectId}/discussions/${discussionId}`,
+      "DELETE",
+      undefined,
+      "Discussion could not be deleted."
+    );
   }
 
   // Reply to Discussion
   async function handleReplyDiscussion(discussionId: string) {
     if (!replyContent.trim()) return;
-    try {
-      const res = await fetch(`/api/projects/${projectId}/discussions/${discussionId}/reply`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: replyContent.trim() }),
-      });
-      if (res.ok) {
-        setReplyContent("");
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    const saved = await mutateProjectResource(
+      `/api/projects/${projectId}/discussions/${discussionId}/reply`,
+      "POST",
+      { content: replyContent.trim() },
+      "Reply could not be posted."
+    );
+    if (saved) setReplyContent("");
+  }
+
+  async function handleUpdateOutputStatus(outputId: string, status: string) {
+    await mutateProjectResource(
+      `/api/projects/${projectId}/outputs/${outputId}`,
+      "PATCH",
+      { status },
+      "Deliverable status could not be changed."
+    );
   }
 
   // Send Chat message
   async function handleSendChatMessage(e: React.FormEvent) {
     e.preventDefault();
     if (!chatInput.trim()) return;
+    setActionError(null);
     try {
       const res = await fetch(`/api/projects/${projectId}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: chatInput.trim() }),
       });
-      if (res.ok) {
-        setChatInput("");
-        fetchChatMessages();
-      }
-    } catch (e) {
-      console.error(e);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Message could not be sent.");
+      setChatInput("");
+      await fetchChatMessages();
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : "Message could not be sent.");
     }
   }
 
@@ -456,23 +553,19 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   async function handleLinkStudy(e: React.FormEvent) {
     e.preventDefault();
     if (!selectedStudyToLink) return;
-    try {
-      const res = await fetch(`/api/projects/${projectId}/studies`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+    const saved = await mutateProjectResource(
+      `/api/projects/${projectId}/studies`,
+      "POST",
+      {
           studyId: selectedStudyToLink,
           notes: studyLinkNotes.trim() || null,
-        }),
-      });
-      if (res.ok) {
-        setShowStudyModal(false);
-        setSelectedStudyToLink("");
-        setStudyLinkNotes("");
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
+      },
+      "Study could not be linked."
+    );
+    if (saved) {
+      setShowStudyModal(false);
+      setSelectedStudyToLink("");
+      setStudyLinkNotes("");
     }
   }
 
@@ -480,26 +573,22 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   async function handleCreateOutput(e: React.FormEvent) {
     e.preventDefault();
     if (!outputTitle.trim()) return;
-    try {
-      const res = await fetch(`/api/projects/${projectId}/outputs`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: outputTitle.trim(),
-          type: outputType,
-          targetJournal: outputJournal.trim() || null,
-          submissionDeadline: outputDeadline || null,
-        }),
-      });
-      if (res.ok) {
-        setShowOutputModal(false);
-        setOutputTitle("");
-        setOutputJournal("");
-        setOutputDeadline("");
-        fetchProject();
-      }
-    } catch (e) {
-      console.error(e);
+    const saved = await mutateProjectResource(
+      `/api/projects/${projectId}/outputs`,
+      "POST",
+      {
+        title: outputTitle.trim(),
+        type: outputType,
+        targetJournal: outputJournal.trim() || null,
+        submissionDeadline: outputDeadline || null,
+      },
+      "Deliverable could not be created."
+    );
+    if (saved) {
+      setShowOutputModal(false);
+      setOutputTitle("");
+      setOutputJournal("");
+      setOutputDeadline("");
     }
   }
 
@@ -589,27 +678,22 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     completedMilestones: 0,
     health: "ON_TRACK",
   };
-  const currentPhaseIndex = LIFECYCLE_PHASES.indexOf(project.currentPhase || "PLANNING");
+  const currentPhase = project.currentPhase || "PLANNING";
+  const currentPhaseIndex = Math.max(0, LIFECYCLE_PHASES.indexOf(currentPhase));
+  const phaseProgress = ((currentPhaseIndex + 1) / LIFECYCLE_PHASES.length) * 100;
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Top Workspace Header */}
-      <header className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          {/* Breadcrumb & Navigation */}
-          <div className="flex items-center justify-between gap-4 mb-3">
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <Link href="/projects" className="hover:text-primary transition-colors flex items-center gap-1">
-                <FolderKanban className="w-3.5 h-3.5" />
-                Projects
-              </Link>
-              <span>/</span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200 truncate max-w-xs sm:max-w-md">
-                {project.title}
-              </span>
-            </div>
+      <header className="border-b border-border bg-card">
+        <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <Link href="/projects" className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
+              <ArrowLeft className="h-4 w-4" />
+              Research projects
+            </Link>
 
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2">
               <span
                 className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${
                   progress.health === "ON_TRACK"
@@ -641,39 +725,38 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
           </div>
 
           {/* Title & Quick Actions */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <div className="flex items-center gap-2.5 flex-wrap">
-                <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <h1 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
                   {project.title}
                 </h1>
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-primary/5 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
+                <span className="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
                   {project.studyDesign || project.category}
                 </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Lead: <span className="font-semibold text-slate-700 dark:text-slate-300">{project.lead?.name}</span>
-                {project.institution ? ` • ${project.institution}` : ""}
-                {project.category ? ` • ${project.category}` : ""}
+              <p className="mt-1 text-sm text-muted-foreground">
+                Led by <span className="font-medium text-foreground">{project.lead?.name || "Research team"}</span>
+                {project.institution ? ` · ${project.institution}` : ""}
+                {project.category ? ` · ${project.category}` : ""}
               </p>
             </div>
 
-            {/* Header Action Buttons */}
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setActiveTab("ai")}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-white text-xs font-semibold shadow-xs hover:opacity-95 transition-opacity"
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                Ask Project AI
+                <Sparkles className="h-4 w-4 text-primary" />
+                Ask AI
               </button>
 
               {auth?.canEditTasks && (
                 <button
                   onClick={() => setShowTaskModal(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
-                  <Plus className="w-3.5 h-3.5" />
+                  <Plus className="h-4 w-4" />
                   New Task
                 </button>
               )}
@@ -681,85 +764,69 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               {auth?.canManageTeam && (
                 <button
                   onClick={() => setShowInviteModal(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
                 >
-                  <Users className="w-3.5 h-3.5" />
+                  <Users className="h-4 w-4" />
                   Invite
                 </button>
               )}
             </div>
           </div>
 
-          {/* Research Lifecycle Stepper */}
-          <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800/80">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                Research Lifecycle Phase ({currentPhaseIndex + 1}/{LIFECYCLE_PHASES.length})
-              </span>
-              <span className="text-xs font-bold text-primary dark:text-primary">
-                {project.currentPhase.replace(/_/g, " ")}
-              </span>
+          <div className="mt-4 flex flex-col gap-3 border-t border-border pt-3 sm:flex-row sm:items-center">
+            <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap sm:gap-3">
+              <label htmlFor="project-phase" className="text-xs font-medium text-muted-foreground">Research phase</label>
+              <select
+                id="project-phase"
+                value={currentPhase}
+                disabled={!auth?.canManageProject}
+                onChange={(event) => handlePhaseChange(event.target.value)}
+                className="min-w-0 max-w-full flex-1 rounded-md border border-input bg-background px-2.5 py-1.5 text-sm font-medium text-foreground disabled:cursor-default disabled:opacity-100 sm:flex-none"
+              >
+                {LIFECYCLE_PHASES.map((phase) => <option key={phase} value={phase}>{phase.replace(/_/g, " ")}</option>)}
+              </select>
+              <span className="whitespace-nowrap text-xs text-muted-foreground">{currentPhaseIndex + 1} of {LIFECYCLE_PHASES.length}</span>
             </div>
-
-            {/* Stepper Dots/Bar */}
-            <div className="grid grid-cols-6 sm:grid-cols-12 gap-1.5">
-              {LIFECYCLE_PHASES.map((phase, idx) => {
-                const isPast = idx < currentPhaseIndex;
-                const isCurrent = idx === currentPhaseIndex;
-                return (
-                  <button
-                    key={phase}
-                    disabled={!auth?.canManageProject}
-                    onClick={() => handlePhaseChange(phase)}
-                    title={`Phase ${idx + 1}: ${phase.replace(/_/g, " ")}`}
-                    className={`h-2 rounded-full transition-all ${
-                      isCurrent
-                        ? "bg-primary dark:bg-primary ring-2 ring-indigo-300 dark:ring-indigo-800"
-                        : isPast
-                        ? "bg-emerald-500 dark:bg-emerald-600"
-                        : "bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700"
-                    } ${auth?.canManageProject ? "cursor-pointer" : "cursor-default"}`}
-                  />
-                );
-              })}
+            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted" role="progressbar" aria-label="Research lifecycle progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(phaseProgress)}>
+              <div className="h-full rounded-full bg-primary transition-[width]" style={{ width: `${phaseProgress}%` }} />
             </div>
-          </div>
-        </div>
-
-        {/* Sub-Navigation Tabs */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar border-t border-slate-100 dark:border-slate-800/60 pt-1">
-            {[
-              { id: "overview", label: "Overview", icon: Layers },
-              { id: "tasks", label: `Tasks (${project.tasks?.length || 0})`, icon: CheckCircle2 },
-              { id: "team", label: `Team (${project.members?.length || 0})`, icon: Users },
-              { id: "files", label: `Files & Data (${project.files?.length || 0})`, icon: FileText },
-              { id: "studies", label: `Linked Studies (${project.linkedStudies?.length || 0})`, icon: Activity },
-              { id: "ai", label: "Project AI", icon: Sparkles },
-            ].map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-1.5 px-3.5 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
-                    isActive
-                      ? "border-primary text-primary dark:border-indigo-400 dark:text-primary"
-                      : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  {tab.label}
-                </button>
-              );
-            })}
           </div>
         </div>
       </header>
 
       {/* Main Tab Views */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8 2xl:flex-row 2xl:gap-0">
+        <nav aria-label="Project sections" className="no-scrollbar -mx-4 flex gap-1 overflow-x-auto border-b border-border px-4 pb-2 sm:-mx-6 sm:px-6 2xl:sticky 2xl:top-4 2xl:mx-0 2xl:w-52 2xl:shrink-0 2xl:self-start 2xl:flex-col 2xl:overflow-visible 2xl:border-b-0 2xl:border-r 2xl:px-0 2xl:pb-0 2xl:pr-3">
+          {[
+            { id: "overview", label: "Overview", icon: Layers },
+            { id: "tasks", label: `Tasks (${project.tasks?.length || 0})`, icon: CheckCircle2 },
+            { id: "team", label: `Team (${project.members?.length || 0})`, icon: Users },
+            { id: "files", label: `Files & Data (${project.files?.length || 0})`, icon: FileText },
+            { id: "studies", label: `Linked Studies (${project.linkedStudies?.length || 0})`, icon: Activity },
+            { id: "records", label: "Research Log", icon: BookOpen },
+            { id: "ai", label: "Project AI", icon: Sparkles },
+          ].map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                aria-current={isActive ? "page" : undefined}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`flex shrink-0 items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors 2xl:w-full ${
+                  isActive
+                    ? "bg-primary/10 text-primary 2xl:rounded-r-none 2xl:border-r-2 2xl:border-primary"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                <span className="whitespace-nowrap">{tab.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+        <div className="min-w-0 flex-1 2xl:pl-6">
         {/* TAB 1: OVERVIEW */}
         {activeTab === "overview" && (
           <div className="space-y-6">
@@ -1291,13 +1358,307 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         
 
         {/* TAB 9: LINKED STUDIES */}
-        {activeTab === "studies" && (
+        {(activeTab === "studies" || activeTab === "records") && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className={activeTab === "records" ? "hidden" : "flex items-center justify-between"}>
               <div>
                 <h3 className="font-bold text-base text-slate-900 dark:text-white">
                   Connected Tinat Data-Collection Studies
                 </h3>
+              </div>
+            </div>
+
+            {activeTab === "records" && (
+              <div className="space-y-5">
+                <div>
+                  <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Research log</h2>
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                    Keep project milestones, working notes, team discussion, decisions, and deliverables together.
+                  </p>
+                </div>
+
+                <div className="flex gap-1 overflow-x-auto border-b border-slate-200 dark:border-slate-800" role="tablist" aria-label="Research log sections">
+                  {([
+                    ["milestones", "Milestones", project.milestones?.length || 0],
+                    ["notes", "Notes", project.notes?.length || 0],
+                    ["discussions", "Discussions", project.discussions?.length || 0],
+                    ["chat", "Team chat", chatMessages.length],
+                    ["decisions", "Decision log", project.decisions?.length || 0],
+                    ["outputs", "Deliverables", project.outputs?.length || 0],
+                  ] as const).map(([id, label, count]) => (
+                    <button
+                      key={id}
+                      role="tab"
+                      aria-selected={recordTab === id}
+                      onClick={() => {
+                        setRecordTab(id);
+                        setActionError(null);
+                        if (id === "chat") void fetchChatMessages();
+                      }}
+                      className={`shrink-0 border-b-2 px-3 py-2.5 text-sm font-medium transition-colors ${
+                        recordTab === id
+                          ? "border-primary text-primary"
+                          : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white"
+                      }`}
+                    >
+                      {label} <span className="ml-1 text-xs text-slate-400">{count}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {recordTab === "milestones" && (
+                  <section className="space-y-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-white">Project milestones</h3>
+                        <p className="text-sm text-slate-500">Track major research checkpoints and completion.</p>
+                      </div>
+                      {(auth?.canManageProject || auth?.canMakeDecisions) && (
+                        <button onClick={() => setShowMilestoneModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white">
+                          <Plus className="h-4 w-4" /> Add milestone
+                        </button>
+                      )}
+                    </div>
+                    {project.milestones?.length ? (
+                      <div className="divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white dark:divide-slate-800 dark:border-slate-800 dark:bg-slate-900">
+                        {project.milestones.map((milestone: ProjectMilestoneView) => (
+                          <div key={milestone.id} className="flex items-start gap-3 p-4">
+                            <button
+                              type="button"
+                              disabled={!auth?.canEditTasks && !auth?.canManageProject}
+                              onClick={() => handleToggleMilestone(milestone.id, milestone.isCompleted)}
+                              aria-label={`${milestone.isCompleted ? "Reopen" : "Complete"} ${milestone.title}`}
+                              className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border ${milestone.isCompleted ? "border-emerald-600 bg-emerald-600 text-white" : "border-slate-300 dark:border-slate-600"} disabled:cursor-not-allowed disabled:opacity-50`}
+                            >
+                              {milestone.isCompleted && <Check className="h-3.5 w-3.5" />}
+                            </button>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                                <h4 className={`font-medium ${milestone.isCompleted ? "text-slate-500 line-through" : "text-slate-900 dark:text-white"}`}>{milestone.title}</h4>
+                                <span className="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-300">{milestone.phase?.replace(/_/g, " ")}</span>
+                              </div>
+                              {milestone.description && <p className="mt-1 whitespace-pre-wrap text-sm text-slate-600 dark:text-slate-300">{milestone.description}</p>}
+                              <p className="mt-2 text-xs text-slate-500">
+                                {milestone.deadline ? `Due ${new Date(milestone.deadline).toLocaleDateString()}` : "No due date"}
+                                {milestone.tasks?.length ? ` · ${milestone.tasks.length} linked task${milestone.tasks.length === 1 ? "" : "s"}` : ""}
+                              </p>
+                            </div>
+                            {auth?.canManageProject && (
+                              <button type="button" onClick={() => handleDeleteMilestone(milestone.id, milestone.title)} aria-label={`Delete ${milestone.title}`} className="rounded p-2 text-slate-500 hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-950/30">
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-slate-700">
+                        No milestones yet. Add the first checkpoint for this project.
+                      </div>
+                    )}
+                  </section>
+                )}
+
+                {recordTab === "notes" && (
+                  <section className="space-y-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-white">Research notes</h3>
+                        <p className="text-sm text-slate-500">Store meeting notes, literature observations, and protocol details.</p>
+                      </div>
+                      {(auth?.canEditTasks || auth?.canMakeDecisions) && (
+                        <button onClick={() => setShowNoteModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white"><Plus className="h-4 w-4" /> New note</button>
+                      )}
+                    </div>
+                    {project.notes?.length ? (
+                      <div className="grid gap-3 md:grid-cols-2">
+                        {project.notes.map((note: ProjectNoteView) => (
+                          <article key={note.id} className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+                            <div className="flex items-start justify-between gap-3">
+                              <div className="min-w-0">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <h4 className="font-semibold text-slate-900 dark:text-white">{note.title}</h4>
+                                  {note.isPinned && <span className="rounded bg-primary/10 px-2 py-0.5 text-xs text-primary">Pinned</span>}
+                                </div>
+                                <p className="mt-1 text-xs text-slate-500">{note.category} · {note.author?.name || "Research team"} · {new Date(note.updatedAt).toLocaleDateString()}</p>
+                              </div>
+                              <div className="flex shrink-0 gap-1">
+                                {(auth?.canEditTasks || auth?.canMakeDecisions) && <button type="button" onClick={() => handleToggleNotePinned(note.id, note.isPinned)} className="rounded px-2 py-1 text-xs text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">{note.isPinned ? "Unpin" : "Pin"}</button>}
+                                {(auth?.canManageProject || auth?.canMakeDecisions) && <button type="button" onClick={() => handleDeleteNote(note.id, note.title)} aria-label={`Delete note ${note.title}`} className="rounded p-2 text-slate-500 hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-950/30"><Trash2 className="h-4 w-4" /></button>}
+                              </div>
+                            </div>
+                            <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-relaxed text-slate-700 dark:text-slate-300">{note.content}</p>
+                          </article>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-slate-700">No notes yet. Create a shared research note for the team.</div>
+                    )}
+                  </section>
+                )}
+
+                {recordTab === "discussions" && (
+                  <section className="space-y-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-white">Team discussions</h3>
+                        <p className="text-sm text-slate-500">Discuss study methods and keep replies attached to their topic.</p>
+                      </div>
+                      <button onClick={() => setShowDiscussionModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white"><Plus className="h-4 w-4" /> Start discussion</button>
+                    </div>
+                    {project.discussions?.length ? (
+                      <div className="space-y-3">
+                        {project.discussions.map((discussion: ProjectDiscussionView) => (
+                          <article key={discussion.id} className="rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+                            <div className="p-4">
+                              <div className="flex flex-wrap items-start justify-between gap-3">
+                                <div className="min-w-0">
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <h4 className="font-semibold text-slate-900 dark:text-white">{discussion.title}</h4>
+                                    <span className={`rounded px-2 py-0.5 text-xs ${discussion.isResolved ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300" : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"}`}>{discussion.isResolved ? "Resolved" : "Open"}</span>
+                                  </div>
+                                  <p className="mt-1 text-xs text-slate-500">{discussion.category} · {discussion.author?.name || "Research team"} · {new Date(discussion.createdAt).toLocaleDateString()}</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <button type="button" onClick={() => setActiveDiscussion(activeDiscussion === discussion.id ? null : discussion.id)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-sm text-primary hover:bg-primary/5">
+                                    <MessageSquare className="h-4 w-4" /> {discussion.replies?.length || 0} replies
+                                  </button>
+                                  {(auth?.canManageProject || discussion.author?.id === currentUserId) && <button type="button" onClick={() => handleToggleDiscussionResolved(discussion.id, discussion.isResolved)} className="rounded px-2 py-1 text-xs text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">{discussion.isResolved ? "Reopen" : "Resolve"}</button>}
+                                  {(auth?.canManageProject || discussion.author?.id === currentUserId) && <button type="button" onClick={() => handleDeleteDiscussion(discussion.id, discussion.title)} aria-label={`Delete discussion ${discussion.title}`} className="rounded p-2 text-slate-500 hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-950/30"><Trash2 className="h-4 w-4" /></button>}
+                                </div>
+                              </div>
+                              <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-slate-700 dark:text-slate-300">{discussion.content}</p>
+                            </div>
+                            {activeDiscussion === discussion.id && (
+                              <div className="space-y-3 border-t border-slate-200 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-950/30">
+                                {discussion.replies?.map((reply: ProjectDiscussionReplyView) => (
+                                  <div key={reply.id} className="rounded-md bg-white p-3 dark:bg-slate-900">
+                                    <p className="whitespace-pre-wrap text-sm text-slate-700 dark:text-slate-300">{reply.content}</p>
+                                    <p className="mt-2 text-xs text-slate-500">{reply.author?.name || "Team member"} · {new Date(reply.createdAt).toLocaleString()}</p>
+                                  </div>
+                                ))}
+                                <form onSubmit={(event) => { event.preventDefault(); handleReplyDiscussion(discussion.id); }} className="flex gap-2">
+                                  <input value={replyContent} onChange={(event) => setReplyContent(event.target.value)} aria-label={`Reply to ${discussion.title}`} placeholder="Write a reply..." className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm" />
+                                  <button type="submit" disabled={!replyContent.trim()} className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white disabled:opacity-50"><Send className="h-4 w-4" /> Reply</button>
+                                </form>
+                              </div>
+                            )}
+                          </article>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-slate-700">No discussions yet. Start a thread to gather the team’s input.</div>
+                    )}
+                  </section>
+                )}
+
+                  {recordTab === "chat" && (
+                    <section className="space-y-4">
+                      <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-white">Project team chat</h3>
+                        <p className="text-sm text-slate-500">Quick coordination messages for the project team.</p>
+                      </div>
+                      <div className="flex h-[min(55vh,560px)] min-h-[280px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+                        <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-4" aria-live="polite">
+                          {chatLoading ? (
+                            <div className="flex h-full items-center justify-center text-sm text-slate-500">Loading messages...</div>
+                          ) : chatMessages.length ? chatMessages.map((message) => (
+                            <div key={message.id} className={`max-w-[90%] rounded-lg border p-3 sm:max-w-[75%] ${message.senderId === currentUserId ? "ml-auto border-primary/20 bg-primary/5" : "border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950"}`}>
+                              <p className="whitespace-pre-wrap break-words text-sm text-slate-800 dark:text-slate-200">{message.content}</p>
+                              <p className="mt-2 text-xs text-slate-500">{message.sender?.name || "Team member"} · {new Date(message.createdAt).toLocaleString()}</p>
+                            </div>
+                          )) : (
+                            <div className="flex h-full items-center justify-center text-center text-sm text-slate-500">No messages yet. Start the project conversation.</div>
+                          )}
+                        </div>
+                        <form onSubmit={handleSendChatMessage} className="flex shrink-0 gap-2 border-t border-slate-200 p-3 dark:border-slate-800">
+                          <input value={chatInput} onChange={(event) => setChatInput(event.target.value)} aria-label="Project chat message" placeholder="Write a message to the team..." className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground" />
+                          <button type="submit" disabled={!chatInput.trim()} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white disabled:opacity-50"><Send className="h-4 w-4" /> Send</button>
+                        </form>
+                      </div>
+                      {chatMessages.length >= 150 && <p className="text-xs text-slate-500">Showing the 150 most recent project messages.</p>}
+                    </section>
+                  )}
+
+                {recordTab === "decisions" && (
+                  <section className="space-y-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-white">Methodological decisions</h3>
+                        <p className="text-sm text-slate-500">Record the rationale behind important changes to the research plan.</p>
+                      </div>
+                      {auth?.canMakeDecisions && <button onClick={() => setShowDecisionModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white"><Plus className="h-4 w-4" /> Log decision</button>}
+                    </div>
+                    {project.decisions?.length ? (
+                      <ol className="space-y-3">
+                        {project.decisions.map((decision: ProjectDecisionView) => (
+                          <li key={decision.id} className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <div className="flex items-center gap-2">
+                                <span className="font-semibold text-primary">Decision #{decision.decisionNumber}</span>
+                                <span className={`rounded px-2 py-0.5 text-xs ${decision.status === "ACTIVE" ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300" : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"}`}>{decision.status}</span>
+                              </div>
+                              <span className="text-xs text-slate-500">{new Date(decision.date).toLocaleDateString()} · {decision.madeBy?.name || "Research lead"}</span>
+                            </div>
+                            <p className="mt-3 font-medium text-slate-900 dark:text-white">{decision.decision}</p>
+                            {decision.reason && <p className="mt-2 whitespace-pre-wrap text-sm text-slate-600 dark:text-slate-300">{decision.reason}</p>}
+                            {decision.relatedDoc && <p className="mt-2 text-xs text-slate-500">Reference: {decision.relatedDoc}</p>}
+                          </li>
+                        ))}
+                      </ol>
+                    ) : (
+                      <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-slate-700">No methodological decisions recorded yet.</div>
+                    )}
+                  </section>
+                )}
+
+                {recordTab === "outputs" && (
+                  <section className="space-y-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <h3 className="font-semibold text-slate-900 dark:text-white">Research deliverables</h3>
+                        <p className="text-sm text-slate-500">Track papers, abstracts, datasets, and publication status.</p>
+                      </div>
+                      {auth?.canEditTasks && <button onClick={() => setShowOutputModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white"><Plus className="h-4 w-4" /> Add deliverable</button>}
+                    </div>
+                    {project.outputs?.length ? (
+                      <div className="divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white dark:divide-slate-800 dark:border-slate-800 dark:bg-slate-900">
+                        {project.outputs.map((output: ProjectOutputView) => {
+                          const deliverableUrl = output.linkUrl || output.fileUrl;
+                          return (
+                            <div key={output.id} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+                              <div className="min-w-0">
+                                <h4 className="font-semibold text-slate-900 dark:text-white">{output.title}</h4>
+                                <p className="mt-1 text-xs text-slate-500">{output.type.replace(/_/g, " ")}{output.targetJournal ? ` · ${output.targetJournal}` : ""}{output.submissionDeadline ? ` · Due ${new Date(output.submissionDeadline).toLocaleDateString()}` : ""}</p>
+                                {deliverableUrl && <a href={deliverableUrl} target="_blank" rel="noreferrer" className="mt-1 inline-flex items-center gap-1 text-sm text-primary hover:underline"><ExternalLink className="h-3.5 w-3.5" /> Open deliverable</a>}
+                              </div>
+                              {auth?.canEditTasks ? (
+                                <label className="flex shrink-0 items-center gap-2 text-xs text-slate-500">
+                                  Status
+                                  <select value={output.status} onChange={(event) => handleUpdateOutputStatus(output.id, event.target.value)} className="rounded-md border border-input bg-background px-2.5 py-2 text-sm text-foreground">
+                                    <option value="DRAFT">Draft</option>
+                                    <option value="IN_REVIEW">In review</option>
+                                    <option value="SUBMITTED">Submitted</option>
+                                    <option value="ACCEPTED">Accepted</option>
+                                    <option value="PUBLISHED">Published</option>
+                                  </select>
+                                </label>
+                              ) : (
+                                <span className="rounded bg-muted px-2.5 py-1.5 text-xs font-medium text-foreground">{output.status.replace(/_/g, " ")}</span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-slate-700">No deliverables registered yet.</div>
+                    )}
+                  </section>
+                )}
+              </div>
+            )}
+              <div className={activeTab === "records" ? "hidden" : "flex items-center justify-between"}>
+                <div>
                 <p className="text-xs text-slate-500">
                   Link live clinical surveys, trials, or questionnaires created on Tinat to automatically track recruitment.
                 </p>
@@ -1313,7 +1674,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className={activeTab === "records" ? "hidden" : "grid grid-cols-1 md:grid-cols-2 gap-4"}>
               {project.linkedStudies?.length === 0 ? (
                 <div className="col-span-full p-6 text-center text-slate-400 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
                   No data-collection studies linked to this project yet. Connect a study to see live participant metrics.
@@ -1505,9 +1866,51 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             </div>
           </div>
         )}
+        </div>
       </main>
 
+      {actionError && (
+        <div role="alert" className="fixed bottom-4 right-4 z-[60] flex max-w-md items-start gap-4 rounded-lg border border-rose-300 bg-white p-4 text-sm text-rose-800 shadow-lg dark:border-rose-900 dark:bg-slate-900 dark:text-rose-200">
+          <span className="flex-1">{actionError}</span>
+          <button type="button" onClick={() => setActionError(null)} className="shrink-0 font-semibold underline underline-offset-2">Dismiss</button>
+        </div>
+      )}
+
       {/* ===================== MODALS ===================== */}
+
+      {showMilestoneModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-lg rounded-lg border border-border bg-card p-5 shadow-xl">
+            <h3 className="mb-4 text-base font-semibold text-foreground">Add project milestone</h3>
+            <form onSubmit={handleCreateMilestone} className="space-y-4 text-sm">
+              <div>
+                <label htmlFor="milestone-title" className="mb-1 block font-medium">Title *</label>
+                <input id="milestone-title" required value={milestoneTitle} onChange={(event) => setMilestoneTitle(event.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground" />
+              </div>
+              <div>
+                <label htmlFor="milestone-description" className="mb-1 block font-medium">Description</label>
+                <textarea id="milestone-description" rows={3} value={milestoneDesc} onChange={(event) => setMilestoneDesc(event.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground" />
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="milestone-phase" className="mb-1 block font-medium">Research phase</label>
+                  <select id="milestone-phase" value={milestonePhase} onChange={(event) => setMilestonePhase(event.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground">
+                    {LIFECYCLE_PHASES.map((phase) => <option key={phase} value={phase}>{phase.replace(/_/g, " ")}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="milestone-deadline" className="mb-1 block font-medium">Target date</label>
+                  <input id="milestone-deadline" type="date" value={milestoneDeadline} onChange={(event) => setMilestoneDeadline(event.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-foreground" />
+                </div>
+              </div>
+              <div className="flex justify-end gap-2 border-t border-border pt-4">
+                <button type="button" onClick={() => setShowMilestoneModal(false)} className="rounded-md border border-border px-3 py-2 font-medium text-foreground">Cancel</button>
+                <button type="submit" disabled={!milestoneTitle.trim()} className="rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground disabled:opacity-50">Save milestone</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Task Modal */}
       {showTaskModal && (
