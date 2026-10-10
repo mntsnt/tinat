@@ -38,7 +38,7 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
         avatarUrl={user.avatarUrl}
         roleColor="researcher"
       />
-      <main className="flex-1 overflow-y-auto bg-muted/10">
+      <main className="min-h-0 flex-1 overflow-y-auto bg-muted/10">
         {children}
       </main>
     </div>

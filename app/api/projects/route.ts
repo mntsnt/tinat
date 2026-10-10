@@ -176,6 +176,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: { role: true },
+    });
+    if (!user || user.role !== "RESEARCHER") {
+      return NextResponse.json({ error: "Only researchers can create projects." }, { status: 403 });
+    }
+
     const body = await req.json();
     const {
       title,

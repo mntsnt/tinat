@@ -87,7 +87,7 @@ export async function PATCH(
         );
       }
 
-      const [updatedWallet, updatedWithdrawal] = await prisma.$transaction([
+      const [updatedWallet, , updatedWithdrawal] = await prisma.$transaction([
         prisma.wallet.update({
           where: { id: wallet.id },
           data: { balance: { increment: withdrawal.amount } },

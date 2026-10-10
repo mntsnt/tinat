@@ -29,35 +29,38 @@ export default async function StudyDiscoveryPage({
   const selectedCategory = resolvedParams.category || "";
   const selectedType = resolvedParams.type || "";
 
-  const whereClause: any = {
+  const filters: Prisma.StudyWhereInput[] = [];
+  if (query) {
+    filters.push({
+      OR: [
+        { title: { contains: query, mode: "insensitive" } },
+        { description: { contains: query, mode: "insensitive" } },
+        { objective: { contains: query, mode: "insensitive" } },
+        { targetPopulation: { contains: query, mode: "insensitive" } },
+      ],
+    });
+  }
+  if (selectedCategory) {
+    filters.push({
+      OR: [
+        { category: selectedCategory },
+        { tags: { has: selectedCategory } },
+      ],
+    });
+  }
+  if (selectedType === "FUNDED") {
+    filters.push({
+      OR: [{ studyType: "FUNDED" }, { rewardCredits: { gt: 0 } }],
+    });
+  } else if (selectedType === "FREE_DATA_COLLECTION") {
+    filters.push({
+      OR: [{ studyType: "FREE_DATA_COLLECTION" }, { rewardCredits: 0 }],
+    });
+  }
+
+  const whereClause: Prisma.StudyWhereInput = {
     status: "ACTIVE",
-    ...(query
-      ? {
-          OR: [
-            { title: { contains: query, mode: "insensitive" } },
-            { description: { contains: query, mode: "insensitive" } },
-            { objective: { contains: query, mode: "insensitive" } },
-            { targetPopulation: { contains: query, mode: "insensitive" } },
-          ],
-        }
-      : {}),
-    ...(selectedCategory
-      ? {
-          OR: [
-            { category: selectedCategory },
-            { tags: { has: selectedCategory } },
-          ],
-        }
-      : {}),
-    ...(selectedType === "FUNDED"
-      ? {
-          OR: [{ studyType: "FUNDED" }, { rewardCredits: { gt: 0 } }],
-        }
-      : selectedType === "FREE_DATA_COLLECTION"
-      ? {
-          OR: [{ studyType: "FREE_DATA_COLLECTION" }, { rewardCredits: 0 }],
-        }
-      : {}),
+    ...(filters.length ? { AND: filters } : {}),
   };
 
   const studies = await prisma.study.findMany({
@@ -75,7 +78,8 @@ export default async function StudyDiscoveryPage({
   const availableStudies = studies.filter(
     (study) =>
       !completedStudyIds.has(study.id) &&
-      (study.participantTarget === 0 || study._count.responses < study.participantTarget)
+      (study.participantTarget === 0 || study._count.responses < study.participantTarget) &&
+      (study.rewardCredits <= 0 || study.budgetCredits - study.creditsPaid >= study.rewardCredits)
   );
 
   return (
@@ -214,7 +218,7 @@ export default async function StudyDiscoveryPage({
             <Stethoscope className="h-12 w-12 text-muted-foreground/40 mb-4" />
             <h3 className="mb-2 text-xl font-semibold text-foreground">No studies found</h3>
             <p className="text-muted-foreground max-w-sm text-sm">
-              We couldn't find any active health studies matching your search filters. Try clearing filters or exploring other health categories.
+              We couldn&apos;t find any active health studies matching your search filters. Try clearing filters or exploring other health categories.
             </p>
             <Link href="/participant/studies" className="mt-4">
               <Button variant="outline" size="sm">
@@ -286,7 +290,7 @@ export default async function StudyDiscoveryPage({
                 <CardContent className="flex-1 space-y-3 pb-4">
                   {study.objective ? (
                     <p className="text-xs text-foreground/80 line-clamp-2 italic bg-muted/40 p-2 rounded-md">
-                      "{study.objective}"
+                      &quot;{study.objective}&quot;
                     </p>
                   ) : (
                     <p className="text-xs text-muted-foreground line-clamp-2">
@@ -373,3 +377,4 @@ export default async function StudyDiscoveryPage({
     </div>
   );
 }
+import type { Prisma } from "@/generated/prisma/client";

@@ -225,15 +225,15 @@ export default function AdminCommunityPage() {
   const visibleMessages = messages.filter((message) => message.channel === activeChannel);
 
   return (
-    <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-[1500px] flex-col px-3 py-4 sm:px-5 sm:py-6">
-      <header className="mb-5 flex flex-wrap items-center justify-between gap-3">
+    <div className="mx-auto flex h-full min-h-0 max-w-[1500px] flex-col overflow-hidden px-3 py-3 sm:px-5 sm:py-4">
+      <header className="mb-3 flex shrink-0 flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
             <Users className="h-5 w-5" />
           </span>
           <div>
-            <h1 className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">Admin community</h1>
-            <p className="text-xs text-muted-foreground sm:text-sm">Coordinate platform operations with your admin team.</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-emerald-700 dark:text-emerald-400">Tinat · Internal operations</p>
+            <h1 className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">Operations room</h1>
           </div>
         </div>
         <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
@@ -254,49 +254,64 @@ export default function AdminCommunityPage() {
         <div role="alert" className="mb-3 flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-200">
           <AlertCircle className="h-4 w-4 shrink-0" />
           <span className="flex-1">{error}</span>
+          <button
+            type="button"
+            onClick={() => void loadMessages(true)}
+            className="shrink-0 rounded-md border border-rose-300/70 px-2.5 py-1 font-semibold hover:bg-rose-500/10 dark:border-rose-800"
+          >
+            Retry
+          </button>
           <button aria-label="Dismiss error" type="button" onClick={() => setError("")} className="rounded p-1 hover:bg-rose-500/10"><X className="h-3.5 w-3.5" /></button>
         </div>
       )}
 
-      <div className="relative grid min-h-[580px] flex-1 gap-4 lg:grid-cols-[minmax(0,1fr)_310px]">
-        <section className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card">
-          <div className="flex shrink-0 items-center gap-1 overflow-x-auto border-b border-border px-3 pt-3 sm:px-4">
-            {channels.map((channel) => {
-              const Icon = channel.icon;
-              const isActive = activeChannel === channel.id;
-              return (
-                <button
-                  key={channel.id}
-                  type="button"
-                  onClick={() => {
-                    setActiveChannel(channel.id);
-                    shouldFollowMessagesRef.current = true;
-                  }}
-                  aria-pressed={isActive}
-                  className={`mb-2 inline-flex shrink-0 items-center gap-1.5 rounded-md px-3 py-2 text-xs font-medium transition-colors ${
-                    isActive
-                      ? "bg-emerald-600 text-white shadow-sm"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                  }`}
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                  {channel.label}
-                </button>
-              );
-            })}
-          </div>
+      <nav aria-label="Operations channels" className="mb-3 grid shrink-0 grid-cols-2 gap-2 rounded-xl border border-border bg-card p-2 sm:grid-cols-3 lg:grid-cols-5">
+        {channels.map((channel, index) => {
+          const Icon = channel.icon;
+          const isActive = activeChannel === channel.id;
+          return (
+            <button
+              key={channel.id}
+              type="button"
+              onClick={() => {
+                setActiveChannel(channel.id);
+                shouldFollowMessagesRef.current = true;
+              }}
+              aria-pressed={isActive}
+              className={`flex min-h-12 items-center gap-2.5 rounded-lg border px-3 text-left transition-colors ${
+                isActive
+                  ? "border-emerald-700/20 bg-emerald-700 text-white shadow-sm dark:border-emerald-500/30 dark:bg-emerald-600"
+                  : "border-transparent text-muted-foreground hover:border-border hover:bg-muted/60 hover:text-foreground"
+              }`}
+            >
+              <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md ${isActive ? "bg-white/15" : "bg-muted"}`}>
+                <Icon className="h-4 w-4" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-xs font-semibold capitalize">{channel.label}</span>
+                <span className={`block text-[10px] ${isActive ? "text-white/75" : "text-muted-foreground"}`}>
+                  {String(index + 1).padStart(2, "0")} / room
+                </span>
+              </span>
+            </button>
+          );
+        })}
+      </nav>
 
+      <div className="relative grid min-h-0 flex-1 gap-4 overflow-hidden lg:grid-cols-[minmax(0,1fr)_310px]">
+        <section className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-emerald-700/15 bg-card shadow-sm">
           <div className="flex shrink-0 items-center gap-3 border-b border-border px-4 py-3 sm:px-5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-700 text-white dark:bg-emerald-600">
               <selectedChannel.icon className="h-4 w-4" />
             </span>
             <div className="min-w-0 flex-1">
-              <h2 className="text-sm font-semibold text-foreground">#{selectedChannel.label}</h2>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-400">Operations room</p>
+              <h2 className="text-sm font-semibold capitalize text-foreground">{selectedChannel.label}</h2>
               <p className="truncate text-xs text-muted-foreground">{selectedChannel.description}</p>
             </div>
-            <span title="Messages refresh automatically" className="hidden items-center gap-1.5 text-[10px] text-muted-foreground sm:flex">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Admins only
+            <span title="Messages refresh automatically" className="hidden items-center gap-1.5 rounded-md bg-muted/70 px-2.5 py-1.5 text-[10px] text-muted-foreground sm:flex">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+              Private admin room
             </span>
           </div>
 
@@ -323,7 +338,7 @@ export default function AdminCommunityPage() {
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {visibleMessages.map((message, index) => {
                   const previous = visibleMessages[index - 1];
                   const showDate =
@@ -334,28 +349,30 @@ export default function AdminCommunityPage() {
                   return (
                     <div key={message.id}>
                       {showDate && (
-                        <div className="mb-4 flex items-center gap-3 py-1">
-                          <span className="h-px flex-1 bg-border" />
-                          <span className="rounded-full border border-border bg-background px-2.5 py-1 text-[10px] text-muted-foreground">
+                        <div className="mb-5 flex items-center gap-3 py-1">
+                          <span className="h-px w-6 bg-emerald-600/50" />
+                          <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                             {formatMessageDate(message.createdAt)}
                           </span>
                           <span className="h-px flex-1 bg-border" />
                         </div>
                       )}
-                      <article className={`flex gap-2.5 ${isOwnMessage ? "flex-row-reverse" : ""}`}>
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-xs font-semibold text-white dark:bg-emerald-600">
+                      <article className="flex gap-3">
+                        <span className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-xs font-semibold ${
+                          isOwnMessage ? "bg-emerald-700 text-white dark:bg-emerald-600" : "bg-emerald-500/10 text-emerald-800 dark:text-emerald-300"
+                        }`}>
                           {message.sender.name.trim().charAt(0).toUpperCase() || "A"}
                         </span>
-                        <div className={`min-w-0 max-w-[86%] sm:max-w-[78%] ${isOwnMessage ? "text-right" : ""}`}>
-                          <div className={`mb-1 flex items-center gap-2 ${isOwnMessage ? "justify-end" : ""}`}>
+                        <div className="min-w-0 flex-1">
+                          <div className="mb-1.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                             <span className="text-xs font-semibold text-foreground">{isOwnMessage ? "You" : message.sender.name}</span>
                             {!isOwnMessage && <span className="text-[10px] text-muted-foreground">{message.sender.institution || "Tinat Admin"}</span>}
-                            <time className="text-[10px] text-muted-foreground">{formatMessageTime(message.createdAt)}</time>
+                            <time className="ml-auto text-[10px] tabular-nums text-muted-foreground">{formatMessageTime(message.createdAt)}</time>
                           </div>
-                          <div className={`whitespace-pre-wrap break-words rounded-xl border px-3.5 py-2.5 text-left text-sm leading-6 ${
+                          <div className={`whitespace-pre-wrap break-words rounded-r-lg border-l-2 px-3.5 py-2.5 text-sm leading-6 ${
                             isOwnMessage
-                              ? "border-emerald-700/20 bg-emerald-600 text-white dark:border-emerald-500/20"
-                              : "border-border bg-muted/50 text-foreground"
+                              ? "border-emerald-700 bg-emerald-500/5 text-foreground dark:border-emerald-400"
+                              : "border-border bg-muted/35 text-foreground"
                           }`}>
                             {message.content}
                           </div>
@@ -371,7 +388,7 @@ export default function AdminCommunityPage() {
 
           <form onSubmit={sendMessage} className="shrink-0 border-t border-border p-3 sm:px-4 sm:py-3.5">
             <label htmlFor="admin-chat-message" className="sr-only">Message #{selectedChannel.label}</label>
-            <div className="flex items-end gap-2 rounded-lg border border-input bg-background p-2 transition focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/10">
+            <div className="flex items-end gap-2 rounded-lg border border-input bg-muted/30 p-2 transition focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/10">
               <textarea
                 id="admin-chat-message"
                 value={draft}

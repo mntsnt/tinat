@@ -654,9 +654,11 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const phaseProgress = ((currentPhaseIndex + 1) / LIFECYCLE_PHASES.length) * 100;
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div className={`flex flex-col bg-background text-foreground ${
+      activeTab === "chat" ? "h-full min-h-0 overflow-hidden" : "min-h-screen"
+    }`}>
       {/* Top Workspace Header */}
-      <header className="border-b border-border bg-card">
+      <header className="shrink-0 border-b border-border bg-card">
         <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <div className="mb-3 flex items-center justify-between gap-3">
             <Link href="/projects" className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
@@ -766,7 +768,9 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       </header>
 
       {/* Main Tab Views */}
-      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8 xl:flex-row xl:gap-0">
+      <main className={`mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8 xl:flex-row xl:gap-0 ${
+        activeTab === "chat" ? "min-h-0 overflow-hidden" : "min-h-0"
+      }`}>
         <nav aria-label="Project sections" className="no-scrollbar -mx-4 flex gap-1 overflow-x-auto border-b border-border px-4 pb-2 sm:-mx-6 sm:px-6 xl:sticky xl:top-4 xl:mx-0 xl:w-52 xl:shrink-0 xl:self-start xl:flex-col xl:overflow-visible xl:border-b-0 xl:border-r xl:px-0 xl:pb-0 xl:pr-3">
           {[
             { id: "overview", label: "Overview", icon: Layers },
@@ -798,7 +802,9 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             );
           })}
         </nav>
-        <div className="min-w-0 flex-1 xl:pl-6">
+        <div className={`min-w-0 flex-1 xl:pl-6 ${
+          activeTab === "chat" ? "min-h-0 overflow-hidden" : ""
+        }`}>
         {/* TAB 1: OVERVIEW */}
         {activeTab === "overview" && (
           <div className="space-y-6">

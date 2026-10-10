@@ -175,6 +175,7 @@ export default function NewProjectPage() {
       const payload = {
         title: title.trim(),
         studyDesign: template,
+        templateId: template,
         category,
         researchArea: researchArea.trim() || null,
         institution: institution.trim() || null,
@@ -200,8 +201,8 @@ export default function NewProjectPage() {
       }
 
       router.push(`/projects/${data.project.id}`);
-    } catch (err: any) {
-      setError(err.message || "An unexpected error occurred");
+    } catch (err: unknown) {
+      setError(err instanceof Error && err.message ? err.message : "An unexpected error occurred");
       setSubmitting(false);
     }
   }
@@ -338,10 +339,12 @@ export default function NewProjectPage() {
                     const Icon = tmpl.icon;
                     const isSelected = template === tmpl.id;
                     return (
-                      <div
+                      <button
                         key={tmpl.id}
+                        type="button"
+                        aria-pressed={isSelected}
                         onClick={() => setTemplate(tmpl.id)}
-                        className={`cursor-pointer p-4 rounded-xl border transition-all text-left ${
+                        className={`w-full cursor-pointer p-4 rounded-xl border transition-all text-left ${
                           isSelected
                             ? "border-primary bg-primary/5/40 dark:bg-indigo-950/30 ring-2 ring-primary/20"
                             : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50"
@@ -375,7 +378,7 @@ export default function NewProjectPage() {
                         <div className="mt-3 text-[11px] font-medium text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
                           <span>{tmpl.scaffoldCount}</span>
                         </div>
-                      </div>
+                      </button>
                     );
                   })}
                 </div>
@@ -387,17 +390,17 @@ export default function NewProjectPage() {
                   Workspace Visibility
                 </label>
                 <div className="grid grid-cols-3 gap-3">
-                  {[
+                  {([
                     { id: "TEAM", title: "Team Only", desc: "Invited researchers only", icon: Lock },
                     { id: "PRIVATE", title: "Confidential", desc: "Strict access control", icon: Lock },
                     { id: "PUBLIC", title: "Open Science", desc: "Discoverable protocol", icon: Globe2 },
-                  ].map((v) => {
+                  ] as const).map((v) => {
                     const Icon = v.icon;
                     return (
                       <button
                         type="button"
                         key={v.id}
-                        onClick={() => setVisibility(v.id as any)}
+                        onClick={() => setVisibility(v.id)}
                         className={`p-3 rounded-xl border text-left transition-all ${
                           visibility === v.id
                             ? "border-primary bg-primary/5/40 dark:bg-indigo-950/20 text-indigo-950 dark:text-indigo-200"
@@ -571,8 +574,8 @@ export default function NewProjectPage() {
                             className="text-slate-400 hover:text-rose-500"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
+                        </button>
+                      </div>
                       </div>
                     ))}
                   </div>

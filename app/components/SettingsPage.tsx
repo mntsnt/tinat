@@ -102,8 +102,8 @@ export default function SettingsPage({ user }: { user: UserData }) {
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-7 sm:px-6 lg:px-8">
-      <header className="mb-8">
+    <div className="mx-auto flex h-full min-h-0 w-full max-w-6xl flex-col overflow-hidden px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+      <header className="mb-4 shrink-0 sm:mb-6">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
           Account
         </p>
@@ -115,10 +115,10 @@ export default function SettingsPage({ user }: { user: UserData }) {
         </p>
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start">
+      <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[220px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-6">
         <nav
           aria-label="Settings sections"
-          className="flex gap-1 overflow-x-auto rounded-xl border border-border bg-card p-2 lg:sticky lg:top-6 lg:flex-col"
+          className="flex gap-1 overflow-x-auto rounded-xl border border-border bg-card p-2 lg:flex-col"
         >
           {[
             { href: "#account", label: "Account overview", icon: CircleUserRound },
@@ -144,7 +144,7 @@ export default function SettingsPage({ user }: { user: UserData }) {
           })}
         </nav>
 
-        <div className="min-w-0 space-y-5">
+        <div className="min-h-0 min-w-0 space-y-5 overflow-y-auto overscroll-contain pr-1">
           <section
             id="account"
             className="scroll-mt-6 overflow-hidden rounded-xl border border-border bg-card"

@@ -276,7 +276,7 @@ export async function POST(
       // MULTIPLE CHOICE GRID
       if (question.type === "MULTIPLE_CHOICE_GRID") {
         if (typeof answer !== "object" || Array.isArray(answer)) return NextResponse.json({ error: `Invalid grid for "${question.text}".` }, { status: 400 });
-        const validRows = (question.rows as any[]).map(r => r.value);
+        const validRows = question.rows.map((r) => r.value);
         const validCols = question.options.map(o => o.value);
         for (const [row, col] of Object.entries(answer as Record<string, string>)) {
           if (!validRows.includes(row) || !validCols.includes(col)) {
@@ -288,7 +288,7 @@ export async function POST(
       // CHECKBOX GRID
       if (question.type === "CHECKBOX_GRID") {
         if (typeof answer !== "object" || Array.isArray(answer)) return NextResponse.json({ error: `Invalid grid for "${question.text}".` }, { status: 400 });
-        const validRows = (question.rows as any[]).map(r => r.value);
+        const validRows = question.rows.map((r) => r.value);
         const validCols = question.options.map(o => o.value);
         for (const [row, cols] of Object.entries(answer as Record<string, string[]>)) {
           if (!validRows.includes(row) || !Array.isArray(cols) || !cols.every(c => validCols.includes(c))) {
@@ -406,7 +406,7 @@ export async function POST(
                 responseId: response.id,
                 questionId: question.id,
                 textValue:
-                  Array.isArray(answer)
+                  typeof answer === "object"
                     ? JSON.stringify(answer)
                     : String(answer),
               },

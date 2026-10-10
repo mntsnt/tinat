@@ -190,20 +190,20 @@ export function ProjectTeamChat({
   }
 
   return (
-    <section className="flex min-h-[580px] flex-1 flex-col gap-4" aria-label="Project team chat">
-      <header className="flex flex-wrap items-center justify-between gap-3">
+    <section className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden" aria-label="Project team chat">
+      <header className="flex shrink-0 flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-            <MessagesSquare className="h-5 w-5" />
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+            <MessagesSquare className="h-4.5 w-4.5" />
           </span>
           <div>
-            <h2 className="text-base font-semibold text-foreground">Team chat</h2>
-            <p className="text-xs text-muted-foreground">{projectTitle} · Project team conversation</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-primary">Research log</p>
+            <h2 className="text-base font-semibold text-foreground">{projectTitle}</h2>
           </div>
         </div>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 text-xs text-muted-foreground">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-          Updates every 5 seconds
+        <span className="inline-flex items-center gap-1.5 rounded-md bg-muted/70 px-2.5 py-1.5 text-[10px] font-medium text-muted-foreground">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+          Shared with project collaborators
         </span>
       </header>
 
@@ -211,18 +211,25 @@ export function ProjectTeamChat({
         <div role="alert" className="flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-200">
           <AlertCircle className="h-4 w-4 shrink-0" />
           <span className="flex-1">{error}</span>
+          <button
+            type="button"
+            onClick={() => void loadMessages()}
+            className="shrink-0 rounded-md border border-rose-300/70 px-2.5 py-1 font-semibold hover:bg-rose-500/10 dark:border-rose-800"
+          >
+            Retry
+          </button>
           <button type="button" aria-label="Dismiss error" onClick={() => setError("")} className="rounded p-1 hover:bg-rose-500/10">
             <X className="h-3.5 w-3.5" />
           </button>
         </div>
       )}
 
-      <div className="grid min-h-0 flex-1 gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
-        <div className="flex min-h-[420px] flex-col overflow-hidden rounded-xl border border-border bg-card">
+      <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)_minmax(0,0.65fr)] gap-4 overflow-hidden lg:grid-cols-[minmax(0,1fr)_280px] lg:grid-rows-1">
+        <div className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card">
           <div
             ref={messagesViewportRef}
             onScroll={handleMessageScroll}
-            className="min-h-[300px] flex-1 space-y-4 overflow-y-auto px-4 py-4 sm:px-6"
+            className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-4 py-4 sm:px-6"
             aria-live="polite"
             aria-label="Project team messages"
           >
@@ -252,34 +259,36 @@ export function ProjectTeamChat({
                 return (
                   <div key={message.id}>
                     {showDate && (
-                      <div className="mb-4 flex items-center gap-3 py-1">
-                        <span className="h-px flex-1 bg-border" />
-                        <span className="rounded-full border border-border bg-background px-2.5 py-1 text-[10px] text-muted-foreground">
+                      <div className="mb-5 flex items-center gap-3 py-1">
+                        <span className="h-px w-6 bg-primary/50" />
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                           {formatMessageDate(message.createdAt)}
                         </span>
                         <span className="h-px flex-1 bg-border" />
                       </div>
                     )}
-                    <article className={`flex gap-2.5 ${isOwnMessage ? "flex-row-reverse" : ""}`}>
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+                    <article className="flex gap-3">
+                      <span className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-xs font-semibold ${
+                        isOwnMessage ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"
+                      }`}>
                         {message.sender.name?.trim().charAt(0).toUpperCase() || "R"}
                       </span>
-                      <div className={`min-w-0 max-w-[86%] sm:max-w-[78%] ${isOwnMessage ? "text-right" : ""}`}>
-                        <div className={`mb-1 flex items-center gap-2 ${isOwnMessage ? "justify-end" : ""}`}>
+                      <div className="min-w-0 flex-1">
+                        <div className="mb-1.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                           <span className="text-xs font-semibold text-foreground">
                             {isOwnMessage ? "You" : message.sender.name || "Team member"}
                           </span>
                           {!isOwnMessage && message.sender.institution && (
                             <span className="truncate text-[10px] text-muted-foreground">{message.sender.institution}</span>
                           )}
-                          <time className="shrink-0 text-[10px] text-muted-foreground">
+                          <time className="ml-auto shrink-0 text-[10px] tabular-nums text-muted-foreground">
                             {new Date(message.createdAt).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}
                           </time>
                         </div>
-                        <div className={`whitespace-pre-wrap break-words rounded-xl border px-3.5 py-2.5 text-left text-sm leading-6 ${
+                        <div className={`whitespace-pre-wrap break-words rounded-r-lg border-l-2 px-3.5 py-2.5 text-sm leading-6 ${
                           isOwnMessage
-                            ? "border-primary/20 bg-primary text-primary-foreground"
-                            : "border-border bg-muted/50 text-foreground"
+                            ? "border-primary bg-primary/5 text-foreground"
+                            : "border-border bg-muted/35 text-foreground"
                         }`}>
                           {message.content}
                         </div>

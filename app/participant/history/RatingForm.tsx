@@ -41,6 +41,8 @@ export function RatingForm({ studyId, initialRating, initialFeedback }: { studyI
           <button
             key={star}
             type="button"
+            aria-label={`Rate ${star} out of 5 stars`}
+            aria-pressed={rating === star}
             onClick={() => setRating(star)}
             className={`h-8 w-8 rounded-full ${rating >= star ? 'bg-amber-400 text-foreground' : 'bg-muted text-muted-foreground'} transition-colors hover:scale-105`}
           >

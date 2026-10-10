@@ -525,54 +525,51 @@ export function DataVisualizationStudio({
               <Activity className="h-4 w-4" />
             </span>
             <h3 className="text-xl font-bold tracking-tight text-foreground">
-              Data Visualization & Interactive Studio
+              Response distributions
             </h3>
             <Badge variant="outline" className="text-[11px] font-medium border-emerald-500/30 text-emerald-600 dark:text-emerald-400 bg-emerald-500/5">
               Live Figures &bull; N = {totalN}
             </Badge>
           </div>
           <p className="text-xs text-muted-foreground">
-            Explore distributions, cross-tabulate cohort subgroups, test statistical significance, and simulate statistical power.
+            A clear summary of how participants answered each question. Select a bar to explore a cohort.
           </p>
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
-          {/* View Mode Selector */}
-          <div className="flex items-center p-1 rounded-xl bg-muted/60 border border-border text-xs font-medium">
-            <button
-              onClick={() => setActiveTab("charts")}
-              className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
-                activeTab === "charts"
-                  ? "bg-background text-foreground shadow-xs font-semibold"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <BarChart3 className="w-3.5 h-3.5 text-primary" />
-              <span>Figures & Charts</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("contingency")}
-              className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
-                activeTab === "contingency"
-                  ? "bg-background text-foreground shadow-xs font-semibold"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <TableIcon className="w-3.5 h-3.5 text-purple-500" />
-              <span>Hypothesis Testing (χ²)</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("simulation")}
-              className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
-                activeTab === "simulation"
-                  ? "bg-background text-foreground shadow-xs font-semibold"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <Sliders className="w-3.5 h-3.5 text-primary" />
-              <span>Power Simulation</span>
-            </button>
-          </div>
+          <button
+            onClick={() => setActiveTab("charts")}
+            aria-pressed={activeTab === "charts"}
+            className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
+              activeTab === "charts"
+                ? "border-primary/30 bg-primary/10 text-foreground"
+                : "border-border bg-background text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <BarChart3 className="h-3.5 w-3.5 text-primary" />
+            Figures & charts
+          </button>
+          <details className="relative">
+            <summary className="cursor-pointer list-none rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground [&::-webkit-details-marker]:hidden">
+              Advanced analysis
+            </summary>
+            <div className="absolute right-0 z-10 mt-2 flex min-w-52 flex-col gap-1 rounded-xl border border-border bg-card p-2 shadow-lg">
+              <button
+                onClick={() => setActiveTab("contingency")}
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-left text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <TableIcon className="w-3.5 h-3.5 text-purple-500" />
+                <span>Hypothesis testing (χ²)</span>
+              </button>
+              <button
+                onClick={() => setActiveTab("simulation")}
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-left text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <Sliders className="w-3.5 h-3.5 text-primary" />
+                <span>Power simulation</span>
+              </button>
+            </div>
+          </details>
 
           {activeTab === "charts" && (
             <div className="flex items-center p-1 rounded-xl bg-muted/60 border border-border text-xs font-medium">
@@ -584,7 +581,7 @@ export function DataVisualizationStudio({
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                % Percent
+                % Share
               </button>
               <button
                 onClick={() => setMetricDisplay("count")}
@@ -594,7 +591,7 @@ export function DataVisualizationStudio({
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                N Count
+                Count
               </button>
             </div>
           )}

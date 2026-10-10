@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ShieldCheck, ShieldAlert, ShieldQuestion, CheckCircle, XCircle } from "lucide-react";
 
 type VerificationStatus = "UNVERIFIED" | "PENDING" | "VERIFIED" | "REJECTED" | "SUSPENDED";
@@ -19,38 +19,45 @@ export default function AdminVerificationsPage() {
   const [verifications, setVerifications] = useState<Verification[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"PENDING" | "VERIFIED" | "REJECTED" | "SUSPENDED">("PENDING");
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    fetchVerifications();
-  }, [activeTab]);
-
-  const fetchVerifications = async () => {
-    setIsLoading(true);
+  const fetchVerifications = useCallback(async () => {
     try {
       const res = await fetch(`/api/admin/verifications?status=${activeTab}`);
-      if (res.ok) {
-        const data = await res.json();
-        setVerifications(data.verifications || []);
-      }
+      const data = (await res.json().catch(() => ({}))) as {
+        verifications?: Verification[];
+        error?: string;
+      };
+      if (!res.ok) throw new Error(data.error || "Failed to fetch verifications.");
+      setVerifications(data.verifications || []);
+      setError("");
     } catch (error) {
       console.error("Failed to fetch verifications", error);
+      setError(error instanceof Error ? error.message : "Failed to fetch verifications.");
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [activeTab]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => void fetchVerifications(), 0);
+    return () => window.clearTimeout(timer);
+  }, [fetchVerifications]);
 
   const handleUpdateStatus = async (id: string, status: string, reason?: string) => {
+    setError("");
     try {
       const res = await fetch(`/api/admin/verifications/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status, rejectionReason: reason })
       });
-      if (res.ok) {
-        fetchVerifications();
-      }
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) throw new Error(data.error || "Failed to update verification status.");
+      await fetchVerifications();
     } catch (error) {
       console.error("Failed to update status", error);
+      setError(error instanceof Error ? error.message : "Failed to update verification status.");
     }
   };
 
@@ -82,6 +89,13 @@ export default function AdminVerificationsPage() {
 
       {isLoading ? (
         <div className="py-12 text-center text-muted-foreground">Loading requests...</div>
+      ) : error ? (
+        <div role="alert" className="py-12 text-center text-destructive">
+          <p>{error}</p>
+          <button type="button" onClick={() => void fetchVerifications()} className="mt-2 underline">
+            Retry
+          </button>
+        </div>
       ) : verifications.length === 0 ? (
         <div className="py-12 text-center text-muted-foreground bg-muted/50 rounded-lg border border-dashed border-border">
           No {activeTab.toLowerCase()} requests found.
@@ -160,6 +174,3 @@ export default function AdminVerificationsPage() {
     </div>
   );
 }
-
-
-

@@ -28,8 +28,8 @@ export function IntroAnimation({ force = false }: IntroAnimationProps) {
       return;
     }
 
-    // Mount intro animation
-    setMounted(true);
+    // Defer state updates until after the effect to avoid blocking the initial paint.
+    const mountFrame = window.requestAnimationFrame(() => setMounted(true));
     sessionStorage.setItem("tinat_intro_seen", "true");
 
     // Start exit after 1.5s
@@ -51,6 +51,7 @@ export function IntroAnimation({ force = false }: IntroAnimationProps) {
     window.addEventListener("keydown", handleDismiss, { once: true });
 
     return () => {
+      window.cancelAnimationFrame(mountFrame);
       clearTimeout(exitTimer);
       clearTimeout(unmountTimer);
       window.removeEventListener("keydown", handleDismiss);
@@ -75,7 +76,7 @@ export function IntroAnimation({ force = false }: IntroAnimationProps) {
     >
       <div className="flex flex-col items-center justify-center -translate-y-4">
         {/* Tinat White "T" on Black Squircle Logo */}
-        <div className="relative mb-5 flex items-center justify-center animate-scholarxiv-pulse">
+        <div className="relative mb-5 flex items-center justify-center animate-tinat-mark">
           {/* Subtle ambient backglow */}
           <div className="absolute -inset-2 rounded-3xl bg-black/5 dark:bg-white/10 blur-xl transition-all" />
           
@@ -96,17 +97,18 @@ export function IntroAnimation({ force = false }: IntroAnimationProps) {
           </p>
         </div>
 
-        {/* ScholarXIV-inspired Indeterminate Double-Beam Loader */}
-        <div
-          className="relative h-1 w-28 sm:w-32 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800"
-          style={{ clipPath: "inset(0 round 9999px)" }}
-        >
-          <div className="absolute top-0 bottom-0 rounded-full bg-zinc-900 dark:bg-zinc-100 animate-scholarxiv-long" />
-          <div className="absolute top-0 bottom-0 rounded-full bg-zinc-900 dark:bg-zinc-100 animate-scholarxiv-short" />
+        <div className="flex h-5 items-center gap-1.5" aria-hidden="true">
+          {["h-3", "h-4", "h-3", "h-4", "h-3"].map((height, index) => (
+            <span
+              key={index}
+              className={`animate-tinat-index ${height} w-1 rounded-full bg-emerald-700 dark:bg-emerald-400`}
+              style={{ animationDelay: `${index * 90}ms` }}
+            />
+          ))}
         </div>
 
         {/* Skip hint */}
-        <p className="mt-8 text-[10px] text-muted-foreground/60 tracking-tight">
+        <p className="mt-8 text-[10px] text-muted-foreground tracking-tight">
           Click anywhere or press any key to skip
         </p>
       </div>

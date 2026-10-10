@@ -9,20 +9,32 @@ import { Badge } from "../../../components/ui/Badge";
 import { Button, getButtonClasses } from "../../../components/ui/Button";
 import { AIAnalysisTab } from "./AIAnalysisTab";
 import { DataVisualizationStudio } from "./DataVisualizationStudio";
+import { StudyEngagement } from "./StudyEngagement";
 import { Star, Paperclip } from "lucide-react";
 
 type Props = {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export default async function ResearchStudyPage({ params }: Props) {
+const studyViews = [
+  { id: "overview", label: "Overview" },
+  { id: "analysis", label: "AI analysis" },
+  { id: "visualizations", label: "Data visualizations" },
+  { id: "responses", label: "Responses" },
+  { id: "discussion", label: "Discussion & feedback" },
+] as const;
+
+export default async function ResearchStudyPage({ params, searchParams }: Props) {
   const session = await getSession();
 
   if (!session) {
     redirect("/login");
   }
 
-  const { id } = await params;
+  const [{ id }, query] = await Promise.all([params, searchParams]);
+  const requestedView = Array.isArray(query.view) ? query.view[0] : query.view;
+  const activeView = studyViews.find((view) => view.id === requestedView)?.id ?? "overview";
 
   const study = await prisma.study.findUnique({
     where: { id },
@@ -59,6 +71,8 @@ export default async function ResearchStudyPage({ params }: Props) {
   }
 
   const totalResponses = activeStudy.responses.length;
+  const totalComments = activeStudy.comments.reduce((total, comment) => total + 1 + comment.replies.length, 0);
+  const currentUserLiked = activeStudy.likes.some((like) => like.userId === session.userId);
   const fieldCollectedResponses = activeStudy.responses.filter(r => r.collectionMethod === "FIELD_COLLECTED").length;
   const selfResponses = totalResponses - fieldCollectedResponses;
 
@@ -135,6 +149,72 @@ export default async function ResearchStudyPage({ params }: Props) {
         </div>
       </div>
 
+      <nav aria-label="Study sections" className="mb-6 -mx-1 flex gap-1 overflow-x-auto border-b border-border px-1">
+        {studyViews.map((view) => (
+          <Link
+            key={view.id}
+            href={`/researcher/studies/${study.id}?view=${view.id}`}
+            aria-current={activeView === view.id ? "page" : undefined}
+            className={`shrink-0 border-b-2 px-3 py-2.5 text-sm font-medium transition-colors ${
+              activeView === view.id
+                ? "border-primary text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {view.label}
+          </Link>
+        ))}
+      </nav>
+
+      {activeView === "overview" && (
+        <StudyEngagement
+          studyId={study.id}
+          initialLikeCount={study.likes.length}
+          initialCommentCount={totalComments}
+          initiallyLiked={currentUserLiked}
+        />
+      )}
+      {activeView === "overview" && (
+        <Card className="mt-4">
+          <CardHeader className="flex flex-row items-center justify-between gap-4">
+            <div>
+              <CardTitle>Participant discussion</CardTitle>
+              <CardDescription>Recent comments and feedback on this study.</CardDescription>
+            </div>
+            <Link
+              href={`/researcher/studies/${study.id}?view=discussion#study-discussion`}
+              className="shrink-0 text-sm font-medium text-primary hover:underline"
+            >
+              View all
+            </Link>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {study.comments.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No comments yet. Start the discussion above.</p>
+            ) : (
+              study.comments.slice(0, 3).map((comment) => (
+                <article key={comment.id} className="rounded-lg border border-border bg-muted/20 p-3">
+                  <div className="mb-1 flex items-center justify-between gap-3">
+                    <span className="text-sm font-medium text-foreground">{comment.user.name}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(comment.createdAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                    </span>
+                  </div>
+                  <p className="line-clamp-2 whitespace-pre-wrap text-sm text-muted-foreground">{comment.text}</p>
+                  {comment.replies.length > 0 && (
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      {comment.replies.length} {comment.replies.length === 1 ? "reply" : "replies"}
+                    </p>
+                  )}
+                </article>
+              ))
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {activeView === "overview" && (
+      <>
       <div className="grid gap-6 md:grid-cols-3 mb-8">
         <Card className="md:col-span-2">
           <CardHeader>
@@ -198,7 +278,11 @@ export default async function ResearchStudyPage({ params }: Props) {
           </CardContent>
         </Card>
       </div>
+      </>
+      )}
 
+      {activeView === "overview" && (
+      <>
       <div className="grid gap-6 md:grid-cols-2 mb-12">
         <Card>
           <CardHeader>
@@ -224,14 +308,6 @@ export default async function ResearchStudyPage({ params }: Props) {
               <div className="bg-muted/50 p-4 rounded-lg border border-border">
                 <dt className="text-sm text-muted-foreground mb-1">Participant Target</dt>
                 <dd className="text-2xl font-bold text-foreground">{study.participantTarget > 0 ? study.participantTarget : "No limit"}</dd>
-              </div>
-              <div className="bg-muted/50 p-4 rounded-lg border border-border">
-                <dt className="text-sm text-muted-foreground mb-1">Likes</dt>
-                <dd className="text-2xl font-bold text-foreground">{study.likes.length}</dd>
-              </div>
-              <div className="bg-muted/50 p-4 rounded-lg border border-border">
-                <dt className="text-sm text-muted-foreground mb-1">Comments</dt>
-                <dd className="text-2xl font-bold text-foreground">{study.comments.length}</dd>
               </div>
             </dl>
             
@@ -304,8 +380,10 @@ export default async function ResearchStudyPage({ params }: Props) {
           </CardContent>
         </Card>
       </div>
+      </>
+      )}
 
-      <div className="mb-10">
+      {activeView === "analysis" && <div className="mb-10">
         <AIAnalysisTab
           studyId={study.id}
           studyTitle={study.title}
@@ -315,9 +393,9 @@ export default async function ResearchStudyPage({ params }: Props) {
           studyType={study.studyType}
           questionCount={study.questions.length}
         />
-      </div>
+      </div>}
 
-      {totalResponses > 0 && (
+      {activeView === "visualizations" && (totalResponses > 0 ? (
         <div className="mb-10">
           <DataVisualizationStudio
             studyTitle={study.title}
@@ -326,8 +404,17 @@ export default async function ResearchStudyPage({ params }: Props) {
             participantTarget={study.participantTarget}
           />
         </div>
-      )}
+      ) : (
+        <Card className="border-dashed">
+          <CardContent className="py-10 text-center">
+            <h2 className="text-lg font-semibold text-foreground">Visualizations will appear here</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Charts are available after participants submit responses.</p>
+          </CardContent>
+        </Card>
+      ))}
 
+      {activeView === "responses" && (
+      <>
       <div className="mb-6 flex items-center justify-between border-t border-border pt-10">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-foreground">Question-by-Question Breakdown</h2>
@@ -557,8 +644,12 @@ export default async function ResearchStudyPage({ params }: Props) {
           })}
         </div>
       )}
+      </>
+      )}
 
       {/* Participant Reviews & Feedback View */}
+      {activeView === "discussion" && (
+      <section id="study-discussion" className="scroll-mt-6">
       {study.ratings && study.ratings.length > 0 && (
         <div className="mt-12">
           <div className="mb-6 flex items-center justify-between">
@@ -616,7 +707,7 @@ export default async function ResearchStudyPage({ params }: Props) {
       {/* Researcher Comments & Threaded Discussion View */}
       <div className="mt-12 mb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-foreground">Discussion ({study.comments.length})</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">Discussion ({totalComments})</h2>
           <p className="text-sm text-muted-foreground mt-1">Community inquiry and researcher responses regarding this protocol.</p>
         </div>
       </div>
@@ -689,7 +780,8 @@ export default async function ResearchStudyPage({ params }: Props) {
           )}
         </CardContent>
       </Card>
+      </section>
+      )}
     </div>
   );
 }
-

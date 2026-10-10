@@ -35,7 +35,9 @@ export function ProjectsLayoutShell({ children, links, user }: ProjectsLayoutShe
           roleColor="researcher"
         />
       )}
-      <main className="min-w-0 flex-1 overflow-y-auto bg-muted/10">{children}</main>
+      <main className={`min-h-0 min-w-0 flex-1 bg-muted/10 ${isProjectWorkspace ? "overflow-hidden" : "overflow-y-auto"}`}>
+        {children}
+      </main>
     </div>
   );
 }

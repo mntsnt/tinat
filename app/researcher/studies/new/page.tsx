@@ -83,7 +83,7 @@ export default function CreateStudyPage() {
     setQuestions(updated);
   }
 
-  function updateQuestion(index: number, field: keyof Question, value: any) {
+  function updateQuestion<K extends keyof Question>(index: number, field: K, value: Question[K]) {
     const updated = [...questions];
     updated[index] = { ...updated[index], [field]: value };
 
@@ -222,9 +222,11 @@ export default function CreateStudyPage() {
           </label>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Funded Research Card */}
-            <div
+            <button
+              type="button"
+              aria-pressed={studyType === "FUNDED"}
               onClick={() => setStudyType("FUNDED")}
-              className={`relative cursor-pointer rounded-xl border-2 p-5 transition-all ${
+              className={`relative w-full cursor-pointer rounded-xl border-2 p-5 text-left transition-all ${
                 studyType === "FUNDED"
                   ? "border-emerald-600 bg-emerald-500/5 shadow-md"
                   : "border-border bg-card hover:border-emerald-500/40"
@@ -255,12 +257,14 @@ export default function CreateStudyPage() {
               <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
                 Formal academic, clinical, or grant-backed health research. Participants earn Tinat Credits (TC) upon completion.
               </p>
-            </div>
+            </button>
 
             {/* Free Data Collection Card */}
-            <div
+            <button
+              type="button"
+              aria-pressed={studyType === "FREE_DATA_COLLECTION"}
               onClick={() => setStudyType("FREE_DATA_COLLECTION")}
-              className={`relative cursor-pointer rounded-xl border-2 p-5 transition-all ${
+              className={`relative w-full cursor-pointer rounded-xl border-2 p-5 text-left transition-all ${
                 studyType === "FREE_DATA_COLLECTION"
                   ? "border-emerald-600 bg-emerald-500/5 shadow-md"
                   : "border-border bg-card hover:border-emerald-500/40"
@@ -291,7 +295,7 @@ export default function CreateStudyPage() {
               <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
                 Ideal for medical student assignments, NGO health assessments, pilot questionnaires, and general community health surveys.
               </p>
-            </div>
+            </button>
           </div>
         </div>
 
@@ -683,5 +687,3 @@ export default function CreateStudyPage() {
     </div>
   );
 }
-
-

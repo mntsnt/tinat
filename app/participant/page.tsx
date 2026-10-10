@@ -53,7 +53,8 @@ export default async function ParticipantDashboard() {
   const availableStudies = studies.filter(
     (s) =>
       !completedStudyIds.has(s.id) &&
-      (s.participantTarget === 0 || s._count.responses < s.participantTarget)
+      (s.participantTarget === 0 || s._count.responses < s.participantTarget) &&
+      (s.rewardCredits <= 0 || s.budgetCredits - s.creditsPaid >= s.rewardCredits)
   );
 
   const totalCreditsEarned = user.responses.reduce(
@@ -290,4 +291,3 @@ export default async function ParticipantDashboard() {
     </div>
   );
 }
-
