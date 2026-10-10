@@ -224,7 +224,7 @@ export function ProjectTeamChat({
         </div>
       )}
 
-      <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)_minmax(0,0.65fr)] gap-4 overflow-hidden lg:grid-cols-[minmax(0,1fr)_280px] lg:grid-rows-1">
+      <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)_minmax(6rem,0.3fr)] gap-4 overflow-hidden lg:grid-cols-[minmax(0,1fr)_280px] lg:grid-rows-1">
         <div className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card">
           <div
             ref={messagesViewportRef}
@@ -300,41 +300,6 @@ export function ProjectTeamChat({
             )}
           </div>
 
-          <form onSubmit={sendMessage} className="shrink-0 border-t border-border p-3 sm:px-4 sm:py-3.5">
-            <label htmlFor="project-chat-message" className="sr-only">Message the project team</label>
-            <div className="flex items-end gap-2 rounded-lg border border-input bg-background p-2 transition focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10">
-              <textarea
-                id="project-chat-message"
-                value={draft}
-                onChange={(event) => setDraft(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" && !event.shiftKey) {
-                    event.preventDefault();
-                    event.currentTarget.form?.requestSubmit();
-                  }
-                }}
-                maxLength={1500}
-                rows={1}
-                placeholder="Message your project team..."
-                className="max-h-32 min-h-9 flex-1 resize-y bg-transparent px-2 py-1.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
-              />
-              <div className="flex shrink-0 flex-col items-end gap-1">
-                <span className="text-[10px] text-muted-foreground">{draft.length}/1500</span>
-                <button
-                  type="submit"
-                  disabled={!draft.trim() || isSending}
-                  className="inline-flex h-9 items-center gap-2 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {isSending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-                  Send
-                </button>
-              </div>
-            </div>
-            <p className="mt-2 flex items-center gap-1.5 text-[10px] text-muted-foreground">
-              <Check className="h-3 w-3 text-emerald-600" />
-              Visible to authorized project collaborators
-            </p>
-          </form>
         </div>
 
         <aside className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card">
@@ -380,6 +345,47 @@ export function ProjectTeamChat({
           </div>
         </aside>
       </div>
+
+      <form
+        onSubmit={sendMessage}
+        className="shrink-0 rounded-xl border border-border bg-card p-3 sm:p-4"
+      >
+        <label htmlFor="project-chat-message" className="sr-only">
+          Message the project team
+        </label>
+        <div className="flex items-end gap-2 rounded-lg border border-input bg-background p-2 transition focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10">
+          <textarea
+            id="project-chat-message"
+            value={draft}
+            onChange={(event) => setDraft(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                event.currentTarget.form?.requestSubmit();
+              }
+            }}
+            maxLength={1500}
+            rows={1}
+            placeholder="Write a message to your project team..."
+            className="max-h-32 min-h-10 flex-1 resize-y bg-transparent px-2 py-1.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+          />
+          <div className="flex shrink-0 flex-col items-end gap-1">
+            <span className="text-[10px] text-muted-foreground">{draft.length}/1500</span>
+            <button
+              type="submit"
+              disabled={!draft.trim() || isSending}
+              className="inline-flex h-9 items-center gap-2 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isSending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              Send message
+            </button>
+          </div>
+        </div>
+        <p className="mt-2 flex items-center gap-1.5 text-[10px] text-muted-foreground">
+          <Check className="h-3 w-3 text-emerald-600" />
+          Visible to authorized project collaborators
+        </p>
+      </form>
     </section>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { usePathname } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import type { SidebarLink } from "../components/layout/Sidebar";
 
@@ -17,25 +16,18 @@ type ProjectsLayoutShellProps = {
 };
 
 export function ProjectsLayoutShell({ children, links, user }: ProjectsLayoutShellProps) {
-  const pathname = usePathname();
-  const isProjectWorkspace =
-    /^\/projects\/[^/]+$/.test(pathname) &&
-    pathname !== "/projects/new";
-
   return (
     <div className="flex h-screen flex-col overflow-hidden md:flex-row">
-      {!isProjectWorkspace && (
-        <Sidebar
-          links={links}
-          roleTitle="Researcher"
-          userId={user.id}
-          userName={user.name}
-          userEmail={user.email}
-          avatarUrl={user.avatarUrl}
-          roleColor="researcher"
-        />
-      )}
-      <main className={`min-h-0 min-w-0 flex-1 bg-muted/10 ${isProjectWorkspace ? "overflow-hidden" : "overflow-y-auto"}`}>
+      <Sidebar
+        links={links}
+        roleTitle="Researcher"
+        userId={user.id}
+        userName={user.name}
+        userEmail={user.email}
+        avatarUrl={user.avatarUrl}
+        roleColor="researcher"
+      />
+      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto bg-muted/10">
         {children}
       </main>
     </div>
