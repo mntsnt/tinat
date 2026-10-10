@@ -20,6 +20,16 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Google Sign-In
+
+Set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `AUTH_SECRET` in your local environment. In Google Cloud Console, register this authorized redirect URI:
+
+```text
+http://localhost:3000/api/auth/callback/google
+```
+
+For deployed environments, register `https://<your-app-domain>/api/auth/callback/google` and configure the matching app URL or proxy host. Google sign-up creates a verified account; new accounts default to Participant unless Researcher is selected on the sign-up page.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

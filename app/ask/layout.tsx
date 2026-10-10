@@ -14,7 +14,7 @@ export default async function AskLayout({ children }: { children: ReactNode }) {
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { role: true, name: true, email: true },
+    select: { id: true, role: true, name: true, email: true, avatarUrl: true },
   });
 
   if (!user) {
@@ -39,8 +39,10 @@ export default async function AskLayout({ children }: { children: ReactNode }) {
       <Sidebar
         links={links}
         roleTitle={roleTitle}
+        userId={user.id}
         userName={user.name}
         userEmail={user.email}
+        avatarUrl={user.avatarUrl}
         roleColor={roleColor}
       />
       <main className="flex-1 overflow-y-auto bg-muted/10">

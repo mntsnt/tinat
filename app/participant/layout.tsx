@@ -14,7 +14,7 @@ export default async function ParticipantLayout({ children }: { children: ReactN
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { id: true, role: true, name: true, email: true, isVerified: true },
+    select: { id: true, role: true, name: true, email: true, avatarUrl: true, isVerified: true },
   });
 
   if (!user || user.role !== "PARTICIPANT") {
@@ -41,8 +41,10 @@ export default async function ParticipantLayout({ children }: { children: ReactN
       <Sidebar
         links={links}
         roleTitle="Participant"
+        userId={user.id}
         userName={user.name}
         userEmail={user.email}
+        avatarUrl={user.avatarUrl}
         roleColor="participant"
       />
       <main className="flex-1 overflow-y-auto bg-muted/10">

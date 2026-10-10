@@ -4,7 +4,6 @@ import {
   Compass,
   History,
   Wallet,
-  Settings,
   MessageCircleQuestion,
   ClipboardList,
   FolderKanban,
@@ -27,7 +26,6 @@ export const participantLinks: SidebarLink[] = [
   { title: "History", href: "/participant/history", icon: <History /> },
   { title: "Wallet", href: "/participant/wallet", icon: <Wallet /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
-  { title: "Settings", href: "/participant/settings", icon: <Settings /> },
 ];
 
 export const researcherLinks: SidebarLink[] = [
@@ -35,7 +33,6 @@ export const researcherLinks: SidebarLink[] = [
   { title: "Research Projects", href: "/projects", icon: <FolderKanban /> },
   { title: "My Studies", href: "/researcher/studies", icon: <FolderOpen /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
-  { title: "Settings", href: "/researcher/settings", icon: <Settings /> },
 ];
 
 export const adminLinks: SidebarLink[] = [
@@ -45,7 +42,6 @@ export const adminLinks: SidebarLink[] = [
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
   { title: "Withdrawals", href: "/admin/withdrawals", icon: <CreditCard /> },
   { title: "Activity Logs", href: "/admin/logs", icon: <Activity /> },
-  { title: "Settings", href: "/admin/settings", icon: <Settings /> },
 ];
 
 export function getLinksForUser(user: { role?: string; isCollector?: boolean } | null): SidebarLink[] {

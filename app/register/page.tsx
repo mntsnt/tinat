@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/Card";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
+import { GoogleAuthButton } from "../components/GoogleAuthButton";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -13,7 +14,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("PARTICIPANT");
+  const [role, setRole] = useState<"PARTICIPANT" | "RESEARCHER">("PARTICIPANT");
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -104,12 +105,13 @@ export default function RegisterPage() {
               <select
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors"
                 value={role}
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e) => setRole(e.target.value === "RESEARCHER" ? "RESEARCHER" : "PARTICIPANT")}
               >
                 <option value="PARTICIPANT">Participant</option>
                 <option value="RESEARCHER">Researcher</option>
               </select>
             </div>
+
             {error && (
               <p className="text-sm font-medium text-destructive">{error}</p>
             )}
@@ -118,6 +120,13 @@ export default function RegisterPage() {
             <Button type="submit" className="w-full" isLoading={loading}>
               Create Account & Continue to Verification
             </Button>
+
+            <div className="flex w-full items-center gap-3">
+              <div className="h-px flex-1 bg-border" />
+              <span className="text-xs text-muted-foreground">or sign up with</span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+            <GoogleAuthButton role={role} label="Sign up with Google" />
 
             <div className="text-center text-sm text-muted-foreground mt-4">
               Already have an account?{" "}

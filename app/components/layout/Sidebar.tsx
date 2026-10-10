@@ -1,10 +1,21 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "../../../lib/utils";
-import { Menu, X, LogOut, ChevronRight, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import {
+  Menu,
+  X,
+  LogOut,
+  ChevronRight,
+  ChevronUp,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Settings,
+  UserRound,
+} from "lucide-react";
 
 export type SidebarLink = {
   title: string;
@@ -15,16 +26,20 @@ export type SidebarLink = {
 interface SidebarProps {
   links: SidebarLink[];
   roleTitle: string;
+  userId: string;
   userName: string;
   userEmail?: string;
+  avatarUrl?: string | null;
   roleColor?: "participant" | "researcher" | "admin";
 }
 
 export function Sidebar({
   links,
   roleTitle,
+  userId,
   userName,
   userEmail,
+  avatarUrl,
   roleColor = "participant",
 }: SidebarProps) {
   const pathname = usePathname();
@@ -32,10 +47,14 @@ export function Sidebar({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("tinat_sidebar_collapsed");
-    if (stored === "true") setIsCollapsed(true);
+    const frame = window.requestAnimationFrame(() => {
+      setIsCollapsed(localStorage.getItem("tinat_sidebar_collapsed") === "true");
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   const toggleCollapse = () => {
@@ -67,6 +86,12 @@ export function Sidebar({
     },
   };
   const colors = roleColors[roleColor];
+  const settingsHref =
+    roleColor === "admin"
+      ? "/admin/settings"
+      : roleColor === "researcher"
+        ? "/researcher/settings"
+        : "/participant/settings";
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -154,45 +179,91 @@ export function Sidebar({
     const collapsed = !mobile && isCollapsed;
     
     return (
-    <div className="border-t border-border p-2.5 space-y-1">
-      {!collapsed && (
-        <div className="flex items-center gap-2.5 rounded-md px-2 py-2">
-          <div
-            className={cn(
-              "flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold",
-              colors.avatar
-            )}
-          >
-            {initials}
-          </div>
-          <div className="flex-1 min-w-0">
+    <div className="relative border-t border-border p-2.5">
+      {accountMenuOpen && (
+        <div
+          role="menu"
+          aria-label="Account menu"
+          className={cn(
+            "absolute bottom-full z-50 mb-2 min-w-52 rounded-lg border border-border bg-card p-1.5 shadow-xl",
+            collapsed ? "left-full ml-2" : "inset-x-2"
+          )}
+        >
+          <div className="border-b border-border px-3 py-2.5">
             <p className="truncate text-[13px] font-semibold text-foreground">{userName}</p>
-            {userEmail && (
-              <p className="text-xs text-muted-foreground truncate">{userEmail}</p>
-            )}
+            {userEmail && <p className="truncate text-xs text-muted-foreground">{userEmail}</p>}
           </div>
-        </div>
-      )}
-      
-      {collapsed && (
-        <div className="flex justify-center py-2">
-          <div className={cn("flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold", colors.avatar)}>
-            {initials}
-          </div>
+          <Link
+            href={`/profile/${userId}`}
+            role="menuitem"
+            onClick={() => setAccountMenuOpen(false)}
+            className="flex min-h-9 items-center gap-2.5 rounded-md px-3 py-2 text-[13px] text-foreground transition-colors hover:bg-muted"
+          >
+            <UserRound className="h-4 w-4 text-muted-foreground" />
+            View profile
+          </Link>
+          <Link
+            href={settingsHref}
+            role="menuitem"
+            onClick={() => setAccountMenuOpen(false)}
+            className="flex min-h-9 items-center gap-2.5 rounded-md px-3 py-2 text-[13px] text-foreground transition-colors hover:bg-muted"
+          >
+            <Settings className="h-4 w-4 text-muted-foreground" />
+            Settings
+          </Link>
+          <div className="my-1 border-t border-border" />
+          <button
+            role="menuitem"
+            onClick={handleLogout}
+            disabled={loggingOut}
+            className="flex min-h-9 w-full items-center gap-2.5 rounded-md px-3 py-2 text-left text-[13px] text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:opacity-60"
+          >
+            <LogOut className="h-4 w-4" />
+            {loggingOut ? "Logging out..." : "Log out"}
+          </button>
         </div>
       )}
 
       <button
-        onClick={handleLogout}
-        disabled={loggingOut}
-        title={collapsed ? "Log out" : undefined}
+        type="button"
+        onClick={() => setAccountMenuOpen((open) => !open)}
+        aria-expanded={accountMenuOpen}
+        aria-haspopup="menu"
+        aria-label="Open account menu"
+        title={collapsed ? userName : undefined}
         className={cn(
-          "flex min-h-9 items-center rounded-md px-2.5 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive active:scale-[0.99] disabled:opacity-60",
-          collapsed ? "justify-center w-full" : "gap-2.5 w-full"
+          "flex min-h-10 w-full items-center rounded-md px-2 py-2 text-left transition-colors hover:bg-muted/80",
+          collapsed ? "justify-center" : "gap-2.5"
         )}
       >
-        <LogOut className="w-4 h-4 flex-shrink-0" />
-        {!collapsed && <span>{loggingOut ? "Logging out..." : "Log out"}</span>}
+        <div
+          className={cn(
+            "flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full text-[11px] font-bold",
+            !avatarUrl && colors.avatar
+          )}
+        >
+          {avatarUrl ? (
+            <Image
+              src={avatarUrl}
+              alt=""
+              width={32}
+              height={32}
+              unoptimized
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            initials
+          )}
+        </div>
+        {!collapsed && (
+          <>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[13px] font-semibold text-foreground">{userName}</p>
+              {userEmail && <p className="truncate text-xs text-muted-foreground">{userEmail}</p>}
+            </div>
+            <ChevronUp className={cn("h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform", accountMenuOpen && "rotate-180")} />
+          </>
+        )}
       </button>
       
       {!mobile && (
@@ -218,7 +289,7 @@ export function Sidebar({
     return (
     <div className={cn("border-b border-border py-3 flex items-center", collapsed ? "px-0 justify-center h-16" : "px-3.5 h-16")}>
       <Link href="/" className={cn("flex items-center transition-opacity hover:opacity-80", collapsed ? "justify-center" : "gap-2.5")}>
-        <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-foreground text-xs font-bold text-background">
+        <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-black text-xs font-bold text-white dark:bg-white dark:text-black">
           T
         </div>
         {!collapsed && (
@@ -254,7 +325,7 @@ export function Sidebar({
       {/* Mobile Top Bar */}
       <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black font-bold text-white text-xs shadow-sm">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black font-bold text-white text-xs shadow-sm dark:bg-white dark:text-black">
             T
           </div>
           <span className="font-semibold text-sm text-foreground">
@@ -291,7 +362,7 @@ export function Sidebar({
           >
             <div className="flex items-center justify-between border-b border-border p-3.5">
               <Link href="/" className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black font-bold text-white text-sm shadow-sm">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black font-bold text-white text-sm shadow-sm dark:bg-white dark:text-black">
                   T
                 </div>
                 <span className="font-bold text-foreground">Tinat</span>

@@ -14,7 +14,7 @@ export default async function CollectorLayout({ children }: { children: ReactNod
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { id: true, role: true, name: true, email: true },
+    select: { id: true, role: true, name: true, email: true, avatarUrl: true },
   });
 
   if (!user || user.role !== "PARTICIPANT") {
@@ -43,8 +43,10 @@ export default async function CollectorLayout({ children }: { children: ReactNod
       <Sidebar
         links={links}
         roleTitle="Data Collector"
+        userId={user.id}
         userName={user.name}
         userEmail={user.email}
+        avatarUrl={user.avatarUrl}
         roleColor="participant"
       />
       <main className="flex-1 overflow-y-auto bg-muted/10">
@@ -53,4 +55,3 @@ export default async function CollectorLayout({ children }: { children: ReactNod
     </div>
   );
 }
-

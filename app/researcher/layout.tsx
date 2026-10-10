@@ -14,7 +14,7 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { role: true, name: true, email: true, isVerified: true },
+    select: { id: true, role: true, name: true, email: true, avatarUrl: true, isVerified: true },
   });
 
   if (!user || user.role !== "RESEARCHER") {
@@ -32,8 +32,10 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
       <Sidebar
         links={links}
         roleTitle="Researcher"
+        userId={user.id}
         userName={user.name}
         userEmail={user.email}
+        avatarUrl={user.avatarUrl}
         roleColor="researcher"
       />
       <main className="flex-1 overflow-y-auto bg-muted/10">

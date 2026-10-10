@@ -1,31 +1,91 @@
+import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import { createSession } from "@/lib/auth";
 import bcrypt from "bcryptjs";
-import { getGoogleRedirectUri, getBaseUrl } from "@/lib/getRedirectUri";
+import { createSession } from "@/lib/auth";
+import { getBaseUrl, getGoogleRedirectUri } from "@/lib/getRedirectUri";
+import { prisma } from "@/lib/prisma";
 
-export async function GET(request: Request) {
+const OAUTH_NONCE_COOKIE = "tinat_google_oauth_nonce";
+const OAUTH_COOKIE_PATH = "/api/auth/callback/google";
+
+function redirectToLogin(request: NextRequest, error: string) {
   const baseUrl = getBaseUrl(request);
+  const response = NextResponse.redirect(
+    new URL(`/login?error=${encodeURIComponent(error)}`, baseUrl)
+  );
 
+  response.cookies.set(OAUTH_NONCE_COOKIE, "", {
+    httpOnly: true,
+    secure: baseUrl.startsWith("https://"),
+    sameSite: "lax",
+    maxAge: 0,
+    path: OAUTH_COOKIE_PATH,
+  });
+
+  return response;
+}
+
+function redirectToDestination(request: NextRequest, destination: string) {
+  const baseUrl = getBaseUrl(request);
+  const response = NextResponse.redirect(new URL(destination, baseUrl));
+
+  response.cookies.set(OAUTH_NONCE_COOKIE, "", {
+    httpOnly: true,
+    secure: baseUrl.startsWith("https://"),
+    sameSite: "lax",
+    maxAge: 0,
+    path: OAUTH_COOKIE_PATH,
+  });
+
+  return response;
+}
+
+export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url);
-    const code = url.searchParams.get("code");
+    const returnedState = url.searchParams.get("state") || "";
+    const [nonce, requestedRole, signature] = returnedState.split(".");
+    const stateCookie = request.cookies.get(OAUTH_NONCE_COOKIE)?.value;
+    const authSecret = process.env.AUTH_SECRET;
+    const validRole =
+      requestedRole === "RESEARCHER" || requestedRole === "PARTICIPANT";
+    const expectedSignature =
+      authSecret && nonce && validRole
+        ? createHmac("sha256", authSecret)
+            .update(`${nonce}.${requestedRole}`)
+            .digest("base64url")
+        : "";
 
+    if (
+      !stateCookie ||
+      !nonce ||
+      !signature ||
+      nonce !== stateCookie ||
+      !validRole ||
+      !expectedSignature ||
+      signature.length !== expectedSignature.length ||
+      !timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))
+    ) {
+      return redirectToLogin(request, "invalid_state");
+    }
+
+    if (url.searchParams.has("error")) {
+      return redirectToLogin(request, "authorization_denied");
+    }
+
+    const code = url.searchParams.get("code");
     if (!code) {
-      return NextResponse.redirect(new URL("/login?error=Google_Sign_In_Failed", baseUrl));
+      return redirectToLogin(request, "google_sign_in_failed");
     }
 
     const clientId = process.env.GOOGLE_CLIENT_ID;
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-    
-    const redirectUri = getGoogleRedirectUri(request);
-
     if (!clientId || !clientSecret) {
-      console.error("Missing Google OAuth credentials in .env");
-      return NextResponse.redirect(new URL("/login?error=Configuration_Error", baseUrl));
+      console.error("Google sign-in requires GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET.");
+      return redirectToLogin(request, "configuration_error");
     }
 
-    // Exchange code for access token
     const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -34,93 +94,106 @@ export async function GET(request: Request) {
         client_secret: clientSecret,
         code,
         grant_type: "authorization_code",
-        redirect_uri: redirectUri,
+        redirect_uri: getGoogleRedirectUri(request),
       }),
     });
 
     if (!tokenResponse.ok) {
-      console.error("Failed to fetch Google token:", await tokenResponse.text());
-      return NextResponse.redirect(new URL("/login?error=Google_Token_Error", baseUrl));
+      console.error("Google token exchange failed with status:", tokenResponse.status);
+      return redirectToLogin(request, "token_exchange_failed");
     }
 
-    const tokenData = await tokenResponse.json();
-    const accessToken = tokenData.access_token;
+    const tokenData = (await tokenResponse.json()) as {
+      access_token?: string;
+    };
+    if (!tokenData.access_token) {
+      return redirectToLogin(request, "token_exchange_failed");
+    }
 
-    // Fetch user profile from Google
-    const userResponse = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    const userResponse = await fetch(
+      "https://www.googleapis.com/oauth2/v2/userinfo",
+      {
+        headers: { Authorization: `Bearer ${tokenData.access_token}` },
+      }
+    );
 
     if (!userResponse.ok) {
-      console.error("Failed to fetch Google user profile:", await userResponse.text());
-      return NextResponse.redirect(new URL("/login?error=Google_Profile_Error", baseUrl));
+      console.error("Google profile request failed with status:", userResponse.status);
+      return redirectToLogin(request, "profile_fetch_failed");
     }
 
-    const userData = await userResponse.json();
-    const { email, name, picture } = userData;
+    const userData = (await userResponse.json()) as {
+      email?: string;
+      email_verified?: boolean;
+      verified_email?: boolean;
+      name?: string;
+      picture?: string;
+    };
+    const email = userData.email?.toLowerCase().trim();
+    const emailIsVerified =
+      userData.email_verified === true || userData.verified_email === true;
 
-    if (!email) {
-      return NextResponse.redirect(new URL("/login?error=Google_No_Email", baseUrl));
+    if (!email || !emailIsVerified) {
+      return redirectToLogin(request, "unverified_email");
     }
 
-    // Find or create user
-    let user = await prisma.user.findUnique({
-      where: { email },
-    });
+    let user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-      // Create random password for Google-authenticated users
-      const randomPassword = Math.random().toString(36).slice(-10) + Math.random().toString(36).slice(-10);
+      const randomPassword = randomBytes(32).toString("base64url");
       const passwordHash = await bcrypt.hash(randomPassword, 10);
 
       user = await prisma.user.create({
         data: {
           email,
-          name: name || email.split("@")[0],
+          name: userData.name?.trim() || email.split("@")[0],
           passwordHash,
-          avatarUrl: picture,
-          isVerified: true, // Auto-verify Google signups
-          role: "PARTICIPANT", // Default role
+          avatarUrl: userData.picture,
+          isVerified: true,
+          role: requestedRole,
           wallet: {
             create: { balance: 0 },
           },
         },
       });
 
-      // Log the activity
       await prisma.activityLog.create({
         data: {
           userId: user.id,
           action: "ACCOUNT_CREATED",
           description: "Registered using Google Sign-In",
-        }
+        },
       });
     } else {
-      // Log sign in
+      if (!user.isVerified) {
+        user = await prisma.user.update({
+          where: { id: user.id },
+          data: { isVerified: true },
+        });
+      }
+
       await prisma.activityLog.create({
         data: {
           userId: user.id,
           action: "USER_LOGIN",
           description: "Logged in via Google",
-        }
+        },
       });
     }
 
-    // Create session
     await createSession(user.id);
 
-    // Redirect based on role
     switch (user.role) {
       case "ADMIN":
-        return NextResponse.redirect(new URL("/admin", baseUrl));
+        return redirectToDestination(request, "/admin");
       case "RESEARCHER":
-        return NextResponse.redirect(new URL("/researcher", baseUrl));
+        return redirectToDestination(request, "/researcher");
       case "PARTICIPANT":
       default:
-        return NextResponse.redirect(new URL("/participant", baseUrl));
+        return redirectToDestination(request, "/participant");
     }
   } catch (error) {
     console.error("Google Callback Error:", error);
-    return NextResponse.redirect(new URL("/login?error=Internal_Error", baseUrl));
+    return redirectToLogin(request, "internal_error");
   }
 }

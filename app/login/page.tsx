@@ -1,11 +1,23 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, use, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/Card";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
+import { GoogleAuthButton } from "../components/GoogleAuthButton";
+
+const GOOGLE_AUTH_ERRORS: Record<string, string> = {
+  authorization_denied: "Google sign-in was cancelled. You can try again or use your email and password.",
+  configuration_error: "Google sign-in is not configured yet. Please use your email and password.",
+  google_sign_in_failed: "Google sign-in could not be completed. Please try again.",
+  internal_error: "Something went wrong while signing in with Google. Please try again.",
+  invalid_state: "Your sign-in session expired or could not be verified. Please try again.",
+  profile_fetch_failed: "We could not retrieve your Google profile. Please try again.",
+  token_exchange_failed: "Google could not complete sign-in. Please try again.",
+  unverified_email: "Google requires a verified email address to sign in.",
+};
 
 type LoginResponse = {
   message?: string;
@@ -20,13 +32,22 @@ type LoginResponse = {
   };
 };
 
-export default function LoginPage() {
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   const router = useRouter();
+  const { error: googleErrorCode } = use(searchParams);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
+  const googleError = googleErrorCode
+    ? GOOGLE_AUTH_ERRORS[googleErrorCode] ||
+      "Google sign-in could not be completed. Please try again."
+    : "";
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -70,7 +91,7 @@ export default function LoginPage() {
         destination = "/researcher";
       }
 
-      window.location.href = destination;
+      router.push(destination);
     } catch (error) {
       console.error("Login error:", error);
       setError("Unable to connect to the server.");
@@ -97,6 +118,15 @@ export default function LoginPage() {
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
+            {googleError && (
+              <div
+                role="alert"
+                className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm font-medium text-destructive"
+              >
+                {googleError}
+              </div>
+            )}
+
             <Input
               label="Email"
               type="email"
@@ -141,15 +171,22 @@ export default function LoginPage() {
               Sign In
             </Button>
 
+            <div className="flex w-full items-center gap-3">
+              <div className="h-px flex-1 bg-border" />
+              <span className="text-xs text-muted-foreground">or continue with</span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+            <GoogleAuthButton label="Continue with Google" />
+
             <div className="text-center text-sm text-muted-foreground mt-4 space-y-2">
               <div>
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link href="/register" className="font-medium text-primary hover:underline transition-colors">
                   Create one
                 </Link>
               </div>
               <div className="text-xs">
-                Already registered but haven't verified?{" "}
+                Already registered but haven&apos;t verified?{" "}
                 <Link href="/verify-email" className="font-medium text-muted-foreground hover:text-foreground hover:underline transition-colors">
                   Verify your email
                 </Link>

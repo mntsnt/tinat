@@ -75,19 +75,22 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     // Get message history
     const history = await prisma.aIMessage.findMany({
       where: { conversationId },
-      orderBy: { createdAt: 'asc' },
-      take: 20 // Keep last 20 messages for context
+      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+      take: 20,
     });
 
-    const aiMessages = history.map(msg => ({
+    const aiMessages = history.reverse().map(msg => ({
       role: msg.role.toLowerCase() as "user" | "assistant" | "system" | "tool",
       content: msg.content
     }));
 
     // Generate AI response
-    const provider = getProviderForModel(conversation.model || "gemini");
+    const modelInfo = AVAILABLE_MODELS.find(
+      (model) => model.id === conversation.model || model.modelCode === conversation.model
+    ) || AVAILABLE_MODELS[0];
+    const provider = getProviderForModel(modelInfo.id);
     const aiResponse = await provider.chat(aiMessages, {
-      model: conversation.model || "gemini-3.6-flash",
+      model: modelInfo.modelCode,
       systemPrompt,
     });
 
@@ -101,7 +104,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     });
 
     // Save Usage
-    const providerEnum = AVAILABLE_MODELS.find(m => m.id === conversation.model)?.provider.toLowerCase().includes("google") ? "GEMINI" : "OPENROUTER";
+    const providerEnum = modelInfo.provider.toLowerCase().includes("google") ? "GEMINI" : "OPENROUTER";
     await prisma.aIUsage.create({
       data: {
         conversationId,
