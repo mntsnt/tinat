@@ -165,6 +165,8 @@ export function QuestionDeckModal({
   const [selectedTheme, setSelectedTheme] = useState<DeckTheme>("dark");
   const [format, setFormat] = useState<DeckFormat>("story");
   const [showWatermark, setShowWatermark] = useState(true);
+  const [showProfile, setShowProfile] = useState(true);
+  const [showAnonBadge, setShowAnonBadge] = useState(true);
   const [downloading, setDownloading] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -175,7 +177,7 @@ export function QuestionDeckModal({
     if (isOpen) {
       renderCanvas();
     }
-  }, [isOpen, selectedTheme, format, showWatermark]);
+  }, [isOpen, selectedTheme, format, showWatermark, showProfile, showAnonBadge]);
 
   if (!isOpen) return null;
 
@@ -232,48 +234,52 @@ export function QuestionDeckModal({
     const avatarRadius = 42;
     const avatarX = marginX + avatarRadius;
     const avatarY = startY + avatarRadius;
+    
+    let questionCardY = startY;
 
-    // Avatar background circle
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(avatarX, avatarY, avatarRadius, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.fillStyle = themeConfig.accentColor;
-    ctx.fill();
+    if (showProfile) {
+      // Avatar background circle
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(avatarX, avatarY, avatarRadius, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.fillStyle = themeConfig.accentColor;
+      ctx.fill();
 
-    // Initials in avatar
-    const initials = (recipient.displayName || recipient.username || "T")
-      .split(" ")
-      .map((w) => w[0])
-      .join("")
-      .slice(0, 2)
-      .toUpperCase();
-    ctx.font = "bold 34px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-    ctx.fillStyle = "#ffffff";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(initials, avatarX, avatarY);
-    ctx.restore();
+      // Initials in avatar
+      const initials = (recipient.displayName || recipient.username || "T")
+        .split(" ")
+        .map((w) => w[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
+      ctx.font = "bold 34px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(initials, avatarX, avatarY);
+      ctx.restore();
 
-    // Display Name and handle
-    ctx.save();
-    ctx.textAlign = "left";
-    ctx.textBaseline = "alphabetic";
-    ctx.font = "bold 38px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-    ctx.fillStyle = themeConfig.textColor;
-    ctx.fillText(recipient.displayName, avatarX + avatarRadius + 24, avatarY - 4);
+      // Display Name and handle
+      ctx.save();
+      ctx.textAlign = "left";
+      ctx.textBaseline = "alphabetic";
+      ctx.font = "bold 38px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillStyle = themeConfig.textColor;
+      ctx.fillText(recipient.displayName, avatarX + avatarRadius + 24, avatarY - 4);
 
-    ctx.font = "500 28px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-    ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
-    if (themeConfig.id === "minimal" || themeConfig.id === "editorial") {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
+      ctx.font = "500 28px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
+      if (themeConfig.id === "minimal" || themeConfig.id === "editorial") {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
+      }
+      ctx.fillText(`@${recipient.username}`, avatarX + avatarRadius + 24, avatarY + 32);
+      ctx.restore();
+      
+      questionCardY = avatarY + avatarRadius + 50;
     }
-    ctx.fillText(`@${recipient.username}`, avatarX + avatarRadius + 24, avatarY + 32);
-    ctx.restore();
 
     // 4. Draw Question Card
-    const questionCardY = avatarY + avatarRadius + 50;
-
     // Calculate Question Text Height with wrap
     const questionPadding = 48;
     const maxQuestionWidth = cardWidth - questionPadding * 2;
@@ -285,8 +291,9 @@ export function QuestionDeckModal({
     const questionLines = wrapText(ctx, question.questionText, maxQuestionWidth, questionFont);
     const questionTextHeight = questionLines.length * questionLineHeight;
 
-    const badgeHeight = 44;
-    const questionCardHeight = questionPadding * 2 + badgeHeight + 20 + questionTextHeight;
+    const badgeHeight = showAnonBadge ? 44 : 0;
+    const badgeMargin = showAnonBadge ? 20 : 0;
+    const questionCardHeight = questionPadding * 2 + badgeHeight + badgeMargin + questionTextHeight;
 
     // Draw question card rounded rect
     drawRoundedRect(
@@ -300,18 +307,21 @@ export function QuestionDeckModal({
       "rgba(255, 255, 255, 0.15)"
     );
 
-    // Pill Badge "Anonymous Question"
     const badgeX = marginX + questionPadding;
     const badgeY = questionCardY + questionPadding;
-    drawRoundedRect(ctx, badgeX, badgeY, 260, badgeHeight, 22, themeConfig.badgeBg);
 
-    ctx.save();
-    ctx.font = "bold 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-    ctx.fillStyle = themeConfig.badgeText;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("ANONYMOUS QUESTION", badgeX + 130, badgeY + badgeHeight / 2);
-    ctx.restore();
+    if (showAnonBadge) {
+      // Pill Badge "Anonymous Question"
+      drawRoundedRect(ctx, badgeX, badgeY, 260, badgeHeight, 22, themeConfig.badgeBg);
+
+      ctx.save();
+      ctx.font = "bold 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillStyle = themeConfig.badgeText;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("ANONYMOUS QUESTION", badgeX + 130, badgeY + badgeHeight / 2);
+      ctx.restore();
+    }
 
     // Draw Question Lines
     ctx.save();
@@ -319,7 +329,7 @@ export function QuestionDeckModal({
     ctx.fillStyle = themeConfig.questionTextColor;
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
-    let currentY = badgeY + badgeHeight + 24;
+    let currentY = badgeY + (showAnonBadge ? badgeHeight + 24 : 0);
     questionLines.forEach((line) => {
       ctx.fillText(line, badgeX, currentY);
       currentY += questionLineHeight;
@@ -602,20 +612,53 @@ export function QuestionDeckModal({
                 </div>
               </div>
 
-              {/* Watermark Toggle */}
-              <div className="flex items-center justify-between p-3 rounded-xl border border-border bg-muted/20">
-                <div>
-                  <span className="text-sm font-medium">Show Ask Link Badge</span>
-                  <p className="text-xs text-muted-foreground">
-                    Includes tinat.app/ask/{recipient.username}
-                  </p>
+              {/* Card Elements (Minimal Toggles) */}
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block mb-2">
+                  Card Elements
+                </label>
+                <div className="space-y-2">
+                  <label className="flex items-center justify-between p-3 rounded-xl border border-border bg-muted/20 cursor-pointer hover:bg-muted/40 transition-colors">
+                    <div>
+                      <span className="text-sm font-medium">Show Profile Header</span>
+                      <p className="text-xs text-muted-foreground">Includes avatar & handle</p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={showProfile}
+                      onChange={(e) => setShowProfile(e.target.checked)}
+                      className="w-4 h-4 rounded accent-primary cursor-pointer"
+                    />
+                  </label>
+                  
+                  <label className="flex items-center justify-between p-3 rounded-xl border border-border bg-muted/20 cursor-pointer hover:bg-muted/40 transition-colors">
+                    <div>
+                      <span className="text-sm font-medium">Show "Anonymous" Badge</span>
+                      <p className="text-xs text-muted-foreground">Pill inside the question card</p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={showAnonBadge}
+                      onChange={(e) => setShowAnonBadge(e.target.checked)}
+                      className="w-4 h-4 rounded accent-primary cursor-pointer"
+                    />
+                  </label>
+
+                  <label className="flex items-center justify-between p-3 rounded-xl border border-border bg-muted/20 cursor-pointer hover:bg-muted/40 transition-colors">
+                    <div>
+                      <span className="text-sm font-medium">Show Ask Link Badge</span>
+                      <p className="text-xs text-muted-foreground">
+                        Includes tinat.app/ask/{recipient.username}
+                      </p>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={showWatermark}
+                      onChange={(e) => setShowWatermark(e.target.checked)}
+                      className="w-4 h-4 rounded accent-primary cursor-pointer"
+                    />
+                  </label>
                 </div>
-                <input
-                  type="checkbox"
-                  checked={showWatermark}
-                  onChange={(e) => setShowWatermark(e.target.checked)}
-                  className="w-4 h-4 rounded accent-primary cursor-pointer"
-                />
               </div>
 
               {/* Direct share tips */}
