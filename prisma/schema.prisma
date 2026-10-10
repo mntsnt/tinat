@@ -30,6 +30,7 @@ model User {
   aiConversations              AIConversation[]
   aiUsages                     AIUsage[]
   activityLogs                 ActivityLog[]
+  adminChatMessages             AdminChatMessage[]
   askProfile                   AskProfile?
   collectionSessions           CollectionSession[]      @relation("CollectorSessions")
   receivedCollectorInvitations CollectorInvitation[]    @relation("CollectorInvitee")
@@ -174,6 +175,18 @@ model ActivityLog {
   @@index([userId, action])
   @@index([resourceId, resourceType])
   @@index([createdAt])
+}
+
+model AdminChatMessage {
+  id        String   @id @default(cuid())
+  channel   String
+  senderId  String
+  content   String   @db.VarChar(1500)
+  createdAt DateTime @default(now())
+  sender    User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([channel, createdAt])
+  @@index([senderId, createdAt])
 }
 
 model Question {

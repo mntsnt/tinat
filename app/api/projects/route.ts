@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import type { Prisma } from "@/generated/prisma/client";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getTemplateById } from "@/lib/projects/templates";
@@ -9,7 +10,6 @@ import {
   ProjectStatus,
   ProjectVisibility,
   ProjectPhase,
-  InvitationStatus,
 } from "@/generated/prisma/enums";
 import crypto from "crypto";
 
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
     const isGlobalAdmin = user.role === "ADMIN";
 
     // Where clause based on membership
-    const baseWhere: any = isGlobalAdmin
+    const baseWhere: Prisma.ResearchProjectWhereInput = isGlobalAdmin
       ? {}
       : {
           OR: [
@@ -86,10 +86,21 @@ export async function GET(req: NextRequest) {
           },
         },
         tasks: {
-          select: { status: true, dueDate: true },
+          select: { id: true, title: true, status: true, dueDate: true, priority: true },
         },
         milestones: {
           select: { isCompleted: true },
+        },
+        activities: {
+          take: 3,
+          orderBy: { createdAt: "desc" },
+          select: {
+            id: true,
+            action: true,
+            description: true,
+            createdAt: true,
+            user: { select: { name: true } },
+          },
         },
         _count: {
           select: {
@@ -144,6 +155,8 @@ export async function GET(req: NextRequest) {
           user: m.user,
         })),
         _count: p._count,
+        tasks: p.tasks,
+        activities: p.activities,
         stats,
         progress: stats,
       };

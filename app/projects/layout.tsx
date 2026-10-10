@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "../../lib/prisma";
-import { Sidebar } from "../components/layout/Sidebar";
 import { getLinksForUser } from "../components/layout/navLinks";
+import { ProjectsLayoutShell } from "./ProjectsLayoutShell";
 
 export default async function ProjectsLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -24,19 +24,11 @@ export default async function ProjectsLayout({ children }: { children: ReactNode
   const links = getLinksForUser(user);
 
   return (
-    <div className="flex flex-col md:flex-row h-screen overflow-hidden">
-      <Sidebar
-        links={links}
-        roleTitle="Researcher"
-        userId={user.id}
-        userName={user.name}
-        userEmail={user.email}
-        avatarUrl={user.avatarUrl}
-        roleColor="researcher"
-      />
-      <main className="flex-1 overflow-y-auto bg-muted/10">
-        {children}
-      </main>
-    </div>
+    <ProjectsLayoutShell
+      links={links}
+      user={{ id: user.id, name: user.name, email: user.email, avatarUrl: user.avatarUrl }}
+    >
+      {children}
+    </ProjectsLayoutShell>
   );
 }

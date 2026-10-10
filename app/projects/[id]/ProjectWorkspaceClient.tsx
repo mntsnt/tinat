@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import type { DragEvent } from "react";
 import Link from "next/link";
 import {
   FolderKanban,
@@ -35,7 +36,9 @@ import {
   Paperclip,
   Check,
   Info,
+  MessagesSquare,
 } from "lucide-react";
+import { ProjectTeamChat } from "./ProjectTeamChat";
 
 interface ProjectWorkspaceClientProps {
   projectId: string;
@@ -102,14 +105,6 @@ interface ProjectOutputView {
   fileUrl: string | null;
 }
 
-interface ProjectChatMessageView {
-  id: string;
-  senderId: string;
-  content: string;
-  createdAt: string;
-  sender?: { name: string | null } | null;
-}
-
 const LIFECYCLE_PHASES = [
   "IDEA",
   "PLANNING",
@@ -151,12 +146,15 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     | "files"
     | "studies"
     | "records"
+    | "chat"
     | "ai"
   >("overview");
-  const [recordTab, setRecordTab] = useState<"milestones" | "notes" | "discussions" | "decisions" | "outputs" | "chat">("milestones");
+  const [recordTab, setRecordTab] = useState<"milestones" | "notes" | "discussions" | "decisions" | "outputs">("milestones");
 
   // Tab sub-states
   const [taskView, setTaskView] = useState<"kanban" | "list">("kanban");
+  const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
+  const [dragOverStatus, setDragOverStatus] = useState<string | null>(null);
   const [fileFolderFilter, setFileFolderFilter] = useState("ALL");
   const [notesCategoryFilter, setNotesCategoryFilter] = useState("ALL");
 
@@ -200,11 +198,6 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const [discCategory, setDiscCategory] = useState("General");
   const [activeDiscussion, setActiveDiscussion] = useState<any>(null);
   const [replyContent, setReplyContent] = useState("");
-
-  // Chat state
-  const [chatMessages, setChatMessages] = useState<ProjectChatMessageView[]>([]);
-  const [chatInput, setChatInput] = useState("");
-  const [chatLoading, setChatLoading] = useState(false);
 
   // Studies state
   const [availableStudies, setAvailableStudies] = useState<any[]>([]);
@@ -281,20 +274,6 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
   
 
-  async function fetchChatMessages() {
-    setChatLoading(true);
-    try {
-      const res = await fetch(`/api/projects/${projectId}/chat`);
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Project chat could not be loaded.");
-      setChatMessages(data.messages || []);
-    } catch (err) {
-      setActionError(err instanceof Error ? err.message : "Project chat could not be loaded.");
-    } finally {
-      setChatLoading(false);
-    }
-  }
-
   // Load available studies when opening studies modal
   useEffect(() => {
     if (showStudyModal) {
@@ -347,7 +326,19 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
   // Task status toggle
   async function handleTaskStatusChange(taskId: string, newStatus: string) {
-    await mutateProjectResource(`/api/projects/${projectId}/tasks/${taskId}`, "PATCH", { status: newStatus }, "Task status could not be updated.");
+    return mutateProjectResource(`/api/projects/${projectId}/tasks/${taskId}`, "PATCH", { status: newStatus }, "Task status could not be updated.");
+  }
+
+  async function handleTaskDrop(event: DragEvent<HTMLDivElement>, newStatus: string) {
+    event.preventDefault();
+    const taskId = event.dataTransfer.getData("text/plain") || draggedTaskId;
+    setDragOverStatus(null);
+    setDraggedTaskId(null);
+    if (!taskId) return;
+    const task = project.tasks?.find((item: { id: string; status: string }) => item.id === taskId);
+    if (task && task.status !== newStatus) {
+      await handleTaskStatusChange(taskId, newStatus);
+    }
   }
 
   // Milestone toggle
@@ -527,26 +518,6 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       { status },
       "Deliverable status could not be changed."
     );
-  }
-
-  // Send Chat message
-  async function handleSendChatMessage(e: React.FormEvent) {
-    e.preventDefault();
-    if (!chatInput.trim()) return;
-    setActionError(null);
-    try {
-      const res = await fetch(`/api/projects/${projectId}/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: chatInput.trim() }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Message could not be sent.");
-      setChatInput("");
-      await fetchChatMessages();
-    } catch (err) {
-      setActionError(err instanceof Error ? err.message : "Message could not be sent.");
-    }
   }
 
   // Link Study
@@ -795,8 +766,8 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       </header>
 
       {/* Main Tab Views */}
-      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8 2xl:flex-row 2xl:gap-0">
-        <nav aria-label="Project sections" className="no-scrollbar -mx-4 flex gap-1 overflow-x-auto border-b border-border px-4 pb-2 sm:-mx-6 sm:px-6 2xl:sticky 2xl:top-4 2xl:mx-0 2xl:w-52 2xl:shrink-0 2xl:self-start 2xl:flex-col 2xl:overflow-visible 2xl:border-b-0 2xl:border-r 2xl:px-0 2xl:pb-0 2xl:pr-3">
+      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8 xl:flex-row xl:gap-0">
+        <nav aria-label="Project sections" className="no-scrollbar -mx-4 flex gap-1 overflow-x-auto border-b border-border px-4 pb-2 sm:-mx-6 sm:px-6 xl:sticky xl:top-4 xl:mx-0 xl:w-52 xl:shrink-0 xl:self-start xl:flex-col xl:overflow-visible xl:border-b-0 xl:border-r xl:px-0 xl:pb-0 xl:pr-3">
           {[
             { id: "overview", label: "Overview", icon: Layers },
             { id: "tasks", label: `Tasks (${project.tasks?.length || 0})`, icon: CheckCircle2 },
@@ -804,6 +775,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             { id: "files", label: `Files & Data (${project.files?.length || 0})`, icon: FileText },
             { id: "studies", label: `Linked Studies (${project.linkedStudies?.length || 0})`, icon: Activity },
             { id: "records", label: "Research Log", icon: BookOpen },
+            { id: "chat", label: "Team chat", icon: MessagesSquare },
             { id: "ai", label: "Project AI", icon: Sparkles },
           ].map((tab) => {
             const Icon = tab.icon;
@@ -814,9 +786,9 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 type="button"
                 aria-current={isActive ? "page" : undefined}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex shrink-0 items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors 2xl:w-full ${
+                className={`flex shrink-0 items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors xl:w-full ${
                   isActive
-                    ? "bg-primary/10 text-primary 2xl:rounded-r-none 2xl:border-r-2 2xl:border-primary"
+                    ? "bg-primary/10 text-primary xl:rounded-r-none xl:border-r-2 xl:border-primary"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`}
               >
@@ -826,7 +798,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             );
           })}
         </nav>
-        <div className="min-w-0 flex-1 2xl:pl-6">
+        <div className="min-w-0 flex-1 xl:pl-6">
         {/* TAB 1: OVERVIEW */}
         {activeTab === "overview" && (
           <div className="space-y-6">
@@ -1020,7 +992,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
             {/* Kanban Columns */}
             {taskView === "kanban" ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-4">
                 {[
                   { id: "TODO", label: "To Do", bg: "bg-slate-100 dark:bg-slate-900/60" },
                   { id: "IN_PROGRESS", label: "In Progress", bg: "bg-primary/5/50 dark:bg-blue-950/20" },
@@ -1032,7 +1004,23 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   return (
                     <div
                       key={col.id}
-                      className={`p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 ${col.bg} flex flex-col`}
+                      onDragOver={(event) => {
+                        if (!auth?.canEditTasks) return;
+                        event.preventDefault();
+                        event.dataTransfer.dropEffect = "move";
+                        setDragOverStatus(col.id);
+                      }}
+                      onDragLeave={(event) => {
+                        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                          setDragOverStatus(null);
+                        }
+                      }}
+                      onDrop={(event) => void handleTaskDrop(event, col.id)}
+                      className={`min-h-[360px] rounded-2xl border p-3.5 transition-colors ${
+                        dragOverStatus === col.id
+                          ? "border-primary bg-primary/10 ring-2 ring-primary/20"
+                          : `border-slate-200 dark:border-slate-800 ${col.bg}`
+                      } flex flex-col`}
                     >
                       <div className="flex items-center justify-between mb-3 px-1">
                         <span className="font-bold text-xs text-slate-800 dark:text-slate-200">
@@ -1042,12 +1030,29 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                           {tasksInCol.length}
                         </span>
                       </div>
+                      {auth?.canEditTasks && (
+                        <p className="mb-2 px-1 text-[10px] text-slate-500 dark:text-slate-400">
+                          Drop tasks here to update status
+                        </p>
+                      )}
 
-                      <div className="space-y-2.5 flex-1 min-h-[300px]">
+                      <div className="space-y-2.5 flex-1">
                         {tasksInCol.map((task: any) => (
                           <div
                             key={task.id}
-                            className="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-xs"
+                            draggable={Boolean(auth?.canEditTasks)}
+                            onDragStart={(event) => {
+                              event.dataTransfer.effectAllowed = "move";
+                              event.dataTransfer.setData("text/plain", task.id);
+                              setDraggedTaskId(task.id);
+                            }}
+                            onDragEnd={() => {
+                              setDraggedTaskId(null);
+                              setDragOverStatus(null);
+                            }}
+                            className={`p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-xs ${
+                              auth?.canEditTasks ? "cursor-grab active:cursor-grabbing" : ""
+                            } ${draggedTaskId === task.id ? "opacity-50" : ""}`}
                           >
                             <div className="flex items-center justify-between gap-1 mb-1.5">
                               <span
@@ -1357,6 +1362,22 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         {/* TAB 8: DECISION LOG */}
         
 
+        {activeTab === "chat" && (
+          <ProjectTeamChat
+            projectId={projectId}
+            projectTitle={project.title}
+            currentUserId={currentUserId}
+            lead={project.lead ? {
+              id: project.lead.id,
+              name: project.lead.name,
+              avatarUrl: project.lead.avatarUrl,
+              institution: project.lead.institution,
+              role: "PROJECT_LEAD",
+            } : null}
+            members={project.members || []}
+          />
+        )}
+
         {/* TAB 9: LINKED STUDIES */}
         {(activeTab === "studies" || activeTab === "records") && (
           <div className="space-y-6">
@@ -1382,7 +1403,6 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     ["milestones", "Milestones", project.milestones?.length || 0],
                     ["notes", "Notes", project.notes?.length || 0],
                     ["discussions", "Discussions", project.discussions?.length || 0],
-                    ["chat", "Team chat", chatMessages.length],
                     ["decisions", "Decision log", project.decisions?.length || 0],
                     ["outputs", "Deliverables", project.outputs?.length || 0],
                   ] as const).map(([id, label, count]) => (
@@ -1393,7 +1413,6 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                       onClick={() => {
                         setRecordTab(id);
                         setActionError(null);
-                        if (id === "chat") void fetchChatMessages();
                       }}
                       className={`shrink-0 border-b-2 px-3 py-2.5 text-sm font-medium transition-colors ${
                         recordTab === id
@@ -1551,34 +1570,6 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     )}
                   </section>
                 )}
-
-                  {recordTab === "chat" && (
-                    <section className="space-y-4">
-                      <div>
-                        <h3 className="font-semibold text-slate-900 dark:text-white">Project team chat</h3>
-                        <p className="text-sm text-slate-500">Quick coordination messages for the project team.</p>
-                      </div>
-                      <div className="flex h-[min(55vh,560px)] min-h-[280px] flex-col overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
-                        <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-4" aria-live="polite">
-                          {chatLoading ? (
-                            <div className="flex h-full items-center justify-center text-sm text-slate-500">Loading messages...</div>
-                          ) : chatMessages.length ? chatMessages.map((message) => (
-                            <div key={message.id} className={`max-w-[90%] rounded-lg border p-3 sm:max-w-[75%] ${message.senderId === currentUserId ? "ml-auto border-primary/20 bg-primary/5" : "border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950"}`}>
-                              <p className="whitespace-pre-wrap break-words text-sm text-slate-800 dark:text-slate-200">{message.content}</p>
-                              <p className="mt-2 text-xs text-slate-500">{message.sender?.name || "Team member"} · {new Date(message.createdAt).toLocaleString()}</p>
-                            </div>
-                          )) : (
-                            <div className="flex h-full items-center justify-center text-center text-sm text-slate-500">No messages yet. Start the project conversation.</div>
-                          )}
-                        </div>
-                        <form onSubmit={handleSendChatMessage} className="flex shrink-0 gap-2 border-t border-slate-200 p-3 dark:border-slate-800">
-                          <input value={chatInput} onChange={(event) => setChatInput(event.target.value)} aria-label="Project chat message" placeholder="Write a message to the team..." className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground" />
-                          <button type="submit" disabled={!chatInput.trim()} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white disabled:opacity-50"><Send className="h-4 w-4" /> Send</button>
-                        </form>
-                      </div>
-                      {chatMessages.length >= 150 && <p className="text-xs text-slate-500">Showing the 150 most recent project messages.</p>}
-                    </section>
-                  )}
 
                 {recordTab === "decisions" && (
                   <section className="space-y-4">
@@ -2416,5 +2407,3 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     </div>
   );
 }
-
-

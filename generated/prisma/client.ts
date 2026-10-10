@@ -82,6 +82,11 @@ export type Notification = Prisma.NotificationModel
  */
 export type ActivityLog = Prisma.ActivityLogModel
 /**
+ * Model AdminChatMessage
+ * 
+ */
+export type AdminChatMessage = Prisma.AdminChatMessageModel
+/**
  * Model Question
  * 
  */

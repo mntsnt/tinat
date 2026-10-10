@@ -17,25 +17,29 @@ export async function GET(
 
     const messages = await prisma.projectChatMessage.findMany({
       where: { projectId },
-      orderBy: { createdAt: "asc" },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       take: 150,
-      include: {
+      select: {
+        id: true,
+        senderId: true,
+        content: true,
+        createdAt: true,
         sender: {
           select: {
             id: true,
             name: true,
-            email: true,
             avatarUrl: true,
+            institution: true,
           },
         },
       },
     });
 
-    return NextResponse.json({ messages });
-  } catch (error: any) {
+    return NextResponse.json({ messages: messages.reverse() });
+  } catch (error) {
     console.error("GET /api/projects/[id]/chat error:", error);
     return NextResponse.json(
-      { error: "Failed to fetch chat messages", details: error.message },
+      { error: "Failed to fetch chat messages" },
       { status: 500 }
     );
   }
@@ -52,41 +56,48 @@ export async function POST(
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }
 
-    const body = await request.json().catch(() => ({}));
-    const { content, taskId, fileUrl } = body;
-
-    if (!content?.trim()) {
+    const body: unknown = await request.json().catch(() => null);
+    if (!body || typeof body !== "object" || !("content" in body) || typeof body.content !== "string") {
       return NextResponse.json(
-        { error: "Message content cannot be empty" },
+        { error: "A message is required." },
         { status: 400 }
       );
+    }
+    const content = body.content.trim();
+    if (!content) {
+      return NextResponse.json({ error: "Message content cannot be empty." }, { status: 400 });
+    }
+    if (content.length > 1500) {
+      return NextResponse.json({ error: "Messages must be 1,500 characters or fewer." }, { status: 400 });
     }
 
     const message = await prisma.projectChatMessage.create({
       data: {
         projectId,
         senderId: auth.userId,
-        content: content.trim(),
-        taskId: taskId || null,
-        fileUrl: fileUrl || null,
+        content,
       },
-      include: {
+      select: {
+        id: true,
+        senderId: true,
+        content: true,
+        createdAt: true,
         sender: {
           select: {
             id: true,
             name: true,
-            email: true,
             avatarUrl: true,
+            institution: true,
           },
         },
       },
     });
 
     return NextResponse.json({ message }, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("POST /api/projects/[id]/chat error:", error);
     return NextResponse.json(
-      { error: "Failed to post message", details: error.message },
+      { error: "Failed to post message" },
       { status: 500 }
     );
   }

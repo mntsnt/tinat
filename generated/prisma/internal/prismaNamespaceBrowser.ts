@@ -59,6 +59,7 @@ export const ModelName = {
   StudyComment: 'StudyComment',
   Notification: 'Notification',
   ActivityLog: 'ActivityLog',
+  AdminChatMessage: 'AdminChatMessage',
   Question: 'Question',
   QuestionRow: 'QuestionRow',
   QuestionOption: 'QuestionOption',
@@ -229,6 +230,17 @@ export const ActivityLogScalarFieldEnum = {
 } as const
 
 export type ActivityLogScalarFieldEnum = (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum]
+
+
+export const AdminChatMessageScalarFieldEnum = {
+  id: 'id',
+  channel: 'channel',
+  senderId: 'senderId',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type AdminChatMessageScalarFieldEnum = (typeof AdminChatMessageScalarFieldEnum)[keyof typeof AdminChatMessageScalarFieldEnum]
 
 
 export const QuestionScalarFieldEnum = {

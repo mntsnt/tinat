@@ -331,6 +331,7 @@ export type UserWhereInput = {
   aiConversations?: Prisma.AIConversationListRelationFilter
   aiUsages?: Prisma.AIUsageListRelationFilter
   activityLogs?: Prisma.ActivityLogListRelationFilter
+  adminChatMessages?: Prisma.AdminChatMessageListRelationFilter
   askProfile?: Prisma.XOR<Prisma.AskProfileNullableScalarRelationFilter, Prisma.AskProfileWhereInput> | null
   collectionSessions?: Prisma.CollectionSessionListRelationFilter
   receivedCollectorInvitations?: Prisma.CollectorInvitationListRelationFilter
@@ -388,6 +389,7 @@ export type UserOrderByWithRelationInput = {
   aiConversations?: Prisma.AIConversationOrderByRelationAggregateInput
   aiUsages?: Prisma.AIUsageOrderByRelationAggregateInput
   activityLogs?: Prisma.ActivityLogOrderByRelationAggregateInput
+  adminChatMessages?: Prisma.AdminChatMessageOrderByRelationAggregateInput
   askProfile?: Prisma.AskProfileOrderByWithRelationInput
   collectionSessions?: Prisma.CollectionSessionOrderByRelationAggregateInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationOrderByRelationAggregateInput
@@ -448,6 +450,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   aiConversations?: Prisma.AIConversationListRelationFilter
   aiUsages?: Prisma.AIUsageListRelationFilter
   activityLogs?: Prisma.ActivityLogListRelationFilter
+  adminChatMessages?: Prisma.AdminChatMessageListRelationFilter
   askProfile?: Prisma.XOR<Prisma.AskProfileNullableScalarRelationFilter, Prisma.AskProfileWhereInput> | null
   collectionSessions?: Prisma.CollectionSessionListRelationFilter
   receivedCollectorInvitations?: Prisma.CollectorInvitationListRelationFilter
@@ -557,6 +560,7 @@ export type UserCreateInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -614,6 +618,7 @@ export type UserUncheckedCreateInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -671,6 +676,7 @@ export type UserUpdateInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -728,6 +734,7 @@ export type UserUncheckedUpdateInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -1040,6 +1047,20 @@ export type UserUpdateOneRequiredWithoutActivityLogsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutActivityLogsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutActivityLogsInput, Prisma.UserUpdateWithoutActivityLogsInput>, Prisma.UserUncheckedUpdateWithoutActivityLogsInput>
+}
+
+export type UserCreateNestedOneWithoutAdminChatMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminChatMessagesInput, Prisma.UserUncheckedCreateWithoutAdminChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminChatMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAdminChatMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminChatMessagesInput, Prisma.UserUncheckedCreateWithoutAdminChatMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminChatMessagesInput
+  upsert?: Prisma.UserUpsertWithoutAdminChatMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdminChatMessagesInput, Prisma.UserUpdateWithoutAdminChatMessagesInput>, Prisma.UserUncheckedUpdateWithoutAdminChatMessagesInput>
 }
 
 export type UserCreateNestedOneWithoutCollectedResponsesInput = {
@@ -1463,6 +1484,7 @@ export type UserCreateWithoutStudiesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -1519,6 +1541,7 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -1591,6 +1614,7 @@ export type UserUpdateWithoutStudiesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -1647,6 +1671,7 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -1703,6 +1728,7 @@ export type UserCreateWithoutBookmarksInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -1759,6 +1785,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -1831,6 +1858,7 @@ export type UserUpdateWithoutBookmarksInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -1887,6 +1915,7 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -1943,6 +1972,7 @@ export type UserCreateWithoutRatingsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -1999,6 +2029,7 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -2071,6 +2102,7 @@ export type UserUpdateWithoutRatingsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -2127,6 +2159,7 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -2183,6 +2216,7 @@ export type UserCreateWithoutLikesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -2239,6 +2273,7 @@ export type UserUncheckedCreateWithoutLikesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -2311,6 +2346,7 @@ export type UserUpdateWithoutLikesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -2367,6 +2403,7 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -2423,6 +2460,7 @@ export type UserCreateWithoutCommentsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -2479,6 +2517,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -2551,6 +2590,7 @@ export type UserUpdateWithoutCommentsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -2607,6 +2647,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -2663,6 +2704,7 @@ export type UserCreateWithoutNotificationsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -2719,6 +2761,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -2791,6 +2834,7 @@ export type UserUpdateWithoutNotificationsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -2847,6 +2891,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -2902,6 +2947,7 @@ export type UserCreateWithoutActivityLogsInput = {
   verificationCodeExpiresAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -2958,6 +3004,7 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   verificationCodeExpiresAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -3030,6 +3077,7 @@ export type UserUpdateWithoutActivityLogsInput = {
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -3086,6 +3134,251 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAdminChatMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAdminChatMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdminChatMessagesInput, Prisma.UserUncheckedCreateWithoutAdminChatMessagesInput>
+}
+
+export type UserUpsertWithoutAdminChatMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAdminChatMessagesInput, Prisma.UserUncheckedUpdateWithoutAdminChatMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdminChatMessagesInput, Prisma.UserUncheckedCreateWithoutAdminChatMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAdminChatMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAdminChatMessagesInput, Prisma.UserUncheckedUpdateWithoutAdminChatMessagesInput>
+}
+
+export type UserUpdateWithoutAdminChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -3143,6 +3436,7 @@ export type UserCreateWithoutCollectedResponsesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -3199,6 +3493,7 @@ export type UserUncheckedCreateWithoutCollectedResponsesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -3260,6 +3555,7 @@ export type UserCreateWithoutResponsesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -3316,6 +3612,7 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -3388,6 +3685,7 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -3444,6 +3742,7 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -3511,6 +3810,7 @@ export type UserUpdateWithoutResponsesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -3567,6 +3867,7 @@ export type UserUncheckedUpdateWithoutResponsesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -3623,6 +3924,7 @@ export type UserCreateWithoutWalletInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -3679,6 +3981,7 @@ export type UserUncheckedCreateWithoutWalletInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -3751,6 +4054,7 @@ export type UserUpdateWithoutWalletInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -3807,6 +4111,7 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -3863,6 +4168,7 @@ export type UserCreateWithoutStudyPaymentsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -3919,6 +4225,7 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -3991,6 +4298,7 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -4047,6 +4355,7 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -4103,6 +4412,7 @@ export type UserCreateWithoutWithdrawalsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -4159,6 +4469,7 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -4231,6 +4542,7 @@ export type UserUpdateWithoutWithdrawalsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -4287,6 +4599,7 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -4343,6 +4656,7 @@ export type UserCreateWithoutAskProfileInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
@@ -4399,6 +4713,7 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -4471,6 +4786,7 @@ export type UserUpdateWithoutAskProfileInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
@@ -4527,6 +4843,7 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -4583,6 +4900,7 @@ export type UserCreateWithoutLeadProjectsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -4639,6 +4957,7 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -4711,6 +5030,7 @@ export type UserUpdateWithoutLeadProjectsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -4767,6 +5087,7 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -4823,6 +5144,7 @@ export type UserCreateWithoutProjectMembershipsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -4879,6 +5201,7 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -4951,6 +5274,7 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -5007,6 +5331,7 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -5063,6 +5388,7 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -5119,6 +5445,7 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -5191,6 +5518,7 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -5247,6 +5575,7 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -5303,6 +5632,7 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -5359,6 +5689,7 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -5420,6 +5751,7 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -5476,6 +5808,7 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -5548,6 +5881,7 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -5604,6 +5938,7 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -5671,6 +6006,7 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -5727,6 +6063,7 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -5783,6 +6120,7 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -5839,6 +6177,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -5911,6 +6250,7 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -5967,6 +6307,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -6023,6 +6364,7 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -6079,6 +6421,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -6151,6 +6494,7 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -6207,6 +6551,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -6263,6 +6608,7 @@ export type UserCreateWithoutProjectNotesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -6319,6 +6665,7 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -6391,6 +6738,7 @@ export type UserUpdateWithoutProjectNotesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -6447,6 +6795,7 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -6503,6 +6852,7 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -6559,6 +6909,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -6631,6 +6982,7 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -6687,6 +7039,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -6743,6 +7096,7 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -6799,6 +7153,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -6871,6 +7226,7 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -6927,6 +7283,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -6983,6 +7340,7 @@ export type UserCreateWithoutProjectDecisionsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -7039,6 +7397,7 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -7111,6 +7470,7 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -7167,6 +7527,7 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -7223,6 +7584,7 @@ export type UserCreateWithoutProjectActivitiesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -7279,6 +7641,7 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -7351,6 +7714,7 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -7407,6 +7771,7 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -7463,6 +7828,7 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -7519,6 +7885,7 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -7591,6 +7958,7 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -7647,6 +8015,7 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -7703,6 +8072,7 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -7759,6 +8129,7 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -7831,6 +8202,7 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -7887,6 +8259,7 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -7942,6 +8315,7 @@ export type UserCreateWithoutAiConversationsInput = {
   verificationCodeExpiresAt?: Date | string | null
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -7998,6 +8372,7 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   verificationCodeExpiresAt?: Date | string | null
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -8070,6 +8445,7 @@ export type UserUpdateWithoutAiConversationsInput = {
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -8126,6 +8502,7 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -8182,6 +8559,7 @@ export type UserCreateWithoutAiUsagesInput = {
   verificationCodeExpiresAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -8238,6 +8616,7 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   verificationCodeExpiresAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -8310,6 +8689,7 @@ export type UserUpdateWithoutAiUsagesInput = {
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -8366,6 +8746,7 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -8423,6 +8804,7 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -8479,6 +8861,7 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -8540,6 +8923,7 @@ export type UserCreateWithoutVerificationsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -8596,6 +8980,7 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -8668,6 +9053,7 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -8724,6 +9110,7 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -8791,6 +9178,7 @@ export type UserUpdateWithoutVerificationsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -8847,6 +9235,7 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -8903,6 +9292,7 @@ export type UserCreateWithoutAssignedStudiesInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -8959,6 +9349,7 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -9031,6 +9422,7 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -9087,6 +9479,7 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -9143,6 +9536,7 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
@@ -9199,6 +9593,7 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -9260,6 +9655,7 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
@@ -9316,6 +9712,7 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
@@ -9388,6 +9785,7 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
@@ -9444,6 +9842,7 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -9511,6 +9910,7 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
@@ -9567,6 +9967,7 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
@@ -9623,6 +10024,7 @@ export type UserCreateWithoutCollectionSessionsInput = {
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
   sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
@@ -9679,6 +10081,7 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
   askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -9751,6 +10154,7 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
@@ -9807,6 +10211,7 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
   sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -9849,6 +10254,7 @@ export type UserCountOutputType = {
   aiConversations: number
   aiUsages: number
   activityLogs: number
+  adminChatMessages: number
   collectionSessions: number
   receivedCollectorInvitations: number
   sentCollectorInvitations: number
@@ -9885,6 +10291,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   aiConversations?: boolean | UserCountOutputTypeCountAiConversationsArgs
   aiUsages?: boolean | UserCountOutputTypeCountAiUsagesArgs
   activityLogs?: boolean | UserCountOutputTypeCountActivityLogsArgs
+  adminChatMessages?: boolean | UserCountOutputTypeCountAdminChatMessagesArgs
   collectionSessions?: boolean | UserCountOutputTypeCountCollectionSessionsArgs
   receivedCollectorInvitations?: boolean | UserCountOutputTypeCountReceivedCollectorInvitationsArgs
   sentCollectorInvitations?: boolean | UserCountOutputTypeCountSentCollectorInvitationsArgs
@@ -9946,6 +10353,13 @@ export type UserCountOutputTypeCountAiUsagesArgs<ExtArgs extends runtime.Types.E
  */
 export type UserCountOutputTypeCountActivityLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ActivityLogWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAdminChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdminChatMessageWhereInput
 }
 
 /**
@@ -10182,6 +10596,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   aiConversations?: boolean | Prisma.User$aiConversationsArgs<ExtArgs>
   aiUsages?: boolean | Prisma.User$aiUsagesArgs<ExtArgs>
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
+  adminChatMessages?: boolean | Prisma.User$adminChatMessagesArgs<ExtArgs>
   askProfile?: boolean | Prisma.User$askProfileArgs<ExtArgs>
   collectionSessions?: boolean | Prisma.User$collectionSessionsArgs<ExtArgs>
   receivedCollectorInvitations?: boolean | Prisma.User$receivedCollectorInvitationsArgs<ExtArgs>
@@ -10288,6 +10703,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   aiConversations?: boolean | Prisma.User$aiConversationsArgs<ExtArgs>
   aiUsages?: boolean | Prisma.User$aiUsagesArgs<ExtArgs>
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
+  adminChatMessages?: boolean | Prisma.User$adminChatMessagesArgs<ExtArgs>
   askProfile?: boolean | Prisma.User$askProfileArgs<ExtArgs>
   collectionSessions?: boolean | Prisma.User$collectionSessionsArgs<ExtArgs>
   receivedCollectorInvitations?: boolean | Prisma.User$receivedCollectorInvitationsArgs<ExtArgs>
@@ -10331,6 +10747,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     aiConversations: Prisma.$AIConversationPayload<ExtArgs>[]
     aiUsages: Prisma.$AIUsagePayload<ExtArgs>[]
     activityLogs: Prisma.$ActivityLogPayload<ExtArgs>[]
+    adminChatMessages: Prisma.$AdminChatMessagePayload<ExtArgs>[]
     askProfile: Prisma.$AskProfilePayload<ExtArgs> | null
     collectionSessions: Prisma.$CollectionSessionPayload<ExtArgs>[]
     receivedCollectorInvitations: Prisma.$CollectorInvitationPayload<ExtArgs>[]
@@ -10781,6 +11198,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   aiConversations<T extends Prisma.User$aiConversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiUsages<T extends Prisma.User$aiUsagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activityLogs<T extends Prisma.User$activityLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  adminChatMessages<T extends Prisma.User$adminChatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adminChatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   askProfile<T extends Prisma.User$askProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$askProfileArgs<ExtArgs>>): Prisma.Prisma__AskProfileClient<runtime.Types.Result.GetResult<Prisma.$AskProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   collectionSessions<T extends Prisma.User$collectionSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectionSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectionSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receivedCollectorInvitations<T extends Prisma.User$receivedCollectorInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedCollectorInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -11323,6 +11741,30 @@ export type User$activityLogsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ActivityLogScalarFieldEnum | Prisma.ActivityLogScalarFieldEnum[]
+}
+
+/**
+ * User.adminChatMessages
+ */
+export type User$adminChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdminChatMessage
+   */
+  select?: Prisma.AdminChatMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AdminChatMessage
+   */
+  omit?: Prisma.AdminChatMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdminChatMessageInclude<ExtArgs> | null
+  where?: Prisma.AdminChatMessageWhereInput
+  orderBy?: Prisma.AdminChatMessageOrderByWithRelationInput | Prisma.AdminChatMessageOrderByWithRelationInput[]
+  cursor?: Prisma.AdminChatMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdminChatMessageScalarFieldEnum | Prisma.AdminChatMessageScalarFieldEnum[]
 }
 
 /**

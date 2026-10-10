@@ -405,6 +405,7 @@ export const ModelName = {
   StudyComment: 'StudyComment',
   Notification: 'Notification',
   ActivityLog: 'ActivityLog',
+  AdminChatMessage: 'AdminChatMessage',
   Question: 'Question',
   QuestionRow: 'QuestionRow',
   QuestionOption: 'QuestionOption',
@@ -454,7 +455,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectionSession"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectionSession"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1047,6 +1048,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ActivityLogCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ActivityLogCountAggregateOutputType> | number
+        }
+      }
+    }
+    AdminChatMessage: {
+      payload: Prisma.$AdminChatMessagePayload<ExtArgs>
+      fields: Prisma.AdminChatMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdminChatMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdminChatMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.AdminChatMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdminChatMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload>
+        }
+        findMany: {
+          args: Prisma.AdminChatMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload>[]
+        }
+        create: {
+          args: Prisma.AdminChatMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload>
+        }
+        createMany: {
+          args: Prisma.AdminChatMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdminChatMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.AdminChatMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload>
+        }
+        update: {
+          args: Prisma.AdminChatMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.AdminChatMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdminChatMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdminChatMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.AdminChatMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminChatMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.AdminChatMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAdminChatMessage>
+        }
+        groupBy: {
+          args: Prisma.AdminChatMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminChatMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdminChatMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdminChatMessageCountAggregateOutputType> | number
         }
       }
     }
@@ -3725,6 +3800,17 @@ export const ActivityLogScalarFieldEnum = {
 export type ActivityLogScalarFieldEnum = (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum]
 
 
+export const AdminChatMessageScalarFieldEnum = {
+  id: 'id',
+  channel: 'channel',
+  senderId: 'senderId',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type AdminChatMessageScalarFieldEnum = (typeof AdminChatMessageScalarFieldEnum)[keyof typeof AdminChatMessageScalarFieldEnum]
+
+
 export const QuestionScalarFieldEnum = {
   id: 'id',
   studyId: 'studyId',
@@ -4877,6 +4963,7 @@ export type GlobalOmitConfig = {
   studyComment?: Prisma.StudyCommentOmit
   notification?: Prisma.NotificationOmit
   activityLog?: Prisma.ActivityLogOmit
+  adminChatMessage?: Prisma.AdminChatMessageOmit
   question?: Prisma.QuestionOmit
   questionRow?: Prisma.QuestionRowOmit
   questionOption?: Prisma.QuestionOptionOmit

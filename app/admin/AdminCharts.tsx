@@ -1,235 +1,213 @@
 "use client";
 
-import React, { useMemo } from "react";
 import {
-  AreaChart,
   Area,
-  XAxis,
-  YAxis,
+  AreaChart,
+  Bar,
+  BarChart,
   CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
   Cell,
   Legend,
-  BarChart,
-  Bar,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/Card";
-import { format, parseISO, subDays } from "date-fns";
-import { Server, Activity, Database, Cpu, MemoryStick } from "lucide-react";
+import { format, parseISO } from "date-fns";
+import { Activity, BarChart3, ShieldCheck, Users } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/Card";
+
+type TrendPoint = {
+  date: string;
+  users: number;
+  studies: number;
+  responses: number;
+};
+
+type DistributionPoint = {
+  name: string;
+  value: number;
+};
+
+type Props = {
+  growthData: TrendPoint[];
+  roleDistribution: DistributionPoint[];
+  studyStatusDistribution: DistributionPoint[];
+  verificationDistribution: DistributionPoint[];
+};
+
+const tooltipStyle = {
+  borderRadius: "8px",
+  border: "1px solid var(--border)",
+  backgroundColor: "var(--card)",
+  color: "var(--foreground)",
+  fontSize: "12px",
+};
+
+const roleColors = ["#2563eb", "#10b981", "#f43f5e"];
+const studyColors = ["#10b981", "#64748b", "#f59e0b", "#8b5cf6"];
+const verificationColors = ["#f59e0b", "#10b981", "#f43f5e", "#64748b"];
+
+function EmptyChart({ label }: { label: string }) {
+  return (
+    <div className="flex h-[190px] items-center justify-center rounded-lg border border-dashed border-border text-xs text-muted-foreground">
+      No {label} data to display yet.
+    </div>
+  );
+}
 
 export function AdminCharts({
   growthData,
   roleDistribution,
-  systemMetrics,
-}: {
-  growthData: any[];
-  roleDistribution: any[];
-  systemMetrics: any;
-}) {
-  const COLORS = ["#0ea5e9", "#10b981", "#f43f5e", "#f59e0b"];
-
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-card border border-border p-3 rounded-lg shadow-xl">
-          <p className="text-sm font-semibold mb-2">{label}</p>
-          {payload.map((entry: any, index: number) => (
-            <div key={index} className="flex items-center gap-2 text-xs">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: entry.color }}
-              />
-              <span className="text-muted-foreground">{entry.name}:</span>
-              <span className="font-medium text-foreground">{entry.value}</span>
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return null;
-  };
-
-  const bytesToMB = (bytes: number) => (bytes / 1024 / 1024).toFixed(2) + " MB";
-  const bytesToGB = (bytes: number) => (bytes / 1024 / 1024 / 1024).toFixed(2) + " GB";
+  studyStatusDistribution,
+  verificationDistribution,
+}: Props) {
+  const hasTrend = growthData.some((item) => item.users + item.studies + item.responses > 0);
 
   return (
-    <div className="space-y-6 mt-8">
-      <div className="flex items-center gap-2 mb-4 text-primary font-bold text-lg">
-        <Activity className="w-5 h-5" />
-        <h2>Platform Analytics & Health</h2>
-      </div>
-      
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* Growth Chart */}
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="text-base">Platform Growth (Last 30 Days)</CardTitle>
-            <CardDescription>New user registrations and studies published</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px] w-full">
+    <div className="min-w-0 space-y-4">
+      <Card>
+        <CardHeader className="pb-2">
+          <div className="flex items-center gap-2">
+            <Activity className="h-4 w-4 text-primary" />
+            <CardTitle className="text-base">Platform activity</CardTitle>
+          </div>
+          <CardDescription>Daily registrations, studies, and responses · last 30 days</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {hasTrend ? (
+            <div className="h-[290px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
-                  data={growthData}
-                  margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-                >
+                <AreaChart data={growthData} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
                   <defs>
-                    <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#0ea5e9" stopOpacity={0} />
+                    <linearGradient id="adminUsersFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#2563eb" stopOpacity={0.22} />
+                      <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                     </linearGradient>
-                    <linearGradient id="colorStudies" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
+                    <linearGradient id="adminStudiesFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.2} />
                       <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                     </linearGradient>
+                    <linearGradient id="adminResponsesFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                    </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#333" opacity={0.1} />
-                  <XAxis 
-                    dataKey="date" 
-                    axisLine={false} 
-                    tickLine={false} 
-                    tick={{ fontSize: 12 }} 
-                    dy={10}
-                    tickFormatter={(val) => format(parseISO(val), "MMM d")}
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                  <XAxis
+                    dataKey="date"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
+                    tickFormatter={(date: string) => format(parseISO(date), "MMM d")}
+                    minTickGap={24}
                   />
-                  <YAxis 
-                    axisLine={false} 
-                    tickLine={false} 
-                    tick={{ fontSize: 12 }} 
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
                     allowDecimals={false}
+                    width={34}
                   />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Legend iconType="circle" wrapperStyle={{ fontSize: 12, paddingTop: 20 }} />
-                  <Area
-                    type="monotone"
-                    dataKey="users"
-                    name="New Users"
-                    stroke="#0ea5e9"
-                    strokeWidth={2}
-                    fillOpacity={1}
-                    fill="url(#colorUsers)"
+                  <Tooltip
+                    contentStyle={tooltipStyle}
+                    labelFormatter={(date) => format(parseISO(String(date)), "MMM d, yyyy")}
                   />
-                  <Area
-                    type="monotone"
-                    dataKey="studies"
-                    name="New Studies"
-                    stroke="#10b981"
-                    strokeWidth={2}
-                    fillOpacity={1}
-                    fill="url(#colorStudies)"
-                  />
+                  <Legend iconType="circle" wrapperStyle={{ fontSize: 11, paddingTop: 12 }} />
+                  <Area type="monotone" dataKey="users" name="New users" stroke="#2563eb" strokeWidth={2} fill="url(#adminUsersFill)" />
+                  <Area type="monotone" dataKey="studies" name="New studies" stroke="#10b981" strokeWidth={2} fill="url(#adminStudiesFill)" />
+                  <Area type="monotone" dataKey="responses" name="Responses" stroke="#8b5cf6" strokeWidth={2} fill="url(#adminResponsesFill)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
+          ) : (
+            <EmptyChart label="platform activity" />
+          )}
+        </CardContent>
+      </Card>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <Card>
+          <CardHeader className="pb-1">
+            <CardTitle className="flex items-center gap-2 text-sm"><Users className="h-3.5 w-3.5 text-blue-600" /> Account mix</CardTitle>
+            <CardDescription className="text-xs">Current user roles</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {roleDistribution.some((item) => item.value > 0) ? (
+              <div className="h-[190px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={roleDistribution} dataKey="value" nameKey="name" innerRadius={43} outerRadius={66} paddingAngle={3}>
+                      {roleDistribution.map((entry, index) => (
+                        <Cell key={entry.name} fill={roleColors[index % roleColors.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip contentStyle={tooltipStyle} />
+                    <Legend iconType="circle" wrapperStyle={{ fontSize: 10 }} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <EmptyChart label="account" />
+            )}
           </CardContent>
         </Card>
 
-        {/* Roles Distribution */}
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle className="text-base">User Roles</CardTitle>
-            <CardDescription>Current platform demographics</CardDescription>
+        <Card>
+          <CardHeader className="pb-1">
+            <CardTitle className="flex items-center gap-2 text-sm"><BarChart3 className="h-3.5 w-3.5 text-emerald-600" /> Study lifecycle</CardTitle>
+            <CardDescription className="text-xs">Studies by current status</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[300px] w-full flex items-center justify-center">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={roleDistribution}
-                    cx="50%"
-                    cy="45%"
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={5}
-                    dataKey="value"
-                  >
-                    {roleDistribution.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                    itemStyle={{ color: '#fff', fontSize: '12px' }}
-                  />
-                  <Legend iconType="circle" wrapperStyle={{ fontSize: 12 }} />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* System Metrics (Nerdy Stuff) */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="bg-slate-900 border-slate-800 text-slate-100">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <Server className="w-3.5 h-3.5" /> Server Uptime
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-mono text-emerald-400">
-              {Math.floor(systemMetrics.uptime / 3600)}h {Math.floor((systemMetrics.uptime % 3600) / 60)}m
-            </div>
-            <p className="text-[10px] text-slate-500 mt-1">Node.js process uptime</p>
+            {studyStatusDistribution.some((item) => item.value > 0) ? (
+              <div className="h-[190px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={studyStatusDistribution} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "var(--muted-foreground)" }} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "var(--muted-foreground)" }} allowDecimals={false} />
+                    <Tooltip contentStyle={tooltipStyle} />
+                    <Bar dataKey="value" name="Studies" radius={[4, 4, 0, 0]} maxBarSize={34}>
+                      {studyStatusDistribution.map((entry, index) => (
+                        <Cell key={entry.name} fill={studyColors[index % studyColors.length]} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <EmptyChart label="study" />
+            )}
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900 border-slate-800 text-slate-100">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <MemoryStick className="w-3.5 h-3.5" /> Memory Heap
-            </CardTitle>
+        <Card>
+          <CardHeader className="pb-1">
+            <CardTitle className="flex items-center gap-2 text-sm"><ShieldCheck className="h-3.5 w-3.5 text-violet-600" /> Verification</CardTitle>
+            <CardDescription className="text-xs">Verification request outcomes</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-mono text-sky-400">
-              {bytesToMB(systemMetrics.memory.heapUsed)}
-            </div>
-            <div className="w-full bg-slate-800 rounded-full h-1.5 mt-2">
-              <div 
-                className="bg-sky-500 h-1.5 rounded-full" 
-                style={{ width: `${Math.min(100, (systemMetrics.memory.heapUsed / systemMetrics.memory.heapTotal) * 100)}%` }} 
-              />
-            </div>
-            <p className="text-[10px] text-slate-500 mt-1 flex justify-between">
-              <span>Used</span>
-              <span>{bytesToMB(systemMetrics.memory.heapTotal)} Total</span>
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-900 border-slate-800 text-slate-100">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <Cpu className="w-3.5 h-3.5" /> OS Load (1m)
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-mono text-rose-400">
-              {systemMetrics.loadAvg[0].toFixed(2)}
-            </div>
-            <p className="text-[10px] text-slate-500 mt-1">
-              Host OS load average
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-900 border-slate-800 text-slate-100">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <Database className="w-3.5 h-3.5" /> Total Records
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-mono text-amber-400">
-              {systemMetrics.dbRecords.toLocaleString()}
-            </div>
-            <p className="text-[10px] text-slate-500 mt-1">
-              Users + Studies + Responses
-            </p>
+            {verificationDistribution.some((item) => item.value > 0) ? (
+              <div className="h-[190px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={verificationDistribution} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "var(--muted-foreground)" }} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "var(--muted-foreground)" }} allowDecimals={false} />
+                    <Tooltip contentStyle={tooltipStyle} />
+                    <Bar dataKey="value" name="Requests" radius={[4, 4, 0, 0]} maxBarSize={34}>
+                      {verificationDistribution.map((entry, index) => (
+                        <Cell key={entry.name} fill={verificationColors[index % verificationColors.length]} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <EmptyChart label="verification" />
+            )}
           </CardContent>
         </Card>
       </div>

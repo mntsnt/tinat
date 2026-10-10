@@ -11,7 +11,8 @@ import {
   Users,
   CreditCard,
   Activity,
-  FileText
+  FileText,
+  MessagesSquare,
 } from "lucide-react";
 import { SidebarLink } from "./Sidebar";
 
@@ -37,6 +38,7 @@ export const researcherLinks: SidebarLink[] = [
 
 export const adminLinks: SidebarLink[] = [
   { title: "Overview", href: "/admin", icon: <LayoutDashboard /> },
+  { title: "Admin Community", href: "/admin/community", icon: <MessagesSquare /> },
   { title: "User Management", href: "/admin/users", icon: <Users /> },
   { title: "Manage Studies", href: "/admin/studies", icon: <FileText /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleQuestion /> },
