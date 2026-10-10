@@ -22,18 +22,18 @@ export default function NavContent({ user, links }: NavContentProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-md transition-colors duration-300">
-      <div className="container mx-auto flex h-14 items-center px-4 md:px-6">
+    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-7xl items-center px-5 sm:px-8 lg:px-10">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 mr-6 transition-transform hover:scale-105">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black text-white font-bold text-sm shadow-sm">
+        <Link href="/" className="mr-8 flex items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-700 text-sm font-semibold text-white dark:bg-emerald-600">
             T
           </div>
-          <span className="text-lg font-bold tracking-tight text-foreground">Tinat</span>
+          <span className="text-base font-semibold tracking-tight text-foreground">Tinat</span>
         </Link>
 
         {/* Desktop Nav Links */}
-        <div className="hidden md:flex flex-1 items-center gap-1">
+        <div className="hidden flex-1 items-center gap-1 md:flex">
           {links.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -41,10 +41,10 @@ export default function NavContent({ user, links }: NavContentProps) {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
+                  "rounded-md px-3 py-2 text-sm transition-colors",
                   isActive
-                    ? "bg-muted text-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                 )}
               >
                 {link.title}
@@ -54,23 +54,23 @@ export default function NavContent({ user, links }: NavContentProps) {
         </div>
 
         {/* Desktop Right */}
-        <div className="hidden md:flex items-center gap-2 ml-auto">
+        <div className="ml-auto hidden items-center gap-2 md:flex">
           {user ? (
-            <div className="flex items-center gap-2 border-l border-border pl-3 ml-1">
-              <span className="text-sm font-medium text-foreground">{user.name}</span>
+            <div className="ml-1 flex items-center gap-3 border-l border-border pl-4">
+              <span className="text-sm text-muted-foreground">{user.name}</span>
               <LogoutButton />
             </div>
           ) : (
-            <div className="flex items-center gap-2 border-l border-border pl-3 ml-1">
+            <div className="ml-1 flex items-center gap-2 border-l border-border pl-4">
               <Link
                 href="/login"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5 rounded-md hover:bg-muted/60"
+                className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
               >
                 Sign In
               </Link>
               <Link
                 href="/register"
-                className="text-sm font-medium bg-primary text-primary-foreground px-3 py-1.5 rounded-md hover:bg-primary/90 transition-colors"
+                className="rounded-md bg-emerald-700 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500"
               >
                 Get Started
               </Link>
@@ -79,20 +79,23 @@ export default function NavContent({ user, links }: NavContentProps) {
         </div>
 
         {/* Mobile Right */}
-        <div className="flex md:hidden items-center gap-2 ml-auto">
+        <div className="ml-auto flex items-center gap-2 md:hidden">
           <button
+            type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 rounded-md hover:bg-muted transition-colors"
-            aria-label="Toggle menu"
+            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="public-mobile-menu"
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Dropdown */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md px-4 py-3 space-y-1">
+        <div id="public-mobile-menu" className="space-y-1 border-t border-border bg-background px-5 py-3 sm:px-8 md:hidden">
           {links.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -101,10 +104,10 @@ export default function NavContent({ user, links }: NavContentProps) {
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
-                  "block px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                  "block rounded-md px-3 py-2.5 text-sm transition-colors",
                   isActive
                     ? "bg-muted text-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                 )}
               >
                 {link.title}
@@ -112,23 +115,23 @@ export default function NavContent({ user, links }: NavContentProps) {
             );
           })}
           {user ? (
-            <div className="pt-2 mt-2 border-t border-border flex items-center justify-between">
-              <span className="text-sm font-medium text-foreground px-3">{user.name}</span>
+            <div className="mt-2 flex items-center justify-between border-t border-border pt-3">
+              <span className="px-3 text-sm text-muted-foreground">{user.name}</span>
               <LogoutButton />
             </div>
           ) : (
-            <div className="pt-2 mt-2 border-t border-border space-y-1">
+            <div className="mt-2 space-y-1 border-t border-border pt-3">
               <Link
                 href="/login"
                 onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                className="block rounded-md px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted/60 hover:text-foreground"
               >
                 Sign In
               </Link>
               <Link
                 href="/register"
                 onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 text-center"
+                className="block rounded-md bg-emerald-700 px-3 py-2.5 text-center text-sm font-medium text-white hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500"
               >
                 Get Started
               </Link>
