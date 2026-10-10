@@ -3,6 +3,7 @@ import { getSession } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
 import { QuestionType } from "../../../../generated/prisma/client";
 import { logActivity } from "../../../../lib/activityLog";
+import { isStudyBannerTheme } from "../../../../lib/studyBanners";
 
 /*
 |--------------------------------------------------------------------------
@@ -239,6 +240,7 @@ export async function POST(request: Request) {
     const {
       title,
       description,
+      bannerTheme = "canopy",
       studyType = "FUNDED",
       category,
       objective,
@@ -250,6 +252,13 @@ export async function POST(request: Request) {
       questions,
       publishImmediately = false,
     } = body;
+
+    if (!isStudyBannerTheme(bannerTheme)) {
+      return NextResponse.json(
+        { error: "Choose a valid study banner." },
+        { status: 400 }
+      );
+    }
 
     const isFreeDataCollection = studyType === "FREE_DATA_COLLECTION" || rewardCredits === 0;
 
@@ -477,6 +486,7 @@ export async function POST(request: Request) {
     const study = await prisma.study.create({
       data: {
         title: title.trim(),
+        bannerTheme,
         description:
           typeof description === "string" && description.trim()
             ? description.trim()

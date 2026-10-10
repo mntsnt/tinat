@@ -1,0 +1,2 @@
+ALTER TABLE "Study"
+ADD COLUMN "bannerTheme" TEXT NOT NULL DEFAULT 'canopy';

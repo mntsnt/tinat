@@ -8,6 +8,7 @@ import { Badge } from "../../components/ui/Badge";
 import { Search, Bookmark, BookmarkCheck, Stethoscope, Coins, ClipboardCheck, Clock, Users, AlertCircle } from "lucide-react";
 import { toggleBookmark } from "./actions";
 import { HEALTH_CATEGORIES, MEDICAL_DISCLAIMER } from "@/lib/healthCategories";
+import { StudyBanner } from "../../components/studies/StudyBanner";
 
 export default async function StudyDiscoveryPage({
   searchParams,
@@ -242,6 +243,7 @@ export default async function StudyDiscoveryPage({
                 key={study.id}
                 className="flex flex-col group hover:border-primary/50 transition-all shadow-sm hover:shadow-md relative overflow-hidden"
               >
+                <StudyBanner theme={study.bannerTheme} className="h-24" />
                 {/* Category Top Banner */}
                 <div className="px-6 pt-5 pb-0 flex items-center justify-between gap-2">
                   <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full truncate max-w-[180px]">

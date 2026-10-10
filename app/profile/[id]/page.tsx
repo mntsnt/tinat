@@ -16,6 +16,7 @@ import { prisma } from "../../../lib/prisma";
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
 import { Card, CardContent } from "../../components/ui/Card";
+import { StudyBanner } from "../../components/studies/StudyBanner";
 
 const ROLE_LABELS: Record<string, string> = {
   ADMIN: "Tinat administrator",
@@ -52,6 +53,7 @@ export default async function ProfilePage({
             title: true,
             description: true,
             objective: true,
+            bannerTheme: true,
             rewardCredits: true,
             category: true,
             estimatedMinutes: true,
@@ -87,7 +89,7 @@ export default async function ProfilePage({
         <Card className="overflow-hidden">
           <div className="h-28 bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-700 sm:h-36" />
           <CardContent className="px-5 pb-6 sm:px-8 sm:pb-8">
-            <div className="-mt-12 flex flex-col gap-4 sm:-mt-14 sm:flex-row sm:items-end sm:justify-between">
+            <div className="-mt-8 flex flex-col gap-4 sm:-mt-10 sm:flex-row sm:items-end sm:justify-between">
               <div className="flex min-w-0 items-end gap-4">
                 <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-full border-4 border-card bg-emerald-700 text-2xl font-semibold text-white shadow-sm sm:h-28 sm:w-28">
                   {user.avatarUrl ? (
@@ -212,7 +214,8 @@ export default async function ProfilePage({
             ) : (
               <div className="grid gap-4 md:grid-cols-2">
                 {user.studies.map((study) => (
-                  <Card key={study.id} className="transition-colors hover:border-emerald-700/40">
+                  <Card key={study.id} className="overflow-hidden transition-colors hover:border-emerald-700/40">
+                    <StudyBanner theme={study.bannerTheme} className="h-20" />
                     <CardContent className="space-y-3 p-5">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <Badge variant="outline">{study.category || "Health research"}</Badge>

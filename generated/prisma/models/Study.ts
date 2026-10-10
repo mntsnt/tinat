@@ -46,6 +46,7 @@ export type StudyMinAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
+  bannerTheme: string | null
   status: $Enums.StudyStatus | null
   rewardCredits: number | null
   researcherId: string | null
@@ -66,6 +67,7 @@ export type StudyMaxAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
+  bannerTheme: string | null
   status: $Enums.StudyStatus | null
   rewardCredits: number | null
   researcherId: string | null
@@ -86,6 +88,7 @@ export type StudyCountAggregateOutputType = {
   id: number
   title: number
   description: number
+  bannerTheme: number
   status: number
   rewardCredits: number
   researcherId: number
@@ -125,6 +128,7 @@ export type StudyMinAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  bannerTheme?: true
   status?: true
   rewardCredits?: true
   researcherId?: true
@@ -145,6 +149,7 @@ export type StudyMaxAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  bannerTheme?: true
   status?: true
   rewardCredits?: true
   researcherId?: true
@@ -165,6 +170,7 @@ export type StudyCountAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  bannerTheme?: true
   status?: true
   rewardCredits?: true
   researcherId?: true
@@ -273,6 +279,7 @@ export type StudyGroupByOutputType = {
   id: string
   title: string
   description: string | null
+  bannerTheme: string
   status: $Enums.StudyStatus
   rewardCredits: number
   researcherId: string
@@ -317,6 +324,7 @@ export type StudyWhereInput = {
   id?: Prisma.StringFilter<"Study"> | string
   title?: Prisma.StringFilter<"Study"> | string
   description?: Prisma.StringNullableFilter<"Study"> | string | null
+  bannerTheme?: Prisma.StringFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusFilter<"Study"> | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFilter<"Study"> | number
   researcherId?: Prisma.StringFilter<"Study"> | string
@@ -351,6 +359,7 @@ export type StudyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
@@ -388,6 +397,7 @@ export type StudyWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.StudyWhereInput | Prisma.StudyWhereInput[]
   title?: Prisma.StringFilter<"Study"> | string
   description?: Prisma.StringNullableFilter<"Study"> | string | null
+  bannerTheme?: Prisma.StringFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusFilter<"Study"> | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFilter<"Study"> | number
   researcherId?: Prisma.StringFilter<"Study"> | string
@@ -422,6 +432,7 @@ export type StudyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
@@ -451,6 +462,7 @@ export type StudyScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Study"> | string
   title?: Prisma.StringWithAggregatesFilter<"Study"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
+  bannerTheme?: Prisma.StringWithAggregatesFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusWithAggregatesFilter<"Study"> | $Enums.StudyStatus
   rewardCredits?: Prisma.IntWithAggregatesFilter<"Study"> | number
   researcherId?: Prisma.StringWithAggregatesFilter<"Study"> | string
@@ -472,6 +484,7 @@ export type StudyCreateInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -505,6 +518,7 @@ export type StudyUncheckedCreateInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -538,6 +552,7 @@ export type StudyUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -571,6 +586,7 @@ export type StudyUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -604,6 +620,7 @@ export type StudyCreateManyInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -625,6 +642,7 @@ export type StudyUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -645,6 +663,7 @@ export type StudyUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -684,6 +703,7 @@ export type StudyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
@@ -713,6 +733,7 @@ export type StudyMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
@@ -733,6 +754,7 @@ export type StudyMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
@@ -1008,6 +1030,7 @@ export type StudyCreateWithoutResearcherInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -1040,6 +1063,7 @@ export type StudyUncheckedCreateWithoutResearcherInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -1101,6 +1125,7 @@ export type StudyScalarWhereInput = {
   id?: Prisma.StringFilter<"Study"> | string
   title?: Prisma.StringFilter<"Study"> | string
   description?: Prisma.StringNullableFilter<"Study"> | string | null
+  bannerTheme?: Prisma.StringFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusFilter<"Study"> | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFilter<"Study"> | number
   researcherId?: Prisma.StringFilter<"Study"> | string
@@ -1122,6 +1147,7 @@ export type StudyCreateWithoutBookmarksInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -1154,6 +1180,7 @@ export type StudyUncheckedCreateWithoutBookmarksInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -1202,6 +1229,7 @@ export type StudyUpdateWithoutBookmarksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1234,6 +1262,7 @@ export type StudyUncheckedUpdateWithoutBookmarksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1266,6 +1295,7 @@ export type StudyCreateWithoutRatingsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -1298,6 +1328,7 @@ export type StudyUncheckedCreateWithoutRatingsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -1346,6 +1377,7 @@ export type StudyUpdateWithoutRatingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1378,6 +1410,7 @@ export type StudyUncheckedUpdateWithoutRatingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1410,6 +1443,7 @@ export type StudyCreateWithoutLikesInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -1442,6 +1476,7 @@ export type StudyUncheckedCreateWithoutLikesInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -1490,6 +1525,7 @@ export type StudyUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1522,6 +1558,7 @@ export type StudyUncheckedUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1554,6 +1591,7 @@ export type StudyCreateWithoutCommentsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -1586,6 +1624,7 @@ export type StudyUncheckedCreateWithoutCommentsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -1634,6 +1673,7 @@ export type StudyUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1666,6 +1706,7 @@ export type StudyUncheckedUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1698,6 +1739,7 @@ export type StudyCreateWithoutQuestionsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -1730,6 +1772,7 @@ export type StudyUncheckedCreateWithoutQuestionsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -1778,6 +1821,7 @@ export type StudyUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1810,6 +1854,7 @@ export type StudyUncheckedUpdateWithoutQuestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1842,6 +1887,7 @@ export type StudyCreateWithoutResponsesInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -1874,6 +1920,7 @@ export type StudyUncheckedCreateWithoutResponsesInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -1922,6 +1969,7 @@ export type StudyUpdateWithoutResponsesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1954,6 +2002,7 @@ export type StudyUncheckedUpdateWithoutResponsesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1986,6 +2035,7 @@ export type StudyCreateWithoutPaymentsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -2018,6 +2068,7 @@ export type StudyUncheckedCreateWithoutPaymentsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -2066,6 +2117,7 @@ export type StudyUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2098,6 +2150,7 @@ export type StudyUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2130,6 +2183,7 @@ export type StudyCreateWithoutLinkedProjectsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -2162,6 +2216,7 @@ export type StudyUncheckedCreateWithoutLinkedProjectsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -2210,6 +2265,7 @@ export type StudyUpdateWithoutLinkedProjectsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2242,6 +2298,7 @@ export type StudyUncheckedUpdateWithoutLinkedProjectsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2274,6 +2331,7 @@ export type StudyCreateWithoutAiConversationsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -2306,6 +2364,7 @@ export type StudyUncheckedCreateWithoutAiConversationsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -2354,6 +2413,7 @@ export type StudyUpdateWithoutAiConversationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2386,6 +2446,7 @@ export type StudyUncheckedUpdateWithoutAiConversationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2418,6 +2479,7 @@ export type StudyCreateWithoutDataCollectorsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -2450,6 +2512,7 @@ export type StudyUncheckedCreateWithoutDataCollectorsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -2498,6 +2561,7 @@ export type StudyUpdateWithoutDataCollectorsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2530,6 +2594,7 @@ export type StudyUncheckedUpdateWithoutDataCollectorsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2562,6 +2627,7 @@ export type StudyCreateWithoutCollectorInvitationsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -2594,6 +2660,7 @@ export type StudyUncheckedCreateWithoutCollectorInvitationsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -2642,6 +2709,7 @@ export type StudyUpdateWithoutCollectorInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2674,6 +2742,7 @@ export type StudyUncheckedUpdateWithoutCollectorInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2706,6 +2775,7 @@ export type StudyCreateWithoutCollectionSessionsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -2738,6 +2808,7 @@ export type StudyUncheckedCreateWithoutCollectionSessionsInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   researcherId: string
@@ -2786,6 +2857,7 @@ export type StudyUpdateWithoutCollectionSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2818,6 +2890,7 @@ export type StudyUncheckedUpdateWithoutCollectionSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2850,6 +2923,7 @@ export type StudyCreateManyResearcherInput = {
   id?: string
   title: string
   description?: string | null
+  bannerTheme?: string
   status?: $Enums.StudyStatus
   rewardCredits?: number
   createdAt?: Date | string
@@ -2870,6 +2944,7 @@ export type StudyUpdateWithoutResearcherInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2902,6 +2977,7 @@ export type StudyUncheckedUpdateWithoutResearcherInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2934,6 +3010,7 @@ export type StudyUncheckedUpdateManyWithoutResearcherInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3084,6 +3161,7 @@ export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   title?: boolean
   description?: boolean
+  bannerTheme?: boolean
   status?: boolean
   rewardCredits?: boolean
   researcherId?: boolean
@@ -3119,6 +3197,7 @@ export type StudySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   title?: boolean
   description?: boolean
+  bannerTheme?: boolean
   status?: boolean
   rewardCredits?: boolean
   researcherId?: boolean
@@ -3141,6 +3220,7 @@ export type StudySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   title?: boolean
   description?: boolean
+  bannerTheme?: boolean
   status?: boolean
   rewardCredits?: boolean
   researcherId?: boolean
@@ -3163,6 +3243,7 @@ export type StudySelectScalar = {
   id?: boolean
   title?: boolean
   description?: boolean
+  bannerTheme?: boolean
   status?: boolean
   rewardCredits?: boolean
   researcherId?: boolean
@@ -3180,7 +3261,7 @@ export type StudySelectScalar = {
   targetPopulation?: boolean
 }
 
-export type StudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "status" | "rewardCredits" | "researcherId" | "createdAt" | "updatedAt" | "budgetCredits" | "creditsPaid" | "participantTarget" | "eligibilityCriteria" | "tags" | "category" | "estimatedMinutes" | "objective" | "studyType" | "targetPopulation", ExtArgs["result"]["study"]>
+export type StudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "bannerTheme" | "status" | "rewardCredits" | "researcherId" | "createdAt" | "updatedAt" | "budgetCredits" | "creditsPaid" | "participantTarget" | "eligibilityCriteria" | "tags" | "category" | "estimatedMinutes" | "objective" | "studyType" | "targetPopulation", ExtArgs["result"]["study"]>
 export type StudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   aiConversations?: boolean | Prisma.Study$aiConversationsArgs<ExtArgs>
   collectionSessions?: boolean | Prisma.Study$collectionSessionsArgs<ExtArgs>
@@ -3225,6 +3306,7 @@ export type $StudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     title: string
     description: string | null
+    bannerTheme: string
     status: $Enums.StudyStatus
     rewardCredits: number
     researcherId: string
@@ -3679,6 +3761,7 @@ export interface StudyFieldRefs {
   readonly id: Prisma.FieldRef<"Study", 'String'>
   readonly title: Prisma.FieldRef<"Study", 'String'>
   readonly description: Prisma.FieldRef<"Study", 'String'>
+  readonly bannerTheme: Prisma.FieldRef<"Study", 'String'>
   readonly status: Prisma.FieldRef<"Study", 'StudyStatus'>
   readonly rewardCredits: Prisma.FieldRef<"Study", 'Int'>
   readonly researcherId: Prisma.FieldRef<"Study", 'String'>

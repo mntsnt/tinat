@@ -22,7 +22,10 @@ import {
   AlertCircle,
   Sparkles,
   CheckCircle2,
+  Check,
 } from "lucide-react";
+import { STUDY_BANNERS, type StudyBannerTheme } from "@/lib/studyBanners";
+import { StudyBanner as StudyBannerPreview } from "../../../components/studies/StudyBanner";
 
 type Question = {
   text: string;
@@ -46,6 +49,7 @@ export default function CreateStudyPage() {
   const [objective, setObjective] = useState("");
   const [targetPopulation, setTargetPopulation] = useState("");
   const [estimatedMinutes, setEstimatedMinutes] = useState(5);
+  const [bannerTheme, setBannerTheme] = useState<StudyBannerTheme>("canopy");
 
   const [rewardCredits, setRewardCredits] = useState(5);
   const [participantTarget, setParticipantTarget] = useState(25);
@@ -158,6 +162,7 @@ export default function CreateStudyPage() {
         body: JSON.stringify({
           title,
           description,
+          bannerTheme,
           studyType,
           category,
           objective,
@@ -395,6 +400,55 @@ export default function CreateStudyPage() {
                 placeholder="Provide details about the study background, ethical compliance, and what participants will experience."
               />
             </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Study banner</CardTitle>
+            <CardDescription>
+              Choose a visual theme for your study. You can change this choice before creating the study.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <fieldset>
+              <legend className="sr-only">Choose a study banner</legend>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {STUDY_BANNERS.map((banner) => {
+                  const isSelected = bannerTheme === banner.id;
+
+                  return (
+                    <button
+                      key={banner.id}
+                      type="button"
+                      aria-label={`Choose ${banner.name} banner`}
+                      aria-pressed={isSelected}
+                      onClick={() => setBannerTheme(banner.id)}
+                      className={`group rounded-xl border-2 p-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                        isSelected
+                          ? "border-emerald-600 bg-emerald-500/5"
+                          : "border-border hover:border-emerald-500/50"
+                      }`}
+                    >
+                      <span className="relative block">
+                        <StudyBannerPreview
+                          theme={banner.id}
+                          className="h-20 rounded-lg"
+                        />
+                        {isSelected && (
+                          <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-white text-emerald-700 shadow-sm">
+                            <Check className="h-4 w-4" aria-hidden="true" />
+                          </span>
+                        )}
+                      </span>
+                      <span className="mt-2 block text-sm font-medium text-foreground">
+                        {banner.name}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
           </CardContent>
         </Card>
 

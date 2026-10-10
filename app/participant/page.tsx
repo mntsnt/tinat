@@ -8,6 +8,7 @@ import {
 import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
 import { Wallet, CheckCircle, BookOpen, Compass, ArrowRight } from "lucide-react";
+import { StudyBanner } from "../components/studies/StudyBanner";
 
 export default async function ParticipantDashboard() {
   const session = await getSession();
@@ -248,7 +249,8 @@ export default async function ParticipantDashboard() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {availableStudies.slice(0, 3).map((study) => (
-              <Card key={study.id} className="hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors">
+              <Card key={study.id} className="overflow-hidden hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors">
+                <StudyBanner theme={study.bannerTheme} className="h-20" />
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between gap-2 mb-1">
                     {study.rewardCredits > 0 ? (

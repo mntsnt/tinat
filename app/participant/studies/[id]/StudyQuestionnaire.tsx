@@ -7,6 +7,7 @@ import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
 import { Badge } from "../../../components/ui/Badge";
 import { Heart, MessageSquare, Copy, Send, Reply, X } from "lucide-react";
+import { StudyBanner } from "../../../components/studies/StudyBanner";
 
 type Option = {
   id: string;
@@ -47,6 +48,7 @@ type StudyComment = {
 type Study = {
   id: string;
   title: string;
+  bannerTheme?: string;
   description: string | null;
   studyType?: string;
   category?: string | null;
@@ -516,6 +518,7 @@ export default function StudyQuestionnaire({
         <Button variant="ghost" onClick={() => router.push("/participant")} disabled={loading} className="mb-4 -ml-4">
           &larr; Back to Dashboard
         </Button>
+        <StudyBanner theme={study.bannerTheme} className="mb-5 h-32 rounded-xl sm:h-40" />
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2 flex-wrap">
             {study.category && (

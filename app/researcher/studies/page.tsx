@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
 import { BookOpen, FilePlus, ArrowRight } from "lucide-react";
+import { StudyBanner } from "../../components/studies/StudyBanner";
 
 export default async function ResearcherStudiesPage() {
   const session = await getSession();
@@ -75,7 +76,8 @@ export default async function ResearcherStudiesPage() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {studies.map((study) => (
-            <Card key={study.id} className="flex flex-col hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors">
+            <Card key={study.id} className="flex flex-col overflow-hidden hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors">
+              <StudyBanner theme={study.bannerTheme} className="h-20" />
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <Badge variant={statusVariant(study.status) as "success" | "secondary" | "warning"}>

@@ -141,6 +141,7 @@ export const StudyScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
+  bannerTheme: 'bannerTheme',
   status: 'status',
   rewardCredits: 'rewardCredits',
   researcherId: 'researcherId',

@@ -69,6 +69,7 @@ model Study {
   id                   String                @id @default(cuid())
   title                String
   description          String?
+  bannerTheme          String                @default("canopy")
   status               StudyStatus           @default(DRAFT)
   rewardCredits        Int                   @default(0)
   researcherId         String
