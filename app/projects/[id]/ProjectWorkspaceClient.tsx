@@ -609,7 +609,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="w-10 h-10 border-3 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
@@ -622,14 +622,14 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
   if (error || !project) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
-        <div className="max-w-md w-full p-5 rounded-2xl border border-rose-200 dark:border-rose-900 bg-white dark:bg-slate-900 text-center">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="max-w-md w-full p-5 rounded-xl border border-destructive/30 bg-card text-center">
           <AlertCircle className="w-10 h-10 text-rose-500 mx-auto mb-3" />
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white">Workspace Unavailable</h2>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{error || "Project not found or access denied."}</p>
+          <h2 className="text-lg font-semibold text-foreground">Workspace Unavailable</h2>
+          <p className="text-xs text-muted-foreground mt-1">{error || "Project not found or access denied."}</p>
           <Link
             href="/projects"
-            className="mt-5 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold"
+            className="mt-5 inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Back to Projects
@@ -684,12 +684,12 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               </span>
 
               {project.visibility === "PUBLIC" ? (
-                <span className="flex items-center gap-1 text-[11px] font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+                <span className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-md">
                   <Globe2 className="w-3 h-3" />
                   Public
                 </span>
               ) : (
-                <span className="flex items-center gap-1 text-[11px] font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+                <span className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-md">
                   <Lock className="w-3 h-3" />
                   Team
                 </span>
@@ -809,31 +809,31 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         {activeTab === "overview" && (
           <div className="space-y-6">
             {/* Top Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Progress Card */}
-              <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
+              <div className="p-4 rounded-lg border border-border bg-card">
+                <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
                   <span className="font-semibold uppercase tracking-wider">Project Progress</span>
                   <span className="font-bold text-primary dark:text-primary text-sm">
                     {progress.percentage}%
                   </span>
                 </div>
-                <div className="w-full h-2.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden mb-4">
+                <div className="w-full h-1.5 rounded-full bg-muted overflow-hidden mb-4">
                   <div
                     className="h-full rounded-full bg-primary transition-all duration-500"
                     style={{ width: `${progress.percentage}%` }}
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-3 text-xs pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div className="grid grid-cols-2 gap-3 text-xs pt-3 border-t border-border">
                   <div>
-                    <span className="text-slate-400">Tasks Completed</span>
-                    <div className="font-bold text-slate-800 dark:text-slate-200 mt-0.5">
+                    <span className="text-muted-foreground">Tasks Completed</span>
+                    <div className="font-bold text-foreground mt-0.5">
                       {progress.completedTasks} / {progress.totalTasks}
                     </div>
                   </div>
                   <div>
-                    <span className="text-slate-400">Milestones Reached</span>
-                    <div className="font-bold text-slate-800 dark:text-slate-200 mt-0.5">
+                    <span className="text-muted-foreground">Milestones Reached</span>
+                    <div className="font-bold text-foreground mt-0.5">
                       {progress.completedMilestones} / {progress.totalMilestones}
                     </div>
                   </div>
@@ -841,34 +841,34 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               </div>
 
               {/* Research Protocol Card */}
-              <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              <div className="p-4 rounded-lg border border-border bg-card">
+                <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
                   Hypothesis / Research Question
                 </span>
-                <p className="mt-2 text-xs text-slate-700 dark:text-slate-300 line-clamp-3 leading-relaxed">
+                <p className="mt-2 text-xs text-foreground line-clamp-3 leading-relaxed">
                   {project.researchQuestion || "No research question documented yet. Add PICO question in settings."}
                 </p>
-                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                  <span className="text-slate-400">Objective</span>
-                  <span className="font-semibold text-slate-800 dark:text-slate-200 truncate max-w-[180px]">
+                <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Objective</span>
+                  <span className="font-semibold text-foreground truncate max-w-[180px]">
                     {project.objective || "Standard protocol"}
                   </span>
                 </div>
               </div>
 
               {/* Ethics & Compliance Card */}
-              <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-primary mb-2 uppercase tracking-wider">
+              <div className="p-4 rounded-lg border border-border bg-card">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-primary mb-2 uppercase tracking-wider">
                   <ShieldCheck className="w-4 h-4" />
                   IRB / Ethics Status
                 </div>
-                <div className="text-sm font-bold text-slate-900 dark:text-white">
+                <div className="text-sm font-bold text-foreground">
                   {project.ethicsApprovalNumber ? `Ref: ${project.ethicsApprovalNumber}` : "Pending Approval / Review"}
                 </div>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {project.ethicsCommittee ? `Committee: ${project.ethicsCommittee}` : "No review board registered."}
                 </p>
-                <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 flex items-center gap-1">
+                <div className="mt-4 pt-3 border-t border-border text-[11px] text-muted-foreground flex items-center gap-1">
                   <Lock className="w-3.5 h-3.5 text-emerald-500" />
                   <span>Participant health data access segregated</span>
                 </div>
@@ -876,11 +876,11 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             </div>
 
             {/* Upcoming Milestones & Recent Activity */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Upcoming Milestones */}
-              <div className="lg:col-span-2 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+              <div className="lg:col-span-2 p-4 rounded-lg border border-border bg-card">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                  <h3 className="font-semibold text-sm text-foreground flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-primary" />
                     Key Milestones
                   </h3>
@@ -899,7 +899,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                           className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
                             m.isCompleted
                               ? "bg-emerald-600 border-emerald-600 text-white"
-                              : "border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900"
+                              : "border-border bg-background"
                           }`}
                         >
                           {m.isCompleted && <Check className="w-3 h-3" />}
@@ -908,18 +908,18 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                           <span
                             className={`font-semibold ${
                               m.isCompleted
-                                ? "line-through text-slate-400"
-                                : "text-slate-800 dark:text-slate-200"
+                                ? "line-through text-muted-foreground"
+                                : "text-foreground"
                             }`}
                           >
                             {m.title}
                           </span>
-                          <span className="text-[10px] text-slate-400 ml-2">Phase: {m.phase}</span>
+                          <span className="text-[10px] text-muted-foreground ml-2">Phase: {m.phase}</span>
                         </div>
                       </div>
 
                       {m.deadline && (
-                        <span className="text-[11px] text-slate-500 font-medium">
+                        <span className="text-[11px] text-muted-foreground font-medium">
                           {new Date(m.deadline).toLocaleDateString()}
                         </span>
                       )}
@@ -929,22 +929,22 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               </div>
 
               {/* Recent Activity Log */}
-              <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <div className="p-4 rounded-lg border border-border bg-card">
+                <h3 className="font-semibold text-sm text-foreground mb-4 flex items-center gap-2">
                   <Activity className="w-4 h-4 text-primary" />
                   Recent Audit Activity
                 </h3>
 
                 <div className="space-y-3 max-h-64 overflow-y-auto">
                   {project.activities?.length === 0 ? (
-                    <p className="text-xs text-slate-400">No activity logged yet.</p>
+                    <p className="text-xs text-muted-foreground">No activity logged yet.</p>
                   ) : (
                     project.activities?.slice(0, 6).map((act: any) => (
-                      <div key={act.id} className="text-xs border-l-2 border-indigo-400 pl-2.5 py-1">
-                        <p className="text-slate-700 dark:text-slate-300 font-medium leading-snug">
+                      <div key={act.id} className="text-xs border-l-2 border-primary/40 pl-2.5 py-1">
+                        <p className="text-foreground font-medium leading-snug">
                           {act.description}
                         </p>
-                        <span className="text-[10px] text-slate-400">
+                        <span className="text-[10px] text-muted-foreground">
                           {new Date(act.createdAt).toLocaleDateString()} {new Date(act.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </span>
                       </div>
@@ -998,13 +998,13 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
             {/* Kanban Columns */}
             {taskView === "kanban" ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-3">
                 {[
-                  { id: "TODO", label: "To Do", bg: "bg-slate-100 dark:bg-slate-900/60" },
-                  { id: "IN_PROGRESS", label: "In Progress", bg: "bg-primary/5/50 dark:bg-blue-950/20" },
-                  { id: "IN_REVIEW", label: "Review & PI Check", bg: "bg-purple-50/50 dark:bg-purple-950/20" },
-                  { id: "BLOCKED", label: "Blocked / Ethics Gate", bg: "bg-rose-50/50 dark:bg-rose-950/20" },
-                  { id: "COMPLETED", label: "Completed", bg: "bg-emerald-50/50 dark:bg-emerald-950/20" },
+                  { id: "TODO", label: "To Do", bg: "bg-muted/40" },
+                  { id: "IN_PROGRESS", label: "In Progress", bg: "bg-primary/5" },
+                  { id: "IN_REVIEW", label: "In Review", bg: "bg-violet-50/50 dark:bg-violet-950/20" },
+                  { id: "BLOCKED", label: "Blocked", bg: "bg-rose-50/50 dark:bg-rose-950/20" },
+                  { id: "COMPLETED", label: "Done", bg: "bg-emerald-50/50 dark:bg-emerald-950/20" },
                 ].map((col) => {
                   const tasksInCol = project.tasks?.filter((t: any) => t.status === col.id) || [];
                   return (
@@ -1022,25 +1022,21 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         }
                       }}
                       onDrop={(event) => void handleTaskDrop(event, col.id)}
-                      className={`min-h-[360px] rounded-2xl border p-3.5 transition-colors ${
+                      className={`min-h-[320px] rounded-lg border p-3.5 transition-colors ${
                         dragOverStatus === col.id
                           ? "border-primary bg-primary/10 ring-2 ring-primary/20"
-                          : `border-slate-200 dark:border-slate-800 ${col.bg}`
+                          : `border-border ${col.bg}`
                       } flex flex-col`}
                     >
                       <div className="flex items-center justify-between mb-3 px-1">
-                        <span className="font-bold text-xs text-slate-800 dark:text-slate-200">
+                        <span className="font-semibold text-xs text-foreground">
                           {col.label}
                         </span>
-                        <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                        <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">
                           {tasksInCol.length}
                         </span>
                       </div>
-                      {auth?.canEditTasks && (
-                        <p className="mb-2 px-1 text-[10px] text-slate-500 dark:text-slate-400">
-                          Drop tasks here to update status
-                        </p>
-                      )}
+
 
                       <div className="space-y-2.5 flex-1">
                         {tasksInCol.map((task: any) => (
@@ -1056,7 +1052,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                               setDraggedTaskId(null);
                               setDragOverStatus(null);
                             }}
-                            className={`p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-xs ${
+                            className={`p-3.5 rounded-md border border-border bg-card hover:border-primary/40 transition-colors text-xs ${
                               auth?.canEditTasks ? "cursor-grab active:cursor-grabbing" : ""
                             } ${draggedTaskId === task.id ? "opacity-50" : ""}`}
                           >
@@ -1075,18 +1071,18 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                               <span className="text-[10px] text-slate-400 font-medium">{task.phase}</span>
                             </div>
 
-                            <h4 className="font-semibold text-slate-900 dark:text-white leading-snug">
+                            <h4 className="font-semibold text-foreground leading-snug">
                               {task.title}
                             </h4>
 
                             {task.description && (
-                              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                              <p className="text-[11px] text-muted-foreground mt-1 line-clamp-2">
                                 {task.description}
                               </p>
                             )}
 
                             {/* Footer */}
-                            <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500">
+                            <div className="mt-3 pt-2.5 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
                               <span>{task.assignee?.name || "Unassigned"}</span>
                               {auth?.canEditTasks && (
                                 <select
@@ -1111,7 +1107,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               </div>
             ) : (
               /* List View */
-              <div className="divide-y divide-slate-200 dark:divide-slate-800 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden text-xs">
+              <div className="divide-y divide-border rounded-lg border border-border bg-card overflow-hidden text-xs">
                 {project.tasks?.map((task: any) => (
                   <div key={task.id} className="p-4 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
@@ -1125,7 +1121,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         className={`w-4 h-4 rounded border flex items-center justify-center ${
                           task.status === "COMPLETED"
                             ? "bg-emerald-600 border-emerald-600 text-white"
-                            : "border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900"
+                            : "border-border bg-background"
                         }`}
                       >
                         {task.status === "COMPLETED" && <Check className="w-3 h-3" />}
@@ -1183,12 +1179,8 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                  Collaborator Directory & Access Controls
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Manage research investigators, analysts, coordinators, and sensitive patient data clearance.
-                </p>
+                <h3 className="font-semibold text-base text-foreground">Research team</h3>
+                <p className="text-xs text-muted-foreground">Manage collaborators and their access levels.</p>
               </div>
               {auth?.canManageTeam && (
                 <button
@@ -1212,30 +1204,30 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 return (
                   <div
                     key={member.id}
-                    className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs"
+                    className="p-4 rounded-lg border border-border bg-card text-xs"
                   >
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-10 h-10 rounded-full bg-primary text-white font-bold flex items-center justify-center text-sm uppercase">
                         {member.user.name?.charAt(0) || "U"}
                       </div>
                       <div>
-                        <h4 className="font-bold text-slate-900 dark:text-white text-sm">
+                        <h4 className="font-semibold text-foreground text-sm">
                           {member.user.name}
                         </h4>
-                        <span className="text-[11px] text-slate-500">{member.user.email}</span>
+                        <span className="text-[11px] text-muted-foreground">{member.user.email}</span>
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 space-y-2">
+                    <div className="pt-3 border-t border-border space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-400">Research Role:</span>
+                        <span className="text-muted-foreground">Role:</span>
                         <span className="font-bold text-primary dark:text-primary">
                           {member.role.replace(/_/g, " ")}
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-400">Health Data Clearance:</span>
+                        <span className="text-muted-foreground">Data clearance:</span>
                         {canAccessHealth ? (
                           <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600">
                             <ShieldCheck className="w-3 h-3" />
@@ -1261,12 +1253,8 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
           <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                  Research Document & Data Repository
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Organized academic directories with version history and sensitive health data isolation.
-                </p>
+                <h3 className="font-semibold text-base text-foreground">Files & Data</h3>
+                <p className="text-xs text-muted-foreground">Organized directories with version control and sensitive data isolation.</p>
               </div>
             </div>
 
@@ -1279,7 +1267,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   className={`px-3 py-1.5 rounded-xl border transition-all whitespace-nowrap ${
                     fileFolderFilter === f.id
                       ? "bg-primary text-white border-primary font-semibold"
-                      : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800"
+                      : "bg-background text-foreground border-border hover:bg-muted/40"
                   }`}
                 >
                   {f.label}
@@ -1301,12 +1289,12 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             )}
 
             {/* Files List */}
-            <div className="divide-y divide-slate-200 dark:divide-slate-800 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden text-xs">
+            <div className="divide-y divide-border rounded-lg border border-border bg-card overflow-hidden text-xs">
               {project.files?.filter((f: any) =>
                 fileFolderFilter === "ALL" ? true : f.folder === fileFolderFilter
               ).length === 0 ? (
-                <div className="p-6 text-center text-slate-400">
-                  No files uploaded in this folder yet.
+                <div className="p-8 text-center text-muted-foreground text-sm">
+                  No files in this folder yet.
                 </div>
               ) : (
                 project.files
@@ -1319,10 +1307,10 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         <FileText className="w-5 h-5 text-primary shrink-0" />
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-slate-900 dark:text-white">
+                            <span className="font-semibold text-foreground">
                               {file.name}
                             </span>
-                            <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600">
+                            <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
                               v{file.version}
                             </span>
                             {file.isSensitiveHealthData && (
@@ -1331,8 +1319,8 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                               </span>
                             )}
                           </div>
-                          <span className="text-[10px] text-slate-400">
-                            Uploaded by {file.uploader?.name || "Team Member"} • {file.folder}
+                          <span className="text-[10px] text-muted-foreground">
+                            Uploaded by {file.uploader?.name || "Team Member"} · {file.folder}
                           </span>
                         </div>
                       </div>
@@ -1342,7 +1330,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                           href={file.fileUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-primary/5 hover:text-primary transition-colors font-medium text-xs"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md border border-border bg-background text-foreground hover:bg-muted transition-colors font-medium text-xs"
                         >
                           <Download className="w-3.5 h-3.5" />
                           Download
@@ -1925,7 +1913,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="e.g. Conduct double data-entry check for cohort baseline"
                   value={taskTitle}
                   onChange={(e) => setTaskTitle(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -1935,7 +1923,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   rows={3}
                   value={taskDesc}
                   onChange={(e) => setTaskDesc(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -1945,7 +1933,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   <select
                     value={taskPriority}
                     onChange={(e) => setTaskPriority(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                    className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                   >
                     <option value="LOW">Low</option>
                     <option value="MEDIUM">Medium</option>
@@ -1958,7 +1946,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   <select
                     value={taskPhase}
                     onChange={(e) => setTaskPhase(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                    className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                   >
                     {LIFECYCLE_PHASES.map((p) => (
                       <option key={p} value={p}>
@@ -1975,7 +1963,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   <select
                     value={taskAssignee}
                     onChange={(e) => setTaskAssignee(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                    className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                   >
                     <option value="">Unassigned</option>
                     {project.members?.map((m: any) => (
@@ -1991,7 +1979,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     type="date"
                     value={taskDueDate}
                     onChange={(e) => setTaskDueDate(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                    className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                   />
                 </div>
               </div>
@@ -2032,7 +2020,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="co-investigator@institution.org"
                   value={inviteEmail}
                   onChange={(e) => setInviteEmail(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2041,7 +2029,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 <select
                   value={inviteRole}
                   onChange={(e) => setInviteRole(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 >
                   <option value="PRINCIPAL_INVESTIGATOR">Co-Principal Investigator (Full Clearance)</option>
                   <option value="RESEARCHER">Co-Investigator / Researcher</option>
@@ -2058,7 +2046,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="Please join our study workspace to review the protocol and analysis plan..."
                   value={inviteMessage}
                   onChange={(e) => setInviteMessage(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2098,7 +2086,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="e.g. Switched primary outcome analysis from ANCOVA to linear mixed models due to repeated measurements"
                   value={decisionText}
                   onChange={(e) => setDecisionText(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2109,7 +2097,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="Document reason, statistical justification, or committee recommendation..."
                   value={decisionReason}
                   onChange={(e) => setDecisionReason(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2120,7 +2108,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="e.g. Protocol Amendment v2.1 Section 4.2"
                   value={decisionRelatedDoc}
                   onChange={(e) => setDecisionRelatedDoc(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2160,7 +2148,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="e.g. Meeting Minutes with Biostatistician"
                   value={noteTitle}
                   onChange={(e) => setNoteTitle(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2169,7 +2157,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 <select
                   value={noteCategory}
                   onChange={(e) => setNoteCategory(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 >
                   <option value="Protocol Decisions">Protocol Decisions</option>
                   <option value="Meeting Notes">Meeting Notes</option>
@@ -2225,7 +2213,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="e.g. Handling missing data in follow-up survey: Multiple Imputation vs Complete Case?"
                   value={discTitle}
                   onChange={(e) => setDiscTitle(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2236,7 +2224,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="e.g. Statistical Analysis, Sampling, Protocol"
                   value={discCategory}
                   onChange={(e) => setDiscCategory(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2247,7 +2235,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   required
                   value={discContent}
                   onChange={(e) => setDiscContent(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2290,7 +2278,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     required
                     value={selectedStudyToLink}
                     onChange={(e) => setSelectedStudyToLink(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                    className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                   >
                     <option value="">Choose a study to connect...</option>
                     {availableStudies.map((s) => (
@@ -2309,7 +2297,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="e.g. Primary questionnaire for Phase 2 urban clinics"
                   value={studyLinkNotes}
                   onChange={(e) => setStudyLinkNotes(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2350,7 +2338,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   placeholder="e.g. Primary Clinical Outcomes Manuscript"
                   value={outputTitle}
                   onChange={(e) => setOutputTitle(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3.5 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 
@@ -2360,7 +2348,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   <select
                     value={outputType}
                     onChange={(e) => setOutputType(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                    className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                   >
                     <option value="RESEARCH_PAPER">Research Paper</option>
                     <option value="CONFERENCE_ABSTRACT">Conference Abstract</option>
@@ -2376,7 +2364,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     placeholder="e.g. The Lancet Global Health"
                     value={outputJournal}
                     onChange={(e) => setOutputJournal(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                    className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                   />
                 </div>
               </div>
@@ -2387,7 +2375,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   type="date"
                   value={outputDeadline}
                   onChange={(e) => setOutputDeadline(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950"
+                  className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground text-sm"
                 />
               </div>
 

@@ -4,11 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
-  FolderKanban,
   ArrowLeft,
-  ArrowRight,
   Check,
-  Sparkles,
   Stethoscope,
   Microscope,
   FileSearch,
@@ -21,7 +18,6 @@ import {
   AlertCircle,
   Plus,
   Trash2,
-  Calendar,
   Lock,
   Globe2,
 } from "lucide-react";
@@ -35,74 +31,58 @@ const TEMPLATES = [
   {
     id: "CROSS_SECTIONAL",
     title: "Cross-Sectional / Observational",
-    badge: "Most Common",
+    badge: "Most common",
     icon: Stethoscope,
-    description: "Ideal for prevalence, risk factor assessment, and baseline clinical surveys following STROBE guidelines.",
-    phasesCount: 6,
-    scaffoldCount: "7 Milestones • 14 Tasks",
+    description: "Prevalence, risk factor assessment, baseline clinical surveys.",
   },
   {
     id: "CLINICAL_TRIAL",
-    title: "Randomized Controlled Trial (RCT)",
-    badge: "CONSORT Compliant",
+    title: "Randomized Controlled Trial",
+    badge: "CONSORT",
     icon: Microscope,
-    description: "Designed for interventional medicine, clinical trial protocol registration, DSMB review, and adverse event logs.",
-    phasesCount: 8,
-    scaffoldCount: "9 Milestones • 18 Tasks",
+    description: "Interventional medicine with trial registration and adverse event logs.",
   },
   {
     id: "SYSTEMATIC_REVIEW",
     title: "Systematic Review & Meta-Analysis",
     badge: "PRISMA 2020",
     icon: FileSearch,
-    description: "Includes PROSPERO registration, dual-screening workflow, risk-of-bias assessment, and synthesis templates.",
-    phasesCount: 6,
-    scaffoldCount: "7 Milestones • 12 Tasks",
+    description: "Dual screening, risk-of-bias assessment, and synthesis templates.",
   },
   {
     id: "THESIS_DISSERTATION",
     title: "Medical Thesis & Dissertation",
-    badge: "Postgraduate & MD",
+    badge: "Postgraduate",
     icon: GraduationCap,
-    description: "Structured for postgraduate medical residents, masters, and PhD candidates with committee defense milestones.",
-    phasesCount: 6,
-    scaffoldCount: "6 Milestones • 15 Tasks",
+    description: "Structured for residents, masters, and PhD candidates.",
   },
   {
     id: "PUBLIC_HEALTH",
     title: "Public Health Cohort Study",
     badge: "Epidemiology",
     icon: HeartPulse,
-    description: "Multi-wave longitudinal tracking, community stakeholder engagement, and policy translation frameworks.",
-    phasesCount: 7,
-    scaffoldCount: "8 Milestones • 16 Tasks",
+    description: "Longitudinal tracking and community stakeholder engagement.",
   },
   {
     id: "COMMUNITY_HEALTH",
     title: "Community-Based Participatory",
-    badge: "CBPR Method",
+    badge: "CBPR",
     icon: Users2,
-    description: "Empowers community advisory boards, local clinic recruitment, and culturally grounded qualitative methods.",
-    phasesCount: 5,
-    scaffoldCount: "6 Milestones • 12 Tasks",
+    description: "Community advisory boards and qualitative research methods.",
   },
   {
     id: "MEDICAL_EDUCATION",
     title: "Medical Education Research",
     badge: "MedEd",
     icon: BookOpen,
-    description: "Curriculum intervention evaluation, OSCE assessments, resident burnout, and healthcare workforce inquiries.",
-    phasesCount: 5,
-    scaffoldCount: "6 Milestones • 10 Tasks",
+    description: "Curriculum interventions, OSCE assessments, workforce inquiries.",
   },
   {
     id: "GENERAL",
     title: "General Health Research",
     badge: "Flexible",
     icon: FlaskConical,
-    description: "A clean, customizable foundation adaptable to any specialized bio-medical or clinical research methodology.",
-    phasesCount: 5,
-    scaffoldCount: "5 Milestones • 10 Tasks",
+    description: "A clean, customizable foundation for any research methodology.",
   },
 ];
 
@@ -128,24 +108,17 @@ export default function NewProjectPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Form State
+  // Step 1
   const [title, setTitle] = useState("");
   const [template, setTemplate] = useState("CROSS_SECTIONAL");
   const [category, setCategory] = useState(CATEGORIES[0]);
-  const [researchArea, setResearchArea] = useState("");
   const [institution, setInstitution] = useState("");
   const [visibility, setVisibility] = useState<"TEAM" | "PRIVATE" | "PUBLIC">("TEAM");
 
-  // Research Details
+  // Step 2
   const [researchQuestion, setResearchQuestion] = useState("");
-  const [objective, setObjective] = useState("");
-
-  // Ethics & Governance
   const [ethicsCommittee, setEthicsCommittee] = useState("");
   const [ethicsApprovalNumber, setEthicsApprovalNumber] = useState("");
-  const [ethicsApprovalDate, setEthicsApprovalDate] = useState("");
-
-  // Initial Collaborators
   const [invites, setInvites] = useState<TeamInvite[]>([]);
   const [newInviteEmail, setNewInviteEmail] = useState("");
   const [newInviteRole, setNewInviteRole] = useState("RESEARCHER");
@@ -163,7 +136,7 @@ export default function NewProjectPage() {
 
   async function handleLaunch() {
     if (!title.trim()) {
-      setError("Please provide a project title");
+      setError("Please enter a project title.");
       setStep(1);
       return;
     }
@@ -177,14 +150,11 @@ export default function NewProjectPage() {
         studyDesign: template,
         templateId: template,
         category,
-        researchArea: researchArea.trim() || null,
         institution: institution.trim() || null,
         visibility,
         researchQuestion: researchQuestion.trim() || null,
-        objective: objective.trim() || null,
         ethicsCommittee: ethicsCommittee.trim() || null,
         ethicsApprovalNumber: ethicsApprovalNumber.trim() || null,
-        ethicsApprovalDate: ethicsApprovalDate || null,
         initialMembers: invites,
       };
 
@@ -195,11 +165,7 @@ export default function NewProjectPage() {
       });
 
       const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to create project");
-      }
-
+      if (!res.ok) throw new Error(data.error || "Failed to create project");
       router.push(`/projects/${data.project.id}`);
     } catch (err: unknown) {
       setError(err instanceof Error && err.message ? err.message : "An unexpected error occurred");
@@ -208,133 +174,118 @@ export default function NewProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 py-10">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+    <div className="min-h-screen bg-background py-8 px-4">
+      <div className="max-w-2xl mx-auto">
         {/* Back Link */}
-        <div className="mb-6">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back to All Projects
-          </Link>
-        </div>
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to projects
+        </Link>
 
-        {/* Wizard Stepper Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Create Research Project Workspace
-          </h1>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-            Set up your clinical or health research investigation with structured academic scaffolding.
+        {/* Header + Stepper */}
+        <div className="mb-7">
+          <h1 className="text-xl font-bold tracking-tight text-foreground">New research project</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Set up your workspace in two quick steps.
           </p>
 
-          <div className="mt-6 flex items-center justify-between relative">
-            <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-200 dark:bg-slate-800 -translate-y-1/2 z-0" />
+          <div className="mt-5 flex items-center gap-3">
             {[
-              { num: 1, label: "Template & Scope" },
-              { num: 2, label: "Hypothesis & Protocol" },
-              { num: 3, label: "Ethics & Team" },
-              { num: 4, label: "Review & Launch" },
-            ].map((s) => {
+              { num: 1, label: "Scope & template" },
+              { num: 2, label: "Details & team" },
+            ].map((s, i) => {
               const isActive = step === s.num;
               const isPast = step > s.num;
               return (
-                <div key={s.num} className="relative z-10 flex flex-col items-center">
-                  <button
-                    onClick={() => s.num < step && setStep(s.num)}
-                    className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all ${
-                      isPast
-                        ? "bg-emerald-600 text-white"
-                        : isActive
-                        ? "bg-primary text-white ring-4 ring-indigo-100 dark:ring-indigo-900/40"
-                        : "bg-white dark:bg-slate-800 text-slate-500 border border-slate-300 dark:border-slate-700"
-                    }`}
-                  >
-                    {isPast ? <Check className="w-4 h-4" /> : s.num}
-                  </button>
-                  <span
-                    className={`text-[11px] mt-1.5 font-medium hidden sm:block ${
-                      isActive ? "text-primary dark:text-primary font-bold" : "text-slate-500"
-                    }`}
-                  >
-                    {s.label}
-                  </span>
+                <div key={s.num} className="flex items-center gap-2">
+                  {i > 0 && <div className="h-px w-8 bg-border" />}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => s.num < step && setStep(s.num)}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
+                        isPast
+                          ? "bg-emerald-500 text-white"
+                          : isActive
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      {isPast ? <Check className="w-3.5 h-3.5" /> : s.num}
+                    </button>
+                    <span className={`text-sm font-medium ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
+                      {s.label}
+                    </span>
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* Error Alert */}
+        {/* Error */}
         {error && (
-          <div className="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 flex items-center gap-3 text-rose-700 dark:text-rose-300 text-sm">
-            <AlertCircle className="w-5 h-5 shrink-0" />
-            <span>{error}</span>
+          <div className="mb-5 flex items-center gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            {error}
           </div>
         )}
 
-        {/* Step Cards Container */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-xs">
-          {/* STEP 1: Template & Fundamentals */}
+        {/* Card */}
+        <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
+          {/* STEP 1 */}
           {step === 1 && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-1.5">
-                  Project Title <span className="text-rose-500">*</span>
+                <label className="block text-sm font-medium text-foreground mb-1.5">
+                  Project title <span className="text-destructive">*</span>
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Prevalence and Determinants of Diabetic Retinopathy in Sub-Saharan Urban Clinics"
+                  placeholder="e.g. Prevalence of Hypertension in Urban Clinics"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm"
+                  className="w-full rounded-md border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-1.5">
-                    Clinical Discipline / Category
+                  <label className="block text-sm font-medium text-foreground mb-1.5">
+                    Discipline
                   </label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                    className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     {CATEGORIES.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
+                      <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
                 </div>
-
                 <div>
-                  <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-1.5">
-                    Affiliated Institution / Hospital
+                  <label className="block text-sm font-medium text-foreground mb-1.5">
+                    Institution
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Addis Ababa University / Black Lion Hospital"
+                    placeholder="e.g. Addis Ababa University"
                     value={institution}
                     onChange={(e) => setInstitution(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                    className="w-full rounded-md border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   />
                 </div>
               </div>
 
-              {/* Template Selection Grid */}
+              {/* Study Design */}
               <div>
-                <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
-                  Select Study Design & Lifecycle Template
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Study design template
                 </label>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
-                  Each template auto-configures tailored research phases, milestones, standard task checklists, and file directories.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {TEMPLATES.map((tmpl) => {
                     const Icon = tmpl.icon;
                     const isSelected = template === tmpl.id;
@@ -342,58 +293,37 @@ export default function NewProjectPage() {
                       <button
                         key={tmpl.id}
                         type="button"
-                        aria-pressed={isSelected}
                         onClick={() => setTemplate(tmpl.id)}
-                        className={`w-full cursor-pointer p-4 rounded-xl border transition-all text-left ${
+                        className={`flex items-start gap-3 p-3.5 rounded-lg border text-left transition-colors ${
                           isSelected
-                            ? "border-primary bg-primary/5/40 dark:bg-indigo-950/30 ring-2 ring-primary/20"
-                            : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50"
+                            ? "border-primary bg-primary/5 ring-1 ring-primary/20"
+                            : "border-border hover:bg-muted/40"
                         }`}
                       >
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="flex items-center gap-2.5">
-                            <div
-                              className={`p-2 rounded-lg ${
-                                isSelected
-                                  ? "bg-primary text-white"
-                                  : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
-                              }`}
-                            >
-                              <Icon className="w-4 h-4" />
-                            </div>
-                            <div>
-                              <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">
-                                {tmpl.title}
-                              </h4>
-                              <span className="text-[10px] font-semibold text-primary dark:text-primary">
-                                {tmpl.badge}
-                              </span>
-                            </div>
+                        <div className={`mt-0.5 p-1.5 rounded-md shrink-0 ${isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                          <Icon className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-1.5 mb-0.5">
+                            <span className="text-xs font-semibold text-foreground leading-tight">{tmpl.title}</span>
                           </div>
-                          {isSelected && <Check className="w-4 h-4 text-primary dark:text-primary shrink-0" />}
+                          <p className="text-[11px] text-muted-foreground leading-snug">{tmpl.description}</p>
                         </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2.5 line-clamp-2 leading-relaxed">
-                          {tmpl.description}
-                        </p>
-                        <div className="mt-3 text-[11px] font-medium text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
-                          <span>{tmpl.scaffoldCount}</span>
-                        </div>
+                        {isSelected && <Check className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5 ml-auto" />}
                       </button>
                     );
                   })}
                 </div>
               </div>
 
-              {/* Workspace Privacy */}
+              {/* Visibility */}
               <div>
-                <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
-                  Workspace Visibility
-                </label>
-                <div className="grid grid-cols-3 gap-3">
+                <label className="block text-sm font-medium text-foreground mb-2">Visibility</label>
+                <div className="grid grid-cols-3 gap-2">
                   {([
-                    { id: "TEAM", title: "Team Only", desc: "Invited researchers only", icon: Lock },
-                    { id: "PRIVATE", title: "Confidential", desc: "Strict access control", icon: Lock },
-                    { id: "PUBLIC", title: "Open Science", desc: "Discoverable protocol", icon: Globe2 },
+                    { id: "TEAM", title: "Team only", icon: Lock },
+                    { id: "PRIVATE", title: "Private", icon: Lock },
+                    { id: "PUBLIC", title: "Open science", icon: Globe2 },
                   ] as const).map((v) => {
                     const Icon = v.icon;
                     return (
@@ -401,17 +331,14 @@ export default function NewProjectPage() {
                         type="button"
                         key={v.id}
                         onClick={() => setVisibility(v.id)}
-                        className={`p-3 rounded-xl border text-left transition-all ${
+                        className={`flex flex-col items-center gap-1.5 p-3 rounded-lg border text-center transition-colors ${
                           visibility === v.id
-                            ? "border-primary bg-primary/5/40 dark:bg-indigo-950/20 text-indigo-950 dark:text-indigo-200"
-                            : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
+                            ? "border-primary bg-primary/5 ring-1 ring-primary/20 text-foreground"
+                            : "border-border hover:bg-muted/40 text-muted-foreground"
                         }`}
                       >
-                        <div className="flex items-center gap-1.5 font-bold text-xs">
-                          <Icon className="w-3.5 h-3.5" />
-                          {v.title}
-                        </div>
-                        <div className="text-[10px] mt-0.5 text-slate-500">{v.desc}</div>
+                        <Icon className="w-4 h-4" />
+                        <span className="text-xs font-medium">{v.title}</span>
                       </button>
                     );
                   })}
@@ -420,162 +347,108 @@ export default function NewProjectPage() {
             </div>
           )}
 
-          {/* STEP 2: Hypothesis & Protocol */}
+          {/* STEP 2 */}
           {step === 2 && (
             <div className="space-y-6">
+              {/* Research question - optional */}
               <div>
-                <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-1.5">
-                  Primary Research Question / Hypothesis
-                </label>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
-                  State your primary inquiry in PICO format (Population, Intervention/Exposure, Comparator, Outcome) or scientific hypothesis.
-                </p>
-                <textarea
-                  rows={4}
-                  placeholder="e.g. In adult patients with type 2 diabetes residing in urban healthcare catchment areas, does community-based peer support compared to standard care improve glycemic control (HbA1c < 7.0%) over 12 months?"
-                  value={researchQuestion}
-                  onChange={(e) => setResearchQuestion(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-1.5">
-                  Primary Objective
+                <label className="block text-sm font-medium text-foreground mb-1.5">
+                  Research question <span className="text-muted-foreground font-normal">(optional)</span>
                 </label>
                 <textarea
                   rows={3}
-                  placeholder="e.g. To estimate the prevalence of undiagnosed hypertension and identify its associated socio-demographic and dietary correlates among adults attending primary health centers."
-                  value={objective}
-                  onChange={(e) => setObjective(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                  placeholder="State your primary inquiry or PICO question..."
+                  value={researchQuestion}
+                  onChange={(e) => setResearchQuestion(e.target.value)}
+                  className="w-full rounded-md border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-1.5">
-                  Specific Sub-Specialty or Field
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. Non-Communicable Diseases, Primary Care Epidemiology"
-                  value={researchArea}
-                  onChange={(e) => setResearchArea(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
-                />
-              </div>
-            </div>
-          )}
-
-          {/* STEP 3: Ethics & Collaborators */}
-          {step === 3 && (
-            <div className="space-y-6">
-              {/* Ethics / IRB Box */}
-              <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-                <div className="flex items-center gap-2 text-indigo-700 dark:text-primary font-semibold text-xs mb-3 uppercase tracking-wider">
-                  <ShieldCheck className="w-4 h-4" />
-                  Ethics & Institutional Review Board (IRB)
+              {/* Ethics */}
+              <div className="rounded-lg border border-border p-4">
+                <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  IRB / Ethics (optional)
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                      Ethics Committee
-                    </label>
+                    <label className="block text-xs font-medium text-foreground mb-1">Committee</label>
                     <input
                       type="text"
-                      placeholder="e.g. AAU IRB or MOH Review"
+                      placeholder="e.g. AAU IRB"
                       value={ethicsCommittee}
                       onChange={(e) => setEthicsCommittee(e.target.value)}
-                      className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+                      className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                      Approval / Ref Number
-                    </label>
+                    <label className="block text-xs font-medium text-foreground mb-1">Approval number</label>
                     <input
                       type="text"
                       placeholder="e.g. IRB/2026/049"
                       value={ethicsApprovalNumber}
                       onChange={(e) => setEthicsApprovalNumber(e.target.value)}
-                      className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                      Approval Date
-                    </label>
-                    <input
-                      type="date"
-                      value={ethicsApprovalDate}
-                      onChange={(e) => setEthicsApprovalDate(e.target.value)}
-                      className="w-full px-3 py-2 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+                      className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                     />
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-2">
-                  If pending, you can leave these blank and record approval once granted.
-                </p>
+                <p className="text-[11px] text-muted-foreground mt-2">You can add these later once approval is granted.</p>
               </div>
 
-              {/* Invite Initial Collaborators */}
+              {/* Invite team */}
               <div>
-                <label className="block text-sm font-semibold text-slate-900 dark:text-white mb-1.5">
-                  Invite Initial Co-Investigators & Team
+                <label className="block text-sm font-medium text-foreground mb-1.5">
+                  Invite team <span className="text-muted-foreground font-normal">(optional)</span>
                 </label>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
-                  Assign appropriate research roles. Patient and health data access is segregated based on role clearances.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-2 mb-3">
+                <div className="flex gap-2 mb-2">
                   <input
                     type="email"
-                    placeholder="collaborator@university.edu"
+                    placeholder="colleague@university.edu"
                     value={newInviteEmail}
                     onChange={(e) => setNewInviteEmail(e.target.value)}
-                    className="flex-1 px-3.5 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950"
+                    onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addInvite())}
+                    className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   />
                   <select
                     value={newInviteRole}
                     onChange={(e) => setNewInviteRole(e.target.value)}
-                    className="px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950"
+                    className="rounded-md border border-input bg-background px-2.5 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
-                    <option value="PRINCIPAL_INVESTIGATOR">Co-Principal Investigator</option>
-                    <option value="RESEARCHER">Co-Investigator / Researcher</option>
-                    <option value="DATA_ANALYST">Biostatistician / Data Analyst</option>
-                    <option value="RESEARCH_ASSISTANT">Research Assistant / Coordinator</option>
-                    <option value="ADVISOR_VIEWER">Academic Advisor / Reviewer</option>
+                    <option value="PRINCIPAL_INVESTIGATOR">Co-PI</option>
+                    <option value="RESEARCHER">Researcher</option>
+                    <option value="DATA_ANALYST">Data Analyst</option>
+                    <option value="RESEARCH_ASSISTANT">Assistant</option>
+                    <option value="ADVISOR_VIEWER">Advisor</option>
                   </select>
                   <button
                     type="button"
                     onClick={addInvite}
-                    className="px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-1"
+                    className="inline-flex items-center gap-1 px-3 py-2 rounded-md border border-border bg-background text-sm font-medium text-foreground hover:bg-muted transition-colors"
                   >
-                    <Plus className="w-3.5 h-3.5" />
-                    Add
+                    <Plus className="w-4 h-4" />
                   </button>
                 </div>
 
                 {invites.length > 0 && (
-                  <div className="space-y-1.5 max-h-48 overflow-y-auto">
+                  <div className="space-y-1.5">
                     {invites.map((inv, idx) => (
                       <div
                         key={idx}
-                        className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 text-xs"
+                        className="flex items-center justify-between p-2.5 rounded-md border border-border bg-muted/30 text-sm"
                       >
-                        <span className="font-medium text-slate-800 dark:text-slate-200">{inv.email}</span>
+                        <span className="font-medium text-foreground">{inv.email}</span>
                         <div className="flex items-center gap-2">
-                          <span className="px-2 py-0.5 rounded-md bg-primary/5 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-semibold text-[10px]">
+                          <span className="text-xs text-muted-foreground">
                             {inv.role.replace(/_/g, " ")}
                           </span>
                           <button
                             type="button"
                             onClick={() => removeInvite(idx)}
-                            className="text-slate-400 hover:text-rose-500"
+                            className="text-muted-foreground hover:text-destructive transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -584,95 +457,50 @@ export default function NewProjectPage() {
             </div>
           )}
 
-          {/* STEP 4: Review & Launch */}
-          {step === 4 && (
-            <div className="space-y-6">
-              <div className="p-4 rounded-xl bg-primary/5/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40">
-                <div className="flex items-center gap-2 font-bold text-sm text-indigo-900 dark:text-indigo-300 mb-1">
-                  <Sparkles className="w-4 h-4 text-primary dark:text-primary" />
-                  Ready to Auto-Scaffold Project Workspace
-                </div>
-                <p className="text-xs text-indigo-700 dark:text-indigo-300 leading-relaxed">
-                  Upon creation, Tinat will initialize your workspace with the pre-configured academic lifecycle, standard milestones, initial tasks, and organized research folders.
-                </p>
-              </div>
-
-              {/* Project Summary Card */}
-              <div className="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
-                <div className="py-2.5 flex items-center justify-between">
-                  <span className="text-slate-500">Project Title:</span>
-                  <span className="font-bold text-slate-900 dark:text-white max-w-sm text-right">{title}</span>
-                </div>
-                <div className="py-2.5 flex items-center justify-between">
-                  <span className="text-slate-500">Study Design:</span>
-                  <span className="font-semibold text-primary dark:text-primary">
-                    {TEMPLATES.find((t) => t.id === template)?.title}
-                  </span>
-                </div>
-                <div className="py-2.5 flex items-center justify-between">
-                  <span className="text-slate-500">Discipline / Institution:</span>
-                  <span className="text-slate-700 dark:text-slate-300">
-                    {category} {institution ? `• ${institution}` : ""}
-                  </span>
-                </div>
-                <div className="py-2.5 flex items-center justify-between">
-                  <span className="text-slate-500">Invited Collaborators:</span>
-                  <span className="font-medium text-slate-700 dark:text-slate-300">
-                    {invites.length} collaborator{invites.length !== 1 ? "s" : ""}
-                  </span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Navigation Buttons */}
-          <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+          {/* Nav Buttons */}
+          <div className="mt-8 pt-5 border-t border-border flex items-center justify-between">
             {step > 1 ? (
               <button
                 type="button"
                 onClick={() => setStep(step - 1)}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                Previous Step
+                <ArrowLeft className="w-4 h-4" />
+                Back
               </button>
             ) : (
               <div />
             )}
 
-            {step < 4 ? (
+            {step < 2 ? (
               <button
                 type="button"
                 onClick={() => {
-                  if (step === 1 && !title.trim()) {
+                  if (!title.trim()) {
                     setError("Please enter a project title before continuing.");
                     return;
                   }
                   setError(null);
-                  setStep(step + 1);
+                  setStep(2);
                 }}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold text-xs shadow-xs transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
               >
                 Continue
-                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             ) : (
               <button
                 type="button"
                 disabled={submitting}
                 onClick={handleLaunch}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-xs shadow-md shadow-indigo-600/20 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
               >
                 {submitting ? (
                   <>
-                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Initializing Workspace...
+                    <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+                    Creating...
                   </>
                 ) : (
-                  <>
-                    <Sparkles className="w-4 h-4" />
-                    Launch Research Workspace
-                  </>
+                  "Launch workspace"
                 )}
               </button>
             )}
