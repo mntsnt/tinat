@@ -103,16 +103,21 @@ export default function SettingsPage({ user }: { user: UserData }) {
 
   return (
     <div className="mx-auto flex h-full min-h-0 w-full max-w-6xl flex-col overflow-hidden px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
-      <header className="mb-4 shrink-0 sm:mb-6">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-          Account
-        </p>
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-          Settings
-        </h1>
-        <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">
-          Manage your profile, account details, and appearance in one place.
-        </p>
+      <header className="mb-4 flex shrink-0 items-start justify-between gap-4 sm:mb-6">
+        <div>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+            Account
+          </p>
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+            Settings
+          </h1>
+          <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">
+            Manage your profile, account details, and appearance in one place.
+          </p>
+        </div>
+        <div className="flex shrink-0 items-center gap-2 pt-1">
+          <ThemeToggle />
+        </div>
       </header>
 
       <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[220px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-6">

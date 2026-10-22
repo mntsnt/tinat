@@ -13,19 +13,27 @@ type ProjectsLayoutShellProps = {
     email: string;
     avatarUrl: string | null;
   };
+  roleTitle?: string;
+  roleColor?: "participant" | "researcher" | "admin";
 };
 
-export function ProjectsLayoutShell({ children, links, user }: ProjectsLayoutShellProps) {
+export function ProjectsLayoutShell({
+  children,
+  links,
+  user,
+  roleTitle = "Researcher",
+  roleColor = "researcher",
+}: ProjectsLayoutShellProps) {
   return (
     <div className="flex h-screen flex-col overflow-hidden md:flex-row">
       <Sidebar
         links={links}
-        roleTitle="Researcher"
+        roleTitle={roleTitle}
         userId={user.id}
         userName={user.name}
         userEmail={user.email}
         avatarUrl={user.avatarUrl}
-        roleColor="researcher"
+        roleColor={roleColor}
       />
       <main className="min-h-0 min-w-0 flex-1 overflow-y-auto bg-muted/10">
         {children}

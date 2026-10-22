@@ -133,10 +133,10 @@ export function Sidebar({
     <nav className="flex-1 space-y-0.5 overflow-y-auto px-2.5 py-3">
       {links.map((link) => {
         const isExact = pathname === link.href;
-        const isPrefix = link.href.split("/").length > 2 && pathname.startsWith(link.href + "/");
+        const isPrefix = link.href !== "/" && (pathname.startsWith(link.href + "/") || pathname.startsWith(link.href + "?"));
         let isActive = isExact || isPrefix;
 
-        if (!isExact && links.some((l) => pathname === l.href)) {
+        if (!isExact && links.some((l) => l.href !== link.href && (pathname === l.href || pathname.startsWith(l.href + "/")))) {
           isActive = false;
         }
 
@@ -179,7 +179,7 @@ export function Sidebar({
     const collapsed = !mobile && isCollapsed;
     
     return (
-    <div className="relative border-t border-border p-2.5">
+    <div className="relative border-t border-border p-2.5 shrink-0">
       {accountMenuOpen && (
         <div
           role="menu"
@@ -287,7 +287,7 @@ export function Sidebar({
     const collapsed = !mobile && isCollapsed;
     
     return (
-    <div className={cn("border-b border-border py-3 flex items-center", collapsed ? "px-0 justify-center h-16" : "px-3.5 h-16")}>
+    <div className={cn("border-b border-border py-3 flex items-center shrink-0", collapsed ? "px-0 justify-center h-16" : "px-3.5 h-16")}>
       <Link href="/" className={cn("flex items-center transition-opacity hover:opacity-80", collapsed ? "justify-center" : "gap-2.5")}>
         <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-black text-xs font-bold text-white dark:bg-white dark:text-black">
           T
@@ -314,7 +314,7 @@ export function Sidebar({
     <>
       {/* Desktop Sidebar */}
       <aside className={cn(
-        "hidden min-h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex transition-all duration-300 ease-in-out",
+        "hidden h-screen sticky top-0 shrink-0 flex-col border-r border-border bg-card/70 md:flex transition-all duration-300 ease-in-out",
         isCollapsed ? "w-16" : "w-56"
       )}>
         {renderSidebarHeader()}

@@ -45,7 +45,7 @@ export default async function AskLayout({ children }: { children: ReactNode }) {
         avatarUrl={user.avatarUrl}
         roleColor={roleColor}
       />
-      <main className="flex-1 overflow-y-auto bg-muted/10">
+      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto bg-muted/10">
         {children}
       </main>
     </div>

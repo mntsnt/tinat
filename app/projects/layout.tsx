@@ -17,16 +17,38 @@ export default async function ProjectsLayout({ children }: { children: ReactNode
     select: { id: true, role: true, name: true, email: true, avatarUrl: true },
   });
 
-  if (!user || user.role !== "RESEARCHER") {
-    redirect("/dashboard");
+  if (!user) {
+    redirect("/login");
   }
 
-  const links = getLinksForUser(user);
+  const verification = await prisma.verification.findUnique({
+    where: {
+      userId_verificationType: {
+        userId: user.id,
+        verificationType: "DATA_COLLECTOR"
+      }
+    }
+  });
+
+  const links = getLinksForUser({ ...user, isCollector: verification?.status === "VERIFIED" });
+
+  let roleTitle = "Participant";
+  let roleColor: "participant" | "researcher" | "admin" = "participant";
+
+  if (user.role === "RESEARCHER") {
+    roleTitle = "Researcher";
+    roleColor = "researcher";
+  } else if (user.role === "ADMIN") {
+    roleTitle = "Admin";
+    roleColor = "admin";
+  }
 
   return (
     <ProjectsLayoutShell
       links={links}
       user={{ id: user.id, name: user.name, email: user.email, avatarUrl: user.avatarUrl }}
+      roleTitle={roleTitle}
+      roleColor={roleColor}
     >
       {children}
     </ProjectsLayoutShell>

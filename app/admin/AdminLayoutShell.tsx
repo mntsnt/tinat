@@ -31,7 +31,7 @@ export function AdminLayoutShell({ children, links, user }: AdminLayoutShellProp
         avatarUrl={user.avatarUrl}
         roleColor="admin"
       />
-      <main className={`min-w-0 flex-1 bg-muted/10 ${isCommunityChat ? "min-h-0 overflow-hidden" : "overflow-y-auto"}`}>
+      <main className={`min-h-0 min-w-0 flex-1 bg-muted/10 ${isCommunityChat ? "overflow-hidden" : "overflow-y-auto"}`}>
         {children}
       </main>
     </div>

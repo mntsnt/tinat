@@ -47,7 +47,7 @@ export default async function ParticipantLayout({ children }: { children: ReactN
         avatarUrl={user.avatarUrl}
         roleColor="participant"
       />
-      <main className="min-h-0 flex-1 overflow-y-auto bg-muted/10">
+      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto bg-muted/10">
         {children}
       </main>
     </div>
