@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
 import { Badge } from "../../../components/ui/Badge";
-import { Heart, MessageSquare, Copy, Send, Reply, X } from "lucide-react";
+import { Copy } from "lucide-react";
 import { StudyBanner } from "../../../components/studies/StudyBanner";
 
 type Option = {
@@ -86,91 +86,7 @@ export default function StudyQuestionnaire({
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  const [hasLiked, setHasLiked] = useState(
-    initialHasLiked !== undefined
-      ? initialHasLiked
-      : (study.likes ? study.likes.some((l) => l.userId === currentUserId) : false)
-  );
-  const [likeCount, setLikeCount] = useState(
-    initialLikeCount !== undefined
-      ? initialLikeCount
-      : (study.likes ? study.likes.length : 0)
-  );
-  const [comments, setComments] = useState<StudyComment[]>(study.comments || []);
-  const [newComment, setNewComment] = useState("");
-  const [commenting, setCommenting] = useState(false);
   const [copied, setCopied] = useState(false);
-
-  async function handleToggleLike() {
-    setHasLiked(!hasLiked);
-    setLikeCount(hasLiked ? likeCount - 1 : likeCount + 1);
-    try {
-      await fetch(`/api/auth/studies/${study.id}/like`, { method: "POST" });
-    } catch (err) {
-      // Revert if error
-      setHasLiked(hasLiked);
-      setLikeCount(likeCount);
-    }
-  }
-
-  const [replyingToId, setReplyingToId] = useState<string | null>(null);
-  const [replyText, setReplyText] = useState("");
-  const [replying, setReplying] = useState(false);
-
-  async function handlePostComment() {
-    if (!newComment.trim()) return;
-    setCommenting(true);
-    try {
-      const res = await fetch(`/api/auth/studies/${study.id}/comment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: newComment }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setComments([{ ...data.comment, replies: [] }, ...comments]);
-        setNewComment("");
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setCommenting(false);
-    }
-  }
-
-  async function handlePostReply(parentId: string) {
-    if (!replyText.trim()) return;
-    setReplying(true);
-    try {
-      const res = await fetch(`/api/auth/studies/${study.id}/comment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: replyText.trim(), parentId }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setComments((prevComments) =>
-          prevComments.map((c) => {
-            if (c.id === parentId) {
-              return {
-                ...c,
-                replies: [...(c.replies || []), data.comment],
-              };
-            }
-            return c;
-          })
-        );
-        setReplyText("");
-        setReplyingToId(null);
-      }
-    } catch (err) {
-      console.error("Failed to post reply:", err);
-    } finally {
-      setReplying(false);
-    }
-  }
-
   function handleCopyLink() {
     // Determine base URL dynamically (works on client-side)
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
@@ -566,42 +482,26 @@ export default function StudyQuestionnaire({
           </p>
         )}
 
-        <div className="mt-4 flex items-center gap-2 pt-4 border-t border-border text-muted-foreground">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className={`gap-2 rounded-full hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950/50 ${hasLiked ? 'text-red-500' : ''}`}
-            onClick={handleToggleLike}
-          >
-            <Heart className={`w-[18px] h-[18px] ${hasLiked ? 'fill-current text-red-500' : ''}`} />
-            <span className="text-sm font-medium">{likeCount > 0 ? likeCount : 'Like'}</span>
-          </Button>
-          
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="gap-2 rounded-full hover:bg-primary/5 hover:text-primary dark:hover:bg-blue-950/50" 
-            onClick={() => document.getElementById('comments-section')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            <MessageSquare className="w-[18px] h-[18px]" />
-            <span className="text-sm font-medium">{comments.length > 0 ? comments.length : 'Comment'}</span>
-          </Button>
-
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="gap-2 rounded-full hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100 ml-auto" 
+        <div className="mt-4 flex items-center justify-between pt-3 border-t border-border text-xs text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            Active Survey · Responses are anonymous and secure
+          </span>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="gap-1.5 rounded-md hover:bg-muted text-xs h-8 text-muted-foreground hover:text-foreground"
             onClick={handleCopyLink}
           >
             {copied ? (
               <>
-                <span className="text-success text-xs font-medium mr-1">Copied!</span>
-                <Copy className="w-[18px] h-[18px] text-success" />
+                <span className="text-emerald-600 font-medium">Link Copied!</span>
+                <Copy className="w-3.5 h-3.5 text-emerald-600" />
               </>
             ) : (
               <>
-                <Copy className="w-[18px] h-[18px]" />
-                <span className="text-sm font-medium hidden sm:inline-block">Copy Link</span>
+                <Copy className="w-3.5 h-3.5" />
+                <span>Share Form</span>
               </>
             )}
           </Button>
@@ -655,150 +555,6 @@ export default function StudyQuestionnaire({
         </form>
       )}
 
-      {/* Comments Section */}
-      <div id="comments-section" className="mt-12 pt-8 border-t border-border">
-        <h3 className="text-xl font-bold mb-6">Discussion</h3>
-        
-        <div className="flex gap-3 mb-8">
-          <Input 
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Add a comment or ask the researcher..."
-            className="flex-1 bg-card"
-            onKeyDown={(e) => e.key === 'Enter' && handlePostComment()}
-          />
-          <Button onClick={handlePostComment} disabled={!newComment.trim() || commenting} className="gap-2">
-            <Send className="w-4 h-4" />
-            Post
-          </Button>
-        </div>
-
-        <div className="space-y-6">
-          {comments.length === 0 ? (
-            <p className="text-muted-foreground text-center py-6 bg-muted/30 rounded-lg">No comments yet. Be the first to start the discussion!</p>
-          ) : (
-            comments.map(comment => (
-              <div key={comment.id} className="space-y-3">
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
-                    {comment.user.avatarUrl ? (
-                      <img src={comment.user.avatarUrl} alt={comment.user.name} className="w-full h-full rounded-full object-cover" />
-                    ) : (
-                      <span className="font-semibold text-primary">{comment.user.name.charAt(0).toUpperCase()}</span>
-                    )}
-                  </div>
-                  <div className="flex-1 bg-card rounded-2xl rounded-tl-none p-4 border border-border shadow-sm">
-                    <div className="flex items-baseline justify-between gap-4 mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold text-sm">{comment.user.name}</span>
-                        {comment.user.role === "RESEARCHER" && (
-                          <span className="text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                            Researcher
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-xs text-muted-foreground">{new Date(comment.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
-                    </div>
-                    <p className="text-sm text-foreground/90 whitespace-pre-wrap">{comment.text}</p>
-                    
-                    <div className="mt-3 pt-2 border-t border-border/50 flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (replyingToId === comment.id) {
-                            setReplyingToId(null);
-                            setReplyText("");
-                          } else {
-                            setReplyingToId(comment.id);
-                            setReplyText("");
-                          }
-                        }}
-                        className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        <Reply className="w-3.5 h-3.5" />
-                        Reply
-                      </button>
-                    </div>
-
-                    {/* Inline reply box */}
-                    {replyingToId === comment.id && (
-                      <div className="mt-3 pt-3 border-t border-border flex flex-col gap-2">
-                        <div className="flex items-center justify-between text-xs text-muted-foreground">
-                          <span>Replying to <strong className="text-foreground">{comment.user.name}</strong></span>
-                          <button
-                            type="button"
-                            onClick={() => { setReplyingToId(null); setReplyText(""); }}
-                            className="p-1 hover:text-foreground rounded"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                        <div className="flex gap-2">
-                          <Input
-                            value={replyText}
-                            onChange={(e) => setReplyText(e.target.value)}
-                            placeholder={`Reply to ${comment.user.name}...`}
-                            className="h-9 text-xs bg-muted/30 flex-1"
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter' && !e.shiftKey) {
-                                e.preventDefault();
-                                handlePostReply(comment.id);
-                              }
-                            }}
-                            autoFocus
-                          />
-                          <Button
-                            size="sm"
-                            onClick={() => handlePostReply(comment.id)}
-                            disabled={!replyText.trim() || replying}
-                            className="h-9 px-3 text-xs gap-1.5"
-                          >
-                            <Send className="w-3 h-3" />
-                            {replying ? "Replying..." : "Reply"}
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Nested Threaded Replies */}
-                {comment.replies && comment.replies.length > 0 && (
-                  <div className="pl-10 sm:pl-14 space-y-3">
-                    {comment.replies.map(reply => (
-                      <div key={reply.id} className="flex gap-3">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 text-xs font-semibold text-primary">
-                          {reply.user.avatarUrl ? (
-                            <img src={reply.user.avatarUrl} alt={reply.user.name} className="w-full h-full rounded-full object-cover" />
-                          ) : (
-                            reply.user.name.charAt(0).toUpperCase()
-                          )}
-                        </div>
-                        <div className="flex-1 bg-muted/40 rounded-2xl rounded-tl-none p-3.5 border border-border">
-                          <div className="flex items-baseline justify-between gap-3 mb-1.5">
-                            <div className="flex items-center gap-1.5">
-                              <span className="font-semibold text-xs text-foreground">{reply.user.name}</span>
-                              {reply.user.role === "RESEARCHER" && (
-                                <span className="text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.2 rounded-full border border-emerald-500/20">
-                                  Researcher
-                                </span>
-                              )}
-                            </div>
-                            <span className="text-[11px] text-muted-foreground">
-                              {new Date(reply.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                            </span>
-                          </div>
-                          <p className="text-xs text-foreground/90 whitespace-pre-wrap leading-relaxed">{reply.text}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))
-          )}
-        </div>
-      </div>
     </div>
   );
 }

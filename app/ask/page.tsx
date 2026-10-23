@@ -98,7 +98,7 @@ export default async function AskPage() {
           Introducing Tinat Ask • Anonymous Social Q&A
         </div>
 
-        <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-foreground max-w-3xl mx-auto leading-[1.1]">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground max-w-3xl mx-auto leading-snug">
           Ask Anything. <br />
           <span className="bg-primary bg-clip-text text-transparent">
             Answer What Matters.

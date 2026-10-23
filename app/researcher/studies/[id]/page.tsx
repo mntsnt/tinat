@@ -10,6 +10,7 @@ import { Button, getButtonClasses } from "../../../components/ui/Button";
 import { AIAnalysisTab } from "./AIAnalysisTab";
 import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
+import { StudyShareLink } from "./StudyShareLink";
 import { Star, Paperclip } from "lucide-react";
 
 type Props = {
@@ -183,49 +184,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
             </Card>
           )}
 
-          <StudyEngagement
-            studyId={study.id}
-            initialLikeCount={study.likes.length}
-            initialCommentCount={totalComments}
-            initiallyLiked={currentUserLiked}
-          />
-
-          <Card>
-          <CardHeader className="flex flex-row items-center justify-between gap-4">
-            <div>
-              <CardTitle>Participant discussion</CardTitle>
-              <CardDescription>Recent comments and feedback on this study.</CardDescription>
-            </div>
-            <Link
-              href={`/researcher/studies/${study.id}?view=discussion#study-discussion`}
-              className="shrink-0 text-sm font-medium text-primary hover:underline"
-            >
-              View all
-            </Link>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {study.comments.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No comments yet. Start the discussion above.</p>
-            ) : (
-              study.comments.slice(0, 3).map((comment) => (
-                <article key={comment.id} className="rounded-lg border border-border bg-muted/20 p-3">
-                  <div className="mb-1 flex items-center justify-between gap-3">
-                    <span className="text-sm font-medium text-foreground">{comment.user.name}</span>
-                    <span className="text-xs text-muted-foreground">
-                      {new Date(comment.createdAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
-                    </span>
-                  </div>
-                  <p className="line-clamp-2 whitespace-pre-wrap text-sm text-muted-foreground">{comment.text}</p>
-                  {comment.replies.length > 0 && (
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      {comment.replies.length} {comment.replies.length === 1 ? "reply" : "replies"}
-                    </p>
-                  )}
-                </article>
-              ))
-            )}
-          </CardContent>
-        </Card>
+          <StudyShareLink studyId={study.id} />
 
           <div className="grid gap-6 md:grid-cols-3">
         <Card className="md:col-span-2">

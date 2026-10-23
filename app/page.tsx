@@ -74,26 +74,26 @@ export default async function Home() {
                 Medical & Health Research Ecosystem
               </div>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15]">
                 Advance health research.<br />
                 <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 bg-clip-text text-transparent">
                   Collect verified data.
                 </span>
               </h1>
 
-              <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
                 Tinat is the specialized platform built for medical researchers, universities, clinicians, and NGOs. Conduct formal funded clinical studies with participant incentives or publish open health questionnaires completely free.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <Link href="/researcher/studies/new">
-                  <Button size="lg" className="w-full sm:w-auto group rounded-xl px-8 h-14 text-base bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/20">
+                  <Button size="lg" className="w-full sm:w-auto group rounded-xl px-6 h-12 text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20">
                     Create Health Study
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
                 <Link href="/participant/studies">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto rounded-xl px-8 h-14 text-base border-border hover:bg-muted">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto rounded-xl px-6 h-12 text-sm font-semibold border-border hover:bg-muted">
                     Discover Studies
                   </Button>
                 </Link>
@@ -222,7 +222,7 @@ export default async function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6">
             <div>
-              <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+              <p className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
                 {stats.activeStudies.toLocaleString()}
               </p>
               <p className="text-xs font-semibold text-foreground mt-1">Active Studies</p>
@@ -230,7 +230,7 @@ export default async function Home() {
             </div>
 
             <div>
-              <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-emerald-600 dark:text-emerald-400">
+              <p className="text-2xl sm:text-3xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">
                 {stats.totalResponses.toLocaleString()}
               </p>
               <p className="text-xs font-semibold text-foreground mt-1">Verified Responses</p>
@@ -238,7 +238,7 @@ export default async function Home() {
             </div>
 
             <div>
-              <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+              <p className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
                 {stats.totalUsers.toLocaleString()}
               </p>
               <p className="text-xs font-semibold text-foreground mt-1">Platform Members</p>
@@ -246,7 +246,7 @@ export default async function Home() {
             </div>
 
             <div>
-              <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-teal-600 dark:text-teal-400">
+              <p className="text-2xl sm:text-3xl font-bold tracking-tight text-teal-600 dark:text-teal-400">
                 14
               </p>
               <p className="text-xs font-semibold text-foreground mt-1">Health Domains</p>
@@ -263,7 +263,7 @@ export default async function Home() {
             <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
               Two Research Pathways
             </span>
-            <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
               Designed for every health investigation
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg">
@@ -356,7 +356,7 @@ export default async function Home() {
             <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
               Specialized Domains
             </span>
-            <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
               Medical & Health Research Disciplines
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg">

@@ -20,7 +20,6 @@ import { SidebarLink } from "./Sidebar";
 
 export const publicLinks: SidebarLink[] = [
   { title: "Health Studies", href: "/participant/studies", icon: <Microscope /> },
-  { title: "Tinat Ask", href: "/ask", icon: <BrainCircuit /> },
 ];
 
 export const participantLinks: SidebarLink[] = [
@@ -28,22 +27,19 @@ export const participantLinks: SidebarLink[] = [
   { title: "Discover Studies", href: "/participant/studies", icon: <Microscope /> },
   { title: "History", href: "/participant/history", icon: <ClipboardClock /> },
   { title: "Wallet", href: "/participant/wallet", icon: <WalletCards /> },
-  { title: "Tinat Ask", href: "/ask", icon: <BrainCircuit /> },
 ];
 
 export const researcherLinks: SidebarLink[] = [
   { title: "Dashboard", href: "/researcher", icon: <ChartNoAxesCombined /> },
-  { title: "Research Projects", href: "/projects", icon: <Workflow /> },
   { title: "My Studies", href: "/researcher/studies", icon: <BookOpenCheck /> },
-  { title: "Tinat Ask", href: "/ask", icon: <BrainCircuit /> },
+  { title: "Research Projects", href: "/projects", icon: <Workflow /> },
 ];
 
 export const adminLinks: SidebarLink[] = [
   { title: "Overview", href: "/admin", icon: <Radar /> },
-  { title: "Admin Community", href: "/admin/community", icon: <MessageCircleMore /> },
-  { title: "User Management", href: "/admin/users", icon: <ShieldUser /> },
   { title: "Manage Studies", href: "/admin/studies", icon: <ScanSearch /> },
-  { title: "Tinat Ask", href: "/ask", icon: <BrainCircuit /> },
+  { title: "User Management", href: "/admin/users", icon: <ShieldUser /> },
+  { title: "Admin Community", href: "/admin/community", icon: <MessageCircleMore /> },
   { title: "Withdrawals", href: "/admin/withdrawals", icon: <HandCoins /> },
   { title: "Activity Logs", href: "/admin/logs", icon: <ScrollText /> },
 ];
