@@ -1,29 +1,27 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "../../../components/ui/Button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../../components/ui/Card";
-import { Badge } from "../../../components/ui/Badge";
-import { ResearchReportRenderer } from "./ResearchReportRenderer";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { AVAILABLE_MODELS, AIModelId } from "@/lib/ai/models";
+import { ResearchReportRenderer } from "./ResearchReportRenderer";
 import {
   Sparkles,
+  Send,
+  LoaderCircle,
+  Copy,
+  Check,
+  ChevronDown,
+  Trash2,
+  Cpu,
+  Info,
+  ShieldCheck,
+  ArrowDown,
   FileText,
   Users,
   Activity,
   GitCompare,
   AlertTriangle,
-  HelpCircle,
-  Send,
-  Copy,
-  Check,
-  RefreshCw,
-  Info,
-  ShieldCheck,
-  MessageSquare,
   BookOpen,
-  Cpu,
-  Zap,
+  MessageSquare,
 } from "lucide-react";
 
 interface AIAnalysisTabProps {
@@ -44,56 +42,15 @@ interface ChatMessage {
   modelUsed?: string;
 }
 
-const ACTION_BUTTONS = [
-  {
-    id: "summarize_findings",
-    label: "Summarize Findings",
-    icon: FileText,
-    description: "Executive empirical overview with key percentages and outcomes",
-  },
-  {
-    id: "analyze_demographics",
-    label: "Analyze Demographics",
-    icon: Users,
-    description: "Cohort composition, age/sex breakdown, and sample representation",
-  },
-  {
-    id: "identify_patterns",
-    label: "Identify Patterns",
-    icon: Activity,
-    description: "Prominent trends, response clusters, and variance across variables",
-  },
-  {
-    id: "compare_groups",
-    label: "Compare Groups",
-    icon: GitCompare,
-    description: "Subgroup comparisons and cross-tabulated percentage differences",
-  },
-  {
-    id: "analyze_missing_data",
-    label: "Analyze Missing Data",
-    icon: AlertTriangle,
-    description: "Question non-response rates, drop-off patterns, and data quality",
-  },
-  {
-    id: "identify_limitations",
-    label: "Identify Limitations",
-    icon: HelpCircle,
-    description: "Cross-sectional constraints, selection bias, and measurement factors",
-  },
-  {
-    id: "generate_abstract",
-    label: "Draft Academic Abstract",
-    icon: BookOpen,
-    description: "Structured scientific abstract (Background, Methods, Results, Conclusion)",
-  },
-  {
-    id: "generate_discussion",
-    label: "Draft Discussion Points",
-    icon: MessageSquare,
-    description: "Clinical and public health implications and future research directions",
-  },
-] as const;
+const QUICK_ACTIONS = [
+  { id: "summarize_findings", label: "Summarize Findings", icon: FileText, prompt: "Summarize the key findings and descriptive statistics from this study." },
+  { id: "analyze_demographics", label: "Analyze Demographics", icon: Users, prompt: "Analyze the participant demographics, cohort breakdown, and sample representation." },
+  { id: "identify_patterns", label: "Identify Patterns", icon: Activity, prompt: "Identify the most prominent patterns, clusters, and response variances in this dataset." },
+  { id: "compare_groups", label: "Compare Groups", icon: GitCompare, prompt: "Compare responses across participant subgroups and highlight differences." },
+  { id: "analyze_missing_data", label: "Missing Data Audit", icon: AlertTriangle, prompt: "Audit non-response rates, drop-offs, and data quality across questions." },
+  { id: "generate_abstract", label: "Draft Abstract", icon: BookOpen, prompt: "Draft a structured scientific abstract (Background, Methods, Results, Conclusion) from this study data." },
+  { id: "generate_discussion", label: "Discussion Points", icon: MessageSquare, prompt: "Draft clinical and public health discussion points and implications." },
+];
 
 export function AIAnalysisTab({
   studyId,
@@ -104,65 +61,44 @@ export function AIAnalysisTab({
   studyType,
   questionCount = 0,
 }: AIAnalysisTabProps) {
-  const [activeAction, setActiveAction] = useState<string | null>(null);
-  const [loadingAction, setLoadingAction] = useState<string | null>(null);
-  const [analysisResult, setAnalysisResult] = useState<string | null>(null);
-  const [actionLabel, setActionLabel] = useState<string>("");
-  const [resultModelUsed, setResultModelUsed] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<AIModelId>("gemini");
-  const [error, setError] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
-
-  // Chat State
   const [chatInput, setChatInput] = useState("");
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [chatLoading, setChatLoading] = useState(false);
-  const [suggestedQuestions, setSuggestedQuestions] = useState<string[]>([
-    "What are the most significant findings in this study?",
-    "Summarize the participant demographics and cohort representation.",
-    "Which questions had the highest response variance or divergence?",
-    "What potential confounding factors or limitations should be acknowledged?",
-    "Draft key clinical or public health discussion points.",
-  ]);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [hasNewMessagesBelow, setHasNewMessagesBelow] = useState(false);
 
-  const completionRate =
-    participantTarget > 0 ? Math.min(100, Math.round((responsesCount / participantTarget) * 1000) / 10) : null;
+  const messagesViewportRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const isNearBottomRef = useRef(true);
 
-  // Execute One-Click Analysis Action
-  async function runAction(actionId: string, label: string) {
-    setError(null);
-    setLoadingAction(actionId);
-    setActiveAction(actionId);
-    setActionLabel(label);
-
-    try {
-      const res = await fetch("/api/ai/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ studyId, action: actionId, model: selectedModel }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to generate AI analysis.");
-      }
-
-      setAnalysisResult(data.analysis);
-      setResultModelUsed(data.modelUsed || "");
-      if (Array.isArray(data.suggestedQuestions) && data.suggestedQuestions.length > 0) {
-        setSuggestedQuestions(data.suggestedQuestions);
-      }
-    } catch (err: any) {
-      setError(err?.message || "AI Analysis is temporarily unavailable.");
-    } finally {
-      setLoadingAction(null);
+  const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior });
+      setHasNewMessagesBelow(false);
     }
-  }
+  }, []);
 
-  // Send Chat Message to Research Assistant
-  async function handleSendMessage(messageText?: string) {
-    const textToSend = (messageText || chatInput).trim();
+  const handleScroll = useCallback(() => {
+    const el = messagesViewportRef.current;
+    if (!el) return;
+    const distanceToBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+    isNearBottomRef.current = distanceToBottom < 80;
+    if (distanceToBottom < 80) {
+      setHasNewMessagesBelow(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isNearBottomRef.current) {
+      scrollToBottom(chatMessages.length <= 1 ? "auto" : "smooth");
+    }
+  }, [chatMessages, chatLoading, scrollToBottom]);
+
+  // Send message
+  async function handleSendMessage(customPrompt?: string) {
+    const textToSend = (customPrompt || chatInput).trim();
     if (!textToSend || chatLoading) return;
 
     setError(null);
@@ -191,9 +127,8 @@ export function AIAnalysisTab({
       });
 
       const data = await res.json();
-
       if (!res.ok) {
-        throw new Error(data.error || "Failed to receive reply from Research Assistant.");
+        throw new Error(data.error || "Failed to receive reply from AI Assistant.");
       }
 
       const assistantMsg: ChatMessage = {
@@ -206,485 +141,300 @@ export function AIAnalysisTab({
 
       setChatMessages([...newHistory, assistantMsg]);
     } catch (err: any) {
-      setError(err?.message || "Could not complete message with AI Assistant.");
+      setError(err?.message || "Could not complete request with AI Assistant.");
     } finally {
       setChatLoading(false);
     }
   }
 
-  function handleCopyResult() {
-    if (!analysisResult) return;
-    navigator.clipboard.writeText(analysisResult);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  function handleCopy(id: string, text: string) {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
   }
 
   if (responsesCount === 0) {
     return (
-      <Card className="border-dashed">
-        <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-            <Sparkles className="h-6 w-6 text-primary" />
-          </div>
-          <h3 className="text-xl font-semibold text-foreground mb-2">No Empirical Data to Analyze Yet</h3>
-          <p className="text-sm text-muted-foreground max-w-md mb-6 leading-relaxed">
-            AI Research Analysis evaluates verified participant submissions. As soon as participants submit responses to
-            this study, you can generate demographic summaries, cross-tabulations, abstract drafts, and pattern analyses.
-          </p>
-          <div className="flex gap-2 items-center text-xs text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-md border border-border">
-            <Info className="w-4 h-4" />
-            Study currently has 0 recorded submissions.
-          </div>
-        </CardContent>
-      </Card>
+      <div className="rounded-xl border border-dashed border-border bg-card p-12 text-center shadow-xs">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <Sparkles className="h-6 w-6" />
+        </div>
+        <h3 className="mb-2 text-lg font-semibold text-foreground">No Empirical Data to Analyze Yet</h3>
+        <p className="mx-auto mb-6 max-w-md text-sm text-muted-foreground leading-relaxed">
+          The AI Research Assistant analyzes verified participant submissions. As soon as participants submit responses, you can chat with the dataset to generate findings, demographic profiles, and cross-tabulations.
+        </p>
+        <div className="inline-flex items-center gap-2 rounded-md border border-border bg-muted/40 px-3 py-1.5 text-xs text-muted-foreground">
+          <Info className="h-4 w-4" />
+          Study currently has 0 recorded participant submissions.
+        </div>
+      </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      {/* ── Cohort & Study Context Banner ─────────────────────── */}
-      <Card className="border-primary/20 bg-gradient-to-r from-card via-card to-primary/5">
-        <CardHeader className="pb-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="flex h-6 w-6 items-center justify-center rounded bg-black text-white font-bold text-xs shadow-sm">
-                  T
-                </span>
-                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  AI Research Analysis
-                </span>
-                {category && (
-                  <Badge variant="outline" className="text-[11px] font-medium">
-                    {category}
-                  </Badge>
-                )}
-                {studyType && (
-                  <Badge variant="secondary" className="text-[11px] font-medium">
-                    {studyType === "FUNDED" ? "Funded Study" : "Open Research"}
-                  </Badge>
-                )}
-              </div>
-              <CardTitle className="text-2xl font-bold tracking-tight text-foreground">
-                {studyTitle}
-              </CardTitle>
-              <CardDescription className="mt-1 text-sm">
-                Statistical interpretation, pattern detection, and medical research synthesis powered by Google Gemini.
-              </CardDescription>
-            </div>
-
-            <div className="flex items-center gap-4 bg-muted/40 p-3 rounded-xl border border-border shrink-0">
-              <div className="text-center px-2">
-                <div className="text-2xl font-bold text-foreground">{responsesCount}</div>
-                <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">
-                  Participants
-                </div>
-              </div>
-              {participantTarget > 0 && (
-                <>
-                  <div className="h-8 w-px bg-border" />
-                  <div className="text-center px-2">
-                    <div className="text-2xl font-bold text-foreground">{participantTarget}</div>
-                    <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">
-                      Target
-                    </div>
-                  </div>
-                  <div className="h-8 w-px bg-border" />
-                  <div className="text-center px-2">
-                    <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
-                      {completionRate}%
-                    </div>
-                    <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">
-                      Completion
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </CardHeader>
-      </Card>
-
-      {/* ── AI Model Engine Selector ────────────────────────────── */}
-      <div className="bg-card border border-border rounded-2xl p-4 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-          <div className="flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-primary" />
-            <h4 className="text-sm font-bold text-foreground tracking-tight">
-              AI Research Engine
-            </h4>
-            <span className="text-xs text-muted-foreground hidden md:inline">
-              Choose your preferred LLM for statistical synthesis and research inquiries.
-            </span>
-          </div>
-          <Badge variant="outline" className="text-[11px] font-medium w-fit">
-            Active: {AVAILABLE_MODELS.find((m) => m.id === selectedModel)?.name}
-          </Badge>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {AVAILABLE_MODELS.map((model) => {
-            const isSelected = selectedModel === model.id;
-            return (
-              <button
-                key={model.id}
-                type="button"
-                onClick={() => setSelectedModel(model.id)}
-                disabled={Boolean(loadingAction) || chatLoading}
-                className={`relative flex items-start gap-3.5 p-3.5 rounded-xl border text-left transition-all ${
-                  isSelected
-                    ? "border-primary bg-primary/5 ring-2 ring-primary/20 shadow-xs"
-                    : "border-border bg-card hover:bg-muted/40 hover:border-border/80 text-muted-foreground"
-                } disabled:opacity-60 disabled:cursor-not-allowed`}
-              >
-                <div
-                  className={`mt-0.5 h-8 w-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                    isSelected
-                      ? "bg-primary text-primary-foreground shadow-xs"
-                      : "bg-muted text-foreground/70"
-                  }`}
-                >
-                  {model.id === "gemini" ? (
-                    <Sparkles className="h-4 w-4" />
-                  ) : model.id === "ling-sante" ? (
-                    <Activity className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-emerald-500"}`} />
-                  ) : model.id === "nemotron" ? (
-                    <Cpu className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-purple-500"}`} />
-                  ) : model.id === "gemma-31b" ? (
-                    <Sparkles className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-primary"}`} />
-                  ) : model.id === "nemotron-lightning" ? (
-                    <Zap className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-amber-500"}`} />
-                  ) : (
-                    <BookOpen className={`h-4 w-4 ${isSelected ? "text-primary-foreground" : "text-primary"}`} />
-                  )}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2 mb-1">
-                    <span className="font-semibold text-sm text-foreground truncate">
-                      {model.name}
-                    </span>
-                    <Badge
-                      variant={isSelected ? "default" : "outline"}
-                      className="text-[10px] px-2 py-0.5 shrink-0"
-                    >
-                      {model.badge}
-                    </Badge>
-                  </div>
-                  <p className="text-xs text-muted-foreground line-clamp-2">
-                    {model.description}
-                  </p>
-                </div>
-
-                <div className="shrink-0 mt-1">
-                  <div
-                    className={`h-4 w-4 rounded-full border flex items-center justify-center transition-colors ${
-                      isSelected
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-muted-foreground/30"
-                    }`}
-                  >
-                    {isSelected && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
-                  </div>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ── Error Banner if any ─────────────────────────────────── */}
-      {error && (
-        <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive flex items-start gap-3">
-          <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
-          <div className="flex-1 text-sm">
-            <p className="font-semibold">Analysis Error</p>
-            <p className="text-destructive/90 mt-0.5">{error}</p>
-            {error.includes("TINAT_AI_KEY") && (
-              <div className="text-xs text-foreground/90 mt-2.5 p-2.5 rounded-lg bg-card border border-border leading-relaxed">
-                <p className="font-semibold text-foreground mb-0.5">Configuration Required:</p>
-                <p className="text-muted-foreground">
-                  The environment variable <code className="bg-muted px-1.5 py-0.5 rounded font-mono font-bold text-foreground">TINAT_AI_KEY</code> was not found on this server. Add your OpenRouter API key to your project environment variables, or switch back to <strong className="text-foreground">Google Gemini 3.6 Flash</strong> above.
-                </p>
-              </div>
-            )}
-          </div>
-          <Button variant="ghost" size="sm" onClick={() => setError(null)} className="h-7 text-xs">
-            Dismiss
-          </Button>
-        </div>
-      )}
-
-      {/* ── One-Click Research Actions ──────────────────────────── */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h3 className="text-lg font-bold text-foreground tracking-tight">Structured Analysis Actions</h3>
-            <p className="text-xs text-muted-foreground">
-              Select an empirical analysis action to synthesize findings using pre-calculated descriptive statistics.
-            </p>
-          </div>
-          <Badge variant="outline" className="hidden sm:flex items-center gap-1.5 text-xs text-muted-foreground">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-            PII Stripped &bull; Data Grounded
-          </Badge>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {ACTION_BUTTONS.map((action) => {
-            const Icon = action.icon;
-            const isLoading = loadingAction === action.id;
-            const isCurrent = activeAction === action.id && !isLoading;
-
-            return (
-              <button
-                key={action.id}
-                onClick={() => runAction(action.id, action.label)}
-                disabled={Boolean(loadingAction) || chatLoading}
-                className={`group relative flex flex-col text-left p-4 rounded-xl border transition-all duration-200 ${
-                  isCurrent
-                    ? "bg-primary text-primary-foreground border-primary shadow-md"
-                    : "bg-card hover:bg-muted/50 border-border hover:border-primary/40 text-foreground"
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                <div className="flex items-center justify-between w-full mb-2">
-                  <div
-                    className={`h-8 w-8 rounded-lg flex items-center justify-center transition-colors ${
-                      isCurrent
-                        ? "bg-white/20 text-white"
-                        : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  {isLoading && <RefreshCw className="h-4 w-4 animate-spin text-primary" />}
-                </div>
-                <div className="font-semibold text-sm leading-tight mb-1">{action.label}</div>
-                <div
-                  className={`text-[11px] leading-relaxed line-clamp-2 ${
-                    isCurrent ? "text-primary-foreground/80" : "text-muted-foreground"
-                  }`}
-                >
-                  {action.description}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ── Active Analysis Output Display ──────────────────────── */}
-      {loadingAction && (
-        <Card className="border-primary/30">
-          <CardContent className="py-12 flex flex-col items-center justify-center text-center">
-            <div className="relative mb-4 flex items-center justify-center">
-              <div className="h-12 w-12 rounded-2xl bg-black text-white flex items-center justify-center font-bold text-xl shadow-lg animate-pulse">
-                T
-              </div>
-              <Sparkles className="h-5 w-5 text-primary absolute -top-1 -right-1 animate-bounce" />
-            </div>
-            <h4 className="text-base font-semibold text-foreground mb-1">
-              Synthesizing with {AVAILABLE_MODELS.find((m) => m.id === selectedModel)?.name || "AI"}...
-            </h4>
-            <p className="text-xs text-muted-foreground max-w-sm">
-              Calculating exact frequencies, response distributions, and querying {AVAILABLE_MODELS.find((m) => m.id === selectedModel)?.name || "AI Engine"} for medical research insights.
-            </p>
-          </CardContent>
-        </Card>
-      )}
-
-      {analysisResult && !loadingAction && (
-        <Card className="border-primary/20 shadow-lg">
-          <CardHeader className="border-b border-border bg-muted/20 pb-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <Badge className="bg-primary text-primary-foreground text-xs">{actionLabel}</Badge>
-                  {resultModelUsed && (
-                    <Badge variant="outline" className="text-[11px] font-medium flex items-center gap-1">
-                      <Cpu className="w-3 h-3 text-primary" />
-                      {resultModelUsed}
-                    </Badge>
-                  )}
-                  <span className="text-xs text-muted-foreground">Study ID: {studyId.slice(0, 10)}...</span>
-                </div>
-                <CardTitle className="text-lg font-bold text-foreground">Analysis Results</CardTitle>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleCopyResult}
-                  className="h-8 gap-1.5 text-xs"
-                >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  {copied ? "Copied" : "Copy Output"}
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setAnalysisResult(null)}
-                  className="h-8 text-xs text-muted-foreground hover:text-foreground"
-                >
-                  Clear
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <ResearchReportRenderer content={analysisResult} />
-
-            <div className="mt-8 pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-muted-foreground">
-              <span className="italic">
-                AI-generated research draft — verify with a statistician or research supervisor before publication.
+    <div className="flex h-[calc(100vh-14rem)] min-h-[540px] max-h-[820px] flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+      {/* ── Fixed Chat Room Header ───────────────────────────── */}
+      <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-border bg-card px-4 py-3 sm:px-6">
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <Sparkles className="h-4.5 w-4.5" />
+          </span>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h3 className="truncate text-sm font-semibold text-foreground">Study AI Assistant</h3>
+              <span className="inline-flex items-center gap-1 rounded bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                {responsesCount} responses
               </span>
-              <span>Based on {responsesCount} verified participant responses</span>
             </div>
-          </CardContent>
-        </Card>
+            <p className="truncate text-[11px] text-muted-foreground">
+              {studyTitle}
+            </p>
+          </div>
+        </div>
+
+        {/* Model Selection Dropdown & Clear Chat Button */}
+        <div className="flex items-center gap-2">
+          <div className="relative flex items-center">
+            <Cpu className="pointer-events-none absolute left-2.5 h-3.5 w-3.5 text-muted-foreground" />
+            <select
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value as AIModelId)}
+              disabled={chatLoading}
+              aria-label="Select AI Model"
+              className="h-8 appearance-none rounded-md border border-input bg-background pl-8 pr-7 text-xs font-medium text-foreground transition-colors hover:bg-muted focus:border-primary/50 focus:outline-none disabled:opacity-50"
+            >
+              {AVAILABLE_MODELS.map((model) => (
+                <option key={model.id} value={model.id}>
+                  {model.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
+          </div>
+
+          {chatMessages.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setChatMessages([])}
+              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-background px-2.5 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+              title="Clear Conversation"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">Clear</span>
+            </button>
+          )}
+        </div>
+      </header>
+
+      {/* Error Banner */}
+      {error && (
+        <div className="flex shrink-0 items-center justify-between border-b border-rose-200 bg-rose-50 px-4 py-2 text-xs text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-200">
+          <span className="truncate">{error}</span>
+          <button
+            type="button"
+            onClick={() => setError(null)}
+            className="text-xs font-semibold underline hover:no-underline ml-2"
+          >
+            Dismiss
+          </button>
+        </div>
       )}
 
-      {/* ── Conversational Research Assistant ───────────────────── */}
-      <Card className="border-border shadow-sm">
-        <CardHeader className="pb-3 border-b border-border">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="h-8 w-8 rounded-lg bg-black text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                T
-              </div>
-              <div>
-                <CardTitle className="text-base font-bold text-foreground">
-                  Ask the AI Research Assistant
-                </CardTitle>
-                <CardDescription className="text-xs">
-                  Ask specific questions about patterns, groups, or metrics in this study dataset.
-                </CardDescription>
-              </div>
+      {/* ── Chat Messages Scroll Area ────────────────────────── */}
+      <div
+        ref={messagesViewportRef}
+        onScroll={handleScroll}
+        className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain p-4 sm:p-6 bg-background/40"
+      >
+        {chatMessages.length === 0 ? (
+          <div className="flex h-full min-h-[300px] flex-col items-center justify-center text-center p-4">
+            <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <Sparkles className="h-5 w-5" />
             </div>
-            {chatMessages.length > 0 && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setChatMessages([])}
-                className="h-7 text-xs text-muted-foreground hover:text-foreground"
+            <h4 className="text-base font-semibold text-foreground">
+              What would you like to analyze?
+            </h4>
+            <p className="mt-1 max-w-md text-xs text-muted-foreground leading-relaxed">
+              Ask about participant responses, cross-tabulations, drop-offs, or select a starter prompt below.
+            </p>
+
+            <div className="mt-6 grid w-full max-w-xl grid-cols-1 gap-2 sm:grid-cols-2">
+              {QUICK_ACTIONS.slice(0, 4).map((action) => {
+                const Icon = action.icon;
+                return (
+                  <button
+                    key={action.id}
+                    type="button"
+                    onClick={() => handleSendMessage(action.prompt)}
+                    className="flex items-center gap-2.5 rounded-lg border border-border bg-card p-3 text-left transition-all hover:bg-muted hover:border-primary/40 text-xs font-medium text-foreground shadow-2xs"
+                  >
+                    <Icon className="h-4 w-4 text-primary shrink-0" />
+                    <span>{action.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          chatMessages.map((msg) => {
+            const isUser = msg.role === "user";
+            return (
+              <div
+                key={msg.id}
+                className={`flex gap-3 ${isUser ? "flex-row-reverse" : "flex-row"}`}
               >
-                Clear Chat
-              </Button>
-            )}
-          </div>
-        </CardHeader>
-
-        <CardContent className="pt-4 space-y-4">
-          {/* Suggested Prompt Pills */}
-          <div>
-            <div className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-              Suggested Questions for this Study:
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {suggestedQuestions.map((q, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSendMessage(q)}
-                  disabled={chatLoading}
-                  className="text-xs bg-muted/60 hover:bg-muted text-foreground/90 hover:text-foreground px-3 py-1.5 rounded-full border border-border transition-all text-left disabled:opacity-50"
+                <span
+                  className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${
+                    isUser
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-foreground border border-border"
+                  }`}
                 >
-                  &bull; {q}
-                </button>
-              ))}
-            </div>
-          </div>
+                  {isUser ? "You" : "AI"}
+                </span>
 
-          {/* Chat Transcript Area */}
-          {chatMessages.length > 0 && (
-            <div className="space-y-4 max-h-[480px] overflow-y-auto p-4 rounded-xl bg-muted/20 border border-border">
-              {chatMessages.map((msg) => (
                 <div
-                  key={msg.id}
-                  className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`min-w-0 max-w-[90%] sm:max-w-[85%] ${
+                    isUser ? "items-end text-right" : "items-start text-left"
+                  }`}
                 >
-                  {msg.role === "assistant" && (
-                    <div className="h-7 w-7 rounded bg-black text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-1 shadow-sm">
-                      T
-                    </div>
-                  )}
+                  <div className="mb-1 flex items-center gap-2 text-[10px] text-muted-foreground">
+                    <span className="font-semibold text-foreground">
+                      {isUser ? "You" : "Study AI Assistant"}
+                    </span>
+                    {!isUser && msg.modelUsed && (
+                      <span className="rounded bg-muted px-1.5 py-0.2 text-[9px] font-medium lowercase">
+                        {msg.modelUsed}
+                      </span>
+                    )}
+                    <span>{msg.timestamp}</span>
+                  </div>
+
                   <div
-                    className={`max-w-[85%] rounded-2xl p-4 text-sm leading-relaxed ${
-                      msg.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-tr-none shadow-sm whitespace-pre-wrap"
-                        : "bg-card border border-border text-foreground rounded-tl-none shadow-sm"
+                    className={`relative rounded-xl p-4 text-xs sm:text-sm leading-relaxed ${
+                      isUser
+                        ? "bg-primary text-primary-foreground rounded-tr-none shadow-sm whitespace-pre-wrap text-left"
+                        : "bg-card border border-border text-foreground rounded-tl-none shadow-sm text-left"
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-4 mb-2 pb-1 border-b border-border/40">
-                      <span className="text-[10px] font-semibold uppercase opacity-70 flex items-center gap-1.5">
-                        {msg.role === "user" ? (
-                          "Researcher"
-                        ) : (
-                          <>
-                            <span>Tinat Research Assistant</span>
-                            {msg.modelUsed && (
-                              <span className="text-[9px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium lowercase">
-                                {msg.modelUsed}
-                              </span>
-                            )}
-                          </>
-                        )}
-                      </span>
-                      <span className="text-[10px] opacity-50">{msg.timestamp}</span>
-                    </div>
-                    {msg.role === "user" ? (
-                      <div>{msg.content}</div>
+                    {!isUser && (
+                      <div className="absolute top-2.5 right-2.5">
+                        <button
+                          type="button"
+                          onClick={() => handleCopy(msg.id, msg.content)}
+                          className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                          title="Copy response"
+                        >
+                          {copiedId === msg.id ? (
+                            <Check className="h-3.5 w-3.5 text-emerald-500" />
+                          ) : (
+                            <Copy className="h-3.5 w-3.5" />
+                          )}
+                        </button>
+                      </div>
+                    )}
+
+                    {isUser ? (
+                      msg.content
                     ) : (
                       <ResearchReportRenderer content={msg.content} compact />
                     )}
                   </div>
                 </div>
-              ))}
+              </div>
+            );
+          })
+        )}
 
-              {chatLoading && (
-                <div className="flex gap-3 items-center text-muted-foreground text-xs py-2">
-                  <div className="h-6 w-6 rounded bg-black text-white flex items-center justify-center font-bold text-[9px]">
-                    T
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <RefreshCw className="h-3.5 w-3.5 animate-spin" />
-                    <span>Analyzing empirical dataset...</span>
-                  </div>
-                </div>
-              )}
+        {chatLoading && (
+          <div className="flex gap-3 items-center text-muted-foreground text-xs py-2">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-muted border border-border text-xs font-semibold text-primary">
+              <LoaderCircle className="h-4 w-4 animate-spin text-primary" />
+            </span>
+            <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 shadow-2xs">
+              <span className="animate-pulse">Analyzing study dataset...</span>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Chat Input Bar */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSendMessage();
-            }}
-            className="flex gap-2"
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Jump to bottom button when scrolled up */}
+      {hasNewMessagesBelow && (
+        <button
+          type="button"
+          onClick={() => scrollToBottom("smooth")}
+          className="self-center -mb-8 z-10 flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-lg transition-transform hover:scale-105"
+        >
+          <ArrowDown className="h-3.5 w-3.5 animate-bounce" />
+          <span>New response below</span>
+        </button>
+      )}
+
+      {/* ── Quick Prompts Scrollable Row ─────────────────────── */}
+      <div className="shrink-0 border-t border-border/60 bg-muted/30 px-3 py-2 overflow-x-auto no-scrollbar flex items-center gap-1.5">
+        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground shrink-0 px-1">
+          Quick Ask:
+        </span>
+        {QUICK_ACTIONS.map((action) => (
+          <button
+            key={action.id}
+            type="button"
+            onClick={() => handleSendMessage(action.prompt)}
+            disabled={chatLoading}
+            className="shrink-0 text-[11px] bg-background hover:bg-muted text-foreground px-2.5 py-1 rounded-full border border-border transition-colors whitespace-nowrap disabled:opacity-50"
           >
-            <input
-              type="text"
-              placeholder="Ask a question about this study's responses, variables, or outcomes..."
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              disabled={chatLoading}
-              className="flex-1 bg-background border border-border rounded-xl px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all disabled:opacity-50"
-            />
-            <Button
-              type="submit"
-              disabled={!chatInput.trim() || chatLoading}
-              className="rounded-xl px-4 gap-2"
-            >
-              {chatLoading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-              <span className="hidden sm:inline">Analyze</span>
-            </Button>
-          </form>
+            {action.label}
+          </button>
+        ))}
+      </div>
 
-          <p className="text-[10px] text-muted-foreground/70 text-center">
-            The assistant analyzes only verified data from this specific study. Participant PII is never transmitted.
-          </p>
-        </CardContent>
-      </Card>
+      {/* ── Fixed Chat Input Bar at Bottom ───────────────────── */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSendMessage();
+        }}
+        className="shrink-0 border-t border-border bg-card p-3 sm:p-4"
+      >
+        <div className="flex items-end gap-2 rounded-lg border border-input bg-background p-1.5 transition-all focus-within:border-primary/60 focus-within:ring-2 focus-within:ring-primary/10">
+          <textarea
+            value={chatInput}
+            onChange={(e) => setChatInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage();
+              }
+            }}
+            placeholder="Ask about this study's responses, outcomes, or subgroups (Enter to send, Shift+Enter for newline)..."
+            rows={1}
+            disabled={chatLoading}
+            className="max-h-28 min-h-9 flex-1 resize-y bg-transparent px-2.5 py-1.5 text-xs sm:text-sm text-foreground outline-none placeholder:text-muted-foreground disabled:opacity-50"
+          />
+          <button
+            type="submit"
+            disabled={!chatInput.trim() || chatLoading}
+            className="inline-flex h-8 items-center gap-1.5 rounded-md bg-primary px-3.5 text-xs font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {chatLoading ? (
+              <LoaderCircle className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <Send className="h-3.5 w-3.5" />
+            )}
+            <span className="hidden sm:inline">Send</span>
+          </button>
+        </div>
+        <div className="mt-1.5 flex items-center justify-between px-1 text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1">
+            <ShieldCheck className="h-3 w-3 text-emerald-600" />
+            Grounded strictly on this study's data &bull; Participant PII is never transmitted
+          </span>
+          <span className="hidden sm:inline">Enter to send &bull; Shift+Enter for newline</span>
+        </div>
+      </form>
     </div>
   );
 }
