@@ -98,10 +98,12 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
     return Math.round((count / totalResponses) * 100);
   }
 
+  const isAnalysis = activeView === "analysis";
+
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6 md:py-12">
-      <div className="mb-8">
-        <Link href="/researcher" className={getButtonClasses("ghost", "md", "-ml-4 mb-4")}>
+    <div className={isAnalysis ? "flex h-full flex-col overflow-hidden px-4 py-4 md:px-6" : "container mx-auto px-4 py-8 md:px-6 md:py-12"}>
+      <div className={isAnalysis ? "mb-3 shrink-0" : "mb-8"}>
+        <Link href="/researcher" className={getButtonClasses("ghost", "md", isAnalysis ? "-ml-2 mb-2 inline-flex items-center text-xs" : "-ml-4 mb-4")}>
           &larr; Back to Dashboard
         </Link>
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -127,19 +129,23 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                 </span>
               )}
             </div>
-            <h1 className="text-xl font-bold tracking-tight text-foreground">{study.title}</h1>
-            {study.objective && (
-              <p className="text-sm font-medium text-foreground/80 italic mt-2 bg-muted/40 p-2.5 rounded-lg border border-border">
-                <span className="font-semibold not-italic text-xs uppercase text-muted-foreground block mb-0.5">Objective:</span>
-                "{study.objective}"
-              </p>
+            <h1 className={isAnalysis ? "text-lg font-bold tracking-tight text-foreground" : "text-xl font-bold tracking-tight text-foreground"}>{study.title}</h1>
+            {!isAnalysis && (
+              <>
+                {study.objective && (
+                  <p className="text-sm font-medium text-foreground/80 italic mt-2 bg-muted/40 p-2.5 rounded-lg border border-border">
+                    <span className="font-semibold not-italic text-xs uppercase text-muted-foreground block mb-0.5">Objective:</span>
+                    "{study.objective}"
+                  </p>
+                )}
+                {study.targetPopulation && (
+                  <p className="text-xs text-muted-foreground mt-2">
+                    <span className="font-semibold text-foreground">Target Cohort:</span> {study.targetPopulation}
+                  </p>
+                )}
+                {study.description && <p className="text-muted-foreground mt-2 max-w-3xl text-sm">{study.description}</p>}
+              </>
             )}
-            {study.targetPopulation && (
-              <p className="text-xs text-muted-foreground mt-2">
-                <span className="font-semibold text-foreground">Target Cohort:</span> {study.targetPopulation}
-              </p>
-            )}
-            {study.description && <p className="text-muted-foreground mt-2 max-w-3xl text-sm">{study.description}</p>}
           </div>
           <div className="flex gap-2">
             <Badge variant={study.status === "ACTIVE" ? "success" : study.status === "COMPLETED" ? "secondary" : "warning"} className="text-sm">
@@ -149,13 +155,13 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
         </div>
       </div>
 
-      <nav aria-label="Study sections" className="mb-6 -mx-1 flex gap-1 overflow-x-auto border-b border-border px-1">
+      <nav aria-label="Study sections" className={isAnalysis ? "mb-3 shrink-0 flex gap-1 overflow-x-auto border-b border-border" : "mb-6 -mx-1 flex gap-1 overflow-x-auto border-b border-border px-1"}>
         {studyViews.map((view) => (
           <Link
             key={view.id}
             href={`/researcher/studies/${study.id}?view=${view.id}`}
             aria-current={activeView === view.id ? "page" : undefined}
-            className={`shrink-0 border-b-2 px-3 py-2.5 text-sm font-medium transition-colors ${
+            className={`shrink-0 border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
               activeView === view.id
                 ? "border-primary text-foreground"
                 : "border-transparent text-muted-foreground hover:text-foreground"
@@ -383,17 +389,27 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
       </>
       )}
 
-      {activeView === "analysis" && <div className="mb-10">
-        <AIAnalysisTab
-          studyId={study.id}
-          studyTitle={study.title}
-          responsesCount={totalResponses}
-          participantTarget={study.participantTarget}
-          category={study.category}
-          studyType={study.studyType}
-          questionCount={study.questions.length}
-        />
-      </div>}
+      {activeView === "analysis" && (
+        <div className="flex-1 min-h-0 overflow-hidden">
+          <AIAnalysisTab
+            studyId={study.id}
+            studyTitle={study.title}
+            responsesCount={totalResponses}
+            participantTarget={study.participantTarget}
+            category={study.category}
+            studyType={study.studyType}
+            status={study.status}
+            objective={study.objective}
+            description={study.description}
+            targetPopulation={study.targetPopulation}
+            estimatedMinutes={study.estimatedMinutes}
+            rewardCredits={study.rewardCredits}
+            questionCount={study.questions.length}
+            fieldCollectedResponses={fieldCollectedResponses}
+            selfResponses={selfResponses}
+          />
+        </div>
+      )}
 
       {activeView === "visualizations" && (totalResponses > 0 ? (
         <div className="mb-10">
