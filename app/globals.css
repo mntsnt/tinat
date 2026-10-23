@@ -114,6 +114,9 @@
 
 /* Base layer overrides */
 @layer base {
+  html, body, main {
+    scrollbar-gutter: stable;
+  }
   * {
     border-color: var(--border);
   }

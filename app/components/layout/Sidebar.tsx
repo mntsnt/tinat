@@ -47,19 +47,16 @@ export function Sidebar({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [sidebarReady, setSidebarReady] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
 
   useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      setIsCollapsed(localStorage.getItem("tinat_sidebar_collapsed") === "true");
-      setSidebarReady(true);
-    });
-
-    return () => window.cancelAnimationFrame(frame);
+    const stored = localStorage.getItem("tinat_sidebar_collapsed") === "true";
+    setIsCollapsed(stored);
   }, []);
 
   const toggleCollapse = () => {
+    setIsAnimating(true);
     setIsCollapsed(prev => {
       const next = !prev;
       localStorage.setItem("tinat_sidebar_collapsed", String(next));
@@ -149,11 +146,11 @@ export function Sidebar({
             title={collapsed ? link.title : undefined}
             onClick={() => setMobileOpen(false)}
             className={cn(
-              "group flex min-h-9 items-center rounded-md px-2.5 py-2 text-[13px] font-medium transition-colors",
+              "group flex min-h-9 items-center rounded-md px-2.5 py-2 text-[13px] font-medium transition-colors border-l-2",
               collapsed ? "justify-center gap-0" : "gap-2.5",
               isActive
                 ? colors.active
-                : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                : "border-transparent text-muted-foreground hover:bg-muted/80 hover:text-foreground"
             )}
           >
             <span
@@ -166,8 +163,8 @@ export function Sidebar({
             </span>
             {!collapsed && (
               <>
-                <span className="flex-1">{link.title}</span>
-                {isActive && <ChevronRight className="w-3.5 h-3.5 opacity-60" />}
+                <span className="flex-1 truncate">{link.title}</span>
+                <ChevronRight className={cn("w-3.5 h-3.5 shrink-0 transition-opacity", isActive ? "opacity-60" : "opacity-0")} />
               </>
             )}
           </Link>
@@ -315,11 +312,14 @@ export function Sidebar({
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className={cn(
-        "sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex",
-        sidebarReady && "transition-[width] duration-200 ease-out",
-        isCollapsed ? "w-16" : "w-56"
-      )}>
+      <aside
+        onTransitionEnd={() => setIsAnimating(false)}
+        className={cn(
+          "sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex",
+          isAnimating && "transition-[width] duration-200 ease-out",
+          isCollapsed ? "w-16" : "w-56"
+        )}
+      >
         {renderSidebarHeader()}
         {renderNavLinks()}
         {renderUserFooter()}
