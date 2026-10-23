@@ -427,6 +427,8 @@ export const ModelName = {
   ProjectNote: 'ProjectNote',
   ProjectDiscussion: 'ProjectDiscussion',
   ProjectDiscussionReply: 'ProjectDiscussionReply',
+  ProjectDiscussionReaction: 'ProjectDiscussionReaction',
+  ProjectDiscussionReplyReaction: 'ProjectDiscussionReplyReaction',
   ProjectDecision: 'ProjectDecision',
   ProjectActivity: 'ProjectActivity',
   ProjectChatMessage: 'ProjectChatMessage',
@@ -455,7 +457,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectionSession"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDiscussionReaction" | "projectDiscussionReplyReaction" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectionSession"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2679,6 +2681,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ProjectDiscussionReaction: {
+      payload: Prisma.$ProjectDiscussionReactionPayload<ExtArgs>
+      fields: Prisma.ProjectDiscussionReactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProjectDiscussionReactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProjectDiscussionReactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload>
+        }
+        findFirst: {
+          args: Prisma.ProjectDiscussionReactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProjectDiscussionReactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload>
+        }
+        findMany: {
+          args: Prisma.ProjectDiscussionReactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload>[]
+        }
+        create: {
+          args: Prisma.ProjectDiscussionReactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload>
+        }
+        createMany: {
+          args: Prisma.ProjectDiscussionReactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProjectDiscussionReactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload>[]
+        }
+        delete: {
+          args: Prisma.ProjectDiscussionReactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload>
+        }
+        update: {
+          args: Prisma.ProjectDiscussionReactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProjectDiscussionReactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProjectDiscussionReactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProjectDiscussionReactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProjectDiscussionReactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReactionPayload>
+        }
+        aggregate: {
+          args: Prisma.ProjectDiscussionReactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProjectDiscussionReaction>
+        }
+        groupBy: {
+          args: Prisma.ProjectDiscussionReactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectDiscussionReactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProjectDiscussionReactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectDiscussionReactionCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProjectDiscussionReplyReaction: {
+      payload: Prisma.$ProjectDiscussionReplyReactionPayload<ExtArgs>
+      fields: Prisma.ProjectDiscussionReplyReactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProjectDiscussionReplyReactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProjectDiscussionReplyReactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload>
+        }
+        findFirst: {
+          args: Prisma.ProjectDiscussionReplyReactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProjectDiscussionReplyReactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload>
+        }
+        findMany: {
+          args: Prisma.ProjectDiscussionReplyReactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload>[]
+        }
+        create: {
+          args: Prisma.ProjectDiscussionReplyReactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload>
+        }
+        createMany: {
+          args: Prisma.ProjectDiscussionReplyReactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProjectDiscussionReplyReactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload>[]
+        }
+        delete: {
+          args: Prisma.ProjectDiscussionReplyReactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload>
+        }
+        update: {
+          args: Prisma.ProjectDiscussionReplyReactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProjectDiscussionReplyReactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProjectDiscussionReplyReactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProjectDiscussionReplyReactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProjectDiscussionReplyReactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectDiscussionReplyReactionPayload>
+        }
+        aggregate: {
+          args: Prisma.ProjectDiscussionReplyReactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProjectDiscussionReplyReaction>
+        }
+        groupBy: {
+          args: Prisma.ProjectDiscussionReplyReactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectDiscussionReplyReactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProjectDiscussionReplyReactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectDiscussionReplyReactionCountAggregateOutputType> | number
+        }
+      }
+    }
     ProjectDecision: {
       payload: Prisma.$ProjectDecisionPayload<ExtArgs>
       fields: Prisma.ProjectDecisionFieldRefs
@@ -4133,6 +4283,26 @@ export const ProjectDiscussionReplyScalarFieldEnum = {
 export type ProjectDiscussionReplyScalarFieldEnum = (typeof ProjectDiscussionReplyScalarFieldEnum)[keyof typeof ProjectDiscussionReplyScalarFieldEnum]
 
 
+export const ProjectDiscussionReactionScalarFieldEnum = {
+  id: 'id',
+  discussionId: 'discussionId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectDiscussionReactionScalarFieldEnum = (typeof ProjectDiscussionReactionScalarFieldEnum)[keyof typeof ProjectDiscussionReactionScalarFieldEnum]
+
+
+export const ProjectDiscussionReplyReactionScalarFieldEnum = {
+  id: 'id',
+  replyId: 'replyId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectDiscussionReplyReactionScalarFieldEnum = (typeof ProjectDiscussionReplyReactionScalarFieldEnum)[keyof typeof ProjectDiscussionReplyReactionScalarFieldEnum]
+
+
 export const ProjectDecisionScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
@@ -4986,6 +5156,8 @@ export type GlobalOmitConfig = {
   projectNote?: Prisma.ProjectNoteOmit
   projectDiscussion?: Prisma.ProjectDiscussionOmit
   projectDiscussionReply?: Prisma.ProjectDiscussionReplyOmit
+  projectDiscussionReaction?: Prisma.ProjectDiscussionReactionOmit
+  projectDiscussionReplyReaction?: Prisma.ProjectDiscussionReplyReactionOmit
   projectDecision?: Prisma.ProjectDecisionOmit
   projectActivity?: Prisma.ProjectActivityOmit
   projectChatMessage?: Prisma.ProjectChatMessageOmit

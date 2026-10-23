@@ -342,6 +342,8 @@ export type UserWhereInput = {
   projectDecisions?: Prisma.ProjectDecisionListRelationFilter
   projectDiscussions?: Prisma.ProjectDiscussionListRelationFilter
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyListRelationFilter
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionListRelationFilter
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionListRelationFilter
   uploadedProjectFiles?: Prisma.ProjectFileListRelationFilter
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionListRelationFilter
   sentProjectInvitations?: Prisma.ProjectInvitationListRelationFilter
@@ -400,6 +402,8 @@ export type UserOrderByWithRelationInput = {
   projectDecisions?: Prisma.ProjectDecisionOrderByRelationAggregateInput
   projectDiscussions?: Prisma.ProjectDiscussionOrderByRelationAggregateInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyOrderByRelationAggregateInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionOrderByRelationAggregateInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionOrderByRelationAggregateInput
   uploadedProjectFiles?: Prisma.ProjectFileOrderByRelationAggregateInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionOrderByRelationAggregateInput
   sentProjectInvitations?: Prisma.ProjectInvitationOrderByRelationAggregateInput
@@ -461,6 +465,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   projectDecisions?: Prisma.ProjectDecisionListRelationFilter
   projectDiscussions?: Prisma.ProjectDiscussionListRelationFilter
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyListRelationFilter
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionListRelationFilter
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionListRelationFilter
   uploadedProjectFiles?: Prisma.ProjectFileListRelationFilter
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionListRelationFilter
   sentProjectInvitations?: Prisma.ProjectInvitationListRelationFilter
@@ -571,6 +577,8 @@ export type UserCreateInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -629,6 +637,8 @@ export type UserUncheckedCreateInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -687,6 +697,8 @@ export type UserUpdateInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -745,6 +757,8 @@ export type UserUncheckedUpdateInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -1291,6 +1305,34 @@ export type UserUpdateOneRequiredWithoutProjectDiscussionRepliesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectDiscussionRepliesInput, Prisma.UserUpdateWithoutProjectDiscussionRepliesInput>, Prisma.UserUncheckedUpdateWithoutProjectDiscussionRepliesInput>
 }
 
+export type UserCreateNestedOneWithoutProjectDiscussionReactionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionReactionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionReactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDiscussionReactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectDiscussionReactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionReactionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionReactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDiscussionReactionsInput
+  upsert?: Prisma.UserUpsertWithoutProjectDiscussionReactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectDiscussionReactionsInput, Prisma.UserUpdateWithoutProjectDiscussionReactionsInput>, Prisma.UserUncheckedUpdateWithoutProjectDiscussionReactionsInput>
+}
+
+export type UserCreateNestedOneWithoutProjectDiscussionReplyReactionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionReplyReactionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDiscussionReplyReactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectDiscussionReplyReactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionReplyReactionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDiscussionReplyReactionsInput
+  upsert?: Prisma.UserUpsertWithoutProjectDiscussionReplyReactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectDiscussionReplyReactionsInput, Prisma.UserUpdateWithoutProjectDiscussionReplyReactionsInput>, Prisma.UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput>
+}
+
 export type UserCreateNestedOneWithoutProjectDecisionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDecisionsInput, Prisma.UserUncheckedCreateWithoutProjectDecisionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDecisionsInput
@@ -1495,6 +1537,8 @@ export type UserCreateWithoutStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -1552,6 +1596,8 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -1625,6 +1671,8 @@ export type UserUpdateWithoutStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -1682,6 +1730,8 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -1739,6 +1789,8 @@ export type UserCreateWithoutBookmarksInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -1796,6 +1848,8 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -1869,6 +1923,8 @@ export type UserUpdateWithoutBookmarksInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -1926,6 +1982,8 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -1983,6 +2041,8 @@ export type UserCreateWithoutRatingsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -2040,6 +2100,8 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -2113,6 +2175,8 @@ export type UserUpdateWithoutRatingsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -2170,6 +2234,8 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -2227,6 +2293,8 @@ export type UserCreateWithoutLikesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -2284,6 +2352,8 @@ export type UserUncheckedCreateWithoutLikesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -2357,6 +2427,8 @@ export type UserUpdateWithoutLikesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -2414,6 +2486,8 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -2471,6 +2545,8 @@ export type UserCreateWithoutCommentsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -2528,6 +2604,8 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -2601,6 +2679,8 @@ export type UserUpdateWithoutCommentsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -2658,6 +2738,8 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -2714,6 +2796,8 @@ export type UserCreateWithoutNotificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -2771,6 +2855,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -2844,6 +2930,8 @@ export type UserUpdateWithoutNotificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -2901,6 +2989,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -2958,6 +3048,8 @@ export type UserCreateWithoutActivityLogsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -3015,6 +3107,8 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -3088,6 +3182,8 @@ export type UserUpdateWithoutActivityLogsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -3145,6 +3241,8 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -3202,6 +3300,8 @@ export type UserCreateWithoutAdminChatMessagesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -3259,6 +3359,8 @@ export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -3332,6 +3434,8 @@ export type UserUpdateWithoutAdminChatMessagesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -3389,6 +3493,8 @@ export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -3447,6 +3553,8 @@ export type UserCreateWithoutCollectedResponsesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -3504,6 +3612,8 @@ export type UserUncheckedCreateWithoutCollectedResponsesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -3566,6 +3676,8 @@ export type UserCreateWithoutResponsesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -3623,6 +3735,8 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -3696,6 +3810,8 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -3753,6 +3869,8 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -3821,6 +3939,8 @@ export type UserUpdateWithoutResponsesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -3878,6 +3998,8 @@ export type UserUncheckedUpdateWithoutResponsesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -3935,6 +4057,8 @@ export type UserCreateWithoutWalletInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -3992,6 +4116,8 @@ export type UserUncheckedCreateWithoutWalletInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -4065,6 +4191,8 @@ export type UserUpdateWithoutWalletInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -4122,6 +4250,8 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -4179,6 +4309,8 @@ export type UserCreateWithoutStudyPaymentsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -4236,6 +4368,8 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -4309,6 +4443,8 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -4366,6 +4502,8 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -4423,6 +4561,8 @@ export type UserCreateWithoutWithdrawalsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -4480,6 +4620,8 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -4553,6 +4695,8 @@ export type UserUpdateWithoutWithdrawalsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -4610,6 +4754,8 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -4666,6 +4812,8 @@ export type UserCreateWithoutAskProfileInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -4723,6 +4871,8 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -4796,6 +4946,8 @@ export type UserUpdateWithoutAskProfileInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -4853,6 +5005,8 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -4911,6 +5065,8 @@ export type UserCreateWithoutLeadProjectsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -4968,6 +5124,8 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -5041,6 +5199,8 @@ export type UserUpdateWithoutLeadProjectsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -5098,6 +5258,8 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -5155,6 +5317,8 @@ export type UserCreateWithoutProjectMembershipsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -5212,6 +5376,8 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -5285,6 +5451,8 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -5342,6 +5510,8 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -5399,6 +5569,8 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
@@ -5456,6 +5628,8 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
@@ -5529,6 +5703,8 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
@@ -5586,6 +5762,8 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
@@ -5643,6 +5821,8 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -5700,6 +5880,8 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -5762,6 +5944,8 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -5819,6 +6003,8 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -5892,6 +6078,8 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -5949,6 +6137,8 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -6017,6 +6207,8 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -6074,6 +6266,8 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -6131,6 +6325,8 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
@@ -6188,6 +6384,8 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
@@ -6261,6 +6459,8 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
@@ -6318,6 +6518,8 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
@@ -6375,6 +6577,8 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
@@ -6432,6 +6636,8 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
@@ -6505,6 +6711,8 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
@@ -6562,6 +6770,8 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
@@ -6619,6 +6829,8 @@ export type UserCreateWithoutProjectNotesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -6676,6 +6888,8 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -6749,6 +6963,8 @@ export type UserUpdateWithoutProjectNotesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -6806,6 +7022,8 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -6862,6 +7080,8 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -6919,6 +7139,8 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -6992,6 +7214,8 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -7049,6 +7273,8 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -7106,6 +7332,8 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -7163,6 +7391,8 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -7236,6 +7466,8 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -7293,6 +7525,512 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutProjectDiscussionReactionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutProjectDiscussionReactionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutProjectDiscussionReactionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionReactionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionReactionsInput>
+}
+
+export type UserUpsertWithoutProjectDiscussionReactionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectDiscussionReactionsInput, Prisma.UserUncheckedUpdateWithoutProjectDiscussionReactionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionReactionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionReactionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectDiscussionReactionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectDiscussionReactionsInput, Prisma.UserUncheckedUpdateWithoutProjectDiscussionReactionsInput>
+}
+
+export type UserUpdateWithoutProjectDiscussionReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectDiscussionReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutProjectDiscussionReplyReactionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutProjectDiscussionReplyReactionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionReplyReactionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput>
+}
+
+export type UserUpsertWithoutProjectDiscussionReplyReactionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectDiscussionReplyReactionsInput, Prisma.UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionReplyReactionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectDiscussionReplyReactionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectDiscussionReplyReactionsInput, Prisma.UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput>
+}
+
+export type UserUpdateWithoutProjectDiscussionReplyReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -7350,6 +8088,8 @@ export type UserCreateWithoutProjectDecisionsInput = {
   projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -7407,6 +8147,8 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -7480,6 +8222,8 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -7537,6 +8281,8 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -7594,6 +8340,8 @@ export type UserCreateWithoutProjectActivitiesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -7651,6 +8399,8 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -7724,6 +8474,8 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -7781,6 +8533,8 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -7838,6 +8592,8 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -7895,6 +8651,8 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -7968,6 +8726,8 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -8025,6 +8785,8 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -8083,6 +8845,8 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -8140,6 +8904,8 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -8213,6 +8979,8 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -8270,6 +9038,8 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -8326,6 +9096,8 @@ export type UserCreateWithoutAiConversationsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -8383,6 +9155,8 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -8456,6 +9230,8 @@ export type UserUpdateWithoutAiConversationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -8513,6 +9289,8 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -8570,6 +9348,8 @@ export type UserCreateWithoutAiUsagesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -8627,6 +9407,8 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -8700,6 +9482,8 @@ export type UserUpdateWithoutAiUsagesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -8757,6 +9541,8 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -8815,6 +9601,8 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -8872,6 +9660,8 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -8934,6 +9724,8 @@ export type UserCreateWithoutVerificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -8991,6 +9783,8 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -9064,6 +9858,8 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -9121,6 +9917,8 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -9189,6 +9987,8 @@ export type UserUpdateWithoutVerificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -9246,6 +10046,8 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -9303,6 +10105,8 @@ export type UserCreateWithoutAssignedStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -9360,6 +10164,8 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -9433,6 +10239,8 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -9490,6 +10298,8 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -9546,6 +10356,8 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -9603,6 +10415,8 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -9665,6 +10479,8 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -9722,6 +10538,8 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -9795,6 +10613,8 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -9852,6 +10672,8 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -9920,6 +10742,8 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -9977,6 +10801,8 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -10034,6 +10860,8 @@ export type UserCreateWithoutCollectionSessionsInput = {
   projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
@@ -10091,6 +10919,8 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
@@ -10164,6 +10994,8 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
@@ -10221,6 +11053,8 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
   projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
   uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
   uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
@@ -10264,6 +11098,8 @@ export type UserCountOutputType = {
   projectDecisions: number
   projectDiscussions: number
   projectDiscussionReplies: number
+  projectDiscussionReactions: number
+  projectDiscussionReplyReactions: number
   uploadedProjectFiles: number
   uploadedProjectFileVersions: number
   sentProjectInvitations: number
@@ -10301,6 +11137,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   projectDecisions?: boolean | UserCountOutputTypeCountProjectDecisionsArgs
   projectDiscussions?: boolean | UserCountOutputTypeCountProjectDiscussionsArgs
   projectDiscussionReplies?: boolean | UserCountOutputTypeCountProjectDiscussionRepliesArgs
+  projectDiscussionReactions?: boolean | UserCountOutputTypeCountProjectDiscussionReactionsArgs
+  projectDiscussionReplyReactions?: boolean | UserCountOutputTypeCountProjectDiscussionReplyReactionsArgs
   uploadedProjectFiles?: boolean | UserCountOutputTypeCountUploadedProjectFilesArgs
   uploadedProjectFileVersions?: boolean | UserCountOutputTypeCountUploadedProjectFileVersionsArgs
   sentProjectInvitations?: boolean | UserCountOutputTypeCountSentProjectInvitationsArgs
@@ -10423,6 +11261,20 @@ export type UserCountOutputTypeCountProjectDiscussionsArgs<ExtArgs extends runti
  */
 export type UserCountOutputTypeCountProjectDiscussionRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProjectDiscussionReplyWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectDiscussionReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectDiscussionReactionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectDiscussionReplyReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectDiscussionReplyReactionWhereInput
 }
 
 /**
@@ -10607,6 +11459,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   projectDecisions?: boolean | Prisma.User$projectDecisionsArgs<ExtArgs>
   projectDiscussions?: boolean | Prisma.User$projectDiscussionsArgs<ExtArgs>
   projectDiscussionReplies?: boolean | Prisma.User$projectDiscussionRepliesArgs<ExtArgs>
+  projectDiscussionReactions?: boolean | Prisma.User$projectDiscussionReactionsArgs<ExtArgs>
+  projectDiscussionReplyReactions?: boolean | Prisma.User$projectDiscussionReplyReactionsArgs<ExtArgs>
   uploadedProjectFiles?: boolean | Prisma.User$uploadedProjectFilesArgs<ExtArgs>
   uploadedProjectFileVersions?: boolean | Prisma.User$uploadedProjectFileVersionsArgs<ExtArgs>
   sentProjectInvitations?: boolean | Prisma.User$sentProjectInvitationsArgs<ExtArgs>
@@ -10714,6 +11568,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   projectDecisions?: boolean | Prisma.User$projectDecisionsArgs<ExtArgs>
   projectDiscussions?: boolean | Prisma.User$projectDiscussionsArgs<ExtArgs>
   projectDiscussionReplies?: boolean | Prisma.User$projectDiscussionRepliesArgs<ExtArgs>
+  projectDiscussionReactions?: boolean | Prisma.User$projectDiscussionReactionsArgs<ExtArgs>
+  projectDiscussionReplyReactions?: boolean | Prisma.User$projectDiscussionReplyReactionsArgs<ExtArgs>
   uploadedProjectFiles?: boolean | Prisma.User$uploadedProjectFilesArgs<ExtArgs>
   uploadedProjectFileVersions?: boolean | Prisma.User$uploadedProjectFileVersionsArgs<ExtArgs>
   sentProjectInvitations?: boolean | Prisma.User$sentProjectInvitationsArgs<ExtArgs>
@@ -10758,6 +11614,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     projectDecisions: Prisma.$ProjectDecisionPayload<ExtArgs>[]
     projectDiscussions: Prisma.$ProjectDiscussionPayload<ExtArgs>[]
     projectDiscussionReplies: Prisma.$ProjectDiscussionReplyPayload<ExtArgs>[]
+    projectDiscussionReactions: Prisma.$ProjectDiscussionReactionPayload<ExtArgs>[]
+    projectDiscussionReplyReactions: Prisma.$ProjectDiscussionReplyReactionPayload<ExtArgs>[]
     uploadedProjectFiles: Prisma.$ProjectFilePayload<ExtArgs>[]
     uploadedProjectFileVersions: Prisma.$ProjectFileVersionPayload<ExtArgs>[]
     sentProjectInvitations: Prisma.$ProjectInvitationPayload<ExtArgs>[]
@@ -11209,6 +12067,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   projectDecisions<T extends Prisma.User$projectDecisionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectDecisionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDecisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projectDiscussions<T extends Prisma.User$projectDiscussionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectDiscussionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projectDiscussionReplies<T extends Prisma.User$projectDiscussionRepliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectDiscussionRepliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectDiscussionReactions<T extends Prisma.User$projectDiscussionReactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectDiscussionReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectDiscussionReplyReactions<T extends Prisma.User$projectDiscussionReplyReactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectDiscussionReplyReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionReplyReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   uploadedProjectFiles<T extends Prisma.User$uploadedProjectFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedProjectFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   uploadedProjectFileVersions<T extends Prisma.User$uploadedProjectFileVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedProjectFileVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectFileVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentProjectInvitations<T extends Prisma.User$sentProjectInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentProjectInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -12000,6 +12860,54 @@ export type User$projectDiscussionRepliesArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.ProjectDiscussionReplyScalarFieldEnum | Prisma.ProjectDiscussionReplyScalarFieldEnum[]
+}
+
+/**
+ * User.projectDiscussionReactions
+ */
+export type User$projectDiscussionReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectDiscussionReaction
+   */
+  select?: Prisma.ProjectDiscussionReactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectDiscussionReaction
+   */
+  omit?: Prisma.ProjectDiscussionReactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectDiscussionReactionInclude<ExtArgs> | null
+  where?: Prisma.ProjectDiscussionReactionWhereInput
+  orderBy?: Prisma.ProjectDiscussionReactionOrderByWithRelationInput | Prisma.ProjectDiscussionReactionOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectDiscussionReactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectDiscussionReactionScalarFieldEnum | Prisma.ProjectDiscussionReactionScalarFieldEnum[]
+}
+
+/**
+ * User.projectDiscussionReplyReactions
+ */
+export type User$projectDiscussionReplyReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectDiscussionReplyReaction
+   */
+  select?: Prisma.ProjectDiscussionReplyReactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectDiscussionReplyReaction
+   */
+  omit?: Prisma.ProjectDiscussionReplyReactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectDiscussionReplyReactionInclude<ExtArgs> | null
+  where?: Prisma.ProjectDiscussionReplyReactionWhereInput
+  orderBy?: Prisma.ProjectDiscussionReplyReactionOrderByWithRelationInput | Prisma.ProjectDiscussionReplyReactionOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectDiscussionReplyReactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectDiscussionReplyReactionScalarFieldEnum | Prisma.ProjectDiscussionReplyReactionScalarFieldEnum[]
 }
 
 /**

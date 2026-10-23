@@ -71,9 +71,19 @@ export async function GET(
             replies: {
               include: {
                 author: { select: { id: true, name: true, avatarUrl: true } },
+                reactions: {
+                  where: { userId: auth.userId },
+                  select: { id: true },
+                },
+                _count: { select: { reactions: true } },
               },
               orderBy: { createdAt: "asc" },
             },
+            reactions: {
+              where: { userId: auth.userId },
+              select: { id: true },
+            },
+            _count: { select: { reactions: true } },
           },
           orderBy: { createdAt: "desc" },
         },

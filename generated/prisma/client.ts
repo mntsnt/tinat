@@ -192,6 +192,16 @@ export type ProjectDiscussion = Prisma.ProjectDiscussionModel
  */
 export type ProjectDiscussionReply = Prisma.ProjectDiscussionReplyModel
 /**
+ * Model ProjectDiscussionReaction
+ *
+ */
+export type ProjectDiscussionReaction = Prisma.ProjectDiscussionReactionModel
+/**
+ * Model ProjectDiscussionReplyReaction
+ *
+ */
+export type ProjectDiscussionReplyReaction = Prisma.ProjectDiscussionReplyReactionModel
+/**
  * Model ProjectDecision
  * 
  */

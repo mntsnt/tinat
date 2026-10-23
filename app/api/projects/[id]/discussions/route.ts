@@ -48,8 +48,18 @@ export async function GET(
                 avatarUrl: true,
               },
             },
+            reactions: {
+              where: { userId: auth.userId },
+              select: { id: true },
+            },
+            _count: { select: { reactions: true } },
           },
         },
+        reactions: {
+          where: { userId: auth.userId },
+          select: { id: true },
+        },
+        _count: { select: { reactions: true } },
       },
     });
 

@@ -47,11 +47,13 @@ export function Sidebar({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [sidebarReady, setSidebarReady] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       setIsCollapsed(localStorage.getItem("tinat_sidebar_collapsed") === "true");
+      setSidebarReady(true);
     });
 
     return () => window.cancelAnimationFrame(frame);
@@ -147,7 +149,7 @@ export function Sidebar({
             title={collapsed ? link.title : undefined}
             onClick={() => setMobileOpen(false)}
             className={cn(
-              "group flex min-h-9 items-center rounded-md px-2.5 py-2 text-[13px] font-medium transition-all active:scale-[0.99]",
+              "group flex min-h-9 items-center rounded-md px-2.5 py-2 text-[13px] font-medium transition-colors",
               collapsed ? "justify-center gap-0" : "gap-2.5",
               isActive
                 ? colors.active
@@ -314,7 +316,8 @@ export function Sidebar({
     <>
       {/* Desktop Sidebar */}
       <aside className={cn(
-        "hidden h-screen sticky top-0 shrink-0 flex-col border-r border-border bg-card/70 md:flex transition-all duration-300 ease-in-out",
+        "sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex",
+        sidebarReady && "transition-[width] duration-200 ease-out",
         isCollapsed ? "w-16" : "w-56"
       )}>
         {renderSidebarHeader()}

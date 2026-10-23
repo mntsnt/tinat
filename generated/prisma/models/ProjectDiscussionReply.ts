@@ -184,6 +184,7 @@ export type ProjectDiscussionReplyWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"ProjectDiscussionReply"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   discussion?: Prisma.XOR<Prisma.ProjectDiscussionScalarRelationFilter, Prisma.ProjectDiscussionWhereInput>
+  reactions?: Prisma.ProjectDiscussionReplyReactionListRelationFilter
 }
 
 export type ProjectDiscussionReplyOrderByWithRelationInput = {
@@ -194,6 +195,7 @@ export type ProjectDiscussionReplyOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
   discussion?: Prisma.ProjectDiscussionOrderByWithRelationInput
+  reactions?: Prisma.ProjectDiscussionReplyReactionOrderByRelationAggregateInput
 }
 
 export type ProjectDiscussionReplyWhereUniqueInput = Prisma.AtLeast<{
@@ -207,6 +209,7 @@ export type ProjectDiscussionReplyWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"ProjectDiscussionReply"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   discussion?: Prisma.XOR<Prisma.ProjectDiscussionScalarRelationFilter, Prisma.ProjectDiscussionWhereInput>
+  reactions?: Prisma.ProjectDiscussionReplyReactionListRelationFilter
 }, "id">
 
 export type ProjectDiscussionReplyOrderByWithAggregationInput = {
@@ -237,6 +240,7 @@ export type ProjectDiscussionReplyCreateInput = {
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutProjectDiscussionRepliesInput
   discussion: Prisma.ProjectDiscussionCreateNestedOneWithoutRepliesInput
+  reactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutReplyInput
 }
 
 export type ProjectDiscussionReplyUncheckedCreateInput = {
@@ -245,6 +249,7 @@ export type ProjectDiscussionReplyUncheckedCreateInput = {
   authorId: string
   content: string
   createdAt?: Date | string
+  reactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutReplyInput
 }
 
 export type ProjectDiscussionReplyUpdateInput = {
@@ -253,6 +258,7 @@ export type ProjectDiscussionReplyUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutProjectDiscussionRepliesNestedInput
   discussion?: Prisma.ProjectDiscussionUpdateOneRequiredWithoutRepliesNestedInput
+  reactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutReplyNestedInput
 }
 
 export type ProjectDiscussionReplyUncheckedUpdateInput = {
@@ -261,6 +267,7 @@ export type ProjectDiscussionReplyUncheckedUpdateInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutReplyNestedInput
 }
 
 export type ProjectDiscussionReplyCreateManyInput = {
@@ -317,6 +324,11 @@ export type ProjectDiscussionReplyMinOrderByAggregateInput = {
   authorId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type ProjectDiscussionReplyScalarRelationFilter = {
+  is?: Prisma.ProjectDiscussionReplyWhereInput
+  isNot?: Prisma.ProjectDiscussionReplyWhereInput
 }
 
 export type ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput = {
@@ -403,11 +415,26 @@ export type ProjectDiscussionReplyUncheckedUpdateManyWithoutDiscussionNestedInpu
   deleteMany?: Prisma.ProjectDiscussionReplyScalarWhereInput | Prisma.ProjectDiscussionReplyScalarWhereInput[]
 }
 
+export type ProjectDiscussionReplyCreateNestedOneWithoutReactionsInput = {
+  create?: Prisma.XOR<Prisma.ProjectDiscussionReplyCreateWithoutReactionsInput, Prisma.ProjectDiscussionReplyUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.ProjectDiscussionReplyCreateOrConnectWithoutReactionsInput
+  connect?: Prisma.ProjectDiscussionReplyWhereUniqueInput
+}
+
+export type ProjectDiscussionReplyUpdateOneRequiredWithoutReactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectDiscussionReplyCreateWithoutReactionsInput, Prisma.ProjectDiscussionReplyUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.ProjectDiscussionReplyCreateOrConnectWithoutReactionsInput
+  upsert?: Prisma.ProjectDiscussionReplyUpsertWithoutReactionsInput
+  connect?: Prisma.ProjectDiscussionReplyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectDiscussionReplyUpdateToOneWithWhereWithoutReactionsInput, Prisma.ProjectDiscussionReplyUpdateWithoutReactionsInput>, Prisma.ProjectDiscussionReplyUncheckedUpdateWithoutReactionsInput>
+}
+
 export type ProjectDiscussionReplyCreateWithoutAuthorInput = {
   id?: string
   content: string
   createdAt?: Date | string
   discussion: Prisma.ProjectDiscussionCreateNestedOneWithoutRepliesInput
+  reactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutReplyInput
 }
 
 export type ProjectDiscussionReplyUncheckedCreateWithoutAuthorInput = {
@@ -415,6 +442,7 @@ export type ProjectDiscussionReplyUncheckedCreateWithoutAuthorInput = {
   discussionId: string
   content: string
   createdAt?: Date | string
+  reactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutReplyInput
 }
 
 export type ProjectDiscussionReplyCreateOrConnectWithoutAuthorInput = {
@@ -459,6 +487,7 @@ export type ProjectDiscussionReplyCreateWithoutDiscussionInput = {
   content: string
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutProjectDiscussionRepliesInput
+  reactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutReplyInput
 }
 
 export type ProjectDiscussionReplyUncheckedCreateWithoutDiscussionInput = {
@@ -466,6 +495,7 @@ export type ProjectDiscussionReplyUncheckedCreateWithoutDiscussionInput = {
   authorId: string
   content: string
   createdAt?: Date | string
+  reactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutReplyInput
 }
 
 export type ProjectDiscussionReplyCreateOrConnectWithoutDiscussionInput = {
@@ -494,6 +524,54 @@ export type ProjectDiscussionReplyUpdateManyWithWhereWithoutDiscussionInput = {
   data: Prisma.XOR<Prisma.ProjectDiscussionReplyUpdateManyMutationInput, Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutDiscussionInput>
 }
 
+export type ProjectDiscussionReplyCreateWithoutReactionsInput = {
+  id?: string
+  content: string
+  createdAt?: Date | string
+  author: Prisma.UserCreateNestedOneWithoutProjectDiscussionRepliesInput
+  discussion: Prisma.ProjectDiscussionCreateNestedOneWithoutRepliesInput
+}
+
+export type ProjectDiscussionReplyUncheckedCreateWithoutReactionsInput = {
+  id?: string
+  discussionId: string
+  authorId: string
+  content: string
+  createdAt?: Date | string
+}
+
+export type ProjectDiscussionReplyCreateOrConnectWithoutReactionsInput = {
+  where: Prisma.ProjectDiscussionReplyWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectDiscussionReplyCreateWithoutReactionsInput, Prisma.ProjectDiscussionReplyUncheckedCreateWithoutReactionsInput>
+}
+
+export type ProjectDiscussionReplyUpsertWithoutReactionsInput = {
+  update: Prisma.XOR<Prisma.ProjectDiscussionReplyUpdateWithoutReactionsInput, Prisma.ProjectDiscussionReplyUncheckedUpdateWithoutReactionsInput>
+  create: Prisma.XOR<Prisma.ProjectDiscussionReplyCreateWithoutReactionsInput, Prisma.ProjectDiscussionReplyUncheckedCreateWithoutReactionsInput>
+  where?: Prisma.ProjectDiscussionReplyWhereInput
+}
+
+export type ProjectDiscussionReplyUpdateToOneWithWhereWithoutReactionsInput = {
+  where?: Prisma.ProjectDiscussionReplyWhereInput
+  data: Prisma.XOR<Prisma.ProjectDiscussionReplyUpdateWithoutReactionsInput, Prisma.ProjectDiscussionReplyUncheckedUpdateWithoutReactionsInput>
+}
+
+export type ProjectDiscussionReplyUpdateWithoutReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.UserUpdateOneRequiredWithoutProjectDiscussionRepliesNestedInput
+  discussion?: Prisma.ProjectDiscussionUpdateOneRequiredWithoutRepliesNestedInput
+}
+
+export type ProjectDiscussionReplyUncheckedUpdateWithoutReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  discussionId?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type ProjectDiscussionReplyCreateManyAuthorInput = {
   id?: string
   discussionId: string
@@ -506,6 +584,7 @@ export type ProjectDiscussionReplyUpdateWithoutAuthorInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   discussion?: Prisma.ProjectDiscussionUpdateOneRequiredWithoutRepliesNestedInput
+  reactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutReplyNestedInput
 }
 
 export type ProjectDiscussionReplyUncheckedUpdateWithoutAuthorInput = {
@@ -513,6 +592,7 @@ export type ProjectDiscussionReplyUncheckedUpdateWithoutAuthorInput = {
   discussionId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutReplyNestedInput
 }
 
 export type ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorInput = {
@@ -534,6 +614,7 @@ export type ProjectDiscussionReplyUpdateWithoutDiscussionInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutProjectDiscussionRepliesNestedInput
+  reactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutReplyNestedInput
 }
 
 export type ProjectDiscussionReplyUncheckedUpdateWithoutDiscussionInput = {
@@ -541,6 +622,7 @@ export type ProjectDiscussionReplyUncheckedUpdateWithoutDiscussionInput = {
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutReplyNestedInput
 }
 
 export type ProjectDiscussionReplyUncheckedUpdateManyWithoutDiscussionInput = {
@@ -551,6 +633,35 @@ export type ProjectDiscussionReplyUncheckedUpdateManyWithoutDiscussionInput = {
 }
 
 
+/**
+ * Count Type ProjectDiscussionReplyCountOutputType
+ */
+
+export type ProjectDiscussionReplyCountOutputType = {
+  reactions: number
+}
+
+export type ProjectDiscussionReplyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reactions?: boolean | ProjectDiscussionReplyCountOutputTypeCountReactionsArgs
+}
+
+/**
+ * ProjectDiscussionReplyCountOutputType without action
+ */
+export type ProjectDiscussionReplyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectDiscussionReplyCountOutputType
+   */
+  select?: Prisma.ProjectDiscussionReplyCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProjectDiscussionReplyCountOutputType without action
+ */
+export type ProjectDiscussionReplyCountOutputTypeCountReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectDiscussionReplyReactionWhereInput
+}
+
 
 export type ProjectDiscussionReplySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -560,6 +671,8 @@ export type ProjectDiscussionReplySelect<ExtArgs extends runtime.Types.Extension
   createdAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   discussion?: boolean | Prisma.ProjectDiscussionDefaultArgs<ExtArgs>
+  reactions?: boolean | Prisma.ProjectDiscussionReply$reactionsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProjectDiscussionReplyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectDiscussionReply"]>
 
 export type ProjectDiscussionReplySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -594,6 +707,8 @@ export type ProjectDiscussionReplyOmit<ExtArgs extends runtime.Types.Extensions.
 export type ProjectDiscussionReplyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   discussion?: boolean | Prisma.ProjectDiscussionDefaultArgs<ExtArgs>
+  reactions?: boolean | Prisma.ProjectDiscussionReply$reactionsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProjectDiscussionReplyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectDiscussionReplyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -609,6 +724,7 @@ export type $ProjectDiscussionReplyPayload<ExtArgs extends runtime.Types.Extensi
   objects: {
     author: Prisma.$UserPayload<ExtArgs>
     discussion: Prisma.$ProjectDiscussionPayload<ExtArgs>
+    reactions: Prisma.$ProjectDiscussionReplyReactionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1012,6 +1128,7 @@ export interface Prisma__ProjectDiscussionReplyClient<T, Null = never, ExtArgs e
   readonly [Symbol.toStringTag]: "PrismaPromise"
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   discussion<T extends Prisma.ProjectDiscussionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDiscussionDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectDiscussionClient<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reactions<T extends Prisma.ProjectDiscussionReply$reactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDiscussionReply$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDiscussionReplyReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1444,6 +1561,30 @@ export type ProjectDiscussionReplyDeleteManyArgs<ExtArgs extends runtime.Types.E
    * Limit how many ProjectDiscussionReplies to delete.
    */
   limit?: number
+}
+
+/**
+ * ProjectDiscussionReply.reactions
+ */
+export type ProjectDiscussionReply$reactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectDiscussionReplyReaction
+   */
+  select?: Prisma.ProjectDiscussionReplyReactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectDiscussionReplyReaction
+   */
+  omit?: Prisma.ProjectDiscussionReplyReactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectDiscussionReplyReactionInclude<ExtArgs> | null
+  where?: Prisma.ProjectDiscussionReplyReactionWhereInput
+  orderBy?: Prisma.ProjectDiscussionReplyReactionOrderByWithRelationInput | Prisma.ProjectDiscussionReplyReactionOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectDiscussionReplyReactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectDiscussionReplyReactionScalarFieldEnum | Prisma.ProjectDiscussionReplyReactionScalarFieldEnum[]
 }
 
 /**

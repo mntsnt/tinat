@@ -41,6 +41,8 @@ model User {
   projectDecisions             ProjectDecision[]        @relation("DecisionMadeBy")
   projectDiscussions           ProjectDiscussion[]
   projectDiscussionReplies     ProjectDiscussionReply[]
+  projectDiscussionReactions   ProjectDiscussionReaction[]
+  projectDiscussionReplyReactions ProjectDiscussionReplyReaction[]
   uploadedProjectFiles         ProjectFile[]
   uploadedProjectFileVersions  ProjectFileVersion[]
   sentProjectInvitations       ProjectInvitation[]      @relation("ProjectInviter")
@@ -534,6 +536,7 @@ model ProjectDiscussion {
   author     User                     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   project    ResearchProject          @relation(fields: [projectId], references: [id], onDelete: Cascade)
   replies    ProjectDiscussionReply[]
+  reactions ProjectDiscussionReaction[]
 
   @@index([projectId])
 }
@@ -546,8 +549,33 @@ model ProjectDiscussionReply {
   createdAt    DateTime          @default(now())
   author       User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
   discussion   ProjectDiscussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  reactions    ProjectDiscussionReplyReaction[]
 
   @@index([discussionId])
+}
+
+model ProjectDiscussionReaction {
+  id           String            @id @default(cuid())
+  discussionId String
+  userId       String
+  createdAt    DateTime          @default(now())
+  discussion   ProjectDiscussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([discussionId, userId])
+  @@index([discussionId])
+}
+
+model ProjectDiscussionReplyReaction {
+  id        String                 @id @default(cuid())
+  replyId   String
+  userId    String
+  createdAt DateTime               @default(now())
+  reply     ProjectDiscussionReply @relation(fields: [replyId], references: [id], onDelete: Cascade)
+  user      User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([replyId, userId])
+  @@index([replyId])
 }
 
 model ProjectDecision {

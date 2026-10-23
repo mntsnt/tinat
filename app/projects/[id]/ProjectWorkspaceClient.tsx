@@ -35,6 +35,7 @@ import {
   Tag,
   Paperclip,
   Check,
+  Heart,
   Info,
   MessagesSquare,
 } from "lucide-react";
@@ -73,6 +74,8 @@ interface ProjectDiscussionReplyView {
   content: string;
   createdAt: string;
   author?: { name: string | null } | null;
+  reactions?: { id: string }[];
+  _count?: { reactions: number };
 }
 
 interface ProjectDiscussionView {
@@ -84,6 +87,8 @@ interface ProjectDiscussionView {
   createdAt: string;
   author?: { id: string; name: string | null } | null;
   replies?: ProjectDiscussionReplyView[];
+  reactions?: { id: string }[];
+  _count?: { reactions: number };
 }
 
 interface ProjectDecisionView {
@@ -132,6 +137,9 @@ const FILE_FOLDERS = [
   { id: "ANALYSIS", label: "Statistical Analysis" },
   { id: "MANUSCRIPT", label: "Manuscript Drafts" },
 ];
+
+const PROJECT_MARKDOWN_CLASS =
+  "prose prose-sm dark:prose-invert max-w-none break-words text-foreground [&>h1]:mb-3 [&>h1]:text-lg [&>h1]:font-semibold [&>h2]:mb-2 [&>h2]:mt-5 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mb-2 [&>h3]:mt-4 [&>h3]:text-sm [&>h3]:font-semibold [&>p]:my-3 [&>p]:leading-7 [&>ul]:my-3 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:my-3 [&>ol]:list-decimal [&>ol]:pl-5 [&>blockquote]:border-l-2 [&>blockquote]:border-primary/40 [&>blockquote]:pl-4 [&>blockquote]:text-muted-foreground [&>pre]:overflow-x-auto [&>pre]:rounded-lg [&>pre]:bg-muted [&>pre]:p-3 [&>table]:w-full [&>table]:border-collapse [&_th]:border [&_th]:border-border [&_th]:bg-muted/50 [&_th]:p-2 [&_th]:text-left [&_td]:border [&_td]:border-border [&_td]:p-2";
 
 export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWorkspaceClientProps) {
   const [project, setProject] = useState<any>(null);
@@ -258,7 +266,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
   async function mutateProjectResource(
     path: string,
-    method: "POST" | "PATCH" | "DELETE",
+    method: "POST" | "PUT" | "PATCH" | "DELETE",
     body?: Record<string, unknown>,
     fallbackMessage = "The project could not be updated."
   ) {
@@ -518,6 +526,24 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       "Reply could not be posted."
     );
     if (saved) setReplyContent("");
+  }
+
+  async function handleDiscussionReaction(discussionId: string, reacted: boolean) {
+    await mutateProjectResource(
+      `/api/projects/${projectId}/discussions/${discussionId}/reaction`,
+      reacted ? "DELETE" : "PUT",
+      undefined,
+      "Discussion reaction could not be updated."
+    );
+  }
+
+  async function handleReplyReaction(discussionId: string, replyId: string, reacted: boolean) {
+    await mutateProjectResource(
+      `/api/projects/${projectId}/discussions/${discussionId}/replies/${replyId}/reaction`,
+      reacted ? "DELETE" : "PUT",
+      undefined,
+      "Reply reaction could not be updated."
+    );
   }
 
   async function handleUpdateOutputStatus(outputId: string, status: string) {
@@ -1606,7 +1632,9 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                                 {(auth?.canManageProject || auth?.canMakeDecisions) && <button type="button" onClick={() => handleDeleteNote(note.id, note.title)} aria-label={`Delete note ${note.title}`} className="rounded p-2 text-slate-500 hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-950/30"><Trash2 className="h-4 w-4" /></button>}
                               </div>
                             </div>
-                            <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-relaxed text-slate-700 dark:text-slate-300">{note.content}</p>
+                            <div className={`mt-4 border-t border-border/70 pt-3 ${PROJECT_MARKDOWN_CLASS}`}>
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>{note.content}</ReactMarkdown>
+                            </div>
                           </article>
                         ))}
                       </div>
@@ -1642,18 +1670,52 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                                   <button type="button" onClick={() => setActiveDiscussion(activeDiscussion === discussion.id ? null : discussion.id)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-sm text-primary hover:bg-primary/5">
                                     <MessageSquare className="h-4 w-4" /> {discussion.replies?.length || 0} replies
                                   </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDiscussionReaction(discussion.id, Boolean(discussion.reactions?.length))}
+                                    aria-pressed={Boolean(discussion.reactions?.length)}
+                                    aria-label={`${discussion.reactions?.length ? "Remove reaction from" : "React to"} ${discussion.title}; ${discussion._count?.reactions ?? 0} reactions`}
+                                    className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                                      discussion.reactions?.length
+                                        ? "bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300"
+                                        : "bg-muted/70 text-muted-foreground hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-950/40 dark:hover:text-rose-300"
+                                    }`}
+                                  >
+                                    <Heart className={`h-3.5 w-3.5 ${discussion.reactions?.length ? "fill-current" : ""}`} />
+                                    {discussion._count?.reactions ?? 0}
+                                  </button>
                                   {(auth?.canManageProject || discussion.author?.id === currentUserId) && <button type="button" onClick={() => handleToggleDiscussionResolved(discussion.id, discussion.isResolved)} className="rounded px-2 py-1 text-xs text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">{discussion.isResolved ? "Reopen" : "Resolve"}</button>}
                                   {(auth?.canManageProject || discussion.author?.id === currentUserId) && <button type="button" onClick={() => handleDeleteDiscussion(discussion.id, discussion.title)} aria-label={`Delete discussion ${discussion.title}`} className="rounded p-2 text-slate-500 hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-950/30"><Trash2 className="h-4 w-4" /></button>}
                                 </div>
                               </div>
-                              <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-slate-700 dark:text-slate-300">{discussion.content}</p>
+                              <div className={`mt-4 border-t border-border/70 pt-3 ${PROJECT_MARKDOWN_CLASS}`}>
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>{discussion.content}</ReactMarkdown>
+                              </div>
                             </div>
                             {activeDiscussion === discussion.id && (
                               <div className="space-y-3 border-t border-slate-200 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-950/30">
                                 {discussion.replies?.map((reply: ProjectDiscussionReplyView) => (
-                                  <div key={reply.id} className="rounded-md bg-white p-3 dark:bg-slate-900">
-                                    <p className="whitespace-pre-wrap text-sm text-slate-700 dark:text-slate-300">{reply.content}</p>
-                                    <p className="mt-2 text-xs text-slate-500">{reply.author?.name || "Team member"} · {new Date(reply.createdAt).toLocaleString()}</p>
+                                  <div key={reply.id} className="rounded-xl border border-border/60 bg-card p-3.5">
+                                    <div className={PROJECT_MARKDOWN_CLASS}>
+                                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{reply.content}</ReactMarkdown>
+                                    </div>
+                                    <div className="mt-3 flex items-center justify-between gap-3 border-t border-border/60 pt-2.5">
+                                      <p className="text-xs text-slate-500">{reply.author?.name || "Team member"} · {new Date(reply.createdAt).toLocaleString()}</p>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleReplyReaction(discussion.id, reply.id, Boolean(reply.reactions?.length))}
+                                        aria-pressed={Boolean(reply.reactions?.length)}
+                                        aria-label={`${reply.reactions?.length ? "Remove reaction from" : "React to"} reply; ${reply._count?.reactions ?? 0} reactions`}
+                                        className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs transition-colors ${
+                                          reply.reactions?.length
+                                            ? "bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300"
+                                            : "text-muted-foreground hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-950/40 dark:hover:text-rose-300"
+                                        }`}
+                                      >
+                                        <Heart className={`h-3.5 w-3.5 ${reply.reactions?.length ? "fill-current" : ""}`} />
+                                        {reply._count?.reactions ?? 0}
+                                      </button>
+                                    </div>
                                   </div>
                                 ))}
                                 <form onSubmit={(event) => { event.preventDefault(); handleReplyDiscussion(discussion.id); }} className="flex gap-2">
@@ -1907,7 +1969,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         )}
                       </div>
                       {item.role === "assistant" ? (
-                        <div className="prose prose-sm dark:prose-invert max-w-none break-words text-foreground [&>h1]:text-base [&>h1]:font-bold [&>h2]:text-sm [&>h2]:font-bold [&>h3]:text-xs [&>h3]:font-bold [&>p]:leading-relaxed [&>ul]:list-disc [&>ul]:pl-4 [&>ol]:list-decimal [&>ol]:pl-4 [&>table]:w-full [&>table]:border-collapse [&_th]:border [&_th]:border-border [&_th]:bg-muted/50 [&_th]:p-2 [&_th]:text-left [&_td]:border [&_td]:border-border [&_td]:p-2">
+                        <div className={PROJECT_MARKDOWN_CLASS}>
                           <ReactMarkdown remarkPlugins={[remarkGfm]}>
                             {item.content}
                           </ReactMarkdown>

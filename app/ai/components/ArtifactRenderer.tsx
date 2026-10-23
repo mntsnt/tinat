@@ -3,6 +3,9 @@ import { Download, Save } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
+const AI_MARKDOWN_CLASS =
+  'prose prose-sm dark:prose-invert max-w-none break-words [&>h1]:text-xl [&>h1]:font-semibold [&>h1]:tracking-tight [&>h2]:mt-6 [&>h2]:text-lg [&>h2]:font-semibold [&>h3]:mt-4 [&>h3]:text-base [&>h3]:font-semibold [&>p]:my-3 [&>p]:leading-7 [&>ul]:my-3 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:my-3 [&>ol]:list-decimal [&>ol]:pl-5 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-muted [&_pre]:p-3 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-border [&_th]:bg-muted/50 [&_th]:p-2 [&_th]:text-left [&_td]:border [&_td]:border-border [&_td]:p-2';
+
 export function ArtifactRenderer({ content }: { content: string }) {
   // Regex to extract <ai_artifact type="..." title="...">...</ai_artifact>
   const artifactRegex = /<ai_artifact\s+type="([^"]+)"\s+title="([^"]+)">([\s\S]*?)<\/ai_artifact>/g;
@@ -38,7 +41,7 @@ export function ArtifactRenderer({ content }: { content: string }) {
 
   if (parts.length === 0) {
     return (
-      <div className="prose prose-slate prose-sm dark:prose-invert max-w-none">
+      <div className={AI_MARKDOWN_CLASS}>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
       </div>
     );
@@ -49,7 +52,7 @@ export function ArtifactRenderer({ content }: { content: string }) {
       {parts.map((part, idx) => {
         if (part.type === 'text') {
           return (
-            <div key={idx} className="prose prose-slate prose-sm dark:prose-invert max-w-none">
+            <div key={idx} className={AI_MARKDOWN_CLASS}>
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{part.content}</ReactMarkdown>
             </div>
           );
@@ -130,4 +133,3 @@ export function ArtifactRenderer({ content }: { content: string }) {
     </div>
   );
 }
-

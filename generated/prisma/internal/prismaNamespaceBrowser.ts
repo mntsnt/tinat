@@ -81,6 +81,8 @@ export const ModelName = {
   ProjectNote: 'ProjectNote',
   ProjectDiscussion: 'ProjectDiscussion',
   ProjectDiscussionReply: 'ProjectDiscussionReply',
+  ProjectDiscussionReaction: 'ProjectDiscussionReaction',
+  ProjectDiscussionReplyReaction: 'ProjectDiscussionReplyReaction',
   ProjectDecision: 'ProjectDecision',
   ProjectActivity: 'ProjectActivity',
   ProjectChatMessage: 'ProjectChatMessage',
@@ -563,6 +565,26 @@ export const ProjectDiscussionReplyScalarFieldEnum = {
 } as const
 
 export type ProjectDiscussionReplyScalarFieldEnum = (typeof ProjectDiscussionReplyScalarFieldEnum)[keyof typeof ProjectDiscussionReplyScalarFieldEnum]
+
+
+export const ProjectDiscussionReactionScalarFieldEnum = {
+  id: 'id',
+  discussionId: 'discussionId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectDiscussionReactionScalarFieldEnum = (typeof ProjectDiscussionReactionScalarFieldEnum)[keyof typeof ProjectDiscussionReactionScalarFieldEnum]
+
+
+export const ProjectDiscussionReplyReactionScalarFieldEnum = {
+  id: 'id',
+  replyId: 'replyId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectDiscussionReplyReactionScalarFieldEnum = (typeof ProjectDiscussionReplyReactionScalarFieldEnum)[keyof typeof ProjectDiscussionReplyReactionScalarFieldEnum]
 
 
 export const ProjectDecisionScalarFieldEnum = {
