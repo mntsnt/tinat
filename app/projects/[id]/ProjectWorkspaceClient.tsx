@@ -38,6 +38,9 @@ import {
   Info,
   MessagesSquare,
 } from "lucide-react";
+import { Upload } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { ProjectTeamChat } from "./ProjectTeamChat";
 
 interface ProjectWorkspaceClientProps {
@@ -128,8 +131,6 @@ const FILE_FOLDERS = [
   { id: "DATA", label: "Raw Data (Sensitive)" },
   { id: "ANALYSIS", label: "Statistical Analysis" },
   { id: "MANUSCRIPT", label: "Manuscript Drafts" },
-  { id: "FIGURES", label: "Figures & Tables" },
-  { id: "OTHER", label: "Other Materials" },
 ];
 
 export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWorkspaceClientProps) {
@@ -167,6 +168,14 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const [showDiscussionModal, setShowDiscussionModal] = useState(false);
   const [showStudyModal, setShowStudyModal] = useState(false);
   const [showOutputModal, setShowOutputModal] = useState(false);
+  const [showFileModal, setShowFileModal] = useState(false);
+  const [uploadFileName, setUploadFileName] = useState("");
+  const [uploadFileFolder, setUploadFileFolder] = useState("PROTOCOL");
+  const [uploadFileUrl, setUploadFileUrl] = useState("");
+  const [uploadFileSize, setUploadFileSize] = useState(0);
+  const [uploadFileSensitive, setUploadFileSensitive] = useState(false);
+  const [uploadFileNotes, setUploadFileNotes] = useState("");
+  const [isUploadingFile, setIsUploadingFile] = useState(false);
 
   // Form states
   const [taskTitle, setTaskTitle] = useState("");
@@ -562,6 +571,94 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       setOutputDeadline("");
     }
   }
+
+  const handleLocalFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setUploadFileName(file.name);
+    setUploadFileSize(file.size);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (typeof e.target?.result === "string") {
+        setUploadFileUrl(e.target.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  async function handleUploadFileSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!uploadFileName.trim()) return;
+    if (!uploadFileUrl) {
+      setActionError("Please choose a file to upload.");
+      return;
+    }
+
+    setIsUploadingFile(true);
+    try {
+      const res = await fetch(`/api/projects/${projectId}/files`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: uploadFileName.trim(),
+          fileUrl: uploadFileUrl,
+          fileSize: uploadFileSize,
+          folder: uploadFileFolder,
+          isSensitiveHealthData: uploadFileSensitive,
+          notes: uploadFileNotes.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to upload file");
+
+      setShowFileModal(false);
+      setUploadFileName("");
+      setUploadFileUrl("");
+      setUploadFileSize(0);
+      setUploadFileNotes("");
+      setUploadFileSensitive(false);
+      await fetchProject(false);
+    } catch (err: any) {
+      setActionError(err.message || "Failed to upload file");
+    } finally {
+      setIsUploadingFile(false);
+    }
+  }
+
+  const handleDownloadFile = async (file: { name: string; fileUrl: string }) => {
+    if (!file.fileUrl) return;
+    try {
+      if (file.fileUrl.startsWith("data:") || file.fileUrl.startsWith("blob:")) {
+        const a = document.createElement("a");
+        a.href = file.fileUrl;
+        a.download = file.name || "download";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        return;
+      }
+      const res = await fetch(file.fileUrl);
+      if (!res.ok) throw new Error("Fetch failed");
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = file.name || "download";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch {
+      const a = document.createElement("a");
+      a.href = file.fileUrl;
+      a.download = file.name || "download";
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  };
 
   // AI Prompt execution
   async function handleAskAI(customQuery?: string, actionType?: string) {
@@ -1256,6 +1353,14 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 <h3 className="font-semibold text-base text-foreground">Files & Data</h3>
                 <p className="text-xs text-muted-foreground">Organized directories with version control and sensitive data isolation.</p>
               </div>
+              <button
+                type="button"
+                onClick={() => setShowFileModal(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-semibold shadow-sm transition-colors"
+              >
+                <Upload className="w-3.5 h-3.5" />
+                Upload File
+              </button>
             </div>
 
             {/* Folder Tabs */}
@@ -1326,15 +1431,14 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                       </div>
 
                       {file.fileUrl ? (
-                        <a
-                          href={file.fileUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md border border-border bg-background text-foreground hover:bg-muted transition-colors font-medium text-xs"
+                        <button
+                          type="button"
+                          onClick={() => handleDownloadFile(file)}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md border border-border bg-background text-foreground hover:bg-muted transition-colors font-medium text-xs shadow-sm active:scale-95"
                         >
-                          <Download className="w-3.5 h-3.5" />
+                          <Download className="w-3.5 h-3.5 text-primary" />
                           Download
-                        </a>
+                        </button>
                       ) : (
                         <span className="text-[11px] font-semibold text-rose-500 flex items-center gap-1">
                           <Lock className="w-3 h-3" /> Access Restricted
@@ -1357,19 +1461,21 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         
 
         {activeTab === "chat" && (
-          <ProjectTeamChat
-            projectId={projectId}
-            projectTitle={project.title}
-            currentUserId={currentUserId}
-            lead={project.lead ? {
-              id: project.lead.id,
-              name: project.lead.name,
-              avatarUrl: project.lead.avatarUrl,
-              institution: project.lead.institution,
-              role: "PROJECT_LEAD",
-            } : null}
-            members={project.members || []}
-          />
+          <div className="h-[calc(100vh-14rem)] min-h-[520px] flex flex-col">
+            <ProjectTeamChat
+              projectId={projectId}
+              projectTitle={project.title}
+              currentUserId={currentUserId}
+              lead={project.lead ? {
+                id: project.lead.id,
+                name: project.lead.name,
+                avatarUrl: project.lead.avatarUrl,
+                institution: project.lead.institution,
+                role: "PROJECT_LEAD",
+              } : null}
+              members={project.members || []}
+            />
+          </div>
         )}
 
         {/* TAB 9: LINKED STUDIES */}
@@ -1790,10 +1896,25 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                           : "ml-8 border-primary/20 bg-primary/5 text-foreground"
                       }`}
                     >
-                      <div className="mb-1 text-xs font-semibold text-muted-foreground">
-                        {item.role === "assistant" ? "Project AI" : "You"}
+                      <div className="mb-1.5 flex items-center gap-1 text-xs font-semibold text-muted-foreground">
+                        {item.role === "assistant" ? (
+                          <>
+                            <Sparkles className="w-3.5 h-3.5 text-primary" />
+                            <span>Project AI</span>
+                          </>
+                        ) : (
+                          <span>You</span>
+                        )}
                       </div>
-                      <div className="whitespace-pre-wrap">{item.content}</div>
+                      {item.role === "assistant" ? (
+                        <div className="prose prose-sm dark:prose-invert max-w-none break-words text-foreground [&>h1]:text-base [&>h1]:font-bold [&>h2]:text-sm [&>h2]:font-bold [&>h3]:text-xs [&>h3]:font-bold [&>p]:leading-relaxed [&>ul]:list-disc [&>ul]:pl-4 [&>ol]:list-decimal [&>ol]:pl-4 [&>table]:w-full [&>table]:border-collapse [&_th]:border [&_th]:border-border [&_th]:bg-muted/50 [&_th]:p-2 [&_th]:text-left [&_td]:border [&_td]:border-border [&_td]:p-2">
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {item.content}
+                          </ReactMarkdown>
+                        </div>
+                      ) : (
+                        <div className="whitespace-pre-wrap">{item.content}</div>
+                      )}
                     </div>
                   ))
                 )}
@@ -2315,6 +2436,109 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   className="px-5 py-2 rounded-xl bg-primary disabled:opacity-50 text-white font-semibold"
                 >
                   Connect Study
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+            {/* MODAL: UPLOAD FILE */}
+      {showFileModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="w-full max-w-lg rounded-xl border border-border bg-card p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
+              <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
+                <Upload className="w-4 h-4 text-primary" />
+                Upload Project File
+              </h3>
+              <button
+                type="button"
+                onClick={() => setShowFileModal(false)}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleUploadFileSubmit} className="space-y-4 text-xs">
+              <div>
+                <label className="block font-medium mb-1 text-foreground">Select Local File *</label>
+                <input
+                  type="file"
+                  onChange={handleLocalFileSelect}
+                  className="w-full text-xs text-foreground file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90 cursor-pointer"
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium mb-1 text-foreground">File Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={uploadFileName}
+                  onChange={(e) => setUploadFileName(e.target.value)}
+                  placeholder="e.g. Clinical_Study_Protocol_v2.pdf"
+                  className="w-full rounded-md border border-input bg-background p-2.5 text-xs text-foreground outline-none focus:border-primary/50"
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium mb-1 text-foreground">Destination Folder *</label>
+                <select
+                  value={uploadFileFolder}
+                  onChange={(e) => setUploadFileFolder(e.target.value)}
+                  className="w-full rounded-md border border-input bg-background p-2.5 text-xs text-foreground outline-none focus:border-primary/50"
+                >
+                  <option value="PROTOCOL">Protocols & SOPs</option>
+                  <option value="ETHICS">Ethics & IRB Documents</option>
+                  <option value="LITERATURE">Literature & References</option>
+                  <option value="DATA">Raw Data (Sensitive)</option>
+                  <option value="ANALYSIS">Statistical Analysis</option>
+                  <option value="MANUSCRIPT">Manuscript Drafts</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="flex items-center gap-2 cursor-pointer font-medium text-foreground">
+                  <input
+                    type="checkbox"
+                    checked={uploadFileSensitive}
+                    onChange={(e) => setUploadFileSensitive(e.target.checked)}
+                    className="rounded border-input text-primary focus:ring-primary"
+                  />
+                  <span>Sensitive Health Data (PHI / Microdata)</span>
+                </label>
+                <p className="text-[11px] text-muted-foreground mt-1 ml-5">
+                  Restricts download access to verified team members with data clearance.
+                </p>
+              </div>
+
+              <div>
+                <label className="block font-medium mb-1 text-foreground">Notes / Description (Optional)</label>
+                <textarea
+                  value={uploadFileNotes}
+                  onChange={(e) => setUploadFileNotes(e.target.value)}
+                  rows={2}
+                  placeholder="Version notes, methodology changes, or instructions..."
+                  className="w-full rounded-md border border-input bg-background p-2.5 text-xs text-foreground outline-none focus:border-primary/50"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-border">
+                <button
+                  type="button"
+                  onClick={() => setShowFileModal(false)}
+                  className="px-3.5 py-1.5 rounded-md border border-border text-foreground hover:bg-muted font-medium text-xs"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isUploadingFile || !uploadFileName.trim() || !uploadFileUrl}
+                  className="px-4 py-1.5 rounded-md bg-primary text-primary-foreground font-semibold text-xs hover:bg-primary/90 disabled:opacity-50"
+                >
+                  {isUploadingFile ? "Uploading..." : "Upload File"}
                 </button>
               </div>
             </form>
