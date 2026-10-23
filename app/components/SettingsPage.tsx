@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
   AlertCircle,
@@ -49,6 +49,43 @@ export default function SettingsPage({ user }: { user: UserData }) {
     institution: user.institution || "",
     fieldOfStudy: user.fieldOfStudy || "",
   });
+  const [activeSection, setActiveSection] = useState("account");
+  const contentScrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = contentScrollRef.current;
+    if (!container) return;
+
+    const sections = container.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+            break;
+          }
+        }
+      },
+      {
+        root: container,
+        rootMargin: "-5% 0px -65% 0px",
+        threshold: 0.1,
+      }
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+    return () => observer.disconnect();
+  }, []);
+
+  function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
+    e.preventDefault();
+    const container = contentScrollRef.current;
+    const target = document.getElementById(id);
+    if (target && container) {
+      setActiveSection(id);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
 
   const initials =
     user.name
@@ -102,13 +139,13 @@ export default function SettingsPage({ user }: { user: UserData }) {
   }
 
   return (
-    <div className="mx-auto flex h-full min-h-0 w-full max-w-6xl flex-col overflow-hidden px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+    <div className="flex h-full min-h-0 w-full max-w-7xl flex-col overflow-hidden px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
       <header className="mb-4 flex shrink-0 items-start justify-between gap-4 sm:mb-6">
         <div>
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
             Account
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">
             Settings
           </h1>
           <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">
@@ -123,33 +160,46 @@ export default function SettingsPage({ user }: { user: UserData }) {
       <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[220px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-6">
         <nav
           aria-label="Settings sections"
-          className="flex gap-1 overflow-x-auto rounded-xl border border-border bg-card p-2 lg:flex-col"
+          className="flex gap-1 overflow-x-auto rounded-xl border border-border bg-card p-1.5 lg:flex-col lg:h-fit shrink-0"
         >
           {[
-            { href: "#account", label: "Account overview", icon: CircleUserRound },
-            { href: "#profile", label: "Profile information", icon: UserRound },
-            { href: "#security", label: "Security", icon: ShieldCheck },
-            { href: "#appearance", label: "Appearance", icon: Palette },
+            { id: "account", label: "Account overview", icon: CircleUserRound },
+            { id: "profile", label: "Profile information", icon: UserRound },
+            { id: "security", label: "Security", icon: ShieldCheck },
+            { id: "appearance", label: "Appearance", icon: Palette },
             ...(user.faydaVerified !== undefined
-              ? [{ href: "#verification", label: "Verification", icon: CheckCircle }]
+              ? [{ id: "verification", label: "Verification", icon: CheckCircle }]
               : []),
           ].map((item) => {
             const Icon = item.icon;
+            const isActive = activeSection === item.id;
             return (
               <a
-                key={item.href}
-                href={item.href}
-                className="flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground"
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(e) => handleNavClick(e, item.id)}
+                className={`flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition font-medium ${
+                  isActive
+                    ? "bg-primary/10 text-primary font-semibold"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className={`h-4 w-4 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
                 <span className="whitespace-nowrap">{item.label}</span>
-                <ChevronRight className="ml-auto hidden h-3.5 w-3.5 lg:block" />
+                <ChevronRight
+                  className={`ml-auto hidden h-3.5 w-3.5 lg:block transition-transform ${
+                    isActive ? "text-primary translate-x-0.5" : "text-muted-foreground/40"
+                  }`}
+                />
               </a>
             );
           })}
         </nav>
 
-        <div className="min-h-0 min-w-0 space-y-5 overflow-y-auto overscroll-contain pr-1">
+        <div
+          ref={contentScrollRef}
+          className="min-h-0 min-w-0 space-y-5 overflow-y-auto overscroll-contain pr-1 scroll-smooth"
+        >
           <section
             id="account"
             className="scroll-mt-6 overflow-hidden rounded-xl border border-border bg-card"
