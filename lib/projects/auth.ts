@@ -1,6 +1,6 @@
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { ProjectRole } from "@/generated/prisma/enums";
+import { ProjectRole, ProjectVisibility } from "@/generated/prisma/enums";
 
 export interface ProjectAuthContext {
   userId: string;
@@ -55,9 +55,10 @@ export async function authorizeProjectAccess(
   const isGlobalAdmin = user.role === "ADMIN";
   const isLead = project.projectLeadId === user.id;
   const memberRecord = project.members[0];
+  const isPublic = project.visibility === ProjectVisibility.PUBLIC;
 
-  // If not a member, not the lead, and not admin:
-  if (!memberRecord && !isLead && !isGlobalAdmin) {
+  // If not a member, not the lead, not admin, and not a public project:
+  if (!memberRecord && !isLead && !isGlobalAdmin && !isPublic) {
     return {
       auth: null,
       error: "You are not a member of this research project workspace.",

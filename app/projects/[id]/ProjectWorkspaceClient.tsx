@@ -246,7 +246,8 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     try {
       const res = await fetch(`/api/projects/${projectId}`);
       if (!res.ok) {
-        throw new Error("Failed to load project workspace");
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to load project workspace");
       }
       const data = await res.json();
       setProject(data.project);
@@ -750,13 +751,21 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
           <AlertCircle className="w-10 h-10 text-rose-500 mx-auto mb-3" />
           <h2 className="text-lg font-semibold text-foreground">Workspace Unavailable</h2>
           <p className="text-xs text-muted-foreground mt-1">{error || "Project not found or access denied."}</p>
-          <Link
-            href="/projects"
-            className="mt-5 inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back to Projects
-          </Link>
+          <div className="mt-5 flex items-center justify-center gap-3">
+            <button
+              onClick={() => fetchProject(true)}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-border bg-background text-sm font-medium text-foreground hover:bg-muted transition-colors"
+            >
+              Retry
+            </button>
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Back to Projects
+            </Link>
+          </div>
         </div>
       </div>
     );
