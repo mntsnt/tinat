@@ -1496,7 +1496,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         
 
         {activeTab === "chat" && (
-          <div className="h-[calc(100vh-14rem)] min-h-[520px] flex flex-col">
+          <div className="h-[calc(100vh-13rem)] min-h-[600px] flex flex-col">
             <ProjectTeamChat
               projectId={projectId}
               projectTitle={project.title}

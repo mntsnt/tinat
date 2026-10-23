@@ -98,7 +98,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
       {/* Recipient Profile Card */}
         <div className="text-center space-y-4">
           <div className="relative inline-block">
-            <div className="w-20 h-20 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-background mx-auto">
+            <div className="w-20 h-20 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-background mx-auto">
               {initials}
             </div>
             <div className="absolute -bottom-1 -right-1 bg-emerald-500 text-white rounded-full p-1 shadow">

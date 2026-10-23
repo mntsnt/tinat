@@ -105,7 +105,7 @@ export default function FieldCollectionPage() {
 
           <button 
             onClick={() => { setConsentGiven(true); setCurrentStep(0); }}
-            className="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition shadow-md active:scale-[0.98]"
+            className="w-full bg-primary text-primary-foreground py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition shadow-md active:scale-[0.98]"
           >
             {t.agree}
           </button>

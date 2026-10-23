@@ -143,7 +143,7 @@ export default async function StudyDiscoveryPage({
           }).toString()}`}
           className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap ${
             selectedType === "FREE_DATA_COLLECTION"
-              ? "bg-primary text-white font-semibold shadow-sm"
+              ? "bg-primary text-primary-foreground font-semibold shadow-sm"
               : "text-muted-foreground hover:text-foreground hover:bg-muted"
           }`}
         >
