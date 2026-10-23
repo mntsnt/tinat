@@ -1120,7 +1120,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               {auth?.canEditTasks && (
                 <button
                   onClick={() => setShowTaskModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-semibold shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold shadow-xs"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Add Research Task
@@ -1317,7 +1317,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               {auth?.canManageTeam && (
                 <button
                   onClick={() => setShowInviteModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-semibold"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold"
                 >
                   <Users className="w-3.5 h-3.5" />
                   Invite Collaborator
@@ -1339,7 +1339,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     className="p-4 rounded-lg border border-border bg-card text-xs"
                   >
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-primary text-white font-bold flex items-center justify-center text-sm uppercase">
+                      <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center text-sm uppercase">
                         {member.user.name?.charAt(0) || "U"}
                       </div>
                       <div>
@@ -1406,7 +1406,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   onClick={() => setFileFolderFilter(f.id)}
                   className={`px-3 py-1.5 rounded-xl border transition-all whitespace-nowrap ${
                     fileFolderFilter === f.id
-                      ? "bg-primary text-white border-primary font-semibold"
+                      ? "bg-primary text-primary-foreground border-primary font-semibold"
                       : "bg-background text-foreground border-border hover:bg-muted/40"
                   }`}
                 >
@@ -1568,7 +1568,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         <p className="text-sm text-slate-500">Track major research checkpoints and completion.</p>
                       </div>
                       {(auth?.canManageProject || auth?.canMakeDecisions) && (
-                        <button onClick={() => setShowMilestoneModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white">
+                        <button onClick={() => setShowMilestoneModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground">
                           <Plus className="h-4 w-4" /> Add milestone
                         </button>
                       )}
@@ -1621,7 +1621,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         <p className="text-sm text-slate-500">Store meeting notes, literature observations, and protocol details.</p>
                       </div>
                       {(auth?.canEditTasks || auth?.canMakeDecisions) && (
-                        <button onClick={() => setShowNoteModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white"><Plus className="h-4 w-4" /> New note</button>
+                        <button onClick={() => setShowNoteModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"><Plus className="h-4 w-4" /> New note</button>
                       )}
                     </div>
                     {project.notes?.length ? (
@@ -1660,7 +1660,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         <h3 className="font-semibold text-slate-900 dark:text-white">Team discussions</h3>
                         <p className="text-sm text-slate-500">Discuss study methods and keep replies attached to their topic.</p>
                       </div>
-                      <button onClick={() => setShowDiscussionModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white"><Plus className="h-4 w-4" /> Start discussion</button>
+                      <button onClick={() => setShowDiscussionModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"><Plus className="h-4 w-4" /> Start discussion</button>
                     </div>
                     {project.discussions?.length ? (
                       <div className="space-y-3">
@@ -1729,7 +1729,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                                 ))}
                                 <form onSubmit={(event) => { event.preventDefault(); handleReplyDiscussion(discussion.id); }} className="flex gap-2">
                                   <input value={replyContent} onChange={(event) => setReplyContent(event.target.value)} aria-label={`Reply to ${discussion.title}`} placeholder="Write a reply..." className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm" />
-                                  <button type="submit" disabled={!replyContent.trim()} className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white disabled:opacity-50"><Send className="h-4 w-4" /> Reply</button>
+                                  <button type="submit" disabled={!replyContent.trim()} className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50"><Send className="h-4 w-4" /> Reply</button>
                                 </form>
                               </div>
                             )}
@@ -1749,7 +1749,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         <h3 className="font-semibold text-slate-900 dark:text-white">Methodological decisions</h3>
                         <p className="text-sm text-slate-500">Record the rationale behind important changes to the research plan.</p>
                       </div>
-                      {auth?.canMakeDecisions && <button onClick={() => setShowDecisionModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white"><Plus className="h-4 w-4" /> Log decision</button>}
+                      {auth?.canMakeDecisions && <button onClick={() => setShowDecisionModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"><Plus className="h-4 w-4" /> Log decision</button>}
                     </div>
                     {project.decisions?.length ? (
                       <ol className="space-y-3">
@@ -1781,7 +1781,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         <h3 className="font-semibold text-slate-900 dark:text-white">Research deliverables</h3>
                         <p className="text-sm text-slate-500">Track papers, abstracts, datasets, and publication status.</p>
                       </div>
-                      {auth?.canEditTasks && <button onClick={() => setShowOutputModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-white"><Plus className="h-4 w-4" /> Add deliverable</button>}
+                      {auth?.canEditTasks && <button onClick={() => setShowOutputModal(true)} className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"><Plus className="h-4 w-4" /> Add deliverable</button>}
                     </div>
                     {project.outputs?.length ? (
                       <div className="divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white dark:divide-slate-800 dark:border-slate-800 dark:bg-slate-900">
@@ -1828,7 +1828,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               {auth?.canManageStudies && (
                 <button
                   onClick={() => setShowStudyModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-semibold"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Connect Study
@@ -2186,7 +2186,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold"
                 >
                   Create Task
                 </button>
@@ -2252,7 +2252,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold"
                 >
                   Send Invitation
                 </button>
@@ -2314,7 +2314,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold"
                 >
                   Record Decision
                 </button>
@@ -2379,7 +2379,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold"
                 >
                   Save Note
                 </button>
@@ -2441,7 +2441,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold"
                 >
                   Post Thread
                 </button>
@@ -2504,7 +2504,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 <button
                   type="submit"
                   disabled={!selectedStudyToLink}
-                  className="px-5 py-2 rounded-xl bg-primary disabled:opacity-50 text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary disabled:opacity-50 text-primary-foreground font-semibold"
                 >
                   Connect Study
                 </button>
@@ -2684,7 +2684,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-primary text-white font-semibold"
+                  className="px-5 py-2 rounded-xl bg-primary text-primary-foreground font-semibold"
                 >
                   Register Deliverable
                 </button>

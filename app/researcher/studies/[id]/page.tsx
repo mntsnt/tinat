@@ -98,17 +98,24 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
     return Math.round((count / totalResponses) * 100);
   }
 
-  const isAnalysis = activeView === "analysis";
-
   return (
-    <div className={isAnalysis ? "flex h-full flex-col overflow-hidden px-4 py-4 md:px-6" : "container mx-auto px-4 py-8 md:px-6 md:py-12"}>
-      <div className={isAnalysis ? "mb-3 shrink-0" : "mb-8"}>
-        <Link href="/researcher" className={getButtonClasses("ghost", "md", isAnalysis ? "-ml-2 mb-2 inline-flex items-center text-xs" : "-ml-4 mb-4")}>
-          &larr; Back to Dashboard
-        </Link>
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+    <div className="flex h-full min-h-0 flex-col overflow-hidden px-4 py-3 md:px-6 md:py-4">
+      {/* ── Fixed Top Header (All Views) ── */}
+      <div className="mb-3 shrink-0">
+        <div className="flex items-center justify-between gap-4 mb-1.5">
+          <Link href="/researcher" className={getButtonClasses("ghost", "sm", "-ml-2 inline-flex items-center text-xs text-muted-foreground hover:text-foreground")}>
+            &larr; Back to Dashboard
+          </Link>
+          <div className="flex items-center gap-2">
+            <Badge variant={study.status === "ACTIVE" ? "success" : study.status === "COMPLETED" ? "secondary" : "warning"} className="text-xs">
+              {study.status}
+            </Badge>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
           <div>
-            <div className="flex items-center gap-2 flex-wrap mb-2">
+            <div className="flex items-center gap-2 flex-wrap mb-1">
               {study.category && (
                 <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
                   {study.category}
@@ -129,33 +136,13 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                 </span>
               )}
             </div>
-            <h1 className={isAnalysis ? "text-lg font-bold tracking-tight text-foreground" : "text-xl font-bold tracking-tight text-foreground"}>{study.title}</h1>
-            {!isAnalysis && (
-              <>
-                {study.objective && (
-                  <p className="text-sm font-medium text-foreground/80 italic mt-2 bg-muted/40 p-2.5 rounded-lg border border-border">
-                    <span className="font-semibold not-italic text-xs uppercase text-muted-foreground block mb-0.5">Objective:</span>
-                    "{study.objective}"
-                  </p>
-                )}
-                {study.targetPopulation && (
-                  <p className="text-xs text-muted-foreground mt-2">
-                    <span className="font-semibold text-foreground">Target Cohort:</span> {study.targetPopulation}
-                  </p>
-                )}
-                {study.description && <p className="text-muted-foreground mt-2 max-w-3xl text-sm">{study.description}</p>}
-              </>
-            )}
-          </div>
-          <div className="flex gap-2">
-            <Badge variant={study.status === "ACTIVE" ? "success" : study.status === "COMPLETED" ? "secondary" : "warning"} className="text-sm">
-              {study.status}
-            </Badge>
+            <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground truncate max-w-4xl">{study.title}</h1>
           </div>
         </div>
       </div>
 
-      <nav aria-label="Study sections" className={isAnalysis ? "mb-3 shrink-0 flex gap-1 overflow-x-auto border-b border-border" : "mb-6 -mx-1 flex gap-1 overflow-x-auto border-b border-border px-1"}>
+      {/* ── Fixed Navigation Tabs (All Views) ── */}
+      <nav aria-label="Study sections" className="mb-3 shrink-0 flex gap-1 overflow-x-auto border-b border-border">
         {studyViews.map((view) => (
           <Link
             key={view.id}
@@ -163,7 +150,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
             aria-current={activeView === view.id ? "page" : undefined}
             className={`shrink-0 border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
               activeView === view.id
-                ? "border-primary text-foreground"
+                ? "border-primary text-foreground font-semibold"
                 : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -172,16 +159,38 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
         ))}
       </nav>
 
+      {/* ── View 1: Overview ── */}
       {activeView === "overview" && (
-        <StudyEngagement
-          studyId={study.id}
-          initialLikeCount={study.likes.length}
-          initialCommentCount={totalComments}
-          initiallyLiked={currentUserLiked}
-        />
-      )}
-      {activeView === "overview" && (
-        <Card className="mt-4">
+        <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8 space-y-6">
+          {(study.objective || study.targetPopulation || study.description) && (
+            <Card>
+              <CardContent className="pt-4 space-y-2.5">
+                {study.objective && (
+                  <div className="rounded-lg bg-muted/40 p-3 border border-border">
+                    <span className="font-semibold text-xs uppercase tracking-wider text-muted-foreground block mb-0.5">Research Objective:</span>
+                    <p className="text-sm font-medium text-foreground italic">"{study.objective}"</p>
+                  </div>
+                )}
+                {study.targetPopulation && (
+                  <p className="text-xs text-muted-foreground">
+                    <span className="font-semibold text-foreground">Target Cohort:</span> {study.targetPopulation}
+                  </p>
+                )}
+                {study.description && (
+                  <p className="text-xs text-muted-foreground leading-relaxed">{study.description}</p>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          <StudyEngagement
+            studyId={study.id}
+            initialLikeCount={study.likes.length}
+            initialCommentCount={totalComments}
+            initiallyLiked={currentUserLiked}
+          />
+
+          <Card>
           <CardHeader className="flex flex-row items-center justify-between gap-4">
             <div>
               <CardTitle>Participant discussion</CardTitle>
@@ -217,11 +226,8 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
             )}
           </CardContent>
         </Card>
-      )}
 
-      {activeView === "overview" && (
-      <>
-      <div className="grid gap-6 md:grid-cols-3 mb-8">
+          <div className="grid gap-6 md:grid-cols-3">
         <Card className="md:col-span-2">
           <CardHeader>
             <CardTitle>Study Status</CardTitle>
@@ -284,12 +290,8 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
           </CardContent>
         </Card>
       </div>
-      </>
-      )}
 
-      {activeView === "overview" && (
-      <>
-      <div className="grid gap-6 md:grid-cols-2 mb-12">
+          <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Overview</CardTitle>
@@ -386,9 +388,10 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
           </CardContent>
         </Card>
       </div>
-      </>
+        </div>
       )}
 
+      {/* ── View 2: AI Analysis ── */}
       {activeView === "analysis" && (
         <div className="flex-1 min-h-0 overflow-hidden">
           <AIAnalysisTab
@@ -411,34 +414,43 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
         </div>
       )}
 
-      {activeView === "visualizations" && (totalResponses > 0 ? (
-        <div className="mb-10">
-          <DataVisualizationStudio
-            studyTitle={study.title}
-            questions={study.questions}
-            responses={study.responses}
-            participantTarget={study.participantTarget}
-          />
+      {/* ── View 3: Data Visualizations ── */}
+      {activeView === "visualizations" && (
+        <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8">
+          {totalResponses > 0 ? (
+            <div className="mb-6">
+              <DataVisualizationStudio
+                studyTitle={study.title}
+                questions={study.questions}
+                responses={study.responses}
+                participantTarget={study.participantTarget}
+              />
+            </div>
+          ) : (
+            <Card className="border-dashed">
+              <CardContent className="py-12 text-center">
+                <h2 className="text-lg font-semibold text-foreground">Visualizations will appear here</h2>
+                <p className="mt-1 text-sm text-muted-foreground">Charts are available after participants submit responses.</p>
+              </CardContent>
+            </Card>
+          )}
         </div>
-      ) : (
-        <Card className="border-dashed">
-          <CardContent className="py-10 text-center">
-            <h2 className="text-lg font-semibold text-foreground">Visualizations will appear here</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Charts are available after participants submit responses.</p>
-          </CardContent>
-        </Card>
-      ))}
+      )}
 
+      {/* ── View 4: Responses ── */}
       {activeView === "responses" && (
-      <>
-      <div className="mb-6 flex items-center justify-between border-t border-border pt-10">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight text-foreground">Question-by-Question Breakdown</h2>
-          <p className="text-sm text-muted-foreground mt-0.5">
-            Raw response tallies, linear scale averages, and frequency distributions.
-          </p>
-        </div>
-      </div>
+        <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8 space-y-6">
+          <div className="flex items-center justify-between pb-2 border-b border-border">
+            <div>
+              <h2 className="text-xl font-bold tracking-tight text-foreground">Question-by-Question Breakdown</h2>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Raw response tallies, linear scale averages, and frequency distributions.
+              </p>
+            </div>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-muted text-muted-foreground">
+              {totalResponses} responses
+            </span>
+          </div>
 
       {totalResponses === 0 ? (
         <Card className="bg-muted/50 border-dashed">
@@ -660,12 +672,13 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
           })}
         </div>
       )}
-      </>
+        </div>
       )}
 
-      {/* Participant Reviews & Feedback View */}
+      {/* ── View 5: Discussion & Feedback ── */}
       {activeView === "discussion" && (
-      <section id="study-discussion" className="scroll-mt-6">
+        <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8 space-y-6">
+          <section id="study-discussion" className="scroll-mt-6 space-y-6">
       {study.ratings && study.ratings.length > 0 && (
         <div className="mt-12">
           <div className="mb-6 flex items-center justify-between">
@@ -796,7 +809,8 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
           )}
         </CardContent>
       </Card>
-      </section>
+          </section>
+        </div>
       )}
     </div>
   );
