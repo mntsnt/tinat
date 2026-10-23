@@ -315,7 +315,7 @@ export function Sidebar({
       <aside
         onTransitionEnd={() => setIsAnimating(false)}
         className={cn(
-          "sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex",
+          "sticky top-0 hidden h-full shrink-0 flex-col border-r border-border bg-card/70 md:flex",
           isAnimating && "transition-[width] duration-200 ease-out",
           isCollapsed ? "w-16" : "w-56"
         )}
@@ -326,7 +326,7 @@ export function Sidebar({
       </aside>
 
       {/* Mobile Top Bar */}
-      <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
+      <div className="md:hidden flex shrink-0 items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black font-bold text-white text-xs shadow-sm dark:bg-white dark:text-black">
             T

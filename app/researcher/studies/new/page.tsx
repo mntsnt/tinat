@@ -578,7 +578,7 @@ export default function CreateStudyPage() {
         <div>
           <div className="mb-4 flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-foreground">Questions & Questionnaire</h2>
+              <h2 className="text-xl font-bold tracking-tight text-foreground">Questions & Questionnaire</h2>
               <p className="text-sm text-muted-foreground">Add survey questions, rating scales, or checklists.</p>
             </div>
             <Button variant="outline" size="sm" onClick={addQuestion}>
@@ -719,6 +719,14 @@ export default function CreateStudyPage() {
               </Card>
             ))}
           </div>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={addQuestion}
+              className="w-full border-dashed border-2 py-4 text-sm font-semibold hover:border-emerald-600 hover:text-emerald-600"
+            >
+              + Add Another Question
+            </Button>
         </div>
 
         {/* Medical Research Disclaimer */}

@@ -37,7 +37,7 @@ export default async function ParticipantLayout({ children }: { children: ReactN
   const links = getLinksForUser({ ...user, isCollector: verification?.status === "VERIFIED" });
 
   return (
-    <div className="flex flex-col md:flex-row h-screen overflow-hidden">
+    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
       <Sidebar
         links={links}
         roleTitle="Participant"
