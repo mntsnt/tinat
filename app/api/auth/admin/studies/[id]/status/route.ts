@@ -76,20 +76,22 @@ export async function PATCH(
     }
 
     if (status === "ACTIVE") {
-      // Admin specific checks for activation
-      if (study.budgetCredits <= 0 || study.rewardCredits <= 0) {
-        return NextResponse.json(
-          { error: "Cannot activate a study with zero budget or zero reward." },
-          { status: 400 }
-        );
-      }
-      
-      const remaining = study.budgetCredits - study.creditsPaid;
-      if (remaining < study.rewardCredits) {
-        return NextResponse.json(
-          { error: "Cannot activate a study without sufficient remaining budget." },
-          { status: 400 }
-        );
+      // Free data collection studies do not require budget or reward credits
+      if (study.studyType === "FUNDED") {
+        if (study.budgetCredits <= 0 || study.rewardCredits <= 0) {
+          return NextResponse.json(
+            { error: "Cannot activate a funded study with zero budget or zero reward." },
+            { status: 400 }
+          );
+        }
+        
+        const remaining = study.budgetCredits - study.creditsPaid;
+        if (remaining < study.rewardCredits) {
+          return NextResponse.json(
+            { error: "Cannot activate a study without sufficient remaining budget." },
+            { status: 400 }
+          );
+        }
       }
 
       if (study._count.questions === 0) {

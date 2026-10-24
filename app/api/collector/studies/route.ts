@@ -16,12 +16,14 @@ export async function GET(req: Request) {
       }
     });
 
-    if (!verification || verification.status !== "VERIFIED") {
-      return NextResponse.json({ error: "Not a verified data collector" }, { status: 403 });
-    }
+    const isVerified = verification?.status === "VERIFIED";
 
+    // Free data collectors can view and collect for assigned studies without verification
     const assignedStudies = await prisma.studyDataCollector.findMany({
-      where: { userId: user.id },
+      where: {
+        userId: user.id,
+        ...(isVerified ? {} : { study: { studyType: "FREE_DATA_COLLECTION" } })
+      },
       include: {
         study: {
           select: {

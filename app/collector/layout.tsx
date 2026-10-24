@@ -30,7 +30,15 @@ export default async function CollectorLayout({ children }: { children: ReactNod
     }
   });
 
-  if (!verification || verification.status !== "VERIFIED") {
+  const isVerifiedCollector = verification?.status === "VERIFIED";
+
+  // Free data collectors do not need to verify. Allow access if user has assignments or pending invitations
+  const [assignedCount, pendingInvites] = await Promise.all([
+    prisma.studyDataCollector.count({ where: { userId: user.id } }),
+    prisma.collectorInvitation.count({ where: { inviteeId: user.id, status: "PENDING" } })
+  ]);
+
+  if (!isVerifiedCollector && assignedCount === 0 && pendingInvites === 0) {
     redirect("/dashboard");
   }
 

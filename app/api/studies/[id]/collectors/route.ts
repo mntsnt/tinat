@@ -53,18 +53,20 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Verify if user is a verified data collector
-    const verification = await prisma.verification.findUnique({
-      where: {
-        userId_verificationType: {
-          userId: collectorUser.id,
-          verificationType: "DATA_COLLECTOR"
+    // Free data collectors do not need to verify. Verification is only needed for funded researches.
+    if (study.studyType === "FUNDED") {
+      const verification = await prisma.verification.findUnique({
+        where: {
+          userId_verificationType: {
+            userId: collectorUser.id,
+            verificationType: "DATA_COLLECTOR"
+          }
         }
-      }
-    });
+      });
 
-    if (!verification || verification.status !== "VERIFIED") {
-      return NextResponse.json({ error: "User is not a verified data collector" }, { status: 400 });
+      if (!verification || verification.status !== "VERIFIED") {
+        return NextResponse.json({ error: "User is not a verified data collector. Verification is required for funded research." }, { status: 400 });
+      }
     }
 
     const invitation = await prisma.collectorInvitation.create({

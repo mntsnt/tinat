@@ -211,24 +211,6 @@ export async function POST(request: Request) {
       );
     }
 
-    const researcherVerification = await prisma.verification.findUnique({
-      where: {
-        userId_verificationType: {
-          userId: user.id,
-          verificationType: "RESEARCHER",
-        }
-      }
-    });
-
-    if (!researcherVerification || researcherVerification.status !== "VERIFIED") {
-      return NextResponse.json(
-        {
-          error: "You must complete identity verification as a Researcher before creating studies.",
-        },
-        { status: 403 }
-      );
-    }
-
     /*
     |--------------------------------------------------------------------------
     | 3. Read request body
@@ -261,6 +243,33 @@ export async function POST(request: Request) {
     }
 
     const isFreeDataCollection = studyType === "FREE_DATA_COLLECTION" || rewardCredits === 0;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Check
+    |--------------------------------------------------------------------------
+    | Free data collection does NOT require identity verification.
+    | Verification is ONLY required for FUNDED researches.
+    */
+    if (!isFreeDataCollection) {
+      const researcherVerification = await prisma.verification.findUnique({
+        where: {
+          userId_verificationType: {
+            userId: user.id,
+            verificationType: "RESEARCHER",
+          },
+        },
+      });
+
+      if (!researcherVerification || researcherVerification.status !== "VERIFIED") {
+        return NextResponse.json(
+          {
+            error: "You must complete identity verification as a Researcher before creating funded studies.",
+          },
+          { status: 403 }
+        );
+      }
+    }
 
     /*
     |--------------------------------------------------------------------------

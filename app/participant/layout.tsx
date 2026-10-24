@@ -34,7 +34,13 @@ export default async function ParticipantLayout({ children }: { children: ReactN
     }
   });
 
-  const links = getLinksForUser({ ...user, isCollector: verification?.status === "VERIFIED" });
+  const [assignedCount, pendingInvites] = await Promise.all([
+    prisma.studyDataCollector.count({ where: { userId: user.id } }),
+    prisma.collectorInvitation.count({ where: { inviteeId: user.id, status: "PENDING" } })
+  ]);
+
+  const isCollector = verification?.status === "VERIFIED" || assignedCount > 0 || pendingInvites > 0;
+  const links = getLinksForUser({ ...user, isCollector });
 
   return (
     <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">

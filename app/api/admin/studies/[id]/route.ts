@@ -48,14 +48,16 @@ export async function GET(
       return NextResponse.json({ error: "Study not found" }, { status: 404 });
     }
 
+    const isFree = study.studyType === "FREE_DATA_COLLECTION" || study.rewardCredits === 0;
     const remainingCredits = study.budgetCredits - study.creditsPaid;
     const participantTargetReached =
       study.participantTarget > 0 && study._count.responses >= study.participantTarget;
     const budgetValid =
-      study.budgetCredits > 0 &&
-      study.rewardCredits > 0 &&
-      remainingCredits >= study.rewardCredits &&
-      study.questions.length > 0;
+      isFree ||
+      (study.budgetCredits > 0 &&
+        study.rewardCredits > 0 &&
+        remainingCredits >= study.rewardCredits &&
+        study.questions.length > 0);
 
     return NextResponse.json({
       study,
