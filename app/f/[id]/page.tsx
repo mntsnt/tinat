@@ -58,7 +58,6 @@ export default function PublicFormFillingPage({
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [respondentName, setRespondentName] = useState("");
   const [answers, setAnswers] = useState<Record<string, any>>({});
 
   useEffect(() => {
@@ -135,10 +134,7 @@ export default function PublicFormFillingPage({
       const res = await fetch(`/api/f/${formId}/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          respondentName: respondentName.trim() || undefined,
-          answers,
-        }),
+        body: JSON.stringify({ answers }),
       });
 
       const data = await res.json();
@@ -157,7 +153,6 @@ export default function PublicFormFillingPage({
 
   function handleReset() {
     setAnswers({});
-    setRespondentName("");
     setSubmitted(false);
     setError(null);
   }
@@ -343,20 +338,6 @@ export default function PublicFormFillingPage({
               <span>No sign-in required to submit</span>
             </div>
           </div>
-        </div>
-
-        {/* Optional Respondent Name */}
-        <div className="rounded-xl border bg-card shadow-sm p-6 space-y-2">
-          <label className="text-sm font-medium block">
-            Your Name <span className="text-xs text-muted-foreground font-normal">(Optional)</span>
-          </label>
-          <input
-            type="text"
-            value={respondentName}
-            onChange={(e) => setRespondentName(e.target.value)}
-            placeholder="e.g. Selamawit or Anonymous"
-            className="w-full text-sm bg-transparent border-b border-border focus:border-emerald-500 focus:outline-none py-1.5 transition-colors"
-          />
         </div>
 
         {/* Global Error Banner */}
