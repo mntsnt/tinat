@@ -76,14 +76,14 @@ export default function WithdrawalForm({ balance }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {success && (
-        <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-4">
-          <p className="text-sm font-medium text-success">{success}</p>
+        <div className="rounded-lg bg-emerald-50 border border-emerald-200 dark:bg-emerald-950/40 dark:border-emerald-800/40 p-4">
+          <p className="text-sm font-medium text-emerald-800 dark:text-emerald-300">{success}</p>
         </div>
       )}
 
       {error && (
-        <div className="rounded-lg bg-red-50 border border-red-200 p-4">
-          <p className="text-sm font-medium text-red-800">{error}</p>
+        <div className="rounded-lg bg-rose-50 border border-rose-200 dark:bg-rose-950/40 dark:border-rose-800/40 p-4">
+          <p className="text-sm font-medium text-rose-800 dark:text-rose-300">{error}</p>
         </div>
       )}
 
@@ -101,7 +101,7 @@ export default function WithdrawalForm({ balance }: Props) {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0"
-            className="flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 pr-12 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 pr-12 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={loading}
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -120,7 +120,7 @@ export default function WithdrawalForm({ balance }: Props) {
           value={method}
           onChange={(e) => setMethod(e.target.value)}
           disabled={loading}
-          className="flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <option value="TELEBIRR">Telebirr</option>
           <option value="BANK">Bank Transfer</option>

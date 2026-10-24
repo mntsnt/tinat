@@ -1851,7 +1851,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                       <span className="font-bold text-sm text-slate-900 dark:text-white">
                         {ls.study.title}
                       </span>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/5 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300">
                         {ls.study.status}
                       </span>
                     </div>

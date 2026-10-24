@@ -448,7 +448,7 @@ export default function StudyQuestionnaire({
                 Reward: {study.rewardCredits} TC
               </Badge>
             ) : (
-              <Badge variant="outline" className="border-blue-300 bg-primary/5 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 font-medium">
+              <Badge variant="outline" className="border-teal-500/30 bg-teal-500/10 text-teal-700 dark:text-teal-300 font-medium">
                 Open Data Collection &bull; Volunteer
               </Badge>
             )}
@@ -501,7 +501,7 @@ export default function StudyQuestionnaire({
             ) : (
               <>
                 <Copy className="w-3.5 h-3.5" />
-                <span>Share Form</span>
+                <span>Share Study Link</span>
               </>
             )}
           </Button>

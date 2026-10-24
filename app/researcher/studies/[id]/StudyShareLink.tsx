@@ -36,9 +36,9 @@ export function StudyShareLink({ studyId }: StudyShareLinkProps) {
             <Share2 className="h-4 w-4" />
           </span>
           <div>
-            <h3 className="text-sm font-semibold text-foreground">Share Form with Participants</h3>
+            <h3 className="text-sm font-semibold text-foreground">Share Study Link</h3>
             <p className="text-xs text-muted-foreground">
-              Send this link to respondents via WhatsApp, Telegram, email, or social media to collect responses.
+              Send this link to participants via WhatsApp, Telegram, email, or social media to participate in this study.
             </p>
           </div>
         </div>
@@ -70,7 +70,7 @@ export function StudyShareLink({ studyId }: StudyShareLinkProps) {
             className="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-background px-2.5 text-xs font-medium text-foreground hover:bg-muted"
           >
             <ExternalLink className="h-3.5 w-3.5" />
-            Open Form
+            Open Study
           </a>
         </div>
       </div>

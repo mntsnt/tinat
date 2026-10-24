@@ -255,7 +255,7 @@ export default async function StudyDiscoveryPage({
                       {study.rewardCredits} TC
                     </Badge>
                   ) : (
-                    <span className="text-[11px] font-medium text-primary dark:text-blue-400 bg-primary/10 px-2 py-0.5 rounded-full">
+                    <span className="text-[11px] font-medium text-teal-700 dark:text-teal-300 bg-teal-500/10 px-2 py-0.5 rounded-full">
                       Volunteer
                     </span>
                   )}
@@ -274,10 +274,10 @@ export default async function StudyDiscoveryPage({
                     )}
                     {study.researcher.isVerified && (
                       <span
-                        className="inline-block rounded-full bg-primary/10 dark:bg-blue-900/40 p-0.5 shrink-0"
+                        className="inline-block rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 p-0.5 shrink-0"
                         title="Verified Researcher"
                       >
-                        <svg className="h-3 w-3 text-primary dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="h-3 w-3 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
                           <path
                             fillRule="evenodd"
                             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"

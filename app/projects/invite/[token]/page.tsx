@@ -150,7 +150,7 @@ export default function ProjectInvitePage({
             </h1>
 
             <div className="flex items-center gap-2 mt-2 flex-wrap">
-              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-primary/5 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300">
                 {project.studyDesign}
               </span>
               {project.institution && (
@@ -205,7 +205,7 @@ export default function ProjectInvitePage({
                 type="button"
                 disabled={acting}
                 onClick={() => handleAction("ACCEPT")}
-                className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs shadow-md shadow-indigo-600/20 disabled:opacity-50 transition-all flex items-center gap-1.5"
+                className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs shadow-md shadow-emerald-600/20 disabled:opacity-50 transition-all flex items-center gap-1.5"
               >
                 {acting ? (
                   <>

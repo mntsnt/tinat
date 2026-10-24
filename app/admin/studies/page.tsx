@@ -38,7 +38,7 @@ export default async function AdminStudiesPage() {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+    <div className="container mx-auto max-w-[1440px] px-4 py-6 md:px-7 md:py-8">
       <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
           <h1 className="text-xl font-bold tracking-tight text-foreground">Manage Studies</h1>

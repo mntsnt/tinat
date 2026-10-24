@@ -323,7 +323,7 @@ export default function CreateStudyPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground text-base">Free Data Collection</h3>
-                    <span className="inline-block text-[11px] font-semibold text-primary dark:text-blue-400 bg-primary/10 px-2 py-0.5 rounded-full mt-0.5">
+                    <span className="inline-block text-[11px] font-semibold text-teal-700 dark:text-teal-300 bg-teal-500/10 px-2 py-0.5 rounded-full mt-0.5">
                       No Funding Needed • Free to Publish
                     </span>
                   </div>
@@ -560,9 +560,9 @@ export default function CreateStudyPage() {
               </div>
             ) : (
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-primary/10 border border-primary/20 text-blue-900 dark:text-blue-200">
+                <div className="p-4 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-900 dark:text-teal-200">
                   <div className="flex items-center gap-2 font-semibold text-sm">
-                    <Sparkles className="w-4 h-4 text-primary dark:text-blue-400" />
+                    <Sparkles className="w-4 h-4 text-teal-600 dark:text-teal-400" />
                     Zero-Cost Publishing
                   </div>
                   <p className="text-xs mt-1 text-muted-foreground leading-relaxed">

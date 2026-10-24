@@ -58,7 +58,7 @@ export default async function ResearcherStudiesPage() {
       {studies.length === 0 ? (
         <Card className="border-dashed">
           <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-primary/5 dark:bg-indigo-900/20 flex items-center justify-center mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-primary/5 dark:bg-emerald-950/20 flex items-center justify-center mb-4">
               <BookOpen className="w-7 h-7 text-primary" />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-1">No studies yet</h3>
@@ -76,7 +76,7 @@ export default async function ResearcherStudiesPage() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {studies.map((study) => (
-            <Card key={study.id} className="flex flex-col overflow-hidden hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors">
+            <Card key={study.id} className="flex flex-col overflow-hidden hover:border-emerald-500/40 transition-colors">
               <StudyBanner theme={study.bannerTheme} className="h-20" />
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between gap-2 mb-2">
@@ -84,7 +84,7 @@ export default async function ResearcherStudiesPage() {
                     {study.status}
                   </Badge>
                   {study.rewardCredits > 0 ? (
-                    <span className="text-xs font-semibold px-2 py-1 rounded-md bg-primary/10 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                    <span className="text-xs font-semibold px-2 py-1 rounded-md bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300">
                       {study.rewardCredits} TC / response
                     </span>
                   ) : (

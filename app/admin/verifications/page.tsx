@@ -64,7 +64,7 @@ export default function AdminVerificationsPage() {
   const tabs = ["PENDING", "VERIFIED", "REJECTED", "SUSPENDED"] as const;
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="container mx-auto max-w-[1440px] space-y-6 px-4 py-6 md:px-7 md:py-8">
       <div className="mb-8">
         <h1 className="text-xl font-bold text-foreground flex items-center gap-3">
           <ShieldCheck className="w-8 h-8 text-primary" />
@@ -111,8 +111,8 @@ export default function AdminVerificationsPage() {
                     {v.verificationType}
                   </span>
                   <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                    v.status === "VERIFIED" ? "bg-emerald-100 text-emerald-800" :
-                    v.status === "PENDING" ? "bg-primary/10 text-primary" : "bg-rose-100 text-rose-800"
+                    v.status === "VERIFIED" ? "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300" :
+                    v.status === "PENDING" ? "bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300" : "bg-rose-50 text-rose-800 dark:bg-rose-950/40 dark:text-rose-300"
                   }`}>
                     {v.status}
                   </span>

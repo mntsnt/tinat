@@ -250,7 +250,7 @@ export default function PublicFormFillingPage({
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="p-2 rounded-lg bg-blue-500/10 text-blue-600 shrink-0 mt-0.5">
+                <div className="p-2 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5">
                   <ClipboardList className="h-4 w-4" />
                 </div>
                 <div>
@@ -264,7 +264,7 @@ export default function PublicFormFillingPage({
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="p-2 rounded-lg bg-purple-500/10 text-purple-600 shrink-0 mt-0.5">
+                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5">
                   <MessageCircleMore className="h-4 w-4" />
                 </div>
                 <div>

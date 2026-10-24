@@ -31,7 +31,7 @@ export default async function AdminWithdrawalsPage() {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6 md:py-12 max-w-5xl">
+    <div className="container mx-auto max-w-[1440px] space-y-6 px-4 py-6 md:px-7 md:py-8">
       <div className="mb-8">
         <Link href="/admin" className={getButtonClasses("ghost", "md", "-ml-4 mb-4")}>
           &larr; Back to Admin Dashboard

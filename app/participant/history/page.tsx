@@ -33,7 +33,7 @@ export default async function HistoryPage() {
   const totalEarned = user.responses.reduce((sum, r) => sum + r.study.rewardCredits, 0);
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6">
+    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
       <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold tracking-tight text-foreground">Research History</h1>

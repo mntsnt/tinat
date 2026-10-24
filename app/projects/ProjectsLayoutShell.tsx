@@ -25,7 +25,7 @@ export function ProjectsLayoutShell({
   roleColor = "researcher",
 }: ProjectsLayoutShellProps) {
   return (
-    <div className="flex h-screen flex-col overflow-hidden md:flex-row">
+    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
       <Sidebar
         links={links}
         roleTitle={roleTitle}

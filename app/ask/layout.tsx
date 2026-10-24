@@ -1,53 +1,41 @@
 import { ReactNode } from "react";
 import { getSession } from "../../lib/auth";
-import { redirect } from "next/navigation";
 import { prisma } from "../../lib/prisma";
-import { Sidebar } from "../components/layout/Sidebar";
 import { getLinksForUser } from "../components/layout/navLinks";
+import { AskLayoutShell } from "./AskLayoutShell";
 
 export default async function AskLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
 
-  if (!session) {
-    redirect("/login");
-  }
+  let user = null;
+  let roleTitle = "Participant";
+  let roleColor: "participant" | "researcher" | "admin" = "participant";
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.userId },
-    select: { id: true, role: true, name: true, email: true, avatarUrl: true },
-  });
+  if (session?.userId) {
+    user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: { id: true, role: true, name: true, email: true, avatarUrl: true },
+    });
 
-  if (!user) {
-    redirect("/login");
+    if (user?.role === "RESEARCHER") {
+      roleTitle = "Researcher";
+      roleColor = "researcher";
+    } else if (user?.role === "ADMIN") {
+      roleTitle = "Admin";
+      roleColor = "admin";
+    }
   }
 
   const links = getLinksForUser(user);
 
-  let roleTitle = "Participant";
-  let roleColor: "participant" | "researcher" | "admin" = "participant";
-
-  if (user.role === "RESEARCHER") {
-    roleTitle = "Researcher";
-    roleColor = "researcher";
-  } else if (user.role === "ADMIN") {
-    roleTitle = "Admin";
-    roleColor = "admin";
-  }
-
   return (
-    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
-      <Sidebar
-        links={links}
-        roleTitle={roleTitle}
-        userId={user.id}
-        userName={user.name}
-        userEmail={user.email}
-        avatarUrl={user.avatarUrl}
-        roleColor={roleColor}
-      />
-      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10">
-        {children}
-      </main>
-    </div>
+    <AskLayoutShell
+      links={links}
+      user={user}
+      roleTitle={roleTitle}
+      roleColor={roleColor}
+    >
+      {children}
+    </AskLayoutShell>
   );
 }

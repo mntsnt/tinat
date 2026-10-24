@@ -313,10 +313,10 @@ export default async function Home() {
             <div className="rounded-2xl border-2 border-primary/30 bg-card p-8 shadow-lg relative flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <div className="p-3 rounded-xl bg-primary/10 text-primary dark:text-blue-400">
+                  <div className="p-3 rounded-xl bg-primary/10 text-primary dark:text-teal-400">
                     <ClipboardCheck className="w-6 h-6" />
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-blue-400 bg-primary/10 px-3 py-1 rounded-full">
+                  <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-teal-400 bg-primary/10 px-3 py-1 rounded-full">
                     100% Free &bull; Direct Publish
                   </span>
                 </div>

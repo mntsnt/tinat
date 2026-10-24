@@ -128,7 +128,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                 </span>
               )}
               {study.studyType === "FREE_DATA_COLLECTION" || study.rewardCredits === 0 ? (
-                <span className="text-xs font-medium text-primary dark:text-blue-400 bg-primary/10 px-2.5 py-0.5 rounded-full">
+                <span className="text-xs font-medium text-teal-700 dark:text-teal-300 bg-teal-500/10 px-2.5 py-0.5 rounded-full">
                   Open Data Collection (Free)
                 </span>
               ) : (

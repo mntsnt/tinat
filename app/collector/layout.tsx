@@ -47,7 +47,7 @@ export default async function CollectorLayout({ children }: { children: ReactNod
   ];
 
   return (
-    <div className="flex flex-col md:flex-row h-screen overflow-hidden">
+    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
       <Sidebar
         links={links}
         roleTitle="Data Collector"
