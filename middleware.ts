@@ -12,7 +12,13 @@ function getSecretKey() {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const sessionToken = request.cookies.get("tinat_session")?.value;
+  const cookieToken = request.cookies.get("tinat_session")?.value;
+  const authHeader = request.headers.get("authorization");
+  const bearerToken = authHeader?.startsWith("Bearer ")
+    ? authHeader.substring(7).trim()
+    : null;
+
+  const sessionToken = cookieToken || bearerToken;
 
   const isApi = pathname.startsWith("/api/");
 
@@ -48,5 +54,6 @@ export const config = {
     "/researcher/:path*",
     "/participant/:path*",
     "/api/auth/admin/:path*",
+    "/api/admin/:path*",
   ],
 };

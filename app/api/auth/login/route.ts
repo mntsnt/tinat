@@ -55,10 +55,11 @@ export async function POST(request: Request) {
       );
     }
 
-    await createSession(user.id);
+    const token = await createSession(user.id);
 
     return NextResponse.json({
       message: "Login successful.",
+      token,
       user: {
         id: user.id,
         name: user.name,
