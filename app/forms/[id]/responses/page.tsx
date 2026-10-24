@@ -288,7 +288,7 @@ export default function FormResponsesPage({
           </Button>
         </div>
       ) : activeTab === "summary" ? (
-        /* Summary View (Google Forms-Style charts & aggregations) */
+        /* Summary View (Charts & Aggregations) */
         <div className="space-y-6">
           {questions.map((question, qIdx) => {
             const hasOptions = [

@@ -259,7 +259,7 @@ export default function NewFormPage() {
         </div>
       )}
 
-      {/* Form Header Card (Google Forms Style) */}
+      {/* Form Header Card */}
       <div className="rounded-xl border bg-card shadow-sm overflow-hidden relative">
         <div className="h-3 bg-gradient-to-r from-emerald-500 to-teal-500" />
         <div className="p-6 space-y-4">
