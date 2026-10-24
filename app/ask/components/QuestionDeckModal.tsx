@@ -440,7 +440,12 @@ export function QuestionDeckModal({
       const nameFontSize = format === "landscape" ? 30 : 38;
       ctx.font = `bold ${nameFontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
       ctx.fillStyle = activeTheme.textColor;
-      ctx.fillText(recipient.displayName, avatarX + avatarRadius + 22, avatarY - 3);
+      const maxHeaderWidth = cardWidth - (avatarRadius * 2 + 30);
+      let displayName = recipient.displayName || recipient.username;
+      while (ctx.measureText(displayName).width > maxHeaderWidth && displayName.length > 4) {
+        displayName = displayName.slice(0, -2) + "…";
+      }
+      ctx.fillText(displayName, avatarX + avatarRadius + 22, avatarY - 3);
 
       const handleFontSize = format === "landscape" ? 22 : 26;
       ctx.font = `500 ${handleFontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
@@ -448,7 +453,11 @@ export function QuestionDeckModal({
         activeTheme.id === "minimal" || activeTheme.id === "editorial"
           ? "rgba(0, 0, 0, 0.6)"
           : "rgba(255, 255, 255, 0.7)";
-      ctx.fillText(`@${recipient.username}`, avatarX + avatarRadius + 22, avatarY + (format === "landscape" ? 26 : 30));
+      let handleText = `@${recipient.username}`;
+      while (ctx.measureText(handleText).width > maxHeaderWidth && handleText.length > 4) {
+        handleText = handleText.slice(0, -2) + "…";
+      }
+      ctx.fillText(handleText, avatarX + avatarRadius + 22, avatarY + (format === "landscape" ? 26 : 30));
       ctx.restore();
 
       questionCardY = avatarY + avatarRadius + (format === "landscape" ? 30 : 45);
@@ -544,12 +553,48 @@ export function QuestionDeckModal({
       ctx.restore();
     }
 
-    // 6. Watermark / Ask link sticker pill
+    // 6. Watermark / Ask link sticker pill (dynamically measured to fit any username length without overflowing)
     if (showWatermark) {
       const footerY = height - cfg.footerOffset;
-      const pillWidth = format === "landscape" ? 380 : 460;
-      const pillHeight = format === "landscape" ? 46 : 56;
+      const pillText = `Ask me anything: tinat.app/ask/${recipient.username}`;
+
+      let pillFontSize = format === "landscape" ? 18 : 22;
+      ctx.font = `bold ${pillFontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
+      let textWidth = ctx.measureText(pillText).width;
+
+      const maxPillWidth = cardWidth;
+      const horizontalPadding = format === "landscape" ? 36 : 46;
+      let calculatedWidth = textWidth + horizontalPadding * 2;
+
+      // If text is wider than available width, dynamically scale font to fit comfortably
+      if (calculatedWidth > maxPillWidth) {
+        const shrinkFactor = (maxPillWidth - horizontalPadding * 2) / textWidth;
+        pillFontSize = Math.max(14, Math.floor(pillFontSize * shrinkFactor));
+        ctx.font = `bold ${pillFontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
+        textWidth = ctx.measureText(pillText).width;
+        calculatedWidth = textWidth + horizontalPadding * 2;
+      }
+
+      const pillWidth = Math.min(maxPillWidth, calculatedWidth);
+      const pillHeight = format === "landscape" ? 48 : 58;
       const pillX = (width - pillWidth) / 2;
+
+      const pillBg =
+        activeTheme.id === "minimal"
+          ? "rgba(15, 23, 42, 0.88)"
+          : activeTheme.id === "editorial"
+          ? "rgba(41, 37, 36, 0.90)"
+          : "rgba(0, 0, 0, 0.55)";
+      const pillStroke =
+        activeTheme.id === "minimal" || activeTheme.id === "editorial"
+          ? "rgba(255, 255, 255, 0.22)"
+          : "rgba(255, 255, 255, 0.25)";
+
+      // Draw subtle shadow for floating sticker effect
+      ctx.save();
+      ctx.shadowColor = "rgba(0, 0, 0, 0.28)";
+      ctx.shadowBlur = 18;
+      ctx.shadowOffsetY = 8;
 
       drawRoundedRect(
         ctx,
@@ -558,18 +603,19 @@ export function QuestionDeckModal({
         pillWidth,
         pillHeight,
         pillHeight / 2,
-        "rgba(0, 0, 0, 0.45)",
-        "rgba(255, 255, 255, 0.22)"
+        pillBg,
+        pillStroke
       );
+      ctx.restore();
 
+      // Draw centered text with guaranteed safe padding
       ctx.save();
-      const pillFontSize = format === "landscape" ? 19 : 23;
       ctx.font = `bold ${pillFontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
       ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText(
-        `Ask me anything: tinat.app/ask/${recipient.username}`,
+        pillText,
         width / 2,
         footerY + pillHeight / 2
       );
