@@ -149,7 +149,7 @@ export default function FormResponsesPage({
   );
 
   return (
-    <div className="container max-w-5xl mx-auto px-4 py-8 space-y-6">
+    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8 space-y-6">
       {/* Top Breadcrumb & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b pb-5">
         <div>
