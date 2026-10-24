@@ -65,3 +65,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Internal server error during verification" }, { status: 500 });
   }
 }
+
+export async function GET() {
+  try {
+    const session = await getSession();
+    if (!session || !session.userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: {
+        faydaVerified: true,
+        faydaVerifiedAt: true,
+      },
+    });
+
+    return NextResponse.json({
+      faydaVerified: !!user?.faydaVerified,
+      faydaVerifiedAt: user?.faydaVerifiedAt || null,
+    });
+  } catch (error) {
+    console.error("Fayda status check error:", error);
+    return NextResponse.json({ error: "Failed to check Fayda verification status" }, { status: 500 });
+  }
+}

@@ -70,6 +70,16 @@ export async function POST(
       );
     }
 
+    if (!study.researcher.faydaVerified) {
+      return NextResponse.json(
+        {
+          error:
+            "You must complete identity verification with your Ethiopian Fayda National ID before funding and publishing a research study. Please verify in Settings.",
+        },
+        { status: 403 }
+      );
+    }
+
     if (study.status !== "DRAFT") {
       return NextResponse.json(
         {

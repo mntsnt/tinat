@@ -11,7 +11,7 @@ import { AIAnalysisTab } from "./AIAnalysisTab";
 import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
 import { StudyShareLink } from "./StudyShareLink";
-import { Star, Paperclip } from "lucide-react";
+import { Star, Paperclip, ShieldAlert } from "lucide-react";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -70,6 +70,11 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
   if (activeStudy.researcherId !== session.userId) {
     redirect("/researcher");
   }
+
+  const researcher = await prisma.user.findUnique({
+    where: { id: session.userId },
+    select: { faydaVerified: true },
+  });
 
   const totalResponses = activeStudy.responses.length;
   const totalComments = activeStudy.comments.reduce((total, comment) => total + 1 + comment.replies.length, 0);
@@ -197,7 +202,22 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                 <p className="text-sm font-semibold text-foreground mb-1">
                   This health study is currently in Draft status.
                 </p>
-                {study.studyType === "FREE_DATA_COLLECTION" || study.budgetCredits <= 0 ? (
+                {!researcher?.faydaVerified ? (
+                  <div className="mt-3 p-4 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-900 dark:text-amber-200">
+                    <p className="font-semibold text-sm mb-1 flex items-center gap-1.5 text-foreground">
+                      <ShieldAlert className="w-4 h-4 text-amber-600" />
+                      Fayda National ID Verification Required to Publish
+                    </p>
+                    <p className="text-muted-foreground mb-3">
+                      Researchers are required to verify their identity with their Ethiopian Fayda National ID before publishing this research study.
+                    </p>
+                    <Link href="/researcher/settings#verification">
+                      <Button variant="outline" size="sm" className="gap-1 border-amber-500/30 text-xs">
+                        Verify with Fayda in Settings
+                      </Button>
+                    </Link>
+                  </div>
+                ) : study.studyType === "FREE_DATA_COLLECTION" || study.budgetCredits <= 0 ? (
                   <div>
                     <p className="text-xs text-muted-foreground mb-4">
                       This is an Open Data Collection study. No payment or deposit is required. You can publish it immediately to make it accessible to participants.

@@ -246,29 +246,19 @@ export async function POST(request: Request) {
 
     /*
     |--------------------------------------------------------------------------
-    | Verification Check
+    | Fayda Verification Check
     |--------------------------------------------------------------------------
-    | Free data collection does NOT require identity verification.
-    | Verification is ONLY required for FUNDED researches.
+    | Researchers are required to verify themselves with their Ethiopian Fayda
+    | National ID before publishing a research study.
     */
-    if (!isFreeDataCollection) {
-      const researcherVerification = await prisma.verification.findUnique({
-        where: {
-          userId_verificationType: {
-            userId: user.id,
-            verificationType: "RESEARCHER",
-          },
+    if (publishImmediately && !user.faydaVerified) {
+      return NextResponse.json(
+        {
+          error:
+            "You must complete identity verification with your Ethiopian Fayda National ID before publishing a research study. Please verify in Settings.",
         },
-      });
-
-      if (!researcherVerification || researcherVerification.status !== "VERIFIED") {
-        return NextResponse.json(
-          {
-            error: "You must complete identity verification as a Researcher before creating funded studies.",
-          },
-          { status: 403 }
-        );
-      }
+        { status: 403 }
+      );
     }
 
     /*

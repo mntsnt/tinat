@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/Card";
@@ -23,6 +23,7 @@ import {
   Sparkles,
   CheckCircle2,
   Check,
+  ShieldAlert,
 } from "lucide-react";
 import { STUDY_BANNERS, type StudyBannerTheme } from "@/lib/studyBanners";
 import { StudyBanner as StudyBannerPreview } from "../../../components/studies/StudyBanner";
@@ -61,6 +62,14 @@ export default function CreateStudyPage() {
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [faydaVerified, setFaydaVerified] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/fayda-verify")
+      .then((res) => res.json())
+      .then((data) => setFaydaVerified(Boolean(data.faydaVerified)))
+      .catch(() => {});
+  }, []);
 
   const budgetCredits = studyType === "FREE_DATA_COLLECTION" ? 0 : rewardCredits * participantTarget;
 
@@ -153,6 +162,13 @@ export default function CreateStudyPage() {
       }
     }
 
+    if (publishImmediately && faydaVerified === false) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return setError(
+        "You must verify your identity with your Ethiopian Fayda National ID in Settings before publishing a research study."
+      );
+    }
+
     setLoading(true);
 
     try {
@@ -211,6 +227,25 @@ export default function CreateStudyPage() {
           Design your clinical questionnaire or health survey and define participant criteria.
         </p>
       </div>
+
+      {faydaVerified === false && (
+        <div className="rounded-xl p-4 bg-amber-500/10 border border-amber-500/30 text-xs text-amber-900 dark:text-amber-200 leading-relaxed flex items-start justify-between gap-4 mb-6">
+          <div className="flex items-start gap-3">
+            <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-semibold block text-sm mb-0.5 text-foreground">
+                Fayda National ID Verification Required to Publish
+              </span>
+              Researchers must verify their identity using their Ethiopian Fayda National ID before publishing research studies. You may design your questionnaire now, but publishing requires a verified Fayda credential.
+            </div>
+          </div>
+          <Link href="/researcher/settings#verification" className="shrink-0">
+            <Button variant="outline" size="sm" className="border-amber-500/40 text-xs">
+              Verify Fayda
+            </Button>
+          </Link>
+        </div>
+      )}
 
       {error && (
         <div className="rounded-lg bg-destructive/10 border border-destructive/20 p-4 mb-8 text-destructive text-sm font-medium flex items-center gap-3">
