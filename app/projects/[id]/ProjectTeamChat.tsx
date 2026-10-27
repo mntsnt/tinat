@@ -9,7 +9,9 @@ import {
   Check,
   Hash,
   LoaderCircle,
+  Maximize2,
   MessagesSquare,
+  Minimize2,
   Search,
   Send,
   ShieldCheck,
@@ -133,12 +135,24 @@ export function ProjectTeamChat({
   const [isSending, setIsSending] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isDirectoryOpen, setDirectoryOpen] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
   const [error, setError] = useState("");
 
   const messagesViewportRef = useRef<HTMLDivElement>(null);
   const shouldFollowMessagesRef = useRef(true);
   const channelsEndRef = useRef<HTMLDivElement>(null);
   const isRequestInFlightRef = useRef(false);
+
+  // Exit fullscreen on Escape key
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape" && isMaximized) {
+        setIsMaximized(false);
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isMaximized]);
 
   const selectedChannel = useMemo(
     () => channels.find((channel) => channel.id === activeChannel) || channels[0],
@@ -265,52 +279,107 @@ export function ProjectTeamChat({
   });
 
   return (
-    <div className="mx-auto flex h-full min-h-0 w-full max-w-[1500px] flex-col overflow-hidden px-1 py-2 sm:px-3 sm:py-3">
-      {/* Header */}
-      <header className="mb-3 flex shrink-0 flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-            <Users className="h-5 w-5" />
-          </span>
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-emerald-700 dark:text-emerald-400">
-              Tinat · Research Collaboration
-            </p>
-            <h1 className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">
-              Operations room
-            </h1>
+    <div
+      className={
+        isMaximized
+          ? "fixed inset-0 z-50 flex flex-col bg-background p-3 sm:p-5 shadow-2xl animate-in fade-in duration-150"
+          : "flex h-full min-h-0 w-full flex-col overflow-hidden"
+      }
+    >
+      {/* Sleek Unified Channel Bar & Controls */}
+      <div className="shrink-0 rounded-xl border border-border bg-card p-2 sm:p-2.5 mb-2.5 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-2.5">
+          {/* Channel Selector Pills */}
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 min-w-0 flex-1">
+            {channels.map((channel) => {
+              const Icon = channel.icon;
+              const isActive = activeChannel === channel.id;
+              return (
+                <button
+                  key={channel.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveChannel(channel.id);
+                    shouldFollowMessagesRef.current = true;
+                  }}
+                  aria-pressed={isActive}
+                  className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+                    isActive
+                      ? "bg-emerald-600 text-white shadow-sm"
+                      : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent"
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5 shrink-0" />
+                  <span className="capitalize">#{channel.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Quick Actions (Directory, Maximize, Auto-refresh) */}
+          <div className="flex items-center gap-2 shrink-0">
+            <span
+              title="Refreshes automatically every 5s"
+              className="hidden sm:flex items-center gap-1.5 text-[11px] text-muted-foreground pr-1"
+            >
+              <span
+                className={`h-2 w-2 rounded-full ${
+                  isRefreshing ? "animate-pulse bg-amber-500" : "bg-emerald-500"
+                }`}
+              />
+              <span className="text-[10px]">Live</span>
+            </span>
+
+            {/* Toggle Team Directory */}
+            <button
+              type="button"
+              onClick={() => setDirectoryOpen((open) => !open)}
+              className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                isDirectoryOpen
+                  ? "border-emerald-600/30 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
+                  : "border-border bg-background text-foreground hover:bg-muted"
+              }`}
+              title={isDirectoryOpen ? "Hide Team Directory" : "Show Team Directory"}
+            >
+              <Users className="h-3.5 w-3.5 text-emerald-600" />
+              <span>Team ({projectMembers.length})</span>
+            </button>
+
+            {/* Maximize / Fullscreen Toggle */}
+            <button
+              type="button"
+              onClick={() => setIsMaximized((prev) => !prev)}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition-colors shadow-sm"
+              title={isMaximized ? "Exit Fullscreen (Esc)" : "Expand Chat to Fullscreen"}
+            >
+              {isMaximized ? (
+                <>
+                  <Minimize2 className="h-3.5 w-3.5 text-primary" />
+                  <span className="hidden sm:inline">Exit Fullscreen</span>
+                </>
+              ) : (
+                <>
+                  <Maximize2 className="h-3.5 w-3.5 text-primary" />
+                  <span className="hidden sm:inline">Expand Chat</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-          <span
-            className={`h-2 w-2 rounded-full ${
-              isRefreshing ? "animate-pulse bg-amber-500" : "bg-emerald-500"
-            }`}
-          />
-          {isRefreshing ? "Checking for updates..." : "Refreshes automatically"}
-          <button
-            type="button"
-            onClick={() => setDirectoryOpen((open) => !open)}
-            className="ml-2 inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted lg:hidden"
-          >
-            <Users className="h-3.5 w-3.5" />
-            Directory ({projectMembers.length})
-          </button>
-        </div>
-      </header>
+      </div>
 
-      {/* Error Banner */}
+      {/* Error Alert */}
       {error && (
         <div
           role="alert"
-          className="mb-3 flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-200"
+          className="mb-2.5 flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-200 shrink-0"
         >
           <AlertCircle className="h-4 w-4 shrink-0" />
           <span className="flex-1">{error}</span>
           <button
             type="button"
             onClick={() => void loadMessages(true)}
-            className="shrink-0 rounded-md border border-rose-300/70 px-2.5 py-1 font-semibold hover:bg-rose-500/10 dark:border-rose-800"
+            className="shrink-0 rounded-md border border-rose-300/70 px-2 py-0.5 text-xs font-semibold hover:bg-rose-500/10 dark:border-rose-800"
           >
             Retry
           </button>
@@ -325,71 +394,31 @@ export function ProjectTeamChat({
         </div>
       )}
 
-      {/* Horizontal Channel Tabs */}
-      <nav
-        aria-label="Operations channels"
-        className="mb-3 grid shrink-0 grid-cols-2 gap-2 rounded-xl border border-border bg-card p-2 sm:grid-cols-3 lg:grid-cols-5"
+      {/* Main Grid: Chat Workspace + Collapsible Team Directory */}
+      <div
+        className={`relative grid min-h-0 flex-1 gap-3 overflow-hidden ${
+          isDirectoryOpen ? "lg:grid-cols-[1fr_290px]" : "grid-cols-1"
+        }`}
       >
-        {channels.map((channel, index) => {
-          const Icon = channel.icon;
-          const isActive = activeChannel === channel.id;
-          return (
-            <button
-              key={channel.id}
-              type="button"
-              onClick={() => {
-                setActiveChannel(channel.id);
-                shouldFollowMessagesRef.current = true;
-              }}
-              aria-pressed={isActive}
-              className={`flex min-h-12 items-center gap-2.5 rounded-lg border px-3 text-left transition-colors ${
-                isActive
-                  ? "border-emerald-700/20 bg-emerald-700 text-white shadow-sm dark:border-emerald-500/30 dark:bg-emerald-600"
-                  : "border-transparent text-muted-foreground hover:border-border hover:bg-muted/60 hover:text-foreground"
-              }`}
-            >
-              <span
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md ${
-                  isActive ? "bg-white/15" : "bg-muted"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
+        {/* Chat Box (Messages + Typing Bar) */}
+        <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+          {/* Active Channel Subheader */}
+          <div className="flex shrink-0 items-center justify-between border-b border-border bg-muted/20 px-4 py-2 text-xs">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="font-bold text-foreground capitalize">
+                #{selectedChannel.label}
               </span>
-              <span className="min-w-0">
-                <span className="block text-xs font-semibold capitalize">{channel.label}</span>
-                <span
-                  className={`block text-[10px] ${isActive ? "text-white/75" : "text-muted-foreground"}`}
-                >
-                  {String(index + 1).padStart(2, "0")} / room
-                </span>
+              <span className="text-muted-foreground/40 hidden sm:inline">·</span>
+              <span className="truncate text-muted-foreground hidden sm:inline">
+                {selectedChannel.description}
               </span>
-            </button>
-          );
-        })}
-      </nav>
-
-      {/* Chat Pane + Team Directory Grid */}
-      <div className="relative grid min-h-0 flex-1 gap-4 overflow-hidden lg:grid-cols-[minmax(0,1fr)_310px]">
-        {/* Main Chat Box */}
-        <section className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-emerald-700/15 bg-card shadow-sm">
-          {/* Active Channel Header */}
-          <div className="flex shrink-0 items-center gap-3 border-b border-border px-4 py-3 sm:px-5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-700 text-white dark:bg-emerald-600">
-              <selectedChannel.icon className="h-4 w-4" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-400">
-                Operations room
-              </p>
-              <h2 className="text-sm font-semibold capitalize text-foreground">{selectedChannel.label}</h2>
-              <p className="truncate text-xs text-muted-foreground">{selectedChannel.description}</p>
             </div>
             <span
               title="Private project room"
-              className="hidden items-center gap-1.5 rounded-md bg-muted/70 px-2.5 py-1.5 text-[10px] text-muted-foreground sm:flex"
+              className="flex shrink-0 items-center gap-1.5 text-[11px] font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full"
             >
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-              Private project room
+              Private room
             </span>
           </div>
 
@@ -417,7 +446,7 @@ export function ProjectTeamChat({
                 </p>
               </div>
             ) : (
-              <div className="space-y-5">
+              <div className="space-y-4">
                 {visibleMessages.map((message, index) => {
                   const previous = visibleMessages[index - 1];
                   const showDate =
@@ -433,7 +462,7 @@ export function ProjectTeamChat({
                   return (
                     <div key={message.id}>
                       {showDate && (
-                        <div className="mb-5 flex items-center gap-3 py-1">
+                        <div className="mb-4 flex items-center gap-3 py-1">
                           <span className="h-px w-6 bg-emerald-600/50" />
                           <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                             {formatMessageDate(message.createdAt)}
@@ -443,16 +472,16 @@ export function ProjectTeamChat({
                       )}
                       <article className="flex gap-3">
                         <span
-                          className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-xs font-semibold ${
+                          className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${
                             isOwnMessage
-                              ? "bg-emerald-700 text-white dark:bg-emerald-600"
+                              ? "bg-emerald-600 text-white"
                               : "bg-emerald-500/10 text-emerald-800 dark:text-emerald-300"
                           }`}
                         >
                           {message.sender.name?.trim().charAt(0).toUpperCase() || "R"}
                         </span>
                         <div className="min-w-0 flex-1">
-                          <div className="mb-1.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                          <div className="mb-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                             <span className="text-xs font-semibold text-foreground">
                               {isOwnMessage ? "You" : message.sender.name || "Collaborator"}
                             </span>
@@ -467,10 +496,10 @@ export function ProjectTeamChat({
                             </time>
                           </div>
                           <div
-                            className={`whitespace-pre-wrap break-words rounded-r-lg border-l-2 px-3.5 py-2.5 text-sm leading-6 ${
+                            className={`whitespace-pre-wrap break-words rounded-xl border px-3.5 py-2.5 text-sm leading-6 max-w-3xl ${
                               isOwnMessage
-                                ? "border-emerald-700 bg-emerald-500/5 text-foreground dark:border-emerald-400"
-                                : "border-border bg-muted/35 text-foreground"
+                                ? "border-emerald-600/20 bg-emerald-50/60 text-foreground dark:bg-emerald-950/20 dark:border-emerald-800/40"
+                                : "border-border bg-muted/40 text-foreground"
                             }`}
                           >
                             {displayContent}
@@ -485,12 +514,15 @@ export function ProjectTeamChat({
             <div ref={channelsEndRef} />
           </div>
 
-          {/* Dedicated Typing Tab Composer */}
-          <form onSubmit={sendMessage} className="shrink-0 border-t border-border p-3 sm:px-4 sm:py-3.5">
+          {/* Typing Bar / Composer (Always Visible & Pinned to Bottom) */}
+          <form
+            onSubmit={sendMessage}
+            className="shrink-0 sticky bottom-0 z-20 border-t border-border bg-card p-3 sm:px-4 sm:py-3.5"
+          >
             <label htmlFor="project-chat-message" className="sr-only">
               Message #{selectedChannel.label}
             </label>
-            <div className="flex items-end gap-2 rounded-lg border border-input bg-muted/30 p-2 transition focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/10">
+            <div className="flex items-end gap-2 rounded-xl border border-input bg-muted/20 p-2 shadow-sm transition focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/15">
               <textarea
                 id="project-chat-message"
                 value={draft}
@@ -503,171 +535,137 @@ export function ProjectTeamChat({
                 }}
                 maxLength={1500}
                 rows={1}
-                placeholder={`Message #${selectedChannel.label}`}
-                className="max-h-32 min-h-9 flex-1 resize-y bg-transparent px-2 py-1.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+                placeholder={`Message #${selectedChannel.label}...`}
+                className="max-h-36 min-h-[38px] flex-1 resize-none bg-transparent px-2.5 py-1.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
                 disabled={isSending}
               />
               <button
                 type="submit"
                 aria-label="Send message"
                 disabled={!draft.trim() || isSending}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-emerald-600 text-white transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-600 text-white transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground shadow-sm"
               >
                 {isSending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               </button>
             </div>
             <div className="mt-1.5 flex items-center justify-between px-1 text-[10px] text-muted-foreground">
-              <span>Enter to send · Shift + Enter for a new line</span>
+              <span>Enter to send · Shift + Enter for new line</span>
               <span>{draft.length}/1500</span>
             </div>
           </form>
         </section>
 
-        {/* Right Sidebar: Team Directory */}
-        <aside
-          className={`${
-            isDirectoryOpen ? "flex" : "hidden"
-          } absolute inset-0 z-10 min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-xl lg:relative lg:inset-auto lg:z-auto lg:flex lg:shadow-none`}
-        >
-          <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3.5">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                <Users className="h-4 w-4" />
-              </span>
-              <div>
-                <h2 className="text-sm font-semibold text-foreground">Team directory</h2>
-                <p className="text-[11px] text-muted-foreground">{projectMembers.length} collaborators</p>
+        {/* Right Sidebar: Team Directory (Collapsible) */}
+        {isDirectoryOpen && (
+          <aside className="min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm hidden lg:flex">
+            <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
+              <div className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-emerald-600" />
+                <h2 className="text-xs font-bold text-foreground uppercase tracking-wider">
+                  Team Directory ({projectMembers.length})
+                </h2>
               </div>
+              <button
+                type="button"
+                aria-label="Close directory"
+                onClick={() => setDirectoryOpen(false)}
+                className="rounded-md p-1 text-muted-foreground hover:bg-muted"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
             </div>
-            <button
-              type="button"
-              aria-label="Close directory"
-              onClick={() => setDirectoryOpen(false)}
-              className="rounded-md p-1.5 text-muted-foreground hover:bg-muted lg:hidden"
-            >
-              <X className="h-4 w-4" />
-            </button>
-            <span
-              title="Private research project"
-              className="hidden h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 lg:flex"
-            >
-              <ShieldCheck className="h-4 w-4" />
-            </span>
-          </div>
 
-          {/* Directory Search */}
-          <div className="shrink-0 border-b border-border p-3">
-            <label className="flex items-center gap-2 rounded-md border border-input bg-background px-2.5 py-2">
-              <Search className="h-3.5 w-3.5 text-muted-foreground" />
-              <input
-                value={memberSearch}
-                onChange={(event) => setMemberSearch(event.target.value)}
-                placeholder="Find a collaborator"
-                aria-label="Search team members"
-                className="min-w-0 flex-1 bg-transparent text-xs text-foreground outline-none placeholder:text-muted-foreground"
-              />
-              {memberSearch && (
-                <button
-                  type="button"
-                  aria-label="Clear search"
-                  onClick={() => setMemberSearch("")}
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              )}
-            </label>
-          </div>
+            {/* Directory Search */}
+            <div className="shrink-0 border-b border-border p-2.5">
+              <label className="flex items-center gap-2 rounded-lg border border-input bg-background px-2.5 py-1.5">
+                <Search className="h-3.5 w-3.5 text-muted-foreground" />
+                <input
+                  value={memberSearch}
+                  onChange={(event) => setMemberSearch(event.target.value)}
+                  placeholder="Find a collaborator..."
+                  aria-label="Search team members"
+                  className="min-w-0 flex-1 bg-transparent text-xs text-foreground outline-none placeholder:text-muted-foreground"
+                />
+                {memberSearch && (
+                  <button
+                    type="button"
+                    aria-label="Clear search"
+                    onClick={() => setMemberSearch("")}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                )}
+              </label>
+            </div>
 
-          {/* Directory Members List */}
-          <div className="min-h-0 flex-1 overflow-y-auto p-2">
-            {visibleMembers.length === 0 ? (
-              <div className="flex h-36 flex-col items-center justify-center px-4 text-center">
-                <Users className="mb-2 h-5 w-5 text-muted-foreground/60" />
-                <p className="text-xs font-medium text-foreground">
-                  {memberSearch ? "No collaborators found" : "No collaborators yet"}
-                </p>
-                <p className="mt-1 text-[11px] text-muted-foreground">
-                  {memberSearch ? "Try a different name or role." : "Team members will appear here."}
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-1">
-                {visibleMembers.map((member) => {
-                  const isCurrent = member.id === currentUserId;
-                  const isLead = lead && member.id === lead.id;
-                  const displayRole = member.role.replace(/_/g, " ").toLowerCase();
+            {/* Directory Members List */}
+            <div className="min-h-0 flex-1 overflow-y-auto p-2">
+              {visibleMembers.length === 0 ? (
+                <div className="flex h-36 flex-col items-center justify-center px-4 text-center">
+                  <Users className="mb-2 h-5 w-5 text-muted-foreground/60" />
+                  <p className="text-xs font-medium text-foreground">
+                    {memberSearch ? "No collaborators found" : "No collaborators yet"}
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-1">
+                  {visibleMembers.map((member) => {
+                    const isCurrent = member.id === currentUserId;
+                    const isLead = lead && member.id === lead.id;
+                    const displayRole = member.role.replace(/_/g, " ").toLowerCase();
 
-                  return (
-                    <div
-                      key={member.id}
-                      className="flex items-start gap-2.5 rounded-lg px-2.5 py-3 transition-colors hover:bg-muted/50"
-                    >
-                      <span
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${
-                          isLead
-                            ? "bg-emerald-600 text-white"
-                            : "bg-sky-600 text-white"
-                        }`}
+                    return (
+                      <div
+                        key={member.id}
+                        className="flex items-start gap-2 rounded-lg px-2 py-2 transition-colors hover:bg-muted/50"
                       >
-                        {member.name?.trim().charAt(0).toUpperCase() || "R"}
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5">
-                          <p className="truncate text-xs font-semibold text-foreground">
-                            {member.name || "Collaborator"}
+                        <span
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${
+                            isLead ? "bg-emerald-600 text-white" : "bg-sky-600 text-white"
+                          }`}
+                        >
+                          {member.name?.trim().charAt(0).toUpperCase() || "R"}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-1.5">
+                            <p className="truncate text-xs font-semibold text-foreground">
+                              {member.name || "Collaborator"}
+                            </p>
+                            {isCurrent && (
+                              <span className="shrink-0 rounded-full bg-emerald-500/10 px-1.5 py-0.2 text-[9px] font-medium text-emerald-700 dark:text-emerald-300">
+                                You
+                              </span>
+                            )}
+                            {isLead && (
+                              <span className="shrink-0 rounded-full bg-primary/10 px-1.5 py-0.2 text-[9px] font-medium text-primary">
+                                Lead
+                              </span>
+                            )}
+                          </div>
+                          <p className="truncate text-[10px] text-muted-foreground capitalize">
+                            {displayRole}
                           </p>
-                          {isCurrent && (
-                            <span className="shrink-0 rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-medium text-emerald-700 dark:text-emerald-300">
-                              You
-                            </span>
-                          )}
-                          {isLead && (
-                            <span className="shrink-0 rounded-full bg-primary/10 px-1.5 py-0.5 text-[9px] font-medium text-primary">
-                              Lead
-                            </span>
+                          {member.institution && (
+                            <p className="truncate text-[10px] text-muted-foreground">
+                              {member.institution}
+                            </p>
                           )}
                         </div>
-                        <p className="mt-0.5 truncate text-[10px] text-muted-foreground capitalize">
-                          {displayRole}
-                        </p>
-                        {member.institution && (
-                          <p className="mt-0.5 truncate text-[10px] text-muted-foreground">
-                            {member.institution}
-                          </p>
-                        )}
-                        <p className="mt-1 text-[10px] text-muted-foreground">
-                          {isLead ? "Project Lead" : "Research collaborator"} · Active
-                        </p>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* Guidelines footer card */}
-          <div className="shrink-0 border-t border-border bg-emerald-500/[0.04] p-3.5">
-            <div className="flex items-start gap-2.5">
-              <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
-              <div>
-                <p className="text-xs font-semibold text-foreground">Team collaboration guidelines</p>
-                <p className="mt-1 text-[10px] leading-4 text-muted-foreground">
-                  Keep conversations constructive. Maintain research integrity, ethics protocols, and participant
-                  privacy.
-                </p>
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
-          </div>
-        </aside>
-      </div>
 
-      {/* Bottom Footer Indicator */}
-      <p className="mt-2 flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground">
-        <Check className="h-3 w-3 text-emerald-600" />
-        Private to project collaborators · Messages refresh every 5 seconds
-      </p>
+            {/* Privacy guidelines */}
+            <div className="shrink-0 border-t border-border bg-emerald-500/[0.04] p-3 text-[10px] text-muted-foreground">
+              <span className="font-semibold text-foreground">Research Ethics:</span> Maintain protocol compliance and participant privacy.
+            </div>
+          </aside>
+        )}
+      </div>
     </div>
   );
 }
