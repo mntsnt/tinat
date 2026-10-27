@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getSession } from "../../../../../lib/auth";
 import { prisma } from "../../../../../lib/prisma";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     const session = await getSession();
 
@@ -26,40 +26,43 @@ export async function GET() {
       );
     }
 
-    const withdrawals =
-      await prisma.withdrawal.findMany({
-        where: {
-          status: "PENDING",
-        },
-        include: {
-          user: {
-            select: {
-              id: true,
-              name: true,
-              email: true,
-              phone: true,
-              institution: true,
-            },
+    const { searchParams } = new URL(req.url);
+    const statusParam = searchParams.get("status")?.toUpperCase();
+    const where: any = {};
+
+    if (statusParam && statusParam !== "ALL") {
+      where.status = statusParam;
+    } else if (!statusParam) {
+      where.status = "PENDING";
+    }
+
+    const withdrawals = await prisma.withdrawal.findMany({
+      where,
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+            institution: true,
           },
         },
-        orderBy: {
-          createdAt: "asc",
-        },
-      });
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
     return NextResponse.json({
       withdrawals,
     });
   } catch (error) {
-    console.error(
-      "Admin withdrawals error:",
-      error
-    );
+    console.error("Admin withdrawals error:", error);
 
     return NextResponse.json(
       {
-        error:
-          "Failed to load withdrawals.",
+        error: "Failed to load withdrawals.",
       },
       { status: 500 }
     );
