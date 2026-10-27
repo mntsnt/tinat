@@ -184,6 +184,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const [uploadFileSensitive, setUploadFileSensitive] = useState(false);
   const [uploadFileNotes, setUploadFileNotes] = useState("");
   const [isUploadingFile, setIsUploadingFile] = useState(false);
+  const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
 
   // Form states
   const [taskTitle, setTaskTitle] = useState("");
@@ -651,6 +652,23 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       setIsUploadingFile(false);
     }
   }
+
+  const handleDeleteFile = async (fileId: string, fileName: string) => {
+    if (!window.confirm(`Are you sure you want to delete "${fileName}"? This action cannot be undone.`)) {
+      return;
+    }
+    setDeletingFileId(fileId);
+    try {
+      await mutateProjectResource(
+        `/api/projects/${projectId}/files/${fileId}`,
+        "DELETE",
+        undefined,
+        "Research file could not be deleted."
+      );
+    } finally {
+      setDeletingFileId(null);
+    }
+  };
 
   const handleDownloadFile = async (file: { name: string; fileUrl: string }) => {
     if (!file.fileUrl) return;
@@ -1465,20 +1483,38 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         </div>
                       </div>
 
-                      {file.fileUrl ? (
-                        <button
-                          type="button"
-                          onClick={() => handleDownloadFile(file)}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md border border-border bg-background text-foreground hover:bg-muted transition-colors font-medium text-xs shadow-sm active:scale-95"
-                        >
-                          <Download className="w-3.5 h-3.5 text-primary" />
-                          Download
-                        </button>
-                      ) : (
-                        <span className="text-[11px] font-semibold text-rose-500 flex items-center gap-1">
-                          <Lock className="w-3 h-3" /> Access Restricted
-                        </span>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {file.fileUrl ? (
+                          <button
+                            type="button"
+                            onClick={() => handleDownloadFile(file)}
+                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md border border-border bg-background text-foreground hover:bg-muted transition-colors font-medium text-xs shadow-sm active:scale-95"
+                          >
+                            <Download className="w-3.5 h-3.5 text-primary" />
+                            Download
+                          </button>
+                        ) : (
+                          <span className="text-[11px] font-semibold text-rose-500 flex items-center gap-1">
+                            <Lock className="w-3 h-3" /> Access Restricted
+                          </span>
+                        )}
+
+                        {(auth?.canManageProject || file.uploaderId === currentUserId || file.uploader?.id === currentUserId) && (
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteFile(file.id, file.name)}
+                            disabled={deletingFileId === file.id}
+                            aria-label={`Delete file ${file.name}`}
+                            title="Delete file"
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-rose-200 dark:border-rose-900/50 bg-rose-50/50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-colors font-medium text-xs shadow-sm active:scale-95 disabled:opacity-50"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            <span className="hidden sm:inline">
+                              {deletingFileId === file.id ? "Deleting..." : "Delete"}
+                            </span>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   ))
               )}

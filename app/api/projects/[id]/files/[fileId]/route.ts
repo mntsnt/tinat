@@ -103,19 +103,20 @@ export async function DELETE(
       return NextResponse.json({ error }, { status: status || 403 });
     }
 
-    if (!auth.canManageProject && auth.userId !== auth.userId) {
-      return NextResponse.json(
-        { error: "Only project managers or the file uploader can delete research files." },
-        { status: 403 }
-      );
-    }
-
     const file = await prisma.projectFile.findUnique({
       where: { id: fileId },
     });
 
     if (!file || file.projectId !== id) {
       return NextResponse.json({ error: "File not found." }, { status: 404 });
+    }
+
+    const isUploader = file.uploaderId === auth.userId;
+    if (!auth.canManageProject && !isUploader) {
+      return NextResponse.json(
+        { error: "Only project managers or the file uploader can delete research files." },
+        { status: 403 }
+      );
     }
 
     await prisma.projectFile.delete({
@@ -127,6 +128,7 @@ export async function DELETE(
       userId: auth.userId,
       action: "DELETED_FILE",
       description: `Deleted file "${file.name}" (v${file.version}) from folder ${file.folder}`,
+      metadata: { fileId, fileName: file.name, folder: file.folder },
     });
 
     return NextResponse.json({ success: true });
