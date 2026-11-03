@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown, HelpCircle, Search, ShieldCheck } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 
 interface FaqItem {
   id: string;
@@ -26,11 +26,11 @@ const FAQ_ITEMS: FaqItem[] = [
       "No. Tinat Credits (TC) are non-monetary platform tokens earned by participants for voluntary research participation. They have zero cash value, cannot be redeemed for fiat currency (such as Telebirr or bank transfers), cannot be transferred between users, and cannot be purchased with money. They operate within a closed, double-entry token economy to recognize contribution without financial-regulatory risk.",
   },
   {
-    id: "privacy-proclamation",
+    id: "privacy-protection",
     category: "privacy",
-    question: "How is participant privacy protected under Ethiopian law?",
+    question: "How is participant privacy and identity protected?",
     answer:
-      "Under the Ethiopian Personal Data Protection Proclamation No. 1321/2024, research responses are confidential and coded (pseudonymized), not anonymous. When you submit answers, they are tied to a randomly generated, unguessable Respondent Code that is completely isolated from your personal identity. Researchers and exported files receive only coded datasets and never see your name, phone number, email, or national ID details.",
+      "Research responses on Tinat are confidential and coded (pseudonymized), not anonymous. When you submit answers, they are tied to a randomly generated, unguessable Respondent Code that is completely isolated from your personal identity. Researchers and exported files receive only coded datasets and never see your name, phone number, email, or national ID details.",
   },
   {
     id: "ethics-irb-gate",
@@ -52,13 +52,6 @@ const FAQ_ITEMS: FaqItem[] = [
     question: "How does data collection work in rural areas with poor connectivity?",
     answer:
       "Tinat features an integrated Field Enumerator mode and Low-Bandwidth Mode. Survey questionnaires automatically save progress locally in the browser or mobile storage on every answered question. If internet connection drops, enumerators can continue collecting responses offline without data loss, and sync their batch session once reconnected.",
-  },
-  {
-    id: "language-support",
-    category: "general",
-    question: "What languages are supported on Tinat?",
-    answer:
-      "Tinat supports 5 major Ethiopian languages: English, Amharic (አማርኛ), Afaan Oromo, Tigrinya (ትግርኛ), and Somali (Af-Soomaali). The platform loads Google's Noto Sans Ethiopic font to guarantee native Ge'ez script typography, diacritics, and Ethiopic punctuation across web surveys, mobile devices, and data exports.",
   },
   {
     id: "free-vs-funded",
@@ -88,14 +81,14 @@ export function LandingFaq() {
   };
 
   return (
-    <section id="faq" className="relative z-10 py-20 lg:py-28 bg-neutral-950 text-neutral-100 border-b border-neutral-800 scroll-mt-16">
+    <section id="faq" className="relative z-10 py-20 lg:py-28 bg-muted/20 text-foreground border-b border-border scroll-mt-16 transition-colors duration-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* ScholarXIV-style Header */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white uppercase">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground uppercase">
             FAQ
           </h2>
-          <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
+          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
             Everything you need to know about the platform, credits, and research ethics
           </p>
         </div>
@@ -103,15 +96,14 @@ export function LandingFaq() {
         {/* Minimal Search & Filter Bar */}
         <div className="space-y-4 max-w-2xl mx-auto">
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search questions (e.g. privacy, credits, ethics, offline)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900/80 text-white placeholder:text-neutral-500 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 transition-all"
-            >
-            </input>
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-card text-foreground placeholder:text-muted-foreground text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 transition-all shadow-sm"
+            />
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2 pt-1" role="tablist">
@@ -131,8 +123,8 @@ export function LandingFaq() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                   selectedCategory === cat.id
-                    ? "bg-white text-neutral-950 font-semibold"
-                    : "bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-800"
+                    ? "bg-emerald-600 text-white font-semibold shadow-sm"
+                    : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
                 {cat.label}
@@ -142,7 +134,7 @@ export function LandingFaq() {
         </div>
 
         {/* ScholarXIV-style Minimalist Accordion List */}
-        <div className="divide-y divide-neutral-800/80 border-t border-b border-neutral-800/80 pt-2">
+        <div className="divide-y divide-border border-t border-b border-border pt-2">
           {filteredFaqs.length > 0 ? (
             filteredFaqs.map((faq) => {
               const isOpen = openId === faq.id;
@@ -153,20 +145,20 @@ export function LandingFaq() {
                     onClick={() => toggleItem(faq.id)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${faq.id}`}
-                    className="w-full text-left flex items-start sm:items-center justify-between gap-4 py-2 cursor-pointer group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-lg"
+                    className="w-full text-left flex items-start sm:items-center justify-between gap-4 py-2 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg transition-colors"
                   >
                     <span
                       className={`text-sm sm:text-base font-medium transition-colors ${
                         isOpen
-                          ? "text-white underline underline-offset-4 decoration-neutral-400 font-semibold"
-                          : "text-neutral-200 group-hover:text-white"
+                          ? "text-emerald-600 dark:text-emerald-400 underline underline-offset-4 decoration-emerald-500 font-semibold"
+                          : "text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
                       }`}
                     >
                       {faq.question}
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 text-neutral-400 shrink-0 mt-1 sm:mt-0 transition-transform duration-200 ${
-                        isOpen ? "rotate-180 text-white" : "group-hover:text-neutral-200"
+                      className={`w-4 h-4 text-muted-foreground shrink-0 mt-1 sm:mt-0 transition-transform duration-200 ${
+                        isOpen ? "rotate-180 text-emerald-600 dark:text-emerald-400" : "group-hover:text-foreground"
                       }`}
                     />
                   </button>
@@ -174,7 +166,7 @@ export function LandingFaq() {
                   {isOpen && (
                     <div
                       id={`faq-answer-${faq.id}`}
-                      className="pt-3 pb-2 text-xs sm:text-sm text-neutral-400 leading-relaxed pr-8"
+                      className="pt-3 pb-2 text-xs sm:text-sm text-muted-foreground leading-relaxed pr-8"
                     >
                       {faq.answer}
                     </div>
@@ -183,7 +175,7 @@ export function LandingFaq() {
               );
             })
           ) : (
-            <div className="text-center py-10 text-neutral-400 text-sm">
+            <div className="text-center py-10 text-muted-foreground text-sm">
               No matching questions found for &ldquo;{searchQuery}&rdquo;.
             </div>
           )}
@@ -191,9 +183,9 @@ export function LandingFaq() {
 
         {/* Assistance / Contact Pill */}
         <div className="text-center pt-2">
-          <p className="text-xs text-neutral-400">
+          <p className="text-xs text-muted-foreground">
             Have a specific research protocol or institutional question?{" "}
-            <a href="mailto:contact@tinat.app" className="font-semibold text-white underline underline-offset-2 hover:text-neutral-300">
+            <a href="mailto:contact@tinat.app" className="font-semibold text-foreground underline underline-offset-2 hover:text-emerald-600 transition-colors">
               Contact the Editorial Board &rarr;
             </a>
           </p>

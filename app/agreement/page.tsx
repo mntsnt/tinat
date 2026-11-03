@@ -144,7 +144,7 @@ function AgreementContent() {
 
             <div className="text-center text-xs text-muted-foreground flex items-center justify-center gap-1.5">
               <Lock className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Compliant with Ethiopian Proclamation No. 1321/2024</span>
+              <span>National Research Ethics & Data Protection Standards</span>
             </div>
           </CardFooter>
         </form>

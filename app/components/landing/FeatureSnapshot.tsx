@@ -4,24 +4,18 @@ import React, { useState } from "react";
 import Link from "next/link";
 import {
   ClipboardCheck,
-  Coins,
+  Stethoscope,
   Users,
-  ShieldCheck,
-  WifiOff,
-  FileCheck2,
+  MessageCircleQuestion,
   Sparkles,
-  FileSpreadsheet,
   ArrowRight,
   CheckCircle2,
-  Globe2,
-  Database,
-  Lock,
   Layers,
 } from "lucide-react";
 
 interface Feature {
   id: string;
-  category: "collection" | "collaboration" | "governance" | "ai";
+  category: "all" | "forms" | "studies" | "projects" | "ask" | "ai";
   badge: string;
   title: string;
   summary: string;
@@ -34,146 +28,95 @@ interface Feature {
 
 const FEATURES: Feature[] = [
   {
-    id: "survey-studio",
-    category: "collection",
-    badge: "Form & Study Builder",
-    title: "Questionnaire & Survey Studio",
+    id: "tinat-forms",
+    category: "forms",
+    badge: "Form Studio",
+    title: "Tinat Forms & Questionnaires",
     summary:
-      "Design comprehensive, multi-step health questionnaires with single choice, Likert rating scales, matrix grids, date-time pickers, and skip logic.",
+      "Design and publish dynamic questionnaires, feedback surveys, and observational checklists with single-choice, Likert scales, and skip logic.",
     icon: ClipboardCheck,
     highlights: [
-      "Full Ethiopic typography (Noto Sans Ethiopic) for Ge'ez script",
-      "Dynamic per-study multilingual translations (Amharic, Afaan Oromo, Tigrinya, Somali)",
-      "Prefer-not-to-answer toggles on sensitive inquiries",
+      "Intuitive form builder with versatile question types",
+      "Instant shareable links and mobile-ready response collection",
+      "Real-time answer aggregations and clean Excel/CSV exports",
     ],
     link: "/forms/new",
-    linkLabel: "Try Form Studio",
-    architectureTag: "Study & Question Models",
+    linkLabel: "Build a Form",
+    architectureTag: "Form Studio Engine",
   },
   {
-    id: "credit-economy",
-    category: "governance",
-    badge: "Non-Cash Tokenomics",
-    title: "Balanced Double-Entry Credit Economy",
+    id: "studies",
+    category: "studies",
+    badge: "Research Cohorts",
+    title: "Studies & Participant Recruitment",
     summary:
-      "Compensate voluntary respondents fairly using non-monetary platform tokens (TC) backed by a mathematically balanced double-entry accounting ledger.",
-    icon: Coins,
+      "Launch observational surveys and academic investigations with targeted participant cohorts, optional non-cash credit incentives (TC), or free participation.",
+    icon: Stethoscope,
     highlights: [
-      "Zero-cash design eliminates financial-regulatory and payout friction",
-      "Atomic ledger entries prevent overdrafts and minting out of thin air",
-      "Automated participant reward distribution upon valid study submission",
+      "Targeted demographic filters and participant capacity quotas",
+      "Optional credit rewards (Tinat Credits) for higher response rates",
+      "Real-time progress analytics and verified response verification",
     ],
     link: "/participant/studies",
-    linkLabel: "Explore Study Rewards",
-    architectureTag: "LedgerJournal & LedgerEntry",
+    linkLabel: "Discover Studies",
+    architectureTag: "Study & Cohort Framework",
   },
   {
-    id: "collaboration-hub",
-    category: "collaboration",
+    id: "research-projects",
+    category: "projects",
     badge: "Team Science",
     title: "Collaborative Research Projects",
     summary:
-      "A complete workspace for university research teams, hospital investigators, and NGOs to manage investigations from idea to publication.",
+      "Full-lifecycle collaborative workspaces for university faculties, hospitals, and NGO research teams to manage studies from proposal to publication.",
     icon: Users,
     highlights: [
-      "6 granular team roles (Principal Investigator, Analyst, Assistant, Observer)",
-      "Kanban milestone task tracking and real-time project chat",
-      "Categorized file repository with versioning and audited decision logs",
+      "6 granular team role tiers (PI, Co-Investigator, Analyst, Assistant)",
+      "Milestone Kanban task tracking and real-time team chat",
+      "Categorized file repository with version control and audited logs",
     ],
     link: "/projects",
-    linkLabel: "View Research Projects",
+    linkLabel: "Open Workspaces",
     architectureTag: "ResearchProject Hub",
   },
   {
-    id: "identity-privacy",
-    category: "governance",
-    badge: "Proclamation 1321/2024",
-    title: "National ID & Coded Privacy Linkage",
+    id: "tinat-ask",
+    category: "ask",
+    badge: "Confidential Q&A",
+    title: "Tinat Ask & Visual Question Decks",
     summary:
-      "Reduces duplicate accounts through Ethiopian National ID (Fayda) verification while keeping participant answers strictly separated via non-guessable respondent codes.",
-    icon: ShieldCheck,
+      "Create your public or confidential Q&A page, receive honest questions from students or peers, and export sleek branded visual question cards for social sharing.",
+    icon: MessageCircleQuestion,
     highlights: [
-      "Research answers are confidential and coded (pseudonymized), not anonymous",
-      "Isolated participant link service prevents researchers from viewing PII",
-      "Compliant with Ethiopian Personal Data Protection Proclamation 1321/2024",
+      "Personal public handle for honest inquiry and community questions",
+      "One-click visual deck card exporter formatted for social media",
+      "Audited responses with public and private answer workflows",
     ],
-    link: "/privacy",
-    linkLabel: "Read Privacy Protocol",
-    architectureTag: "ParticipantLink Isolation",
+    link: "/ask",
+    linkLabel: "Explore Tinat Ask",
+    architectureTag: "Social Q&A Engine",
   },
   {
-    id: "field-collector",
-    category: "collection",
-    badge: "Low-Bandwidth & Offline",
-    title: "Field Data Enumerator Mode",
-    summary:
-      "Empower community health workers and field enumerators to gather survey answers in remote rural areas with intermittent or zero internet connectivity.",
-    icon: WifiOff,
-    highlights: [
-      "Offline local draft storage with zero data loss during network disruptions",
-      "Batch field enumeration sessions with timestamped sync",
-      "Low-bandwidth mode budget under 15KB gzipped per survey",
-    ],
-    link: "/participant/studies",
-    linkLabel: "Collector Framework",
-    architectureTag: "StudyDataCollector Engine",
-  },
-  {
-    id: "ethics-gate",
-    category: "governance",
-    badge: "IRB Adherence",
-    title: "Ethics Approval (IRB) Clearance Gate",
-    summary:
-      "Enforces institutional review board approval before human-subject research can activate, coupled with transparent informed consent comprehension checks.",
-    icon: FileCheck2,
-    highlights: [
-      "Mandatory unexpired committee approval document upload and verification",
-      "3-step informed consent with mandatory comprehension validation",
-      "Participant voluntary withdrawal and partial response deletion rights",
-    ],
-    link: "/charter",
-    linkLabel: "Ethics Charter",
-    architectureTag: "EthicsApproval & ConsentForm",
-  },
-  {
-    id: "ai-assistant",
+    id: "tinat-ai",
     category: "ai",
-    badge: "AI Co-Pilot",
-    title: "Tinat AI Research Assistant",
+    badge: "Research Co-Pilot",
+    title: "Tinat AI for Researchers",
     summary:
-      "Accelerate scientific discovery with an integrated research assistant that helps synthesize literature, formulate hypotheses, and draft questionnaires.",
+      "Accelerate scientific investigations with an intelligent research assistant that helps synthesize literature, formulate hypotheses, and draft questionnaires.",
     icon: Sparkles,
     highlights: [
-      "Strict data privacy boundary with zero participant PII exposure",
-      "Artifact generation for question schemas and statistical analysis plans",
-      "Powered by Google Gemini with contextual research scoping",
+      "Grounded querying on authorized study datasets without data exposure",
+      "Automated drafting of questionnaire schemas and research protocols",
+      "Context-aware scientific assistant powered by Google Gemini",
     ],
     link: "/ai",
     linkLabel: "Launch Tinat AI",
-    architectureTag: "AIConversation & Artifacts",
-  },
-  {
-    id: "deidentified-export",
-    category: "governance",
-    badge: "Statistical Exports",
-    title: "De-Identified Data Exports & Codebook",
-    summary:
-      "Export research results with automated de-identification safeguards including age banding, geographical generalization, and small-cell suppression.",
-    icon: FileSpreadsheet,
-    highlights: [
-      "Small-cell suppression (<5 count) prevents re-identification in minority cohorts",
-      "One-click multi-tab Excel (.xlsx) and CSV exports with auto-generated codebook",
-      "Audited ActivityLog recording all researcher data exports",
-    ],
-    link: "/researcher/studies",
-    linkLabel: "Export Framework",
-    architectureTag: "Export De-Identification Engine",
+    architectureTag: "Gemini Intelligence Engine",
   },
 ];
 
 export function FeatureSnapshot() {
   const [activeCategory, setActiveCategory] = useState<
-    "all" | "collection" | "collaboration" | "governance" | "ai"
+    "all" | "forms" | "studies" | "projects" | "ask" | "ai"
   >("all");
 
   const filteredFeatures =
@@ -182,30 +125,31 @@ export function FeatureSnapshot() {
       : FEATURES.filter((f) => f.category === activeCategory);
 
   return (
-    <section id="features" className="relative z-10 py-20 lg:py-28 bg-muted/30 border-b border-border scroll-mt-16">
+    <section id="features" className="relative z-10 py-20 lg:py-28 bg-muted/20 border-b border-border scroll-mt-16 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Section Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
             <Layers className="w-3.5 h-3.5" />
-            Platform Capabilities Snapshot
+            Core Capabilities
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
-            Built from the ground up for Ethiopian scientific research
+            Everything you need to conduct, collaborate, and share research
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Every feature on Tinat is tailored to address real-world research challenges across Ethiopia: language inclusion, rural connectivity, participant privacy, and institutional compliance.
+            From flexible questionnaire design and participant cohorts to team workspaces, community Q&A, and AI research assistance.
           </p>
         </div>
 
         {/* Category Filter Tabs */}
         <div className="flex flex-wrap items-center justify-center gap-2" role="tablist">
           {[
-            { id: "all", label: "All Capabilities" },
-            { id: "collection", label: "Surveys & Field Data" },
-            { id: "collaboration", label: "Team Collaboration" },
-            { id: "governance", label: "Ethics, Credits & Privacy" },
-            { id: "ai", label: "Tinat AI & Intelligence" },
+            { id: "all", label: "All Features" },
+            { id: "forms", label: "Tinat Forms" },
+            { id: "studies", label: "Studies" },
+            { id: "projects", label: "Research Projects" },
+            { id: "ask", label: "Tinat Ask" },
+            { id: "ai", label: "Tinat AI" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -225,7 +169,7 @@ export function FeatureSnapshot() {
         </div>
 
         {/* Feature Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
           {filteredFeatures.map((feat) => {
             const Icon = feat.icon;
             return (
@@ -238,7 +182,7 @@ export function FeatureSnapshot() {
                     <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground">
                       {feat.badge}
                     </span>
                   </div>

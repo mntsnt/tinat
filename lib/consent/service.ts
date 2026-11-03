@@ -38,7 +38,7 @@ export function getDefaultComprehensionQuestions(isFunded: boolean): Comprehensi
     },
     {
       id: "privacy_pseudonymization",
-      question: "How is your identity protected under Ethiopian Proclamation No. 1321/2024?",
+      question: "How is your identity protected on Tinat?",
       options: [
         "My answers are linked to a random pseudonymized respondent code; researchers cannot view my name or National ID.",
         "My personal contact details and National ID are directly shared with the researcher.",
@@ -90,7 +90,7 @@ export async function getOrCreateConsentForm(studyId: string, language = "en") {
       ? `Participants who complete this questionnaire receive ${creditsAmount} Tinat Credits (TC). ${CREDITS_DISCLAIMER}`
       : "This study provides no financial compensation or platform credits. Participation is voluntary.",
     confidentialityStatement:
-      "In accordance with Ethiopian Personal Data Protection Proclamation No. 1321/2024, your answers are pseudonymized under a random respondent code. Your National ID and personal account are decoupled from your responses.",
+      "Your answers are confidential and pseudonymized under a random respondent code. Your National ID and personal account are decoupled from your responses.",
     contactInfo: study.researcher?.email || "ethics@tinat.et",
   };
 
@@ -109,7 +109,7 @@ Participation is entirely voluntary. You may withdraw at any time using the "Sto
 ${keyInformation.compensationStatement}
 
 ## Privacy & Personal Data Protection
-Your responses are collected under Ethiopian Proclamation No. 1321/2024. Responses are identified strictly by an unguessable, randomized respondent code and cannot be correlated with your identity by researchers.`;
+Responses are identified strictly by an unguessable, randomized respondent code and cannot be correlated with your identity by researchers.`;
 
   const comprehensionQuestions = getDefaultComprehensionQuestions(isFunded);
 

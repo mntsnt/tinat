@@ -178,19 +178,11 @@ export default function LoginPage({
             </div>
             <GoogleAuthButton label="Continue with Google" />
 
-            <div className="text-center text-sm text-muted-foreground mt-4 space-y-2">
-              <div>
-                Don&apos;t have an account?{" "}
-                <Link href="/register" className="font-medium text-primary hover:underline transition-colors">
-                  Create one
-                </Link>
-              </div>
-              <div className="text-xs">
-                Already registered but haven&apos;t verified?{" "}
-                <Link href="/verify-email" className="font-medium text-muted-foreground hover:text-foreground hover:underline transition-colors">
-                  Verify your email
-                </Link>
-              </div>
+            <div className="text-center text-sm text-muted-foreground mt-4">
+              Don&apos;t have an account?{" "}
+              <Link href="/register" className="font-medium text-primary hover:underline transition-colors">
+                Create one
+              </Link>
             </div>
           </CardFooter>
         </form>

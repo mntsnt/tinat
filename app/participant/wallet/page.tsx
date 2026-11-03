@@ -5,8 +5,8 @@ import { prisma } from "../../../lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../components/ui/Card";
 import { getButtonClasses } from "../../components/ui/Button";
 import { Badge } from "../../components/ui/Badge";
-import { CREDITS_DISCLAIMER, formatCredits } from "@/lib/config/features";
-import { Coins, AlertCircle } from "lucide-react";
+import { formatCredits } from "@/lib/config/features";
+import { Coins } from "lucide-react";
 
 export default async function ParticipantWalletPage() {
   const session = await getSession();
@@ -77,15 +77,6 @@ export default async function ParticipantWalletPage() {
             <Coins className="w-5 h-5" />
           </div>
           <h1 className="text-xl font-bold tracking-tight text-foreground">Tinat Credits Wallet</h1>
-        </div>
-      </div>
-
-      {/* Shared Disclaimer */}
-      <div className="rounded-xl p-4 bg-muted/60 border border-border text-xs text-muted-foreground leading-relaxed flex items-start gap-3 mb-8">
-        <AlertCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-        <div>
-          <span className="font-semibold text-foreground">Token Notice: </span>
-          {CREDITS_DISCLAIMER}
         </div>
       </div>
 

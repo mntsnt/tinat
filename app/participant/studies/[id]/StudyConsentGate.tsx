@@ -191,7 +191,7 @@ export function StudyConsentGate({
           <div>
             <h2 className="text-lg font-bold text-foreground">Informed Consent Protocol</h2>
             <p className="text-xs text-muted-foreground">
-              Step {step} of 3 &bull; Version {consentForm.version} &bull; Proclamation 1321/2024
+              Step {step} of 3 &bull; Version {consentForm.version} &bull; Confidential & Coded
             </p>
           </div>
         </div>
@@ -260,7 +260,7 @@ export function StudyConsentGate({
             </div>
 
             <div className="space-y-1.5">
-              <strong className="text-foreground block text-sm">Confidentiality & Ethiopian Law (Proclamation 1321/2024)</strong>
+              <strong className="text-foreground block text-sm">Confidentiality & Participant Protection</strong>
               <p>{keyInformation.confidentialityStatement}</p>
             </div>
           </CardContent>
@@ -382,7 +382,7 @@ export function StudyConsentGate({
                   onChange={(e) => setAffirmUnderstood(e.target.checked)}
                 />
                 <span className="text-foreground leading-relaxed">
-                  I understand that my responses are pseudonymized under Ethiopian Proclamation No. 1321/2024, and that any Tinat Credits earned are internal platform tokens with no cash redemption value.
+                  I understand that my responses are confidential and pseudonymized, and that any Tinat Credits earned are internal platform tokens with no cash redemption value.
                 </span>
               </label>
             </div>

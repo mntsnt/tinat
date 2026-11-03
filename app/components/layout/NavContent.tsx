@@ -4,6 +4,7 @@ import Link from "next/link";
 import { cn } from "../../../lib/utils";
 import { usePathname } from "next/navigation";
 import LogoutButton from "../LogoutButton";
+import { ThemeToggle } from "../ThemeToggle";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -69,7 +70,7 @@ export default function NavContent({ user, links }: NavContentProps) {
           }}
           className="flex items-center gap-2.5 mr-6 transition-transform hover:scale-105"
         >
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black text-white font-bold text-sm shadow-sm">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black text-white font-bold text-sm shadow-sm dark:bg-white dark:text-black">
             T
           </div>
           <span className="text-lg font-bold tracking-tight text-foreground">Tinat</span>
@@ -99,6 +100,7 @@ export default function NavContent({ user, links }: NavContentProps) {
 
         {/* Desktop Right */}
         <div className="hidden md:flex items-center gap-2 ml-auto">
+          <ThemeToggle />
           {user ? (
             <div className="flex items-center gap-2 border-l border-border pl-3 ml-1">
               <span className="text-sm font-medium text-foreground">{user.name}</span>
@@ -124,9 +126,10 @@ export default function NavContent({ user, links }: NavContentProps) {
 
         {/* Mobile Right */}
         <div className="flex md:hidden items-center gap-2 ml-auto">
+          <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 rounded-md hover:bg-muted transition-colors"
+            className="p-2 rounded-md hover:bg-muted transition-colors text-foreground"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

@@ -5,7 +5,6 @@ import {
   Stethoscope,
   Coins,
   ClipboardCheck,
-  ShieldCheck,
   Activity,
   HeartPulse,
   Brain,
@@ -15,7 +14,6 @@ import {
   GraduationCap,
 } from "lucide-react";
 import type { Prisma } from "@/generated/prisma/client";
-import { MEDICAL_DISCLAIMER } from "@/lib/healthCategories";
 import { prisma } from "@/lib/prisma";
 import { FeatureSnapshot } from "./components/landing/FeatureSnapshot";
 import { LandingFaq } from "./components/landing/LandingFaq";
@@ -105,7 +103,7 @@ export default async function Home() {
                 {[
                   "Funded Research & Free Forms",
                   "Verified Participant Cohorts",
-                  "Human Subjects Data Privacy",
+                  "Confidential & Coded Data",
                   "Tinat Credits (TC) Rewards",
                 ].map((feature) => (
                   <span key={feature} className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
@@ -261,7 +259,7 @@ export default async function Home() {
       {/* Feature Capabilities Snapshot */}
       <FeatureSnapshot />
 
-      {/* Two Study Types Section */}
+      {/* Two Study Pathways Section */}
       <section id="pathways" className="relative z-10 py-20 lg:py-28 bg-muted/20 border-b border-border scroll-mt-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="space-y-4 max-w-3xl">
@@ -410,22 +408,6 @@ export default async function Home() {
 
       {/* Frequently Asked Questions (FAQ) */}
       <LandingFaq />
-
-      {/* Trust & Academic Governance */}
-      <section className="relative z-10 py-16 bg-muted/40 border-t border-border">
-        <div className="max-w-4xl mx-auto px-4 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 p-2 rounded-lg bg-background border border-border text-xs font-semibold text-foreground">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            Academic Integrity & Research Protocol
-          </div>
-          <h3 className="text-xl font-bold text-foreground">
-            Built for Academic Health Institutions, Hospitals & NGOs
-          </h3>
-          <p className="text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            {MEDICAL_DISCLAIMER} Tinat facilitates participant recruitment, questionnaire design, and data organization under researcher-directed protocols.
-          </p>
-        </div>
-      </section>
     </div>
   );
 }

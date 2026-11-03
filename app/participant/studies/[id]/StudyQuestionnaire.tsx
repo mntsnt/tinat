@@ -846,7 +846,7 @@ export default function StudyQuestionnaire({
                   Confidential & Coded Linkage (Not Anonymous)
                 </div>
                 <p>
-                  Under the Ethiopian Personal Data Protection Proclamation 1321/2024, your answers are{" "}
+                  Your answers are{" "}
                   <strong>confidential and coded (pseudonymized)</strong>, not anonymous. When you
                   submit, your responses are associated with an unguessable Respondent Code separated
                   from your personal profile. Researchers receive only your de-identified research
