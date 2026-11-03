@@ -199,7 +199,7 @@ export function FeatureSnapshot() {
         </div>
 
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-2" role="tablist">
           {[
             { id: "all", label: "All Capabilities" },
             { id: "collection", label: "Surveys & Field Data" },
@@ -209,6 +209,9 @@ export function FeatureSnapshot() {
           ].map((tab) => (
             <button
               key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={activeCategory === tab.id}
               onClick={() => setActiveCategory(tab.id as any)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
                 activeCategory === tab.id

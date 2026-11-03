@@ -4,7 +4,7 @@ import Link from "next/link";
 import { cn } from "../../../lib/utils";
 import { usePathname } from "next/navigation";
 import LogoutButton from "../LogoutButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 type NavLink = {
@@ -21,11 +21,54 @@ export default function NavContent({ user, links }: NavContentProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const targetId = window.location.hash.replace("#", "");
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        setTimeout(() => {
+          elem.scrollIntoView({ behavior: "smooth" });
+        }, 120);
+      }
+    }
+  }, [pathname]);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    isMobile = false
+  ) => {
+    if (isMobile) {
+      setMobileOpen(false);
+    }
+    if (href.startsWith("/#") || href.startsWith("#")) {
+      const targetId = href.replace(/^\/?#/, "");
+      if (pathname === "/") {
+        e.preventDefault();
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          window.history.pushState(null, "", href.startsWith("/") ? href : `/${href}`);
+        }
+      }
+    }
+  };
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-md transition-colors duration-300">
       <div className="container mx-auto flex h-14 items-center px-4 md:px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 mr-6 transition-transform hover:scale-105">
+        <Link
+          href="/"
+          onClick={(e) => {
+            if (pathname === "/") {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              window.history.pushState(null, "", "/");
+            }
+          }}
+          className="flex items-center gap-2.5 mr-6 transition-transform hover:scale-105"
+        >
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black text-white font-bold text-sm shadow-sm">
             T
           </div>
@@ -40,6 +83,7 @@ export default function NavContent({ user, links }: NavContentProps) {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href, false)}
                 className={cn(
                   "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
                   isActive
@@ -99,7 +143,7 @@ export default function NavContent({ user, links }: NavContentProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => handleNavClick(e, link.href, true)}
                 className={cn(
                   "block px-3 py-2 rounded-md text-sm font-medium transition-colors",
                   isActive

@@ -26,7 +26,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className="h-full antialiased"
+      className="h-full antialiased scroll-smooth"
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

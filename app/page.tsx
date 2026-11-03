@@ -258,6 +258,9 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Feature Capabilities Snapshot */}
+      <FeatureSnapshot />
+
       {/* Two Study Types Section */}
       <section id="pathways" className="relative z-10 py-20 lg:py-28 bg-muted/20 border-b border-border scroll-mt-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -404,6 +407,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Frequently Asked Questions (FAQ) */}
+      <LandingFaq />
 
       {/* Trust & Academic Governance */}
       <section className="relative z-10 py-16 bg-muted/40 border-t border-border">

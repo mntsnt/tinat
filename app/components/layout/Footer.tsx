@@ -1,14 +1,34 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Stethoscope,
   Mail,
   Send,
   ShieldCheck,
-  ExternalLink,
 } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+
+  const handleAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href.startsWith("/#") || href.startsWith("#")) {
+      const targetId = href.replace(/^\/?#/, "");
+      if (pathname === "/") {
+        e.preventDefault();
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          window.history.pushState(null, "", href.startsWith("/") ? href : `/${href}`);
+        }
+      }
+    }
+  };
 
   return (
     <footer className="border-t border-border bg-neutral-950 text-neutral-300">
@@ -17,7 +37,17 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-neutral-800/80">
           {/* Brand & Mission Statement */}
           <div className="md:col-span-5 space-y-4">
-            <Link href="/" className="inline-flex items-center gap-2.5 text-white group">
+            <Link
+              href="/"
+              onClick={(e) => {
+                if (pathname === "/") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  window.history.pushState(null, "", "/");
+                }
+              }}
+              className="inline-flex items-center gap-2.5 text-white group"
+            >
               <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <Stethoscope className="w-4 h-4 text-emerald-400" />
               </div>
@@ -42,7 +72,11 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm text-neutral-400">
               <li>
-                <Link href="/#features" className="hover:text-white transition-colors">
+                <Link
+                  href="/#features"
+                  onClick={(e) => handleAnchorClick(e, "/#features")}
+                  className="hover:text-white transition-colors"
+                >
                   Features
                 </Link>
               </li>
@@ -62,7 +96,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#faq" className="hover:text-white transition-colors">
+                <Link
+                  href="/#faq"
+                  onClick={(e) => handleAnchorClick(e, "/#faq")}
+                  className="hover:text-white transition-colors"
+                >
                   FAQ
                 </Link>
               </li>
@@ -131,11 +169,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/docs/inventory.md"
-                  target="_blank"
-                  className="hover:text-white transition-colors inline-flex items-center gap-1"
+                  href="/dpa"
+                  className="hover:text-white transition-colors"
                 >
-                  System Inventory <ExternalLink className="w-3 h-3 text-neutral-500" />
+                  Data Protection (DPA)
                 </Link>
               </li>
             </ul>
@@ -144,9 +181,21 @@ export function Footer() {
 
         {/* Massive ScholarXIV-style Giant Typography Wordmark */}
         <div className="py-8 sm:py-14 select-none overflow-hidden text-center">
-          <h2 className="text-[15vw] sm:text-[16vw] font-black tracking-tighter leading-none text-white/95 uppercase hover:text-white transition-colors">
-            Tinat
-          </h2>
+          <Link
+            href="/"
+            onClick={(e) => {
+              if (pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                window.history.pushState(null, "", "/");
+              }
+            }}
+            className="block text-center cursor-pointer group"
+          >
+            <h2 className="text-[15vw] sm:text-[16vw] font-black tracking-tighter leading-none text-white/95 uppercase hover:text-white transition-colors">
+              Tinat
+            </h2>
+          </Link>
         </div>
 
         {/* Medical & Institutional Disclaimer Notice */}

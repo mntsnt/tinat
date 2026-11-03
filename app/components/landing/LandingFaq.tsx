@@ -117,7 +117,7 @@ export function LandingFaq() {
             />
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-1" role="tablist">
             {[
               { id: "all", label: "All Questions" },
               { id: "general", label: "General & Platform" },
@@ -128,6 +128,9 @@ export function LandingFaq() {
             ].map((cat) => (
               <button
                 key={cat.id}
+                type="button"
+                role="tab"
+                aria-selected={selectedCategory === cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   selectedCategory === cat.id
