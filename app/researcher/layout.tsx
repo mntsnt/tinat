@@ -4,12 +4,18 @@ import { redirect } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
+import { checkPlatformConsent } from "@/lib/legal/consentService";
 
 export default async function ResearcherLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
 
   if (!session) {
     redirect("/login");
+  }
+
+  const consent = await checkPlatformConsent(session.userId);
+  if (!consent.hasValidConsent) {
+    redirect("/agreement?redirect=/researcher");
   }
 
   const user = await prisma.user.findUnique({

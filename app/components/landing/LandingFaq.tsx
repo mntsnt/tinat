@@ -88,33 +88,30 @@ export function LandingFaq() {
   };
 
   return (
-    <section id="faq" className="relative z-10 py-20 lg:py-28 bg-background border-b border-border scroll-mt-16">
+    <section id="faq" className="relative z-10 py-20 lg:py-28 bg-neutral-950 text-neutral-100 border-b border-neutral-800 scroll-mt-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* Section Header */}
-        <div className="text-center space-y-4 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
-            <HelpCircle className="w-3.5 h-3.5" />
-            Frequently Asked Questions (FAQ)
-          </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
-            Everything you need to know about Tinat
+        {/* ScholarXIV-style Header */}
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white uppercase">
+            FAQ
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Clear, transparent answers about research participation, data confidentiality, non-cash credits, and institutional ethics.
+          <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
+            Everything you need to know about the platform, credits, and research ethics
           </p>
         </div>
 
-        {/* Search & Category Filter Controls */}
-        <div className="space-y-4">
+        {/* Minimal Search & Filter Bar */}
+        <div className="space-y-4 max-w-2xl mx-auto">
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
             <input
               type="text"
               placeholder="Search questions (e.g. privacy, credits, ethics, offline)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-card text-foreground placeholder:text-muted-foreground text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-            />
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900/80 text-white placeholder:text-neutral-500 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 transition-all"
+            >
+            </input>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2 pt-1" role="tablist">
@@ -132,10 +129,10 @@ export function LandingFaq() {
                 role="tab"
                 aria-selected={selectedCategory === cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                   selectedCategory === cat.id
-                    ? "bg-emerald-600 text-white"
-                    : "bg-muted/50 border border-border/80 text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "bg-white text-neutral-950 font-semibold"
+                    : "bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-800"
                 }`}
               >
                 {cat.label}
@@ -144,31 +141,32 @@ export function LandingFaq() {
           </div>
         </div>
 
-        {/* Accordion List */}
-        <div className="space-y-3 pt-2">
+        {/* ScholarXIV-style Minimalist Accordion List */}
+        <div className="divide-y divide-neutral-800/80 border-t border-b border-neutral-800/80 pt-2">
           {filteredFaqs.length > 0 ? (
             filteredFaqs.map((faq) => {
               const isOpen = openId === faq.id;
               return (
-                <div
-                  key={faq.id}
-                  className={`rounded-2xl border transition-all ${
-                    isOpen
-                      ? "border-emerald-500/40 bg-card shadow-sm"
-                      : "border-border bg-card/60 hover:border-border/80"
-                  }`}
-                >
+                <div key={faq.id} className="py-4">
                   <button
                     type="button"
                     onClick={() => toggleItem(faq.id)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${faq.id}`}
-                    className="w-full py-4 px-5 text-left flex items-center justify-between gap-4 font-semibold text-sm sm:text-base text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-2xl min-h-[48px]"
+                    className="w-full text-left flex items-start sm:items-center justify-between gap-4 py-2 cursor-pointer group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-lg"
                   >
-                    <span>{faq.question}</span>
+                    <span
+                      className={`text-sm sm:text-base font-medium transition-colors ${
+                        isOpen
+                          ? "text-white underline underline-offset-4 decoration-neutral-400 font-semibold"
+                          : "text-neutral-200 group-hover:text-white"
+                      }`}
+                    >
+                      {faq.question}
+                    </span>
                     <ChevronDown
-                      className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-200 ${
-                        isOpen ? "rotate-180 text-emerald-600" : ""
+                      className={`w-4 h-4 text-neutral-400 shrink-0 mt-1 sm:mt-0 transition-transform duration-200 ${
+                        isOpen ? "rotate-180 text-white" : "group-hover:text-neutral-200"
                       }`}
                     />
                   </button>
@@ -176,7 +174,7 @@ export function LandingFaq() {
                   {isOpen && (
                     <div
                       id={`faq-answer-${faq.id}`}
-                      className="px-5 pb-5 pt-1 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/40 mt-1"
+                      className="pt-3 pb-2 text-xs sm:text-sm text-neutral-400 leading-relaxed pr-8"
                     >
                       {faq.answer}
                     </div>
@@ -185,17 +183,17 @@ export function LandingFaq() {
               );
             })
           ) : (
-            <div className="text-center py-8 text-muted-foreground text-sm">
+            <div className="text-center py-10 text-neutral-400 text-sm">
               No matching questions found for &ldquo;{searchQuery}&rdquo;.
             </div>
           )}
         </div>
 
         {/* Assistance / Contact Pill */}
-        <div className="text-center pt-4">
-          <p className="text-xs text-muted-foreground">
+        <div className="text-center pt-2">
+          <p className="text-xs text-neutral-400">
             Have a specific research protocol or institutional question?{" "}
-            <a href="mailto:contact@tinat.app" className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <a href="mailto:contact@tinat.app" className="font-semibold text-white underline underline-offset-2 hover:text-neutral-300">
               Contact the Editorial Board &rarr;
             </a>
           </p>

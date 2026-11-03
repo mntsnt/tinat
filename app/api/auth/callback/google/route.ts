@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { createSession } from "@/lib/auth";
 import { getBaseUrl, getGoogleRedirectUri } from "@/lib/getRedirectUri";
 import { prisma } from "@/lib/prisma";
+import { checkPlatformConsent } from "@/lib/legal/consentService";
 
 const OAUTH_NONCE_COOKIE = "tinat_google_oauth_nonce";
 const OAUTH_COOKIE_PATH = "/api/auth/callback/google";
@@ -183,15 +184,26 @@ export async function GET(request: NextRequest) {
 
     await createSession(user.id);
 
+    let defaultTarget = "/participant";
     switch (user.role) {
       case "ADMIN":
-        return redirectToDestination(request, "/admin");
+        defaultTarget = "/admin";
+        break;
       case "RESEARCHER":
-        return redirectToDestination(request, "/researcher");
+        defaultTarget = "/researcher";
+        break;
       case "PARTICIPANT":
       default:
-        return redirectToDestination(request, "/participant");
+        defaultTarget = "/participant";
+        break;
     }
+
+    const consentCheck = await checkPlatformConsent(user.id);
+    if (!consentCheck.hasValidConsent) {
+      return redirectToDestination(request, `/agreement?redirect=${encodeURIComponent(defaultTarget)}`);
+    }
+
+    return redirectToDestination(request, defaultTarget);
   } catch (error) {
     console.error("Google Callback Error:", error);
     return redirectToLogin(request, "internal_error");

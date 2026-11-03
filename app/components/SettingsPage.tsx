@@ -18,8 +18,6 @@ import {
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { FaydaVerification } from "./FaydaVerification";
-import { DataSubjectRightsSection } from "./DataSubjectRightsSection";
-import { Shield } from "lucide-react";
 
 type UserData = {
   id: string;
@@ -169,7 +167,6 @@ export default function SettingsPage({ user }: { user: UserData }) {
             { id: "profile", label: "Profile information", icon: UserRound },
             { id: "security", label: "Security", icon: ShieldCheck },
             { id: "appearance", label: "Appearance", icon: Palette },
-            { id: "privacy", label: "Data Protection & Rights", icon: Shield },
             ...(user.faydaVerified !== undefined
               ? [{ id: "verification", label: "Verification", icon: CheckCircle }]
               : []),
@@ -431,13 +428,6 @@ export default function SettingsPage({ user }: { user: UserData }) {
               />
             </section>
           )}
-
-          <section
-            id="privacy"
-            className="scroll-mt-6 rounded-xl border border-border bg-card p-5 sm:p-6"
-          >
-            <DataSubjectRightsSection userId={user.id} />
-          </section>
         </div>
       </div>
     </div>

@@ -312,3 +312,8 @@ export type StudyTranslation = Prisma.StudyTranslationModel
  * 
  */
 export type QuestionTranslation = Prisma.QuestionTranslationModel
+/**
+ * Model PlatformConsentRecord
+ * 
+ */
+export type PlatformConsentRecord = Prisma.PlatformConsentRecordModel

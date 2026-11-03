@@ -109,7 +109,8 @@ export const ModelName = {
   EthicsBoardMember: 'EthicsBoardMember',
   EthicsBoardDecision: 'EthicsBoardDecision',
   StudyTranslation: 'StudyTranslation',
-  QuestionTranslation: 'QuestionTranslation'
+  QuestionTranslation: 'QuestionTranslation',
+  PlatformConsentRecord: 'PlatformConsentRecord'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1027,6 +1028,23 @@ export const QuestionTranslationScalarFieldEnum = {
 } as const
 
 export type QuestionTranslationScalarFieldEnum = (typeof QuestionTranslationScalarFieldEnum)[keyof typeof QuestionTranslationScalarFieldEnum]
+
+
+export const PlatformConsentRecordScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  termsVersion: 'termsVersion',
+  privacyVersion: 'privacyVersion',
+  summaryVersion: 'summaryVersion',
+  documentHash: 'documentHash',
+  optionalContactConsent: 'optionalContactConsent',
+  acceptedAt: 'acceptedAt',
+  ipHash: 'ipHash',
+  locale: 'locale',
+  createdAt: 'createdAt'
+} as const
+
+export type PlatformConsentRecordScalarFieldEnum = (typeof PlatformConsentRecordScalarFieldEnum)[keyof typeof PlatformConsentRecordScalarFieldEnum]
 
 
 export const SortOrder = {

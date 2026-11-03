@@ -1,7 +1,7 @@
 # System Inventory & Architecture Index
 
 **Auto-generated via:** `scripts/generate-inventory.ts`  
-**Generated At:** 2026-11-03T08:58:19.968Z  
+**Generated At:** 2026-11-03T13:46:38.019Z  
 **Platform:** Tinat Health Research Ecosystem (Ethiopia)  
 **Regulatory Standard:** Ethiopian Personal Data Protection Proclamation No. 1321/2024
 
@@ -21,7 +21,7 @@
 
 ## 2. Database Schema Summary
 
-- **Total Models:** 59
+- **Total Models:** 60
 - **Total Enums:** 32
 
 ### 2.1 Enums (32 Enums)
@@ -61,7 +61,7 @@
 | `VerificationType` | 2 | `RESEARCHER`, `DATA_COLLECTOR` |
 | `WithdrawalStatus` | 4 | `PENDING`, `APPROVED`, `REJECTED`, `COMPLETED` |
 
-### 2.2 Models (59 Models)
+### 2.2 Models (60 Models)
 
 | Model Name | Field Count | Primary Key / Index Summary |
 | :--- | :--- | :--- |
@@ -89,6 +89,7 @@
 | `ModerationReport` | 16 | `id: String` |
 | `Notification` | 8 | `id: String` |
 | `ParticipantLink` | 7 | `id: String` |
+| `PlatformConsentRecord` | 12 | `id: String` |
 | `ProjectActivity` | 9 | `id: String` |
 | `ProjectChatMessage` | 9 | `id: String` |
 | `ProjectDecision` | 13 | `id: String` |
@@ -120,7 +121,7 @@
 | `StudyRating` | 8 | `id: String` |
 | `StudyTranslation` | 10 | `id: String` |
 | `TinatCreditTransaction` | 9 | `id: String` |
-| `User` | 71 | `id: String` |
+| `User` | 72 | `id: String` |
 | `Verification` | 13 | `id: String` |
 | `Wallet` | 10 | `id: String` |
 | `Withdrawal` | 9 | `id: String` |

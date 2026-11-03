@@ -1,12 +1,14 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/Card";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { GoogleAuthButton } from "../components/GoogleAuthButton";
+import { PlatformAgreementPanel } from "../components/auth/PlatformAgreementPanel";
+import { getPlatformDocumentPayload } from "@/lib/legal/platformDocuments";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -16,11 +18,25 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<"PARTICIPANT" | "RESEARCHER">("PARTICIPANT");
 
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [optionalContactConsent, setOptionalContactConsent] = useState(false);
+  const [documentHash, setDocumentHash] = useState("");
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const payload = getPlatformDocumentPayload();
+    setDocumentHash(payload.documentHash);
+  }, []);
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!termsAccepted) {
+      setError("Please review and agree to the Terms of Use and Privacy Notice to proceed.");
+      return;
+    }
 
     setError("");
     setLoading(true);
@@ -31,7 +47,15 @@ export default function RegisterPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password, role }),
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role,
+          termsAccepted,
+          optionalContactConsent,
+          documentHash,
+        }),
       });
 
       const data = await response.json();
@@ -56,8 +80,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="flex flex-1 items-center justify-center p-4 py-12 md:py-16">
-      <Card className="w-full max-w-md">
+    <main className="flex flex-1 items-center justify-center p-4 py-8 md:py-12">
+      <Card className="w-full max-w-xl">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-3">
             <Link href="/" className="transition-transform hover:scale-105">
@@ -112,12 +136,31 @@ export default function RegisterPage() {
               </select>
             </div>
 
+            {/* Combined Platform Agreement Panel */}
+            <div className="pt-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                Platform Agreement & Legal Documents
+              </label>
+              <PlatformAgreementPanel
+                requireScrollToEnd={true}
+                requiredChecked={termsAccepted}
+                onRequiredCheckedChange={setTermsAccepted}
+                optionalContactChecked={optionalContactConsent}
+                onOptionalContactCheckedChange={setOptionalContactConsent}
+              />
+            </div>
+
             {error && (
               <p className="text-sm font-medium text-destructive">{error}</p>
             )}
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" isLoading={loading}>
+            <Button
+              type="submit"
+              className="w-full"
+              isLoading={loading}
+              disabled={!termsAccepted || loading}
+            >
               Create Account & Continue to Verification
             </Button>
 

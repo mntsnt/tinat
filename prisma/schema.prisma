@@ -79,6 +79,7 @@ model User {
   wallet                       Wallet?
   ledgerAccount                LedgerAccount?
   withdrawals                  Withdrawal[]
+  platformConsentRecords       PlatformConsentRecord[]
 }
 
 model Study {
@@ -1302,4 +1303,22 @@ model QuestionTranslation {
 
   @@unique([questionId, language])
   @@index([questionId])
+}
+
+model PlatformConsentRecord {
+  id                     String   @id @default(cuid())
+  userId                 String
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  termsVersion           String
+  privacyVersion         String
+  summaryVersion         String
+  documentHash           String
+  optionalContactConsent Boolean  @default(false)
+  acceptedAt             DateTime @default(now())
+  ipHash                 String?
+  locale                 String   @default("en")
+  createdAt              DateTime @default(now())
+
+  @@index([userId])
+  @@index([documentHash])
 }

@@ -7,6 +7,7 @@ import { logActivity } from "@/lib/activityLog";
 import { executeBalancedReward } from "@/lib/ledger";
 import { CREDITS_DISCLAIMER } from "@/lib/config/features";
 import { getOrCreateParticipantLink, hasUserParticipated } from "@/lib/identity/linkService";
+import { checkPlatformConsent } from "@/lib/legal/consentService";
 
 export async function POST(
   request: Request,
@@ -24,6 +25,17 @@ export async function POST(
       return NextResponse.json(
         {
           error: "Please verify your email address before participating in research studies.",
+        },
+        { status: 403 }
+      );
+    }
+
+    const consentCheck = await checkPlatformConsent(user.id);
+    if (!consentCheck.hasValidConsent) {
+      return NextResponse.json(
+        {
+          error: "You must review and accept the latest platform legal agreements before participating in research studies.",
+          code: "PLATFORM_AGREEMENT_REQUIRED",
         },
         { status: 403 }
       );

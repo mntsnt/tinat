@@ -1,8 +1,11 @@
 import Link from "next/link";
-import { ArrowLeft, Scale, CheckCircle2, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Scale } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { PolicyAcceptanceBanner } from "../components/governance/PolicyAcceptanceBanner";
-import { CURRENT_POLICY_VERSIONS } from "@/lib/governance/policies";
+import {
+  PLATFORM_DOCUMENT_VERSIONS,
+  TERMS_OF_USE_SECTIONS,
+} from "@/lib/legal/platformDocuments";
 
 export default function TermsOfServicePage() {
   return (
@@ -23,130 +26,39 @@ export default function TermsOfServicePage() {
             Terms & Governance
           </div>
           <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground">
-            Terms of Service
+            Terms of Use
           </h1>
           <p className="text-sm text-muted-foreground mt-2">
-            Effective Date: September 13, 2026 &bull; Tinat Health Research Ecosystem
+            Version {PLATFORM_DOCUMENT_VERSIONS.TERMS} &bull; Tinat Health Research Ecosystem
           </p>
         </div>
 
         <PolicyAcceptanceBanner
           policyKey="terms"
-          policyName="Terms of Service"
-          version={CURRENT_POLICY_VERSIONS.TERMS}
+          policyName="Terms of Use"
+          version={PLATFORM_DOCUMENT_VERSIONS.TERMS}
         />
 
-        {/* 1. Acceptance */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground">
-            1. Acceptance of Terms
-          </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            By creating an account or accessing the Tinat research platform ("Tinat", "we", "us", or "our"), you agree to be bound by these Terms of Service. If you do not agree, you must not use or access the platform.
-          </p>
-        </section>
-
-        {/* 2. Platform Purpose & Scope */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground">
-            2. Platform Purpose & Medical Disclaimer
-          </h2>
-          <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-xs leading-relaxed space-y-2">
-            <div className="flex items-center gap-2 font-bold text-sm">
-              <AlertTriangle className="w-4 h-4 text-amber-600" />
-              Not Medical or Clinical Advice
-            </div>
-            <p>
-              Tinat is an academic and clinical research data-collection ecosystem. Tinat is not a healthcare provider, clinic, or medical emergency service. Participation in research questionnaires or surveys does not constitute a doctor-patient relationship, diagnosis, or clinical treatment. If you are experiencing a medical emergency, seek immediate professional medical attention.
-            </p>
-          </div>
-        </section>
-
-        {/* 3. Participant Terms */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-            3. Participant Guidelines & Informed Consent
-          </h2>
-          <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-            <li>
-              <strong>Voluntary Participation:</strong> Participation in any research study, clinical questionnaire, or public health survey is strictly voluntary. You may decline or stop participating at any time prior to submission.
-            </li>
-            <li>
-              <strong>Truthful Responses:</strong> Participants agree to provide accurate, honest, and thoughtful answers to ensure the scientific validity of research data.
-            </li>
-            <li>
-              <strong>Tinat Credits (TC) & Recognition:</strong> Funded studies award participants with Tinat Credits upon verified completion. Tinat Credits are internal research recognition tokens with strictly no cash value. Credits cannot be exchanged for money, redeemed, transferred between users, or withdrawn. Attempts to submit automated, fraudulent, or multi-account responses will result in immediate forfeiture of credits and account termination.
-            </li>
-          </ul>
-        </section>
-
-        {/* 4. Data Protection & Coded Linkage */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground">
-            4. Data Protection, Confidentiality & Coded Linkage
-          </h2>
-          <div className="p-4 rounded-xl bg-card border border-border text-xs leading-relaxed space-y-2 text-muted-foreground">
-            <p>
-              In accordance with the <strong>Ethiopian Personal Data Protection Proclamation 1321/2024</strong>, participant research answers are <strong>confidential and coded (pseudonymized), not anonymous</strong>.
-            </p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>
-                <strong>Link Separation:</strong> Upon response submission, your answers are stored exclusively under a cryptographically random Respondent Code. Your direct personal identity (name, email, phone, credentials) is completely separated from your study submissions.
-              </li>
-              <li>
-                <strong>Restricted Link Service:</strong> The cross-reference between your user account and your Respondent Code is maintained in a dedicated, isolated server link table accessible only to automated credit issuance and duplicate prevention logic.
-              </li>
-              <li>
-                <strong>Researcher Access:</strong> Researchers receive only de-identified answers tagged by Respondent Code. Researchers never receive your name, contact details, national ID, IP address, or device fingerprints.
-              </li>
-              <li>
-                <strong>Audit-Logged Fraud Review:</strong> Linkage can only be unmasked in formal, documented investigations of research fraud or multi-accounting by platform administrators, requiring a recorded justification and generating an indelible entry in the platform ActivityLog.
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        {/* 5. Researcher Terms */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground">
-            5. Researcher Responsibilities & Ethical Standards
-          </h2>
-          <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-            <li>
-              <strong>Institutional Ethics:</strong> Researchers publishing clinical trials, patient cohorts, or health studies represent that their protocols conform to ethical standards (including IRB/IEC reviews where applicable).
-            </li>
-            <li>
-              <strong>Data Confidentiality:</strong> Researchers agree to treat participant responses confidentially and use collected health data solely for scientific, academic, educational, or public health analysis.
-            </li>
-            <li>
-              <strong>Prohibited Content:</strong> Researchers must not solicit personally identifiable medical records (e.g., full government IDs, payment cards) or conduct non-consensual investigations.
-            </li>
-          </ul>
-        </section>
-
-        {/* 5. Account Security */}
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground">
-            6. Account Verification & Security
-          </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            All users must maintain an accurate, verified email address. You are responsible for safeguarding your login credentials. If you suspect unauthorized access to your account, you must immediately notify platform support.
-          </p>
-        </section>
-
-        {/* 6. Contact Information */}
-        <section className="space-y-3 border-t border-border pt-6">
-          <h2 className="text-xl font-bold text-foreground">
-            7. Inquiries & Governance
-          </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            For questions regarding these Terms of Service or research protocol compliance, contact:
-          </p>
-          <p className="text-sm font-semibold text-foreground">
-            support@tinat.et &bull; iammintesnot@gmail.com
-          </p>
-        </section>
+        {/* Dynamic Source of Truth Sections */}
+        {TERMS_OF_USE_SECTIONS.map((section) => (
+          <section key={section.id} id={section.id} className="space-y-3">
+            <h2 className="text-xl font-bold text-foreground">
+              {section.title}
+            </h2>
+            {section.paragraphs.map((p, idx) => (
+              <p key={idx} className="text-sm text-muted-foreground leading-relaxed">
+                {p}
+              </p>
+            ))}
+            {section.bullets && section.bullets.length > 0 && (
+              <ul className="list-disc pl-5 space-y-1.5 text-sm text-muted-foreground">
+                {section.bullets.map((b, idx) => (
+                  <li key={idx}>{b}</li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
       </div>
     </div>
   );

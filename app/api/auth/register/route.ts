@@ -6,6 +6,12 @@ import { logActivity } from "../../../../lib/activityLog";
 import { generate6DigitCode, generateVerificationToken } from "@/lib/emailVerification";
 import { sendVerificationEmail } from "@/lib/emailService";
 import { getBaseUrl } from "@/lib/getRedirectUri";
+import {
+  PLATFORM_DOCUMENT_VERSIONS,
+  getCombinedDocumentText,
+  computeDocumentHash,
+} from "@/lib/legal/platformDocuments";
+import { hashIp } from "@/lib/legal/consentService";
 
 export async function POST(request: Request) {
   try {
@@ -13,7 +19,33 @@ export async function POST(request: Request) {
     if (!rateCheck.allowed) return rateCheck.response;
     const body = await request.json();
 
-    const { name, email, password, role } = body;
+    const {
+      name,
+      email,
+      password,
+      role,
+      termsAccepted,
+      optionalContactConsent,
+      documentHash,
+      locale,
+    } = body;
+
+    if (!termsAccepted) {
+      return NextResponse.json(
+        { error: "You must read and agree to the Terms of Use and Privacy Notice to create an account." },
+        { status: 400 }
+      );
+    }
+
+    const currentCombinedText = getCombinedDocumentText();
+    const currentHash = computeDocumentHash(currentCombinedText);
+
+    if (documentHash && documentHash !== currentHash) {
+      return NextResponse.json(
+        { error: "Document version mismatch. Please review and accept the latest document text." },
+        { status: 400 }
+      );
+    }
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -43,27 +75,46 @@ export async function POST(request: Request) {
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
-
     const userRole = role === "RESEARCHER" ? "RESEARCHER" : "PARTICIPANT";
+    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip");
+    const ipH = hashIp(ip);
 
-    const user = await prisma.user.create({
-      data: {
-        name: name.trim(),
-        email: normalizedEmail,
-        passwordHash,
-        role: userRole,
-        privacyNoticeVersion: "1.0",
-        privacyAcceptedAt: new Date(),
-        wallet: {
-          create: { balance: 0 },
+    // Atomically create user, wallet, and PlatformConsentRecord
+    const user = await prisma.$transaction(async (tx) => {
+      const newUser = await tx.user.create({
+        data: {
+          name: name.trim(),
+          email: normalizedEmail,
+          passwordHash,
+          role: userRole,
+          privacyNoticeVersion: PLATFORM_DOCUMENT_VERSIONS.PRIVACY,
+          privacyAcceptedAt: new Date(),
+          termsAcceptedVersion: PLATFORM_DOCUMENT_VERSIONS.TERMS,
+          termsAcceptedAt: new Date(),
+          wallet: {
+            create: { balance: 0 },
+          },
+          platformConsentRecords: {
+            create: {
+              termsVersion: PLATFORM_DOCUMENT_VERSIONS.TERMS,
+              privacyVersion: PLATFORM_DOCUMENT_VERSIONS.PRIVACY,
+              summaryVersion: PLATFORM_DOCUMENT_VERSIONS.SUMMARY,
+              documentHash: currentHash,
+              optionalContactConsent: Boolean(optionalContactConsent),
+              ipHash: ipH,
+              locale: locale || "en",
+            },
+          },
         },
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-      },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          role: true,
+        },
+      });
+
+      return newUser;
     });
 
     // Log the registration activity

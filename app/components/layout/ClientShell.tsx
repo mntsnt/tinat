@@ -18,6 +18,7 @@ const FOOTER_PATHS = new Set([
   "/code-of-conduct",
   "/transparency",
   "/dpa",
+  "/agreement",
 ]);
 
 interface ClientShellProps {

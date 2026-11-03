@@ -455,7 +455,8 @@ export const ModelName = {
   EthicsBoardMember: 'EthicsBoardMember',
   EthicsBoardDecision: 'EthicsBoardDecision',
   StudyTranslation: 'StudyTranslation',
-  QuestionTranslation: 'QuestionTranslation'
+  QuestionTranslation: 'QuestionTranslation',
+  PlatformConsentRecord: 'PlatformConsentRecord'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -471,7 +472,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "incidentLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "participantLink" | "dataSubjectRequest" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "ledgerAccount" | "ledgerJournal" | "ledgerEntry" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDiscussionReaction" | "projectDiscussionReplyReaction" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectionSession" | "ethicsApproval" | "consentForm" | "consentRecord" | "moderationReport" | "ethicsBoardMember" | "ethicsBoardDecision" | "studyTranslation" | "questionTranslation"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "incidentLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "participantLink" | "dataSubjectRequest" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "ledgerAccount" | "ledgerJournal" | "ledgerEntry" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDiscussionReaction" | "projectDiscussionReplyReaction" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectionSession" | "ethicsApproval" | "consentForm" | "consentRecord" | "moderationReport" | "ethicsBoardMember" | "ethicsBoardDecision" | "studyTranslation" | "questionTranslation" | "platformConsentRecord"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4841,6 +4842,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PlatformConsentRecord: {
+      payload: Prisma.$PlatformConsentRecordPayload<ExtArgs>
+      fields: Prisma.PlatformConsentRecordFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlatformConsentRecordFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlatformConsentRecordFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload>
+        }
+        findFirst: {
+          args: Prisma.PlatformConsentRecordFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlatformConsentRecordFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload>
+        }
+        findMany: {
+          args: Prisma.PlatformConsentRecordFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload>[]
+        }
+        create: {
+          args: Prisma.PlatformConsentRecordCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload>
+        }
+        createMany: {
+          args: Prisma.PlatformConsentRecordCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlatformConsentRecordCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload>[]
+        }
+        delete: {
+          args: Prisma.PlatformConsentRecordDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload>
+        }
+        update: {
+          args: Prisma.PlatformConsentRecordUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload>
+        }
+        deleteMany: {
+          args: Prisma.PlatformConsentRecordDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlatformConsentRecordUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlatformConsentRecordUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload>[]
+        }
+        upsert: {
+          args: Prisma.PlatformConsentRecordUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformConsentRecordPayload>
+        }
+        aggregate: {
+          args: Prisma.PlatformConsentRecordAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlatformConsentRecord>
+        }
+        groupBy: {
+          args: Prisma.PlatformConsentRecordGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformConsentRecordGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlatformConsentRecordCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformConsentRecordCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -5781,6 +5856,23 @@ export const QuestionTranslationScalarFieldEnum = {
 export type QuestionTranslationScalarFieldEnum = (typeof QuestionTranslationScalarFieldEnum)[keyof typeof QuestionTranslationScalarFieldEnum]
 
 
+export const PlatformConsentRecordScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  termsVersion: 'termsVersion',
+  privacyVersion: 'privacyVersion',
+  summaryVersion: 'summaryVersion',
+  documentHash: 'documentHash',
+  optionalContactConsent: 'optionalContactConsent',
+  acceptedAt: 'acceptedAt',
+  ipHash: 'ipHash',
+  locale: 'locale',
+  createdAt: 'createdAt'
+} as const
+
+export type PlatformConsentRecordScalarFieldEnum = (typeof PlatformConsentRecordScalarFieldEnum)[keyof typeof PlatformConsentRecordScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -6569,6 +6661,7 @@ export type GlobalOmitConfig = {
   ethicsBoardDecision?: Prisma.EthicsBoardDecisionOmit
   studyTranslation?: Prisma.StudyTranslationOmit
   questionTranslation?: Prisma.QuestionTranslationOmit
+  platformConsentRecord?: Prisma.PlatformConsentRecordOmit
 }
 
 /* Types for Logging */
