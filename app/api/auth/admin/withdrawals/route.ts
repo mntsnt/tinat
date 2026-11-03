@@ -1,30 +1,12 @@
 import { NextResponse } from "next/server";
-import { getSession } from "../../../../../lib/auth";
-import { prisma } from "../../../../../lib/prisma";
+import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/authGuard";
+import { jsonError } from "@/lib/validation";
 
 export async function GET(req: Request) {
   try {
-    const session = await getSession();
-
-    if (!session) {
-      return NextResponse.json(
-        { error: "You must be logged in." },
-        { status: 401 }
-      );
-    }
-
-    const user = await prisma.user.findUnique({
-      where: {
-        id: session.userId,
-      },
-    });
-
-    if (!user || user.role !== "ADMIN") {
-      return NextResponse.json(
-        { error: "Admin access required." },
-        { status: 403 }
-      );
-    }
+    const auth = await requireRole(["ADMIN"], req);
+    if (!auth.ok) return auth.response;
 
     const { searchParams } = new URL(req.url);
     const statusParam = searchParams.get("status")?.toUpperCase();
@@ -54,17 +36,9 @@ export async function GET(req: Request) {
       },
     });
 
-    return NextResponse.json({
-      withdrawals,
-    });
+    return NextResponse.json({ withdrawals });
   } catch (error) {
-    console.error("Admin withdrawals error:", error);
-
-    return NextResponse.json(
-      {
-        error: "Failed to load withdrawals.",
-      },
-      { status: 500 }
-    );
+    console.error("Fetch withdrawals error:", error);
+    return jsonError("Internal server error.", 500);
   }
 }

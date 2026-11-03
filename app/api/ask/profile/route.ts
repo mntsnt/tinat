@@ -70,7 +70,8 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    let { username, displayName, bio, theme, isEnabled, allowPublicAnswers } = body;
+    const { displayName, bio, theme, isEnabled, allowPublicAnswers } = body;
+    let { username } = body;
 
     if (!username || typeof username !== "string") {
       return NextResponse.json(

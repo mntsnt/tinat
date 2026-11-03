@@ -28,16 +28,25 @@ export type AggregateWallet = {
 
 export type WalletAvgAggregateOutputType = {
   balance: number | null
+  pendingBalance: number | null
+  totalEarned: number | null
+  totalWithdrawn: number | null
 }
 
 export type WalletSumAggregateOutputType = {
   balance: number | null
+  pendingBalance: number | null
+  totalEarned: number | null
+  totalWithdrawn: number | null
 }
 
 export type WalletMinAggregateOutputType = {
   id: string | null
   userId: string | null
   balance: number | null
+  pendingBalance: number | null
+  totalEarned: number | null
+  totalWithdrawn: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +55,9 @@ export type WalletMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   balance: number | null
+  pendingBalance: number | null
+  totalEarned: number | null
+  totalWithdrawn: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +66,9 @@ export type WalletCountAggregateOutputType = {
   id: number
   userId: number
   balance: number
+  pendingBalance: number
+  totalEarned: number
+  totalWithdrawn: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -62,16 +77,25 @@ export type WalletCountAggregateOutputType = {
 
 export type WalletAvgAggregateInputType = {
   balance?: true
+  pendingBalance?: true
+  totalEarned?: true
+  totalWithdrawn?: true
 }
 
 export type WalletSumAggregateInputType = {
   balance?: true
+  pendingBalance?: true
+  totalEarned?: true
+  totalWithdrawn?: true
 }
 
 export type WalletMinAggregateInputType = {
   id?: true
   userId?: true
   balance?: true
+  pendingBalance?: true
+  totalEarned?: true
+  totalWithdrawn?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -80,6 +104,9 @@ export type WalletMaxAggregateInputType = {
   id?: true
   userId?: true
   balance?: true
+  pendingBalance?: true
+  totalEarned?: true
+  totalWithdrawn?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +115,9 @@ export type WalletCountAggregateInputType = {
   id?: true
   userId?: true
   balance?: true
+  pendingBalance?: true
+  totalEarned?: true
+  totalWithdrawn?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -183,6 +213,9 @@ export type WalletGroupByOutputType = {
   id: string
   userId: string
   balance: number
+  pendingBalance: number
+  totalEarned: number
+  totalWithdrawn: number
   createdAt: Date
   updatedAt: Date
   _count: WalletCountAggregateOutputType | null
@@ -214,6 +247,9 @@ export type WalletWhereInput = {
   id?: Prisma.StringFilter<"Wallet"> | string
   userId?: Prisma.StringFilter<"Wallet"> | string
   balance?: Prisma.IntFilter<"Wallet"> | number
+  pendingBalance?: Prisma.IntFilter<"Wallet"> | number
+  totalEarned?: Prisma.IntFilter<"Wallet"> | number
+  totalWithdrawn?: Prisma.IntFilter<"Wallet"> | number
   createdAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   transactions?: Prisma.TinatCreditTransactionListRelationFilter
@@ -224,6 +260,9 @@ export type WalletOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  pendingBalance?: Prisma.SortOrder
+  totalEarned?: Prisma.SortOrder
+  totalWithdrawn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   transactions?: Prisma.TinatCreditTransactionOrderByRelationAggregateInput
@@ -237,6 +276,9 @@ export type WalletWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.WalletWhereInput[]
   NOT?: Prisma.WalletWhereInput | Prisma.WalletWhereInput[]
   balance?: Prisma.IntFilter<"Wallet"> | number
+  pendingBalance?: Prisma.IntFilter<"Wallet"> | number
+  totalEarned?: Prisma.IntFilter<"Wallet"> | number
+  totalWithdrawn?: Prisma.IntFilter<"Wallet"> | number
   createdAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Wallet"> | Date | string
   transactions?: Prisma.TinatCreditTransactionListRelationFilter
@@ -247,6 +289,9 @@ export type WalletOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  pendingBalance?: Prisma.SortOrder
+  totalEarned?: Prisma.SortOrder
+  totalWithdrawn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.WalletCountOrderByAggregateInput
@@ -263,6 +308,9 @@ export type WalletScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Wallet"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Wallet"> | string
   balance?: Prisma.IntWithAggregatesFilter<"Wallet"> | number
+  pendingBalance?: Prisma.IntWithAggregatesFilter<"Wallet"> | number
+  totalEarned?: Prisma.IntWithAggregatesFilter<"Wallet"> | number
+  totalWithdrawn?: Prisma.IntWithAggregatesFilter<"Wallet"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Wallet"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Wallet"> | Date | string
 }
@@ -270,6 +318,9 @@ export type WalletScalarWhereWithAggregatesInput = {
 export type WalletCreateInput = {
   id?: string
   balance?: number
+  pendingBalance?: number
+  totalEarned?: number
+  totalWithdrawn?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.TinatCreditTransactionCreateNestedManyWithoutWalletInput
@@ -280,6 +331,9 @@ export type WalletUncheckedCreateInput = {
   id?: string
   userId: string
   balance?: number
+  pendingBalance?: number
+  totalEarned?: number
+  totalWithdrawn?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.TinatCreditTransactionUncheckedCreateNestedManyWithoutWalletInput
@@ -288,6 +342,9 @@ export type WalletUncheckedCreateInput = {
 export type WalletUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  pendingBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  totalEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  totalWithdrawn?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.TinatCreditTransactionUpdateManyWithoutWalletNestedInput
@@ -298,6 +355,9 @@ export type WalletUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  pendingBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  totalEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  totalWithdrawn?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.TinatCreditTransactionUncheckedUpdateManyWithoutWalletNestedInput
@@ -307,6 +367,9 @@ export type WalletCreateManyInput = {
   id?: string
   userId: string
   balance?: number
+  pendingBalance?: number
+  totalEarned?: number
+  totalWithdrawn?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -314,6 +377,9 @@ export type WalletCreateManyInput = {
 export type WalletUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  pendingBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  totalEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  totalWithdrawn?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -322,6 +388,9 @@ export type WalletUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  pendingBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  totalEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  totalWithdrawn?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -335,18 +404,27 @@ export type WalletCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  pendingBalance?: Prisma.SortOrder
+  totalEarned?: Prisma.SortOrder
+  totalWithdrawn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type WalletAvgOrderByAggregateInput = {
   balance?: Prisma.SortOrder
+  pendingBalance?: Prisma.SortOrder
+  totalEarned?: Prisma.SortOrder
+  totalWithdrawn?: Prisma.SortOrder
 }
 
 export type WalletMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  pendingBalance?: Prisma.SortOrder
+  totalEarned?: Prisma.SortOrder
+  totalWithdrawn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -355,12 +433,18 @@ export type WalletMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  pendingBalance?: Prisma.SortOrder
+  totalEarned?: Prisma.SortOrder
+  totalWithdrawn?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type WalletSumOrderByAggregateInput = {
   balance?: Prisma.SortOrder
+  pendingBalance?: Prisma.SortOrder
+  totalEarned?: Prisma.SortOrder
+  totalWithdrawn?: Prisma.SortOrder
 }
 
 export type WalletScalarRelationFilter = {
@@ -417,6 +501,9 @@ export type WalletUpdateOneRequiredWithoutTransactionsNestedInput = {
 export type WalletCreateWithoutUserInput = {
   id?: string
   balance?: number
+  pendingBalance?: number
+  totalEarned?: number
+  totalWithdrawn?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.TinatCreditTransactionCreateNestedManyWithoutWalletInput
@@ -425,6 +512,9 @@ export type WalletCreateWithoutUserInput = {
 export type WalletUncheckedCreateWithoutUserInput = {
   id?: string
   balance?: number
+  pendingBalance?: number
+  totalEarned?: number
+  totalWithdrawn?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.TinatCreditTransactionUncheckedCreateNestedManyWithoutWalletInput
@@ -449,6 +539,9 @@ export type WalletUpdateToOneWithWhereWithoutUserInput = {
 export type WalletUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  pendingBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  totalEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  totalWithdrawn?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.TinatCreditTransactionUpdateManyWithoutWalletNestedInput
@@ -457,6 +550,9 @@ export type WalletUpdateWithoutUserInput = {
 export type WalletUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  pendingBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  totalEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  totalWithdrawn?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.TinatCreditTransactionUncheckedUpdateManyWithoutWalletNestedInput
@@ -465,6 +561,9 @@ export type WalletUncheckedUpdateWithoutUserInput = {
 export type WalletCreateWithoutTransactionsInput = {
   id?: string
   balance?: number
+  pendingBalance?: number
+  totalEarned?: number
+  totalWithdrawn?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutWalletInput
@@ -474,6 +573,9 @@ export type WalletUncheckedCreateWithoutTransactionsInput = {
   id?: string
   userId: string
   balance?: number
+  pendingBalance?: number
+  totalEarned?: number
+  totalWithdrawn?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -497,6 +599,9 @@ export type WalletUpdateToOneWithWhereWithoutTransactionsInput = {
 export type WalletUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  pendingBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  totalEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  totalWithdrawn?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutWalletNestedInput
@@ -506,6 +611,9 @@ export type WalletUncheckedUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  pendingBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  totalEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  totalWithdrawn?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -545,6 +653,9 @@ export type WalletSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   userId?: boolean
   balance?: boolean
+  pendingBalance?: boolean
+  totalEarned?: boolean
+  totalWithdrawn?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   transactions?: boolean | Prisma.Wallet$transactionsArgs<ExtArgs>
@@ -556,6 +667,9 @@ export type WalletSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   userId?: boolean
   balance?: boolean
+  pendingBalance?: boolean
+  totalEarned?: boolean
+  totalWithdrawn?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -565,6 +679,9 @@ export type WalletSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   userId?: boolean
   balance?: boolean
+  pendingBalance?: boolean
+  totalEarned?: boolean
+  totalWithdrawn?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -574,11 +691,14 @@ export type WalletSelectScalar = {
   id?: boolean
   userId?: boolean
   balance?: boolean
+  pendingBalance?: boolean
+  totalEarned?: boolean
+  totalWithdrawn?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type WalletOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "balance" | "createdAt" | "updatedAt", ExtArgs["result"]["wallet"]>
+export type WalletOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "balance" | "pendingBalance" | "totalEarned" | "totalWithdrawn" | "createdAt" | "updatedAt", ExtArgs["result"]["wallet"]>
 export type WalletInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   transactions?: boolean | Prisma.Wallet$transactionsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -601,6 +721,9 @@ export type $WalletPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     userId: string
     balance: number
+    pendingBalance: number
+    totalEarned: number
+    totalWithdrawn: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["wallet"]>
@@ -1031,6 +1154,9 @@ export interface WalletFieldRefs {
   readonly id: Prisma.FieldRef<"Wallet", 'String'>
   readonly userId: Prisma.FieldRef<"Wallet", 'String'>
   readonly balance: Prisma.FieldRef<"Wallet", 'Int'>
+  readonly pendingBalance: Prisma.FieldRef<"Wallet", 'Int'>
+  readonly totalEarned: Prisma.FieldRef<"Wallet", 'Int'>
+  readonly totalWithdrawn: Prisma.FieldRef<"Wallet", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Wallet", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Wallet", 'DateTime'>
 }

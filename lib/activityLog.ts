@@ -9,6 +9,7 @@ import { prisma } from "./prisma";
  *   - description: Optional human‑readable description.
  *   - resourceId: Optional ID of a related entity (study, payment, etc.).
  *   - resourceType: Optional type of the related entity ("Study", "StudyPayment", ...).
+ *   - metadata: Optional additional structured audit metadata appended to description.
  */
 export async function logActivity(params: {
   userId: string;
@@ -16,12 +17,17 @@ export async function logActivity(params: {
   description?: string;
   resourceId?: string;
   resourceType?: string;
+  metadata?: Record<string, any>;
 }) {
+  const fullDescription = params.metadata
+    ? `${params.description ?? ""} [meta: ${JSON.stringify(params.metadata)}]`.trim()
+    : params.description;
+
   await prisma.activityLog.create({
     data: {
       userId: params.userId,
       action: params.action,
-      description: params.description,
+      description: fullDescription,
       resourceId: params.resourceId,
       resourceType: params.resourceType,
     },

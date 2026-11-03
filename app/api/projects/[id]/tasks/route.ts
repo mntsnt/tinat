@@ -9,7 +9,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(id);
+    const { auth, error, status } = await authorizeProjectAccess(id, req);
     if (!auth) {
       return NextResponse.json({ error }, { status: status || 403 });
     }
@@ -57,7 +57,7 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(id);
+    const { auth, error, status } = await authorizeProjectAccess(id, req);
     if (!auth) {
       return NextResponse.json({ error }, { status: status || 403 });
     }
@@ -85,6 +85,18 @@ export async function POST(
 
     if (!title || typeof title !== "string" || title.trim().length === 0) {
       return NextResponse.json({ error: "Task title is required." }, { status: 400 });
+    }
+
+    if (milestoneId) {
+      const milestone = await prisma.projectMilestone.findUnique({
+        where: { id: milestoneId },
+      });
+      if (!milestone || milestone.projectId !== id) {
+        return NextResponse.json(
+          { error: "Invalid milestone: milestone does not belong to this project." },
+          { status: 400 }
+        );
+      }
     }
 
     const task = await prisma.projectTask.create({

@@ -1,3 +1,4 @@
+import { checkRateLimit } from "@/lib/rateLimit";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import {
@@ -10,6 +11,8 @@ import { getBaseUrl } from "@/lib/getRedirectUri";
 
 export async function POST(request: Request) {
   try {
+    const rateCheck = checkRateLimit(request, "EMAIL_VERIFICATION");
+    if (!rateCheck.allowed) return rateCheck.response;
     const body = await request.json();
     const { email } = body;
 

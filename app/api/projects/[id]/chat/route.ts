@@ -1,3 +1,4 @@
+import { checkRateLimit } from "@/lib/rateLimit";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authorizeProjectAccess } from "@/lib/projects/auth";
@@ -10,7 +11,7 @@ export async function GET(
 ) {
   try {
     const { id: projectId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }
@@ -46,17 +47,19 @@ export async function GET(
 }
 
 export async function POST(
-  request: Request,
+  req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const rateCheck = checkRateLimit(req, "CHAT");
+    if (!rateCheck.allowed) return rateCheck.response;
     const { id: projectId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, req);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }
 
-    const body: unknown = await request.json().catch(() => null);
+    const body: unknown = await req.json().catch(() => null);
     if (!body || typeof body !== "object" || !("content" in body) || typeof body.content !== "string") {
       return NextResponse.json(
         { error: "A message is required." },

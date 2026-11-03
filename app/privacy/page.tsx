@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Shield, ArrowLeft, Lock, FileText, CheckCircle2 } from "lucide-react";
 import { Button } from "../components/ui/Button";
+import { PolicyAcceptanceBanner } from "../components/governance/PolicyAcceptanceBanner";
+import { CURRENT_POLICY_VERSIONS } from "@/lib/governance/policies";
 
 export default function PrivacyPolicyPage() {
   return (
@@ -27,6 +29,12 @@ export default function PrivacyPolicyPage() {
             Last Updated: September 13, 2026 &bull; Tinat Health Research Ecosystem
           </p>
         </div>
+
+        <PolicyAcceptanceBanner
+          policyKey="privacy"
+          policyName="Privacy Policy"
+          version={CURRENT_POLICY_VERSIONS.PRIVACY}
+        />
 
         {/* Overview */}
         <section className="space-y-3">

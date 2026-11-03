@@ -43,7 +43,7 @@ export default async function AdminUsersPage() {
       _count: {
         select: {
           studies: true,
-          responses: true,
+          participantLinks: true,
           withdrawals: true,
         },
       },
@@ -129,7 +129,7 @@ export default async function AdminUsersPage() {
                           </div>
                           <div className="flex justify-between w-32">
                             <span className="text-muted-foreground">Completed:</span>
-                            <span className="font-medium text-foreground">{user._count.responses}</span>
+                            <span className="font-medium text-foreground">{user._count.participantLinks}</span>
                           </div>
                           <div className="flex justify-between w-32">
                             <span className="text-muted-foreground">Withdrawals:</span>

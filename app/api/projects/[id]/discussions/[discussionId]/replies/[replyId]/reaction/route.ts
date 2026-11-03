@@ -3,12 +3,12 @@ import { prisma } from "@/lib/prisma";
 import { authorizeProjectAccess } from "@/lib/projects/auth";
 
 export async function PUT(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string; discussionId: string; replyId: string }> }
 ) {
   try {
     const { id: projectId, discussionId, replyId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }
@@ -34,12 +34,12 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string; discussionId: string; replyId: string }> }
 ) {
   try {
     const { id: projectId, discussionId, replyId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }

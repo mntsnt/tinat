@@ -16,9 +16,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Tinat Ask | Anonymous Social Q&A & Visual Question Decks",
+  title: "Tinat Ask | Confidential Social Q&A & Visual Question Decks",
   description:
-    "Create your personal anonymous Q&A page, receive honest questions, and export sleek visual question decks for your social media.",
+    "Create your personal confidential Q&A page, receive honest questions, and export sleek visual question decks for your social media.",
 };
 
 export default async function AskPage() {
@@ -95,7 +95,7 @@ export default async function AskPage() {
       <div className="text-center space-y-6">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold shadow-sm">
           <Sparkles className="w-3.5 h-3.5" />
-          Introducing Tinat Ask • Anonymous Social Q&A
+          Introducing Tinat Ask • Confidential Social Q&A
         </div>
 
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground max-w-3xl mx-auto leading-snug">
@@ -106,7 +106,7 @@ export default async function AskPage() {
         </h1>
 
         <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Create your personal anonymous Q&A page in 10 seconds. Let friends, followers, and colleagues ask honest questions, and export sleek visual Question Decks to Instagram, Telegram, WhatsApp & X.
+          Create your personal confidential Q&A page in 10 seconds. Let friends, followers, and colleagues ask honest questions, and export sleek visual Question Decks to Instagram, Telegram, WhatsApp & X.
         </p>
 
         {/* CTA Buttons */}
@@ -129,7 +129,7 @@ export default async function AskPage() {
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
             <Lock className="w-3.5 h-3.5 text-emerald-500" />
-            100% Anonymous Senders
+            Confidential Coded Senders
           </span>
           <span className="flex items-center gap-1.5">
             <Smartphone className="w-3.5 h-3.5 text-primary" />
@@ -150,7 +150,7 @@ export default async function AskPage() {
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
               <MessageCircleQuestion className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-bold">100% Anonymous Asking</h3>
+            <h3 className="text-base font-bold">Confidential Inquiries</h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Anyone with your link can send questions without creating an account or logging in. No sender identity, device fingerprint, or IP is ever stored.
             </p>

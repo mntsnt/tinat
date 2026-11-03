@@ -7,7 +7,12 @@
     "build": "next build && node -e \"const fs = require('fs'); fs.rmSync('.next/cache', { recursive: true, force: true });\"",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma generate || exit 0"
+    "postinstall": "prisma generate || exit 0",
+    "inventory:generate": "tsx scripts/generate-inventory.ts",
+    "inventory:check": "tsx scripts/generate-inventory.ts --check",
+    "check:claims": "tsx scripts/check-claims.ts",
+    "test": "tsx --test tests/*.test.ts",
+    "check:page-weight": "tsx scripts/check-page-weight.ts"
   },
   "dependencies": {
     "@google/genai": "^2.22.0",
@@ -24,7 +29,7 @@
     "framer-motion": "^13.2.0",
     "jose": "^6.2.10",
     "lucide-react": "^1.41.0",
-    "next": "16.3.3",
+    "next": "^16.4.3",
     "next-themes": "^1.0.0-beta.0",
     "nodemailer": "^10.0.9",
     "pg": "^8.23.0",
@@ -35,6 +40,7 @@
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^3.6.0",
     "xlsx": "^0.18.5",
+    "zod": "^4.6.7",
     "zxing-wasm": "^3.1.5"
   },
   "devDependencies": {
@@ -44,7 +50,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.3",
+    "eslint-config-next": "^16.4.3",
     "prisma": "^7.10.0",
     "tailwindcss": "^4",
     "typescript": "^5"

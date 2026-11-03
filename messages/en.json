@@ -1,0 +1,55 @@
+{
+  "common": {
+    "appName": "Tinat Research",
+    "tagline": "Ethiopian Research & Data Intelligence Platform",
+    "language": "Language",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "lowBandwidth": "Low-Bandwidth Mode",
+    "offlineSaved": "Answers saved locally (offline protection active)",
+    "offlineNotice": "You are offline. Your responses are stored safely and will sync when reconnected."
+  },
+  "nav": {
+    "home": "Home",
+    "studies": "Studies",
+    "wallet": "Tinat Credits",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log Out"
+  },
+  "study": {
+    "title": "Research Questionnaire",
+    "fundingType": "Funding Model",
+    "funded": "Funded Study",
+    "free": "Academic / Non-Funded Study",
+    "rewardNotice": "Earn Tinat Credits (TC) upon verified completion.",
+    "noRewardNotice": "This is an academic study conducted without credit rewards.",
+    "confidentialNotice": "Your answers are confidential and pseudonymized under Proclamation 1321/2024.",
+    "selectOption": "Select an answer",
+    "question": "Question",
+    "of": "of",
+    "complete": "Survey Complete",
+    "thankYou": "Thank you for contributing to Ethiopian research!",
+    "alreadySubmitted": "You have already completed this study.",
+    "consentRequired": "You must provide informed consent before answering questions."
+  },
+  "consent": {
+    "title": "Informed Consent & Data Protection Notice",
+    "voluntary": "Participation in this study is entirely voluntary.",
+    "withdrawal": "You may stop or withdraw at any time without penalty.",
+    "confidentiality": "Responses are coded with an unguessable respondent code and kept strictly confidential.",
+    "agree": "I understand and freely give my consent to participate"
+  },
+  "credits": {
+    "title": "Tinat Credits",
+    "balance": "TC Balance",
+    "explanation": "Tinat Credits are platform tokens earned for research participation. They have zero cash value and cannot be withdrawn or transferred.",
+    "history": "Credit Activity History"
+  }
+}

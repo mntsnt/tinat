@@ -1,0 +1,55 @@
+{
+  "common": {
+    "appName": "Tinat Cilmi-baaris",
+    "tagline": "Madasha Cilmi-baarista iyo Xogta Itoobiya",
+    "language": "Luqadda",
+    "save": "Keydi",
+    "cancel": "Jooji",
+    "back": "Dib u noqo",
+    "next": "Kuxiga",
+    "submit": "Geli",
+    "submitting": "Waa la dirayaa...",
+    "loading": "Waa la soo shubayaa...",
+    "error": "Khalad ayaa dhacay",
+    "lowBandwidth": "Habka Internet-ka Fudud",
+    "offlineSaved": "Jawaabahaaga waxaa lagu keydiyay aaladdaada",
+    "offlineNotice": "Khadka internet-ka ma shaqeynayo. Jawaabahaaga waa la keydiyay waxaana la diri doonaa marka khadku soo laabto."
+  },
+  "nav": {
+    "home": "Bogga Hore",
+    "studies": "Daraasaadka",
+    "wallet": "Dhibcaha Tinat",
+    "profile": "Muuqaalka",
+    "settings": "Dejinta",
+    "logout": "Ka bax"
+  },
+  "study": {
+    "title": "Su'aalaha Cilmi-baarista",
+    "fundingType": "Nooca Maalgelinta",
+    "funded": "Daraasad Abaalmarin Leh",
+    "free": "Daraasad Waxbarasho / Bilaash Ah",
+    "rewardNotice": "Waxaad helaysaa Dhibcaha Tinat (TC) markaad dhammaystirto.",
+    "noRewardNotice": "Tani waa daraasad waxbarasho oo aan lahayn abaalmarin dhibco ah.",
+    "confidentialNotice": "Sharci Lambar 1321/2024 wuxuu ilaalinayaa sirta jawaabtaada.",
+    "selectOption": "Dooro jawaab",
+    "question": "Su'aal",
+    "of": "ka mid ah",
+    "complete": "Daraasaddii Way Dhammaystirantay",
+    "thankYou": "Waad ku mahadsan tahay ka qaybgalkaaga cilmi-baarista Itoobiya!",
+    "alreadySubmitted": "Horey ayaad u dhammaystirtay daraasaddan.",
+    "consentRequired": "Waa inaad bixisaa oggolaansho inta aadan jawaabin su'aalaha."
+  },
+  "consent": {
+    "title": "Oggolaanshaha Ka Qaybgalka iyo Ilaalinta Xogta",
+    "voluntary": "Ka qaybgalka daraasaddan waa mid gebi ahaanba ku saleysan rabitaankaaga.",
+    "withdrawal": "Waad joojin kartaa wakhti kasta adigoon wax ganaax ah la kulmin.",
+    "confidentiality": "Jawaabaha waxaa lagu calaamadeeyay koodh sir ah waxaana loo hayaa si aad ah loo ilaaliyo.",
+    "agree": "Waan fahmay waxaanan bixinayaa oggolaanshahayga buuxa"
+  },
+  "credits": {
+    "title": "Dhibcaha Tinat",
+    "balance": "Haraaga TC",
+    "explanation": "Dhibcaha Tinat waa calaamado gudaha ah oo loogu talagalay ka qaybgalka cilmi-baarista. Ma laha qiimo lacageed loomana beddeli karo lacag.",
+    "history": "Taariikhda Dhaqdhaqaaqa Dhibcaha"
+  }
+}

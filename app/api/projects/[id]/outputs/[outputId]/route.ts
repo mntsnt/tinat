@@ -10,7 +10,7 @@ export async function PATCH(
 ) {
   try {
     const { id: projectId, outputId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth || !auth.canEditTasks) {
       return NextResponse.json(
         { error: error || "Permission denied" },
@@ -89,7 +89,7 @@ export async function DELETE(
 ) {
   try {
     const { id: projectId, outputId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth || !auth.canManageProject) {
       return NextResponse.json(
         { error: error || "Permission denied" },

@@ -59,7 +59,7 @@ type Block =
 
 /**
  * Parses inline formatting: **bold**, *italic*, `code`, [links], and ***bold-italic***.
- * Returns React elements safely without using dangerouslySetInnerHTML (100% XSS-safe).
+ * Returns React elements safely without using dangerouslySetInnerHTML (Sanitized and XSS-resistant).
  */
 function parseInline(text: string): React.ReactNode[] {
   if (!text) return [];

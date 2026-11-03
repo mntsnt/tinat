@@ -9,10 +9,39 @@
 * 🟢 You can import this file directly.
 */
 
+export const DataSubjectRequestType = {
+  ACCESS: 'ACCESS',
+  RECTIFICATION: 'RECTIFICATION',
+  ERASURE: 'ERASURE',
+  WITHDRAW_CONSENT: 'WITHDRAW_CONSENT'
+} as const
+
+export type DataSubjectRequestType = (typeof DataSubjectRequestType)[keyof typeof DataSubjectRequestType]
+
+
+export const DataSubjectRequestStatus = {
+  PENDING: 'PENDING',
+  IN_REVIEW: 'IN_REVIEW',
+  COMPLETED: 'COMPLETED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type DataSubjectRequestStatus = (typeof DataSubjectRequestStatus)[keyof typeof DataSubjectRequestStatus]
+
+
+export const LedgerAccountKind = {
+  SYSTEM_ISSUANCE: 'SYSTEM_ISSUANCE',
+  USER_WALLET: 'USER_WALLET'
+} as const
+
+export type LedgerAccountKind = (typeof LedgerAccountKind)[keyof typeof LedgerAccountKind]
+
+
 export const UserRole = {
   PARTICIPANT: 'PARTICIPANT',
   RESEARCHER: 'RESEARCHER',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  DATA_COLLECTOR: 'DATA_COLLECTOR'
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
@@ -29,11 +58,33 @@ export type StudyStatus = (typeof StudyStatus)[keyof typeof StudyStatus]
 
 
 export const StudyType = {
+  SURVEY: 'SURVEY',
+  OBSERVATIONAL: 'OBSERVATIONAL',
   FUNDED: 'FUNDED',
   FREE_DATA_COLLECTION: 'FREE_DATA_COLLECTION'
 } as const
 
 export type StudyType = (typeof StudyType)[keyof typeof StudyType]
+
+
+export const EthicsApprovalStatus = {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type EthicsApprovalStatus = (typeof EthicsApprovalStatus)[keyof typeof EthicsApprovalStatus]
+
+
+export const ModerationStatus = {
+  OPEN: 'OPEN',
+  INVESTIGATING: 'INVESTIGATING',
+  RESOLVED: 'RESOLVED',
+  DISMISSED: 'DISMISSED'
+} as const
+
+export type ModerationStatus = (typeof ModerationStatus)[keyof typeof ModerationStatus]
 
 
 export const QuestionType = {
@@ -55,12 +106,22 @@ export const QuestionType = {
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
 
 
+export const StudyFundingType = {
+  FREE: 'FREE',
+  FUNDED: 'FUNDED'
+} as const
+
+export type StudyFundingType = (typeof StudyFundingType)[keyof typeof StudyFundingType]
+
+
 export const TransactionType = {
   EARN: 'EARN',
   SPEND: 'SPEND',
   WITHDRAW: 'WITHDRAW',
   REFUND: 'REFUND',
-  ADJUSTMENT: 'ADJUSTMENT'
+  ADJUSTMENT: 'ADJUSTMENT',
+  REWARD_CREDIT: 'REWARD_CREDIT',
+  ADMIN_ADJUSTMENT: 'ADMIN_ADJUSTMENT'
 } as const
 
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]

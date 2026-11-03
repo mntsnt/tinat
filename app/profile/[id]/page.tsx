@@ -43,7 +43,7 @@ export default async function ProfilePage({
         fieldOfStudy: true,
         isVerified: true,
         createdAt: true,
-        _count: { select: { responses: true } },
+        _count: { select: { participantLinks: true } },
         studies: {
           where: { status: "ACTIVE" },
           orderBy: { createdAt: "desc" },
@@ -175,7 +175,7 @@ export default async function ProfilePage({
                   </>
                 ) : (
                   <div>
-                    <p className="text-lg font-semibold text-foreground">{user._count.responses}</p>
+                    <p className="text-lg font-semibold text-foreground">{user._count.participantLinks}</p>
                     <p className="text-xs text-muted-foreground">Research contributions</p>
                   </div>
                 )}

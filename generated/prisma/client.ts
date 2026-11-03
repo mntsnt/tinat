@@ -82,6 +82,11 @@ export type Notification = Prisma.NotificationModel
  */
 export type ActivityLog = Prisma.ActivityLogModel
 /**
+ * Model IncidentLog
+ * 
+ */
+export type IncidentLog = Prisma.IncidentLogModel
+/**
  * Model AdminChatMessage
  * 
  */
@@ -102,6 +107,16 @@ export type QuestionRow = Prisma.QuestionRowModel
  */
 export type QuestionOption = Prisma.QuestionOptionModel
 /**
+ * Model ParticipantLink
+ * 
+ */
+export type ParticipantLink = Prisma.ParticipantLinkModel
+/**
+ * Model DataSubjectRequest
+ * 
+ */
+export type DataSubjectRequest = Prisma.DataSubjectRequestModel
+/**
  * Model Response
  * 
  */
@@ -121,6 +136,21 @@ export type Wallet = Prisma.WalletModel
  * 
  */
 export type TinatCreditTransaction = Prisma.TinatCreditTransactionModel
+/**
+ * Model LedgerAccount
+ * 
+ */
+export type LedgerAccount = Prisma.LedgerAccountModel
+/**
+ * Model LedgerJournal
+ * 
+ */
+export type LedgerJournal = Prisma.LedgerJournalModel
+/**
+ * Model LedgerEntry
+ * 
+ */
+export type LedgerEntry = Prisma.LedgerEntryModel
 /**
  * Model StudyPayment
  * 
@@ -193,12 +223,12 @@ export type ProjectDiscussion = Prisma.ProjectDiscussionModel
 export type ProjectDiscussionReply = Prisma.ProjectDiscussionReplyModel
 /**
  * Model ProjectDiscussionReaction
- *
+ * 
  */
 export type ProjectDiscussionReaction = Prisma.ProjectDiscussionReactionModel
 /**
  * Model ProjectDiscussionReplyReaction
- *
+ * 
  */
 export type ProjectDiscussionReplyReaction = Prisma.ProjectDiscussionReplyReactionModel
 /**
@@ -266,3 +296,43 @@ export type CollectorInvitation = Prisma.CollectorInvitationModel
  * 
  */
 export type CollectionSession = Prisma.CollectionSessionModel
+/**
+ * Model EthicsApproval
+ * 
+ */
+export type EthicsApproval = Prisma.EthicsApprovalModel
+/**
+ * Model ConsentForm
+ * 
+ */
+export type ConsentForm = Prisma.ConsentFormModel
+/**
+ * Model ConsentRecord
+ * 
+ */
+export type ConsentRecord = Prisma.ConsentRecordModel
+/**
+ * Model ModerationReport
+ * 
+ */
+export type ModerationReport = Prisma.ModerationReportModel
+/**
+ * Model EthicsBoardMember
+ * 
+ */
+export type EthicsBoardMember = Prisma.EthicsBoardMemberModel
+/**
+ * Model EthicsBoardDecision
+ * 
+ */
+export type EthicsBoardDecision = Prisma.EthicsBoardDecisionModel
+/**
+ * Model StudyTranslation
+ * 
+ */
+export type StudyTranslation = Prisma.StudyTranslationModel
+/**
+ * Model QuestionTranslation
+ * 
+ */
+export type QuestionTranslation = Prisma.QuestionTranslationModel

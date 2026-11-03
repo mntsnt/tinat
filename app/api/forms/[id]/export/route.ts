@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { logActivity } from "@/lib/activityLog";
 import * as XLSX from "xlsx";
 
 export async function GET(
@@ -25,13 +26,6 @@ export async function GET(
         },
         responses: {
           include: {
-            participant: {
-              select: {
-                id: true,
-                name: true,
-                email: true,
-              },
-            },
             answers: true,
           },
           orderBy: { submittedAt: "asc" },
@@ -50,16 +44,16 @@ export async function GET(
       }
     }
 
-    // Build tabular rows
+    // Build tabular rows with coded respondent identifiers
     const rows = form.responses.map((resp, idx) => {
       const row: Record<string, string | number> = {
         "Submission #": idx + 1,
+        "Respondent Code": resp.respondentCode,
+        "Collection Method": resp.collectionMethod,
         "Submitted At": new Date(resp.submittedAt).toLocaleString("en-US", {
           dateStyle: "medium",
           timeStyle: "short",
         }),
-        "Respondent Name": resp.participant.name || "Guest Respondent",
-        "Respondent Type": resp.participant.email.endsWith("@guest.tinat.app") ? "Guest" : "Registered User",
       };
 
       for (const question of form.questions) {
@@ -79,14 +73,27 @@ export async function GET(
       return row;
     });
 
+    // Log ActivityLog
+    await logActivity({
+      userId: session.userId,
+      action: "FORM_DATA_EXPORTED",
+      description: `User exported ${form.responses.length} responses for form "${form.title}" in ${format} format.`,
+      resourceId: form.id,
+      resourceType: "Study",
+      metadata: {
+        rowCount: form.responses.length,
+        format,
+      },
+    });
+
     const sanitizedTitle = form.title.replace(/[^a-zA-Z0-9_\-]/g, "_").substring(0, 50);
 
     const worksheet = XLSX.utils.json_to_sheet(rows.length > 0 ? rows : [
       {
         "Submission #": "",
+        "Respondent Code": "",
+        "Collection Method": "",
         "Submitted At": "",
-        "Respondent Name": "",
-        "Respondent Type": "",
         ...form.questions.reduce((acc, q) => ({ ...acc, [q.text]: "" }), {}),
       }
     ]);

@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
-import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/authGuard";
+import { jsonError, validateBody } from "@/lib/validation";
+import { checkRateLimit } from "@/lib/rateLimit";
+import { z } from "zod";
 
 const CHANNELS = ["general", "events", "ideas", "help", "support"] as const;
 
@@ -8,28 +11,19 @@ function isChatChannel(value: string): value is (typeof CHANNELS)[number] {
   return CHANNELS.some((channel) => channel === value);
 }
 
-async function requireAdmin() {
-  const session = await getSession();
-  if (!session?.userId) return null;
-
-  const admin = await prisma.user.findUnique({
-    where: { id: session.userId },
-    select: { role: true },
-  });
-
-  return admin?.role === "ADMIN" ? session : null;
-}
+const chatMessageSchema = z.object({
+  channel: z.enum(CHANNELS),
+  content: z.string().trim().min(1, "Write a message before sending.").max(1500, "Messages must be 1,500 characters or fewer."),
+});
 
 export async function GET(request: Request) {
   try {
-    const session = await requireAdmin();
-    if (!session) {
-      return NextResponse.json({ error: "Administrator access is required." }, { status: 403 });
-    }
+    const auth = await requireRole(["ADMIN"], request);
+    if (!auth.ok) return auth.response;
 
     const channel = new URL(request.url).searchParams.get("channel") || "general";
     if (!isChatChannel(channel)) {
-      return NextResponse.json({ error: "Choose a valid admin chat channel." }, { status: 400 });
+      return jsonError("Choose a valid admin chat channel.", 400);
     }
 
     const messages = await prisma.adminChatMessage.findMany({
@@ -45,42 +39,29 @@ export async function GET(request: Request) {
       },
     });
 
-    return NextResponse.json({ messages: messages.reverse(), currentAdminId: session.userId });
+    return NextResponse.json({ messages: messages.reverse(), currentAdminId: auth.user.id });
   } catch (error) {
     console.error("Failed to load admin chat messages:", error);
-    return NextResponse.json({ error: "Could not load admin chat messages." }, { status: 500 });
+    return jsonError("Could not load admin chat messages.", 500);
   }
 }
 
 export async function POST(request: Request) {
   try {
-    const session = await requireAdmin();
-    if (!session) {
-      return NextResponse.json({ error: "Administrator access is required." }, { status: 403 });
-    }
+    const auth = await requireRole(["ADMIN"], request);
+    if (!auth.ok) return auth.response;
 
-    const body = (await request.json().catch(() => null)) as
-      | { channel?: unknown; content?: unknown }
-      | null;
-    if (!body || typeof body.content !== "string" || typeof body.channel !== "string") {
-      return NextResponse.json({ error: "A channel and message are required." }, { status: 400 });
-    }
+    const rateCheck = checkRateLimit(request, "CHAT", auth.user.id);
+    if (!rateCheck.allowed) return rateCheck.response;
 
-    const content = body.content.trim();
-    if (!isChatChannel(body.channel)) {
-      return NextResponse.json({ error: "Choose a valid admin chat channel." }, { status: 400 });
-    }
-    if (!content) {
-      return NextResponse.json({ error: "Write a message before sending." }, { status: 400 });
-    }
-    if (content.length > 1500) {
-      return NextResponse.json({ error: "Messages must be 1,500 characters or fewer." }, { status: 400 });
-    }
+    const validation = await validateBody(chatMessageSchema, request);
+    if (!validation.ok) return validation.response;
+    const { channel, content } = validation.data;
 
     const message = await prisma.adminChatMessage.create({
       data: {
-        channel: body.channel,
-        senderId: session.userId,
+        channel,
+        senderId: auth.user.id,
         content,
       },
       select: {
@@ -95,6 +76,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ message }, { status: 201 });
   } catch (error) {
     console.error("Failed to send admin chat message:", error);
-    return NextResponse.json({ error: "Could not send this message." }, { status: 500 });
+    return jsonError("Could not send this message.", 500);
   }
 }

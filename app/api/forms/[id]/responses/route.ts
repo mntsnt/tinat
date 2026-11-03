@@ -25,14 +25,6 @@ export async function GET(
         },
         responses: {
           include: {
-            participant: {
-              select: {
-                id: true,
-                name: true,
-                email: true,
-                avatarUrl: true,
-              },
-            },
             answers: true,
           },
           orderBy: { submittedAt: "desc" },
@@ -62,9 +54,9 @@ export async function GET(
       questions: form.questions,
       responses: form.responses.map((resp) => ({
         id: resp.id,
+        respondentCode: resp.respondentCode,
+        collectionMethod: resp.collectionMethod,
         submittedAt: resp.submittedAt,
-        participantName: resp.participant.name,
-        isGuest: resp.participant.email.endsWith("@guest.tinat.app"),
         answers: resp.answers.reduce((acc, ans) => {
           acc[ans.questionId] = {
             textValue: ans.textValue,

@@ -54,6 +54,16 @@ export type UserMinAggregateOutputType = {
   faydaVerifiedAt: Date | null
   verificationCode: string | null
   verificationCodeExpiresAt: Date | null
+  termsAcceptedVersion: string | null
+  termsAcceptedAt: Date | null
+  charterAcceptedVersion: string | null
+  charterAcceptedAt: Date | null
+  codeOfConductAcceptedVersion: string | null
+  codeOfConductAcceptedAt: Date | null
+  dpaAcceptedVersion: string | null
+  dpaAcceptedAt: Date | null
+  privacyNoticeVersion: string | null
+  privacyAcceptedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -76,6 +86,16 @@ export type UserMaxAggregateOutputType = {
   faydaVerifiedAt: Date | null
   verificationCode: string | null
   verificationCodeExpiresAt: Date | null
+  termsAcceptedVersion: string | null
+  termsAcceptedAt: Date | null
+  charterAcceptedVersion: string | null
+  charterAcceptedAt: Date | null
+  codeOfConductAcceptedVersion: string | null
+  codeOfConductAcceptedAt: Date | null
+  dpaAcceptedVersion: string | null
+  dpaAcceptedAt: Date | null
+  privacyNoticeVersion: string | null
+  privacyAcceptedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -98,6 +118,16 @@ export type UserCountAggregateOutputType = {
   faydaVerifiedAt: number
   verificationCode: number
   verificationCodeExpiresAt: number
+  termsAcceptedVersion: number
+  termsAcceptedAt: number
+  charterAcceptedVersion: number
+  charterAcceptedAt: number
+  codeOfConductAcceptedVersion: number
+  codeOfConductAcceptedAt: number
+  dpaAcceptedVersion: number
+  dpaAcceptedAt: number
+  privacyNoticeVersion: number
+  privacyAcceptedAt: number
   _all: number
 }
 
@@ -130,6 +160,16 @@ export type UserMinAggregateInputType = {
   faydaVerifiedAt?: true
   verificationCode?: true
   verificationCodeExpiresAt?: true
+  termsAcceptedVersion?: true
+  termsAcceptedAt?: true
+  charterAcceptedVersion?: true
+  charterAcceptedAt?: true
+  codeOfConductAcceptedVersion?: true
+  codeOfConductAcceptedAt?: true
+  dpaAcceptedVersion?: true
+  dpaAcceptedAt?: true
+  privacyNoticeVersion?: true
+  privacyAcceptedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -152,6 +192,16 @@ export type UserMaxAggregateInputType = {
   faydaVerifiedAt?: true
   verificationCode?: true
   verificationCodeExpiresAt?: true
+  termsAcceptedVersion?: true
+  termsAcceptedAt?: true
+  charterAcceptedVersion?: true
+  charterAcceptedAt?: true
+  codeOfConductAcceptedVersion?: true
+  codeOfConductAcceptedAt?: true
+  dpaAcceptedVersion?: true
+  dpaAcceptedAt?: true
+  privacyNoticeVersion?: true
+  privacyAcceptedAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -174,6 +224,16 @@ export type UserCountAggregateInputType = {
   faydaVerifiedAt?: true
   verificationCode?: true
   verificationCodeExpiresAt?: true
+  termsAcceptedVersion?: true
+  termsAcceptedAt?: true
+  charterAcceptedVersion?: true
+  charterAcceptedAt?: true
+  codeOfConductAcceptedVersion?: true
+  codeOfConductAcceptedAt?: true
+  dpaAcceptedVersion?: true
+  dpaAcceptedAt?: true
+  privacyNoticeVersion?: true
+  privacyAcceptedAt?: true
   _all?: true
 }
 
@@ -283,6 +343,16 @@ export type UserGroupByOutputType = {
   faydaVerifiedAt: Date | null
   verificationCode: string | null
   verificationCodeExpiresAt: Date | null
+  termsAcceptedVersion: string | null
+  termsAcceptedAt: Date | null
+  charterAcceptedVersion: string | null
+  charterAcceptedAt: Date | null
+  codeOfConductAcceptedVersion: string | null
+  codeOfConductAcceptedAt: Date | null
+  dpaAcceptedVersion: string | null
+  dpaAcceptedAt: Date | null
+  privacyNoticeVersion: string
+  privacyAcceptedAt: Date | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -328,6 +398,16 @@ export type UserWhereInput = {
   faydaVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verificationCode?: Prisma.StringNullableFilter<"User"> | string | null
   verificationCodeExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  termsAcceptedVersion?: Prisma.StringNullableFilter<"User"> | string | null
+  termsAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  charterAcceptedVersion?: Prisma.StringNullableFilter<"User"> | string | null
+  charterAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.StringNullableFilter<"User"> | string | null
+  codeOfConductAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  dpaAcceptedVersion?: Prisma.StringNullableFilter<"User"> | string | null
+  dpaAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFilter<"User"> | string
+  privacyAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   aiConversations?: Prisma.AIConversationListRelationFilter
   aiUsages?: Prisma.AIUsageListRelationFilter
   activityLogs?: Prisma.ActivityLogListRelationFilter
@@ -354,7 +434,10 @@ export type UserWhereInput = {
   createdProjectTasks?: Prisma.ProjectTaskListRelationFilter
   leadProjects?: Prisma.ResearchProjectListRelationFilter
   collectedResponses?: Prisma.ResponseListRelationFilter
-  responses?: Prisma.ResponseListRelationFilter
+  participantLinks?: Prisma.ParticipantLinkListRelationFilter
+  dataSubjectRequests?: Prisma.DataSubjectRequestListRelationFilter
+  moderationReports?: Prisma.ModerationReportListRelationFilter
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalListRelationFilter
   studies?: Prisma.StudyListRelationFilter
   bookmarks?: Prisma.StudyBookmarkListRelationFilter
   comments?: Prisma.StudyCommentListRelationFilter
@@ -365,6 +448,7 @@ export type UserWhereInput = {
   reviewedVerifications?: Prisma.VerificationListRelationFilter
   verifications?: Prisma.VerificationListRelationFilter
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
+  ledgerAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   withdrawals?: Prisma.WithdrawalListRelationFilter
 }
 
@@ -388,6 +472,16 @@ export type UserOrderByWithRelationInput = {
   faydaVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  termsAcceptedVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  termsAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  charterAcceptedVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  charterAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  codeOfConductAcceptedVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  codeOfConductAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  dpaAcceptedVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  dpaAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  privacyNoticeVersion?: Prisma.SortOrder
+  privacyAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   aiConversations?: Prisma.AIConversationOrderByRelationAggregateInput
   aiUsages?: Prisma.AIUsageOrderByRelationAggregateInput
   activityLogs?: Prisma.ActivityLogOrderByRelationAggregateInput
@@ -414,7 +508,10 @@ export type UserOrderByWithRelationInput = {
   createdProjectTasks?: Prisma.ProjectTaskOrderByRelationAggregateInput
   leadProjects?: Prisma.ResearchProjectOrderByRelationAggregateInput
   collectedResponses?: Prisma.ResponseOrderByRelationAggregateInput
-  responses?: Prisma.ResponseOrderByRelationAggregateInput
+  participantLinks?: Prisma.ParticipantLinkOrderByRelationAggregateInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestOrderByRelationAggregateInput
+  moderationReports?: Prisma.ModerationReportOrderByRelationAggregateInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalOrderByRelationAggregateInput
   studies?: Prisma.StudyOrderByRelationAggregateInput
   bookmarks?: Prisma.StudyBookmarkOrderByRelationAggregateInput
   comments?: Prisma.StudyCommentOrderByRelationAggregateInput
@@ -425,6 +522,7 @@ export type UserOrderByWithRelationInput = {
   reviewedVerifications?: Prisma.VerificationOrderByRelationAggregateInput
   verifications?: Prisma.VerificationOrderByRelationAggregateInput
   wallet?: Prisma.WalletOrderByWithRelationInput
+  ledgerAccount?: Prisma.LedgerAccountOrderByWithRelationInput
   withdrawals?: Prisma.WithdrawalOrderByRelationAggregateInput
 }
 
@@ -451,6 +549,16 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   faydaVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verificationCode?: Prisma.StringNullableFilter<"User"> | string | null
   verificationCodeExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  termsAcceptedVersion?: Prisma.StringNullableFilter<"User"> | string | null
+  termsAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  charterAcceptedVersion?: Prisma.StringNullableFilter<"User"> | string | null
+  charterAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.StringNullableFilter<"User"> | string | null
+  codeOfConductAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  dpaAcceptedVersion?: Prisma.StringNullableFilter<"User"> | string | null
+  dpaAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFilter<"User"> | string
+  privacyAcceptedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   aiConversations?: Prisma.AIConversationListRelationFilter
   aiUsages?: Prisma.AIUsageListRelationFilter
   activityLogs?: Prisma.ActivityLogListRelationFilter
@@ -477,7 +585,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdProjectTasks?: Prisma.ProjectTaskListRelationFilter
   leadProjects?: Prisma.ResearchProjectListRelationFilter
   collectedResponses?: Prisma.ResponseListRelationFilter
-  responses?: Prisma.ResponseListRelationFilter
+  participantLinks?: Prisma.ParticipantLinkListRelationFilter
+  dataSubjectRequests?: Prisma.DataSubjectRequestListRelationFilter
+  moderationReports?: Prisma.ModerationReportListRelationFilter
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalListRelationFilter
   studies?: Prisma.StudyListRelationFilter
   bookmarks?: Prisma.StudyBookmarkListRelationFilter
   comments?: Prisma.StudyCommentListRelationFilter
@@ -488,6 +599,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reviewedVerifications?: Prisma.VerificationListRelationFilter
   verifications?: Prisma.VerificationListRelationFilter
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
+  ledgerAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   withdrawals?: Prisma.WithdrawalListRelationFilter
 }, "id" | "email" | "faydaFanHash">
 
@@ -511,6 +623,16 @@ export type UserOrderByWithAggregationInput = {
   faydaVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  termsAcceptedVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  termsAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  charterAcceptedVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  charterAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  codeOfConductAcceptedVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  codeOfConductAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  dpaAcceptedVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  dpaAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  privacyNoticeVersion?: Prisma.SortOrder
+  privacyAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -541,6 +663,16 @@ export type UserScalarWhereWithAggregatesInput = {
   faydaVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   verificationCode?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   verificationCodeExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  termsAcceptedVersion?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  termsAcceptedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  charterAcceptedVersion?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  charterAcceptedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  codeOfConductAcceptedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  dpaAcceptedVersion?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  dpaAcceptedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  privacyNoticeVersion?: Prisma.StringWithAggregatesFilter<"User"> | string
+  privacyAcceptedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -563,6 +695,16 @@ export type UserCreateInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -589,7 +731,10 @@ export type UserCreateInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -600,6 +745,7 @@ export type UserCreateInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -623,6 +769,16 @@ export type UserUncheckedCreateInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -649,7 +805,10 @@ export type UserUncheckedCreateInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -660,6 +819,7 @@ export type UserUncheckedCreateInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -683,6 +843,16 @@ export type UserUpdateInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -709,7 +879,10 @@ export type UserUpdateInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -720,6 +893,7 @@ export type UserUpdateInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -743,6 +917,16 @@ export type UserUncheckedUpdateInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -769,7 +953,10 @@ export type UserUncheckedUpdateInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -780,6 +967,7 @@ export type UserUncheckedUpdateInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -803,6 +991,16 @@ export type UserCreateManyInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -825,6 +1023,16 @@ export type UserUpdateManyMutationInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -847,6 +1055,16 @@ export type UserUncheckedUpdateManyInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -869,6 +1087,16 @@ export type UserCountOrderByAggregateInput = {
   faydaVerifiedAt?: Prisma.SortOrder
   verificationCode?: Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrder
+  termsAcceptedVersion?: Prisma.SortOrder
+  termsAcceptedAt?: Prisma.SortOrder
+  charterAcceptedVersion?: Prisma.SortOrder
+  charterAcceptedAt?: Prisma.SortOrder
+  codeOfConductAcceptedVersion?: Prisma.SortOrder
+  codeOfConductAcceptedAt?: Prisma.SortOrder
+  dpaAcceptedVersion?: Prisma.SortOrder
+  dpaAcceptedAt?: Prisma.SortOrder
+  privacyNoticeVersion?: Prisma.SortOrder
+  privacyAcceptedAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -895,6 +1123,16 @@ export type UserMaxOrderByAggregateInput = {
   faydaVerifiedAt?: Prisma.SortOrder
   verificationCode?: Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrder
+  termsAcceptedVersion?: Prisma.SortOrder
+  termsAcceptedAt?: Prisma.SortOrder
+  charterAcceptedVersion?: Prisma.SortOrder
+  charterAcceptedAt?: Prisma.SortOrder
+  codeOfConductAcceptedVersion?: Prisma.SortOrder
+  codeOfConductAcceptedAt?: Prisma.SortOrder
+  dpaAcceptedVersion?: Prisma.SortOrder
+  dpaAcceptedAt?: Prisma.SortOrder
+  privacyNoticeVersion?: Prisma.SortOrder
+  privacyAcceptedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -917,6 +1155,16 @@ export type UserMinOrderByAggregateInput = {
   faydaVerifiedAt?: Prisma.SortOrder
   verificationCode?: Prisma.SortOrder
   verificationCodeExpiresAt?: Prisma.SortOrder
+  termsAcceptedVersion?: Prisma.SortOrder
+  termsAcceptedAt?: Prisma.SortOrder
+  charterAcceptedVersion?: Prisma.SortOrder
+  charterAcceptedAt?: Prisma.SortOrder
+  codeOfConductAcceptedVersion?: Prisma.SortOrder
+  codeOfConductAcceptedAt?: Prisma.SortOrder
+  dpaAcceptedVersion?: Prisma.SortOrder
+  dpaAcceptedAt?: Prisma.SortOrder
+  privacyNoticeVersion?: Prisma.SortOrder
+  privacyAcceptedAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -1077,15 +1325,37 @@ export type UserUpdateOneRequiredWithoutAdminChatMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdminChatMessagesInput, Prisma.UserUpdateWithoutAdminChatMessagesInput>, Prisma.UserUncheckedUpdateWithoutAdminChatMessagesInput>
 }
 
-export type UserCreateNestedOneWithoutCollectedResponsesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectedResponsesInput, Prisma.UserUncheckedCreateWithoutCollectedResponsesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectedResponsesInput
+export type UserCreateNestedOneWithoutParticipantLinksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutParticipantLinksInput, Prisma.UserUncheckedCreateWithoutParticipantLinksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutParticipantLinksInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserCreateNestedOneWithoutResponsesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutResponsesInput, Prisma.UserUncheckedCreateWithoutResponsesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResponsesInput
+export type UserUpdateOneRequiredWithoutParticipantLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutParticipantLinksInput, Prisma.UserUncheckedCreateWithoutParticipantLinksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutParticipantLinksInput
+  upsert?: Prisma.UserUpsertWithoutParticipantLinksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutParticipantLinksInput, Prisma.UserUpdateWithoutParticipantLinksInput>, Prisma.UserUncheckedUpdateWithoutParticipantLinksInput>
+}
+
+export type UserCreateNestedOneWithoutDataSubjectRequestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDataSubjectRequestsInput, Prisma.UserUncheckedCreateWithoutDataSubjectRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDataSubjectRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDataSubjectRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDataSubjectRequestsInput, Prisma.UserUncheckedCreateWithoutDataSubjectRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDataSubjectRequestsInput
+  upsert?: Prisma.UserUpsertWithoutDataSubjectRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDataSubjectRequestsInput, Prisma.UserUpdateWithoutDataSubjectRequestsInput>, Prisma.UserUncheckedUpdateWithoutDataSubjectRequestsInput>
+}
+
+export type UserCreateNestedOneWithoutCollectedResponsesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectedResponsesInput, Prisma.UserUncheckedCreateWithoutCollectedResponsesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectedResponsesInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
@@ -1097,14 +1367,6 @@ export type UserUpdateOneWithoutCollectedResponsesNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCollectedResponsesInput, Prisma.UserUpdateWithoutCollectedResponsesInput>, Prisma.UserUncheckedUpdateWithoutCollectedResponsesInput>
-}
-
-export type UserUpdateOneRequiredWithoutResponsesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutResponsesInput, Prisma.UserUncheckedCreateWithoutResponsesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResponsesInput
-  upsert?: Prisma.UserUpsertWithoutResponsesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutResponsesInput, Prisma.UserUpdateWithoutResponsesInput>, Prisma.UserUncheckedUpdateWithoutResponsesInput>
 }
 
 export type UserCreateNestedOneWithoutWalletInput = {
@@ -1119,6 +1381,22 @@ export type UserUpdateOneRequiredWithoutWalletNestedInput = {
   upsert?: Prisma.UserUpsertWithoutWalletInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWalletInput, Prisma.UserUpdateWithoutWalletInput>, Prisma.UserUncheckedUpdateWithoutWalletInput>
+}
+
+export type UserCreateNestedOneWithoutLedgerAccountInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLedgerAccountInput, Prisma.UserUncheckedCreateWithoutLedgerAccountInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLedgerAccountInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutLedgerAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLedgerAccountInput, Prisma.UserUncheckedCreateWithoutLedgerAccountInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLedgerAccountInput
+  upsert?: Prisma.UserUpsertWithoutLedgerAccountInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLedgerAccountInput, Prisma.UserUpdateWithoutLedgerAccountInput>, Prisma.UserUncheckedUpdateWithoutLedgerAccountInput>
 }
 
 export type UserCreateNestedOneWithoutStudyPaymentsInput = {
@@ -1503,6 +1781,38 @@ export type UserUpdateOneRequiredWithoutCollectionSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCollectionSessionsInput, Prisma.UserUpdateWithoutCollectionSessionsInput>, Prisma.UserUncheckedUpdateWithoutCollectionSessionsInput>
 }
 
+export type UserCreateNestedOneWithoutVerifiedEthicsApprovalsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVerifiedEthicsApprovalsInput, Prisma.UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVerifiedEthicsApprovalsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutVerifiedEthicsApprovalsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVerifiedEthicsApprovalsInput, Prisma.UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVerifiedEthicsApprovalsInput
+  upsert?: Prisma.UserUpsertWithoutVerifiedEthicsApprovalsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVerifiedEthicsApprovalsInput, Prisma.UserUpdateWithoutVerifiedEthicsApprovalsInput>, Prisma.UserUncheckedUpdateWithoutVerifiedEthicsApprovalsInput>
+}
+
+export type UserCreateNestedOneWithoutModerationReportsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutModerationReportsInput, Prisma.UserUncheckedCreateWithoutModerationReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutModerationReportsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutModerationReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutModerationReportsInput, Prisma.UserUncheckedCreateWithoutModerationReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutModerationReportsInput
+  upsert?: Prisma.UserUpsertWithoutModerationReportsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutModerationReportsInput, Prisma.UserUpdateWithoutModerationReportsInput>, Prisma.UserUncheckedUpdateWithoutModerationReportsInput>
+}
+
 export type UserCreateWithoutStudiesInput = {
   id?: string
   name: string
@@ -1523,6 +1833,16 @@ export type UserCreateWithoutStudiesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -1549,7 +1869,10 @@ export type UserCreateWithoutStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
@@ -1559,6 +1882,7 @@ export type UserCreateWithoutStudiesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -1582,6 +1906,16 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -1608,7 +1942,10 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
@@ -1618,6 +1955,7 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1657,6 +1995,16 @@ export type UserUpdateWithoutStudiesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -1683,7 +2031,10 @@ export type UserUpdateWithoutStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
@@ -1693,6 +2044,7 @@ export type UserUpdateWithoutStudiesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -1716,6 +2068,16 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1742,7 +2104,10 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
@@ -1752,6 +2117,7 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1775,6 +2141,16 @@ export type UserCreateWithoutBookmarksInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -1801,7 +2177,10 @@ export type UserCreateWithoutBookmarksInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
@@ -1811,6 +2190,7 @@ export type UserCreateWithoutBookmarksInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -1834,6 +2214,16 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -1860,7 +2250,10 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
@@ -1870,6 +2263,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1909,6 +2303,16 @@ export type UserUpdateWithoutBookmarksInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -1935,7 +2339,10 @@ export type UserUpdateWithoutBookmarksInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
@@ -1945,6 +2352,7 @@ export type UserUpdateWithoutBookmarksInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -1968,6 +2376,16 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -1994,7 +2412,10 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
@@ -2004,6 +2425,7 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -2027,6 +2449,16 @@ export type UserCreateWithoutRatingsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -2053,7 +2485,10 @@ export type UserCreateWithoutRatingsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -2063,6 +2498,7 @@ export type UserCreateWithoutRatingsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -2086,6 +2522,16 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -2112,7 +2558,10 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -2122,6 +2571,7 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -2161,6 +2611,16 @@ export type UserUpdateWithoutRatingsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -2187,7 +2647,10 @@ export type UserUpdateWithoutRatingsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -2197,6 +2660,7 @@ export type UserUpdateWithoutRatingsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -2220,6 +2684,16 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2246,7 +2720,10 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -2256,6 +2733,7 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -2279,6 +2757,16 @@ export type UserCreateWithoutLikesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -2305,7 +2793,10 @@ export type UserCreateWithoutLikesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -2315,6 +2806,7 @@ export type UserCreateWithoutLikesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -2338,6 +2830,16 @@ export type UserUncheckedCreateWithoutLikesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -2364,7 +2866,10 @@ export type UserUncheckedCreateWithoutLikesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -2374,6 +2879,7 @@ export type UserUncheckedCreateWithoutLikesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -2413,6 +2919,16 @@ export type UserUpdateWithoutLikesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -2439,7 +2955,10 @@ export type UserUpdateWithoutLikesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -2449,6 +2968,7 @@ export type UserUpdateWithoutLikesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -2472,6 +2992,16 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2498,7 +3028,10 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -2508,6 +3041,7 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -2531,6 +3065,16 @@ export type UserCreateWithoutCommentsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -2557,7 +3101,10 @@ export type UserCreateWithoutCommentsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
@@ -2567,6 +3114,7 @@ export type UserCreateWithoutCommentsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -2590,6 +3138,16 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -2616,7 +3174,10 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
@@ -2626,6 +3187,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -2665,6 +3227,16 @@ export type UserUpdateWithoutCommentsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -2691,7 +3263,10 @@ export type UserUpdateWithoutCommentsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
@@ -2701,6 +3276,7 @@ export type UserUpdateWithoutCommentsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -2724,6 +3300,16 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -2750,7 +3336,10 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
@@ -2760,6 +3349,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -2783,6 +3373,16 @@ export type UserCreateWithoutNotificationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -2808,7 +3408,10 @@ export type UserCreateWithoutNotificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -2819,6 +3422,7 @@ export type UserCreateWithoutNotificationsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -2842,6 +3446,16 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -2867,7 +3481,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -2878,6 +3495,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -2917,6 +3535,16 @@ export type UserUpdateWithoutNotificationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -2942,7 +3570,10 @@ export type UserUpdateWithoutNotificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -2953,6 +3584,7 @@ export type UserUpdateWithoutNotificationsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -2976,6 +3608,16 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3001,7 +3643,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -3012,6 +3657,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -3035,6 +3681,16 @@ export type UserCreateWithoutActivityLogsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
@@ -3060,7 +3716,10 @@ export type UserCreateWithoutActivityLogsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -3071,6 +3730,7 @@ export type UserCreateWithoutActivityLogsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -3094,6 +3754,16 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3119,7 +3789,10 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -3130,6 +3803,7 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -3169,6 +3843,16 @@ export type UserUpdateWithoutActivityLogsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
@@ -3194,7 +3878,10 @@ export type UserUpdateWithoutActivityLogsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -3205,6 +3892,7 @@ export type UserUpdateWithoutActivityLogsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -3228,6 +3916,16 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3253,7 +3951,10 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -3264,6 +3965,7 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -3287,6 +3989,16 @@ export type UserCreateWithoutAdminChatMessagesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -3312,7 +4024,10 @@ export type UserCreateWithoutAdminChatMessagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -3323,6 +4038,7 @@ export type UserCreateWithoutAdminChatMessagesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -3346,6 +4062,16 @@ export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -3371,7 +4097,10 @@ export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -3382,6 +4111,7 @@ export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -3421,6 +4151,16 @@ export type UserUpdateWithoutAdminChatMessagesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -3446,7 +4186,10 @@ export type UserUpdateWithoutAdminChatMessagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -3457,6 +4200,7 @@ export type UserUpdateWithoutAdminChatMessagesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -3480,6 +4224,16 @@ export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3505,7 +4259,10 @@ export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -3516,10 +4273,11 @@ export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutCollectedResponsesInput = {
+export type UserCreateWithoutParticipantLinksInput = {
   id?: string
   name: string
   email: string
@@ -3539,129 +4297,16 @@ export type UserCreateWithoutCollectedResponsesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
-  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
-  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
-  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
-  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
-  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
-  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
-  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
-  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
-  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
-  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
-  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
-  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
-  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
-  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
-  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
-  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
-  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
-  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
-  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
-  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
-  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
-  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
-  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
-  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
-  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
-  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
-  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
-  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
-  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
-  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
-  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
-  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
-  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
-  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutCollectedResponsesInput = {
-  id?: string
-  name: string
-  email: string
-  passwordHash: string
-  role?: $Enums.UserRole
-  phone?: string | null
-  institution?: string | null
-  fieldOfStudy?: string | null
-  yearOfStudy?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  avatarUrl?: string | null
-  bio?: string | null
-  isVerified?: boolean
-  faydaVerified?: boolean
-  faydaFanHash?: string | null
-  faydaVerifiedAt?: Date | string | null
-  verificationCode?: string | null
-  verificationCodeExpiresAt?: Date | string | null
-  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
-  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
-  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
-  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
-  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
-  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
-  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
-  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
-  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
-  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
-  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
-  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
-  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
-  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
-  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
-  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
-  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
-  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
-  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
-  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
-  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
-  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
-  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
-  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
-  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
-  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
-  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
-  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
-  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
-  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
-  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
-  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
-  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
-  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutCollectedResponsesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutCollectedResponsesInput, Prisma.UserUncheckedCreateWithoutCollectedResponsesInput>
-}
-
-export type UserCreateWithoutResponsesInput = {
-  id?: string
-  name: string
-  email: string
-  passwordHash: string
-  role?: $Enums.UserRole
-  phone?: string | null
-  institution?: string | null
-  fieldOfStudy?: string | null
-  yearOfStudy?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  avatarUrl?: string | null
-  bio?: string | null
-  isVerified?: boolean
-  faydaVerified?: boolean
-  faydaFanHash?: string | null
-  faydaVerifiedAt?: Date | string | null
-  verificationCode?: string | null
-  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -3688,6 +4333,9 @@ export type UserCreateWithoutResponsesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -3698,10 +4346,11 @@ export type UserCreateWithoutResponsesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutResponsesInput = {
+export type UserUncheckedCreateWithoutParticipantLinksInput = {
   id?: string
   name: string
   email: string
@@ -3721,6 +4370,16 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -3747,6 +4406,9 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -3757,12 +4419,629 @@ export type UserUncheckedCreateWithoutResponsesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutResponsesInput = {
+export type UserCreateOrConnectWithoutParticipantLinksInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutResponsesInput, Prisma.UserUncheckedCreateWithoutResponsesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutParticipantLinksInput, Prisma.UserUncheckedCreateWithoutParticipantLinksInput>
+}
+
+export type UserUpsertWithoutParticipantLinksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutParticipantLinksInput, Prisma.UserUncheckedUpdateWithoutParticipantLinksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutParticipantLinksInput, Prisma.UserUncheckedCreateWithoutParticipantLinksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutParticipantLinksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutParticipantLinksInput, Prisma.UserUncheckedUpdateWithoutParticipantLinksInput>
+}
+
+export type UserUpdateWithoutParticipantLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutParticipantLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDataSubjectRequestsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDataSubjectRequestsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDataSubjectRequestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDataSubjectRequestsInput, Prisma.UserUncheckedCreateWithoutDataSubjectRequestsInput>
+}
+
+export type UserUpsertWithoutDataSubjectRequestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDataSubjectRequestsInput, Prisma.UserUncheckedUpdateWithoutDataSubjectRequestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDataSubjectRequestsInput, Prisma.UserUncheckedCreateWithoutDataSubjectRequestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDataSubjectRequestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDataSubjectRequestsInput, Prisma.UserUncheckedUpdateWithoutDataSubjectRequestsInput>
+}
+
+export type UserUpdateWithoutDataSubjectRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDataSubjectRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCollectedResponsesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCollectedResponsesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCollectedResponsesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCollectedResponsesInput, Prisma.UserUncheckedCreateWithoutCollectedResponsesInput>
 }
 
 export type UserUpsertWithoutCollectedResponsesInput = {
@@ -3796,6 +5075,16 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -3821,7 +5110,10 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -3832,6 +5124,7 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -3855,6 +5148,16 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -3880,7 +5183,10 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -3891,135 +5197,7 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
-  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserUpsertWithoutResponsesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutResponsesInput, Prisma.UserUncheckedUpdateWithoutResponsesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutResponsesInput, Prisma.UserUncheckedCreateWithoutResponsesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutResponsesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutResponsesInput, Prisma.UserUncheckedUpdateWithoutResponsesInput>
-}
-
-export type UserUpdateWithoutResponsesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
-  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
-  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
-  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
-  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
-  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
-  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
-  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
-  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
-  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
-  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
-  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
-  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
-  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
-  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
-  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
-  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
-  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
-  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
-  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
-  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
-  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
-  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
-  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
-  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
-  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
-  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
-  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
-  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
-  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
-  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
-  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
-  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
-  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutResponsesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
-  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
-  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
-  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
-  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
-  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
-  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
-  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
-  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
-  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
-  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
-  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
-  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
-  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
-  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
-  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
-  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
-  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
-  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
-  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
-  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
-  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
-  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
-  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
-  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
-  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
-  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
-  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
-  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
-  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
-  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
-  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
-  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -4043,6 +5221,16 @@ export type UserCreateWithoutWalletInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -4069,7 +5257,10 @@ export type UserCreateWithoutWalletInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -4079,6 +5270,7 @@ export type UserCreateWithoutWalletInput = {
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -4102,6 +5294,16 @@ export type UserUncheckedCreateWithoutWalletInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -4128,7 +5330,10 @@ export type UserUncheckedCreateWithoutWalletInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -4138,6 +5343,7 @@ export type UserUncheckedCreateWithoutWalletInput = {
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -4177,6 +5383,16 @@ export type UserUpdateWithoutWalletInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -4203,7 +5419,10 @@ export type UserUpdateWithoutWalletInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -4213,6 +5432,7 @@ export type UserUpdateWithoutWalletInput = {
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -4236,6 +5456,16 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -4262,7 +5492,10 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -4272,10 +5505,11 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutStudyPaymentsInput = {
+export type UserCreateWithoutLedgerAccountInput = {
   id?: string
   name: string
   email: string
@@ -4295,6 +5529,16 @@ export type UserCreateWithoutStudyPaymentsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -4321,12 +5565,16 @@ export type UserCreateWithoutStudyPaymentsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
@@ -4334,7 +5582,7 @@ export type UserCreateWithoutStudyPaymentsInput = {
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutStudyPaymentsInput = {
+export type UserUncheckedCreateWithoutLedgerAccountInput = {
   id?: string
   name: string
   email: string
@@ -4354,6 +5602,16 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -4380,7 +5638,318 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLedgerAccountInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLedgerAccountInput, Prisma.UserUncheckedCreateWithoutLedgerAccountInput>
+}
+
+export type UserUpsertWithoutLedgerAccountInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLedgerAccountInput, Prisma.UserUncheckedUpdateWithoutLedgerAccountInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLedgerAccountInput, Prisma.UserUncheckedCreateWithoutLedgerAccountInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLedgerAccountInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLedgerAccountInput, Prisma.UserUncheckedUpdateWithoutLedgerAccountInput>
+}
+
+export type UserUpdateWithoutLedgerAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLedgerAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutStudyPaymentsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutStudyPaymentsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -4390,6 +5959,7 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -4429,6 +5999,16 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -4455,7 +6035,10 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -4465,6 +6048,7 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -4488,6 +6072,16 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -4514,7 +6108,10 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -4524,6 +6121,7 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -4547,6 +6145,16 @@ export type UserCreateWithoutWithdrawalsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -4573,7 +6181,10 @@ export type UserCreateWithoutWithdrawalsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -4584,6 +6195,7 @@ export type UserCreateWithoutWithdrawalsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWithdrawalsInput = {
@@ -4606,6 +6218,16 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -4632,7 +6254,10 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -4643,6 +6268,7 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWithdrawalsInput = {
@@ -4681,6 +6307,16 @@ export type UserUpdateWithoutWithdrawalsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -4707,7 +6343,10 @@ export type UserUpdateWithoutWithdrawalsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -4718,6 +6357,7 @@ export type UserUpdateWithoutWithdrawalsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWithdrawalsInput = {
@@ -4740,6 +6380,16 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -4766,7 +6416,10 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -4777,6 +6430,7 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAskProfileInput = {
@@ -4799,6 +6453,16 @@ export type UserCreateWithoutAskProfileInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -4824,7 +6488,10 @@ export type UserCreateWithoutAskProfileInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -4835,6 +6502,7 @@ export type UserCreateWithoutAskProfileInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -4858,6 +6526,16 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -4883,7 +6561,10 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -4894,6 +6575,7 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -4933,6 +6615,16 @@ export type UserUpdateWithoutAskProfileInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -4958,7 +6650,10 @@ export type UserUpdateWithoutAskProfileInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -4969,6 +6664,7 @@ export type UserUpdateWithoutAskProfileInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -4992,6 +6688,16 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5017,7 +6723,10 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -5028,6 +6737,7 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -5051,6 +6761,16 @@ export type UserCreateWithoutLeadProjectsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -5076,7 +6796,10 @@ export type UserCreateWithoutLeadProjectsInput = {
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -5087,6 +6810,7 @@ export type UserCreateWithoutLeadProjectsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -5110,6 +6834,16 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -5135,7 +6869,10 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -5146,6 +6883,7 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -5185,6 +6923,16 @@ export type UserUpdateWithoutLeadProjectsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -5210,7 +6958,10 @@ export type UserUpdateWithoutLeadProjectsInput = {
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -5221,6 +6972,7 @@ export type UserUpdateWithoutLeadProjectsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -5244,6 +6996,16 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5269,7 +7031,10 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -5280,6 +7045,7 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -5303,6 +7069,16 @@ export type UserCreateWithoutProjectMembershipsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -5328,7 +7104,10 @@ export type UserCreateWithoutProjectMembershipsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -5339,6 +7118,7 @@ export type UserCreateWithoutProjectMembershipsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -5362,6 +7142,16 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -5387,7 +7177,10 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -5398,6 +7191,7 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -5437,6 +7231,16 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -5462,7 +7266,10 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -5473,6 +7280,7 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -5496,6 +7304,16 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5521,7 +7339,10 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -5532,6 +7353,7 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -5555,6 +7377,16 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -5580,7 +7412,10 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -5591,6 +7426,7 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -5614,6 +7450,16 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -5639,7 +7485,10 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -5650,6 +7499,7 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -5689,6 +7539,16 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -5714,7 +7574,10 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -5725,6 +7588,7 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -5748,6 +7612,16 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -5773,7 +7647,10 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -5784,6 +7661,7 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -5807,6 +7685,16 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -5832,7 +7720,10 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -5843,6 +7734,7 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -5866,6 +7758,16 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -5891,7 +7793,10 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -5902,6 +7807,7 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -5930,6 +7836,16 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -5955,7 +7871,10 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -5966,6 +7885,7 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -5989,6 +7909,16 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -6014,7 +7944,10 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -6025,6 +7958,7 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -6064,6 +7998,16 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -6089,7 +8033,10 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -6100,6 +8047,7 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -6123,6 +8071,16 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6148,7 +8106,10 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -6159,6 +8120,7 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -6193,6 +8155,16 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -6218,7 +8190,10 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -6229,6 +8204,7 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -6252,6 +8228,16 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6277,7 +8263,10 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -6288,6 +8277,7 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -6311,6 +8301,16 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -6336,7 +8336,10 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -6347,6 +8350,7 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -6370,6 +8374,16 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -6395,7 +8409,10 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -6406,6 +8423,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -6445,6 +8463,16 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -6470,7 +8498,10 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -6481,6 +8512,7 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -6504,6 +8536,16 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6529,7 +8571,10 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -6540,6 +8585,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -6563,6 +8609,16 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -6588,7 +8644,10 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -6599,6 +8658,7 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -6622,6 +8682,16 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -6647,7 +8717,10 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -6658,6 +8731,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -6697,6 +8771,16 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -6722,7 +8806,10 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -6733,6 +8820,7 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -6756,6 +8844,16 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -6781,7 +8879,10 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -6792,6 +8893,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -6815,6 +8917,16 @@ export type UserCreateWithoutProjectNotesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -6840,7 +8952,10 @@ export type UserCreateWithoutProjectNotesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -6851,6 +8966,7 @@ export type UserCreateWithoutProjectNotesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -6874,6 +8990,16 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -6899,7 +9025,10 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -6910,6 +9039,7 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -6949,6 +9079,16 @@ export type UserUpdateWithoutProjectNotesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -6974,7 +9114,10 @@ export type UserUpdateWithoutProjectNotesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -6985,6 +9128,7 @@ export type UserUpdateWithoutProjectNotesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -7008,6 +9152,16 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7033,7 +9187,10 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -7044,6 +9201,7 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -7067,6 +9225,16 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -7092,7 +9260,10 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -7103,6 +9274,7 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -7126,6 +9298,16 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -7151,7 +9333,10 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -7162,6 +9347,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -7201,6 +9387,16 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -7226,7 +9422,10 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -7237,6 +9436,7 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -7260,6 +9460,16 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7285,7 +9495,10 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -7296,6 +9509,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -7319,6 +9533,16 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -7344,7 +9568,10 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -7355,6 +9582,7 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -7378,6 +9606,16 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -7403,7 +9641,10 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -7414,6 +9655,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -7453,6 +9695,16 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -7478,7 +9730,10 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -7489,6 +9744,7 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -7512,6 +9768,16 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7537,7 +9803,10 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -7548,6 +9817,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -7571,6 +9841,16 @@ export type UserCreateWithoutProjectDiscussionReactionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -7596,7 +9876,10 @@ export type UserCreateWithoutProjectDiscussionReactionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -7607,6 +9890,7 @@ export type UserCreateWithoutProjectDiscussionReactionsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -7630,6 +9914,16 @@ export type UserUncheckedCreateWithoutProjectDiscussionReactionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -7655,7 +9949,10 @@ export type UserUncheckedCreateWithoutProjectDiscussionReactionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -7666,6 +9963,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionReactionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -7705,6 +10003,16 @@ export type UserUpdateWithoutProjectDiscussionReactionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -7730,7 +10038,10 @@ export type UserUpdateWithoutProjectDiscussionReactionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -7741,6 +10052,7 @@ export type UserUpdateWithoutProjectDiscussionReactionsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -7764,6 +10076,16 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReactionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -7789,7 +10111,10 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReactionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -7800,6 +10125,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReactionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -7823,6 +10149,16 @@ export type UserCreateWithoutProjectDiscussionReplyReactionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -7848,7 +10184,10 @@ export type UserCreateWithoutProjectDiscussionReplyReactionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -7859,6 +10198,7 @@ export type UserCreateWithoutProjectDiscussionReplyReactionsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -7882,6 +10222,16 @@ export type UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -7907,7 +10257,10 @@ export type UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -7918,6 +10271,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -7957,6 +10311,16 @@ export type UserUpdateWithoutProjectDiscussionReplyReactionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -7982,7 +10346,10 @@ export type UserUpdateWithoutProjectDiscussionReplyReactionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -7993,6 +10360,7 @@ export type UserUpdateWithoutProjectDiscussionReplyReactionsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -8016,6 +10384,16 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8041,7 +10419,10 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -8052,6 +10433,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -8075,6 +10457,16 @@ export type UserCreateWithoutProjectDecisionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -8100,7 +10492,10 @@ export type UserCreateWithoutProjectDecisionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -8111,6 +10506,7 @@ export type UserCreateWithoutProjectDecisionsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -8134,6 +10530,16 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -8159,7 +10565,10 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -8170,6 +10579,7 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -8209,6 +10619,16 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -8234,7 +10654,10 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -8245,6 +10668,7 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -8268,6 +10692,16 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8293,7 +10727,10 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -8304,6 +10741,7 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -8327,6 +10765,16 @@ export type UserCreateWithoutProjectActivitiesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -8352,7 +10800,10 @@ export type UserCreateWithoutProjectActivitiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -8363,6 +10814,7 @@ export type UserCreateWithoutProjectActivitiesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -8386,6 +10838,16 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -8411,7 +10873,10 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -8422,6 +10887,7 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -8461,6 +10927,16 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -8486,7 +10962,10 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -8497,6 +10976,7 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -8520,6 +11000,16 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8545,7 +11035,10 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -8556,6 +11049,7 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -8579,6 +11073,16 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -8604,7 +11108,10 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -8615,6 +11122,7 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -8638,6 +11146,16 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -8663,7 +11181,10 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -8674,6 +11195,7 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -8713,6 +11235,16 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -8738,7 +11270,10 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -8749,6 +11284,7 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -8772,6 +11308,16 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -8797,7 +11343,10 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -8808,6 +11357,7 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -8831,6 +11381,16 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -8856,7 +11416,10 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -8867,6 +11430,7 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -8890,6 +11454,16 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -8915,7 +11489,10 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -8926,6 +11503,7 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -8965,6 +11543,16 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -8990,7 +11578,10 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -9001,6 +11592,7 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -9024,6 +11616,16 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -9049,7 +11651,10 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -9060,6 +11665,7 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -9083,6 +11689,16 @@ export type UserCreateWithoutAiConversationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
@@ -9108,7 +11724,10 @@ export type UserCreateWithoutAiConversationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -9119,6 +11738,7 @@ export type UserCreateWithoutAiConversationsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -9142,6 +11762,16 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -9167,7 +11797,10 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -9178,6 +11811,7 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -9217,6 +11851,16 @@ export type UserUpdateWithoutAiConversationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
@@ -9242,7 +11886,10 @@ export type UserUpdateWithoutAiConversationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -9253,6 +11900,7 @@ export type UserUpdateWithoutAiConversationsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -9276,6 +11924,16 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -9301,7 +11959,10 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -9312,6 +11973,7 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -9335,6 +11997,16 @@ export type UserCreateWithoutAiUsagesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
   adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
@@ -9360,7 +12032,10 @@ export type UserCreateWithoutAiUsagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -9371,6 +12046,7 @@ export type UserCreateWithoutAiUsagesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -9394,6 +12070,16 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
   adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -9419,7 +12105,10 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -9430,6 +12119,7 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -9469,6 +12159,16 @@ export type UserUpdateWithoutAiUsagesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
   adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
@@ -9494,7 +12194,10 @@ export type UserUpdateWithoutAiUsagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -9505,6 +12208,7 @@ export type UserUpdateWithoutAiUsagesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -9528,6 +12232,16 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
   adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -9553,7 +12267,10 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -9564,6 +12281,7 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -9587,6 +12305,16 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -9613,7 +12341,10 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -9623,6 +12354,7 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -9646,6 +12378,16 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -9672,7 +12414,10 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -9682,6 +12427,7 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -9710,6 +12456,16 @@ export type UserCreateWithoutVerificationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -9736,7 +12492,10 @@ export type UserCreateWithoutVerificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -9746,6 +12505,7 @@ export type UserCreateWithoutVerificationsInput = {
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -9769,6 +12529,16 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -9795,7 +12565,10 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -9805,6 +12578,7 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -9844,6 +12618,16 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -9870,7 +12654,10 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -9880,6 +12667,7 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -9903,6 +12691,16 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -9929,7 +12727,10 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -9939,6 +12740,7 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -9973,6 +12775,16 @@ export type UserUpdateWithoutVerificationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -9999,7 +12811,10 @@ export type UserUpdateWithoutVerificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -10009,6 +12824,7 @@ export type UserUpdateWithoutVerificationsInput = {
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -10032,6 +12848,16 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -10058,7 +12884,10 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -10068,6 +12897,7 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -10091,6 +12921,16 @@ export type UserCreateWithoutAssignedStudiesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -10117,7 +12957,10 @@ export type UserCreateWithoutAssignedStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -10127,6 +12970,7 @@ export type UserCreateWithoutAssignedStudiesInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -10150,6 +12994,16 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -10176,7 +13030,10 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -10186,6 +13043,7 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -10225,6 +13083,16 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -10251,7 +13119,10 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -10261,6 +13132,7 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -10284,6 +13156,16 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -10310,7 +13192,10 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -10320,6 +13205,7 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -10343,6 +13229,16 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -10368,7 +13264,10 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -10379,6 +13278,7 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -10402,6 +13302,16 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -10427,7 +13337,10 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -10438,6 +13351,7 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -10466,6 +13380,16 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -10491,7 +13415,10 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -10502,6 +13429,7 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -10525,6 +13453,16 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -10550,7 +13488,10 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -10561,6 +13502,7 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -10600,6 +13542,16 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -10625,7 +13577,10 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -10636,6 +13591,7 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -10659,6 +13615,16 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -10684,7 +13650,10 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -10695,6 +13664,7 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -10729,6 +13699,16 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -10754,7 +13734,10 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -10765,6 +13748,7 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -10788,6 +13772,16 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -10813,7 +13807,10 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -10824,6 +13821,7 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -10847,6 +13845,16 @@ export type UserCreateWithoutCollectionSessionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
@@ -10872,7 +13880,10 @@ export type UserCreateWithoutCollectionSessionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
@@ -10883,6 +13894,7 @@ export type UserCreateWithoutCollectionSessionsInput = {
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
 }
 
@@ -10906,6 +13918,16 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   faydaVerifiedAt?: Date | string | null
   verificationCode?: string | null
   verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
   aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
   activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
@@ -10931,7 +13953,10 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
-  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutParticipantInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
@@ -10942,6 +13967,7 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
   verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -10981,6 +14007,16 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
@@ -11006,7 +14042,10 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
@@ -11017,6 +14056,7 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
 }
 
@@ -11040,6 +14080,16 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
   aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
   activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
@@ -11065,7 +14115,10 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
-  responses?: Prisma.ResponseUncheckedUpdateManyWithoutParticipantNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -11076,6 +14129,623 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutVerifiedEthicsApprovalsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutVerifiedEthicsApprovalsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutVerifiedEthicsApprovalsInput, Prisma.UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput>
+}
+
+export type UserUpsertWithoutVerifiedEthicsApprovalsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVerifiedEthicsApprovalsInput, Prisma.UserUncheckedUpdateWithoutVerifiedEthicsApprovalsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVerifiedEthicsApprovalsInput, Prisma.UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutVerifiedEthicsApprovalsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVerifiedEthicsApprovalsInput, Prisma.UserUncheckedUpdateWithoutVerifiedEthicsApprovalsInput>
+}
+
+export type UserUpdateWithoutVerifiedEthicsApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutVerifiedEthicsApprovalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutModerationReportsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutModerationReportsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutModerationReportsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutModerationReportsInput, Prisma.UserUncheckedCreateWithoutModerationReportsInput>
+}
+
+export type UserUpsertWithoutModerationReportsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutModerationReportsInput, Prisma.UserUncheckedUpdateWithoutModerationReportsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutModerationReportsInput, Prisma.UserUncheckedCreateWithoutModerationReportsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutModerationReportsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutModerationReportsInput, Prisma.UserUncheckedUpdateWithoutModerationReportsInput>
+}
+
+export type UserUpdateWithoutModerationReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutModerationReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -11110,7 +14780,10 @@ export type UserCountOutputType = {
   createdProjectTasks: number
   leadProjects: number
   collectedResponses: number
-  responses: number
+  participantLinks: number
+  dataSubjectRequests: number
+  moderationReports: number
+  verifiedEthicsApprovals: number
   studies: number
   bookmarks: number
   comments: number
@@ -11149,7 +14822,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   createdProjectTasks?: boolean | UserCountOutputTypeCountCreatedProjectTasksArgs
   leadProjects?: boolean | UserCountOutputTypeCountLeadProjectsArgs
   collectedResponses?: boolean | UserCountOutputTypeCountCollectedResponsesArgs
-  responses?: boolean | UserCountOutputTypeCountResponsesArgs
+  participantLinks?: boolean | UserCountOutputTypeCountParticipantLinksArgs
+  dataSubjectRequests?: boolean | UserCountOutputTypeCountDataSubjectRequestsArgs
+  moderationReports?: boolean | UserCountOutputTypeCountModerationReportsArgs
+  verifiedEthicsApprovals?: boolean | UserCountOutputTypeCountVerifiedEthicsApprovalsArgs
   studies?: boolean | UserCountOutputTypeCountStudiesArgs
   bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
   comments?: boolean | UserCountOutputTypeCountCommentsArgs
@@ -11350,8 +15026,29 @@ export type UserCountOutputTypeCountCollectedResponsesArgs<ExtArgs extends runti
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountResponsesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ResponseWhereInput
+export type UserCountOutputTypeCountParticipantLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ParticipantLinkWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDataSubjectRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DataSubjectRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountModerationReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ModerationReportWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountVerifiedEthicsApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EthicsApprovalWhereInput
 }
 
 /**
@@ -11445,6 +15142,16 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   faydaVerifiedAt?: boolean
   verificationCode?: boolean
   verificationCodeExpiresAt?: boolean
+  termsAcceptedVersion?: boolean
+  termsAcceptedAt?: boolean
+  charterAcceptedVersion?: boolean
+  charterAcceptedAt?: boolean
+  codeOfConductAcceptedVersion?: boolean
+  codeOfConductAcceptedAt?: boolean
+  dpaAcceptedVersion?: boolean
+  dpaAcceptedAt?: boolean
+  privacyNoticeVersion?: boolean
+  privacyAcceptedAt?: boolean
   aiConversations?: boolean | Prisma.User$aiConversationsArgs<ExtArgs>
   aiUsages?: boolean | Prisma.User$aiUsagesArgs<ExtArgs>
   activityLogs?: boolean | Prisma.User$activityLogsArgs<ExtArgs>
@@ -11471,7 +15178,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdProjectTasks?: boolean | Prisma.User$createdProjectTasksArgs<ExtArgs>
   leadProjects?: boolean | Prisma.User$leadProjectsArgs<ExtArgs>
   collectedResponses?: boolean | Prisma.User$collectedResponsesArgs<ExtArgs>
-  responses?: boolean | Prisma.User$responsesArgs<ExtArgs>
+  participantLinks?: boolean | Prisma.User$participantLinksArgs<ExtArgs>
+  dataSubjectRequests?: boolean | Prisma.User$dataSubjectRequestsArgs<ExtArgs>
+  moderationReports?: boolean | Prisma.User$moderationReportsArgs<ExtArgs>
+  verifiedEthicsApprovals?: boolean | Prisma.User$verifiedEthicsApprovalsArgs<ExtArgs>
   studies?: boolean | Prisma.User$studiesArgs<ExtArgs>
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
@@ -11482,6 +15192,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reviewedVerifications?: boolean | Prisma.User$reviewedVerificationsArgs<ExtArgs>
   verifications?: boolean | Prisma.User$verificationsArgs<ExtArgs>
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
+  ledgerAccount?: boolean | Prisma.User$ledgerAccountArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -11506,6 +15217,16 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   faydaVerifiedAt?: boolean
   verificationCode?: boolean
   verificationCodeExpiresAt?: boolean
+  termsAcceptedVersion?: boolean
+  termsAcceptedAt?: boolean
+  charterAcceptedVersion?: boolean
+  charterAcceptedAt?: boolean
+  codeOfConductAcceptedVersion?: boolean
+  codeOfConductAcceptedAt?: boolean
+  dpaAcceptedVersion?: boolean
+  dpaAcceptedAt?: boolean
+  privacyNoticeVersion?: boolean
+  privacyAcceptedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -11528,6 +15249,16 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   faydaVerifiedAt?: boolean
   verificationCode?: boolean
   verificationCodeExpiresAt?: boolean
+  termsAcceptedVersion?: boolean
+  termsAcceptedAt?: boolean
+  charterAcceptedVersion?: boolean
+  charterAcceptedAt?: boolean
+  codeOfConductAcceptedVersion?: boolean
+  codeOfConductAcceptedAt?: boolean
+  dpaAcceptedVersion?: boolean
+  dpaAcceptedAt?: boolean
+  privacyNoticeVersion?: boolean
+  privacyAcceptedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -11550,9 +15281,19 @@ export type UserSelectScalar = {
   faydaVerifiedAt?: boolean
   verificationCode?: boolean
   verificationCodeExpiresAt?: boolean
+  termsAcceptedVersion?: boolean
+  termsAcceptedAt?: boolean
+  charterAcceptedVersion?: boolean
+  charterAcceptedAt?: boolean
+  codeOfConductAcceptedVersion?: boolean
+  codeOfConductAcceptedAt?: boolean
+  dpaAcceptedVersion?: boolean
+  dpaAcceptedAt?: boolean
+  privacyNoticeVersion?: boolean
+  privacyAcceptedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "phone" | "institution" | "fieldOfStudy" | "yearOfStudy" | "createdAt" | "updatedAt" | "avatarUrl" | "bio" | "isVerified" | "faydaVerified" | "faydaFanHash" | "faydaVerifiedAt" | "verificationCode" | "verificationCodeExpiresAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "phone" | "institution" | "fieldOfStudy" | "yearOfStudy" | "createdAt" | "updatedAt" | "avatarUrl" | "bio" | "isVerified" | "faydaVerified" | "faydaFanHash" | "faydaVerifiedAt" | "verificationCode" | "verificationCodeExpiresAt" | "termsAcceptedVersion" | "termsAcceptedAt" | "charterAcceptedVersion" | "charterAcceptedAt" | "codeOfConductAcceptedVersion" | "codeOfConductAcceptedAt" | "dpaAcceptedVersion" | "dpaAcceptedAt" | "privacyNoticeVersion" | "privacyAcceptedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   aiConversations?: boolean | Prisma.User$aiConversationsArgs<ExtArgs>
   aiUsages?: boolean | Prisma.User$aiUsagesArgs<ExtArgs>
@@ -11580,7 +15321,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdProjectTasks?: boolean | Prisma.User$createdProjectTasksArgs<ExtArgs>
   leadProjects?: boolean | Prisma.User$leadProjectsArgs<ExtArgs>
   collectedResponses?: boolean | Prisma.User$collectedResponsesArgs<ExtArgs>
-  responses?: boolean | Prisma.User$responsesArgs<ExtArgs>
+  participantLinks?: boolean | Prisma.User$participantLinksArgs<ExtArgs>
+  dataSubjectRequests?: boolean | Prisma.User$dataSubjectRequestsArgs<ExtArgs>
+  moderationReports?: boolean | Prisma.User$moderationReportsArgs<ExtArgs>
+  verifiedEthicsApprovals?: boolean | Prisma.User$verifiedEthicsApprovalsArgs<ExtArgs>
   studies?: boolean | Prisma.User$studiesArgs<ExtArgs>
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
@@ -11591,6 +15335,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reviewedVerifications?: boolean | Prisma.User$reviewedVerificationsArgs<ExtArgs>
   verifications?: boolean | Prisma.User$verificationsArgs<ExtArgs>
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
+  ledgerAccount?: boolean | Prisma.User$ledgerAccountArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -11626,7 +15371,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdProjectTasks: Prisma.$ProjectTaskPayload<ExtArgs>[]
     leadProjects: Prisma.$ResearchProjectPayload<ExtArgs>[]
     collectedResponses: Prisma.$ResponsePayload<ExtArgs>[]
-    responses: Prisma.$ResponsePayload<ExtArgs>[]
+    participantLinks: Prisma.$ParticipantLinkPayload<ExtArgs>[]
+    dataSubjectRequests: Prisma.$DataSubjectRequestPayload<ExtArgs>[]
+    moderationReports: Prisma.$ModerationReportPayload<ExtArgs>[]
+    verifiedEthicsApprovals: Prisma.$EthicsApprovalPayload<ExtArgs>[]
     studies: Prisma.$StudyPayload<ExtArgs>[]
     bookmarks: Prisma.$StudyBookmarkPayload<ExtArgs>[]
     comments: Prisma.$StudyCommentPayload<ExtArgs>[]
@@ -11637,6 +15385,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reviewedVerifications: Prisma.$VerificationPayload<ExtArgs>[]
     verifications: Prisma.$VerificationPayload<ExtArgs>[]
     wallet: Prisma.$WalletPayload<ExtArgs> | null
+    ledgerAccount: Prisma.$LedgerAccountPayload<ExtArgs> | null
     withdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -11659,6 +15408,16 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     faydaVerifiedAt: Date | null
     verificationCode: string | null
     verificationCodeExpiresAt: Date | null
+    termsAcceptedVersion: string | null
+    termsAcceptedAt: Date | null
+    charterAcceptedVersion: string | null
+    charterAcceptedAt: Date | null
+    codeOfConductAcceptedVersion: string | null
+    codeOfConductAcceptedAt: Date | null
+    dpaAcceptedVersion: string | null
+    dpaAcceptedAt: Date | null
+    privacyNoticeVersion: string
+    privacyAcceptedAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -12079,7 +15838,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   createdProjectTasks<T extends Prisma.User$createdProjectTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdProjectTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   leadProjects<T extends Prisma.User$leadProjectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$leadProjectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   collectedResponses<T extends Prisma.User$collectedResponsesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectedResponsesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  responses<T extends Prisma.User$responsesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  participantLinks<T extends Prisma.User$participantLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$participantLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ParticipantLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dataSubjectRequests<T extends Prisma.User$dataSubjectRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dataSubjectRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DataSubjectRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  moderationReports<T extends Prisma.User$moderationReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$moderationReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModerationReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  verifiedEthicsApprovals<T extends Prisma.User$verifiedEthicsApprovalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$verifiedEthicsApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EthicsApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   studies<T extends Prisma.User$studiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$studiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookmarks<T extends Prisma.User$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -12090,6 +15852,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reviewedVerifications<T extends Prisma.User$reviewedVerificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedVerificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   verifications<T extends Prisma.User$verificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$verificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wallet<T extends Prisma.User$walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$walletArgs<ExtArgs>>): Prisma.Prisma__WalletClient<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  ledgerAccount<T extends Prisma.User$ledgerAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ledgerAccountArgs<ExtArgs>>): Prisma.Prisma__LedgerAccountClient<runtime.Types.Result.GetResult<Prisma.$LedgerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   withdrawals<T extends Prisma.User$withdrawalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$withdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12139,6 +15902,16 @@ export interface UserFieldRefs {
   readonly faydaVerifiedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly verificationCode: Prisma.FieldRef<"User", 'String'>
   readonly verificationCodeExpiresAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly termsAcceptedVersion: Prisma.FieldRef<"User", 'String'>
+  readonly termsAcceptedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly charterAcceptedVersion: Prisma.FieldRef<"User", 'String'>
+  readonly charterAcceptedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly codeOfConductAcceptedVersion: Prisma.FieldRef<"User", 'String'>
+  readonly codeOfConductAcceptedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly dpaAcceptedVersion: Prisma.FieldRef<"User", 'String'>
+  readonly dpaAcceptedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly privacyNoticeVersion: Prisma.FieldRef<"User", 'String'>
+  readonly privacyAcceptedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
@@ -13151,27 +16924,99 @@ export type User$collectedResponsesArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * User.responses
+ * User.participantLinks
  */
-export type User$responsesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$participantLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Response
+   * Select specific fields to fetch from the ParticipantLink
    */
-  select?: Prisma.ResponseSelect<ExtArgs> | null
+  select?: Prisma.ParticipantLinkSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Response
+   * Omit specific fields from the ParticipantLink
    */
-  omit?: Prisma.ResponseOmit<ExtArgs> | null
+  omit?: Prisma.ParticipantLinkOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ResponseInclude<ExtArgs> | null
-  where?: Prisma.ResponseWhereInput
-  orderBy?: Prisma.ResponseOrderByWithRelationInput | Prisma.ResponseOrderByWithRelationInput[]
-  cursor?: Prisma.ResponseWhereUniqueInput
+  include?: Prisma.ParticipantLinkInclude<ExtArgs> | null
+  where?: Prisma.ParticipantLinkWhereInput
+  orderBy?: Prisma.ParticipantLinkOrderByWithRelationInput | Prisma.ParticipantLinkOrderByWithRelationInput[]
+  cursor?: Prisma.ParticipantLinkWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ResponseScalarFieldEnum | Prisma.ResponseScalarFieldEnum[]
+  distinct?: Prisma.ParticipantLinkScalarFieldEnum | Prisma.ParticipantLinkScalarFieldEnum[]
+}
+
+/**
+ * User.dataSubjectRequests
+ */
+export type User$dataSubjectRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DataSubjectRequest
+   */
+  select?: Prisma.DataSubjectRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DataSubjectRequest
+   */
+  omit?: Prisma.DataSubjectRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DataSubjectRequestInclude<ExtArgs> | null
+  where?: Prisma.DataSubjectRequestWhereInput
+  orderBy?: Prisma.DataSubjectRequestOrderByWithRelationInput | Prisma.DataSubjectRequestOrderByWithRelationInput[]
+  cursor?: Prisma.DataSubjectRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DataSubjectRequestScalarFieldEnum | Prisma.DataSubjectRequestScalarFieldEnum[]
+}
+
+/**
+ * User.moderationReports
+ */
+export type User$moderationReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ModerationReport
+   */
+  select?: Prisma.ModerationReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ModerationReport
+   */
+  omit?: Prisma.ModerationReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ModerationReportInclude<ExtArgs> | null
+  where?: Prisma.ModerationReportWhereInput
+  orderBy?: Prisma.ModerationReportOrderByWithRelationInput | Prisma.ModerationReportOrderByWithRelationInput[]
+  cursor?: Prisma.ModerationReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ModerationReportScalarFieldEnum | Prisma.ModerationReportScalarFieldEnum[]
+}
+
+/**
+ * User.verifiedEthicsApprovals
+ */
+export type User$verifiedEthicsApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EthicsApproval
+   */
+  select?: Prisma.EthicsApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EthicsApproval
+   */
+  omit?: Prisma.EthicsApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EthicsApprovalInclude<ExtArgs> | null
+  where?: Prisma.EthicsApprovalWhereInput
+  orderBy?: Prisma.EthicsApprovalOrderByWithRelationInput | Prisma.EthicsApprovalOrderByWithRelationInput[]
+  cursor?: Prisma.EthicsApprovalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EthicsApprovalScalarFieldEnum | Prisma.EthicsApprovalScalarFieldEnum[]
 }
 
 /**
@@ -13407,6 +17252,25 @@ export type User$walletArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   include?: Prisma.WalletInclude<ExtArgs> | null
   where?: Prisma.WalletWhereInput
+}
+
+/**
+ * User.ledgerAccount
+ */
+export type User$ledgerAccountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LedgerAccount
+   */
+  select?: Prisma.LedgerAccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LedgerAccount
+   */
+  omit?: Prisma.LedgerAccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LedgerAccountInclude<ExtArgs> | null
+  where?: Prisma.LedgerAccountWhereInput
 }
 
 /**

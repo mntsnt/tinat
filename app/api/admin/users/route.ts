@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getCurrentUser } from "@/lib/session";
+import { requireRole } from "@/lib/authGuard";
+import { jsonError } from "@/lib/validation";
 import type { UserRole } from "@/generated/prisma/client";
 
 export async function GET(req: Request) {
   try {
-    const user = await getCurrentUser();
-    if (!user || user.role !== "ADMIN") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const auth = await requireRole(["ADMIN"], req);
+    if (!auth.ok) return auth.response;
+    const user = auth.user;
 
     const { searchParams } = new URL(req.url);
     const roleParam = searchParams.get("role");
@@ -71,7 +71,7 @@ export async function GET(req: Request) {
           _count: {
             select: {
               studies: true,
-              responses: true,
+              participantLinks: true,
               withdrawals: true,
             },
           },
@@ -80,8 +80,16 @@ export async function GET(req: Request) {
       prisma.user.count({ where }),
     ]);
 
+    const formattedUsers = users.map((u) => ({
+      ...u,
+      _count: {
+        ...u._count,
+        responses: (u._count as any).participantLinks ?? 0,
+      },
+    }));
+
     return NextResponse.json({
-      users,
+      users: formattedUsers,
       pagination: {
         page,
         limit,

@@ -10,7 +10,7 @@ export async function GET(
 ) {
   try {
     const { id: projectId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }
@@ -92,7 +92,7 @@ export async function POST(
 ) {
   try {
     const { id: projectId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth || !auth.canManageStudies) {
       return NextResponse.json(
         { error: error || "Permission denied. Only Project Owners, PIs, or Research Leads can link data-collection studies." },
@@ -182,7 +182,7 @@ export async function DELETE(
 ) {
   try {
     const { id: projectId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth || !auth.canManageStudies) {
       return NextResponse.json(
         { error: error || "Permission denied" },

@@ -1,94 +1,92 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getCurrentUser } from "@/lib/session";
+import { requireStudyOwnerOrAdmin } from "@/lib/authGuard";
+import { jsonError, validateBody } from "@/lib/validation";
+import { z } from "zod";
+
+const inviteCollectorSchema = z.object({
+  collectorEmail: z.string().email("A valid collector email is required"),
+});
 
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = await params;
-    const user = await getCurrentUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const study = await prisma.study.findUnique({
-      where: { id, researcherId: user.id }
-    });
-
-    if (!study) {
-      return NextResponse.json({ error: "Study not found or unauthorized" }, { status: 404 });
-    }
+    const { id: studyId } = await params;
+    const auth = await requireStudyOwnerOrAdmin(studyId, req);
+    if (!auth.ok) return auth.response;
 
     const collectors = await prisma.studyDataCollector.findMany({
-      where: { studyId: id },
+      where: { studyId },
       include: {
-        user: { select: { id: true, name: true, email: true } }
-      }
+        user: { select: { id: true, name: true, email: true } },
+      },
     });
 
     return NextResponse.json({ collectors });
   } catch (error) {
-    return NextResponse.json({ error: "Internal error" }, { status: 500 });
+    console.error("GET study collectors error:", error);
+    return jsonError("Internal error", 500);
   }
 }
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = await params;
-    const user = await getCurrentUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const { id: studyId } = await params;
+    const auth = await requireStudyOwnerOrAdmin(studyId, req);
+    if (!auth.ok) return auth.response;
 
-    const study = await prisma.study.findUnique({
-      where: { id, researcherId: user.id }
-    });
-
-    if (!study) {
-      return NextResponse.json({ error: "Study not found or unauthorized" }, { status: 404 });
-    }
-
-    const { collectorEmail } = await req.json();
+    const validation = await validateBody(inviteCollectorSchema, req);
+    if (!validation.ok) return validation.response;
+    const { collectorEmail } = validation.data;
 
     const collectorUser = await prisma.user.findUnique({
-      where: { email: collectorEmail }
+      where: { email: collectorEmail.toLowerCase().trim() },
     });
 
     if (!collectorUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return jsonError("User not found", 404);
     }
 
-    // Free data collectors do not need to verify. Verification is only needed for funded researches.
-    if (study.studyType === "FUNDED") {
+    // Free data collectors do not need verification; funded studies require verification
+    if (auth.study.studyType === "FUNDED") {
       const verification = await prisma.verification.findUnique({
         where: {
           userId_verificationType: {
             userId: collectorUser.id,
-            verificationType: "DATA_COLLECTOR"
-          }
-        }
+            verificationType: "DATA_COLLECTOR",
+          },
+        },
       });
 
       if (!verification || verification.status !== "VERIFIED") {
-        return NextResponse.json({ error: "User is not a verified data collector. Verification is required for funded research." }, { status: 400 });
+        return jsonError(
+          "User is not a verified data collector. Verification is required for funded research.",
+          400,
+          "UNVERIFIED_COLLECTOR"
+        );
       }
     }
 
     const invitation = await prisma.collectorInvitation.create({
       data: {
-        studyId: id,
-        inviterId: user.id,
+        studyId,
+        inviterId: auth.user.id,
         inviteeId: collectorUser.id,
         status: "PENDING",
-      }
+      },
     });
 
     await prisma.notification.create({
       data: {
         userId: collectorUser.id,
         title: "New Data Collection Invitation",
-        message: `You have been invited to collect data for study: ${study.title}`,
+        message: `You have been invited to collect data for study: ${auth.study.title}`,
         linkUrl: "/collector/dashboard",
-      }
+      },
     });
 
     return NextResponse.json({ success: true, invitation });
   } catch (error) {
-    return NextResponse.json({ error: "Internal error" }, { status: 500 });
+    console.error("POST study collectors error:", error);
+    return jsonError("Internal error", 500);
   }
 }

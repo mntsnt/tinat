@@ -400,7 +400,7 @@ export function QuestionDeckModal({
 
     const marginX = cfg.marginX;
     const cardWidth = width - marginX * 2;
-    let startY = cfg.startY;
+    const startY = cfg.startY;
 
     // 3. Draw Header (Avatar + Name + Handle)
     const avatarRadius = format === "landscape" ? 34 : 42;
@@ -511,7 +511,7 @@ export function QuestionDeckModal({
       ctx.fillStyle = activeTheme.badgeText;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText("ANONYMOUS QUESTION", badgeX + badgeW / 2, badgeY + badgeHeight / 2);
+      ctx.fillText("CONFIDENTIAL QUESTION", badgeX + badgeW / 2, badgeY + badgeHeight / 2);
       ctx.restore();
     }
 
@@ -608,7 +608,7 @@ export function QuestionDeckModal({
       );
       ctx.restore();
 
-      // Draw centered text with guaranteed safe padding
+      // Draw centered text with calculated safe padding
       ctx.save();
       ctx.font = `bold ${pillFontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
       ctx.fillStyle = "#ffffff";
@@ -773,7 +773,7 @@ export function QuestionDeckModal({
         await navigator.share({
           files: [file],
           title: `Tinat Ask - ${recipient.displayName}`,
-          text: `Ask me anything anonymously at tinat.app/ask/${recipient.username}`,
+          text: `Ask me anything confidentially at tinat.app/ask/${recipient.username}`,
         });
       } else {
         handleDownload();
@@ -1061,7 +1061,7 @@ export function QuestionDeckModal({
                   </label>
 
                   <label className="flex items-center justify-between p-2 rounded-lg border border-border bg-muted/20 hover:bg-muted/40 cursor-pointer text-xs">
-                    <span>"Anonymous Question" Pill</span>
+                    <span>"Confidential Question" Pill</span>
                     <input
                       type="checkbox"
                       checked={showAnonBadge}

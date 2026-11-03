@@ -44,6 +44,8 @@ export type QuestionMinAggregateOutputType = {
   text: string | null
   type: $Enums.QuestionType | null
   required: boolean | null
+  isSkippable: boolean | null
+  preferNotToAnswerEnabled: boolean | null
   order: number | null
   createdAt: Date | null
   scaleMax: number | null
@@ -58,6 +60,8 @@ export type QuestionMaxAggregateOutputType = {
   text: string | null
   type: $Enums.QuestionType | null
   required: boolean | null
+  isSkippable: boolean | null
+  preferNotToAnswerEnabled: boolean | null
   order: number | null
   createdAt: Date | null
   scaleMax: number | null
@@ -72,6 +76,8 @@ export type QuestionCountAggregateOutputType = {
   text: number
   type: number
   required: number
+  isSkippable: number
+  preferNotToAnswerEnabled: number
   order: number
   createdAt: number
   scaleMax: number
@@ -100,6 +106,8 @@ export type QuestionMinAggregateInputType = {
   text?: true
   type?: true
   required?: true
+  isSkippable?: true
+  preferNotToAnswerEnabled?: true
   order?: true
   createdAt?: true
   scaleMax?: true
@@ -114,6 +122,8 @@ export type QuestionMaxAggregateInputType = {
   text?: true
   type?: true
   required?: true
+  isSkippable?: true
+  preferNotToAnswerEnabled?: true
   order?: true
   createdAt?: true
   scaleMax?: true
@@ -128,6 +138,8 @@ export type QuestionCountAggregateInputType = {
   text?: true
   type?: true
   required?: true
+  isSkippable?: true
+  preferNotToAnswerEnabled?: true
   order?: true
   createdAt?: true
   scaleMax?: true
@@ -229,6 +241,8 @@ export type QuestionGroupByOutputType = {
   text: string
   type: $Enums.QuestionType
   required: boolean
+  isSkippable: boolean
+  preferNotToAnswerEnabled: boolean
   order: number
   createdAt: Date
   scaleMax: number | null
@@ -266,6 +280,8 @@ export type QuestionWhereInput = {
   text?: Prisma.StringFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
   required?: Prisma.BoolFilter<"Question"> | boolean
+  isSkippable?: Prisma.BoolFilter<"Question"> | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFilter<"Question"> | boolean
   order?: Prisma.IntFilter<"Question"> | number
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   scaleMax?: Prisma.IntNullableFilter<"Question"> | number | null
@@ -276,6 +292,7 @@ export type QuestionWhereInput = {
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   options?: Prisma.QuestionOptionListRelationFilter
   rows?: Prisma.QuestionRowListRelationFilter
+  translations?: Prisma.QuestionTranslationListRelationFilter
 }
 
 export type QuestionOrderByWithRelationInput = {
@@ -284,6 +301,8 @@ export type QuestionOrderByWithRelationInput = {
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
   required?: Prisma.SortOrder
+  isSkippable?: Prisma.SortOrder
+  preferNotToAnswerEnabled?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   scaleMax?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -294,6 +313,7 @@ export type QuestionOrderByWithRelationInput = {
   study?: Prisma.StudyOrderByWithRelationInput
   options?: Prisma.QuestionOptionOrderByRelationAggregateInput
   rows?: Prisma.QuestionRowOrderByRelationAggregateInput
+  translations?: Prisma.QuestionTranslationOrderByRelationAggregateInput
 }
 
 export type QuestionWhereUniqueInput = Prisma.AtLeast<{
@@ -305,6 +325,8 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   text?: Prisma.StringFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
   required?: Prisma.BoolFilter<"Question"> | boolean
+  isSkippable?: Prisma.BoolFilter<"Question"> | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFilter<"Question"> | boolean
   order?: Prisma.IntFilter<"Question"> | number
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   scaleMax?: Prisma.IntNullableFilter<"Question"> | number | null
@@ -315,6 +337,7 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
   options?: Prisma.QuestionOptionListRelationFilter
   rows?: Prisma.QuestionRowListRelationFilter
+  translations?: Prisma.QuestionTranslationListRelationFilter
 }, "id">
 
 export type QuestionOrderByWithAggregationInput = {
@@ -323,6 +346,8 @@ export type QuestionOrderByWithAggregationInput = {
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
   required?: Prisma.SortOrder
+  isSkippable?: Prisma.SortOrder
+  preferNotToAnswerEnabled?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   scaleMax?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -345,6 +370,8 @@ export type QuestionScalarWhereWithAggregatesInput = {
   text?: Prisma.StringWithAggregatesFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeWithAggregatesFilter<"Question"> | $Enums.QuestionType
   required?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
+  isSkippable?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
   order?: Prisma.IntWithAggregatesFilter<"Question"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Question"> | Date | string
   scaleMax?: Prisma.IntNullableWithAggregatesFilter<"Question"> | number | null
@@ -358,6 +385,8 @@ export type QuestionCreateInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -368,6 +397,7 @@ export type QuestionCreateInput = {
   study: Prisma.StudyCreateNestedOneWithoutQuestionsInput
   options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
   rows?: Prisma.QuestionRowCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionUncheckedCreateInput = {
@@ -376,6 +406,8 @@ export type QuestionUncheckedCreateInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -385,6 +417,7 @@ export type QuestionUncheckedCreateInput = {
   answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutQuestionInput
   options?: Prisma.QuestionOptionUncheckedCreateNestedManyWithoutQuestionInput
   rows?: Prisma.QuestionRowUncheckedCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationUncheckedCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionUpdateInput = {
@@ -392,6 +425,8 @@ export type QuestionUpdateInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -402,6 +437,7 @@ export type QuestionUpdateInput = {
   study?: Prisma.StudyUpdateOneRequiredWithoutQuestionsNestedInput
   options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
   rows?: Prisma.QuestionRowUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionUncheckedUpdateInput = {
@@ -410,6 +446,8 @@ export type QuestionUncheckedUpdateInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -419,6 +457,7 @@ export type QuestionUncheckedUpdateInput = {
   answers?: Prisma.AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   options?: Prisma.QuestionOptionUncheckedUpdateManyWithoutQuestionNestedInput
   rows?: Prisma.QuestionRowUncheckedUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionCreateManyInput = {
@@ -427,6 +466,8 @@ export type QuestionCreateManyInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -440,6 +481,8 @@ export type QuestionUpdateManyMutationInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -454,6 +497,8 @@ export type QuestionUncheckedUpdateManyInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -478,6 +523,8 @@ export type QuestionCountOrderByAggregateInput = {
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
   required?: Prisma.SortOrder
+  isSkippable?: Prisma.SortOrder
+  preferNotToAnswerEnabled?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   scaleMax?: Prisma.SortOrder
@@ -498,6 +545,8 @@ export type QuestionMaxOrderByAggregateInput = {
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
   required?: Prisma.SortOrder
+  isSkippable?: Prisma.SortOrder
+  preferNotToAnswerEnabled?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   scaleMax?: Prisma.SortOrder
@@ -512,6 +561,8 @@ export type QuestionMinOrderByAggregateInput = {
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
   required?: Prisma.SortOrder
+  isSkippable?: Prisma.SortOrder
+  preferNotToAnswerEnabled?: Prisma.SortOrder
   order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   scaleMax?: Prisma.SortOrder
@@ -619,11 +670,27 @@ export type QuestionUpdateOneRequiredWithoutAnswersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.QuestionUpdateToOneWithWhereWithoutAnswersInput, Prisma.QuestionUpdateWithoutAnswersInput>, Prisma.QuestionUncheckedUpdateWithoutAnswersInput>
 }
 
+export type QuestionCreateNestedOneWithoutTranslationsInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutTranslationsInput, Prisma.QuestionUncheckedCreateWithoutTranslationsInput>
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutTranslationsInput
+  connect?: Prisma.QuestionWhereUniqueInput
+}
+
+export type QuestionUpdateOneRequiredWithoutTranslationsNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestionCreateWithoutTranslationsInput, Prisma.QuestionUncheckedCreateWithoutTranslationsInput>
+  connectOrCreate?: Prisma.QuestionCreateOrConnectWithoutTranslationsInput
+  upsert?: Prisma.QuestionUpsertWithoutTranslationsInput
+  connect?: Prisma.QuestionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.QuestionUpdateToOneWithWhereWithoutTranslationsInput, Prisma.QuestionUpdateWithoutTranslationsInput>, Prisma.QuestionUncheckedUpdateWithoutTranslationsInput>
+}
+
 export type QuestionCreateWithoutStudyInput = {
   id?: string
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -633,6 +700,7 @@ export type QuestionCreateWithoutStudyInput = {
   answers?: Prisma.AnswerCreateNestedManyWithoutQuestionInput
   options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
   rows?: Prisma.QuestionRowCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionUncheckedCreateWithoutStudyInput = {
@@ -640,6 +708,8 @@ export type QuestionUncheckedCreateWithoutStudyInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -649,6 +719,7 @@ export type QuestionUncheckedCreateWithoutStudyInput = {
   answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutQuestionInput
   options?: Prisma.QuestionOptionUncheckedCreateNestedManyWithoutQuestionInput
   rows?: Prisma.QuestionRowUncheckedCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationUncheckedCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionCreateOrConnectWithoutStudyInput = {
@@ -686,6 +757,8 @@ export type QuestionScalarWhereInput = {
   text?: Prisma.StringFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
   required?: Prisma.BoolFilter<"Question"> | boolean
+  isSkippable?: Prisma.BoolFilter<"Question"> | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFilter<"Question"> | boolean
   order?: Prisma.IntFilter<"Question"> | number
   createdAt?: Prisma.DateTimeFilter<"Question"> | Date | string
   scaleMax?: Prisma.IntNullableFilter<"Question"> | number | null
@@ -699,6 +772,8 @@ export type QuestionCreateWithoutRowsInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -708,6 +783,7 @@ export type QuestionCreateWithoutRowsInput = {
   answers?: Prisma.AnswerCreateNestedManyWithoutQuestionInput
   study: Prisma.StudyCreateNestedOneWithoutQuestionsInput
   options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionUncheckedCreateWithoutRowsInput = {
@@ -716,6 +792,8 @@ export type QuestionUncheckedCreateWithoutRowsInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -724,6 +802,7 @@ export type QuestionUncheckedCreateWithoutRowsInput = {
   scaleMinLabel?: string | null
   answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutQuestionInput
   options?: Prisma.QuestionOptionUncheckedCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationUncheckedCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionCreateOrConnectWithoutRowsInput = {
@@ -747,6 +826,8 @@ export type QuestionUpdateWithoutRowsInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -756,6 +837,7 @@ export type QuestionUpdateWithoutRowsInput = {
   answers?: Prisma.AnswerUpdateManyWithoutQuestionNestedInput
   study?: Prisma.StudyUpdateOneRequiredWithoutQuestionsNestedInput
   options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionUncheckedUpdateWithoutRowsInput = {
@@ -764,6 +846,8 @@ export type QuestionUncheckedUpdateWithoutRowsInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -772,6 +856,7 @@ export type QuestionUncheckedUpdateWithoutRowsInput = {
   scaleMinLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   options?: Prisma.QuestionOptionUncheckedUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionCreateWithoutOptionsInput = {
@@ -779,6 +864,8 @@ export type QuestionCreateWithoutOptionsInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -788,6 +875,7 @@ export type QuestionCreateWithoutOptionsInput = {
   answers?: Prisma.AnswerCreateNestedManyWithoutQuestionInput
   study: Prisma.StudyCreateNestedOneWithoutQuestionsInput
   rows?: Prisma.QuestionRowCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionUncheckedCreateWithoutOptionsInput = {
@@ -796,6 +884,8 @@ export type QuestionUncheckedCreateWithoutOptionsInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -804,6 +894,7 @@ export type QuestionUncheckedCreateWithoutOptionsInput = {
   scaleMinLabel?: string | null
   answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutQuestionInput
   rows?: Prisma.QuestionRowUncheckedCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationUncheckedCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionCreateOrConnectWithoutOptionsInput = {
@@ -827,6 +918,8 @@ export type QuestionUpdateWithoutOptionsInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -836,6 +929,7 @@ export type QuestionUpdateWithoutOptionsInput = {
   answers?: Prisma.AnswerUpdateManyWithoutQuestionNestedInput
   study?: Prisma.StudyUpdateOneRequiredWithoutQuestionsNestedInput
   rows?: Prisma.QuestionRowUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionUncheckedUpdateWithoutOptionsInput = {
@@ -844,6 +938,8 @@ export type QuestionUncheckedUpdateWithoutOptionsInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -852,6 +948,7 @@ export type QuestionUncheckedUpdateWithoutOptionsInput = {
   scaleMinLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   answers?: Prisma.AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   rows?: Prisma.QuestionRowUncheckedUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionCreateWithoutAnswersInput = {
@@ -859,6 +956,8 @@ export type QuestionCreateWithoutAnswersInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -868,6 +967,7 @@ export type QuestionCreateWithoutAnswersInput = {
   study: Prisma.StudyCreateNestedOneWithoutQuestionsInput
   options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
   rows?: Prisma.QuestionRowCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionUncheckedCreateWithoutAnswersInput = {
@@ -876,6 +976,8 @@ export type QuestionUncheckedCreateWithoutAnswersInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -884,6 +986,7 @@ export type QuestionUncheckedCreateWithoutAnswersInput = {
   scaleMinLabel?: string | null
   options?: Prisma.QuestionOptionUncheckedCreateNestedManyWithoutQuestionInput
   rows?: Prisma.QuestionRowUncheckedCreateNestedManyWithoutQuestionInput
+  translations?: Prisma.QuestionTranslationUncheckedCreateNestedManyWithoutQuestionInput
 }
 
 export type QuestionCreateOrConnectWithoutAnswersInput = {
@@ -907,6 +1010,8 @@ export type QuestionUpdateWithoutAnswersInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -916,6 +1021,7 @@ export type QuestionUpdateWithoutAnswersInput = {
   study?: Prisma.StudyUpdateOneRequiredWithoutQuestionsNestedInput
   options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
   rows?: Prisma.QuestionRowUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionUncheckedUpdateWithoutAnswersInput = {
@@ -924,12 +1030,107 @@ export type QuestionUncheckedUpdateWithoutAnswersInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   scaleMaxLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scaleMin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   scaleMinLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  options?: Prisma.QuestionOptionUncheckedUpdateManyWithoutQuestionNestedInput
+  rows?: Prisma.QuestionRowUncheckedUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUncheckedUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionCreateWithoutTranslationsInput = {
+  id?: string
+  text: string
+  type: $Enums.QuestionType
+  required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
+  order: number
+  createdAt?: Date | string
+  scaleMax?: number | null
+  scaleMaxLabel?: string | null
+  scaleMin?: number | null
+  scaleMinLabel?: string | null
+  answers?: Prisma.AnswerCreateNestedManyWithoutQuestionInput
+  study: Prisma.StudyCreateNestedOneWithoutQuestionsInput
+  options?: Prisma.QuestionOptionCreateNestedManyWithoutQuestionInput
+  rows?: Prisma.QuestionRowCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionUncheckedCreateWithoutTranslationsInput = {
+  id?: string
+  studyId: string
+  text: string
+  type: $Enums.QuestionType
+  required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
+  order: number
+  createdAt?: Date | string
+  scaleMax?: number | null
+  scaleMaxLabel?: string | null
+  scaleMin?: number | null
+  scaleMinLabel?: string | null
+  answers?: Prisma.AnswerUncheckedCreateNestedManyWithoutQuestionInput
+  options?: Prisma.QuestionOptionUncheckedCreateNestedManyWithoutQuestionInput
+  rows?: Prisma.QuestionRowUncheckedCreateNestedManyWithoutQuestionInput
+}
+
+export type QuestionCreateOrConnectWithoutTranslationsInput = {
+  where: Prisma.QuestionWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutTranslationsInput, Prisma.QuestionUncheckedCreateWithoutTranslationsInput>
+}
+
+export type QuestionUpsertWithoutTranslationsInput = {
+  update: Prisma.XOR<Prisma.QuestionUpdateWithoutTranslationsInput, Prisma.QuestionUncheckedUpdateWithoutTranslationsInput>
+  create: Prisma.XOR<Prisma.QuestionCreateWithoutTranslationsInput, Prisma.QuestionUncheckedCreateWithoutTranslationsInput>
+  where?: Prisma.QuestionWhereInput
+}
+
+export type QuestionUpdateToOneWithWhereWithoutTranslationsInput = {
+  where?: Prisma.QuestionWhereInput
+  data: Prisma.XOR<Prisma.QuestionUpdateWithoutTranslationsInput, Prisma.QuestionUncheckedUpdateWithoutTranslationsInput>
+}
+
+export type QuestionUpdateWithoutTranslationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  scaleMaxLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scaleMin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  scaleMinLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answers?: Prisma.AnswerUpdateManyWithoutQuestionNestedInput
+  study?: Prisma.StudyUpdateOneRequiredWithoutQuestionsNestedInput
+  options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
+  rows?: Prisma.QuestionRowUpdateManyWithoutQuestionNestedInput
+}
+
+export type QuestionUncheckedUpdateWithoutTranslationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  studyId?: Prisma.StringFieldUpdateOperationsInput | string
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  scaleMaxLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scaleMin?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  scaleMinLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answers?: Prisma.AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   options?: Prisma.QuestionOptionUncheckedUpdateManyWithoutQuestionNestedInput
   rows?: Prisma.QuestionRowUncheckedUpdateManyWithoutQuestionNestedInput
 }
@@ -939,6 +1140,8 @@ export type QuestionCreateManyStudyInput = {
   text: string
   type: $Enums.QuestionType
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order: number
   createdAt?: Date | string
   scaleMax?: number | null
@@ -952,6 +1155,8 @@ export type QuestionUpdateWithoutStudyInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -961,6 +1166,7 @@ export type QuestionUpdateWithoutStudyInput = {
   answers?: Prisma.AnswerUpdateManyWithoutQuestionNestedInput
   options?: Prisma.QuestionOptionUpdateManyWithoutQuestionNestedInput
   rows?: Prisma.QuestionRowUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionUncheckedUpdateWithoutStudyInput = {
@@ -968,6 +1174,8 @@ export type QuestionUncheckedUpdateWithoutStudyInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -977,6 +1185,7 @@ export type QuestionUncheckedUpdateWithoutStudyInput = {
   answers?: Prisma.AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   options?: Prisma.QuestionOptionUncheckedUpdateManyWithoutQuestionNestedInput
   rows?: Prisma.QuestionRowUncheckedUpdateManyWithoutQuestionNestedInput
+  translations?: Prisma.QuestionTranslationUncheckedUpdateManyWithoutQuestionNestedInput
 }
 
 export type QuestionUncheckedUpdateManyWithoutStudyInput = {
@@ -984,6 +1193,8 @@ export type QuestionUncheckedUpdateManyWithoutStudyInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   scaleMax?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1001,12 +1212,14 @@ export type QuestionCountOutputType = {
   answers: number
   options: number
   rows: number
+  translations: number
 }
 
 export type QuestionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   answers?: boolean | QuestionCountOutputTypeCountAnswersArgs
   options?: boolean | QuestionCountOutputTypeCountOptionsArgs
   rows?: boolean | QuestionCountOutputTypeCountRowsArgs
+  translations?: boolean | QuestionCountOutputTypeCountTranslationsArgs
 }
 
 /**
@@ -1040,6 +1253,13 @@ export type QuestionCountOutputTypeCountRowsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.QuestionRowWhereInput
 }
 
+/**
+ * QuestionCountOutputType without action
+ */
+export type QuestionCountOutputTypeCountTranslationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestionTranslationWhereInput
+}
+
 
 export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1047,6 +1267,8 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   text?: boolean
   type?: boolean
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order?: boolean
   createdAt?: boolean
   scaleMax?: boolean
@@ -1057,6 +1279,7 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   options?: boolean | Prisma.Question$optionsArgs<ExtArgs>
   rows?: boolean | Prisma.Question$rowsArgs<ExtArgs>
+  translations?: boolean | Prisma.Question$translationsArgs<ExtArgs>
   _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
 
@@ -1066,6 +1289,8 @@ export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   text?: boolean
   type?: boolean
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order?: boolean
   createdAt?: boolean
   scaleMax?: boolean
@@ -1081,6 +1306,8 @@ export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   text?: boolean
   type?: boolean
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order?: boolean
   createdAt?: boolean
   scaleMax?: boolean
@@ -1096,6 +1323,8 @@ export type QuestionSelectScalar = {
   text?: boolean
   type?: boolean
   required?: boolean
+  isSkippable?: boolean
+  preferNotToAnswerEnabled?: boolean
   order?: boolean
   createdAt?: boolean
   scaleMax?: boolean
@@ -1104,12 +1333,13 @@ export type QuestionSelectScalar = {
   scaleMinLabel?: boolean
 }
 
-export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studyId" | "text" | "type" | "required" | "order" | "createdAt" | "scaleMax" | "scaleMaxLabel" | "scaleMin" | "scaleMinLabel", ExtArgs["result"]["question"]>
+export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studyId" | "text" | "type" | "required" | "isSkippable" | "preferNotToAnswerEnabled" | "order" | "createdAt" | "scaleMax" | "scaleMaxLabel" | "scaleMin" | "scaleMinLabel", ExtArgs["result"]["question"]>
 export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   answers?: boolean | Prisma.Question$answersArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
   options?: boolean | Prisma.Question$optionsArgs<ExtArgs>
   rows?: boolean | Prisma.Question$rowsArgs<ExtArgs>
+  translations?: boolean | Prisma.Question$translationsArgs<ExtArgs>
   _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type QuestionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1126,6 +1356,7 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     study: Prisma.$StudyPayload<ExtArgs>
     options: Prisma.$QuestionOptionPayload<ExtArgs>[]
     rows: Prisma.$QuestionRowPayload<ExtArgs>[]
+    translations: Prisma.$QuestionTranslationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1133,6 +1364,8 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     text: string
     type: $Enums.QuestionType
     required: boolean
+    isSkippable: boolean
+    preferNotToAnswerEnabled: boolean
     order: number
     createdAt: Date
     scaleMax: number | null
@@ -1537,6 +1770,7 @@ export interface Prisma__QuestionClient<T, Null = never, ExtArgs extends runtime
   study<T extends Prisma.StudyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StudyDefaultArgs<ExtArgs>>): Prisma.Prisma__StudyClient<runtime.Types.Result.GetResult<Prisma.$StudyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   options<T extends Prisma.Question$optionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Question$optionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rows<T extends Prisma.Question$rowsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Question$rowsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionRowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  translations<T extends Prisma.Question$translationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Question$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionTranslationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1571,6 +1805,8 @@ export interface QuestionFieldRefs {
   readonly text: Prisma.FieldRef<"Question", 'String'>
   readonly type: Prisma.FieldRef<"Question", 'QuestionType'>
   readonly required: Prisma.FieldRef<"Question", 'Boolean'>
+  readonly isSkippable: Prisma.FieldRef<"Question", 'Boolean'>
+  readonly preferNotToAnswerEnabled: Prisma.FieldRef<"Question", 'Boolean'>
   readonly order: Prisma.FieldRef<"Question", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Question", 'DateTime'>
   readonly scaleMax: Prisma.FieldRef<"Question", 'Int'>
@@ -2047,6 +2283,30 @@ export type Question$rowsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.QuestionRowScalarFieldEnum | Prisma.QuestionRowScalarFieldEnum[]
+}
+
+/**
+ * Question.translations
+ */
+export type Question$translationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestionTranslation
+   */
+  select?: Prisma.QuestionTranslationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuestionTranslation
+   */
+  omit?: Prisma.QuestionTranslationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionTranslationInclude<ExtArgs> | null
+  where?: Prisma.QuestionTranslationWhereInput
+  orderBy?: Prisma.QuestionTranslationOrderByWithRelationInput | Prisma.QuestionTranslationOrderByWithRelationInput[]
+  cursor?: Prisma.QuestionTranslationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestionTranslationScalarFieldEnum | Prisma.QuestionTranslationScalarFieldEnum[]
 }
 
 /**

@@ -9,7 +9,7 @@ export async function PATCH(
 ) {
   try {
     const { id, taskId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(id);
+    const { auth, error, status } = await authorizeProjectAccess(id, req);
     if (!auth) {
       return NextResponse.json({ error }, { status: status || 403 });
     }
@@ -62,7 +62,20 @@ export async function PATCH(
     }
     if (dueDate !== undefined) updateData.dueDate = dueDate ? new Date(dueDate) : null;
     if (assigneeId !== undefined) updateData.assigneeId = assigneeId || null;
-    if (milestoneId !== undefined) updateData.milestoneId = milestoneId || null;
+    if (milestoneId) {
+      const milestone = await prisma.projectMilestone.findUnique({
+        where: { id: milestoneId },
+      });
+      if (!milestone || milestone.projectId !== id) {
+        return NextResponse.json(
+          { error: "Invalid milestone: milestone does not belong to this project." },
+          { status: 400 }
+        );
+      }
+      updateData.milestoneId = milestoneId;
+    } else if (milestoneId === null) {
+      updateData.milestoneId = null;
+    }
     if (Array.isArray(labels)) updateData.labels = labels;
     if (Array.isArray(subtasks)) updateData.subtasks = subtasks;
 
@@ -98,7 +111,7 @@ export async function DELETE(
 ) {
   try {
     const { id, taskId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(id);
+    const { auth, error, status } = await authorizeProjectAccess(id, req);
     if (!auth) {
       return NextResponse.json({ error }, { status: status || 403 });
     }

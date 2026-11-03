@@ -28,10 +28,12 @@ export type AggregateTinatCreditTransaction = {
 
 export type TinatCreditTransactionAvgAggregateOutputType = {
   amount: number | null
+  balanceAfter: number | null
 }
 
 export type TinatCreditTransactionSumAggregateOutputType = {
   amount: number | null
+  balanceAfter: number | null
 }
 
 export type TinatCreditTransactionMinAggregateOutputType = {
@@ -40,6 +42,8 @@ export type TinatCreditTransactionMinAggregateOutputType = {
   amount: number | null
   type: $Enums.TransactionType | null
   reason: string | null
+  idempotencyKey: string | null
+  balanceAfter: number | null
   createdAt: Date | null
 }
 
@@ -49,6 +53,8 @@ export type TinatCreditTransactionMaxAggregateOutputType = {
   amount: number | null
   type: $Enums.TransactionType | null
   reason: string | null
+  idempotencyKey: string | null
+  balanceAfter: number | null
   createdAt: Date | null
 }
 
@@ -58,6 +64,8 @@ export type TinatCreditTransactionCountAggregateOutputType = {
   amount: number
   type: number
   reason: number
+  idempotencyKey: number
+  balanceAfter: number
   createdAt: number
   _all: number
 }
@@ -65,10 +73,12 @@ export type TinatCreditTransactionCountAggregateOutputType = {
 
 export type TinatCreditTransactionAvgAggregateInputType = {
   amount?: true
+  balanceAfter?: true
 }
 
 export type TinatCreditTransactionSumAggregateInputType = {
   amount?: true
+  balanceAfter?: true
 }
 
 export type TinatCreditTransactionMinAggregateInputType = {
@@ -77,6 +87,8 @@ export type TinatCreditTransactionMinAggregateInputType = {
   amount?: true
   type?: true
   reason?: true
+  idempotencyKey?: true
+  balanceAfter?: true
   createdAt?: true
 }
 
@@ -86,6 +98,8 @@ export type TinatCreditTransactionMaxAggregateInputType = {
   amount?: true
   type?: true
   reason?: true
+  idempotencyKey?: true
+  balanceAfter?: true
   createdAt?: true
 }
 
@@ -95,6 +109,8 @@ export type TinatCreditTransactionCountAggregateInputType = {
   amount?: true
   type?: true
   reason?: true
+  idempotencyKey?: true
+  balanceAfter?: true
   createdAt?: true
   _all?: true
 }
@@ -191,6 +207,8 @@ export type TinatCreditTransactionGroupByOutputType = {
   amount: number
   type: $Enums.TransactionType
   reason: string | null
+  idempotencyKey: string | null
+  balanceAfter: number | null
   createdAt: Date
   _count: TinatCreditTransactionCountAggregateOutputType | null
   _avg: TinatCreditTransactionAvgAggregateOutputType | null
@@ -223,6 +241,8 @@ export type TinatCreditTransactionWhereInput = {
   amount?: Prisma.IntFilter<"TinatCreditTransaction"> | number
   type?: Prisma.EnumTransactionTypeFilter<"TinatCreditTransaction"> | $Enums.TransactionType
   reason?: Prisma.StringNullableFilter<"TinatCreditTransaction"> | string | null
+  idempotencyKey?: Prisma.StringNullableFilter<"TinatCreditTransaction"> | string | null
+  balanceAfter?: Prisma.IntNullableFilter<"TinatCreditTransaction"> | number | null
   createdAt?: Prisma.DateTimeFilter<"TinatCreditTransaction"> | Date | string
   wallet?: Prisma.XOR<Prisma.WalletScalarRelationFilter, Prisma.WalletWhereInput>
 }
@@ -233,12 +253,15 @@ export type TinatCreditTransactionOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   wallet?: Prisma.WalletOrderByWithRelationInput
 }
 
 export type TinatCreditTransactionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  idempotencyKey?: string
   AND?: Prisma.TinatCreditTransactionWhereInput | Prisma.TinatCreditTransactionWhereInput[]
   OR?: Prisma.TinatCreditTransactionWhereInput[]
   NOT?: Prisma.TinatCreditTransactionWhereInput | Prisma.TinatCreditTransactionWhereInput[]
@@ -246,9 +269,10 @@ export type TinatCreditTransactionWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.IntFilter<"TinatCreditTransaction"> | number
   type?: Prisma.EnumTransactionTypeFilter<"TinatCreditTransaction"> | $Enums.TransactionType
   reason?: Prisma.StringNullableFilter<"TinatCreditTransaction"> | string | null
+  balanceAfter?: Prisma.IntNullableFilter<"TinatCreditTransaction"> | number | null
   createdAt?: Prisma.DateTimeFilter<"TinatCreditTransaction"> | Date | string
   wallet?: Prisma.XOR<Prisma.WalletScalarRelationFilter, Prisma.WalletWhereInput>
-}, "id">
+}, "id" | "idempotencyKey">
 
 export type TinatCreditTransactionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -256,6 +280,8 @@ export type TinatCreditTransactionOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.TinatCreditTransactionCountOrderByAggregateInput
   _avg?: Prisma.TinatCreditTransactionAvgOrderByAggregateInput
@@ -273,6 +299,8 @@ export type TinatCreditTransactionScalarWhereWithAggregatesInput = {
   amount?: Prisma.IntWithAggregatesFilter<"TinatCreditTransaction"> | number
   type?: Prisma.EnumTransactionTypeWithAggregatesFilter<"TinatCreditTransaction"> | $Enums.TransactionType
   reason?: Prisma.StringNullableWithAggregatesFilter<"TinatCreditTransaction"> | string | null
+  idempotencyKey?: Prisma.StringNullableWithAggregatesFilter<"TinatCreditTransaction"> | string | null
+  balanceAfter?: Prisma.IntNullableWithAggregatesFilter<"TinatCreditTransaction"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TinatCreditTransaction"> | Date | string
 }
 
@@ -281,6 +309,8 @@ export type TinatCreditTransactionCreateInput = {
   amount: number
   type: $Enums.TransactionType
   reason?: string | null
+  idempotencyKey?: string | null
+  balanceAfter?: number | null
   createdAt?: Date | string
   wallet: Prisma.WalletCreateNestedOneWithoutTransactionsInput
 }
@@ -291,6 +321,8 @@ export type TinatCreditTransactionUncheckedCreateInput = {
   amount: number
   type: $Enums.TransactionType
   reason?: string | null
+  idempotencyKey?: string | null
+  balanceAfter?: number | null
   createdAt?: Date | string
 }
 
@@ -299,6 +331,8 @@ export type TinatCreditTransactionUpdateInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceAfter?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUpdateOneRequiredWithoutTransactionsNestedInput
 }
@@ -309,6 +343,8 @@ export type TinatCreditTransactionUncheckedUpdateInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceAfter?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -318,6 +354,8 @@ export type TinatCreditTransactionCreateManyInput = {
   amount: number
   type: $Enums.TransactionType
   reason?: string | null
+  idempotencyKey?: string | null
+  balanceAfter?: number | null
   createdAt?: Date | string
 }
 
@@ -326,6 +364,8 @@ export type TinatCreditTransactionUpdateManyMutationInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceAfter?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -335,6 +375,8 @@ export type TinatCreditTransactionUncheckedUpdateManyInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceAfter?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -354,11 +396,14 @@ export type TinatCreditTransactionCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   reason?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type TinatCreditTransactionAvgOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
 }
 
 export type TinatCreditTransactionMaxOrderByAggregateInput = {
@@ -367,6 +412,8 @@ export type TinatCreditTransactionMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   reason?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -376,11 +423,14 @@ export type TinatCreditTransactionMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   reason?: Prisma.SortOrder
+  idempotencyKey?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type TinatCreditTransactionSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  balanceAfter?: Prisma.SortOrder
 }
 
 export type TinatCreditTransactionCreateNestedManyWithoutWalletInput = {
@@ -434,6 +484,8 @@ export type TinatCreditTransactionCreateWithoutWalletInput = {
   amount: number
   type: $Enums.TransactionType
   reason?: string | null
+  idempotencyKey?: string | null
+  balanceAfter?: number | null
   createdAt?: Date | string
 }
 
@@ -442,6 +494,8 @@ export type TinatCreditTransactionUncheckedCreateWithoutWalletInput = {
   amount: number
   type: $Enums.TransactionType
   reason?: string | null
+  idempotencyKey?: string | null
+  balanceAfter?: number | null
   createdAt?: Date | string
 }
 
@@ -480,6 +534,8 @@ export type TinatCreditTransactionScalarWhereInput = {
   amount?: Prisma.IntFilter<"TinatCreditTransaction"> | number
   type?: Prisma.EnumTransactionTypeFilter<"TinatCreditTransaction"> | $Enums.TransactionType
   reason?: Prisma.StringNullableFilter<"TinatCreditTransaction"> | string | null
+  idempotencyKey?: Prisma.StringNullableFilter<"TinatCreditTransaction"> | string | null
+  balanceAfter?: Prisma.IntNullableFilter<"TinatCreditTransaction"> | number | null
   createdAt?: Prisma.DateTimeFilter<"TinatCreditTransaction"> | Date | string
 }
 
@@ -488,6 +544,8 @@ export type TinatCreditTransactionCreateManyWalletInput = {
   amount: number
   type: $Enums.TransactionType
   reason?: string | null
+  idempotencyKey?: string | null
+  balanceAfter?: number | null
   createdAt?: Date | string
 }
 
@@ -496,6 +554,8 @@ export type TinatCreditTransactionUpdateWithoutWalletInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceAfter?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -504,6 +564,8 @@ export type TinatCreditTransactionUncheckedUpdateWithoutWalletInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceAfter?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -512,6 +574,8 @@ export type TinatCreditTransactionUncheckedUpdateManyWithoutWalletInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  balanceAfter?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -523,6 +587,8 @@ export type TinatCreditTransactionSelect<ExtArgs extends runtime.Types.Extension
   amount?: boolean
   type?: boolean
   reason?: boolean
+  idempotencyKey?: boolean
+  balanceAfter?: boolean
   createdAt?: boolean
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tinatCreditTransaction"]>
@@ -533,6 +599,8 @@ export type TinatCreditTransactionSelectCreateManyAndReturn<ExtArgs extends runt
   amount?: boolean
   type?: boolean
   reason?: boolean
+  idempotencyKey?: boolean
+  balanceAfter?: boolean
   createdAt?: boolean
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tinatCreditTransaction"]>
@@ -543,6 +611,8 @@ export type TinatCreditTransactionSelectUpdateManyAndReturn<ExtArgs extends runt
   amount?: boolean
   type?: boolean
   reason?: boolean
+  idempotencyKey?: boolean
+  balanceAfter?: boolean
   createdAt?: boolean
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tinatCreditTransaction"]>
@@ -553,10 +623,12 @@ export type TinatCreditTransactionSelectScalar = {
   amount?: boolean
   type?: boolean
   reason?: boolean
+  idempotencyKey?: boolean
+  balanceAfter?: boolean
   createdAt?: boolean
 }
 
-export type TinatCreditTransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "walletId" | "amount" | "type" | "reason" | "createdAt", ExtArgs["result"]["tinatCreditTransaction"]>
+export type TinatCreditTransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "walletId" | "amount" | "type" | "reason" | "idempotencyKey" | "balanceAfter" | "createdAt", ExtArgs["result"]["tinatCreditTransaction"]>
 export type TinatCreditTransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   wallet?: boolean | Prisma.WalletDefaultArgs<ExtArgs>
 }
@@ -578,6 +650,8 @@ export type $TinatCreditTransactionPayload<ExtArgs extends runtime.Types.Extensi
     amount: number
     type: $Enums.TransactionType
     reason: string | null
+    idempotencyKey: string | null
+    balanceAfter: number | null
     createdAt: Date
   }, ExtArgs["result"]["tinatCreditTransaction"]>
   composites: {}
@@ -1008,6 +1082,8 @@ export interface TinatCreditTransactionFieldRefs {
   readonly amount: Prisma.FieldRef<"TinatCreditTransaction", 'Int'>
   readonly type: Prisma.FieldRef<"TinatCreditTransaction", 'TransactionType'>
   readonly reason: Prisma.FieldRef<"TinatCreditTransaction", 'String'>
+  readonly idempotencyKey: Prisma.FieldRef<"TinatCreditTransaction", 'String'>
+  readonly balanceAfter: Prisma.FieldRef<"TinatCreditTransaction", 'Int'>
   readonly createdAt: Prisma.FieldRef<"TinatCreditTransaction", 'DateTime'>
 }
     

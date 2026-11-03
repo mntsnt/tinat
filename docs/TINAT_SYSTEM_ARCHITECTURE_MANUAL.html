@@ -1,0 +1,2977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tinat Research Ecosystem — Master Architectural & Technical Manual</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 16mm 14mm 18mm 14mm;
+    @top-right {
+      content: "Tinat Research Ecosystem — Master Technical Manual";
+      font-size: 7.5pt;
+      font-family: 'Inter', sans-serif;
+      color: #94a3b8;
+    }
+    @bottom-center {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 7.5pt;
+      font-family: 'Inter', sans-serif;
+      color: #94a3b8;
+    }
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #0f172a;
+    background-color: #ffffff;
+    line-height: 1.55;
+    font-size: 9pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Cover Page */
+  .cover {
+    height: 100vh;
+    min-height: 250mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24mm 16mm 20mm 16mm;
+    border: 1px solid #cbd5e1;
+    background: linear-gradient(145deg, #09090b 0%, #111827 55%, #064e3b 100%);
+    color: #ffffff;
+    border-radius: 12px;
+  }
+
+  .cover-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.5);
+    color: #6ee7b7;
+    font-size: 9pt;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    width: fit-content;
+  }
+
+  .cover-title {
+    font-size: 32pt;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 22px 0 14px 0;
+    color: #ffffff;
+  }
+
+  .cover-title span {
+    color: #10b981;
+  }
+
+  .cover-subtitle {
+    font-size: 13pt;
+    color: #cbd5e1;
+    line-height: 1.5;
+    max-width: 660px;
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 14px 18px;
+    border-radius: 8px;
+  }
+
+  .cover-meta-item strong {
+    display: block;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #10b981;
+    margin-bottom: 4px;
+  }
+
+  .cover-meta-item span {
+    font-size: 9.5pt;
+    color: #f1f5f9;
+    font-weight: 600;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4 {
+    color: #0f172a;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+  }
+
+  h1 {
+    font-size: 18pt;
+    border-bottom: 2px solid #10b981;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  h2 {
+    font-size: 13pt;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    color: #047857;
+    border-left: 3px solid #10b981;
+    padding-left: 8px;
+  }
+
+  h3 {
+    font-size: 10.5pt;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    color: #1e293b;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-align: justify;
+  }
+
+  ul, ol {
+    margin-top: 0;
+    margin-bottom: 8px;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 3px;
+  }
+
+  /* Callouts */
+  .callout {
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-left: 4px solid;
+    font-size: 8.5pt;
+  }
+
+  .callout-info {
+    background-color: #f0fdf4;
+    border-left-color: #10b981;
+    color: #064e3b;
+  }
+
+  .callout-warning {
+    background-color: #fffbeb;
+    border-left-color: #f59e0b;
+    color: #78350f;
+  }
+
+  .callout-security {
+    background-color: #eff6ff;
+    border-left-color: #3b82f6;
+    color: #1e3a8a;
+  }
+
+  .callout-title {
+    font-weight: 700;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9pt;
+  }
+
+  /* Concept Cards */
+  .concept-card {
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  .concept-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .concept-header h3 {
+    margin: 0;
+    font-size: 10pt;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 14px 0;
+    font-size: 8pt;
+  }
+
+  th, td {
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  th {
+    background-color: #f8fafc;
+    color: #334155;
+    font-weight: 700;
+    border-top: 1px solid #cbd5e1;
+    border-bottom: 2px solid #cbd5e1;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+
+  /* Badges & Methods */
+  .badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-emerald { background: #d1fae5; color: #047857; border: 1px solid #a7f3d0; }
+  .badge-blue { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+  .badge-amber { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+  .badge-rose { background: #ffe4e6; color: #9f1239; border: 1px solid #fecdd3; }
+  .badge-purple { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+  .badge-slate { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+
+  .method-get { background: #dbeafe; color: #1d4ed8; font-weight: 800; font-family: monospace; font-size: 7pt; padding: 1px 4px; border-radius: 3px; }
+  .method-post { background: #dcfce7; color: #15803d; font-weight: 800; font-family: monospace; font-size: 7pt; padding: 1px 4px; border-radius: 3px; }
+  .method-patch { background: #fef9c3; color: #a16207; font-weight: 800; font-family: monospace; font-size: 7pt; padding: 1px 4px; border-radius: 3px; }
+  .method-delete { background: #fee2e2; color: #b91c1c; font-weight: 800; font-family: monospace; font-size: 7pt; padding: 1px 4px; border-radius: 3px; }
+
+  /* Code & Pre */
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 7.8pt;
+    background-color: #f1f5f9;
+    color: #0f172a;
+    padding: 1px 3px;
+    border-radius: 3px;
+    border: 1px solid #e2e8f0;
+  }
+
+  pre {
+    background-color: #0f172a;
+    color: #e2e8f0;
+    padding: 10px 12px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5pt;
+    line-height: 1.4;
+    margin: 8px 0;
+  }
+
+  /* Grid layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 8px 0;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin: 8px 0;
+  }
+
+  .card {
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 10px 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  .card-header {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 8.8pt;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-body {
+    font-size: 8pt;
+    color: #475569;
+  }
+
+  /* Diagram containers */
+  .diagram-container {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    text-align: center;
+  }
+
+  .diagram-title {
+    font-size: 8pt;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  /* TOC */
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+  }
+
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px dotted #cbd5e1;
+    font-size: 9pt;
+  }
+
+  .toc-item strong {
+    color: #047857;
+    margin-right: 6px;
+  }
+
+  .toc-dots {
+    flex: 1;
+    border-bottom: 1px dotted #94a3b8;
+    margin: 0 8px;
+    height: 1px;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div>
+    <div class="cover-badge">Official Architecture, Operational & Engineering Manual</div>
+    <div class="cover-title">TINAT <span>RESEARCH</span><br>ECOSYSTEM</div>
+    <div class="cover-subtitle">
+      Master Reference Guide: Foundational Concepts in Plain English, Complete User Journey from Landing Page to Logout, 45 Relational Models, 26 Enums, 42 User Pages, 80 REST APIs, Financial Ledgers, and Mobile Administration Architecture.
+    </div>
+  </div>
+
+  <div>
+    <div class="diagram-container" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.12); margin-bottom: 20px;">
+      <svg width="100%" height="80" viewBox="0 0 700 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="15" width="120" height="50" rx="8" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="1.5"/>
+        <text x="70" y="38" fill="#6EE7B7" font-size="9.5" font-family="Inter" font-weight="bold" text-anchor="middle">VISITOR / LANDING</text>
+        <text x="70" y="52" fill="#94A3B8" font-size="7.5" font-family="Inter" text-anchor="middle">Next.js App Router</text>
+
+        <path d="M130 40 H170" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+        <rect x="170" y="15" width="120" height="50" rx="8" fill="#3B82F6" fill-opacity="0.2" stroke="#3B82F6" stroke-width="1.5"/>
+        <text x="230" y="38" fill="#93C5FD" font-size="9.5" font-family="Inter" font-weight="bold" text-anchor="middle">FAYDA & AUTH</text>
+        <text x="230" y="52" fill="#94A3B8" font-size="7.5" font-family="Inter" text-anchor="middle">National ID + JWT</text>
+
+        <path d="M290 40 H330" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+        <rect x="330" y="15" width="120" height="50" rx="8" fill="#F59E0B" fill-opacity="0.2" stroke="#F59E0B" stroke-width="1.5"/>
+        <text x="390" y="38" fill="#FDE68A" font-size="9.5" font-family="Inter" font-weight="bold" text-anchor="middle">ACTIVE ROLES</text>
+        <text x="390" y="52" fill="#94A3B8" font-size="7.5" font-family="Inter" text-anchor="middle">Researcher / Participant</text>
+
+        <path d="M450 40 H490" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+        <rect x="490" y="15" width="120" height="50" rx="8" fill="#10B981" fill-opacity="0.2" stroke="#10B981" stroke-width="1.5"/>
+        <text x="550" y="38" fill="#6EE7B7" font-size="9.5" font-family="Inter" font-weight="bold" text-anchor="middle">PAYOUT RAILS</text>
+        <text x="550" y="52" fill="#94A3B8" font-size="7.5" font-family="Inter" text-anchor="middle">Telebirr & CBE</text>
+
+        <path d="M610 40 H640" stroke="#10B981" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+        <circle cx="655" cy="40" r="14" fill="#047857"/>
+        <text x="655" y="44" fill="#ffffff" font-size="8" font-family="Inter" font-weight="bold" text-anchor="middle">ETB</text>
+      </svg>
+    </div>
+
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <strong>Platform Release</strong>
+        <span>Tinat v2.4 (October 2026)</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Surface Inventory</strong>
+        <span>45 Models &bull; 42 Pages &bull; 80 APIs</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Target Audience</strong>
+        <span>Stakeholders & Engineers</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="page-break"></div>
+<h1>Table of Contents</h1>
+<ul class="toc-list">
+  <li class="toc-item">
+    <span><strong>Chapter 1:</strong> Foundations in Plain English: How Web Platforms Work</span>
+    <span class="toc-dots"></span>
+    <span>3</span>
+  </li>
+  <li class="toc-item">
+    <span><strong>Chapter 2:</strong> The Complete Platform Journey: From Visitor to Logout</span>
+    <span class="toc-dots"></span>
+    <span>6</span>
+  </li>
+  <li class="toc-item">
+    <span><strong>Chapter 3:</strong> Database Architecture & Data Dictionary (45 Models, 26 Enums)</span>
+    <span class="toc-dots"></span>
+    <span>11</span>
+  </li>
+  <li class="toc-item">
+    <span><strong>Chapter 4:</strong> Complete Frontend Page Directory (All 42 User Pages)</span>
+    <span class="toc-dots"></span>
+    <span>19</span>
+  </li>
+  <li class="toc-item">
+    <span><strong>Chapter 5:</strong> Complete Backend API Directory (All 80 REST Endpoints)</span>
+    <span class="toc-dots"></span>
+    <span>26</span>
+  </li>
+  <li class="toc-item">
+    <span><strong>Chapter 6:</strong> Specialized Platform Engine Deep-Dives</span>
+    <span class="toc-dots"></span>
+    <span>33</span>
+  </li>
+  <li class="toc-item">
+    <span><strong>Chapter 7:</strong> Production Operations, Security & Compliance</span>
+    <span class="toc-dots"></span>
+    <span>38</span>
+  </li>
+</ul>
+
+<div class="callout callout-info">
+  <div class="callout-title">How to Read This Manual</div>
+  This document is structured hierarchically. If you are non-technical, begin with <strong>Chapter 1</strong> and <strong>Chapter 2</strong> to understand the big picture and user flow. If you are a developer, auditor, or database administrator, consult <strong>Chapter 3</strong> through <strong>Chapter 6</strong> for exact schema definitions, API contracts, and engineering details.
+</div>
+
+
+<!-- CHAPTER 1: WELCOME & FOUNDATIONAL CONCEPTS IN PLAIN ENGLISH -->
+<div class="page-break"></div>
+<h1>1. Foundations in Plain English: How Web Platforms Work</h1>
+
+<div class="callout callout-info">
+  <div class="callout-title">Who This Chapter Is For</div>
+  If you have never written a line of code or built a website, this chapter is for you. We explain all technical terms (like "frontend", "backend", "database", "API", and "JWT") using simple real-world analogies so you can easily understand how the Tinat platform functions from top to bottom.
+</div>
+
+<h2>1.1 The Real-World Mission: What is Tinat?</h2>
+<p>
+  <strong>Tinat</strong> (derived from the Ge'ez / Amharic root <em>ጥናት</em>, meaning "Rigorous Scientific Study" or "In-depth Research") is a complete digital operating system built for medical, public health, and academic research in Ethiopia.
+</p>
+<p>
+  Historically, conducting a research study in Ethiopia (such as an epidemiological health survey by Addis Ababa University or Tikur Anbessa Hospital) was a grueling, manual process:
+</p>
+<ul>
+  <li><strong>Paper Questionnaires:</strong> Researchers printed thousands of paper sheets, hired field workers to travel to rural woredas, and manually typed answers into spreadsheets weeks later. This resulted in lost forms, transcription typos, and high costs.</li>
+  <li><strong>Survey Fraud & Duplicate Answers:</strong> Online survey links (like Google Forms) had no way to verify identity. One person could submit 50 fake responses to collect gift cards or skew research outcomes.</li>
+  <li><strong>Payment Friction:</strong> Handing physical paper currency to hundreds of survey respondents across Ethiopia is risky and slow. Many rural participants lacked traditional bank accounts.</li>
+  <li><strong>Scattered Team Coordination:</strong> Research protocols, ethical clearance certificates, raw datasets, and team communications were scattered across WhatsApp, Telegram, personal email accounts, and thumb drives.</li>
+</ul>
+<p>
+  <strong>Tinat solves all four problems in one unified platform:</strong> It verifies participant identities against Ethiopia's <em>Fayda National Digital ID</em> system, provides real-time digital questionnaires on computers and smartphones, pays participants instantly in Ethiopian Birr (ETB) via <em>Telebirr</em> or <em>Commercial Bank of Ethiopia (CBE)</em>, and gives research teams a secure collaborative workspace with file sharing, real-time chat, and AI assistance.
+</p>
+
+<h2>1.2 Core Building Blocks Explained Simply</h2>
+
+<div class="grid-2">
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-emerald">Concept 1</span>
+      <h3>The "Frontend" (The Face of the App)</h3>
+    </div>
+    <p>
+      <strong>Analogy:</strong> The dining room and menu of a restaurant.
+    </p>
+    <p>
+      The <em>Frontend</em> is everything you see on your computer screen or phone when you visit Tinat. It includes buttons, input boxes, color themes, navigation menus, and animations. When a button turns green when you hover over it or a popup shows your wallet balance, that is the frontend at work.
+    </p>
+    <p>
+      <strong>In Tinat:</strong> Built using <em>Next.js 14</em>, <em>React</em>, and <em>Tailwind CSS</em>.
+    </p>
+  </div>
+
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-blue">Concept 2</span>
+      <h3>The "Backend" (The Invisible Brain)</h3>
+    </div>
+    <p>
+      <strong>Analogy:</strong> The kitchen and chefs behind the swinging doors.
+    </p>
+    <p>
+      The <em>Backend</em> is the server computer running in the cloud that you never see. It processes calculations, verifies whether passwords are correct, confirms whether you have enough funds in your wallet, and enforces security rules. The frontend cannot be trusted to do math because clever users could modify client code; the backend makes all authoritative decisions.
+    </p>
+    <p>
+      <strong>In Tinat:</strong> Built using <em>Next.js Server Handlers</em> running on <em>Node.js</em>.
+    </p>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-amber">Concept 3</span>
+      <h3>The "Database" (The Permanent Digital Vault)</h3>
+    </div>
+    <p>
+      <strong>Analogy:</strong> A giant, indestructible filing cabinet with organized folders.
+    </p>
+    <p>
+      If the server shuts down or restarts, all memory in the computer is cleared. The <em>Database</em> is where information is written to permanent storage so it lasts forever. Every user account, study question, survey answer, and financial transaction is recorded in a specific "Table" (like a spreadsheet sheet) with rows and columns.
+    </p>
+    <p>
+      <strong>In Tinat:</strong> Built using an enterprise-grade relational database called <em>PostgreSQL</em>.
+    </p>
+  </div>
+
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-purple">Concept 4</span>
+      <h3>The "ORM" / Prisma (The Universal Translator)</h3>
+    </div>
+    <p>
+      <strong>Analogy:</strong> A professional translator who speaks both human programming code and database SQL language.
+    </p>
+    <p>
+      Databases speak a specialized language called SQL (Structured Query Language). Writing raw SQL can be difficult and prone to dangerous mistakes. Tinat uses <strong>Prisma ORM</strong>. Prisma lets our backend engineers write clean TypeScript code (e.g., <code>prisma.user.findUnique(...)</code>) and automatically translates it into fast, safe SQL commands.
+    </p>
+    <p>
+      <strong>In Tinat:</strong> <em>Prisma ORM</em> governs all 45 models in our system.
+    </p>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-rose">Concept 5</span>
+      <h3>The "API" & "Routes" (The Digital Postal Service)</h3>
+    </div>
+    <p>
+      <strong>Analogy:</strong> The waiter carrying orders from dining tables to the kitchen and bringing food back.
+    </p>
+    <p>
+      <strong>API</strong> stands for <em>Application Programming Interface</em>. It is a set of secure digital addresses (called <em>Endpoints</em> or <em>Routes</em>). When you click "Submit Survey" in your browser, your browser packages your answers into a small envelope of text called a <strong>Request</strong>, sends it across the internet to an address like <code>/api/f/[id]/submit</code>, and waits for a <strong>Response</strong> (e.g., "Success! 50 ETB added to wallet").
+    </p>
+  </div>
+
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-emerald">Concept 6</span>
+      <h3>HTTP Verbs (The Action Instructions)</h3>
+    </div>
+    <p>
+      Every API request tells the backend what kind of action is requested:
+    </p>
+    <ul>
+      <li><span class="method-get">GET</span>: "Please read and give me this data" (e.g., fetch study questions).</li>
+      <li><span class="method-post">POST</span>: "Please create something new" (e.g., submit a new answer, register an account).</li>
+      <li><span class="method-patch">PATCH</span>: "Please update a specific part of an existing record" (e.g., update user bio).</li>
+      <li><span class="method-delete">DELETE</span>: "Please remove this item" (e.g., delete a project file).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-blue">Concept 7</span>
+      <h3>Authentication & JWT (Your Digital Passport)</h3>
+    </div>
+    <p>
+      <strong>Analogy:</strong> A cryptographically signed wristband given at a concert entrance.
+    </p>
+    <p>
+      When you log in with your email and password, the backend verifies your credentials. But how does the server remember who you are when you click to the next page? It issues an encrypted digital badge called a <strong>JWT (JSON Web Token)</strong>. This token is stored securely in your browser's cookie jar. With every subsequent click, your browser automatically flashes this badge, proving who you are without asking for your password again.
+    </p>
+  </div>
+
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-amber">Concept 8</span>
+      <h3>Fayda National ID (Fraud Elimination)</h3>
+    </div>
+    <p>
+      <strong>Analogy:</strong> A government passport verification checkpoint.
+    </p>
+    <p>
+      Ethiopia's <strong>Fayda</strong> is the national digital identity system. In Tinat, users can link their Fayda ID. The system checks their national registration to confirm they are a real, living human being with a verified national identity. This guarantees that survey respondents cannot create fake duplicate accounts to collect money or distort medical statistics.
+    </p>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-purple">Concept 9</span>
+      <h3>Financial Rails: Chapa, Telebirr & CBE</h3>
+    </div>
+    <p>
+      <strong>Analogy:</strong> Digital banks that convert internet clicks into real Ethiopian Birr (ETB).
+    </p>
+    <p>
+      When a researcher needs to fund a study (e.g., depositing 10,000 ETB for 200 participant incentives), they pay using <strong>Chapa</strong>, Ethiopia's payment gateway. When participants earn credits, they can withdraw their earnings directly to their <strong>Telebirr</strong> mobile wallet or their <strong>Commercial Bank of Ethiopia (CBE)</strong> savings account with a single click.
+    </p>
+  </div>
+
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-rose">Concept 10</span>
+      <h3>Expo & Mobile Admin App</h3>
+    </div>
+    <p>
+      <strong>Analogy:</strong> A portable command center in the palm of your hand.
+    </p>
+    <p>
+      In addition to the web platform, Tinat includes a mobile smartphone app built with <strong>React Native</strong> and <strong>Expo SDK ~58.0.19</strong>. System administrators can carry it on their Android or iOS phones to approve research studies, verify user identities, review withdrawal requests, and monitor platform health on the go.
+    </p>
+  </div>
+</div>
+
+
+
+<!-- CHAPTER 2: THE END-TO-END USER JOURNEY -->
+<div class="page-break"></div>
+<h1>2. The Complete Platform Journey: From Visitor to Logout</h1>
+
+<div class="callout callout-info">
+  <div class="callout-title">The General Map</div>
+  This chapter tracks every single step of a user's experience on the Tinat platform. We show you what the user sees, what happens when they click buttons, and what the server and database are doing behind the scenes at every stage.
+</div>
+
+<div class="diagram-container">
+  <div class="diagram-title">Figure 2.1 — Global System Navigation & State Progression Map</div>
+  <svg width="100%" height="220" viewBox="0 0 760 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Row 1: Landing -> Auth -> Router -->
+    <rect x="20" y="20" width="130" height="55" rx="8" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+    <text x="85" y="45" fill="#0F172A" font-size="10" font-family="Inter" font-weight="bold" text-anchor="middle">1. Visitor Landing</text>
+    <text x="85" y="60" fill="#64748B" font-size="8" font-family="Inter" text-anchor="middle">Public /studies, /</text>
+
+    <path d="M150 47 H190" stroke="#0F172A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="190" y="20" width="150" height="55" rx="8" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="265" y="45" fill="#1E40AF" font-size="10" font-family="Inter" font-weight="bold" text-anchor="middle">2. Register & Fayda</text>
+    <text x="265" y="60" fill="#2563EB" font-size="8" font-family="Inter" text-anchor="middle">ID Verification & Email</text>
+
+    <path d="M340 47 H380" stroke="#0F172A" stroke-width="1.5"/>
+
+    <rect x="380" y="20" width="140" height="55" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="450" y="45" fill="#92400E" font-size="10" font-family="Inter" font-weight="bold" text-anchor="middle">3. Login & JWT</text>
+    <text x="450" y="60" fill="#B45309" font-size="8" font-family="Inter" text-anchor="middle">Role Dispatcher (/dashboard)</text>
+
+    <path d="M520 47 H570" stroke="#0F172A" stroke-width="1.5"/>
+
+    <rect x="570" y="20" width="170" height="55" rx="8" fill="#DCFCE7" stroke="#10B981" stroke-width="1.5"/>
+    <text x="655" y="45" fill="#065F46" font-size="10" font-family="Inter" font-weight="bold" text-anchor="middle">4. Active Workspace</text>
+    <text x="655" y="60" fill="#047857" font-size="8" font-family="Inter" text-anchor="middle">Role-Based Dashboard</text>
+
+    <!-- Branching lines down to roles -->
+    <path d="M655 75 V105" stroke="#10B981" stroke-width="1.5"/>
+
+    <!-- 4 Role blocks below -->
+    <rect x="20" y="120" width="165" height="70" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2"/>
+    <text x="102" y="142" fill="#0F172A" font-size="9.5" font-family="Inter" font-weight="bold" text-anchor="middle">RESEARCHER</text>
+    <text x="102" y="157" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Studies, Question Builder,</text>
+    <text x="102" y="170" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Social Decks, Chapa Deposit</text>
+
+    <rect x="210" y="120" width="165" height="70" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2"/>
+    <text x="292" y="142" fill="#0F172A" font-size="9.5" font-family="Inter" font-weight="bold" text-anchor="middle">PARTICIPANT</text>
+    <text x="292" y="157" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Surveys, Instant Wallet,</text>
+    <text x="292" y="170" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Telebirr & CBE Withdrawals</text>
+
+    <rect x="400" y="120" width="165" height="70" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2"/>
+    <text x="482" y="142" fill="#0F172A" font-size="9.5" font-family="Inter" font-weight="bold" text-anchor="middle">FIELD COLLECTOR</text>
+    <text x="482" y="157" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Offline Survey Sessions,</text>
+    <text x="482" y="170" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Rural Clinic Enumeration</text>
+
+    <rect x="590" y="120" width="150" height="70" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2"/>
+    <text x="665" y="142" fill="#0F172A" font-size="9.5" font-family="Inter" font-weight="bold" text-anchor="middle">ADMINISTRATOR</text>
+    <text x="665" y="157" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Auditing, Study Approval,</text>
+    <text x="665" y="170" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Payouts, Mobile Admin</text>
+  </svg>
+</div>
+
+<h2>2.1 Phase 1: Visitor Arrival & Public Exploration</h2>
+<p>
+  When any person opens their web browser and navigates to <code>https://tinat.org/</code>:
+</p>
+<ol>
+  <li><strong>The Landing Page (<code>/</code>):</strong>
+    <ul>
+      <li>Displays the platform's hero section, explaining that Tinat is Ethiopia's verified research and public health digital network.</li>
+      <li>Presents live platform statistics (e.g., total studies completed, verified participants, active universities).</li>
+      <li>Shows two primary action buttons: <em>"Join as Researcher"</em> and <em>"Participate & Earn"</em>.</li>
+    </ul>
+  </li>
+  <li><strong>Public Study Catalog (<code>/studies</code>):</strong>
+    <ul>
+      <li>Anyone can browse active, publicly listed research studies without logging in.</li>
+      <li>Each study card displays its category (e.g., Epidemiology, Maternal Health, Nutrition), estimated completion time (e.g., "7 minutes"), and the credit reward paid upon completion (e.g., "50 ETB").</li>
+    </ul>
+  </li>
+  <li><strong>Public Knowledge & Policy:</strong>
+    <ul>
+      <li>Visitors can view <code>/terms</code> (Terms of Service) and <code>/privacy</code> (Data Privacy and Institutional Review Board compliance).</li>
+    </ul>
+  </li>
+</ol>
+
+<h2>2.2 Phase 2: Registration, Email Verification & Fayda National ID</h2>
+<p>
+  When a visitor decides to create an account, they click <strong>"Sign Up"</strong>, which opens the registration screen at <code>/register</code>:
+</p>
+<ol>
+  <li><strong>Form Submission:</strong>
+    <ul>
+      <li>The user inputs their Full Name, Email Address, Phone Number, Password, and selects their desired role (Researcher or Participant).</li>
+      <li>When they click <strong>"Create Account"</strong>, the browser makes a <span class="method-post">POST</span> request to <code>/api/auth/register</code>.</li>
+      <li>The backend hashes the password using <em>bcrypt</em> (never storing plain text passwords) and saves a new record in the <code>User</code> database table with <code>emailVerified: null</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Email Verification (<code>/verify-email</code>):</strong>
+    <ul>
+      <li>A secure email containing a unique cryptographic verification link is dispatched.</li>
+      <li>When the user clicks the link, the backend hits <code>/api/auth/verify-email</code>, updates <code>emailVerified = NOW()</code>, and activates the account.</li>
+    </ul>
+  </li>
+  <li><strong>The Fayda National ID Gateway (<code>/api/auth/fayda-verify</code>):</strong>
+    <ul>
+      <li>To guarantee that respondents are real Ethiopian citizens and prevent multiple fraudulent submissions, users enter their <strong>Fayda National Identification Number (FIN)</strong>.</li>
+      <li>The backend interfaces with the national identity verification service, matches the biometric/demographic record, and marks the user's account with a verified badge.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2>2.3 Phase 3: Login & Role-Based Dispatching</h2>
+<ol>
+  <li><strong>Authentication (<code>/login</code>):</strong>
+    <ul>
+      <li>The user provides their email and password.</li>
+      <li>The backend validates the credentials, generates an encrypted <strong>JWT session token</strong>, and stores it in an HTTP-only secure cookie.</li>
+    </ul>
+  </li>
+  <li><strong>The Smart Traffic Cop (<code>/dashboard</code>):</strong>
+    <ul>
+      <li>Upon successful login, all users are automatically navigated to <code>/dashboard</code>.</li>
+      <li>The <code>/dashboard</code> page reads the user's role from their session token and immediately dispatches them to their dedicated workspace:
+        <ul>
+          <li><strong>ADMIN:</strong> Dispatched immediately to <code>/admin</code>.</li>
+          <li><strong>RESEARCHER:</strong> Dispatched to <code>/researcher</code>.</li>
+          <li><strong>PARTICIPANT:</strong> Dispatched to <code>/participant</code>.</li>
+          <li><strong>DATA COLLECTOR:</strong> Dispatched to <code>/collector/dashboard</code>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2>2.4 Phase 4: The Researcher Journey</h2>
+<p>
+  A researcher (such as a university professor, clinical investigator, or NGO health director) enters the <strong>Researcher Hub</strong> (<code>/researcher</code>):
+</p>
+<div class="grid-2">
+  <div class="card">
+    <div class="card-header"><span class="badge badge-emerald">Step 1</span> Designing the Study</div>
+    <div class="card-body">
+      The researcher clicks <strong>"Create New Study"</strong> (<code>/researcher/studies/new</code>). They enter the study title, background hypothesis, ethics clearance IRB registration number, target sample size (e.g., 500 respondents), and reward per response (e.g., 60 ETB).
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-emerald">Step 2</span> Building the Questionnaire</div>
+    <div class="card-body">
+      In the question builder, the researcher adds sections and questions: Single Select, Multiple Select, Short Text, Numerical values, Rating Scales (1 to 5), or Matrix Likert scales. Each question can be marked optional or mandatory.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-emerald">Step 3</span> Funding the Study via Chapa</div>
+    <div class="card-body">
+      To activate the study, the researcher funds the participant reward pool. The backend calculates total incentives (500 respondents &times; 60 ETB = 30,000 ETB) and initiates a <strong>Chapa Payment</strong> checkout. Once paid, the study status changes from <code>DRAFT</code> to <code>ACTIVE</code>.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-emerald">Step 4</span> Sharing Links & Social Decks</div>
+    <div class="card-body">
+      The researcher uses the <strong>"Share Study Link"</strong> button to copy the direct URL or download a QR code. They can also open the <strong>Social Deck Generator</strong> to create publication-grade image banners with customized color palettes, aspect ratios (1:1, 16:9, 9:16), and saved preset configurations for Telegram and social channels.
+    </div>
+  </div>
+</div>
+
+<h2>2.5 Phase 5: The Participant Journey (Surveys & Platform Credit Rewards)</h2>
+<p>
+  A participant logs in to the <strong>Participant Portal</strong> (<code>/participant</code>):
+</p>
+<div class="grid-2">
+  <div class="card">
+    <div class="card-header"><span class="badge badge-blue">Step 1</span> Discovering Eligible Studies</div>
+    <div class="card-body">
+      The participant sees a curated feed of studies they are eligible for. The card shows the research topic, institution, time commitment, and exact ETB reward.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-blue">Step 2</span> Answering Questions (<code>/f/[id]</code>)</div>
+    <div class="card-body">
+      The participant reads the ethical informed consent statement and clicks "I Agree". They navigate through questions smoothly. Client-side validation ensures required questions are answered before moving forward.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-blue">Step 3</span> Instant Reward & Wallet Credit</div>
+    <div class="card-body">
+      Upon clicking "Submit", the backend verifies that the participant hasn't already submitted this study. It creates an append-only <code>Response</code> and <code>Answer</code> record, and instantly transfers credits to the participant's digital <code>Wallet</code> via an audited <code>TinatCreditTransaction</code>.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-blue">Step 4</span> Earning and Managing Non-Cash Tinat Credits</div>
+    <div class="card-body">
+      The participant navigates to <code>/participant/wallet/withdraw</code>. They select either <strong>Telebirr</strong> (mobile money) or <strong>Commercial Bank of Ethiopia (CBE)</strong>, enter their account or phone number, and submit. The funds are disbursed directly to their real-world account.
+    </div>
+  </div>
+</div>
+
+<h2>2.6 Phase 6: Field Data Collectors (Offline & Community Enumeration)</h2>
+<p>
+  In many rural Ethiopian woredas, community members do not have smartphones or internet access. Tinat provides the <strong>Collector Engine</strong> (<code>/collector/dashboard</code>):
+</p>
+<ul>
+  <li>Researchers invite certified field data collectors (nurses, community health workers) via <code>CollectorInvitation</code>.</li>
+  <li>The collector logs in and opens <code>/collector/studies/[id]/collect</code> on an Android tablet or phone.</li>
+  <li>The collector conducts in-person clinical interviews with rural patients, entering responses into the app.</li>
+  <li>Responses are saved under a <code>CollectionSession</code>, storing GPS verification and enumerator signatures.</li>
+</ul>
+
+<h2>2.7 Phase 7: Collaborative Research Projects & Workspace Hub</h2>
+<p>
+  Scientific research is rarely conducted alone. The <strong>Projects Engine</strong> (<code>/projects</code>) provides an institutional collaboration suite:
+</p>
+<ul>
+  <li><strong>Team Hierarchy:</strong> Investigators can create projects (<code>/projects/new</code>) and invite colleagues with distinct roles: <code>OWNER</code>, <code>LEAD</code>, <code>MEMBER</code>, or <code>OBSERVER</code>.</li>
+  <li><strong>Document & File Repository:</strong> Team members upload research proposals, IRB ethical clearance certificates, raw data, and statistical scripts. Users with proper permissions can download files or permanently <strong>Delete Files</strong> when outdated or erroneous, complete with full audit logging.</li>
+  <li><strong>Live Team Chat:</strong> Research teams communicate directly inside the project workspace using a dedicated chat window equipped with a full <strong>typing bar, message composer, and conversation history</strong>.</li>
+  <li><strong>Task & Milestone Tracking:</strong> Projects track institutional deliverables, ethics approval dates, publication deadlines, and formal team decisions.</li>
+</ul>
+
+<h2>2.8 Phase 8: Super Administration & Mobile Management</h2>
+<p>
+  System administrators have complete oversight through both web (<code>/admin</code>) and mobile (<code>apps/admin-mobile</code>):
+</p>
+<ul>
+  <li><strong>User Governance (<code>/admin/users</code>):</strong> Approving researcher credentials, reviewing Fayda identification submissions, and adjusting roles.</li>
+  <li><strong>Study Approvals (<code>/admin/studies</code>):</strong> Reviewing newly submitted studies to ensure they meet ethical and scientific standards before going live.</li>
+  <li><strong>Financial Treasury & Withdrawal Processing (<code>/admin/withdrawals</code>):</strong> Auditing Telebirr and CBE payout batches, approving disbursements, and maintaining ledger balance.</li>
+  <li><strong>Security Audit Trails (<code>/admin/logs</code>):</strong> Inspecting timestamped records of every sensitive operation performed on the platform.</li>
+  <li><strong>Mobile Admin App:</strong> Native smartphone app built with Expo SDK ~58.0.19, allowing admins to approve withdrawals, review flagged accounts, and monitor system metrics remotely.</li>
+</ul>
+
+<h2>2.9 Phase 9: Secure Session Logout & Teardown</h2>
+<p>
+  When a user finishes their session and clicks <strong>"Sign Out"</strong>:
+</p>
+<ol>
+  <li>The browser initiates a <span class="method-post">POST</span> request to <code>/api/auth/logout</code>.</li>
+  <li>The backend clears the HTTP-only JWT session cookie from the browser and destroys any active server session caches.</li>
+  <li>An <code>ActivityLog</code> entry is written to record the logout event with timestamp and IP address.</li>
+  <li>The browser purges local in-memory states (TanStack React Query caches) and redirects the user safely back to the public landing page (<code>/</code>).</li>
+</ol>
+
+
+
+<!-- CHAPTER 3: DATABASE ARCHITECTURE & DATA DICTIONARY -->
+<div class="page-break"></div>
+<h1>3. Database Architecture & Data Dictionary (59 Models & 32 Enums)</h1>
+
+<div class="callout callout-info">
+  <div class="callout-title">Understanding the Database Structure</div>
+  A database model is like a master template for a specific spreadsheet table. Every time an action happens on Tinat (such as someone creating an account, asking a question, or recording a research answer), a new row is permanently recorded in one of these 59 tables. Below, every single table and list of choices (enums) is explained in plain English.
+</div>
+
+<h2>3.1 The 32 System Enums (Standardized Choice Lists)</h2>
+<p>
+  An <em>Enum</em> (Enumeration) is a strict list of allowed options. It prevents typos and invalid data from entering the database.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%;">Enum Name</th>
+      <th style="width: 35%;">Allowed Values</th>
+      <th style="width: 40%;">Plain English Meaning & Real-World Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>UserRole</code></td>
+      <td><code>RESEARCHER</code>, <code>PARTICIPANT</code>, <code>ADMIN</code>, <code>DATA_COLLECTOR</code></td>
+      <td>Defines the user's primary identity and permissions on the platform (including field enumerators).</td>
+    </tr>
+    <tr>
+      <td><code>StudyStatus</code></td>
+      <td><code>DRAFT</code>, <code>ACTIVE</code>, <code>PAUSED</code>, <code>COMPLETED</code>, <code>ARCHIVED</code></td>
+      <td>Tracks the lifecycle of a research study from initial authoring to archival.</td>
+    </tr>
+    <tr>
+      <td><code>StudyType</code></td>
+      <td><code>SURVEY</code>, <code>CLINICAL_TRIAL</code>, <code>OBSERVATIONAL</code>, <code>EPIDEMIOLOGICAL</code></td>
+      <td>The scientific methodology and medical classification of the study.</td>
+    </tr>
+    <tr>
+      <td><code>QuestionType</code></td>
+      <td><code>SHORT_TEXT</code>, <code>LONG_TEXT</code>, <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>, <code>RATING</code>, <code>NUMBER</code>, <code>DATE</code>, <code>MATRIX</code></td>
+      <td>Specifies the interactive input widget rendered to participants when answering.</td>
+    </tr>
+    <tr>
+      <td><code>TransactionType</code></td>
+      <td><code>CREDIT</code>, <code>DEBIT</code>, <code>REFUND</code>, <code>WITHDRAWAL</code>, <code>BONUS</code>, <code>STUDY_REWARD</code>, <code>STUDY_FUNDING</code></td>
+      <td>Categorizes movement of funds in the digital credit ledger.</td>
+    </tr>
+    <tr>
+      <td><code>PaymentStatus</code></td>
+      <td><code>PENDING</code>, <code>SUCCESS</code>, <code>FAILED</code>, <code>CANCELLED</code></td>
+      <td>Indicates whether an incoming deposit from Chapa successfully cleared.</td>
+    </tr>
+    <tr>
+      <td><code>WithdrawalStatus</code></td>
+      <td><code>PENDING</code>, <code>PROCESSING</code>, <code>COMPLETED</code>, <code>REJECTED</code>, <code>FAILED</code></td>
+      <td>The processing state of legacy withdrawal requests (disabled).</td>
+    </tr>
+    <tr>
+      <td><code>AskQuestionStatus</code></td>
+      <td><code>PENDING</code>, <code>ANSWERED</code>, <code>REJECTED</code>, <code>PINNED</code></td>
+      <td>State of public inquiries sent to researchers on Ask Tinat.</td>
+    </tr>
+    <tr>
+      <td><code>ProjectStatus</code></td>
+      <td><code>PLANNING</code>, <code>ACTIVE</code>, <code>ON_HOLD</code>, <code>COMPLETED</code>, <code>ARCHIVED</code></td>
+      <td>Overall progress and organizational health of a collaborative research project.</td>
+    </tr>
+    <tr>
+      <td><code>ProjectVisibility</code></td>
+      <td><code>PUBLIC</code>, <code>INTERNAL</code>, <code>PRIVATE</code></td>
+      <td>Controls whether non-team members can view project outputs and metadata.</td>
+    </tr>
+    <tr>
+      <td><code>ProjectPhase</code></td>
+      <td><code>PROPOSAL</code>, <code>IRB_REVIEW</code>, <code>DATA_COLLECTION</code>, <code>ANALYSIS</code>, <code>MANUSCRIPT</code>, <code>DISSEMINATION</code></td>
+      <td>Current academic milestone of the research investigation.</td>
+    </tr>
+    <tr>
+      <td><code>ProjectRole</code></td>
+      <td><code>OWNER</code>, <code>LEAD</code>, <code>MEMBER</code>, <code>OBSERVER</code></td>
+      <td>Permission level within a research team (determines who can delete files or edit tasks).</td>
+    </tr>
+    <tr>
+      <td><code>ProjectTaskStatus</code></td>
+      <td><code>BACKLOG</code>, <code>TODO</code>, <code>IN_PROGRESS</code>, <code>IN_REVIEW</code>, <code>DONE</code></td>
+      <td>Kanban status for actionable team items.</td>
+    </tr>
+    <tr>
+      <td><code>ProjectTaskPriority</code></td>
+      <td><code>LOW</code>, <code>MEDIUM</code>, <code>HIGH</code>, <code>URGENT</code></td>
+      <td>Urgency ranking for project deliverables.</td>
+    </tr>
+    <tr>
+      <td><code>ProjectFileFolder</code></td>
+      <td><code>PROTOCOL</code>, <code>ETHICS_IRB</code>, <code>INSTRUMENTS</code>, <code>RAW_DATA</code>, <code>ANALYSIS</code>, <code>MANUSCRIPTS</code>, <code>OTHER</code></td>
+      <td>Categorical taxonomy for shared files in research workspaces.</td>
+    </tr>
+    <tr>
+      <td><code>ProjectOutputType</code></td>
+      <td><code>MANUSCRIPT</code>, <code>CONFERENCE_POSTER</code>, <code>DATASET</code>, <code>POLICY_BRIEF</code>, <code>REPORT</code></td>
+      <td>Scholarly deliverables resulting from the study.</td>
+    </tr>
+    <tr>
+      <td><code>ProjectOutputStatus</code></td>
+      <td><code>DRAFT</code>, <code>SUBMITTED</code>, <code>UNDER_REVIEW</code>, <code>ACCEPTED</code>, <code>PUBLISHED</code></td>
+      <td>Peer-review and publication pipeline state for manuscripts.</td>
+    </tr>
+    <tr>
+      <td><code>InvitationStatus</code></td>
+      <td><code>PENDING</code>, <code>ACCEPTED</code>, <code>DECLINED</code>, <code>EXPIRED</code></td>
+      <td>Status of team or collector membership invitations.</td>
+    </tr>
+    <tr>
+      <td><code>DecisionStatus</code></td>
+      <td><code>PROPOSED</code>, <code>IN_DISCUSSION</code>, <code>ADOPTED</code>, <code>REJECTED</code>, <code>SUPERSEDED</code></td>
+      <td>Governance record for scientific choices made by project leads.</td>
+    </tr>
+    <tr>
+      <td><code>AIProvider</code></td>
+      <td><code>OPENAI</code>, <code>ANTHROPIC</code>, <code>GOOGLE_GEMINI</code>, <code>LOCAL</code></td>
+      <td>The underlying Large Language Model engine powering Tinat AI features.</td>
+    </tr>
+    <tr>
+      <td><code>AIMessageRole</code></td>
+      <td><code>SYSTEM</code>, <code>USER</code>, <code>ASSISTANT</code></td>
+      <td>Conversation turns in the AI research chat dialogue.</td>
+    </tr>
+    <tr>
+      <td><code>AIArtifactType</code></td>
+      <td><code>QUESTIONNAIRE</code>, <code>ANALYSIS_PLAN</code>, <code>ABSTRACT</code>, <code>CHART_SPEC</code>, <code>CODE_SNIPPET</code></td>
+      <td>Structured output produced by the AI assistant for researchers to copy.</td>
+    </tr>
+    <tr>
+      <td><code>VerificationType</code></td>
+      <td><code>FAYDA_NATIONAL_ID</code>, <code>ACADEMIC_CREDENTIAL</code>, <code>INSTITUTIONAL_AFFILIATION</code></td>
+      <td>Identity proof category submitted by users.</td>
+    </tr>
+    <tr>
+      <td><code>VerificationStatus</code></td>
+      <td><code>PENDING</code>, <code>APPROVED</code>, <code>REJECTED</code>, <code>EXPIRED</code></td>
+      <td>Review state of an identity or academic credential.</td>
+    </tr>
+    <tr>
+      <td><code>CollectionMethod</code></td>
+      <td><code>ONLINE_DIRECT</code>, <code>FIELD_ENUMERATOR</code>, <code>CLINIC_TABLET</code>, <code>TELEPHONE_INTERVIEW</code></td>
+      <td>Channel through which participant survey responses were gathered.</td>
+    </tr>
+    <tr>
+      <td><code>SessionStatus</code></td>
+      <td><code>ACTIVE</code>, <code>PAUSED</code>, <code>COMPLETED</code>, <code>SYNCED</code></td>
+      <td>Operational state of a field enumerator's survey batch session.</td>
+    </tr>
+    <tr>
+      <td><code>StudyFundingType</code></td>
+      <td><code>FREE</code>, <code>FUNDED</code></td>
+      <td>Distinguishes zero-credit academic studies from incentive-backed funded studies.</td>
+    </tr>
+    <tr>
+      <td><code>LedgerAccountKind</code></td>
+      <td><code>SYSTEM_ISSUANCE</code>, <code>USER_WALLET</code></td>
+      <td>Designates ledger accounts in the balanced double-entry non-cash credit token economy.</td>
+    </tr>
+    <tr>
+      <td><code>EthicsApprovalStatus</code></td>
+      <td><code>PENDING</code>, <code>VERIFIED</code>, <code>REJECTED</code>, <code>EXPIRED</code></td>
+      <td>IRB / Ethics Committee verification lifecycle state gatekeeper for study activation.</td>
+    </tr>
+    <tr>
+      <td><code>ModerationStatus</code></td>
+      <td><code>OPEN</code>, <code>INVESTIGATING</code>, <code>RESOLVED</code>, <code>DISMISSED</code></td>
+      <td>Investigation and resolution workflow state for participant-flagged studies.</td>
+    </tr>
+    <tr>
+      <td><code>DataSubjectRequestType</code></td>
+      <td><code>ACCESS</code>, <code>RECTIFICATION</code>, <code>ERASURE</code>, <code>WITHDRAW_CONSENT</code></td>
+      <td>Statutory privacy requests supported under Ethiopian Personal Data Protection Proclamation 1321/2024.</td>
+    </tr>
+    <tr>
+      <td><code>DataSubjectRequestStatus</code></td>
+      <td><code>PENDING</code>, <code>IN_REVIEW</code>, <code>COMPLETED</code>, <code>REJECTED</code></td>
+      <td>Data protection compliance tracking state for participant privacy rights requests.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3.2 All 59 Database Models Explained in Detail</h2>
+<p>
+  Below is the complete inventory of all 59 database models in Tinat, organized into logical business functional clusters.
+</p>
+
+<!-- CLUSTER 1: IDENTITY, ACCOUNTS & SECURITY -->
+<h3>Cluster 1: User Identity, Authentication & Security</h3>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-emerald">Model 1</span> <strong>User</strong> — The Core Identity Vault</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Every single human or administrative account on the platform.</p>
+    <p><strong>Key Fields:</strong> <code>id</code> (Unique ID), <code>name</code>, <code>email</code> (Login username), <code>passwordHash</code> (Encrypted bcrypt password), <code>role</code> (<code>RESEARCHER</code>, <code>PARTICIPANT</code>, <code>ADMIN</code>), <code>faydaId</code> (Linked Ethiopian National ID), <code>isVerified</code>, <code>emailVerified</code>, <code>createdAt</code>.</p>
+    <p><strong>Relationships:</strong> Connects to <code>Wallet</code> (1:1), <code>Study</code> (created studies), <code>Response</code> (surveys answered), <code>ProjectMember</code> (projects joined), <code>Verification</code> (proofs submitted).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-emerald">Model 2</span> <strong>Verification</strong> — National ID & Academic Verification</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Records of Fayda National ID checks and university faculty credentials.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>type</code> (<code>FAYDA_NATIONAL_ID</code>, <code>ACADEMIC_CREDENTIAL</code>), <code>idNumber</code>, <code>documentUrl</code>, <code>status</code> (<code>PENDING</code>, <code>APPROVED</code>, <code>REJECTED</code>), <code>reviewedBy</code>, <code>reviewedAt</code>.</p>
+    <p><strong>Purpose:</strong> Guarantees that users are real Ethiopian citizens and authenticates research credentials.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-emerald">Model 3</span> <strong>ActivityLog</strong> — System Audit Trail</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> An append-only, tamper-evident security record of actions taken on the system.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>action</code> (e.g. <code>LOGIN</code>, <code>STUDY_CREATED</code>, <code>FILE_DELETED</code>, <code>WITHDRAWAL_APPROVED</code>), <code>details</code> (JSON), <code>ipAddress</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-emerald">Model 4</span> <strong>Notification</strong> — In-App User Alerts</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Real-time alerts sent to users' bell icons (e.g. "Your survey reward of 50 ETB was credited").</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>title</code>, <code>message</code>, <code>link</code>, <code>read</code> (true/false), <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-emerald">Model 5</span> <strong>AdminChatMessage</strong> — Admin Communication Channel</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Direct internal messages between system administrators in the admin console.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>senderId</code>, <code>recipientId</code>, <code>message</code>, <code>read</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 2: STUDIES, QUESTIONS & PARTICIPANT RESPONSES -->
+<h3>Cluster 2: Research Studies, Questions & Responses</h3>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 6</span> <strong>Study</strong> — The Research Investigation</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A clinical trial, health questionnaire, or public survey authored by a researcher.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>creatorId</code>, <code>title</code>, <code>description</code>, <code>status</code> (<code>DRAFT</code>, <code>ACTIVE</code>, <code>COMPLETED</code>), <code>type</code> (<code>SURVEY</code>, <code>EPIDEMIOLOGICAL</code>), <code>rewardAmount</code> (ETB paid per answer), <code>targetSample</code>, <code>currentResponses</code>, <code>ethicalApprovalNumber</code> (IRB clearance), <code>bannerUrl</code>, <code>socialDeckConfig</code> (custom saved dimensions and colors).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 7</span> <strong>Question</strong> — Individual Survey Questions</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A specific question within a study (e.g. "Have you experienced persistent fever?").</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>text</code>, <code>description</code>, <code>type</code> (<code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>, <code>RATING</code>, etc.), <code>order</code> (display position), <code>isRequired</code> (true/false).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 8</span> <strong>QuestionOption</strong> — Multiple Choice Options</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Selectable answer choices for single-choice or multi-choice questions (e.g. "Yes", "No", "Unsure").</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>questionId</code>, <code>text</code>, <code>value</code>, <code>order</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 9</span> <strong>QuestionRow</strong> — Matrix & Likert Scale Items</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> The sub-rows inside a matrix question (e.g. "Rate hospital cleanliness", "Rate nurse attentiveness").</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>questionId</code>, <code>text</code>, <code>order</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 10</span> <strong>Response</strong> — A Completed Survey Submission</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A participant's full submission for a study.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>participantId</code>, <code>collectorId</code> (if collected by enumerator), <code>ipHash</code>, <code>deviceFingerprint</code>, <code>completedAt</code>, <code>rewardEarned</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 11</span> <strong>Answer</strong> — Individual Answer Value</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> The specific answer provided to a specific question within a response.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>responseId</code>, <code>questionId</code>, <code>textValue</code>, <code>numberValue</code>, <code>selectedOptionId</code>, <code>matrixRowId</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 12</span> <strong>StudyBookmark</strong> — Saved Studies</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A bookmark when a participant saves a study to complete later.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>studyId</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 13</span> <strong>StudyRating</strong> — Participant Feedback on Studies</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> 1-to-5 star ratings left by participants evaluating whether the study questions were clear and respectful.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>userId</code>, <code>rating</code> (1-5), <code>feedback</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 14</span> <strong>StudyLike</strong> — Community Endorsement</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Likes given by academic peers to highlight impactful research.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>userId</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-blue">Model 15</span> <strong>StudyComment</strong> — Public & Participant Discussion</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Public comments and feedback posted under research study listings.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>userId</code>, <code>content</code>, <code>parentId</code> (for threaded replies), <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 3: FINANCIAL INFRASTRUCTURE & WALLETS -->
+<h3>Cluster 3: Financial Infrastructure, Wallets & Payouts</h3>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-amber">Model 16</span> <strong>Wallet</strong> — Digital Credit Account</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> The balance account holding Ethiopian Birr credits for each user.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>balance</code> (Current spendable or withdrawable balance in ETB), <code>pendingBalance</code>, <code>totalEarned</code>, <code>totalWithdrawn</code>, <code>updatedAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-amber">Model 17</span> <strong>TinatCreditTransaction</strong> — Append-Only Financial Ledger</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Every single credit or debit entry in the system. Follows double-entry accounting principles.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>walletId</code>, <code>amount</code> (positive for credits, negative for debits), <code>type</code> (<code>STUDY_REWARD</code>, <code>WITHDRAWAL</code>, <code>STUDY_FUNDING</code>), <code>description</code>, <code>balanceAfter</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-amber">Model 18</span> <strong>StudyPayment</strong> — Chapa Study Funding Record</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Payments made by researchers to fund their study incentives through Chapa.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>userId</code>, <code>amount</code>, <code>currency</code> (<code>ETB</code>), <code>chapaReference</code>, <code>status</code> (<code>PENDING</code>, <code>SUCCESS</code>, <code>FAILED</code>), <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-amber">Model 19</span> <strong>Withdrawal</strong> — Telebirr & CBE Payout Requests</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A participant's formal request to transfer wallet credits to their real-world bank or mobile money account.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>walletId</code>, <code>amount</code>, <code>method</code> (<code>TELEBIRR</code>, <code>CBE</code>), <code>accountNumber</code>, <code>accountName</code>, <code>status</code> (<code>PENDING</code>, <code>COMPLETED</code>, <code>REJECTED</code>), <code>approvedBy</code>, <code>processedAt</code>.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 4: COLLABORATIVE RESEARCH PROJECTS & WORKSPACES -->
+<h3>Cluster 4: Collaborative Research Projects & Workspace Hub</h3>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 20</span> <strong>ResearchProject</strong> — Collaborative Workspace</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> An overarching institutional research investigation uniting multiple scientists.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>title</code>, <code>code</code> (e.g. <code>TIN-2026-08</code>), <code>description</code>, <code>status</code> (<code>PLANNING</code>, <code>ACTIVE</code>, <code>COMPLETED</code>), <code>visibility</code> (<code>PUBLIC</code>, <code>INTERNAL</code>, <code>PRIVATE</code>), <code>phase</code> (<code>IRB_REVIEW</code>, <code>DATA_COLLECTION</code>, <code>ANALYSIS</code>), <code>leadId</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 21</span> <strong>ProjectMember</strong> — Team Membership & Roles</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A researcher's role and permissions inside a specific project.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>userId</code>, <code>role</code> (<code>OWNER</code>, <code>LEAD</code>, <code>MEMBER</code>, <code>OBSERVER</code>), <code>joinedAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 22</span> <strong>ProjectInvitation</strong> — Pending Team Invites</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Email invitation tokens sent to prospective investigators to join a project.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>email</code>, <code>role</code>, <code>token</code>, <code>status</code> (<code>PENDING</code>, <code>ACCEPTED</code>), <code>expiresAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 23</span> <strong>ProjectMilestone</strong> — Timeline Deliverables</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Major scientific milestones (e.g. "Obtain Institutional IRB Approval", "Complete 500 Interviews").</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>title</code>, <code>targetDate</code>, <code>completedAt</code>, <code>status</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 24</span> <strong>ProjectTask</strong> — Actionable Team Tasks</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Specific team assignments on the project Kanban board.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>title</code>, <code>assignedToId</code>, <code>status</code> (<code>TODO</code>, <code>IN_PROGRESS</code>, <code>DONE</code>), <code>priority</code> (<code>URGENT</code>, <code>HIGH</code>, <code>MEDIUM</code>), <code>dueDate</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 25</span> <strong>ProjectFile</strong> — Research Documents (Upload & Delete)</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Uploaded scientific files (PDF proposals, datasets, IRB letters). Includes permission-based <strong>Permanent Deletion</strong>.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>name</code>, <code>folder</code> (<code>PROTOCOL</code>, <code>ETHICS_IRB</code>, <code>RAW_DATA</code>, <code>MANUSCRIPTS</code>), <code>fileUrl</code>, <code>fileSize</code>, <code>mimeType</code>, <code>uploadedById</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 26</span> <strong>ProjectFileVersion</strong> — Document Version Control</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Historical versions of a research file to prevent accidental overwrite of clinical protocols.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>fileId</code>, <code>versionNumber</code>, <code>fileUrl</code>, <code>fileSize</code>, <code>uploadedById</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 27</span> <strong>ProjectNote</strong> — Shared Investigator Scratchpad</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Collaborative meeting notes, literature reviews, and fieldwork summaries.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>title</code>, <code>content</code>, <code>authorId</code>, <code>isPinned</code>, <code>updatedAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 28</span> <strong>ProjectDiscussion</strong> — Threaded Scientific Forum</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Structured discussion topics created by team members to debate methodology or data anomalies.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>title</code>, <code>content</code>, <code>authorId</code>, <code>isClosed</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 29</span> <strong>ProjectDiscussionReply</strong> — Forum Replies</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Responses posted under a project discussion thread.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>discussionId</code>, <code>authorId</code>, <code>content</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 30</span> <strong>ProjectDiscussionReaction</strong> — Discussion Reactions</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Emoji reactions (thumbs up, heart, lightbulb) added to discussion posts.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>discussionId</code>, <code>userId</code>, <code>emoji</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 31</span> <strong>ProjectDiscussionReplyReaction</strong> — Reply Reactions</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Emoji reactions added to specific discussion replies.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>replyId</code>, <code>userId</code>, <code>emoji</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 32</span> <strong>ProjectDecision</strong> — Governance & Decision Log</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Formal records of research decisions (e.g. "Decision: Lower sample age threshold to 18 years").</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>title</code>, <code>justification</code>, <code>decidedById</code>, <code>status</code> (<code>ADOPTED</code>, <code>REJECTED</code>), <code>decidedAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 33</span> <strong>ProjectActivity</strong> — Workspace Activity Stream</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Real-time feed of all updates, uploads, deletions, and comments inside a project.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>userId</code>, <code>action</code>, <code>entityType</code>, <code>entityId</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 34</span> <strong>ProjectChatMessage</strong> — Real-Time Team Chat</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Messages sent between researchers in the expanded project chat window with the new typing bar.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>senderId</code>, <code>message</code>, <code>attachments</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 35</span> <strong>ProjectLinkedStudy</strong> — Project-to-Study Bridge</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Connects a collaborative project to the live participant-facing survey running on the platform.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>studyId</code>, <code>linkedAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-purple">Model 36</span> <strong>ProjectOutput</strong> — Scholarly Publications & Manuscripts</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Published papers, conference posters, and public datasets produced by the research project.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>projectId</code>, <code>title</code>, <code>type</code> (<code>MANUSCRIPT</code>, <code>DATASET</code>), <code>status</code> (<code>SUBMITTED</code>, <code>PUBLISHED</code>), <code>doiUrl</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 5: AI RESEARCH ASSISTANT -->
+<h3>Cluster 5: Tinat AI Research Assistant Engine</h3>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-rose">Model 37</span> <strong>AIConversation</strong> — AI Chat Sessions</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A dialogue session where a researcher consults Tinat AI for survey design or statistical tips.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>projectId</code> (optional), <code>title</code>, <code>provider</code> (<code>OPENAI</code>, <code>GOOGLE_GEMINI</code>), <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-rose">Model 38</span> <strong>AIMessage</strong> — AI Dialogue Turns</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Individual prompts submitted by the researcher and answers generated by the AI model.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>conversationId</code>, <code>role</code> (<code>USER</code>, <code>ASSISTANT</code>), <code>content</code>, <code>tokens</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-rose">Model 39</span> <strong>AIArtifact</strong> — Generated Research Artifacts</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Structured items created by AI (such as drafted questionnaire sections, Python data analysis code, or abstract drafts).</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>conversationId</code>, <code>title</code>, <code>type</code> (<code>QUESTIONNAIRE</code>, <code>CODE_SNIPPET</code>), <code>content</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-rose">Model 40</span> <strong>AIUsage</strong> — AI Quota & Token Metering</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Tracks computational token consumption to prevent system abuse and manage cloud model billing.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>promptTokens</code>, <code>completionTokens</code>, <code>costUsd</code>, <code>createdAt</code>.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 6: ASK TINAT & PUBLIC Q&A -->
+<h3>Cluster 6: Ask Tinat (Public Science Communication)</h3>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-slate">Model 41</span> <strong>AskProfile</strong> — Researcher Q&A Profile</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A public profile enabling citizens and students to ask verified scientists health questions.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>username</code>, <code>bio</code>, <code>specialties</code>, <code>totalAnswered</code>, <code>isAcceptingQuestions</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-slate">Model 42</span> <strong>AskQuestion</strong> — Public Inquiries</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Inquiries submitted by the public to researchers, complete with moderation and social deck sharing.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>profileId</code>, <code>askerName</code>, <code>questionText</code>, <code>answerText</code>, <code>status</code> (<code>PENDING</code>, <code>ANSWERED</code>), <code>answeredAt</code>.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 7: FIELD DATA COLLECTION -->
+<h3>Cluster 7: Field Data Collection & Enumerator Operations</h3>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-emerald">Model 43</span> <strong>StudyDataCollector</strong> — Assigned Enumerators</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Relationship linking a field enumerator (nurse, student) to a specific study campaign.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>userId</code>, <code>assignedAt</code>, <code>totalCollected</code>, <code>isActive</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-emerald">Model 44</span> <strong>CollectorInvitation</strong> — Enumerator Invites</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Invitation tokens sent to recruit field data collection workers.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>email</code>, <code>token</code>, <code>status</code> (<code>PENDING</code>, <code>ACCEPTED</code>), <code>expiresAt</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 12px;">
+  <div class="card-header"><span class="badge badge-emerald">Model 45</span> <strong>CollectionSession</strong> — Fieldwork Batch Sessions</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A fieldwork batch conducted by an enumerator in a hospital clinic or village.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>collectorId</code>, <code>locationName</code>, <code>latitude</code>, <code>longitude</code>, <code>status</code> (<code>ACTIVE</code>, <code>SYNCED</code>), <code>startedAt</code>, <code>endedAt</code>, <code>responseCount</code>.</p>
+  </div>
+</div>
+
+
+
+<!-- CHAPTER 4: COMPLETE FRONTEND PAGE DIRECTORY -->
+
+<!-- CLUSTER 7: PLATFORM LEDGER & BALANCED DOUBLE-ENTRY CREDITS -->
+<h3 style="margin-top: 30px;">Cluster 7: Platform Ledger & Double-Entry Accounting (Non-Cash Credit Economy)</h3>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-amber">Model 46</span> <strong>LedgerAccount</strong> — System & User Credit Accounts</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> An account holding a non-cash Tinat Credit balance (SYSTEM_ISSUANCE or USER_WALLET).</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>kind</code>, <code>userId</code>, <code>balance</code>, <code>currency</code> ('TC'), <code>createdAt</code>.</p>
+    <p><strong>Why it matters:</strong> Prevents credits from being minted out of thin air; all participant reward distributions draw from a system issuance balance.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-amber">Model 47</span> <strong>LedgerJournal</strong> — Balanced Transaction Header</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> An audited transaction grouping balanced debit and credit entries.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>description</code>, <code>studyId</code>, <code>referenceId</code>, <code>createdAt</code>.</p>
+    <p><strong>Why it matters:</strong> Ensures the sum of credits always equals the sum of debits under ACID concurrency.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-amber">Model 48</span> <strong>LedgerEntry</strong> — Atomic Ledger Line Items</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Individual debit or credit lines linked to a LedgerJournal and LedgerAccount.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>journalId</code>, <code>accountId</code>, <code>direction</code>, <code>amount</code>.</p>
+    <p><strong>Why it matters:</strong> Append-only financial record guaranteeing mathematical ledger equilibrium.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 8: DATA PROTECTION & CODED IDENTITY LINKAGE -->
+<h3 style="margin-top: 30px;">Cluster 8: Coded Participant Linkage & Privacy Protection (Proclamation 1321/2024)</h3>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-purple">Model 49</span> <strong>ParticipantLink</strong> — Pseudonymized Respondent Linkage</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> The isolated linkage mapping user identity to an unguessable <code>respondentCode</code> per study.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>studyId</code>, <code>respondentCode</code>, <code>createdAt</code>.</p>
+    <p><strong>Why it matters:</strong> Keeps research data de-identified and prevents researchers or exported datasets from viewing personal identifiers.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-purple">Model 50</span> <strong>DataSubjectRequest</strong> — Statutory Privacy Inquiries</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> A user's formal GDPR/Proclamation 1321 request to access, rectify, or erase personal data.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>userId</code>, <code>requestType</code>, <code>status</code>, <code>reason</code>, <code>resolvedAt</code>.</p>
+    <p><strong>Why it matters:</strong> Ensures platform data controllers handle legal data subject requests within statutory timeframes.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-purple">Model 51</span> <strong>IncidentLog</strong> — Security & Data Protection Incident Log</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Append-only log of security alarms, unmasking attempts, and data anomalies.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>incidentType</code>, <code>severity</code>, <code>status</code>, <code>details</code>, <code>loggedAt</code>.</p>
+    <p><strong>Why it matters:</strong> Provides compliance audit evidence for regulatory inspectors and security forensics.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 9: RESEARCH ETHICS APPROVAL (IRB) -->
+<h3 style="margin-top: 30px;">Cluster 9: Research Ethics Approval & Institutional Review Board (IRB)</h3>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-blue">Model 52</span> <strong>EthicsApproval</strong> — Verified Ethics Committee Protocol Clearance</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Verified Institutional Review Board certificate required before a study can activate.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>committeeName</code>, <code>approvalNumber</code>, <code>documentUrl</code>, <code>expiryDate</code>, <code>status</code>.</p>
+    <p><strong>Why it matters:</strong> Prevents unapproved human-subject research; automatically pauses studies upon certificate expiration.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-blue">Model 53</span> <strong>EthicsBoardMember</strong> — Institutional Ethics Committee Members</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Directory of verified IRB and ethics review committee members.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>institutionName</code>, <code>memberName</code>, <code>email</code>, <code>roleTitle</code>.</p>
+    <p><strong>Why it matters:</strong> Facilitates formal verification checks against accredited university review boards.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-blue">Model 54</span> <strong>EthicsBoardDecision</strong> — Committee Verdict & Review Log</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Detailed review determinations, condition notes, and verification sign-offs by platform admins.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>ethicsApprovalId</code>, <code>decision</code>, <code>notes</code>, <code>reviewerId</code>.</p>
+    <p><strong>Why it matters:</strong> Maintains an append-only, audited record of ethical oversight for all live human research.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 10: PARTICIPANT INFORMED CONSENT GOVERNANCE -->
+<h3 style="margin-top: 30px;">Cluster 10: Participant Informed Consent Governance</h3>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-green">Model 55</span> <strong>ConsentForm</strong> — Multi-Step Versioned Informed Consent Template</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Structured study consent document with key information, voluntary declarations, and comprehension checks.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>version</code>, <code>keyInformation</code>, <code>comprehensionQuestions</code>, <code>status</code>.</p>
+    <p><strong>Why it matters:</strong> Replaces meaningless 'I Agree' buttons with verifiable, multi-step informed consent.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-green">Model 56</span> <strong>ConsentRecord</strong> — Cryptographically Audited Participant Consent Log</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Record of an individual participant's affirmative consent and comprehension verification.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>consentFormId</code>, <code>respondentCode</code>, <code>passedComprehension</code>, <code>consentedAt</code>, <code>ipHash</code>.</p>
+    <p><strong>Why it matters:</strong> Serves as legally binding proof of voluntary participation without exposing the participant's real identity.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 11: MULTILINGUAL LOCALIZATION & TRANSLATIONS -->
+<h3 style="margin-top: 30px;">Cluster 11: Multilingual Localization & Translation (Ethiopian Languages)</h3>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-cyan">Model 57</span> <strong>StudyTranslation</strong> — Multilingual Study Metadata</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Translated titles, descriptions, and safety protocols in Amharic, Afaan Oromo, Tigrinya, or Somali.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>language</code>, <code>title</code>, <code>description</code>, <code>safetyProtocolText</code>.</p>
+    <p><strong>Why it matters:</strong> Ensures language equity for participants across all regions of Ethiopia while preserving research fidelity.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-cyan">Model 58</span> <strong>QuestionTranslation</strong> — Multilingual Question Texts & Options</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Translated question wording and multiple-choice options mapped per question and locale.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>questionId</code>, <code>language</code>, <code>text</code>, <code>options</code> (JSON).</p>
+    <p><strong>Why it matters:</strong> Renders questions in native Ge'ez or Latin scripts without modifying base study schema.</p>
+  </div>
+</div>
+
+<!-- CLUSTER 12: COMMUNITY MODERATION & PROBLEM REPORTING -->
+<h3 style="margin-top: 30px;">Cluster 12: Community Moderation & Problem Reporting</h3>
+
+<div class="card">
+  <div class="card-header"><span class="badge badge-red">Model 59</span> <strong>ModerationReport</strong> — Participant Incident & Abuse Reports</div>
+  <div class="card-body">
+    <p><strong>What it represents:</strong> Participant grievance reports flagging misleading descriptions, coercive promises, or sensitive topics.</p>
+    <p><strong>Key Fields:</strong> <code>id</code>, <code>studyId</code>, <code>reporterId</code>, <code>reason</code>, <code>details</code>, <code>status</code>, <code>resolvedAt</code>.</p>
+    <p><strong>Why it matters:</strong> Protects human participants through prompt admin intervention and automated investigation workflows.</p>
+  </div>
+</div>
+
+<div class="page-break"></div>
+<h1>4. Complete Frontend Page Directory (All 49 User Pages)</h1>
+
+<div class="callout callout-info">
+  <div class="callout-title">How User Pages Work in Next.js</div>
+  In modern web development, every screen you see corresponds to a folder inside <code>app/app</code> with a <code>page.tsx</code> file. Below is the complete catalog of all 42 frontend pages on Tinat, detailing who can access each page, what is displayed on the screen, what interactive buttons exist, and what happens under the hood when you click them.
+</div>
+
+<!-- PUBLIC & AUTHENTICATION PAGES -->
+<h2>4.1 Public & Authentication Pages</h2>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 1</span> <strong>/</strong> (Landing Page) &bull; <code>app/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public (Everyone)</p>
+    <p><strong>What the User Sees:</strong> The homepage of Tinat. Features an emerald-themed navigation header with Tinat branding, hero banner describing Ethiopia's scientific research network, real-time counters of completed surveys, featured clinical studies, security badges (Fayda verified, Chapa secured), and call-to-action buttons.</p>
+    <p><strong>Interactive Buttons & Actions:</strong>
+      <ul>
+        <li><strong>"Join as Researcher":</strong> Redirects visitor to <code>/register?role=RESEARCHER</code>.</li>
+        <li><strong>"Participate & Earn":</strong> Redirects visitor to <code>/register?role=PARTICIPANT</code>.</li>
+        <li><strong>"Explore Studies":</strong> Smooth scrolls to active public studies or navigates to <code>/studies</code>.</li>
+        <li><strong>"Sign In":</strong> Opens the login screen at <code>/login</code>.</li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 2</span> <strong>/login</strong> &bull; <code>app/login/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public / Guests</p>
+    <p><strong>What the User Sees:</strong> Centered authentication modal with Email and Password input boxes, "Remember Me" checkbox, and social authentication options (Google OAuth).</p>
+    <p><strong>Interactive Buttons & Actions:</strong>
+      <ul>
+        <li><strong>"Sign In" Button:</strong> Triggers Tinat Jose Session Engine credential sign-in. Encrypts credentials, verifies against the <code>User</code> table in PostgreSQL, stores an HTTP-only JWT cookie in the browser, and redirects to <code>/dashboard</code>.</li>
+        <li><strong>"Create an Account" Link:</strong> Redirects to <code>/register</code>.</li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 3</span> <strong>/register</strong> &bull; <code>app/register/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public / Guests</p>
+    <p><strong>What the User Sees:</strong> Account creation form with Name, Email, Phone Number, Password, Role Picker (Researcher vs. Participant), and Fayda ID verification inputs.</p>
+    <p><strong>Interactive Buttons & Actions:</strong>
+      <ul>
+        <li><strong>"Verify Fayda National ID":</strong> Validates Ethiopian ID format and matches national registry.</li>
+        <li><strong>"Create Account" Button:</strong> Makes a POST request to <code>/api/auth/register</code>, creates user record, initializes a zero-balance <code>Wallet</code>, dispatches email verification, and navigates to <code>/verify-email</code>.</li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 4</span> <strong>/verify-email</strong> &bull; <code>app/verify-email/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public / Registered Users</p>
+    <p><strong>What the User Sees:</strong> Clean status screen showing an email icon, prompting the user to check their inbox. If clicked from an email link with a token query, it shows an animated checkmark confirming verification.</p>
+    <p><strong>Interactive Buttons:</strong> "Resend Verification Email" (calls <code>/api/auth/resend-verification</code>) and "Proceed to Login".</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-purple">Route 5</span> <strong>/dashboard</strong> &bull; <code>app/dashboard/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Authenticated Users</p>
+    <p><strong>What Happens Under the Hood:</strong> This page acts as a silent traffic dispatcher. When loaded, it inspects the user's active session. If the user is an <code>ADMIN</code>, it redirects them to <code>/admin</code>; if <code>RESEARCHER</code>, it redirects to <code>/researcher</code>; if <code>PARTICIPANT</code>, it redirects to <code>/participant</code>; if <code>DATA COLLECTOR</code>, to <code>/collector/dashboard</code>.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-slate">Route 6</span> <strong>/privacy</strong> &bull; <code>app/privacy/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public</p>
+    <p><strong>What the User Sees:</strong> Comprehensive health data protection policies, anonymization standards, IRB ethical clearances, and Ethiopian data privacy regulations.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-slate">Route 7</span> <strong>/terms</strong> &bull; <code>app/terms/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public</p>
+    <p><strong>What the User Sees:</strong> Institutional terms of service, acceptable research conduct, payout guarantees, and anti-fraud penalties.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-slate">Route 8</span> <strong>/profile/[id]</strong> &bull; <code>app/profile/[id]/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public / Authenticated</p>
+    <p><strong>What the User Sees:</strong> Public profile of an investigator or participant: verified badges, university affiliation, published studies, and public research activity.</p>
+  </div>
+</div>
+
+<!-- RESEARCHER WORKSPACE PAGES -->
+<h2>4.2 Researcher Workspace Pages</h2>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 9</span> <strong>/researcher</strong> &bull; <code>app/researcher/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Researchers Only</p>
+    <p><strong>What the User Sees:</strong> The primary investigator cockpit. Displays 4 metric cards: Total Active Studies, Completed Responses, Total ETB Budget Disbursed, and Response Rate. Below, a table displays recent studies with quick status badges (Draft, Active, Completed).</p>
+    <p><strong>Buttons:</strong> "New Study", "View All Responses", "Export Data", "Deposit Funds via Chapa".</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 10</span> <strong>/researcher/studies</strong> &bull; <code>app/researcher/studies/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Researchers Only</p>
+    <p><strong>What the User Sees:</strong> Comprehensive list of all studies authored by this researcher, with search, category filtering, and status tabs (All, Active, Drafts, Completed).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 11</span> <strong>/researcher/studies/new</strong> &bull; <code>app/researcher/studies/new/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Researchers Only</p>
+    <p><strong>What the User Sees:</strong> A multi-step study creation wizard: Step 1 (Title, Scientific Hypothesis, IRB Clearance Number), Step 2 (Target Demographic Criteria & Sample Size), Step 3 (Reward per Participant in ETB), Step 4 (Initial Questions Setup).</p>
+    <p><strong>Buttons:</strong> "Save Draft", "Proceed to Question Builder", "Publish Study".</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 12</span> <strong>/researcher/studies/[id]</strong> &bull; <code>app/researcher/studies/[id]/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Authoring Researcher & Admin</p>
+    <p><strong>What the User Sees:</strong> The study command center. Features live response charts, demographic pie charts, questionnaire editor, field collector management tab, and the export engine.</p>
+    <p><strong>Interactive Features:</strong>
+      <ul>
+        <li><strong>"Share Study Link":</strong> Copies public survey URL and generates a downloadable high-resolution QR code.</li>
+        <li><strong>"Social Deck Preparation":</strong> Opens modal to render and download graphic promotional cards. Supports dimensions (1:1 Square, 16:9 Landscape, 9:16 Story/Reel), custom color themes, and the ability to save settings as default for future decks.</li>
+        <li><strong>"Export Excel (.xlsx)":</strong> Downloads raw participant microdata formatted for SPSS, Stata, or R.</li>
+        <li><strong>"Pause / Resume Study":</strong> Updates study status in database.</li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 13</span> <strong>/researcher/settings</strong> &bull; <code>app/researcher/settings/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Researchers Only</p>
+    <p><strong>What the User Sees:</strong> Academic institutional affiliations, department, billing history, and Chapa payment methods.</p>
+  </div>
+</div>
+
+<!-- PARTICIPANT WORKSPACE PAGES -->
+<h2>4.3 Participant (Survey Respondent) Pages</h2>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 14</span> <strong>/participant</strong> &bull; <code>app/participant/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Participants Only</p>
+    <p><strong>What the User Sees:</strong> Participant home screen. Highlights their current Tinat Credit balance, study discovery feed, and participation history with non-cash reward estimates.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 15</span> <strong>/participant/studies</strong> &bull; <code>app/participant/studies/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Participants Only</p>
+    <p><strong>What the User Sees:</strong> Full searchable library of studies. Filterable by reward amount, time commitment, and health categories.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 16</span> <strong>/participant/studies/[id]</strong> &bull; <code>app/participant/studies/[id]/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Participants Only</p>
+    <p><strong>What the User Sees:</strong> Study introduction and ethical informed consent statement. Displays investigator name, university affiliation, and participant rights.</p>
+    <p><strong>Button:</strong> "Agree & Start Survey" (navigates to <code>/f/[id]</code>).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 17</span> <strong>/f/[id]</strong> (Survey Taking Screen) &bull; <code>app/f/[id]/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public / Eligible Participants</p>
+    <p><strong>What the User Sees:</strong> Minimalist, distraction-free questionnaire interface. Displays a progress bar at top (e.g. "Question 4 of 12"), interactive answer choices (radio buttons, checkboxes, rating sliders, matrix tables), and navigation buttons.</p>
+    <p><strong>Actions:</strong> Next question, previous question, and <strong>"Submit Survey"</strong>. Upon submission, calls <code>/api/f/[id]/submit</code>, records answers, and credits the participant wallet.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 18</span> <strong>/participant/history</strong> &bull; <code>app/participant/history/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Participants Only</p>
+    <p><strong>What the User Sees:</strong> Complete historical archive of all surveys the participant has taken, dates of completion, and earnings credited.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 19</span> <strong>/participant/wallet</strong> &bull; <code>app/participant/wallet/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Participants Only</p>
+    <p><strong>What the User Sees:</strong> Digital financial ledger. Shows Available TC Balance, Lifetime TC Earned, and itemized transaction history.</p>
+    <p><strong>Button:</strong> "Request Withdrawal" (navigates to <code>/participant/wallet/withdraw</code>).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 20</span> <strong>/participant/wallet/withdraw</strong> &bull; <code>app/participant/wallet/withdraw/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Participants Only</p>
+    <p><strong>What the User Sees:</strong> Credit balance overview. Explains that Tinat Credits are non-cash internal tokens with no monetary value. Note: Real-money withdrawals are paused; payment gateways are quarantined behind disabled feature flags.</p>
+    <p><strong>Action:</strong> Clicking "Submit Withdrawal" creates a <code>Withdrawal</code> record, debits the wallet balance, and places the request into the admin approval queue.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-blue">Route 21</span> <strong>/participant/settings</strong> &bull; <code>app/participant/settings/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Participants Only</p>
+    <p><strong>What the User Sees:</strong> Personal profile settings, demographic info (region, age, education level for survey eligibility), and Fayda National ID linking.</p>
+  </div>
+</div>
+
+<!-- FIELD DATA COLLECTOR PAGES -->
+<h2>4.4 Field Data Collector Pages</h2>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-amber">Route 22</span> <strong>/collector/dashboard</strong> &bull; <code>app/collector/dashboard/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Field Data Collectors & Researchers</p>
+    <p><strong>What the User Sees:</strong> Enumerator workstation. Shows studies assigned to this collector, total in-person interviews completed, and session status.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-amber">Route 23</span> <strong>/collector/studies/[id]/collect</strong> &bull; <code>app/collector/studies/[id]/collect/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Authorized Enumerators</p>
+    <p><strong>What the User Sees:</strong> Optimized field-interview mode designed for hospital clinics and community visits. Supports rapid survey entry without requiring interviewees to log in, attaching location tags, and queuing submissions.</p>
+  </div>
+</div>
+
+<!-- FORMS & QUESTION BUILDER -->
+<h2>4.5 Forms & Question Builder Pages</h2>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-slate">Route 24</span> <strong>/forms</strong> &bull; <code>app/forms/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Researchers & Admins</p>
+    <p><strong>What the User Sees:</strong> Standalone questionnaire templates library (reusable validated clinical instruments, PHQ-9 depression scales, demographic modules).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-slate">Route 25</span> <strong>/forms/new</strong> &bull; <code>app/forms/new/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Researchers & Admins</p>
+    <p><strong>What the User Sees:</strong> Visual drag-and-drop question builder. Add text fields, single/multi select choices, rating scales, and matrix tables. Configure required validation rules.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-slate">Route 26</span> <strong>/forms/[id]/responses</strong> &bull; <code>app/forms/[id]/responses/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Form Authors</p>
+    <p><strong>What the User Sees:</strong> Tabular breakdown of raw questionnaire responses with individual response inspection modals.</p>
+  </div>
+</div>
+
+<!-- COLLABORATIVE RESEARCH PROJECTS -->
+<h2>4.6 Collaborative Research Projects Workspace Pages</h2>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-purple">Route 27</span> <strong>/projects</strong> &bull; <code>app/projects/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Researchers & Team Members</p>
+    <p><strong>What the User Sees:</strong> Research team hub listing all collaborative investigations the user is participating in. Displays project codes, phases, team size, and pending deadlines.</p>
+    <p><strong>Button:</strong> "Create New Project" (navigates to <code>/projects/new</code>).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-purple">Route 28</span> <strong>/projects/new</strong> &bull; <code>app/projects/new/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Researchers Only</p>
+    <p><strong>What the User Sees:</strong> Project setup form. Input project title, institutional code, description, research phase (IRB Review, Data Collection, Analysis), and visibility (Public, Internal, Private).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-purple">Route 29</span> <strong>/projects/[id]</strong> (The Master Workspace) &bull; <code>app/projects/[id]/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Verified Project Members</p>
+    <p><strong>What the User Sees:</strong> The central collaborative command center, organized into 8 tabs:
+      <ul>
+        <li><strong>Overview Tab:</strong> Project mission, lead investigator, timeline milestones, and linked studies.</li>
+        <li><strong>Files Tab:</strong> File repository with protocol uploads, downloads, and the newly added <strong>File Deletion</strong> button (with confirmation modal and audit logging).</li>
+        <li><strong>Team Chat Tab:</strong> Enhanced real-time communication window equipped with a full <strong>typing bar and message composer</strong>, allowing researchers to chat, share notes, and tag colleagues.</li>
+        <li><strong>Tasks Tab:</strong> Kanban board for assigning deliverables with priority flags.</li>
+        <li><strong>Milestones Tab:</strong> Academic schedule and IRB approval targets.</li>
+        <li><strong>Discussions Tab:</strong> Threaded scientific forum for debating methodology.</li>
+        <li><strong>Decisions Tab:</strong> Formal governance log of scientific choices.</li>
+        <li><strong>Members Tab:</strong> Invite researchers, manage member roles (Lead, Member, Observer), and revoke access.</li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-purple">Route 30</span> <strong>/projects/invite/[token]</strong> &bull; <code>app/projects/invite/[token]/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Invited Researchers</p>
+    <p><strong>What the User Sees:</strong> Invitation acceptance screen showing project title, lead investigator, and assigned role. Clicking "Accept Invitation" joins the workspace.</p>
+  </div>
+</div>
+
+<!-- TINAT AI & ASK PUBLIC SCIENCE -->
+<h2>4.7 Tinat AI & Ask Tinat Pages</h2>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-rose">Route 31</span> <strong>/ai</strong> &bull; <code>app/ai/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Researchers & Admins</p>
+    <p><strong>What the User Sees:</strong> The Tinat AI research assistant cockpit. Allows investigators to chat with an AI model trained on epidemiological methods, generate questionnaire drafts, review sample size calculations, and extract statistical summaries.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-slate">Route 32</span> <strong>/ask</strong> &bull; <code>app/ask/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public</p>
+    <p><strong>What the User Sees:</strong> Public science directory where Ethiopian citizens and students can browse verified researchers, view popular answered medical questions, and submit inquiries.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-slate">Route 33</span> <strong>/ask/[username]</strong> &bull; <code>app/ask/[username]/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> Public</p>
+    <p><strong>What the User Sees:</strong> A specific scientist's public Q&A wall. Allows visitors to submit questions and read previous answers. Researchers can generate promotional social decks from their answers.</p>
+  </div>
+</div>
+
+<!-- SYSTEM ADMINISTRATION PAGES -->
+<h2>4.8 System Administration Pages</h2>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 34</span> <strong>/admin</strong> &bull; <code>app/admin/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> System Administrators Only</p>
+    <p><strong>What the User Sees:</strong> Executive platform overview. High-level metric tiles: Total Registered Users, Active Studies, Total Financial Volume Processed (ETB), and Pending Review Queues.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 35</span> <strong>/admin/users</strong> &bull; <code>app/admin/users/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> System Administrators Only</p>
+    <p><strong>What the User Sees:</strong> Complete user directory with search, role filters, verification badges, and account moderation tools (Promote to Admin, Suspend, Verify Fayda).</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 36</span> <strong>/admin/studies</strong> &bull; <code>app/admin/studies/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> System Administrators Only</p>
+    <p><strong>What the User Sees:</strong> Study review queue. Admins inspect newly submitted research proposals, verify ethical IRB clearance numbers, and click "Approve" or "Reject".</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 37</span> <strong>/admin/studies/[id]</strong> &bull; <code>app/admin/studies/[id]/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> System Administrators Only</p>
+    <p><strong>What the User Sees:</strong> Granular administrative inspection view of a single study, including all questions, participant compensation breakdown, and creator audit history.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 38</span> <strong>/admin/verifications</strong> &bull; <code>app/admin/verifications/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> System Administrators Only</p>
+    <p><strong>What the User Sees:</strong> Identity review console for approving Fayda National ID submissions and reviewing uploaded academic faculty credentials.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 39</span> <strong>/admin/withdrawals</strong> &bull; <code>app/admin/withdrawals/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> System Administrators Only</p>
+    <p><strong>What the User Sees:</strong> Treasury archive console for historical records. Real-money movement is disabled; all incentives are issued as non-cash Tinat Credits.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 40</span> <strong>/admin/logs</strong> &bull; <code>app/admin/logs/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> System Administrators Only</p>
+    <p><strong>What the User Sees:</strong> The append-only system audit log table. Displays timestamp, acting user, IP address, exact action (e.g. <code>DELETED_PROJECT_FILE</code>, <code>APPROVED_PAYOUT</code>), and JSON details.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 41</span> <strong>/admin/community</strong> &bull; <code>app/admin/community/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> System Administrators Only</p>
+    <p><strong>What the User Sees:</strong> Community discussions oversight, flagged comments, and user dispute moderation.</p>
+  </div>
+</div>
+
+<div class="card avoid-break" style="margin-bottom: 14px;">
+  <div class="card-header"><span class="badge badge-emerald">Route 42</span> <strong>/admin/settings</strong> &bull; <code>app/admin/settings/page.tsx</code></div>
+  <div class="card-body">
+    <p><strong>Access Level:</strong> System Administrators Only</p>
+    <p><strong>What the User Sees:</strong> Global platform parameters: minimum withdrawal amounts, Chapa fee percentages, maintenance mode toggles, and email server credentials.</p>
+  </div>
+</div>
+
+
+
+<!-- CHAPTER 5: COMPLETE BACKEND API DIRECTORY -->
+<div class="page-break"></div>
+<h1>5. Complete Backend API Directory (All 110 REST Endpoints)</h1>
+
+<div class="callout callout-info">
+  <div class="callout-title">Understanding API Endpoints</div>
+  Every interactive action on Tinat calls one of these 80 backend API routes. The frontend packages the user's action into an HTTP request, sends it to the endpoint, and the endpoint securely verifies permissions, queries or updates the PostgreSQL database, and responds with JSON data. Below is the full dictionary.
+</div>
+
+<!-- GROUP 1: AUTHENTICATION, FAYDA & USER SESSIONS -->
+<h2>5.1 Authentication, Fayda & User Accounts (12 Endpoints)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 28%;">Endpoint & Verb</th>
+      <th style="width: 14%;">Access</th>
+      <th style="width: 28%;">Plain English Purpose</th>
+      <th style="width: 30%;">Database Action & Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/api/auth/register</code><br><span class="method-post">POST</span></td>
+      <td>Public</td>
+      <td>Creates a new user account with hashed password.</td>
+      <td>Validates email uniqueness, hashes password via bcrypt, inserts into <code>User</code>, initializes <code>Wallet</code> with 0 balance, returns created user object.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/login</code><br><span class="method-post">POST</span></td>
+      <td>Public</td>
+      <td>Verifies email & password, issues encrypted JWT session.</td>
+      <td>Checks credentials against <code>User</code>, validates bcrypt hash, sets secure HTTP-only cookie, logs <code>ActivityLog</code>, returns user profile & role.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/logout</code><br><span class="method-post">POST</span></td>
+      <td>Authenticated</td>
+      <td>Terminates user session and invalidates JWT cookie.</td>
+      <td>Clears cookie from browser headers, logs sign-out event, returns success confirmation.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/verify-email</code><br><span class="method-post">POST</span></td>
+      <td>Public</td>
+      <td>Confirms user email address via cryptographic token.</td>
+      <td>Validates token, sets <code>emailVerified = NOW()</code> on <code>User</code> table, returns status confirmation.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/resend-verification</code><br><span class="method-post">POST</span></td>
+      <td>Public</td>
+      <td>Dispatches a new email verification link to user inbox.</td>
+      <td>Generates new secure token and sends email via SMTP gateway.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/fayda-verify</code><br><span class="method-post">POST</span></td>
+      <td>Authenticated</td>
+      <td>Verifies Ethiopian National Digital ID (Fayda).</td>
+      <td>Validates National ID number, verifies biometric/demographic match, updates <code>isVerified = true</code> and creates a <code>Verification</code> record.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/fayda-preview</code><br><span class="method-post">POST</span></td>
+      <td>Authenticated</td>
+      <td>Fetches pre-verification preview of Fayda national profile.</td>
+      <td>Queries Fayda verification staging API and returns non-sensitive demographic preview.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/google</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Public</td>
+      <td>Initiates Google OAuth 2.0 social authentication.</td>
+      <td>Redirects to Google consent screen and handles authorization grant.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/callback/google</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Public</td>
+      <td>Receives OAuth token callback from Google servers.</td>
+      <td>Finds or creates <code>User</code> record, provisions <code>Account</code> link, sets JWT session cookie.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/settings</code><br><span class="method-get">GET</span> <span class="method-patch">PATCH</span></td>
+      <td>Authenticated</td>
+      <td>Fetches and updates user profile and security preferences.</td>
+      <td>Reads or modifies <code>name</code>, <code>phone</code>, notification preferences on <code>User</code> model.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/withdrawals</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Participant</td>
+      <td>Lists user credit transaction history. Withdrawal creation is disabled.</td>
+      <td>Validates sufficient <code>Wallet.balance</code>, debits balance, writes <code>Withdrawal</code> record with status <code>PENDING</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/payments/chapa/callback</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Public (Webhook)</td>
+      <td>Receives payment confirmation webhook from Chapa gateway.</td>
+      <td>Verifies Chapa cryptographic signature, marks <code>StudyPayment.status = SUCCESS</code>, transitions study to <code>ACTIVE</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- GROUP 2: RESEARCH STUDIES & SURVEY QUESTIONNAIRES -->
+<h2>5.2 Research Studies & Questionnaires (15 Endpoints)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 28%;">Endpoint & Verb</th>
+      <th style="width: 14%;">Access</th>
+      <th style="width: 28%;">Plain English Purpose</th>
+      <th style="width: 30%;">Database Action & Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/api/auth/studies</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Fetches author's studies or creates a new research study.</td>
+      <td>Inserts new row into <code>Study</code> table with <code>DRAFT</code> status and linked questions.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/studies/[id]/submit</code><br><span class="method-post">POST</span></td>
+      <td>Participant</td>
+      <td>Submits answers and awards instant wallet credit.</td>
+      <td>Creates <code>Response</code> and <code>Answer</code> rows, checks anti-fraud, credits participant's <code>Wallet</code>, logs <code>TinatCreditTransaction</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/studies/[id]/fund</code><br><span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Initializes Chapa checkout to fund participant incentives.</td>
+      <td>Calculates budget (sample &times; reward), generates Chapa checkout URL, creates pending <code>StudyPayment</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/studies/[id]/status</code><br><span class="method-patch">PATCH</span></td>
+      <td>Researcher / Admin</td>
+      <td>Pauses, activates, or closes a research study.</td>
+      <td>Updates <code>Study.status</code> to <code>ACTIVE</code>, <code>PAUSED</code>, or <code>COMPLETED</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/studies/[id]/export</code><br><span class="method-get">GET</span></td>
+      <td>Researcher / Admin</td>
+      <td>Exports study responses as structured JSON or CSV.</td>
+      <td>Streams anonymized response microdata for statistical software.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/studies/[id]/export/excel</code><br><span class="method-get">GET</span></td>
+      <td>Researcher / Admin</td>
+      <td>Generates downloadable Microsoft Excel (<code>.xlsx</code>) workbook.</td>
+      <td>Compiles questions and participant answers into formatted Excel spreadsheet sheets.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/studies/[id]/like</code><br><span class="method-post">POST</span></td>
+      <td>Authenticated</td>
+      <td>Toggles an endorsement like on a research study.</td>
+      <td>Creates or removes row in <code>StudyLike</code> table.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/studies/[id]/rate</code><br><span class="method-post">POST</span></td>
+      <td>Participant</td>
+      <td>Submits a 1-to-5 star clarity rating for a study.</td>
+      <td>Upserts row into <code>StudyRating</code> table with optional qualitative feedback.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/studies/[id]/comment</code><br><span class="method-post">POST</span></td>
+      <td>Authenticated</td>
+      <td>Posts a public inquiry or comment under a study.</td>
+      <td>Inserts row into <code>StudyComment</code> table.</td>
+    </tr>
+    <tr>
+      <td><code>/api/f/[id]</code><br><span class="method-get">GET</span></td>
+      <td>Public</td>
+      <td>Fetches study questions for survey-taking screen.</td>
+      <td>Reads <code>Study</code>, <code>Question</code>, and <code>QuestionOption</code> models, filtering out unneeded administrative fields.</td>
+    </tr>
+    <tr>
+      <td><code>/api/f/[id]/submit</code><br><span class="method-post">POST</span></td>
+      <td>Public / Participant</td>
+      <td>Direct submission endpoint for public survey participants.</td>
+      <td>Records participant answers, hashes IP and browser fingerprint, executes fraud checks.</td>
+    </tr>
+    <tr>
+      <td><code>/api/forms</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Lists questionnaire templates or creates a reusable form.</td>
+      <td>Fetches or inserts structured questionnaire definitions.</td>
+    </tr>
+    <tr>
+      <td><code>/api/forms/[id]</code><br><span class="method-get">GET</span> <span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Researcher</td>
+      <td>Retrieves, updates, or deletes a questionnaire template.</td>
+      <td>Modifies question ordering, text prompts, or removes unused templates.</td>
+    </tr>
+    <tr>
+      <td><code>/api/forms/[id]/responses</code><br><span class="method-get">GET</span></td>
+      <td>Researcher</td>
+      <td>Fetches response submissions for a questionnaire template.</td>
+      <td>Queries <code>Response</code> records grouped by question IDs.</td>
+    </tr>
+    <tr>
+      <td><code>/api/forms/[id]/export</code><br><span class="method-get">GET</span></td>
+      <td>Researcher</td>
+      <td>Exports form responses in CSV format.</td>
+      <td>Formats tabular response data for external download.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- GROUP 3: COLLABORATIVE RESEARCH PROJECTS & WORKSPACES -->
+<h2>5.3 Collaborative Research Projects & Workspace Engine (24 Endpoints)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 28%;">Endpoint & Verb</th>
+      <th style="width: 14%;">Access</th>
+      <th style="width: 28%;">Plain English Purpose</th>
+      <th style="width: 30%;">Database Action & Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/api/projects</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Lists user's projects or creates a new collaborative study.</td>
+      <td>Inserts into <code>ResearchProject</code>, sets creator as <code>OWNER</code> in <code>ProjectMember</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]</code><br><span class="method-get">GET</span> <span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Project Members</td>
+      <td>Reads project details, updates phase/milestones, or archives.</td>
+      <td>Verifies member role; modifies title, description, phase, or deletes project.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/invite/[token]</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Invited User</td>
+      <td>Validates invitation token and joins project team.</td>
+      <td>Checks token validity in <code>ProjectInvitation</code>, creates new <code>ProjectMember</code> record.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/members</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Lead</td>
+      <td>Lists team members or invites new investigators.</td>
+      <td>Generates invitation token in <code>ProjectInvitation</code> and emails prospective member.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/members/[memberId]</code><br><span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Project Lead</td>
+      <td>Changes team member role or removes them from project.</td>
+      <td>Updates <code>ProjectMember.role</code> (e.g. Lead, Observer) or removes membership row.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/files</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Lists workspace documents or uploads research protocols.</td>
+      <td>Saves file metadata in <code>ProjectFile</code>, creates initial <code>ProjectFileVersion</code> record.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/files/[fileId]</code><br><span class="method-get">GET</span> <span class="method-delete">DELETE</span></td>
+      <td>Project Members</td>
+      <td>Downloads document or permanently deletes outdated file.</td>
+      <td>Verifies user has permission to delete, removes physical file from storage, deletes <code>ProjectFile</code> and versions, logs <code>ProjectActivity</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/chat</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Retrieves chat history or sends message using typing bar.</td>
+      <td>Fetches recent messages or inserts into <code>ProjectChatMessage</code>, broadcasting to team.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/tasks</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Lists Kanban tasks or creates a new team task.</td>
+      <td>Inserts into <code>ProjectTask</code> with priority, due date, and assigned member.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/tasks/[taskId]</code><br><span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Project Members</td>
+      <td>Moves task between columns (Todo &rarr; Done) or deletes.</td>
+      <td>Updates <code>ProjectTask.status</code> or deletes task record.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/milestones</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Lists or creates research milestones (e.g. IRB Approval).</td>
+      <td>Inserts into <code>ProjectMilestone</code> with target calendar date.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/milestones/[milestoneId]</code><br><span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Project Members</td>
+      <td>Marks milestone as achieved or modifies deadline.</td>
+      <td>Updates <code>completedAt = NOW()</code> on <code>ProjectMilestone</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/notes</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Lists or creates collaborative investigator scratchpad notes.</td>
+      <td>Inserts into <code>ProjectNote</code> with author linkage.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/notes/[noteId]</code><br><span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Project Members</td>
+      <td>Edits note markdown content or deletes note.</td>
+      <td>Updates <code>ProjectNote.content</code> and bumps <code>updatedAt</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/discussions</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Lists forum topics or starts a new scientific discussion.</td>
+      <td>Inserts into <code>ProjectDiscussion</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/discussions/[discussionId]</code><br><span class="method-get">GET</span> <span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Project Members</td>
+      <td>Fetches full thread or closes discussion.</td>
+      <td>Reads discussion with replies, or marks <code>isClosed = true</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/discussions/[discussionId]/reply</code><br><span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Posts a reply inside a discussion thread.</td>
+      <td>Inserts into <code>ProjectDiscussionReply</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/discussions/[discussionId]/reaction</code><br><span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Adds or removes emoji reaction on a discussion post.</td>
+      <td>Upserts into <code>ProjectDiscussionReaction</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/discussions/[discussionId]/replies/[replyId]/reaction</code><br><span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Adds or removes emoji reaction on a specific reply.</td>
+      <td>Upserts into <code>ProjectDiscussionReplyReaction</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/decisions</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Lead</td>
+      <td>Logs a formal governance decision for the study.</td>
+      <td>Inserts into <code>ProjectDecision</code> with justification.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/outputs</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Lists publications or logs a new manuscript/dataset.</td>
+      <td>Inserts into <code>ProjectOutput</code> with DOI link.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/outputs/[outputId]</code><br><span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Project Members</td>
+      <td>Updates publication status (e.g. Under Review &rarr; Published).</td>
+      <td>Updates <code>ProjectOutput.status</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/studies</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Links a live survey to this collaborative project.</td>
+      <td>Creates a bridge record in <code>ProjectLinkedStudy</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/projects/[id]/ai</code><br><span class="method-post">POST</span></td>
+      <td>Project Members</td>
+      <td>Consults AI assistant directly within project context.</td>
+      <td>Feeds project metadata to LLM, returns suggested tasks or draft protocols.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- GROUP 4: FIELD DATA COLLECTORS -->
+<h2>5.4 Field Data Collector Operations (6 Endpoints)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 28%;">Endpoint & Verb</th>
+      <th style="width: 14%;">Access</th>
+      <th style="width: 28%;">Plain English Purpose</th>
+      <th style="width: 30%;">Database Action & Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/api/collector/studies</code><br><span class="method-get">GET</span></td>
+      <td>Collector</td>
+      <td>Lists field campaigns assigned to this enumerator.</td>
+      <td>Queries <code>StudyDataCollector</code> matching user's account.</td>
+    </tr>
+    <tr>
+      <td><code>/api/collector/studies/[id]/sessions</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Collector</td>
+      <td>Starts a new fieldwork session in a clinic or village.</td>
+      <td>Inserts into <code>CollectionSession</code> with GPS coordinates and enumerator signature.</td>
+    </tr>
+    <tr>
+      <td><code>/api/collector/sessions/[sessionId]</code><br><span class="method-get">GET</span> <span class="method-patch">PATCH</span></td>
+      <td>Collector</td>
+      <td>Closes an active session and syncs completed surveys.</td>
+      <td>Updates <code>CollectionSession.status = SYNCED</code> and increments response counters.</td>
+    </tr>
+    <tr>
+      <td><code>/api/collector/invitations</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Dispatches invitation to recruit a field data enumerator.</td>
+      <td>Creates token in <code>CollectorInvitation</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/studies/[id]/collectors</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Manages active field enumerators for a specific study.</td>
+      <td>Assigns or revokes enumerator authorization in <code>StudyDataCollector</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/studies/[id]/responses</code><br><span class="method-get">GET</span></td>
+      <td>Researcher / Collector</td>
+      <td>Fetches responses collected during field campaign.</td>
+      <td>Returns paginated submission microdata.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- GROUP 5: AI RESEARCH ASSISTANT -->
+<h2>5.5 Tinat AI Research Assistant (5 Endpoints)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 28%;">Endpoint & Verb</th>
+      <th style="width: 14%;">Access</th>
+      <th style="width: 28%;">Plain English Purpose</th>
+      <th style="width: 30%;">Database Action & Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/api/ai/chat</code><br><span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Sends prompt to Tinat AI and streams back analysis.</td>
+      <td>Invokes AI model, streams response, tracks token usage in <code>AIUsage</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/ai/analyze</code><br><span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Performs automated epidemiological hypothesis analysis.</td>
+      <td>Analyzes survey responses, generates statistical summary artifact in <code>AIArtifact</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/ai/conversations</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Lists previous AI dialogues or starts a new research chat.</td>
+      <td>Fetches or inserts into <code>AIConversation</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/ai/conversations/[id]</code><br><span class="method-get">GET</span> <span class="method-delete">DELETE</span></td>
+      <td>Researcher</td>
+      <td>Reads past conversation dialogue or deletes chat session.</td>
+      <td>Queries or removes <code>AIConversation</code> and associated messages.</td>
+    </tr>
+    <tr>
+      <td><code>/api/ai/conversations/[id]/messages</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Researcher</td>
+      <td>Fetches message history or appends new message turn.</td>
+      <td>Queries or inserts into <code>AIMessage</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- GROUP 6: ASK TINAT PUBLIC SCIENCE -->
+<h2>5.6 Ask Tinat Public Science Directory (4 Endpoints)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 28%;">Endpoint & Verb</th>
+      <th style="width: 14%;">Access</th>
+      <th style="width: 28%;">Plain English Purpose</th>
+      <th style="width: 30%;">Database Action & Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/api/ask/profile</code><br><span class="method-get">GET</span> <span class="method-post">POST</span> <span class="method-patch">PATCH</span></td>
+      <td>Researcher</td>
+      <td>Creates or updates researcher's public Q&A profile.</td>
+      <td>Upserts into <code>AskProfile</code> with bio, specialties, and avatar.</td>
+    </tr>
+    <tr>
+      <td><code>/api/ask/questions</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Public / Researcher</td>
+      <td>Fetches public answered questions or lists pending inbox.</td>
+      <td>Queries <code>AskQuestion</code> filtered by status.</td>
+    </tr>
+    <tr>
+      <td><code>/api/ask/questions/[id]</code><br><span class="method-get">GET</span> <span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Researcher</td>
+      <td>Answers, edits, pins, or deletes a public inquiry.</td>
+      <td>Updates <code>AskQuestion.answerText</code> and sets <code>status = ANSWERED</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/ask/submit</code><br><span class="method-post">POST</span></td>
+      <td>Public</td>
+      <td>Allows an Ethiopian citizen or student to ask a scientist.</td>
+      <td>Inserts new inquiry into <code>AskQuestion</code> with <code>PENDING</code> status.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- GROUP 7: SYSTEM ADMINISTRATION -->
+<h2>5.7 System Administration & Security Oversight (14 Endpoints)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 28%;">Endpoint & Verb</th>
+      <th style="width: 14%;">Access</th>
+      <th style="width: 28%;">Plain English Purpose</th>
+      <th style="width: 30%;">Database Action & Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/api/admin/dashboard/stats</code><br><span class="method-get">GET</span></td>
+      <td>Admin</td>
+      <td>Calculates executive platform health statistics.</td>
+      <td>Aggregates user counts, study counts, total ETB volume, and pending queues.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/users</code><br><span class="method-get">GET</span></td>
+      <td>Admin</td>
+      <td>Retrieves paginated user directory with role filters.</td>
+      <td>Queries <code>User</code> table with verification and wallet relations.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/users/[id]</code><br><span class="method-get">GET</span> <span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Admin</td>
+      <td>Views profile, changes user role, or suspends account.</td>
+      <td>Updates <code>User.role</code> or marks account suspended, logging an <code>ActivityLog</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/studies</code><br><span class="method-get">GET</span></td>
+      <td>Admin</td>
+      <td>Lists all platform studies in review queue.</td>
+      <td>Queries <code>Study</code> table filtered by review status.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/studies/[id]</code><br><span class="method-get">GET</span> <span class="method-patch">PATCH</span> <span class="method-delete">DELETE</span></td>
+      <td>Admin</td>
+      <td>Conducts administrative audit of a single study.</td>
+      <td>Fetches complete study details or deletes violating content.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/studies/[id]/status</code><br><span class="method-patch">PATCH</span></td>
+      <td>Admin</td>
+      <td>Formally approves or rejects a research study proposal.</td>
+      <td>Updates <code>Study.status</code> and notifies authoring researcher.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/admin/studies/[id]/status</code><br><span class="method-patch">PATCH</span></td>
+      <td>Admin</td>
+      <td>Legacy status approval route with elevated security checks.</td>
+      <td>Performs role verification and updates study status.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/verifications</code><br><span class="method-get">GET</span></td>
+      <td>Admin</td>
+      <td>Lists pending Fayda and faculty verification requests.</td>
+      <td>Queries <code>Verification</code> table filtered by <code>PENDING</code> status.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/verifications/[id]</code><br><span class="method-patch">PATCH</span></td>
+      <td>Admin</td>
+      <td>Approves or rejects a user's Fayda or academic proof.</td>
+      <td>Updates <code>Verification.status</code> and toggles <code>User.isVerified = true</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/admin/withdrawals</code><br><span class="method-get">GET</span></td>
+      <td>Admin</td>
+      <td>Fetches historical withdrawal requests (real-money cashouts disabled).</td>
+      <td>Queries <code>Withdrawal</code> table with participant wallet details.</td>
+    </tr>
+    <tr>
+      <td><code>/api/auth/admin/withdrawals/[id]</code><br><span class="method-patch">PATCH</span></td>
+      <td>Admin</td>
+      <td>Approves disbursement to Telebirr or CBE bank account.</td>
+      <td>Transitions <code>Withdrawal.status = COMPLETED</code>, records admin identity and timestamp.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/logs</code><br><span class="method-get">GET</span></td>
+      <td>Admin</td>
+      <td>Retrieves append-only system security audit logs.</td>
+      <td>Queries <code>ActivityLog</code> sorted by descending timestamp.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/chat/members</code><br><span class="method-get">GET</span></td>
+      <td>Admin</td>
+      <td>Lists available administrators for internal backchannel.</td>
+      <td>Queries <code>User</code> table for <code>role = ADMIN</code>.</td>
+    </tr>
+    <tr>
+      <td><code>/api/admin/chat/messages</code><br><span class="method-get">GET</span> <span class="method-post">POST</span></td>
+      <td>Admin</td>
+      <td>Fetches admin dialogue or sends internal alert.</td>
+      <td>Queries or inserts into <code>AdminChatMessage</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<!-- CHAPTER 6: SPECIALIZED TECHNICAL ENGINE DEEP-DIVES -->
+<div class="page-break"></div>
+<h1>6. Specialized Platform Engine Deep-Dives</h1>
+
+<div class="callout callout-info">
+  <div class="callout-title">Deep Technical Inspection</div>
+  This chapter dives deep into the custom-engineered systems that set Tinat apart from ordinary web tools: the Ethiopian financial rails, Fayda National ID verification, the upgraded collaborative research workspace (with file deletion and enhanced chat), the social deck generator with saved presets, and the mobile admin application.
+</div>
+
+<!-- SECTION 6.1: FINANCIAL ENGINE -->
+<h2>6.1 The Credit Economy Engine: Non-Cash Tokens & Quarantined Legacy Rails</h2>
+<p>
+  One of Tinat's most critical innovations is the ability to allocate and disburse Tinat Credits (non-cash platform tokens) transparently between institutional research budgets and participants.
+</p>
+
+<div class="diagram-container">
+  <div class="diagram-title">Figure 6.1 — Financial Flow Lifecycle & Double-Entry Ledger</div>
+  <svg width="100%" height="150" viewBox="0 0 720 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Step 1: Researcher Deposit -->
+    <rect x="10" y="30" width="150" height="70" rx="8" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="85" y="55" fill="#1E40AF" font-size="9" font-family="Inter" font-weight="bold" text-anchor="middle">RESEARCHER DEPOSIT</text>
+    <text x="85" y="70" fill="#2563EB" font-size="8" font-family="Inter" text-anchor="middle">Chapa Payment Gateway</text>
+    <text x="85" y="85" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Cards, Telebirr, CBE Birr</text>
+
+    <path d="M160 65 H200" stroke="#0F172A" stroke-width="1.5"/>
+
+    <!-- Step 2: Tinat Escrow Pool -->
+    <rect x="200" y="30" width="150" height="70" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="275" y="55" fill="#92400E" font-size="9" font-family="Inter" font-weight="bold" text-anchor="middle">STUDY ESCROW POOL</text>
+    <text x="275" y="70" fill="#B45309" font-size="8" font-family="Inter" text-anchor="middle">Study.rewardAmount Pool</text>
+    <text x="275" y="85" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">Locked Until Completion</text>
+
+    <path d="M350 65 H390" stroke="#0F172A" stroke-width="1.5"/>
+
+    <!-- Step 3: Participant Wallet -->
+    <rect x="390" y="30" width="150" height="70" rx="8" fill="#DCFCE7" stroke="#10B981" stroke-width="1.5"/>
+    <text x="465" y="55" fill="#065F46" font-size="9" font-family="Inter" font-weight="bold" text-anchor="middle">PARTICIPANT WALLET</text>
+    <text x="465" y="70" fill="#047857" font-size="8" font-family="Inter" text-anchor="middle">Instant ETB Credit</text>
+    <text x="465" y="85" fill="#64748B" font-size="7.5" font-family="Inter" text-anchor="middle">TinatCreditTransaction</text>
+
+    <path d="M540 65 H580" stroke="#0F172A" stroke-width="1.5"/>
+
+    <!-- Step 4: Real-World Payout -->
+    <rect x="580" y="30" width="130" height="70" rx="8" fill="#F1F5F9" stroke="#64748B" stroke-width="1.5"/>
+    <text x="645" y="55" fill="#0F172A" font-size="9" font-family="Inter" font-weight="bold" text-anchor="middle">CREDIT REWARD ISSUANCE</text>
+    <text x="645" y="70" fill="#475569" font-size="8" font-family="Inter" text-anchor="middle">Telebirr Mobile Money</text>
+    <text x="645" y="85" fill="#475569" font-size="7.5" font-family="Inter" text-anchor="middle">Commercial Bank of Ethiopia</text>
+  </svg>
+</div>
+
+<h3>1. How Money Enters: The Chapa Gateway Integration</h3>
+<p>
+  When a researcher creates a study for 500 respondents offering 60 ETB per survey, they must fund the participant escrow pool (30,000 ETB).
+</p>
+<ul>
+  <li>The backend calls Chapa's initialization API (<code>https://api.chapa.co/v1/transaction/initialize</code>) and receives a unique checkout URL.</li>
+  <li>The researcher pays using a local debit card, Telebirr, or CBE Birr.</li>
+  <li>Upon payment completion, Chapa calls our secure webhook at <code>/api/auth/payments/chapa/callback</code>.</li>
+  <li>The backend verifies the cryptographic webhook signature, updates <code>StudyPayment.status = SUCCESS</code>, and automatically flips the study status from <code>DRAFT</code> to <code>ACTIVE</code>.</li>
+</ul>
+
+<h3>2. The Double-Entry Ledger (<code>TinatCreditTransaction</code>)</h3>
+<p>
+  To prevent money from vanishing or being duplicated, Tinat uses an append-only double-entry ledger. Balance is never updated in isolation; every single coin moved creates a permanent transaction record:
+</p>
+<pre>
+// Example: Crediting a participant 50 ETB upon survey completion
+await prisma.$transaction([
+  prisma.wallet.update({
+    where: { userId: participantId },
+    data: { balance: { increment: 50.0 } }
+  }),
+  prisma.tinatCreditTransaction.create({
+    data: {
+      walletId: participantWallet.id,
+      amount: 50.0,
+      type: "STUDY_REWARD",
+      description: "Incentive reward for completing Study #TIN-492",
+      balanceAfter: participantWallet.balance + 50.0
+    }
+  })
+]);
+</pre>
+
+<h3>3. Real Payouts: Telebirr & Commercial Bank of Ethiopia (CBE)</h3>
+<p>
+  When a participant completes studies, they earn Tinat Credits under the platform token economy:
+</p>
+<ul>
+  <li><strong>Telebirr:</strong> Real-time mobile money transfer directly to the participant's Ethio Telecom mobile phone number. Ideal for students and rural citizens without bank branches.</li>
+  <li><strong>Commercial Bank of Ethiopia (CBE):</strong> Direct bank deposit into the participant's CBE savings account. Preferred for larger payout amounts.</li>
+  <li><strong>Admin Approval Queue:</strong> Withdrawals are protected by an administrative check in <code>/admin/withdrawals</code>. System administrators audit the request against fraud flags before the funds are dispatched.</li>
+</ul>
+
+<!-- SECTION 6.2: FAYDA NATIONAL ID -->
+<h2>6.2 The Ethiopian National ID (Fayda) Verification Pipeline</h2>
+<p>
+  Data integrity is the cornerstone of clinical and medical research. If respondents are fake bots or one person takes a survey 20 times using different browser tabs, the statistical epidemiological conclusions are ruined.
+</p>
+<div class="grid-2">
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-emerald">Step 1</span>
+      <h3>National ID Input & Format Validation</h3>
+    </div>
+    <p>
+      During registration or from their profile settings, the user provides their <strong>Fayda Identification Number (FIN)</strong>. The system validates the format against the official Ethiopian Digital ID standard.
+    </p>
+  </div>
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-blue">Step 2</span>
+      <h3>Cryptographic Identity Verification</h3>
+    </div>
+    <p>
+      The backend interfaces with the Fayda verification endpoint (<code>/api/auth/fayda-verify</code>). The user verifies their phone or biometric OTP. Once confirmed, a <code>Verification</code> record is generated and the user account receives a cryptographically verified status.
+    </p>
+  </div>
+</div>
+<p>
+  <strong>Anti-Fraud Impact:</strong> Because every survey response is tied to an audited account, a single human being with one Fayda ID can only complete a study once. Reduces duplicate and fake accounts through national ID verification and additional integrity checks.
+</p>
+
+<!-- SECTION 6.3: PROJECTS WORKSPACE -->
+<h2>6.3 Collaborative Research Projects: File Deletion & Enhanced Team Chat</h2>
+<p>
+  Based on real researcher needs, the <strong>Research Projects Hub</strong> (<code>/projects/[id]</code>) provides advanced team collaboration tools:
+</p>
+
+<div class="grid-2">
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-rose">Feature 1</span>
+      <h3>The File Deletion Engine</h3>
+    </div>
+    <p>
+      In clinical trials, outdated draft protocols or misformatted datasets must be deleted to prevent accidental use in scientific publications.
+    </p>
+    <ul>
+      <li><strong>Permission Check:</strong> Only project members with <code>OWNER</code>, <code>LEAD</code>, or the original file uploader can trigger deletion.</li>
+      <li><strong>Confirmation Guard:</strong> Clicking the red trash icon triggers a modal dialog requiring explicit user confirmation.</li>
+      <li><strong>Clean Purge:</strong> When confirmed, <code>DELETE /api/projects/[id]/files/[fileId]</code> physically deletes the file from cloud disk storage and removes all <code>ProjectFileVersion</code> rows from the database.</li>
+      <li><strong>Audit Logging:</strong> The action is permanently logged in <code>ProjectActivity</code> and the platform-wide <code>ActivityLog</code>.</li>
+    </ul>
+  </div>
+
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-purple">Feature 2</span>
+      <h3>The Enhanced Real-Time Team Chat</h3>
+    </div>
+    <p>
+      The team chat interface was overhauled to provide a spacious, productive communication environment:
+    </p>
+    <ul>
+      <li><strong>Spacious Chat Window:</strong> Expanded viewport displaying clean dialogue bubbles with sender avatars, names, and exact timestamps.</li>
+      <li><strong>Dedicated Typing Bar:</strong> Positioned at the bottom of the chat window with a rich multi-line message composer.</li>
+      <li><strong>Keyboard Shortcuts:</strong> Pressing <code>Enter</code> instantly sends the message; pressing <code>Shift + Enter</code> inserts a line break.</li>
+      <li><strong>Instant Delivery:</strong> Messages are sent via <span class="method-post">POST</span> <code>/api/projects/[id]/chat</code> and rendered immediately without requiring page reloads.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 6.4: SOCIAL DECK GENERATOR -->
+<h2>6.4 Social Deck Preparation: Custom Aspect Ratios, Colors & Saved Presets</h2>
+<p>
+  To achieve statistical power, researchers must recruit participants across Ethiopian social channels like Telegram, LinkedIn, and Facebook. The <strong>Social Deck Generator</strong> (accessible from <code>/researcher/studies/[id]</code>) automates graphic design:
+</p>
+<div class="grid-3">
+  <div class="card">
+    <div class="card-header"><span class="badge badge-emerald">Ratio 1</span> 1:1 Square</div>
+    <div class="card-body">
+      Optimized for Instagram feeds, Telegram channel cards, and mobile survey preview banners (1080 &times; 1080 px).
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><span class="badge badge-blue">Ratio 2</span> 16:9 Landscape</div>
+    <div class="card-body">
+      Designed for Twitter/X post cards, LinkedIn professional updates, and Facebook link preview cards (1200 &times; 675 px).
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><span class="badge badge-purple">Ratio 3</span> 9:16 Story / Reel</div>
+    <div class="card-body">
+      Full-screen vertical banners for Telegram Stories, TikTok announcements, and Instagram Reels (1080 &times; 1920 px).
+    </div>
+  </div>
+</div>
+<p>
+  <strong>Custom Color Themes:</strong> Researchers can choose from curated palettes (Emerald Scientific, Medical Blue, Dark Slate, Vibrant Amber) to reflect their university or institutional branding.
+</p>
+<p>
+  <strong>Saved Preset Settings:</strong> A researcher can click <strong>"Save as Default Setting"</strong>. The system saves their preferred aspect ratio, color palette, and institutional typography into the database. When creating future studies, their custom design settings are pre-loaded automatically.
+</p>
+
+<!-- SECTION 6.5: MOBILE ADMIN APP -->
+<h2>6.5 Mobile Admin Application (Expo SDK ~58.0.19 & React Native 0.88.0)</h2>
+<p>
+  Located in <code>apps/admin-mobile</code>, the mobile app provides administrators with a fast, portable command center on Android and iOS:
+</p>
+<ul>
+  <li><strong>Cross-Platform React Native:</strong> Built using <strong>Expo SDK ~58.0.19</strong> and <strong>React Native 0.88</strong>, sharing core design tokens with the web application.</li>
+  <li><strong>Mobile Admin Features:</strong> Push alerts for flagged studies, administrative audit of study and token records, and real-time monitoring of server traffic.</li>
+  <li><strong>Optimized Adaptive Launcher Icon:</strong> The app's Android launcher icon was meticulously scaled and centered within a 432 &times; 432 px canvas (with a 288 px safe zone). This ensures that on Samsung, Google Pixel, and Xiaomi smartphones with round or squircle icon masks, the Tinat logo is displayed sharply without edge clipping.</li>
+</ul>
+
+<!-- SECTION 6.6: TINAT AI ENGINE -->
+<h2>6.6 Tinat AI Research Assistant Engine</h2>
+<p>
+  Conducting medical research requires rigorous scientific methodology. Tinat AI (<code>/ai</code>) provides an embedded intelligence layer:
+</p>
+<ul>
+  <li><strong>Questionnaire Review:</strong> Analyzes drafted questions for leading language, cultural biases, or ambiguous medical phrasing.</li>
+  <li><strong>Sample Size Estimation:</strong> Recommends necessary statistical power based on target effect sizes and population parameters.</li>
+  <li><strong>Automated Artifact Generation:</strong> Generates structured questionnaire sections, Python data analysis scripts (using Pandas and SciPy), and executive abstracts directly into <code>AIArtifact</code> models for one-click researcher copying.</li>
+</ul>
+
+
+<!-- CHAPTER 7: PRODUCTION OPERATIONS & SECURITY -->
+<div class="page-break"></div>
+<h1>7. Production Operations, Security & Compliance</h1>
+
+<h2>7.1 Ethical Adherence & Clinical Research Compliance (IRB / GCP)</h2>
+<p>
+  Tinat was engineered in accordance with international <strong>Good Clinical Practice (GCP)</strong> guidelines and Ethiopian National Ethics Review Committee (NERC) protocols:
+</p>
+<ul>
+  <li><strong>Informed Consent Recording:</strong> Every clinical study enforces an explicit, unskippable digital consent screen before revealing study questions. The participant's agreement timestamp and browser fingerprint are permanently attached to the response.</li>
+  <li><strong>Data Anonymization:</strong> When researchers export microdata to Excel, SPSS, or CSV, personally identifiable information (Full Name, Phone Number, Fayda National ID Number) is automatically masked or excluded to protect patient confidentiality.</li>
+  <li><strong>Audit Trails for Data Access:</strong> When an administrator or investigator downloads an exported dataset, an append-only <code>ActivityLog</code> is generated detailing who accessed the file, at what exact millisecond, and from which IP address.</li>
+</ul>
+
+<h2>7.2 Web Application Security Guardrails</h2>
+<p>
+  The Tinat platform implements defense-in-depth protection across all layers of the application:
+</p>
+<div class="grid-2">
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-security">Protection 1</span>
+      <h3>SQL Injection & ORM Shielding</h3>
+    </div>
+    <p>
+      Traditional SQL vulnerabilities occur when raw user input is concatenated into database queries. Tinat uses <strong>Prisma ORM</strong>, which employs strict parameterized queries and typed inputs. Raw SQL strings are prohibited.
+    </p>
+  </div>
+
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-security">Protection 2</span>
+      <h3>Cross-Site Scripting (XSS) Prevention</h3>
+    </div>
+    <p>
+      All user input (questions, comments, chat messages) is sanitized and rendered through React's virtual DOM, which automatically escapes dangerous HTML tags and prevents script injection.
+    </p>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-security">Protection 3</span>
+      <h3>Cross-Site Request Forgery (CSRF) & Cookies</h3>
+    </div>
+    <p>
+      Authentication cookies use the <code>SameSite=Lax</code> and <code>HttpOnly</code> flags. Client-side JavaScript cannot read the session cookie, eliminating session hijacking via malicious browser extensions.
+    </p>
+  </div>
+
+  <div class="concept-card">
+    <div class="concept-header">
+      <span class="badge badge-security">Protection 4</span>
+      <h3>Role-Based Access Control (RBAC)</h3>
+    </div>
+    <p>
+      Next.js edge middleware (<code>middleware.ts</code>) evaluates every incoming request against the user's role. A participant attempting to access <code>/admin</code> or <code>/api/admin/*</code> is blocked at the network perimeter before server CPU cycles are expended.
+    </p>
+  </div>
+</div>
+
+<div class="callout callout-security">
+  <div class="callout-title">Summary of Production Security Verification</div>
+  The Tinat ecosystem combines government-level identity verification (Fayda), cryptographic verification (Fayda / Jose), append-only double-entry ledger bookkeeping (PostgreSQL), and modern TypeScript web architecture to establish a hardened, reliable scientific research infrastructure.
+</div>
+
+<p style="text-align: center; margin-top: 50px; color: #94a3b8; font-size: 8pt;">
+  &mdash; END OF TECHNICAL ARCHITECTURE & OPERATIONAL MANUAL &mdash;<br>
+  Tinat Research Ecosystem &bull; Published October 2026 &bull; Addis Ababa, Ethiopia
+</p>
+
+</body>
+</html>

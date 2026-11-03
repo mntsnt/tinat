@@ -20,7 +20,7 @@ export default async function StudyDiscoveryPage({
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    include: { bookmarks: true, responses: true },
+    include: { bookmarks: true, participantLinks: true },
   });
 
   if (!user || user.role !== "PARTICIPANT") redirect("/dashboard");
@@ -73,7 +73,7 @@ export default async function StudyDiscoveryPage({
     orderBy: { createdAt: "desc" },
   });
 
-  const completedStudyIds = new Set(user.responses.map((r) => r.studyId));
+  const completedStudyIds = new Set(user.participantLinks.map((r) => r.studyId));
   const bookmarkedStudyIds = new Set(user.bookmarks.map((b) => b.studyId));
 
   const availableStudies = studies.filter(

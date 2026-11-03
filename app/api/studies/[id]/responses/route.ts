@@ -1,14 +1,19 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getCurrentUser } from "@/lib/session";
+import { requireUser } from "@/lib/authGuard";
+import { jsonError } from "@/lib/validation";
+import { executeBalancedReward } from "@/lib/ledger";
+import { getOrCreateParticipantLink } from "@/lib/identity/linkService";
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    const user = await getCurrentUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const auth = await requireUser(req);
+    if (!auth.ok) return auth.response;
+    const user = auth.user;
 
-    const { collectionMethod, answers, collectionSessionId } = await req.json();
+    const { collectionMethod, answers, collectionSessionId, language } = await req.json();
+    const responseLanguage = typeof language === "string" ? language.slice(0, 10) : "en";
 
     if (collectionMethod === "FIELD_COLLECTED") {
       // Verify data collector authorization
@@ -20,46 +25,70 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         return NextResponse.json({ error: "Not assigned to this study as a data collector." }, { status: 403 });
       }
 
-      // Find an anonymous participant placeholder or create one per response?
-      // "Do NOT automatically collect participant identity. A field-collected participant should remain anonymous."
-      // Let's create an anonymous participant for each field response to satisfy the schema requirement.
+      // Coded participant placeholder per Ethiopian Data Protection Proclamation principles
       const anonParticipant = await prisma.user.create({
         data: {
-          name: "Anonymous Participant",
+          name: "Coded Participant",
           email: `anon-${Date.now()}-${Math.random().toString(36).substring(7)}@tinat.app`,
           passwordHash: "NONE",
           role: "PARTICIPANT"
         }
       });
 
-      // Data Quality Check: extremely short answers array or empty
       if (!answers || answers.length === 0) {
-        // We log a potential data-quality issue or return an error if it's strictly required
-        // But for field collection, we'll log it as a warning in an AuditLog or similar if we had a dedicated table.
-        // The user requirements said: "Use neutral terminology such as 'Potential data-quality issue'".
         console.warn(`Potential data-quality issue: Response submitted by collector ${user.id} with 0 answers.`);
       }
 
       let result;
       try {
         result = await prisma.$transaction(async (tx) => {
-          // Find study to check budget
+          // Lock/fetch study to check status and budget
           const currentStudy = await tx.study.findUnique({
             where: { id },
             include: { _count: { select: { responses: true } } }
           });
 
           if (!currentStudy) throw new Error("Study not found");
+          if (currentStudy.status !== "ACTIVE") throw new Error("STUDY_NOT_ACTIVE");
 
-          const remaining = currentStudy.budgetCredits - currentStudy.creditsPaid;
-          if (currentStudy.rewardCredits > 0 && currentStudy.rewardCredits > remaining) {
-            throw new Error("BUDGET_EXCEEDED");
+          const isFunded = currentStudy.fundingType === "FUNDED" ||
+            (currentStudy.rewardCredits > 0 && currentStudy.fundingType !== "FREE");
+
+          const rewardAmount = isFunded
+            ? (currentStudy.creditPerResponse || currentStudy.rewardCredits)
+            : 0;
+
+          const budgetTotal = isFunded
+            ? (currentStudy.creditBudget || currentStudy.budgetCredits)
+            : 0;
+
+          const spentTotal = isFunded
+            ? (currentStudy.creditsSpent || currentStudy.creditsPaid)
+            : 0;
+
+          if (isFunded && rewardAmount > 0) {
+            const remaining = budgetTotal - spentTotal;
+            if (remaining < rewardAmount) {
+              // Pause study automatically
+              await tx.study.update({
+                where: { id },
+                data: { status: "PAUSED" }
+              });
+              throw new Error("BUDGET_EXCEEDED");
+            }
           }
+
+          const { respondentCode } = await getOrCreateParticipantLink({
+            userId: anonParticipant.id,
+            studyId: id,
+            tx,
+          });
 
           const response = await tx.response.create({
             data: {
               studyId: id,
-              participantId: anonParticipant.id,
+              respondentCode,
+              language: responseLanguage,
               collectionMethod: "FIELD_COLLECTED",
               collectorId: user.id,
               collectionSessionId: collectionSessionId || undefined,
@@ -69,38 +98,28 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
             }
           });
 
-          // Compensate the data collector
-          if (currentStudy.rewardCredits > 0) {
-            const wallet = await tx.wallet.upsert({
-              where: { userId: user.id },
-              update: {},
-              create: { userId: user.id, balance: 0 }
+          // Compensate the data collector via balanced double-entry ledger
+          if (isFunded && rewardAmount > 0) {
+            await executeBalancedReward({
+              studyId: id,
+              participantId: user.id,
+              responseId: response.id,
+              amount: rewardAmount,
+              studyTitle: currentStudy.title,
+              tx,
             });
 
-            await tx.wallet.update({
-              where: { userId: user.id },
-              data: { balance: { increment: currentStudy.rewardCredits } }
-            });
-
-            await tx.tinatCreditTransaction.create({
-              data: {
-                walletId: wallet.id,
-                amount: currentStudy.rewardCredits,
-                type: "EARN",
-                reason: `Field collected data for study: ${currentStudy.title}`
-              }
-            });
-
-            const newCreditsPaid = currentStudy.creditsPaid + currentStudy.rewardCredits;
+            const newCreditsSpent = spentTotal + rewardAmount;
             const newResponseCount = currentStudy._count.responses + 1;
             const targetReached = currentStudy.participantTarget > 0 && newResponseCount >= currentStudy.participantTarget;
-            const budgetReached = currentStudy.budgetCredits > 0 && newCreditsPaid >= currentStudy.budgetCredits;
+            const budgetReached = budgetTotal > 0 && newCreditsSpent >= budgetTotal;
 
             await tx.study.update({
               where: { id },
               data: {
-                creditsPaid: newCreditsPaid,
-                status: targetReached || budgetReached ? "COMPLETED" : "ACTIVE"
+                creditsSpent: newCreditsSpent,
+                creditsPaid: newCreditsSpent,
+                status: targetReached ? "COMPLETED" : budgetReached ? "PAUSED" : "ACTIVE"
               }
             });
           }
@@ -109,7 +128,12 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         });
       } catch (err: any) {
         if (err.message === "BUDGET_EXCEEDED") {
-          return NextResponse.json({ error: "This research study has no remaining funding." }, { status: 400 });
+          return NextResponse.json({
+            error: "This research study has reached its credit budget and is paused. You can switch to voluntary participation (Free) to continue collecting responses."
+          }, { status: 400 });
+        }
+        if (err.message === "STUDY_NOT_ACTIVE") {
+          return NextResponse.json({ error: "This research study is not currently active." }, { status: 400 });
         }
         if (err.message === "Study not found") {
           return NextResponse.json({ error: "Study not found." }, { status: 404 });

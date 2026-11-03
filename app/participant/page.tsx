@@ -23,7 +23,7 @@ export default async function ParticipantDashboard() {
         orderBy: { createdAt: "desc" },
         take: 3,
       },
-      responses: {
+      participantLinks: {
         include: {
           study: {
             select: {
@@ -34,7 +34,7 @@ export default async function ParticipantDashboard() {
             },
           },
         },
-        orderBy: { submittedAt: "desc" },
+        orderBy: { createdAt: "desc" },
       },
     },
   });
@@ -50,7 +50,7 @@ export default async function ParticipantDashboard() {
     orderBy: { createdAt: "desc" },
   });
 
-  const completedStudyIds = new Set(user.responses.map((r) => r.studyId));
+  const completedStudyIds = new Set(user.participantLinks.map((r) => r.studyId));
   const availableStudies = studies.filter(
     (s) =>
       !completedStudyIds.has(s.id) &&
@@ -58,7 +58,7 @@ export default async function ParticipantDashboard() {
       (s.rewardCredits <= 0 || s.budgetCredits - s.creditsPaid >= s.rewardCredits)
   );
 
-  const totalCreditsEarned = user.responses.reduce(
+  const totalCreditsEarned = user.participantLinks.reduce(
     (total, r) => total + r.study.rewardCredits,
     0
   );
@@ -74,7 +74,7 @@ export default async function ParticipantDashboard() {
     },
     {
       label: "Studies Completed",
-      value: user.responses.length,
+      value: user.participantLinks.length,
       sub: "All time submissions",
       icon: <CheckCircle className="w-5 h-5" />,
       color: "text-primary bg-primary/5 dark:bg-primary/15",
@@ -147,7 +147,7 @@ export default async function ParticipantDashboard() {
             </Link>
           </CardHeader>
           <CardContent>
-            {user.responses.length === 0 ? (
+            {user.participantLinks.length === 0 ? (
               <div className="text-center py-10">
                 <CheckCircle className="w-10 h-10 text-muted-foreground/40 mx-auto mb-3" />
                 <p className="text-sm font-medium text-foreground">No submissions yet</p>
@@ -160,7 +160,7 @@ export default async function ParticipantDashboard() {
               </div>
             ) : (
               <div className="space-y-3">
-                {user.responses.slice(0, 5).map((response) => (
+                {user.participantLinks.slice(0, 5).map((response) => (
                   <div
                     key={response.id}
                     className="flex items-center justify-between py-2.5 border-b border-border last:border-0"
@@ -170,7 +170,7 @@ export default async function ParticipantDashboard() {
                         {response.study.title}
                       </p>
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        {response.submittedAt.toLocaleDateString("en-US", {
+                        {response.createdAt.toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
                           year: "numeric",

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { logActivity } from "@/lib/activityLog";
 import { getBaseUrl } from "@/lib/getRedirectUri";
+import { FEATURES } from "@/lib/config/features";
 
 type ChapaVerifyResponse = {
   status?: string;
@@ -15,6 +16,9 @@ type ChapaVerifyResponse = {
 
 export async function GET(request: Request) {
   const baseUrl = getBaseUrl(request);
+  if (!FEATURES.CASH_PAYMENTS_ENABLED) {
+    return NextResponse.json({ error: "Cash payment processing is disabled." }, { status: 403 });
+  }
   try {
     const { searchParams } = new URL(request.url);
 

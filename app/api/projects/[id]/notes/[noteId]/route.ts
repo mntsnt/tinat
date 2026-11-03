@@ -8,7 +8,7 @@ export async function PATCH(
 ) {
   try {
     const { id, noteId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(id);
+    const { auth, error, status } = await authorizeProjectAccess(id, req);
     if (!auth) {
       return NextResponse.json({ error }, { status: status || 403 });
     }
@@ -58,7 +58,7 @@ export async function DELETE(
 ) {
   try {
     const { id, noteId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(id);
+    const { auth, error, status } = await authorizeProjectAccess(id, req);
     if (!auth) {
       return NextResponse.json({ error }, { status: status || 403 });
     }

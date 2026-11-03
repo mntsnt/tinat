@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowLeft, Scale, CheckCircle2, AlertTriangle } from "lucide-react";
 import { Button } from "../components/ui/Button";
+import { PolicyAcceptanceBanner } from "../components/governance/PolicyAcceptanceBanner";
+import { CURRENT_POLICY_VERSIONS } from "@/lib/governance/policies";
 
 export default function TermsOfServicePage() {
   return (
@@ -27,6 +29,12 @@ export default function TermsOfServicePage() {
             Effective Date: September 13, 2026 &bull; Tinat Health Research Ecosystem
           </p>
         </div>
+
+        <PolicyAcceptanceBanner
+          policyKey="terms"
+          policyName="Terms of Service"
+          version={CURRENT_POLICY_VERSIONS.TERMS}
+        />
 
         {/* 1. Acceptance */}
         <section className="space-y-3">
@@ -68,15 +76,41 @@ export default function TermsOfServicePage() {
               <strong>Truthful Responses:</strong> Participants agree to provide accurate, honest, and thoughtful answers to ensure the scientific validity of research data.
             </li>
             <li>
-              <strong>Tinat Credits (TC) & Rewards:</strong> Funded studies reward participants with Tinat Credits upon verified completion. Credits may be redeemed or withdrawn according to platform withdrawal guidelines and minimum thresholds. Attempts to submit automated, fraudulent, or multi-account responses will result in immediate forfeiture of balances and account termination.
+              <strong>Tinat Credits (TC) & Recognition:</strong> Funded studies award participants with Tinat Credits upon verified completion. Tinat Credits are internal research recognition tokens with strictly no cash value. Credits cannot be exchanged for money, redeemed, transferred between users, or withdrawn. Attempts to submit automated, fraudulent, or multi-account responses will result in immediate forfeiture of credits and account termination.
             </li>
           </ul>
         </section>
 
-        {/* 4. Researcher Terms */}
+        {/* 4. Data Protection & Coded Linkage */}
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-foreground">
-            4. Researcher Responsibilities & Ethical Standards
+            4. Data Protection, Confidentiality & Coded Linkage
+          </h2>
+          <div className="p-4 rounded-xl bg-card border border-border text-xs leading-relaxed space-y-2 text-muted-foreground">
+            <p>
+              In accordance with the <strong>Ethiopian Personal Data Protection Proclamation 1321/2024</strong>, participant research answers are <strong>confidential and coded (pseudonymized), not anonymous</strong>.
+            </p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>
+                <strong>Link Separation:</strong> Upon response submission, your answers are stored exclusively under a cryptographically random Respondent Code. Your direct personal identity (name, email, phone, credentials) is completely separated from your study submissions.
+              </li>
+              <li>
+                <strong>Restricted Link Service:</strong> The cross-reference between your user account and your Respondent Code is maintained in a dedicated, isolated server link table accessible only to automated credit issuance and duplicate prevention logic.
+              </li>
+              <li>
+                <strong>Researcher Access:</strong> Researchers receive only de-identified answers tagged by Respondent Code. Researchers never receive your name, contact details, national ID, IP address, or device fingerprints.
+              </li>
+              <li>
+                <strong>Audit-Logged Fraud Review:</strong> Linkage can only be unmasked in formal, documented investigations of research fraud or multi-accounting by platform administrators, requiring a recorded justification and generating an indelible entry in the platform ActivityLog.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* 5. Researcher Terms */}
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-foreground">
+            5. Researcher Responsibilities & Ethical Standards
           </h2>
           <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
             <li>
@@ -94,7 +128,7 @@ export default function TermsOfServicePage() {
         {/* 5. Account Security */}
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-foreground">
-            5. Account Verification & Security
+            6. Account Verification & Security
           </h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
             All users must maintain an accurate, verified email address. You are responsible for safeguarding your login credentials. If you suspect unauthorized access to your account, you must immediately notify platform support.
@@ -104,7 +138,7 @@ export default function TermsOfServicePage() {
         {/* 6. Contact Information */}
         <section className="space-y-3 border-t border-border pt-6">
           <h2 className="text-xl font-bold text-foreground">
-            6. Inquiries & Governance
+            7. Inquiries & Governance
           </h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
             For questions regarding these Terms of Service or research protocol compliance, contact:

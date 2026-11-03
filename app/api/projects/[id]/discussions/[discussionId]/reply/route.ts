@@ -10,7 +10,7 @@ export async function POST(
 ) {
   try {
     const { id: projectId, discussionId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }

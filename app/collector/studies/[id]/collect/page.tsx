@@ -13,6 +13,29 @@ import {
 } from "lucide-react";
 import { Button } from "@/app/components/ui/Button";
 
+function LanguageSelector({
+  language,
+  setLanguage,
+}: {
+  language: string;
+  setLanguage: (lang: string) => void;
+}) {
+  return (
+    <div className="absolute top-4 right-4 z-50">
+      <select
+        value={language}
+        onChange={(e) => setLanguage(e.target.value)}
+        className="bg-background border border-border text-foreground py-1 px-2 rounded-md shadow-sm text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+      >
+        <option value="en">English</option>
+        <option value="am">አማርኛ</option>
+        <option value="om">Afaan Oromoo</option>
+        <option value="ti">ትግርኛ</option>
+      </select>
+    </div>
+  );
+}
+
 export default function FieldCollectionPage() {
   const params = useParams();
   const router = useRouter();
@@ -132,20 +155,7 @@ export default function FieldCollectionPage() {
   const isDone = currentStep >= questions.length;
   const progress = Math.round(((currentStep + 1) / (questions.length + 1)) * 100);
 
-  const LanguageSelector = () => (
-    <div className="absolute top-4 right-4 z-50">
-      <select
-        value={language}
-        onChange={(e) => setLanguage(e.target.value)}
-        className="bg-background border border-border text-foreground py-1 px-2 rounded-md shadow-sm text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
-      >
-        <option value="en">English</option>
-        <option value="am">አማርኛ</option>
-        <option value="om">Afaan Oromoo</option>
-        <option value="ti">ትግርኛ</option>
-      </select>
-    </div>
-  );
+
 
   // Success screen
   if (isSuccess) {
@@ -181,7 +191,7 @@ export default function FieldCollectionPage() {
   if (currentStep === -1) {
     return (
       <div className="min-h-screen bg-background flex flex-col p-5 max-w-lg mx-auto relative">
-        <LanguageSelector />
+        <LanguageSelector language={language} setLanguage={setLanguage} />
         <div className="flex-1 flex flex-col justify-center">
           <div className="w-16 h-16 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-6 mx-auto">
             <ShieldCheck className="w-8 h-8" />
@@ -220,7 +230,7 @@ export default function FieldCollectionPage() {
   if (isDone) {
     return (
       <div className="min-h-screen bg-background flex flex-col p-5 max-w-lg mx-auto relative">
-        <LanguageSelector />
+        <LanguageSelector language={language} setLanguage={setLanguage} />
         <div className="flex-1 flex flex-col justify-center items-center text-center">
           <div className="w-20 h-20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-6 mx-auto shadow-sm">
             <CheckCircle2 className="w-10 h-10" />

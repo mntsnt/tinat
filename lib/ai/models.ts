@@ -1,5 +1,6 @@
 import type { AIResponse } from "./gemini";
 import type { OpenRouterResponse } from "./openrouter";
+import { FEATURES } from "@/lib/config/features";
 
 export type AIModelId =
   | "gemini"
@@ -86,6 +87,11 @@ export interface UnifiedChatParams {
 export async function executeAIAnalysis(
   params: UnifiedAnalysisParams
 ): Promise<AIResponse | OpenRouterResponse> {
+  if (!FEATURES.AI_EXTERNAL_ENABLED) {
+    throw new Error(
+      "External AI integration is disabled by default (AI_EXTERNAL_ENABLED=false) to protect participant health data under Proclamation 1321/2024."
+    );
+  }
   const modelId = (params.modelId || "gemini").toLowerCase();
 
   if (modelId === "gemini") {
@@ -115,6 +121,11 @@ export async function executeAIAnalysis(
 export async function executeAIChat(
   params: UnifiedChatParams
 ): Promise<AIResponse | OpenRouterResponse> {
+  if (!FEATURES.AI_EXTERNAL_ENABLED) {
+    throw new Error(
+      "External AI integration is disabled by default (AI_EXTERNAL_ENABLED=false) to protect participant health data under Proclamation 1321/2024."
+    );
+  }
   const modelId = (params.modelId || "gemini").toLowerCase();
 
   if (modelId === "gemini") {

@@ -49,6 +49,11 @@ export default function CreateStudyPage() {
   const [description, setDescription] = useState("");
   const [objective, setObjective] = useState("");
   const [targetPopulation, setTargetPopulation] = useState("");
+  const [populationDescription, setPopulationDescription] = useState("");
+  const [recruitmentMethod, setRecruitmentMethod] = useState("Online voluntary cohort");
+  const [containsSensitiveTopics, setContainsSensitiveTopics] = useState(false);
+  const [involvesMinors, setInvolvesMinors] = useState(false);
+  const [safetyProtocolText, setSafetyProtocolText] = useState("");
   const [estimatedMinutes, setEstimatedMinutes] = useState(5);
   const [bannerTheme, setBannerTheme] = useState<StudyBannerTheme>("canopy");
 
@@ -774,7 +779,7 @@ export default function CreateStudyPage() {
         </div>
 
         <div className="flex justify-end pt-6 border-t border-border">
-          <Button size="lg" onClick={handleSubmit} isLoading={loading} className="px-8">
+          <Button size="lg" onClick={handleSubmit} isLoading={loading} disabled={involvesMinors || loading} className="px-8">
             {studyType === "FREE_DATA_COLLECTION" && publishImmediately
               ? "Publish Health Study"
               : "Create Study"}

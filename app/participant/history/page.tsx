@@ -14,7 +14,7 @@ export default async function HistoryPage() {
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
     include: {
-      responses: {
+      participantLinks: {
         include: {
           study: {
             include: {
@@ -23,14 +23,14 @@ export default async function HistoryPage() {
             },
           },
         },
-        orderBy: { submittedAt: "desc" },
+        orderBy: { createdAt: "desc" },
       },
     },
   });
 
   if (!user || user.role !== "PARTICIPANT") redirect("/dashboard");
 
-  const totalEarned = user.responses.reduce((sum, r) => sum + r.study.rewardCredits, 0);
+  const totalEarned = user.participantLinks.reduce((sum, link) => sum + link.study.rewardCredits, 0);
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
@@ -44,7 +44,7 @@ export default async function HistoryPage() {
         </div>
       </div>
 
-      {user.responses.length === 0 ? (
+      {user.participantLinks.length === 0 ? (
         <Card className="bg-muted/50 border-dashed text-center py-16">
           <CardContent>
             <h3 className="mb-2 text-xl font-semibold text-foreground">No history yet</h3>
@@ -56,16 +56,16 @@ export default async function HistoryPage() {
         </Card>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {user.responses.map((response) => {
-            const study = response.study;
+          {user.participantLinks.map((link) => {
+            const study = link.study;
             const rating = study.ratings[0];
 
             return (
-              <Card key={response.id} className="flex flex-col">
+              <Card key={link.id} className="flex flex-col">
                 <CardHeader>
                   <div className="mb-2 flex justify-between items-start">
                     <Badge variant="outline" className="text-muted-foreground">
-                      Completed on {response.submittedAt.toLocaleDateString()}
+                      Completed on {link.createdAt.toLocaleDateString()}
                     </Badge>
                     <Badge variant="success">+{study.rewardCredits} TC</Badge>
                   </div>

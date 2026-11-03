@@ -17,7 +17,7 @@ export default async function CollectorLayout({ children }: { children: ReactNod
     select: { id: true, role: true, name: true, email: true, avatarUrl: true },
   });
 
-  if (!user || user.role !== "PARTICIPANT") {
+  if (!user || (user.role !== "PARTICIPANT" && user.role !== "DATA_COLLECTOR" && user.role !== "ADMIN")) {
     redirect("/dashboard");
   }
 

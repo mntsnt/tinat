@@ -10,7 +10,7 @@ export async function PATCH(
 ) {
   try {
     const { id: projectId, discussionId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }
@@ -78,7 +78,7 @@ export async function DELETE(
 ) {
   try {
     const { id: projectId, discussionId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }

@@ -1,71 +1,98 @@
 import { NextResponse } from "next/server";
-import { getSession } from "@/lib/auth";
+import { requireUser } from "@/lib/authGuard";
 import { prisma } from "@/lib/prisma";
+import { jsonError, validateBody } from "@/lib/validation";
+import { checkRateLimit } from "@/lib/rateLimit";
 import { getProviderForModel } from "@/lib/ai/providers";
 import { MEDICAL_RESEARCH_SYSTEM_PROMPT } from "@/lib/ai/prompts";
 import { computeStudyStatistics } from "@/lib/ai/data-analysis";
 import { formatStudyContext } from "@/lib/ai/context";
 import { AVAILABLE_MODELS } from "@/lib/ai/models";
+import { z } from "zod";
+
+const postMessageSchema = z.object({
+  content: z.string().min(1, "Message content is required"),
+});
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const auth = await requireUser(request);
+    if (!auth.ok) return auth.response;
+
     const { id: conversationId } = await params;
-    const session = await getSession();
-    if (!session || !session.userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const conversation = await prisma.aIConversation.findUnique({
+      where: { id: conversationId },
+    });
+
+    if (!conversation) {
+      return jsonError("Conversation not found", 404);
+    }
+
+    if (conversation.userId !== auth.user.id && auth.user.role !== "ADMIN") {
+      return jsonError("Forbidden: you cannot access another user's conversation messages", 403);
     }
 
     const messages = await prisma.aIMessage.findMany({
       where: {
         conversationId,
-        conversation: { userId: session.userId }
       },
-      orderBy: { createdAt: 'asc' }
+      orderBy: { createdAt: "asc" },
     });
 
     return NextResponse.json({ messages });
   } catch (err: any) {
     console.error("Error fetching messages:", err);
-    return NextResponse.json({ error: "Failed to fetch messages" }, { status: 500 });
+    return jsonError("Failed to fetch messages", 500);
   }
 }
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const auth = await requireUser(request);
+    if (!auth.ok) return auth.response;
+
+    const rateCheck = checkRateLimit(request, "CHAT", auth.user.id);
+    if (!rateCheck.allowed) return rateCheck.response;
+
     const { id: conversationId } = await params;
-    const session = await getSession();
-    if (!session || !session.userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const body = await request.json();
-    const { content } = body;
-
-    if (!content) {
-      return NextResponse.json({ error: "Message content is required" }, { status: 400 });
-    }
 
     const conversation = await prisma.aIConversation.findUnique({
-      where: { id: conversationId, userId: session.userId },
-      include: { study: { include: { questions: { include: { options: true, rows: true } }, responses: { include: { answers: true } } } } }
+      where: { id: conversationId },
+      include: {
+        study: {
+          include: {
+            questions: { include: { options: true, rows: true } },
+            responses: { include: { answers: true } },
+          },
+        },
+      },
     });
 
     if (!conversation) {
-      return NextResponse.json({ error: "Conversation not found" }, { status: 404 });
+      return jsonError("Conversation not found", 404);
     }
 
+    if (conversation.userId !== auth.user.id && auth.user.role !== "ADMIN") {
+      return jsonError("Forbidden: you cannot post to another user's conversation", 403);
+    }
+
+    const validation = await validateBody(postMessageSchema, request);
+    if (!validation.ok) return validation.response;
+    const { content } = validation.data;
+
     // Save user message
-    const userMessage = await prisma.aIMessage.create({
+    await prisma.aIMessage.create({
       data: {
         conversationId,
         role: "USER",
         content,
-      }
+      },
     });
 
     // Build system prompt
     let systemPrompt = MEDICAL_RESEARCH_SYSTEM_PROMPT;
-    
+
     if (conversation.study) {
       const summary = computeStudyStatistics(conversation.study);
       const contextText = formatStudyContext(summary);
@@ -75,19 +102,20 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     // Get message history
     const history = await prisma.aIMessage.findMany({
       where: { conversationId },
-      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       take: 20,
     });
 
-    const aiMessages = history.reverse().map(msg => ({
+    const aiMessages = history.reverse().map((msg) => ({
       role: msg.role.toLowerCase() as "user" | "assistant" | "system" | "tool",
-      content: msg.content
+      content: msg.content,
     }));
 
     // Generate AI response
-    const modelInfo = AVAILABLE_MODELS.find(
-      (model) => model.id === conversation.model || model.modelCode === conversation.model
-    ) || AVAILABLE_MODELS[0];
+    const modelInfo =
+      AVAILABLE_MODELS.find(
+        (model) => model.id === conversation.model || model.modelCode === conversation.model
+      ) || AVAILABLE_MODELS[0];
     const provider = getProviderForModel(modelInfo.id);
     const aiResponse = await provider.chat(aiMessages, {
       model: modelInfo.modelCode,
@@ -100,24 +128,26 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         conversationId,
         role: "ASSISTANT",
         content: aiResponse.content,
-      }
+      },
     });
 
     // Save Usage
-    const providerEnum = modelInfo.provider.toLowerCase().includes("google") ? "GEMINI" : "OPENROUTER";
+    const providerEnum = modelInfo.provider.toLowerCase().includes("google")
+      ? "GEMINI"
+      : "OPENROUTER";
     await prisma.aIUsage.create({
       data: {
         conversationId,
-        userId: session.userId,
+        userId: auth.user.id,
         provider: providerEnum as any,
         model: aiResponse.modelUsed,
         totalTokens: aiResponse.tokensUsed || 0,
-      }
+      },
     });
 
     return NextResponse.json({ message: assistantMessage });
   } catch (err: any) {
     console.error("Error creating message:", err);
-    return NextResponse.json({ error: "Failed to generate response" }, { status: 500 });
+    return jsonError("Failed to generate response", 500);
   }
 }

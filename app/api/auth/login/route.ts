@@ -1,3 +1,4 @@
+import { checkRateLimit } from "@/lib/rateLimit";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "../../../../lib/prisma";
@@ -6,6 +7,8 @@ import { logActivity } from "../../../../lib/activityLog";
 
 export async function POST(request: Request) {
   try {
+    const rateCheck = checkRateLimit(request, "LOGIN");
+    if (!rateCheck.allowed) return rateCheck.response;
     const body = await request.json();
 
     const { email, password } = body;

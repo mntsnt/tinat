@@ -122,7 +122,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
 
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20">
             <Sparkles className="w-3.5 h-3.5" />
-            Ask me anything anonymously!
+            Ask me anything confidentially!
           </div>
         </div>
 
@@ -136,7 +136,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                   rows={4}
                   value={questionText}
                   onChange={(e) => setQuestionText(e.target.value)}
-                  placeholder={`Send an anonymous question to ${profile.displayName}...\nI will never know who sent this 🤫`}
+                  placeholder={`Send a confidential question to ${profile.displayName}...\nI will never know who sent this 🤫`}
                   className="w-full rounded-xl border border-input bg-background/50 p-4 text-sm sm:text-base placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none transition-all"
                   maxLength={maxChars}
                   disabled={isSubmitting}
@@ -144,7 +144,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                 <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Lock className="w-3 h-3 text-emerald-500" />
-                    100% Anonymous
+                    Confidential & Coded
                   </span>
                   <span
                     className={
@@ -191,12 +191,12 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                 {isSubmitting ? (
                   <>
                     <span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                    Sending anonymously...
+                    Sending confidentially...
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    Send Anonymously
+                    Send Confidentially
                   </>
                 )}
               </button>
@@ -219,7 +219,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
 
             <div className="space-y-1">
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
-                Question Sent Anonymously! 🚀
+                Question Sent Confidentially! 🚀
               </h2>
               <p className="text-sm text-muted-foreground">
                 Your question was delivered to {profile.displayName}. They will never know who sent it.
@@ -232,7 +232,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                 <Sparkles className="w-3.5 h-3.5" /> Viral Social Q&A
               </div>
               <h3 className="text-base font-bold text-foreground">
-                Want people to ask YOU anything anonymously?
+                Want people to ask YOU anything confidentially?
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 Create your own free Tinat Ask link in 10 seconds. Share it on Instagram Stories, Telegram, WhatsApp, or X, and export sleek visual question decks!
@@ -285,7 +285,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                   {/* Question */}
                   <div className="p-3.5 rounded-xl bg-muted/40 border border-border/40">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-primary block mb-1">
-                      Anonymous Asked
+                      Confidential Question Asked
                     </span>
                     <p className="text-sm font-medium text-foreground">
                       &ldquo;{q.questionText}&rdquo;

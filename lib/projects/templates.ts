@@ -190,12 +190,12 @@ export const RESEARCH_TEMPLATES: ResearchTemplate[] = [
     ],
   },
   {
-    id: "CLINICAL_TRIAL",
-    name: "Clinical Trial / Intervention Study",
+    id: "SURVEY",
+    name: "Epidemiological Survey & Questionnaire",
     description:
-      "Structured for prospective randomized or non-randomized interventional trials following ICH-GCP and CONSORT guidelines.",
-    studyDesign: "Randomized Controlled Trial (RCT)",
-    badge: "Clinical Investigation",
+      "Structured for population-based surveys, observational cohorts, and community health assessments following STROBE guidelines.",
+    studyDesign: "Epidemiological Survey",
+    badge: "Population Health",
     suggestedPhases: [
       ProjectPhase.PLANNING,
       ProjectPhase.PROTOCOL,
@@ -219,9 +219,9 @@ export const RESEARCH_TEMPLATES: ResearchTemplate[] = [
     notes: [
       {
         category: "Methodology",
-        title: "Clinical Trial Protocol & Interventions",
+        title: "Survey Protocol & Sampling Framework",
         content:
-          "### Trial Design\nParallel-group, randomized, double-blind clinical evaluation.\n\n### Primary Endpoint\nMean change in biomarker or outcome score from baseline to Week 12.\n\n### Secondary Endpoints\n- Adverse event incidence (ICH-GCP reporting)\n- Patient adherence rate (%)",
+          "### Trial Design\nPopulation-based cross-sectional survey methodology.\n\n### Primary Endpoint\nMean change in biomarker or outcome score from baseline to Week 12.\n\n### Secondary Endpoints\n- Adverse event incidence (ICH-GCP reporting)\n- Patient adherence rate (%)",
       },
     ],
     milestones: [
@@ -232,7 +232,7 @@ export const RESEARCH_TEMPLATES: ResearchTemplate[] = [
         order: 1,
         tasks: [
           {
-            title: "Register study on Pan-African / ClinicalTrials.gov registry",
+            title: "Submit protocol to Institutional Ethics Review Board",
             priority: ProjectTaskPriority.URGENT,
             phase: ProjectPhase.ETHICS_APPROVAL,
             labels: ["Trial Registry"],

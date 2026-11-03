@@ -10,7 +10,7 @@ export async function GET(
 ) {
   try {
     const { id: projectId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }
@@ -46,7 +46,7 @@ export async function POST(
 ) {
   try {
     const { id: projectId } = await params;
-    const { auth, error, status } = await authorizeProjectAccess(projectId);
+    const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth || !auth.canMakeDecisions) {
       return NextResponse.json(
         { error: error || "Permission denied. Only Principal Investigators, Owners, and Research Leads can log methodological decisions." },

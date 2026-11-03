@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../..
 import { Badge } from "../../../components/ui/Badge";
 import { getButtonClasses } from "../../../components/ui/Button";
 import { AdminStudyStatusControls } from "./AdminStudyStatusControls";
+import { AdminEthicsReviewPanel } from "./AdminEthicsReviewPanel";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -53,6 +54,10 @@ export default async function AdminStudyDetailPage({ params }: Props) {
     notFound();
   }
 
+  const ethicsApproval = await prisma.ethicsApproval.findUnique({
+    where: { studyId: id },
+  });
+
   const remainingCredits = study.budgetCredits - study.creditsPaid;
   const participantTargetReached = study.participantTarget > 0 && study._count.responses >= study.participantTarget;
   
@@ -80,6 +85,15 @@ export default async function AdminStudyDetailPage({ params }: Props) {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mb-8">
+        <AdminEthicsReviewPanel
+          studyId={study.id}
+          ethicsApproval={ethicsApproval as any}
+          ethicsExempt={study.ethicsExempt}
+          ethicsExemptionReason={study.ethicsExemptionReason}
+        />
       </div>
 
       <div className="grid gap-6 md:grid-cols-3 mb-8">

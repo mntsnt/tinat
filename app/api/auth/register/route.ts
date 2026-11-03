@@ -1,3 +1,4 @@
+import { checkRateLimit } from "@/lib/rateLimit";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "../../../../lib/prisma";
@@ -8,6 +9,8 @@ import { getBaseUrl } from "@/lib/getRedirectUri";
 
 export async function POST(request: Request) {
   try {
+    const rateCheck = checkRateLimit(request, "REGISTER");
+    if (!rateCheck.allowed) return rateCheck.response;
     const body = await request.json();
 
     const { name, email, password, role } = body;
@@ -49,6 +52,8 @@ export async function POST(request: Request) {
         email: normalizedEmail,
         passwordHash,
         role: userRole,
+        privacyNoticeVersion: "1.0",
+        privacyAcceptedAt: new Date(),
         wallet: {
           create: { balance: 0 },
         },

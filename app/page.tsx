@@ -82,7 +82,7 @@ export default async function Home() {
               </h1>
 
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
-                Tinat is the specialized platform built for medical researchers, universities, clinicians, and NGOs. Conduct formal funded clinical studies with participant incentives or publish open health questionnaires completely free.
+                Tinat is the specialized platform built for health researchers, universities, clinicians, and NGOs. Conduct formal funded observational health studies with participant incentives or publish open health questionnaires completely free.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
@@ -102,7 +102,7 @@ export default async function Home() {
               <div className="flex flex-wrap gap-x-6 gap-y-2.5 pt-2">
                 {[
                   "Funded Research & Free Forms",
-                  "Verified Clinical Cohorts",
+                  "Verified Participant Cohorts",
                   "Human Subjects Data Privacy",
                   "Tinat Credits (TC) Rewards",
                 ].map((feature) => (
@@ -285,7 +285,7 @@ export default async function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-3">Funded Health Research</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  Ideal for academic dissertations, clinical trials, epidemiologic cohorts, and institutional studies with grant budgets. Reward participants with Tinat Credits (TC) to achieve rapid sample sizes and high completion rates.
+                  Ideal for academic dissertations, observational health surveys, epidemiologic cohorts, and institutional studies with grant budgets. Reward participants with Tinat Credits (TC) to achieve rapid sample sizes and high completion rates.
                 </p>
                 <ul className="space-y-2.5 text-xs text-foreground/90 mb-8">
                   <li className="flex items-center gap-2">
@@ -298,7 +298,7 @@ export default async function Home() {
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Instant automated payout upon verified response
+                    Instant automated credit reward upon verified response
                   </li>
                 </ul>
               </div>
@@ -317,7 +317,7 @@ export default async function Home() {
                     <ClipboardCheck className="w-6 h-6" />
                   </div>
                   <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-teal-400 bg-primary/10 px-3 py-1 rounded-full">
-                    100% Free &bull; Direct Publish
+                    Zero Cost &bull; Direct Publish
                   </span>
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-3">Free Data Collection</h3>
@@ -367,7 +367,7 @@ export default async function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {[
               { name: "Public Health", icon: Activity, desc: "Population-level disease prevention and health outcomes." },
-              { name: "Clinical Research", icon: Stethoscope, desc: "Patient assessments, treatment protocols, and trials." },
+              { name: "Observational Health", icon: Stethoscope, desc: "Patient-reported outcomes, lifestyle factors, and community surveys." },
               { name: "Epidemiology", icon: HeartPulse, desc: "Disease incidence, determinants, and biostatistics." },
               { name: "Mental Health", icon: Brain, desc: "Psychological well-being, burnout, and behavioral studies." },
               { name: "Nutrition & Dietetics", icon: Apple, desc: "Dietary habits, micronutrient deficiencies, and lifestyle." },

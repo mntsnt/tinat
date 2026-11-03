@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/auth";
+import { requireUser } from "@/lib/authGuard";
 import { prisma } from "@/lib/prisma";
 import { ProjectRole, ProjectVisibility } from "@/generated/prisma/enums";
 
@@ -18,21 +19,14 @@ export interface ProjectAuthContext {
 }
 
 export async function authorizeProjectAccess(
-  projectId: string
+  projectId: string,
+  req?: Request
 ): Promise<{ auth: ProjectAuthContext | null; error?: string; status?: number }> {
-  const session = await getSession();
-  if (!session) {
+  const userAuth = await requireUser(req);
+  if (!userAuth.ok) {
     return { auth: null, error: "Unauthorized. Please sign in.", status: 401 };
   }
-
-  const user = await prisma.user.findUnique({
-    where: { id: session.userId },
-    select: { id: true, role: true, name: true, email: true },
-  });
-
-  if (!user) {
-    return { auth: null, error: "User not found.", status: 401 };
-  }
+  const user = userAuth.user;
 
   const project = await prisma.researchProject.findUnique({
     where: { id: projectId },

@@ -1,3 +1,4 @@
+import { checkRateLimit } from "@/lib/rateLimit";
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -6,11 +7,25 @@ import { formatStudyContext } from "@/lib/ai/context";
 import { MEDICAL_RESEARCH_SYSTEM_PROMPT } from "@/lib/ai/prompts";
 import { ChatMessage } from "@/lib/ai/gemini";
 import { executeAIChat } from "@/lib/ai/models";
+import { FEATURES } from "@/lib/config/features";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
+    const rateCheck = checkRateLimit(request, "CHAT");
+    if (!rateCheck.allowed) return rateCheck.response;
+
+    if (!FEATURES.AI_EXTERNAL_ENABLED) {
+      return NextResponse.json(
+        {
+          error:
+            "External AI analysis is disabled by default to protect participant health data under Ethiopian Personal Data Protection Proclamation 1321/2024. Enable AI_EXTERNAL_ENABLED in server environment to allow transmission.",
+          code: "AI_EXTERNAL_DISABLED",
+        },
+        { status: 403 }
+      );
+    }
     // 1. Authenticate user
     const session = await getSession();
     if (!session || !session.userId) {

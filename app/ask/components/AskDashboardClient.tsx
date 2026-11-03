@@ -321,7 +321,7 @@ export function AskDashboardClient({
               Create Your Tinat Ask Link
             </h1>
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
-              Get anonymous questions from your community, friends, or participants. Generate sleek visual question decks for your socials!
+              Get confidential questions from your community, friends, or participants. Generate sleek visual question decks for your socials!
             </p>
           </div>
 
@@ -519,7 +519,7 @@ export function AskDashboardClient({
               href={`https://t.me/share/url?url=${encodeURIComponent(
                 askUrl
               )}&text=${encodeURIComponent(
-                "Ask me anything anonymously on Tinat Ask! 🤫"
+                "Ask me anything confidentially on Tinat Ask! 🤫"
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -529,7 +529,7 @@ export function AskDashboardClient({
             </a>
             <a
               href={`https://wa.me/?text=${encodeURIComponent(
-                `Ask me anything anonymously! Send your question here: ${askUrl}`
+                `Ask me anything confidentially! Send your question here: ${askUrl}`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -539,7 +539,7 @@ export function AskDashboardClient({
             </a>
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                "Ask me anything anonymously on Tinat Ask! 🤫"
+                "Ask me anything confidentially on Tinat Ask! 🤫"
               )}&url=${encodeURIComponent(askUrl)}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -660,7 +660,7 @@ export function AskDashboardClient({
             <h3 className="text-base font-semibold">No questions in this tab</h3>
             <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               {tab === "unanswered"
-                ? "Share your Ask link on your social stories, channels, or statuses to get anonymous questions!"
+                ? "Share your Ask link on your social stories, channels, or statuses to get confidential questions!"
                 : "Questions you manage will appear here."}
             </p>
             {tab === "unanswered" && (
@@ -686,7 +686,7 @@ export function AskDashboardClient({
                   {/* Question header info */}
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <span className="font-semibold text-primary/90 flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-primary" /> Anonymous Question
+                      <Sparkles className="w-3 h-3 text-primary" /> Confidential Question
                     </span>
                     <span>{new Date(q.createdAt).toLocaleString()}</span>
                   </div>

@@ -27,6 +27,9 @@ export type AggregateStudy = {
 }
 
 export type StudyAvgAggregateOutputType = {
+  creditPerResponse: number | null
+  creditBudget: number | null
+  creditsSpent: number | null
   rewardCredits: number | null
   budgetCredits: number | null
   creditsPaid: number | null
@@ -35,6 +38,9 @@ export type StudyAvgAggregateOutputType = {
 }
 
 export type StudySumAggregateOutputType = {
+  creditPerResponse: number | null
+  creditBudget: number | null
+  creditsSpent: number | null
   rewardCredits: number | null
   budgetCredits: number | null
   creditsPaid: number | null
@@ -48,6 +54,11 @@ export type StudyMinAggregateOutputType = {
   description: string | null
   bannerTheme: string | null
   status: $Enums.StudyStatus | null
+  fundingType: $Enums.StudyFundingType | null
+  creditPerResponse: number | null
+  creditBudget: number | null
+  creditsSpent: number | null
+  requiresReapproval: boolean | null
   rewardCredits: number | null
   researcherId: string | null
   createdAt: Date | null
@@ -61,6 +72,17 @@ export type StudyMinAggregateOutputType = {
   objective: string | null
   studyType: $Enums.StudyType | null
   targetPopulation: string | null
+  ethicsExempt: boolean | null
+  ethicsExemptionReason: string | null
+  ethicsExemptedByAdminId: string | null
+  ethicsExemptedAt: Date | null
+  populationDescription: string | null
+  recruitmentMethod: string | null
+  containsSensitiveTopics: boolean | null
+  involvesMinors: boolean | null
+  safetyProtocolText: string | null
+  firstApprovedByAdminId: string | null
+  secondApprovedByAdminId: string | null
 }
 
 export type StudyMaxAggregateOutputType = {
@@ -69,6 +91,11 @@ export type StudyMaxAggregateOutputType = {
   description: string | null
   bannerTheme: string | null
   status: $Enums.StudyStatus | null
+  fundingType: $Enums.StudyFundingType | null
+  creditPerResponse: number | null
+  creditBudget: number | null
+  creditsSpent: number | null
+  requiresReapproval: boolean | null
   rewardCredits: number | null
   researcherId: string | null
   createdAt: Date | null
@@ -82,6 +109,17 @@ export type StudyMaxAggregateOutputType = {
   objective: string | null
   studyType: $Enums.StudyType | null
   targetPopulation: string | null
+  ethicsExempt: boolean | null
+  ethicsExemptionReason: string | null
+  ethicsExemptedByAdminId: string | null
+  ethicsExemptedAt: Date | null
+  populationDescription: string | null
+  recruitmentMethod: string | null
+  containsSensitiveTopics: boolean | null
+  involvesMinors: boolean | null
+  safetyProtocolText: string | null
+  firstApprovedByAdminId: string | null
+  secondApprovedByAdminId: string | null
 }
 
 export type StudyCountAggregateOutputType = {
@@ -90,6 +128,11 @@ export type StudyCountAggregateOutputType = {
   description: number
   bannerTheme: number
   status: number
+  fundingType: number
+  creditPerResponse: number
+  creditBudget: number
+  creditsSpent: number
+  requiresReapproval: number
   rewardCredits: number
   researcherId: number
   createdAt: number
@@ -104,11 +147,25 @@ export type StudyCountAggregateOutputType = {
   objective: number
   studyType: number
   targetPopulation: number
+  ethicsExempt: number
+  ethicsExemptionReason: number
+  ethicsExemptedByAdminId: number
+  ethicsExemptedAt: number
+  populationDescription: number
+  recruitmentMethod: number
+  containsSensitiveTopics: number
+  involvesMinors: number
+  safetyProtocolText: number
+  firstApprovedByAdminId: number
+  secondApprovedByAdminId: number
   _all: number
 }
 
 
 export type StudyAvgAggregateInputType = {
+  creditPerResponse?: true
+  creditBudget?: true
+  creditsSpent?: true
   rewardCredits?: true
   budgetCredits?: true
   creditsPaid?: true
@@ -117,6 +174,9 @@ export type StudyAvgAggregateInputType = {
 }
 
 export type StudySumAggregateInputType = {
+  creditPerResponse?: true
+  creditBudget?: true
+  creditsSpent?: true
   rewardCredits?: true
   budgetCredits?: true
   creditsPaid?: true
@@ -130,6 +190,11 @@ export type StudyMinAggregateInputType = {
   description?: true
   bannerTheme?: true
   status?: true
+  fundingType?: true
+  creditPerResponse?: true
+  creditBudget?: true
+  creditsSpent?: true
+  requiresReapproval?: true
   rewardCredits?: true
   researcherId?: true
   createdAt?: true
@@ -143,6 +208,17 @@ export type StudyMinAggregateInputType = {
   objective?: true
   studyType?: true
   targetPopulation?: true
+  ethicsExempt?: true
+  ethicsExemptionReason?: true
+  ethicsExemptedByAdminId?: true
+  ethicsExemptedAt?: true
+  populationDescription?: true
+  recruitmentMethod?: true
+  containsSensitiveTopics?: true
+  involvesMinors?: true
+  safetyProtocolText?: true
+  firstApprovedByAdminId?: true
+  secondApprovedByAdminId?: true
 }
 
 export type StudyMaxAggregateInputType = {
@@ -151,6 +227,11 @@ export type StudyMaxAggregateInputType = {
   description?: true
   bannerTheme?: true
   status?: true
+  fundingType?: true
+  creditPerResponse?: true
+  creditBudget?: true
+  creditsSpent?: true
+  requiresReapproval?: true
   rewardCredits?: true
   researcherId?: true
   createdAt?: true
@@ -164,6 +245,17 @@ export type StudyMaxAggregateInputType = {
   objective?: true
   studyType?: true
   targetPopulation?: true
+  ethicsExempt?: true
+  ethicsExemptionReason?: true
+  ethicsExemptedByAdminId?: true
+  ethicsExemptedAt?: true
+  populationDescription?: true
+  recruitmentMethod?: true
+  containsSensitiveTopics?: true
+  involvesMinors?: true
+  safetyProtocolText?: true
+  firstApprovedByAdminId?: true
+  secondApprovedByAdminId?: true
 }
 
 export type StudyCountAggregateInputType = {
@@ -172,6 +264,11 @@ export type StudyCountAggregateInputType = {
   description?: true
   bannerTheme?: true
   status?: true
+  fundingType?: true
+  creditPerResponse?: true
+  creditBudget?: true
+  creditsSpent?: true
+  requiresReapproval?: true
   rewardCredits?: true
   researcherId?: true
   createdAt?: true
@@ -186,6 +283,17 @@ export type StudyCountAggregateInputType = {
   objective?: true
   studyType?: true
   targetPopulation?: true
+  ethicsExempt?: true
+  ethicsExemptionReason?: true
+  ethicsExemptedByAdminId?: true
+  ethicsExemptedAt?: true
+  populationDescription?: true
+  recruitmentMethod?: true
+  containsSensitiveTopics?: true
+  involvesMinors?: true
+  safetyProtocolText?: true
+  firstApprovedByAdminId?: true
+  secondApprovedByAdminId?: true
   _all?: true
 }
 
@@ -281,6 +389,11 @@ export type StudyGroupByOutputType = {
   description: string | null
   bannerTheme: string
   status: $Enums.StudyStatus
+  fundingType: $Enums.StudyFundingType
+  creditPerResponse: number
+  creditBudget: number
+  creditsSpent: number
+  requiresReapproval: boolean
   rewardCredits: number
   researcherId: string
   createdAt: Date
@@ -295,6 +408,17 @@ export type StudyGroupByOutputType = {
   objective: string | null
   studyType: $Enums.StudyType
   targetPopulation: string | null
+  ethicsExempt: boolean
+  ethicsExemptionReason: string | null
+  ethicsExemptedByAdminId: string | null
+  ethicsExemptedAt: Date | null
+  populationDescription: string | null
+  recruitmentMethod: string | null
+  containsSensitiveTopics: boolean
+  involvesMinors: boolean
+  safetyProtocolText: string | null
+  firstApprovedByAdminId: string | null
+  secondApprovedByAdminId: string | null
   _count: StudyCountAggregateOutputType | null
   _avg: StudyAvgAggregateOutputType | null
   _sum: StudySumAggregateOutputType | null
@@ -326,6 +450,11 @@ export type StudyWhereInput = {
   description?: Prisma.StringNullableFilter<"Study"> | string | null
   bannerTheme?: Prisma.StringFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusFilter<"Study"> | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFilter<"Study"> | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFilter<"Study"> | number
+  creditBudget?: Prisma.IntFilter<"Study"> | number
+  creditsSpent?: Prisma.IntFilter<"Study"> | number
+  requiresReapproval?: Prisma.BoolFilter<"Study"> | boolean
   rewardCredits?: Prisma.IntFilter<"Study"> | number
   researcherId?: Prisma.StringFilter<"Study"> | string
   createdAt?: Prisma.DateTimeFilter<"Study"> | Date | string
@@ -340,12 +469,27 @@ export type StudyWhereInput = {
   objective?: Prisma.StringNullableFilter<"Study"> | string | null
   studyType?: Prisma.EnumStudyTypeFilter<"Study"> | $Enums.StudyType
   targetPopulation?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsExempt?: Prisma.BoolFilter<"Study"> | boolean
+  ethicsExemptionReason?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsExemptedByAdminId?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsExemptedAt?: Prisma.DateTimeNullableFilter<"Study"> | Date | string | null
+  populationDescription?: Prisma.StringNullableFilter<"Study"> | string | null
+  recruitmentMethod?: Prisma.StringNullableFilter<"Study"> | string | null
+  containsSensitiveTopics?: Prisma.BoolFilter<"Study"> | boolean
+  involvesMinors?: Prisma.BoolFilter<"Study"> | boolean
+  safetyProtocolText?: Prisma.StringNullableFilter<"Study"> | string | null
+  firstApprovedByAdminId?: Prisma.StringNullableFilter<"Study"> | string | null
+  secondApprovedByAdminId?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsApproval?: Prisma.XOR<Prisma.EthicsApprovalNullableScalarRelationFilter, Prisma.EthicsApprovalWhereInput> | null
+  consentForms?: Prisma.ConsentFormListRelationFilter
+  moderationReports?: Prisma.ModerationReportListRelationFilter
   aiConversations?: Prisma.AIConversationListRelationFilter
   collectionSessions?: Prisma.CollectionSessionListRelationFilter
   collectorInvitations?: Prisma.CollectorInvitationListRelationFilter
   linkedProjects?: Prisma.ProjectLinkedStudyListRelationFilter
   questions?: Prisma.QuestionListRelationFilter
   responses?: Prisma.ResponseListRelationFilter
+  participantLinks?: Prisma.ParticipantLinkListRelationFilter
   researcher?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bookmarks?: Prisma.StudyBookmarkListRelationFilter
   comments?: Prisma.StudyCommentListRelationFilter
@@ -353,6 +497,7 @@ export type StudyWhereInput = {
   likes?: Prisma.StudyLikeListRelationFilter
   payments?: Prisma.StudyPaymentListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
+  translations?: Prisma.StudyTranslationListRelationFilter
 }
 
 export type StudyOrderByWithRelationInput = {
@@ -361,6 +506,11 @@ export type StudyOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fundingType?: Prisma.SortOrder
+  creditPerResponse?: Prisma.SortOrder
+  creditBudget?: Prisma.SortOrder
+  creditsSpent?: Prisma.SortOrder
+  requiresReapproval?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -375,12 +525,27 @@ export type StudyOrderByWithRelationInput = {
   objective?: Prisma.SortOrderInput | Prisma.SortOrder
   studyType?: Prisma.SortOrder
   targetPopulation?: Prisma.SortOrderInput | Prisma.SortOrder
+  ethicsExempt?: Prisma.SortOrder
+  ethicsExemptionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  ethicsExemptedByAdminId?: Prisma.SortOrderInput | Prisma.SortOrder
+  ethicsExemptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  populationDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  recruitmentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  containsSensitiveTopics?: Prisma.SortOrder
+  involvesMinors?: Prisma.SortOrder
+  safetyProtocolText?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstApprovedByAdminId?: Prisma.SortOrderInput | Prisma.SortOrder
+  secondApprovedByAdminId?: Prisma.SortOrderInput | Prisma.SortOrder
+  ethicsApproval?: Prisma.EthicsApprovalOrderByWithRelationInput
+  consentForms?: Prisma.ConsentFormOrderByRelationAggregateInput
+  moderationReports?: Prisma.ModerationReportOrderByRelationAggregateInput
   aiConversations?: Prisma.AIConversationOrderByRelationAggregateInput
   collectionSessions?: Prisma.CollectionSessionOrderByRelationAggregateInput
   collectorInvitations?: Prisma.CollectorInvitationOrderByRelationAggregateInput
   linkedProjects?: Prisma.ProjectLinkedStudyOrderByRelationAggregateInput
   questions?: Prisma.QuestionOrderByRelationAggregateInput
   responses?: Prisma.ResponseOrderByRelationAggregateInput
+  participantLinks?: Prisma.ParticipantLinkOrderByRelationAggregateInput
   researcher?: Prisma.UserOrderByWithRelationInput
   bookmarks?: Prisma.StudyBookmarkOrderByRelationAggregateInput
   comments?: Prisma.StudyCommentOrderByRelationAggregateInput
@@ -388,6 +553,7 @@ export type StudyOrderByWithRelationInput = {
   likes?: Prisma.StudyLikeOrderByRelationAggregateInput
   payments?: Prisma.StudyPaymentOrderByRelationAggregateInput
   ratings?: Prisma.StudyRatingOrderByRelationAggregateInput
+  translations?: Prisma.StudyTranslationOrderByRelationAggregateInput
 }
 
 export type StudyWhereUniqueInput = Prisma.AtLeast<{
@@ -399,6 +565,11 @@ export type StudyWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Study"> | string | null
   bannerTheme?: Prisma.StringFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusFilter<"Study"> | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFilter<"Study"> | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFilter<"Study"> | number
+  creditBudget?: Prisma.IntFilter<"Study"> | number
+  creditsSpent?: Prisma.IntFilter<"Study"> | number
+  requiresReapproval?: Prisma.BoolFilter<"Study"> | boolean
   rewardCredits?: Prisma.IntFilter<"Study"> | number
   researcherId?: Prisma.StringFilter<"Study"> | string
   createdAt?: Prisma.DateTimeFilter<"Study"> | Date | string
@@ -413,12 +584,27 @@ export type StudyWhereUniqueInput = Prisma.AtLeast<{
   objective?: Prisma.StringNullableFilter<"Study"> | string | null
   studyType?: Prisma.EnumStudyTypeFilter<"Study"> | $Enums.StudyType
   targetPopulation?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsExempt?: Prisma.BoolFilter<"Study"> | boolean
+  ethicsExemptionReason?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsExemptedByAdminId?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsExemptedAt?: Prisma.DateTimeNullableFilter<"Study"> | Date | string | null
+  populationDescription?: Prisma.StringNullableFilter<"Study"> | string | null
+  recruitmentMethod?: Prisma.StringNullableFilter<"Study"> | string | null
+  containsSensitiveTopics?: Prisma.BoolFilter<"Study"> | boolean
+  involvesMinors?: Prisma.BoolFilter<"Study"> | boolean
+  safetyProtocolText?: Prisma.StringNullableFilter<"Study"> | string | null
+  firstApprovedByAdminId?: Prisma.StringNullableFilter<"Study"> | string | null
+  secondApprovedByAdminId?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsApproval?: Prisma.XOR<Prisma.EthicsApprovalNullableScalarRelationFilter, Prisma.EthicsApprovalWhereInput> | null
+  consentForms?: Prisma.ConsentFormListRelationFilter
+  moderationReports?: Prisma.ModerationReportListRelationFilter
   aiConversations?: Prisma.AIConversationListRelationFilter
   collectionSessions?: Prisma.CollectionSessionListRelationFilter
   collectorInvitations?: Prisma.CollectorInvitationListRelationFilter
   linkedProjects?: Prisma.ProjectLinkedStudyListRelationFilter
   questions?: Prisma.QuestionListRelationFilter
   responses?: Prisma.ResponseListRelationFilter
+  participantLinks?: Prisma.ParticipantLinkListRelationFilter
   researcher?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bookmarks?: Prisma.StudyBookmarkListRelationFilter
   comments?: Prisma.StudyCommentListRelationFilter
@@ -426,6 +612,7 @@ export type StudyWhereUniqueInput = Prisma.AtLeast<{
   likes?: Prisma.StudyLikeListRelationFilter
   payments?: Prisma.StudyPaymentListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
+  translations?: Prisma.StudyTranslationListRelationFilter
 }, "id">
 
 export type StudyOrderByWithAggregationInput = {
@@ -434,6 +621,11 @@ export type StudyOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fundingType?: Prisma.SortOrder
+  creditPerResponse?: Prisma.SortOrder
+  creditBudget?: Prisma.SortOrder
+  creditsSpent?: Prisma.SortOrder
+  requiresReapproval?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -448,6 +640,17 @@ export type StudyOrderByWithAggregationInput = {
   objective?: Prisma.SortOrderInput | Prisma.SortOrder
   studyType?: Prisma.SortOrder
   targetPopulation?: Prisma.SortOrderInput | Prisma.SortOrder
+  ethicsExempt?: Prisma.SortOrder
+  ethicsExemptionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  ethicsExemptedByAdminId?: Prisma.SortOrderInput | Prisma.SortOrder
+  ethicsExemptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  populationDescription?: Prisma.SortOrderInput | Prisma.SortOrder
+  recruitmentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  containsSensitiveTopics?: Prisma.SortOrder
+  involvesMinors?: Prisma.SortOrder
+  safetyProtocolText?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstApprovedByAdminId?: Prisma.SortOrderInput | Prisma.SortOrder
+  secondApprovedByAdminId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.StudyCountOrderByAggregateInput
   _avg?: Prisma.StudyAvgOrderByAggregateInput
   _max?: Prisma.StudyMaxOrderByAggregateInput
@@ -464,6 +667,11 @@ export type StudyScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
   bannerTheme?: Prisma.StringWithAggregatesFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusWithAggregatesFilter<"Study"> | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeWithAggregatesFilter<"Study"> | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntWithAggregatesFilter<"Study"> | number
+  creditBudget?: Prisma.IntWithAggregatesFilter<"Study"> | number
+  creditsSpent?: Prisma.IntWithAggregatesFilter<"Study"> | number
+  requiresReapproval?: Prisma.BoolWithAggregatesFilter<"Study"> | boolean
   rewardCredits?: Prisma.IntWithAggregatesFilter<"Study"> | number
   researcherId?: Prisma.StringWithAggregatesFilter<"Study"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Study"> | Date | string
@@ -478,6 +686,17 @@ export type StudyScalarWhereWithAggregatesInput = {
   objective?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
   studyType?: Prisma.EnumStudyTypeWithAggregatesFilter<"Study"> | $Enums.StudyType
   targetPopulation?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
+  ethicsExempt?: Prisma.BoolWithAggregatesFilter<"Study"> | boolean
+  ethicsExemptionReason?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
+  ethicsExemptedByAdminId?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
+  ethicsExemptedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Study"> | Date | string | null
+  populationDescription?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
+  recruitmentMethod?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
+  containsSensitiveTopics?: Prisma.BoolWithAggregatesFilter<"Study"> | boolean
+  involvesMinors?: Prisma.BoolWithAggregatesFilter<"Study"> | boolean
+  safetyProtocolText?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
+  firstApprovedByAdminId?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
+  secondApprovedByAdminId?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
 }
 
 export type StudyCreateInput = {
@@ -486,6 +705,11 @@ export type StudyCreateInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -499,12 +723,27 @@ export type StudyCreateInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
@@ -512,6 +751,7 @@ export type StudyCreateInput = {
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateInput = {
@@ -520,6 +760,11 @@ export type StudyUncheckedCreateInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -534,18 +779,34 @@ export type StudyUncheckedCreateInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUpdateInput = {
@@ -554,6 +815,11 @@ export type StudyUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -567,12 +833,27 @@ export type StudyUpdateInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
@@ -580,6 +861,7 @@ export type StudyUpdateInput = {
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateInput = {
@@ -588,6 +870,11 @@ export type StudyUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -602,18 +889,34 @@ export type StudyUncheckedUpdateInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateManyInput = {
@@ -622,6 +925,11 @@ export type StudyCreateManyInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -636,6 +944,17 @@ export type StudyCreateManyInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
 }
 
 export type StudyUpdateManyMutationInput = {
@@ -644,6 +963,11 @@ export type StudyUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -657,6 +981,17 @@ export type StudyUpdateManyMutationInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StudyUncheckedUpdateManyInput = {
@@ -665,6 +1000,11 @@ export type StudyUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -679,6 +1019,17 @@ export type StudyUncheckedUpdateManyInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StudyListRelationFilter = {
@@ -705,6 +1056,11 @@ export type StudyCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fundingType?: Prisma.SortOrder
+  creditPerResponse?: Prisma.SortOrder
+  creditBudget?: Prisma.SortOrder
+  creditsSpent?: Prisma.SortOrder
+  requiresReapproval?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -719,9 +1075,23 @@ export type StudyCountOrderByAggregateInput = {
   objective?: Prisma.SortOrder
   studyType?: Prisma.SortOrder
   targetPopulation?: Prisma.SortOrder
+  ethicsExempt?: Prisma.SortOrder
+  ethicsExemptionReason?: Prisma.SortOrder
+  ethicsExemptedByAdminId?: Prisma.SortOrder
+  ethicsExemptedAt?: Prisma.SortOrder
+  populationDescription?: Prisma.SortOrder
+  recruitmentMethod?: Prisma.SortOrder
+  containsSensitiveTopics?: Prisma.SortOrder
+  involvesMinors?: Prisma.SortOrder
+  safetyProtocolText?: Prisma.SortOrder
+  firstApprovedByAdminId?: Prisma.SortOrder
+  secondApprovedByAdminId?: Prisma.SortOrder
 }
 
 export type StudyAvgOrderByAggregateInput = {
+  creditPerResponse?: Prisma.SortOrder
+  creditBudget?: Prisma.SortOrder
+  creditsSpent?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   budgetCredits?: Prisma.SortOrder
   creditsPaid?: Prisma.SortOrder
@@ -735,6 +1105,11 @@ export type StudyMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fundingType?: Prisma.SortOrder
+  creditPerResponse?: Prisma.SortOrder
+  creditBudget?: Prisma.SortOrder
+  creditsSpent?: Prisma.SortOrder
+  requiresReapproval?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -748,6 +1123,17 @@ export type StudyMaxOrderByAggregateInput = {
   objective?: Prisma.SortOrder
   studyType?: Prisma.SortOrder
   targetPopulation?: Prisma.SortOrder
+  ethicsExempt?: Prisma.SortOrder
+  ethicsExemptionReason?: Prisma.SortOrder
+  ethicsExemptedByAdminId?: Prisma.SortOrder
+  ethicsExemptedAt?: Prisma.SortOrder
+  populationDescription?: Prisma.SortOrder
+  recruitmentMethod?: Prisma.SortOrder
+  containsSensitiveTopics?: Prisma.SortOrder
+  involvesMinors?: Prisma.SortOrder
+  safetyProtocolText?: Prisma.SortOrder
+  firstApprovedByAdminId?: Prisma.SortOrder
+  secondApprovedByAdminId?: Prisma.SortOrder
 }
 
 export type StudyMinOrderByAggregateInput = {
@@ -756,6 +1142,11 @@ export type StudyMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fundingType?: Prisma.SortOrder
+  creditPerResponse?: Prisma.SortOrder
+  creditBudget?: Prisma.SortOrder
+  creditsSpent?: Prisma.SortOrder
+  requiresReapproval?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   researcherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -769,9 +1160,23 @@ export type StudyMinOrderByAggregateInput = {
   objective?: Prisma.SortOrder
   studyType?: Prisma.SortOrder
   targetPopulation?: Prisma.SortOrder
+  ethicsExempt?: Prisma.SortOrder
+  ethicsExemptionReason?: Prisma.SortOrder
+  ethicsExemptedByAdminId?: Prisma.SortOrder
+  ethicsExemptedAt?: Prisma.SortOrder
+  populationDescription?: Prisma.SortOrder
+  recruitmentMethod?: Prisma.SortOrder
+  containsSensitiveTopics?: Prisma.SortOrder
+  involvesMinors?: Prisma.SortOrder
+  safetyProtocolText?: Prisma.SortOrder
+  firstApprovedByAdminId?: Prisma.SortOrder
+  secondApprovedByAdminId?: Prisma.SortOrder
 }
 
 export type StudySumOrderByAggregateInput = {
+  creditPerResponse?: Prisma.SortOrder
+  creditBudget?: Prisma.SortOrder
+  creditsSpent?: Prisma.SortOrder
   rewardCredits?: Prisma.SortOrder
   budgetCredits?: Prisma.SortOrder
   creditsPaid?: Prisma.SortOrder
@@ -837,6 +1242,10 @@ export type StudyCreatetagsInput = {
 
 export type EnumStudyStatusFieldUpdateOperationsInput = {
   set?: $Enums.StudyStatus
+}
+
+export type EnumStudyFundingTypeFieldUpdateOperationsInput = {
+  set?: $Enums.StudyFundingType
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -924,6 +1333,20 @@ export type StudyUpdateOneRequiredWithoutQuestionsNestedInput = {
   upsert?: Prisma.StudyUpsertWithoutQuestionsInput
   connect?: Prisma.StudyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutQuestionsInput, Prisma.StudyUpdateWithoutQuestionsInput>, Prisma.StudyUncheckedUpdateWithoutQuestionsInput>
+}
+
+export type StudyCreateNestedOneWithoutParticipantLinksInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutParticipantLinksInput, Prisma.StudyUncheckedCreateWithoutParticipantLinksInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutParticipantLinksInput
+  connect?: Prisma.StudyWhereUniqueInput
+}
+
+export type StudyUpdateOneRequiredWithoutParticipantLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutParticipantLinksInput, Prisma.StudyUncheckedCreateWithoutParticipantLinksInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutParticipantLinksInput
+  upsert?: Prisma.StudyUpsertWithoutParticipantLinksInput
+  connect?: Prisma.StudyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutParticipantLinksInput, Prisma.StudyUpdateWithoutParticipantLinksInput>, Prisma.StudyUncheckedUpdateWithoutParticipantLinksInput>
 }
 
 export type StudyCreateNestedOneWithoutResponsesInput = {
@@ -1026,12 +1449,75 @@ export type StudyUpdateOneRequiredWithoutCollectionSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutCollectionSessionsInput, Prisma.StudyUpdateWithoutCollectionSessionsInput>, Prisma.StudyUncheckedUpdateWithoutCollectionSessionsInput>
 }
 
+export type StudyCreateNestedOneWithoutEthicsApprovalInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutEthicsApprovalInput, Prisma.StudyUncheckedCreateWithoutEthicsApprovalInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutEthicsApprovalInput
+  connect?: Prisma.StudyWhereUniqueInput
+}
+
+export type StudyUpdateOneRequiredWithoutEthicsApprovalNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutEthicsApprovalInput, Prisma.StudyUncheckedCreateWithoutEthicsApprovalInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutEthicsApprovalInput
+  upsert?: Prisma.StudyUpsertWithoutEthicsApprovalInput
+  connect?: Prisma.StudyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutEthicsApprovalInput, Prisma.StudyUpdateWithoutEthicsApprovalInput>, Prisma.StudyUncheckedUpdateWithoutEthicsApprovalInput>
+}
+
+export type StudyCreateNestedOneWithoutConsentFormsInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutConsentFormsInput, Prisma.StudyUncheckedCreateWithoutConsentFormsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutConsentFormsInput
+  connect?: Prisma.StudyWhereUniqueInput
+}
+
+export type StudyUpdateOneRequiredWithoutConsentFormsNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutConsentFormsInput, Prisma.StudyUncheckedCreateWithoutConsentFormsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutConsentFormsInput
+  upsert?: Prisma.StudyUpsertWithoutConsentFormsInput
+  connect?: Prisma.StudyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutConsentFormsInput, Prisma.StudyUpdateWithoutConsentFormsInput>, Prisma.StudyUncheckedUpdateWithoutConsentFormsInput>
+}
+
+export type StudyCreateNestedOneWithoutModerationReportsInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutModerationReportsInput, Prisma.StudyUncheckedCreateWithoutModerationReportsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutModerationReportsInput
+  connect?: Prisma.StudyWhereUniqueInput
+}
+
+export type StudyUpdateOneWithoutModerationReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutModerationReportsInput, Prisma.StudyUncheckedCreateWithoutModerationReportsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutModerationReportsInput
+  upsert?: Prisma.StudyUpsertWithoutModerationReportsInput
+  disconnect?: Prisma.StudyWhereInput | boolean
+  delete?: Prisma.StudyWhereInput | boolean
+  connect?: Prisma.StudyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutModerationReportsInput, Prisma.StudyUpdateWithoutModerationReportsInput>, Prisma.StudyUncheckedUpdateWithoutModerationReportsInput>
+}
+
+export type StudyCreateNestedOneWithoutTranslationsInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutTranslationsInput, Prisma.StudyUncheckedCreateWithoutTranslationsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutTranslationsInput
+  connect?: Prisma.StudyWhereUniqueInput
+}
+
+export type StudyUpdateOneRequiredWithoutTranslationsNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutTranslationsInput, Prisma.StudyUncheckedCreateWithoutTranslationsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutTranslationsInput
+  upsert?: Prisma.StudyUpsertWithoutTranslationsInput
+  connect?: Prisma.StudyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutTranslationsInput, Prisma.StudyUpdateWithoutTranslationsInput>, Prisma.StudyUncheckedUpdateWithoutTranslationsInput>
+}
+
 export type StudyCreateWithoutResearcherInput = {
   id?: string
   title: string
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1045,18 +1531,34 @@ export type StudyCreateWithoutResearcherInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutResearcherInput = {
@@ -1065,6 +1567,11 @@ export type StudyUncheckedCreateWithoutResearcherInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1078,18 +1585,34 @@ export type StudyUncheckedCreateWithoutResearcherInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutResearcherInput = {
@@ -1127,6 +1650,11 @@ export type StudyScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"Study"> | string | null
   bannerTheme?: Prisma.StringFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusFilter<"Study"> | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFilter<"Study"> | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFilter<"Study"> | number
+  creditBudget?: Prisma.IntFilter<"Study"> | number
+  creditsSpent?: Prisma.IntFilter<"Study"> | number
+  requiresReapproval?: Prisma.BoolFilter<"Study"> | boolean
   rewardCredits?: Prisma.IntFilter<"Study"> | number
   researcherId?: Prisma.StringFilter<"Study"> | string
   createdAt?: Prisma.DateTimeFilter<"Study"> | Date | string
@@ -1141,6 +1669,17 @@ export type StudyScalarWhereInput = {
   objective?: Prisma.StringNullableFilter<"Study"> | string | null
   studyType?: Prisma.EnumStudyTypeFilter<"Study"> | $Enums.StudyType
   targetPopulation?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsExempt?: Prisma.BoolFilter<"Study"> | boolean
+  ethicsExemptionReason?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsExemptedByAdminId?: Prisma.StringNullableFilter<"Study"> | string | null
+  ethicsExemptedAt?: Prisma.DateTimeNullableFilter<"Study"> | Date | string | null
+  populationDescription?: Prisma.StringNullableFilter<"Study"> | string | null
+  recruitmentMethod?: Prisma.StringNullableFilter<"Study"> | string | null
+  containsSensitiveTopics?: Prisma.BoolFilter<"Study"> | boolean
+  involvesMinors?: Prisma.BoolFilter<"Study"> | boolean
+  safetyProtocolText?: Prisma.StringNullableFilter<"Study"> | string | null
+  firstApprovedByAdminId?: Prisma.StringNullableFilter<"Study"> | string | null
+  secondApprovedByAdminId?: Prisma.StringNullableFilter<"Study"> | string | null
 }
 
 export type StudyCreateWithoutBookmarksInput = {
@@ -1149,6 +1688,11 @@ export type StudyCreateWithoutBookmarksInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1162,18 +1706,34 @@ export type StudyCreateWithoutBookmarksInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutBookmarksInput = {
@@ -1182,6 +1742,11 @@ export type StudyUncheckedCreateWithoutBookmarksInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -1196,17 +1761,33 @@ export type StudyUncheckedCreateWithoutBookmarksInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutBookmarksInput = {
@@ -1231,6 +1812,11 @@ export type StudyUpdateWithoutBookmarksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1244,18 +1830,34 @@ export type StudyUpdateWithoutBookmarksInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutBookmarksInput = {
@@ -1264,6 +1866,11 @@ export type StudyUncheckedUpdateWithoutBookmarksInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1278,17 +1885,33 @@ export type StudyUncheckedUpdateWithoutBookmarksInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutRatingsInput = {
@@ -1297,6 +1920,11 @@ export type StudyCreateWithoutRatingsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1310,18 +1938,34 @@ export type StudyCreateWithoutRatingsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutRatingsInput = {
@@ -1330,6 +1974,11 @@ export type StudyUncheckedCreateWithoutRatingsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -1344,17 +1993,33 @@ export type StudyUncheckedCreateWithoutRatingsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutRatingsInput = {
@@ -1379,6 +2044,11 @@ export type StudyUpdateWithoutRatingsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1392,18 +2062,34 @@ export type StudyUpdateWithoutRatingsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutRatingsInput = {
@@ -1412,6 +2098,11 @@ export type StudyUncheckedUpdateWithoutRatingsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1426,17 +2117,33 @@ export type StudyUncheckedUpdateWithoutRatingsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutLikesInput = {
@@ -1445,6 +2152,11 @@ export type StudyCreateWithoutLikesInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1458,18 +2170,34 @@ export type StudyCreateWithoutLikesInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutLikesInput = {
@@ -1478,6 +2206,11 @@ export type StudyUncheckedCreateWithoutLikesInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -1492,17 +2225,33 @@ export type StudyUncheckedCreateWithoutLikesInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutLikesInput = {
@@ -1527,6 +2276,11 @@ export type StudyUpdateWithoutLikesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1540,18 +2294,34 @@ export type StudyUpdateWithoutLikesInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutLikesInput = {
@@ -1560,6 +2330,11 @@ export type StudyUncheckedUpdateWithoutLikesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1574,17 +2349,33 @@ export type StudyUncheckedUpdateWithoutLikesInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutCommentsInput = {
@@ -1593,6 +2384,11 @@ export type StudyCreateWithoutCommentsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1606,18 +2402,34 @@ export type StudyCreateWithoutCommentsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutCommentsInput = {
@@ -1626,6 +2438,11 @@ export type StudyUncheckedCreateWithoutCommentsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -1640,17 +2457,33 @@ export type StudyUncheckedCreateWithoutCommentsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutCommentsInput = {
@@ -1675,6 +2508,11 @@ export type StudyUpdateWithoutCommentsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1688,18 +2526,34 @@ export type StudyUpdateWithoutCommentsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutCommentsInput = {
@@ -1708,6 +2562,11 @@ export type StudyUncheckedUpdateWithoutCommentsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1722,17 +2581,33 @@ export type StudyUncheckedUpdateWithoutCommentsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutQuestionsInput = {
@@ -1741,6 +2616,11 @@ export type StudyCreateWithoutQuestionsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1754,11 +2634,26 @@ export type StudyCreateWithoutQuestionsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
@@ -1766,6 +2661,7 @@ export type StudyCreateWithoutQuestionsInput = {
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutQuestionsInput = {
@@ -1774,6 +2670,11 @@ export type StudyUncheckedCreateWithoutQuestionsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -1788,17 +2689,33 @@ export type StudyUncheckedCreateWithoutQuestionsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutQuestionsInput = {
@@ -1823,6 +2740,11 @@ export type StudyUpdateWithoutQuestionsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1836,11 +2758,26 @@ export type StudyUpdateWithoutQuestionsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
@@ -1848,6 +2785,7 @@ export type StudyUpdateWithoutQuestionsInput = {
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutQuestionsInput = {
@@ -1856,6 +2794,11 @@ export type StudyUncheckedUpdateWithoutQuestionsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1870,25 +2813,46 @@ export type StudyUncheckedUpdateWithoutQuestionsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
-export type StudyCreateWithoutResponsesInput = {
+export type StudyCreateWithoutParticipantLinksInput = {
   id?: string
   title: string
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1902,11 +2866,26 @@ export type StudyCreateWithoutResponsesInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
@@ -1914,14 +2893,20 @@ export type StudyCreateWithoutResponsesInput = {
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
-export type StudyUncheckedCreateWithoutResponsesInput = {
+export type StudyUncheckedCreateWithoutParticipantLinksInput = {
   id?: string
   title: string
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -1936,17 +2921,265 @@ export type StudyUncheckedCreateWithoutResponsesInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
+}
+
+export type StudyCreateOrConnectWithoutParticipantLinksInput = {
+  where: Prisma.StudyWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCreateWithoutParticipantLinksInput, Prisma.StudyUncheckedCreateWithoutParticipantLinksInput>
+}
+
+export type StudyUpsertWithoutParticipantLinksInput = {
+  update: Prisma.XOR<Prisma.StudyUpdateWithoutParticipantLinksInput, Prisma.StudyUncheckedUpdateWithoutParticipantLinksInput>
+  create: Prisma.XOR<Prisma.StudyCreateWithoutParticipantLinksInput, Prisma.StudyUncheckedCreateWithoutParticipantLinksInput>
+  where?: Prisma.StudyWhereInput
+}
+
+export type StudyUpdateToOneWithWhereWithoutParticipantLinksInput = {
+  where?: Prisma.StudyWhereInput
+  data: Prisma.XOR<Prisma.StudyUpdateWithoutParticipantLinksInput, Prisma.StudyUncheckedUpdateWithoutParticipantLinksInput>
+}
+
+export type StudyUpdateWithoutParticipantLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyUncheckedUpdateWithoutParticipantLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  researcherId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyCreateWithoutResponsesInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
+  researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
+}
+
+export type StudyUncheckedCreateWithoutResponsesInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  researcherId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutResponsesInput = {
@@ -1971,6 +3204,11 @@ export type StudyUpdateWithoutResponsesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1984,11 +3222,26 @@ export type StudyUpdateWithoutResponsesInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
@@ -1996,6 +3249,7 @@ export type StudyUpdateWithoutResponsesInput = {
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutResponsesInput = {
@@ -2004,6 +3258,11 @@ export type StudyUncheckedUpdateWithoutResponsesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2018,17 +3277,33 @@ export type StudyUncheckedUpdateWithoutResponsesInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutPaymentsInput = {
@@ -2037,6 +3312,11 @@ export type StudyCreateWithoutPaymentsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2050,18 +3330,34 @@ export type StudyCreateWithoutPaymentsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutPaymentsInput = {
@@ -2070,6 +3366,11 @@ export type StudyUncheckedCreateWithoutPaymentsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -2084,17 +3385,33 @@ export type StudyUncheckedCreateWithoutPaymentsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutPaymentsInput = {
@@ -2119,6 +3436,11 @@ export type StudyUpdateWithoutPaymentsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2132,18 +3454,34 @@ export type StudyUpdateWithoutPaymentsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutPaymentsInput = {
@@ -2152,6 +3490,11 @@ export type StudyUncheckedUpdateWithoutPaymentsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2166,17 +3509,33 @@ export type StudyUncheckedUpdateWithoutPaymentsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutLinkedProjectsInput = {
@@ -2185,6 +3544,11 @@ export type StudyCreateWithoutLinkedProjectsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2198,11 +3562,26 @@ export type StudyCreateWithoutLinkedProjectsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
@@ -2210,6 +3589,7 @@ export type StudyCreateWithoutLinkedProjectsInput = {
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutLinkedProjectsInput = {
@@ -2218,6 +3598,11 @@ export type StudyUncheckedCreateWithoutLinkedProjectsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -2232,17 +3617,33 @@ export type StudyUncheckedCreateWithoutLinkedProjectsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutLinkedProjectsInput = {
@@ -2267,6 +3668,11 @@ export type StudyUpdateWithoutLinkedProjectsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2280,11 +3686,26 @@ export type StudyUpdateWithoutLinkedProjectsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
@@ -2292,6 +3713,7 @@ export type StudyUpdateWithoutLinkedProjectsInput = {
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutLinkedProjectsInput = {
@@ -2300,6 +3722,11 @@ export type StudyUncheckedUpdateWithoutLinkedProjectsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2314,17 +3741,33 @@ export type StudyUncheckedUpdateWithoutLinkedProjectsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutAiConversationsInput = {
@@ -2333,6 +3776,11 @@ export type StudyCreateWithoutAiConversationsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2346,11 +3794,26 @@ export type StudyCreateWithoutAiConversationsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
@@ -2358,6 +3821,7 @@ export type StudyCreateWithoutAiConversationsInput = {
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutAiConversationsInput = {
@@ -2366,6 +3830,11 @@ export type StudyUncheckedCreateWithoutAiConversationsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -2380,17 +3849,33 @@ export type StudyUncheckedCreateWithoutAiConversationsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutAiConversationsInput = {
@@ -2415,6 +3900,11 @@ export type StudyUpdateWithoutAiConversationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2428,11 +3918,26 @@ export type StudyUpdateWithoutAiConversationsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
@@ -2440,6 +3945,7 @@ export type StudyUpdateWithoutAiConversationsInput = {
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutAiConversationsInput = {
@@ -2448,6 +3954,11 @@ export type StudyUncheckedUpdateWithoutAiConversationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2462,17 +3973,33 @@ export type StudyUncheckedUpdateWithoutAiConversationsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutDataCollectorsInput = {
@@ -2481,6 +4008,11 @@ export type StudyCreateWithoutDataCollectorsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2494,18 +4026,34 @@ export type StudyCreateWithoutDataCollectorsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutDataCollectorsInput = {
@@ -2514,6 +4062,11 @@ export type StudyUncheckedCreateWithoutDataCollectorsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -2528,17 +4081,33 @@ export type StudyUncheckedCreateWithoutDataCollectorsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutDataCollectorsInput = {
@@ -2563,6 +4132,11 @@ export type StudyUpdateWithoutDataCollectorsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2576,18 +4150,34 @@ export type StudyUpdateWithoutDataCollectorsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutDataCollectorsInput = {
@@ -2596,6 +4186,11 @@ export type StudyUncheckedUpdateWithoutDataCollectorsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2610,17 +4205,33 @@ export type StudyUncheckedUpdateWithoutDataCollectorsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutCollectorInvitationsInput = {
@@ -2629,6 +4240,11 @@ export type StudyCreateWithoutCollectorInvitationsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2642,11 +4258,26 @@ export type StudyCreateWithoutCollectorInvitationsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
@@ -2654,6 +4285,7 @@ export type StudyCreateWithoutCollectorInvitationsInput = {
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutCollectorInvitationsInput = {
@@ -2662,6 +4294,11 @@ export type StudyUncheckedCreateWithoutCollectorInvitationsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -2676,17 +4313,33 @@ export type StudyUncheckedCreateWithoutCollectorInvitationsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutCollectorInvitationsInput = {
@@ -2711,6 +4364,11 @@ export type StudyUpdateWithoutCollectorInvitationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2724,11 +4382,26 @@ export type StudyUpdateWithoutCollectorInvitationsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
@@ -2736,6 +4409,7 @@ export type StudyUpdateWithoutCollectorInvitationsInput = {
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutCollectorInvitationsInput = {
@@ -2744,6 +4418,11 @@ export type StudyUncheckedUpdateWithoutCollectorInvitationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2758,17 +4437,33 @@ export type StudyUncheckedUpdateWithoutCollectorInvitationsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyCreateWithoutCollectionSessionsInput = {
@@ -2777,6 +4472,11 @@ export type StudyCreateWithoutCollectionSessionsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2790,11 +4490,26 @@ export type StudyCreateWithoutCollectionSessionsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
   researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
@@ -2802,6 +4517,7 @@ export type StudyCreateWithoutCollectionSessionsInput = {
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
 export type StudyUncheckedCreateWithoutCollectionSessionsInput = {
@@ -2810,6 +4526,11 @@ export type StudyUncheckedCreateWithoutCollectionSessionsInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   researcherId: string
   createdAt?: Date | string
@@ -2824,17 +4545,33 @@ export type StudyUncheckedCreateWithoutCollectionSessionsInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
   aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
   responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
 export type StudyCreateOrConnectWithoutCollectionSessionsInput = {
@@ -2859,6 +4596,11 @@ export type StudyUpdateWithoutCollectionSessionsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2872,11 +4614,26 @@ export type StudyUpdateWithoutCollectionSessionsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
@@ -2884,6 +4641,7 @@ export type StudyUpdateWithoutCollectionSessionsInput = {
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutCollectionSessionsInput = {
@@ -2892,6 +4650,11 @@ export type StudyUncheckedUpdateWithoutCollectionSessionsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   researcherId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2906,11 +4669,955 @@ export type StudyUncheckedUpdateWithoutCollectionSessionsInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyCreateWithoutEthicsApprovalInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
+  researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
+}
+
+export type StudyUncheckedCreateWithoutEthicsApprovalInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  researcherId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
+}
+
+export type StudyCreateOrConnectWithoutEthicsApprovalInput = {
+  where: Prisma.StudyWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCreateWithoutEthicsApprovalInput, Prisma.StudyUncheckedCreateWithoutEthicsApprovalInput>
+}
+
+export type StudyUpsertWithoutEthicsApprovalInput = {
+  update: Prisma.XOR<Prisma.StudyUpdateWithoutEthicsApprovalInput, Prisma.StudyUncheckedUpdateWithoutEthicsApprovalInput>
+  create: Prisma.XOR<Prisma.StudyCreateWithoutEthicsApprovalInput, Prisma.StudyUncheckedCreateWithoutEthicsApprovalInput>
+  where?: Prisma.StudyWhereInput
+}
+
+export type StudyUpdateToOneWithWhereWithoutEthicsApprovalInput = {
+  where?: Prisma.StudyWhereInput
+  data: Prisma.XOR<Prisma.StudyUpdateWithoutEthicsApprovalInput, Prisma.StudyUncheckedUpdateWithoutEthicsApprovalInput>
+}
+
+export type StudyUpdateWithoutEthicsApprovalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
+  researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyUncheckedUpdateWithoutEthicsApprovalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  researcherId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyCreateWithoutConsentFormsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
+  researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
+}
+
+export type StudyUncheckedCreateWithoutConsentFormsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  researcherId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
+}
+
+export type StudyCreateOrConnectWithoutConsentFormsInput = {
+  where: Prisma.StudyWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCreateWithoutConsentFormsInput, Prisma.StudyUncheckedCreateWithoutConsentFormsInput>
+}
+
+export type StudyUpsertWithoutConsentFormsInput = {
+  update: Prisma.XOR<Prisma.StudyUpdateWithoutConsentFormsInput, Prisma.StudyUncheckedUpdateWithoutConsentFormsInput>
+  create: Prisma.XOR<Prisma.StudyCreateWithoutConsentFormsInput, Prisma.StudyUncheckedCreateWithoutConsentFormsInput>
+  where?: Prisma.StudyWhereInput
+}
+
+export type StudyUpdateToOneWithWhereWithoutConsentFormsInput = {
+  where?: Prisma.StudyWhereInput
+  data: Prisma.XOR<Prisma.StudyUpdateWithoutConsentFormsInput, Prisma.StudyUncheckedUpdateWithoutConsentFormsInput>
+}
+
+export type StudyUpdateWithoutConsentFormsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
+  researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyUncheckedUpdateWithoutConsentFormsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  researcherId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyCreateWithoutModerationReportsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
+  researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
+}
+
+export type StudyUncheckedCreateWithoutModerationReportsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  researcherId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
+}
+
+export type StudyCreateOrConnectWithoutModerationReportsInput = {
+  where: Prisma.StudyWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCreateWithoutModerationReportsInput, Prisma.StudyUncheckedCreateWithoutModerationReportsInput>
+}
+
+export type StudyUpsertWithoutModerationReportsInput = {
+  update: Prisma.XOR<Prisma.StudyUpdateWithoutModerationReportsInput, Prisma.StudyUncheckedUpdateWithoutModerationReportsInput>
+  create: Prisma.XOR<Prisma.StudyCreateWithoutModerationReportsInput, Prisma.StudyUncheckedCreateWithoutModerationReportsInput>
+  where?: Prisma.StudyWhereInput
+}
+
+export type StudyUpdateToOneWithWhereWithoutModerationReportsInput = {
+  where?: Prisma.StudyWhereInput
+  data: Prisma.XOR<Prisma.StudyUpdateWithoutModerationReportsInput, Prisma.StudyUncheckedUpdateWithoutModerationReportsInput>
+}
+
+export type StudyUpdateWithoutModerationReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
+  researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyUncheckedUpdateWithoutModerationReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  researcherId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyCreateWithoutTranslationsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
+  researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+}
+
+export type StudyUncheckedCreateWithoutTranslationsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  researcherId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+}
+
+export type StudyCreateOrConnectWithoutTranslationsInput = {
+  where: Prisma.StudyWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCreateWithoutTranslationsInput, Prisma.StudyUncheckedCreateWithoutTranslationsInput>
+}
+
+export type StudyUpsertWithoutTranslationsInput = {
+  update: Prisma.XOR<Prisma.StudyUpdateWithoutTranslationsInput, Prisma.StudyUncheckedUpdateWithoutTranslationsInput>
+  create: Prisma.XOR<Prisma.StudyCreateWithoutTranslationsInput, Prisma.StudyUncheckedCreateWithoutTranslationsInput>
+  where?: Prisma.StudyWhereInput
+}
+
+export type StudyUpdateToOneWithWhereWithoutTranslationsInput = {
+  where?: Prisma.StudyWhereInput
+  data: Prisma.XOR<Prisma.StudyUpdateWithoutTranslationsInput, Prisma.StudyUncheckedUpdateWithoutTranslationsInput>
+}
+
+export type StudyUpdateWithoutTranslationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
+  researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyUncheckedUpdateWithoutTranslationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  researcherId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
@@ -2925,6 +5632,11 @@ export type StudyCreateManyResearcherInput = {
   description?: string | null
   bannerTheme?: string
   status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
   rewardCredits?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2938,6 +5650,17 @@ export type StudyCreateManyResearcherInput = {
   objective?: string | null
   studyType?: $Enums.StudyType
   targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
 }
 
 export type StudyUpdateWithoutResearcherInput = {
@@ -2946,6 +5669,11 @@ export type StudyUpdateWithoutResearcherInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2959,18 +5687,34 @@ export type StudyUpdateWithoutResearcherInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateWithoutResearcherInput = {
@@ -2979,6 +5723,11 @@ export type StudyUncheckedUpdateWithoutResearcherInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2992,18 +5741,34 @@ export type StudyUncheckedUpdateWithoutResearcherInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
   aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
   collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
   linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
   responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
 export type StudyUncheckedUpdateManyWithoutResearcherInput = {
@@ -3012,6 +5777,11 @@ export type StudyUncheckedUpdateManyWithoutResearcherInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3025,6 +5795,17 @@ export type StudyUncheckedUpdateManyWithoutResearcherInput = {
   objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
   targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -3033,33 +5814,41 @@ export type StudyUncheckedUpdateManyWithoutResearcherInput = {
  */
 
 export type StudyCountOutputType = {
+  consentForms: number
+  moderationReports: number
   aiConversations: number
   collectionSessions: number
   collectorInvitations: number
   linkedProjects: number
   questions: number
   responses: number
+  participantLinks: number
   bookmarks: number
   comments: number
   dataCollectors: number
   likes: number
   payments: number
   ratings: number
+  translations: number
 }
 
 export type StudyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  consentForms?: boolean | StudyCountOutputTypeCountConsentFormsArgs
+  moderationReports?: boolean | StudyCountOutputTypeCountModerationReportsArgs
   aiConversations?: boolean | StudyCountOutputTypeCountAiConversationsArgs
   collectionSessions?: boolean | StudyCountOutputTypeCountCollectionSessionsArgs
   collectorInvitations?: boolean | StudyCountOutputTypeCountCollectorInvitationsArgs
   linkedProjects?: boolean | StudyCountOutputTypeCountLinkedProjectsArgs
   questions?: boolean | StudyCountOutputTypeCountQuestionsArgs
   responses?: boolean | StudyCountOutputTypeCountResponsesArgs
+  participantLinks?: boolean | StudyCountOutputTypeCountParticipantLinksArgs
   bookmarks?: boolean | StudyCountOutputTypeCountBookmarksArgs
   comments?: boolean | StudyCountOutputTypeCountCommentsArgs
   dataCollectors?: boolean | StudyCountOutputTypeCountDataCollectorsArgs
   likes?: boolean | StudyCountOutputTypeCountLikesArgs
   payments?: boolean | StudyCountOutputTypeCountPaymentsArgs
   ratings?: boolean | StudyCountOutputTypeCountRatingsArgs
+  translations?: boolean | StudyCountOutputTypeCountTranslationsArgs
 }
 
 /**
@@ -3070,6 +5859,20 @@ export type StudyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
    * Select specific fields to fetch from the StudyCountOutputType
    */
   select?: Prisma.StudyCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * StudyCountOutputType without action
+ */
+export type StudyCountOutputTypeCountConsentFormsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConsentFormWhereInput
+}
+
+/**
+ * StudyCountOutputType without action
+ */
+export type StudyCountOutputTypeCountModerationReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ModerationReportWhereInput
 }
 
 /**
@@ -3117,6 +5920,13 @@ export type StudyCountOutputTypeCountResponsesArgs<ExtArgs extends runtime.Types
 /**
  * StudyCountOutputType without action
  */
+export type StudyCountOutputTypeCountParticipantLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ParticipantLinkWhereInput
+}
+
+/**
+ * StudyCountOutputType without action
+ */
 export type StudyCountOutputTypeCountBookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StudyBookmarkWhereInput
 }
@@ -3156,6 +5966,13 @@ export type StudyCountOutputTypeCountRatingsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.StudyRatingWhereInput
 }
 
+/**
+ * StudyCountOutputType without action
+ */
+export type StudyCountOutputTypeCountTranslationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StudyTranslationWhereInput
+}
+
 
 export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3163,6 +5980,11 @@ export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   description?: boolean
   bannerTheme?: boolean
   status?: boolean
+  fundingType?: boolean
+  creditPerResponse?: boolean
+  creditBudget?: boolean
+  creditsSpent?: boolean
+  requiresReapproval?: boolean
   rewardCredits?: boolean
   researcherId?: boolean
   createdAt?: boolean
@@ -3177,12 +5999,27 @@ export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   objective?: boolean
   studyType?: boolean
   targetPopulation?: boolean
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: boolean
+  ethicsExemptedByAdminId?: boolean
+  ethicsExemptedAt?: boolean
+  populationDescription?: boolean
+  recruitmentMethod?: boolean
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: boolean
+  firstApprovedByAdminId?: boolean
+  secondApprovedByAdminId?: boolean
+  ethicsApproval?: boolean | Prisma.Study$ethicsApprovalArgs<ExtArgs>
+  consentForms?: boolean | Prisma.Study$consentFormsArgs<ExtArgs>
+  moderationReports?: boolean | Prisma.Study$moderationReportsArgs<ExtArgs>
   aiConversations?: boolean | Prisma.Study$aiConversationsArgs<ExtArgs>
   collectionSessions?: boolean | Prisma.Study$collectionSessionsArgs<ExtArgs>
   collectorInvitations?: boolean | Prisma.Study$collectorInvitationsArgs<ExtArgs>
   linkedProjects?: boolean | Prisma.Study$linkedProjectsArgs<ExtArgs>
   questions?: boolean | Prisma.Study$questionsArgs<ExtArgs>
   responses?: boolean | Prisma.Study$responsesArgs<ExtArgs>
+  participantLinks?: boolean | Prisma.Study$participantLinksArgs<ExtArgs>
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bookmarks?: boolean | Prisma.Study$bookmarksArgs<ExtArgs>
   comments?: boolean | Prisma.Study$commentsArgs<ExtArgs>
@@ -3190,6 +6027,7 @@ export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   likes?: boolean | Prisma.Study$likesArgs<ExtArgs>
   payments?: boolean | Prisma.Study$paymentsArgs<ExtArgs>
   ratings?: boolean | Prisma.Study$ratingsArgs<ExtArgs>
+  translations?: boolean | Prisma.Study$translationsArgs<ExtArgs>
   _count?: boolean | Prisma.StudyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["study"]>
 
@@ -3199,6 +6037,11 @@ export type StudySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   description?: boolean
   bannerTheme?: boolean
   status?: boolean
+  fundingType?: boolean
+  creditPerResponse?: boolean
+  creditBudget?: boolean
+  creditsSpent?: boolean
+  requiresReapproval?: boolean
   rewardCredits?: boolean
   researcherId?: boolean
   createdAt?: boolean
@@ -3213,6 +6056,17 @@ export type StudySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   objective?: boolean
   studyType?: boolean
   targetPopulation?: boolean
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: boolean
+  ethicsExemptedByAdminId?: boolean
+  ethicsExemptedAt?: boolean
+  populationDescription?: boolean
+  recruitmentMethod?: boolean
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: boolean
+  firstApprovedByAdminId?: boolean
+  secondApprovedByAdminId?: boolean
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["study"]>
 
@@ -3222,6 +6076,11 @@ export type StudySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   description?: boolean
   bannerTheme?: boolean
   status?: boolean
+  fundingType?: boolean
+  creditPerResponse?: boolean
+  creditBudget?: boolean
+  creditsSpent?: boolean
+  requiresReapproval?: boolean
   rewardCredits?: boolean
   researcherId?: boolean
   createdAt?: boolean
@@ -3236,6 +6095,17 @@ export type StudySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   objective?: boolean
   studyType?: boolean
   targetPopulation?: boolean
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: boolean
+  ethicsExemptedByAdminId?: boolean
+  ethicsExemptedAt?: boolean
+  populationDescription?: boolean
+  recruitmentMethod?: boolean
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: boolean
+  firstApprovedByAdminId?: boolean
+  secondApprovedByAdminId?: boolean
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["study"]>
 
@@ -3245,6 +6115,11 @@ export type StudySelectScalar = {
   description?: boolean
   bannerTheme?: boolean
   status?: boolean
+  fundingType?: boolean
+  creditPerResponse?: boolean
+  creditBudget?: boolean
+  creditsSpent?: boolean
+  requiresReapproval?: boolean
   rewardCredits?: boolean
   researcherId?: boolean
   createdAt?: boolean
@@ -3259,16 +6134,31 @@ export type StudySelectScalar = {
   objective?: boolean
   studyType?: boolean
   targetPopulation?: boolean
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: boolean
+  ethicsExemptedByAdminId?: boolean
+  ethicsExemptedAt?: boolean
+  populationDescription?: boolean
+  recruitmentMethod?: boolean
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: boolean
+  firstApprovedByAdminId?: boolean
+  secondApprovedByAdminId?: boolean
 }
 
-export type StudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "bannerTheme" | "status" | "rewardCredits" | "researcherId" | "createdAt" | "updatedAt" | "budgetCredits" | "creditsPaid" | "participantTarget" | "eligibilityCriteria" | "tags" | "category" | "estimatedMinutes" | "objective" | "studyType" | "targetPopulation", ExtArgs["result"]["study"]>
+export type StudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "bannerTheme" | "status" | "fundingType" | "creditPerResponse" | "creditBudget" | "creditsSpent" | "requiresReapproval" | "rewardCredits" | "researcherId" | "createdAt" | "updatedAt" | "budgetCredits" | "creditsPaid" | "participantTarget" | "eligibilityCriteria" | "tags" | "category" | "estimatedMinutes" | "objective" | "studyType" | "targetPopulation" | "ethicsExempt" | "ethicsExemptionReason" | "ethicsExemptedByAdminId" | "ethicsExemptedAt" | "populationDescription" | "recruitmentMethod" | "containsSensitiveTopics" | "involvesMinors" | "safetyProtocolText" | "firstApprovedByAdminId" | "secondApprovedByAdminId", ExtArgs["result"]["study"]>
 export type StudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  ethicsApproval?: boolean | Prisma.Study$ethicsApprovalArgs<ExtArgs>
+  consentForms?: boolean | Prisma.Study$consentFormsArgs<ExtArgs>
+  moderationReports?: boolean | Prisma.Study$moderationReportsArgs<ExtArgs>
   aiConversations?: boolean | Prisma.Study$aiConversationsArgs<ExtArgs>
   collectionSessions?: boolean | Prisma.Study$collectionSessionsArgs<ExtArgs>
   collectorInvitations?: boolean | Prisma.Study$collectorInvitationsArgs<ExtArgs>
   linkedProjects?: boolean | Prisma.Study$linkedProjectsArgs<ExtArgs>
   questions?: boolean | Prisma.Study$questionsArgs<ExtArgs>
   responses?: boolean | Prisma.Study$responsesArgs<ExtArgs>
+  participantLinks?: boolean | Prisma.Study$participantLinksArgs<ExtArgs>
   researcher?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bookmarks?: boolean | Prisma.Study$bookmarksArgs<ExtArgs>
   comments?: boolean | Prisma.Study$commentsArgs<ExtArgs>
@@ -3276,6 +6166,7 @@ export type StudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   likes?: boolean | Prisma.Study$likesArgs<ExtArgs>
   payments?: boolean | Prisma.Study$paymentsArgs<ExtArgs>
   ratings?: boolean | Prisma.Study$ratingsArgs<ExtArgs>
+  translations?: boolean | Prisma.Study$translationsArgs<ExtArgs>
   _count?: boolean | Prisma.StudyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type StudyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3288,12 +6179,16 @@ export type StudyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $StudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Study"
   objects: {
+    ethicsApproval: Prisma.$EthicsApprovalPayload<ExtArgs> | null
+    consentForms: Prisma.$ConsentFormPayload<ExtArgs>[]
+    moderationReports: Prisma.$ModerationReportPayload<ExtArgs>[]
     aiConversations: Prisma.$AIConversationPayload<ExtArgs>[]
     collectionSessions: Prisma.$CollectionSessionPayload<ExtArgs>[]
     collectorInvitations: Prisma.$CollectorInvitationPayload<ExtArgs>[]
     linkedProjects: Prisma.$ProjectLinkedStudyPayload<ExtArgs>[]
     questions: Prisma.$QuestionPayload<ExtArgs>[]
     responses: Prisma.$ResponsePayload<ExtArgs>[]
+    participantLinks: Prisma.$ParticipantLinkPayload<ExtArgs>[]
     researcher: Prisma.$UserPayload<ExtArgs>
     bookmarks: Prisma.$StudyBookmarkPayload<ExtArgs>[]
     comments: Prisma.$StudyCommentPayload<ExtArgs>[]
@@ -3301,6 +6196,7 @@ export type $StudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     likes: Prisma.$StudyLikePayload<ExtArgs>[]
     payments: Prisma.$StudyPaymentPayload<ExtArgs>[]
     ratings: Prisma.$StudyRatingPayload<ExtArgs>[]
+    translations: Prisma.$StudyTranslationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3308,6 +6204,11 @@ export type $StudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     description: string | null
     bannerTheme: string
     status: $Enums.StudyStatus
+    fundingType: $Enums.StudyFundingType
+    creditPerResponse: number
+    creditBudget: number
+    creditsSpent: number
+    requiresReapproval: boolean
     rewardCredits: number
     researcherId: string
     createdAt: Date
@@ -3322,6 +6223,17 @@ export type $StudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     objective: string | null
     studyType: $Enums.StudyType
     targetPopulation: string | null
+    ethicsExempt: boolean
+    ethicsExemptionReason: string | null
+    ethicsExemptedByAdminId: string | null
+    ethicsExemptedAt: Date | null
+    populationDescription: string | null
+    recruitmentMethod: string | null
+    containsSensitiveTopics: boolean
+    involvesMinors: boolean
+    safetyProtocolText: string | null
+    firstApprovedByAdminId: string | null
+    secondApprovedByAdminId: string | null
   }, ExtArgs["result"]["study"]>
   composites: {}
 }
@@ -3716,12 +6628,16 @@ readonly fields: StudyFieldRefs;
  */
 export interface Prisma__StudyClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  ethicsApproval<T extends Prisma.Study$ethicsApprovalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$ethicsApprovalArgs<ExtArgs>>): Prisma.Prisma__EthicsApprovalClient<runtime.Types.Result.GetResult<Prisma.$EthicsApprovalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  consentForms<T extends Prisma.Study$consentFormsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$consentFormsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsentFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  moderationReports<T extends Prisma.Study$moderationReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$moderationReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModerationReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiConversations<T extends Prisma.Study$aiConversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$aiConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   collectionSessions<T extends Prisma.Study$collectionSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$collectionSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectionSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   collectorInvitations<T extends Prisma.Study$collectorInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$collectorInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   linkedProjects<T extends Prisma.Study$linkedProjectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$linkedProjectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectLinkedStudyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   questions<T extends Prisma.Study$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   responses<T extends Prisma.Study$responsesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  participantLinks<T extends Prisma.Study$participantLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$participantLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ParticipantLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   researcher<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bookmarks<T extends Prisma.Study$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.Study$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3729,6 +6645,7 @@ export interface Prisma__StudyClient<T, Null = never, ExtArgs extends runtime.Ty
   likes<T extends Prisma.Study$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.Study$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ratings<T extends Prisma.Study$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  translations<T extends Prisma.Study$translationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyTranslationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3763,6 +6680,11 @@ export interface StudyFieldRefs {
   readonly description: Prisma.FieldRef<"Study", 'String'>
   readonly bannerTheme: Prisma.FieldRef<"Study", 'String'>
   readonly status: Prisma.FieldRef<"Study", 'StudyStatus'>
+  readonly fundingType: Prisma.FieldRef<"Study", 'StudyFundingType'>
+  readonly creditPerResponse: Prisma.FieldRef<"Study", 'Int'>
+  readonly creditBudget: Prisma.FieldRef<"Study", 'Int'>
+  readonly creditsSpent: Prisma.FieldRef<"Study", 'Int'>
+  readonly requiresReapproval: Prisma.FieldRef<"Study", 'Boolean'>
   readonly rewardCredits: Prisma.FieldRef<"Study", 'Int'>
   readonly researcherId: Prisma.FieldRef<"Study", 'String'>
   readonly createdAt: Prisma.FieldRef<"Study", 'DateTime'>
@@ -3777,6 +6699,17 @@ export interface StudyFieldRefs {
   readonly objective: Prisma.FieldRef<"Study", 'String'>
   readonly studyType: Prisma.FieldRef<"Study", 'StudyType'>
   readonly targetPopulation: Prisma.FieldRef<"Study", 'String'>
+  readonly ethicsExempt: Prisma.FieldRef<"Study", 'Boolean'>
+  readonly ethicsExemptionReason: Prisma.FieldRef<"Study", 'String'>
+  readonly ethicsExemptedByAdminId: Prisma.FieldRef<"Study", 'String'>
+  readonly ethicsExemptedAt: Prisma.FieldRef<"Study", 'DateTime'>
+  readonly populationDescription: Prisma.FieldRef<"Study", 'String'>
+  readonly recruitmentMethod: Prisma.FieldRef<"Study", 'String'>
+  readonly containsSensitiveTopics: Prisma.FieldRef<"Study", 'Boolean'>
+  readonly involvesMinors: Prisma.FieldRef<"Study", 'Boolean'>
+  readonly safetyProtocolText: Prisma.FieldRef<"Study", 'String'>
+  readonly firstApprovedByAdminId: Prisma.FieldRef<"Study", 'String'>
+  readonly secondApprovedByAdminId: Prisma.FieldRef<"Study", 'String'>
 }
     
 
@@ -4178,6 +7111,73 @@ export type StudyDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Study.ethicsApproval
+ */
+export type Study$ethicsApprovalArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EthicsApproval
+   */
+  select?: Prisma.EthicsApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EthicsApproval
+   */
+  omit?: Prisma.EthicsApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EthicsApprovalInclude<ExtArgs> | null
+  where?: Prisma.EthicsApprovalWhereInput
+}
+
+/**
+ * Study.consentForms
+ */
+export type Study$consentFormsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConsentForm
+   */
+  select?: Prisma.ConsentFormSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ConsentForm
+   */
+  omit?: Prisma.ConsentFormOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConsentFormInclude<ExtArgs> | null
+  where?: Prisma.ConsentFormWhereInput
+  orderBy?: Prisma.ConsentFormOrderByWithRelationInput | Prisma.ConsentFormOrderByWithRelationInput[]
+  cursor?: Prisma.ConsentFormWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConsentFormScalarFieldEnum | Prisma.ConsentFormScalarFieldEnum[]
+}
+
+/**
+ * Study.moderationReports
+ */
+export type Study$moderationReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ModerationReport
+   */
+  select?: Prisma.ModerationReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ModerationReport
+   */
+  omit?: Prisma.ModerationReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ModerationReportInclude<ExtArgs> | null
+  where?: Prisma.ModerationReportWhereInput
+  orderBy?: Prisma.ModerationReportOrderByWithRelationInput | Prisma.ModerationReportOrderByWithRelationInput[]
+  cursor?: Prisma.ModerationReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ModerationReportScalarFieldEnum | Prisma.ModerationReportScalarFieldEnum[]
+}
+
+/**
  * Study.aiConversations
  */
 export type Study$aiConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4322,6 +7322,30 @@ export type Study$responsesArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Study.participantLinks
+ */
+export type Study$participantLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ParticipantLink
+   */
+  select?: Prisma.ParticipantLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ParticipantLink
+   */
+  omit?: Prisma.ParticipantLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ParticipantLinkInclude<ExtArgs> | null
+  where?: Prisma.ParticipantLinkWhereInput
+  orderBy?: Prisma.ParticipantLinkOrderByWithRelationInput | Prisma.ParticipantLinkOrderByWithRelationInput[]
+  cursor?: Prisma.ParticipantLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ParticipantLinkScalarFieldEnum | Prisma.ParticipantLinkScalarFieldEnum[]
+}
+
+/**
  * Study.bookmarks
  */
 export type Study$bookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4463,6 +7487,30 @@ export type Study$ratingsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.StudyRatingScalarFieldEnum | Prisma.StudyRatingScalarFieldEnum[]
+}
+
+/**
+ * Study.translations
+ */
+export type Study$translationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StudyTranslation
+   */
+  select?: Prisma.StudyTranslationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StudyTranslation
+   */
+  omit?: Prisma.StudyTranslationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StudyTranslationInclude<ExtArgs> | null
+  where?: Prisma.StudyTranslationWhereInput
+  orderBy?: Prisma.StudyTranslationOrderByWithRelationInput | Prisma.StudyTranslationOrderByWithRelationInput[]
+  cursor?: Prisma.StudyTranslationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StudyTranslationScalarFieldEnum | Prisma.StudyTranslationScalarFieldEnum[]
 }
 
 /**

@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       req.headers.get("x-real-ip") ||
-      "anonymous_client";
+      "unauthenticated_client";
 
     if (!checkRateLimit(ip)) {
       return NextResponse.json(
@@ -113,10 +113,10 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "Your question has been sent anonymously!",
+      message: "Your question has been sent confidentially and coded!",
     });
   } catch (error) {
-    console.error("Error submitting anonymous question:", error);
+    console.error("Error submitting confidential question:", error);
     return NextResponse.json(
       { error: "Failed to send question. Please try again." },
       { status: 500 }

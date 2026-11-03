@@ -53,7 +53,20 @@ model User {
   createdProjectTasks          ProjectTask[]            @relation("TaskCreator")
   leadProjects                 ResearchProject[]        @relation("ProjectLead")
   collectedResponses           Response[]               @relation("CollectedResponses")
-  responses                    Response[]
+  participantLinks             ParticipantLink[]
+  dataSubjectRequests          DataSubjectRequest[]
+  termsAcceptedVersion         String?
+  termsAcceptedAt              DateTime?
+  charterAcceptedVersion       String?
+  charterAcceptedAt            DateTime?
+  codeOfConductAcceptedVersion String?
+  codeOfConductAcceptedAt      DateTime?
+  dpaAcceptedVersion           String?
+  dpaAcceptedAt                DateTime?
+  moderationReports            ModerationReport[]
+  verifiedEthicsApprovals      EthicsApproval[]         @relation("EthicsVerifier")
+  privacyNoticeVersion         String                   @default("1.0")
+  privacyAcceptedAt            DateTime?
   studies                      Study[]
   bookmarks                    StudyBookmark[]
   comments                     StudyComment[]
@@ -64,6 +77,7 @@ model User {
   reviewedVerifications        Verification[]           @relation("AdminReviews")
   verifications                Verification[]           @relation("UserVerifications")
   wallet                       Wallet?
+  ledgerAccount                LedgerAccount?
   withdrawals                  Withdrawal[]
 }
 
@@ -73,6 +87,11 @@ model Study {
   description          String?
   bannerTheme          String                @default("canopy")
   status               StudyStatus           @default(DRAFT)
+  fundingType          StudyFundingType      @default(FREE)
+  creditPerResponse    Int                   @default(0)
+  creditBudget         Int                   @default(0)
+  creditsSpent         Int                   @default(0)
+  requiresReapproval   Boolean               @default(false)
   rewardCredits        Int                   @default(0)
   researcherId         String
   createdAt            DateTime              @default(now())
@@ -87,12 +106,27 @@ model Study {
   objective            String?
   studyType            StudyType             @default(FUNDED)
   targetPopulation     String?
+  ethicsApproval           EthicsApproval?
+  ethicsExempt             Boolean               @default(false)
+  ethicsExemptionReason     String?
+  ethicsExemptedByAdminId  String?
+  ethicsExemptedAt         DateTime?
+  populationDescription    String?
+  recruitmentMethod        String?
+  containsSensitiveTopics  Boolean               @default(false)
+  involvesMinors           Boolean               @default(false)
+  safetyProtocolText       String?
+  firstApprovedByAdminId   String?
+  secondApprovedByAdminId  String?
+  consentForms             ConsentForm[]
+  moderationReports        ModerationReport[]
   aiConversations      AIConversation[]
   collectionSessions   CollectionSession[]   @relation("StudyCollectionSessions")
   collectorInvitations CollectorInvitation[] @relation("StudyCollectorInvitations")
   linkedProjects       ProjectLinkedStudy[]
   questions            Question[]
   responses            Response[]
+  participantLinks     ParticipantLink[]
   researcher           User                  @relation(fields: [researcherId], references: [id], onDelete: Cascade)
   bookmarks            StudyBookmark[]
   comments             StudyComment[]
@@ -100,6 +134,7 @@ model Study {
   likes                StudyLike[]
   payments             StudyPayment[]
   ratings              StudyRating[]
+  translations         StudyTranslation[]
 }
 
 model StudyBookmark {
@@ -180,6 +215,27 @@ model ActivityLog {
   @@index([createdAt])
 }
 
+model IncidentLog {
+  id              String   @id @default(cuid())
+  type            String   @default("SECURITY_INCIDENT")
+  severity        String   @default("HIGH")
+  category        String   @default("DATA_PROTECTION")
+  description     String
+  detectedAt      DateTime @default(now())
+  dataAffected    String?
+  notifiedParties String?
+  status          String   @default("OPEN")
+  metadata        Json?
+  resolved        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([category])
+  @@index([severity])
+  @@index([createdAt])
+  @@index([status])
+}
+
 model AdminChatMessage {
   id        String   @id @default(cuid())
   channel   String
@@ -198,6 +254,8 @@ model Question {
   text          String
   type          QuestionType
   required      Boolean          @default(true)
+  isSkippable   Boolean          @default(false)
+  preferNotToAnswerEnabled Boolean @default(true)
   order         Int
   createdAt     DateTime         @default(now())
   scaleMax      Int?
@@ -208,6 +266,7 @@ model Question {
   study         Study            @relation(fields: [studyId], references: [id], onDelete: Cascade)
   options       QuestionOption[]
   rows          QuestionRow[]
+  translations  QuestionTranslation[]
 }
 
 model QuestionRow {
@@ -228,21 +287,71 @@ model QuestionOption {
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
 
+enum DataSubjectRequestType {
+  ACCESS
+  RECTIFICATION
+  ERASURE
+  WITHDRAW_CONSENT
+}
+
+enum DataSubjectRequestStatus {
+  PENDING
+  IN_REVIEW
+  COMPLETED
+  REJECTED
+}
+
+model ParticipantLink {
+  id             String   @id @default(cuid())
+  userId         String
+  studyId        String
+  respondentCode String   @unique
+  createdAt      DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  study Study @relation(fields: [studyId], references: [id], onDelete: Cascade)
+
+  @@unique([studyId, userId])
+  @@index([studyId])
+  @@index([userId])
+}
+
+model DataSubjectRequest {
+  id          String                   @id @default(cuid())
+  userId      String
+  type        DataSubjectRequestType
+  status      DataSubjectRequestStatus @default(PENDING)
+  reason      String?
+  details     Json?
+  dueDate     DateTime
+  completedAt DateTime?
+  createdAt   DateTime                 @default(now())
+  updatedAt   DateTime                 @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+}
+
 model Response {
   id                  String             @id @default(cuid())
   studyId             String
-  participantId       String
+  respondentCode      String             @unique
   submittedAt         DateTime           @default(now())
   collectionMethod    CollectionMethod   @default(SELF)
   collectorId         String?
   collectionSessionId String?
+  ipHash              String?
+  deviceFingerprint   String?
+  language            String             @default("en")
   answers             Answer[]
   session             CollectionSession? @relation("SessionResponses", fields: [collectionSessionId], references: [id])
   collector           User?              @relation("CollectedResponses", fields: [collectorId], references: [id])
-  participant         User               @relation(fields: [participantId], references: [id], onDelete: Cascade)
   study               Study              @relation(fields: [studyId], references: [id], onDelete: Cascade)
 
-  @@unique([studyId, participantId])
+  @@unique([studyId, respondentCode])
+  @@index([studyId])
 }
 
 model Answer {
@@ -259,23 +368,76 @@ model Answer {
 }
 
 model Wallet {
-  id           String                   @id @default(cuid())
-  userId       String                   @unique
-  balance      Int                      @default(0)
-  createdAt    DateTime                 @default(now())
-  updatedAt    DateTime                 @updatedAt
-  transactions TinatCreditTransaction[]
-  user         User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id             String                   @id @default(cuid())
+  userId         String                   @unique
+  balance        Int                      @default(0)
+  pendingBalance Int                      @default(0)
+  totalEarned    Int                      @default(0)
+  totalWithdrawn Int                      @default(0)
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+  transactions   TinatCreditTransaction[]
+  user           User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model TinatCreditTransaction {
-  id        String          @id @default(cuid())
-  walletId  String
-  amount    Int
-  type      TransactionType
-  reason    String?
-  createdAt DateTime        @default(now())
-  wallet    Wallet          @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  id             String          @id @default(cuid())
+  walletId       String
+  amount         Int
+  type           TransactionType
+  reason         String?
+  idempotencyKey String?         @unique
+  balanceAfter   Int?
+  createdAt      DateTime        @default(now())
+  wallet         Wallet          @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId])
+  @@index([type])
+  @@index([idempotencyKey])
+}
+
+enum LedgerAccountKind {
+  SYSTEM_ISSUANCE
+  USER_WALLET
+}
+
+model LedgerAccount {
+  id        String            @id @default(cuid())
+  kind      LedgerAccountKind
+  userId    String?           @unique
+  balance   Int               @default(0)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  user      User?             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entries   LedgerEntry[]
+
+  @@index([kind])
+}
+
+model LedgerJournal {
+  id             String        @id @default(cuid())
+  idempotencyKey String        @unique
+  description    String
+  studyId        String?
+  responseId     String?       @unique
+  createdAt      DateTime      @default(now())
+  entries        LedgerEntry[]
+
+  @@index([studyId])
+}
+
+model LedgerEntry {
+  id           String        @id @default(cuid())
+  journalId    String
+  accountId    String
+  amount       Int
+  balanceAfter Int
+  createdAt    DateTime      @default(now())
+  account      LedgerAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  journal      LedgerJournal @relation(fields: [journalId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([journalId])
 }
 
 model StudyPayment {
@@ -791,6 +953,7 @@ enum UserRole {
   PARTICIPANT
   RESEARCHER
   ADMIN
+  DATA_COLLECTOR
 }
 
 enum StudyStatus {
@@ -801,8 +964,24 @@ enum StudyStatus {
 }
 
 enum StudyType {
+  SURVEY
+  OBSERVATIONAL
   FUNDED
   FREE_DATA_COLLECTION
+}
+
+enum EthicsApprovalStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+  EXPIRED
+}
+
+enum ModerationStatus {
+  OPEN
+  INVESTIGATING
+  RESOLVED
+  DISMISSED
 }
 
 enum QuestionType {
@@ -821,12 +1000,19 @@ enum QuestionType {
   TIME
 }
 
+enum StudyFundingType {
+  FREE
+  FUNDED
+}
+
 enum TransactionType {
   EARN
   SPEND
   WITHDRAW
   REFUND
   ADJUSTMENT
+  REWARD_CREDIT
+  ADMIN_ADJUSTMENT
 }
 
 enum PaymentStatus {
@@ -985,4 +1171,135 @@ enum SessionStatus {
   ACTIVE
   PAUSED
   COMPLETED
+}
+
+
+model EthicsApproval {
+  id                 String               @id @default(cuid())
+  studyId            String               @unique
+  study              Study                @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  committeeName      String
+  approvalNumber     String
+  approvalDate       DateTime
+  expiryDate         DateTime
+  documentPath       String
+  verifiedByAdminId  String?
+  verifiedByAdmin    User?                @relation("EthicsVerifier", fields: [verifiedByAdminId], references: [id], onDelete: SetNull)
+  verifiedAt         DateTime?
+  status             EthicsApprovalStatus @default(PENDING)
+  adminNotes         String?
+  checklist          Json?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+
+  @@index([status])
+  @@index([expiryDate])
+}
+
+model ConsentForm {
+  id                     String          @id @default(cuid())
+  studyId                String
+  study                  Study           @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  version                Int             @default(1)
+  language               String          @default("en")
+  keyInformation         Json
+  fullText               String
+  comprehensionQuestions Json?
+  createdAt              DateTime        @default(now())
+  records                ConsentRecord[]
+
+  @@unique([studyId, version, language])
+  @@index([studyId])
+}
+
+model ConsentRecord {
+  id                   String      @id @default(cuid())
+  respondentCode       String
+  consentFormId        String
+  consentForm          ConsentForm @relation(fields: [consentFormId], references: [id], onDelete: Restrict)
+  acceptedAt           DateTime    @default(now())
+  comprehensionAnswers Json
+  language             String      @default("en")
+  withdrawnAt          DateTime?
+  withdrawalReason     String?
+
+  @@index([respondentCode])
+  @@index([consentFormId])
+}
+
+model ModerationReport {
+  id                String           @id @default(cuid())
+  reporterId        String?
+  reporter          User?            @relation(fields: [reporterId], references: [id], onDelete: SetNull)
+  studyId           String?
+  study             Study?           @relation(fields: [studyId], references: [id], onDelete: SetNull)
+  resourceType      String
+  resourceId        String
+  reason            String
+  details           String
+  status            ModerationStatus @default(OPEN)
+  resolutionNotes   String?
+  resolvedByAdminId String?
+  resolvedAt        DateTime?
+  deadline          DateTime
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  @@index([status])
+  @@index([deadline])
+  @@index([resourceId, resourceType])
+}
+
+model EthicsBoardMember {
+  id          String   @id @default(cuid())
+  name        String
+  title       String
+  institution String
+  role        String
+  appointedAt DateTime @default(now())
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model EthicsBoardDecision {
+  id          String   @id @default(cuid())
+  title       String
+  meetingDate DateTime
+  summary     String
+  resolution  String
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model StudyTranslation {
+  id                 String   @id @default(cuid())
+  studyId            String
+  study              Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  language           String
+  title              String
+  description        String?
+  objective          String?
+  safetyProtocolText String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@unique([studyId, language])
+  @@index([studyId])
+}
+
+model QuestionTranslation {
+  id           String   @id @default(cuid())
+  questionId   String
+  question     Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  language     String
+  text         String
+  options      Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([questionId, language])
+  @@index([questionId])
 }

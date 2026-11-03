@@ -1,0 +1,44 @@
+{
+  "_policy": "Translations must undergo forward-translation, back-translation, and community debriefing per docs/translation.md. Unreviewed machine translations must NEVER be marked as REVIEWED or shipped without certification.",
+  "locales": {
+    "en": {
+      "name": "English",
+      "status": "REVIEWED",
+      "certifiedBy": "Platform Editorial Board",
+      "certifiedDate": "2026-11-03",
+      "shippedInProduction": true
+    },
+    "am": {
+      "name": "Amharic (አማርኛ)",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "certifiedBy": null,
+      "certifiedDate": null,
+      "shippedInProduction": false,
+      "pendingAuditScope": "All strings in messages/am.json require verification by accredited Ge'ez linguist."
+    },
+    "om": {
+      "name": "Afaan Oromo",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "certifiedBy": null,
+      "certifiedDate": null,
+      "shippedInProduction": false,
+      "pendingAuditScope": "All strings in messages/om.json require verification by accredited Afaan Oromo linguist."
+    },
+    "ti": {
+      "name": "Tigrinya (ትግርኛ)",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "certifiedBy": null,
+      "certifiedDate": null,
+      "shippedInProduction": false,
+      "pendingAuditScope": "All strings in messages/ti.json require verification by accredited Tigrinya linguist."
+    },
+    "so": {
+      "name": "Somali (Af-Soomaali)",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "certifiedBy": null,
+      "certifiedDate": null,
+      "shippedInProduction": false,
+      "pendingAuditScope": "All strings in messages/so.json require verification by accredited Somali linguist."
+    }
+  }
+}

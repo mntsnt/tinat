@@ -1,16 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getCurrentUser } from "@/lib/session";
+import { executeBalancedAdminAdjustment } from "@/lib/ledger";
+import { requireRole, verifyAdminReauth } from "@/lib/authGuard";
+import { jsonError } from "@/lib/validation";
 
 export async function GET(
   _req: Request,
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const admin = await getCurrentUser();
-    if (!admin || admin.role !== "ADMIN") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const auth = await requireRole(["ADMIN"], _req);
+    if (!auth.ok) return auth.response;
+    const admin = auth.user;
 
     const { id } = await context.params;
 
@@ -72,7 +73,7 @@ export async function GET(
         _count: {
           select: {
             studies: true,
-            responses: true,
+            participantLinks: true,
             withdrawals: true,
             verifications: true,
           },
@@ -84,7 +85,15 @@ export async function GET(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ user });
+    const formattedUser = {
+      ...user,
+      _count: {
+        ...user._count,
+        responses: (user._count as any).participantLinks ?? 0,
+      },
+    };
+
+    return NextResponse.json({ user: formattedUser });
   } catch (error) {
     console.error("Admin user detail fetch error:", error);
     return NextResponse.json({ error: "Failed to fetch user details" }, { status: 500 });
@@ -96,13 +105,12 @@ export async function PATCH(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const admin = await getCurrentUser();
-    if (!admin || admin.role !== "ADMIN") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const auth = await requireRole(["ADMIN"], req);
+    if (!auth.ok) return auth.response;
+    const admin = auth.user;
 
     const { id } = await context.params;
-    const body = await req.json();
+    const body = await req.json().catch(() => ({}));
     const { isVerified, faydaVerified, role, walletAdjustment, reason } = body;
 
     const targetUser = await prisma.user.findUnique({
@@ -111,7 +119,16 @@ export async function PATCH(
     });
 
     if (!targetUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return jsonError("User not found", 404);
+    }
+
+    // Require admin re-authentication and mandatory reason when changing a user's role
+    if (role && role !== targetUser.role) {
+      if (typeof reason !== "string" || !reason.trim()) {
+        return jsonError("A formal, non-empty reason is strictly required when modifying a user role.", 400);
+      }
+      const reauth = await verifyAdminReauth(admin, req, body);
+      if (!reauth.ok) return reauth.response;
     }
 
     const data: any = {};
@@ -124,30 +141,21 @@ export async function PATCH(
       data.faydaVerifiedAt = faydaVerified ? new Date() : null;
     }
 
-    if (role && ["PARTICIPANT", "RESEARCHER", "ADMIN"].includes(role)) {
+    if (role && ["PARTICIPANT", "RESEARCHER", "ADMIN", "DATA_COLLECTOR"].includes(role)) {
       data.role = role;
     }
 
     const updatedUser = await prisma.$transaction(async (tx) => {
-      // Wallet adjustment if specified
+      // Wallet adjustment if specified (balanced double-entry ledger)
       if (typeof walletAdjustment === "number" && walletAdjustment !== 0) {
-        if (!targetUser.wallet) {
-          await tx.wallet.create({
-            data: {
-              userId: id,
-              balance: Math.max(0, walletAdjustment),
-            },
-          });
-        } else {
-          await tx.wallet.update({
-            where: { userId: id },
-            data: {
-              balance: {
-                increment: walletAdjustment,
-              },
-            },
-          });
-        }
+        await executeBalancedAdminAdjustment({
+          userId: id,
+          amount: walletAdjustment,
+          reason: reason || "Admin discretion",
+          adminId: admin.id,
+          adminName: admin.name || "Admin",
+          tx,
+        });
 
         // Record activity log for wallet credit/debit
         await tx.activityLog.create({
@@ -163,11 +171,16 @@ export async function PATCH(
 
       if (Object.keys(data).length > 0) {
         // Record activity log for user changes
+        const actionType = (role && role !== targetUser.role) ? "ROLE_CHANGE" : "USER_UPDATED_BY_ADMIN";
+        const logDesc = (role && role !== targetUser.role)
+          ? `Role changed from ${targetUser.role} to ${role} for user ${targetUser.name} (${targetUser.id}) by Admin ${admin.name}. Reason: ${reason.trim()}`
+          : `Admin ${admin.name} updated user ${targetUser.name}: ${JSON.stringify(data)}`;
+
         await tx.activityLog.create({
           data: {
             userId: admin.id,
-            action: "USER_UPDATED_BY_ADMIN",
-            description: `Admin ${admin.name} updated user ${targetUser.name}: ${JSON.stringify(data)}`,
+            action: actionType,
+            description: logDesc,
             resourceId: id,
             resourceType: "USER",
           },

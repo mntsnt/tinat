@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { getSession } from "../../../../lib/auth";
+import { requireUser } from "@/lib/authGuard";
+import { jsonError } from "@/lib/validation";
 import { prisma } from "../../../../lib/prisma";
 import { logActivity } from "../../../../lib/activityLog";
+import { FEATURES, CREDITS_DISCLAIMER } from "../../../../lib/config/features";
 
 const ALLOWED_METHODS = [
   "TELEBIRR",
@@ -10,39 +12,21 @@ const ALLOWED_METHODS = [
 
 export async function POST(request: Request) {
   try {
-    // ---------------------------------------------
-    // 1. Authentication
-    // ---------------------------------------------
+    const auth = await requireUser(request);
+    if (!auth.ok) return auth.response;
+    const user = auth.user;
 
-    const session = await getSession();
-
-    if (!session) {
-      return NextResponse.json(
-        {
-          error: "You must be logged in.",
-        },
-        { status: 401 }
+    if (!FEATURES.WITHDRAWALS_ENABLED) {
+      return jsonError(
+        `Withdrawals are currently disabled. ${CREDITS_DISCLAIMER}`,
+        403,
+        "WITHDRAWALS_DISABLED"
       );
     }
 
     // ---------------------------------------------
     // 2. Make sure user is a participant
     // ---------------------------------------------
-
-    const user = await prisma.user.findUnique({
-      where: {
-        id: session.userId,
-      },
-    });
-
-    if (!user) {
-      return NextResponse.json(
-        {
-          error: "User not found.",
-        },
-        { status: 404 }
-      );
-    }
 
     if (user.role !== "PARTICIPANT") {
       return NextResponse.json(

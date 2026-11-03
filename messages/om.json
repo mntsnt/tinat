@@ -1,0 +1,55 @@
+{
+  "common": {
+    "appName": "Qorannoo Tiinaat",
+    "tagline": "Wlttaa Qorannoo fi Odeeffannoo Itoophiyaa",
+    "language": "Afaan",
+    "save": "Olkaayi",
+    "cancel": "Dhiisi",
+    "back": "Duubatti",
+    "next": "Itti fufi",
+    "submit": "Ergi",
+    "submitting": "Ergamaa jira...",
+    "loading": "Fe'amaa jira...",
+    "error": "Dogoggorri uumameera",
+    "lowBandwidth": "Haala Interneetii Xiqqaate",
+    "offlineSaved": "Deebiin kee meeshaa kee irratti olkaa'ameera",
+    "offlineNotice": "Interneetiin hin jiru. Deebiin kee nageenyaan olkaa'amee yommuu interneetiin deebi'u ergama."
+  },
+  "nav": {
+    "home": "Fuula Duraa",
+    "studies": "Qorannoowwan",
+    "wallet": "Kireeditiwwan Tiinaat",
+    "profile": "Piroofayilii",
+    "settings": "Qindaa'ina",
+    "logout": "Ba'i"
+  },
+  "study": {
+    "title": "Gaaffilee Qorannoo",
+    "fundingType": "Gosa Deeggarsaa",
+    "funded": "Qorannoo Badhaasa Qabu",
+    "free": "Qorannoo Barnootaa / Bilisaa",
+    "rewardNotice": "Qorannicha yeroo xumurtu kireeditii Tiinaat (TC) argatta.",
+    "noRewardNotice": "Qorannoon kun qorannoo barnootaa kireeditii malee geggeeffamudha.",
+    "confidentialNotice": "Labsiin 1321/2024 deebii kee icciitiidhaan eega.",
+    "selectOption": "Deebii filadhu",
+    "question": "Gaaffii",
+    "of": "keessaa",
+    "complete": "Qorannichi Xumurameera",
+    "thankYou": "Gumaacha qorannoo Itoophiyaaf gootaniif galatoomaa!",
+    "alreadySubmitted": "Qorannoo kana duraan xumurtanii jirtu.",
+    "consentRequired": "Gaaffilee deebisuun dura hayyama keessan mirkaneessuu qabdu."
+  },
+  "consent": {
+    "title": "Hayyama Qorannoo fi Eegumsa Daataa",
+    "voluntary": "Qorannoo kana keessatti hirmaachuun guutumaan guutuutti fedhiirratti kan hundaa'edha.",
+    "withdrawal": "Yeroo kamiyyuu adabbii malee addaan kutuu dandeessu.",
+    "confidentiality": "Deebiin keessan koodii icciitiin adda baafamee sirriitti eegama.",
+    "agree": "Hubadheera, hirmaachuuf hayyama koo nan kenna"
+  },
+  "credits": {
+    "title": "Kireeditiwwan Tiinaat",
+    "balance": "Hanga Kireeditii",
+    "explanation": "Kireeditiin Tiinaat hirmaannaa qorannoof kan kennamudha. Gatii maallaqaa hin qabu, gara qarshiitti hin jijjiiramu.",
+    "history": "Seenaa Sochii Kireeditii"
+  }
+}

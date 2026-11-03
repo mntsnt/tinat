@@ -9,11 +9,22 @@ import {
   AnalysisAction,
 } from "@/lib/ai/prompts";
 import { executeAIAnalysis } from "@/lib/ai/models";
+import { FEATURES } from "@/lib/config/features";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
+    if (!FEATURES.AI_EXTERNAL_ENABLED) {
+      return NextResponse.json(
+        {
+          error:
+            "External AI analysis is disabled by default to protect participant health data under Ethiopian Personal Data Protection Proclamation 1321/2024. Enable AI_EXTERNAL_ENABLED in server environment to allow transmission.",
+          code: "AI_EXTERNAL_DISABLED",
+        },
+        { status: 403 }
+      );
+    }
     // 1. Authenticate user
     const session = await getSession();
     if (!session || !session.userId) {

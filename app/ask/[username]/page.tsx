@@ -23,15 +23,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `Ask ${profile.displayName} (@${profile.username}) anything anonymously | Tinat Ask`,
+    title: `Ask ${profile.displayName} (@${profile.username}) anything confidentially | Tinat Ask`,
     description:
       profile.bio ||
-      `Send an anonymous question or message to ${profile.displayName} on Tinat Ask! 100% anonymous, no account required.`,
+      `Send a confidential question or message to ${profile.displayName} on Tinat Ask! Confidential and coded, no account required.`,
     openGraph: {
-      title: `Ask ${profile.displayName} anything anonymously!`,
+      title: `Ask ${profile.displayName} anything confidentially!`,
       description:
         profile.bio ||
-        `Send an anonymous question to ${profile.displayName} on Tinat Ask. 100% anonymous.`,
+        `Send a confidential question to ${profile.displayName} on Tinat Ask. Confidential and coded.`,
     },
   };
 }

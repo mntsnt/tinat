@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { getSession } from "../../../../../../lib/auth";
-import { prisma } from "../../../../../../lib/prisma";
-import { logActivity } from "../../../../../../lib/activityLog";
+import { prisma } from "@/lib/prisma";
+import { requireRole } from "@/lib/authGuard";
+import { jsonError } from "@/lib/validation";
+import { logActivity } from "@/lib/activityLog";
+import { FEATURES, CREDITS_DISCLAIMER } from "@/lib/config/features";
 
 type Params = {
   params: Promise<{
@@ -9,30 +11,17 @@ type Params = {
   }>;
 };
 
-export async function PATCH(
-  request: Request,
-  { params }: Params
-) {
+export async function PATCH(request: Request, { params }: Params) {
   try {
-    // 1. Authentication
-    const session = await getSession();
+    const auth = await requireRole(["ADMIN"], request);
+    if (!auth.ok) return auth.response;
+    const admin = auth.user;
 
-    if (!session) {
-      return NextResponse.json(
-        { error: "You must be logged in." },
-        { status: 401 }
-      );
-    }
-
-    // 2. Admin check
-    const admin = await prisma.user.findUnique({
-      where: { id: session.userId },
-    });
-
-    if (!admin || admin.role !== "ADMIN") {
-      return NextResponse.json(
-        { error: "Admin access required." },
-        { status: 403 }
+    if (!FEATURES.WITHDRAWALS_ENABLED) {
+      return jsonError(
+        `Withdrawal payout processing is currently paused. ${CREDITS_DISCLAIMER}`,
+        403,
+        "WITHDRAWALS_PAUSED"
       );
     }
 

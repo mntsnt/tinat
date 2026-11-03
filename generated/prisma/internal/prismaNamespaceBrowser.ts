@@ -59,14 +59,20 @@ export const ModelName = {
   StudyComment: 'StudyComment',
   Notification: 'Notification',
   ActivityLog: 'ActivityLog',
+  IncidentLog: 'IncidentLog',
   AdminChatMessage: 'AdminChatMessage',
   Question: 'Question',
   QuestionRow: 'QuestionRow',
   QuestionOption: 'QuestionOption',
+  ParticipantLink: 'ParticipantLink',
+  DataSubjectRequest: 'DataSubjectRequest',
   Response: 'Response',
   Answer: 'Answer',
   Wallet: 'Wallet',
   TinatCreditTransaction: 'TinatCreditTransaction',
+  LedgerAccount: 'LedgerAccount',
+  LedgerJournal: 'LedgerJournal',
+  LedgerEntry: 'LedgerEntry',
   StudyPayment: 'StudyPayment',
   Withdrawal: 'Withdrawal',
   AskProfile: 'AskProfile',
@@ -95,7 +101,15 @@ export const ModelName = {
   Verification: 'Verification',
   StudyDataCollector: 'StudyDataCollector',
   CollectorInvitation: 'CollectorInvitation',
-  CollectionSession: 'CollectionSession'
+  CollectionSession: 'CollectionSession',
+  EthicsApproval: 'EthicsApproval',
+  ConsentForm: 'ConsentForm',
+  ConsentRecord: 'ConsentRecord',
+  ModerationReport: 'ModerationReport',
+  EthicsBoardMember: 'EthicsBoardMember',
+  EthicsBoardDecision: 'EthicsBoardDecision',
+  StudyTranslation: 'StudyTranslation',
+  QuestionTranslation: 'QuestionTranslation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -133,7 +147,17 @@ export const UserScalarFieldEnum = {
   faydaFanHash: 'faydaFanHash',
   faydaVerifiedAt: 'faydaVerifiedAt',
   verificationCode: 'verificationCode',
-  verificationCodeExpiresAt: 'verificationCodeExpiresAt'
+  verificationCodeExpiresAt: 'verificationCodeExpiresAt',
+  termsAcceptedVersion: 'termsAcceptedVersion',
+  termsAcceptedAt: 'termsAcceptedAt',
+  charterAcceptedVersion: 'charterAcceptedVersion',
+  charterAcceptedAt: 'charterAcceptedAt',
+  codeOfConductAcceptedVersion: 'codeOfConductAcceptedVersion',
+  codeOfConductAcceptedAt: 'codeOfConductAcceptedAt',
+  dpaAcceptedVersion: 'dpaAcceptedVersion',
+  dpaAcceptedAt: 'dpaAcceptedAt',
+  privacyNoticeVersion: 'privacyNoticeVersion',
+  privacyAcceptedAt: 'privacyAcceptedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -145,6 +169,11 @@ export const StudyScalarFieldEnum = {
   description: 'description',
   bannerTheme: 'bannerTheme',
   status: 'status',
+  fundingType: 'fundingType',
+  creditPerResponse: 'creditPerResponse',
+  creditBudget: 'creditBudget',
+  creditsSpent: 'creditsSpent',
+  requiresReapproval: 'requiresReapproval',
   rewardCredits: 'rewardCredits',
   researcherId: 'researcherId',
   createdAt: 'createdAt',
@@ -158,7 +187,18 @@ export const StudyScalarFieldEnum = {
   estimatedMinutes: 'estimatedMinutes',
   objective: 'objective',
   studyType: 'studyType',
-  targetPopulation: 'targetPopulation'
+  targetPopulation: 'targetPopulation',
+  ethicsExempt: 'ethicsExempt',
+  ethicsExemptionReason: 'ethicsExemptionReason',
+  ethicsExemptedByAdminId: 'ethicsExemptedByAdminId',
+  ethicsExemptedAt: 'ethicsExemptedAt',
+  populationDescription: 'populationDescription',
+  recruitmentMethod: 'recruitmentMethod',
+  containsSensitiveTopics: 'containsSensitiveTopics',
+  involvesMinors: 'involvesMinors',
+  safetyProtocolText: 'safetyProtocolText',
+  firstApprovedByAdminId: 'firstApprovedByAdminId',
+  secondApprovedByAdminId: 'secondApprovedByAdminId'
 } as const
 
 export type StudyScalarFieldEnum = (typeof StudyScalarFieldEnum)[keyof typeof StudyScalarFieldEnum]
@@ -235,6 +275,25 @@ export const ActivityLogScalarFieldEnum = {
 export type ActivityLogScalarFieldEnum = (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum]
 
 
+export const IncidentLogScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  severity: 'severity',
+  category: 'category',
+  description: 'description',
+  detectedAt: 'detectedAt',
+  dataAffected: 'dataAffected',
+  notifiedParties: 'notifiedParties',
+  status: 'status',
+  metadata: 'metadata',
+  resolved: 'resolved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IncidentLogScalarFieldEnum = (typeof IncidentLogScalarFieldEnum)[keyof typeof IncidentLogScalarFieldEnum]
+
+
 export const AdminChatMessageScalarFieldEnum = {
   id: 'id',
   channel: 'channel',
@@ -252,6 +311,8 @@ export const QuestionScalarFieldEnum = {
   text: 'text',
   type: 'type',
   required: 'required',
+  isSkippable: 'isSkippable',
+  preferNotToAnswerEnabled: 'preferNotToAnswerEnabled',
   order: 'order',
   createdAt: 'createdAt',
   scaleMax: 'scaleMax',
@@ -285,14 +346,44 @@ export const QuestionOptionScalarFieldEnum = {
 export type QuestionOptionScalarFieldEnum = (typeof QuestionOptionScalarFieldEnum)[keyof typeof QuestionOptionScalarFieldEnum]
 
 
+export const ParticipantLinkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  studyId: 'studyId',
+  respondentCode: 'respondentCode',
+  createdAt: 'createdAt'
+} as const
+
+export type ParticipantLinkScalarFieldEnum = (typeof ParticipantLinkScalarFieldEnum)[keyof typeof ParticipantLinkScalarFieldEnum]
+
+
+export const DataSubjectRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  status: 'status',
+  reason: 'reason',
+  details: 'details',
+  dueDate: 'dueDate',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DataSubjectRequestScalarFieldEnum = (typeof DataSubjectRequestScalarFieldEnum)[keyof typeof DataSubjectRequestScalarFieldEnum]
+
+
 export const ResponseScalarFieldEnum = {
   id: 'id',
   studyId: 'studyId',
-  participantId: 'participantId',
+  respondentCode: 'respondentCode',
   submittedAt: 'submittedAt',
   collectionMethod: 'collectionMethod',
   collectorId: 'collectorId',
-  collectionSessionId: 'collectionSessionId'
+  collectionSessionId: 'collectionSessionId',
+  ipHash: 'ipHash',
+  deviceFingerprint: 'deviceFingerprint',
+  language: 'language'
 } as const
 
 export type ResponseScalarFieldEnum = (typeof ResponseScalarFieldEnum)[keyof typeof ResponseScalarFieldEnum]
@@ -314,6 +405,9 @@ export const WalletScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   balance: 'balance',
+  pendingBalance: 'pendingBalance',
+  totalEarned: 'totalEarned',
+  totalWithdrawn: 'totalWithdrawn',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -327,10 +421,48 @@ export const TinatCreditTransactionScalarFieldEnum = {
   amount: 'amount',
   type: 'type',
   reason: 'reason',
+  idempotencyKey: 'idempotencyKey',
+  balanceAfter: 'balanceAfter',
   createdAt: 'createdAt'
 } as const
 
 export type TinatCreditTransactionScalarFieldEnum = (typeof TinatCreditTransactionScalarFieldEnum)[keyof typeof TinatCreditTransactionScalarFieldEnum]
+
+
+export const LedgerAccountScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  userId: 'userId',
+  balance: 'balance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LedgerAccountScalarFieldEnum = (typeof LedgerAccountScalarFieldEnum)[keyof typeof LedgerAccountScalarFieldEnum]
+
+
+export const LedgerJournalScalarFieldEnum = {
+  id: 'id',
+  idempotencyKey: 'idempotencyKey',
+  description: 'description',
+  studyId: 'studyId',
+  responseId: 'responseId',
+  createdAt: 'createdAt'
+} as const
+
+export type LedgerJournalScalarFieldEnum = (typeof LedgerJournalScalarFieldEnum)[keyof typeof LedgerJournalScalarFieldEnum]
+
+
+export const LedgerEntryScalarFieldEnum = {
+  id: 'id',
+  journalId: 'journalId',
+  accountId: 'accountId',
+  amount: 'amount',
+  balanceAfter: 'balanceAfter',
+  createdAt: 'createdAt'
+} as const
+
+export type LedgerEntryScalarFieldEnum = (typeof LedgerEntryScalarFieldEnum)[keyof typeof LedgerEntryScalarFieldEnum]
 
 
 export const StudyPaymentScalarFieldEnum = {
@@ -772,6 +904,131 @@ export const CollectionSessionScalarFieldEnum = {
 export type CollectionSessionScalarFieldEnum = (typeof CollectionSessionScalarFieldEnum)[keyof typeof CollectionSessionScalarFieldEnum]
 
 
+export const EthicsApprovalScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  committeeName: 'committeeName',
+  approvalNumber: 'approvalNumber',
+  approvalDate: 'approvalDate',
+  expiryDate: 'expiryDate',
+  documentPath: 'documentPath',
+  verifiedByAdminId: 'verifiedByAdminId',
+  verifiedAt: 'verifiedAt',
+  status: 'status',
+  adminNotes: 'adminNotes',
+  checklist: 'checklist',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EthicsApprovalScalarFieldEnum = (typeof EthicsApprovalScalarFieldEnum)[keyof typeof EthicsApprovalScalarFieldEnum]
+
+
+export const ConsentFormScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  version: 'version',
+  language: 'language',
+  keyInformation: 'keyInformation',
+  fullText: 'fullText',
+  comprehensionQuestions: 'comprehensionQuestions',
+  createdAt: 'createdAt'
+} as const
+
+export type ConsentFormScalarFieldEnum = (typeof ConsentFormScalarFieldEnum)[keyof typeof ConsentFormScalarFieldEnum]
+
+
+export const ConsentRecordScalarFieldEnum = {
+  id: 'id',
+  respondentCode: 'respondentCode',
+  consentFormId: 'consentFormId',
+  acceptedAt: 'acceptedAt',
+  comprehensionAnswers: 'comprehensionAnswers',
+  language: 'language',
+  withdrawnAt: 'withdrawnAt',
+  withdrawalReason: 'withdrawalReason'
+} as const
+
+export type ConsentRecordScalarFieldEnum = (typeof ConsentRecordScalarFieldEnum)[keyof typeof ConsentRecordScalarFieldEnum]
+
+
+export const ModerationReportScalarFieldEnum = {
+  id: 'id',
+  reporterId: 'reporterId',
+  studyId: 'studyId',
+  resourceType: 'resourceType',
+  resourceId: 'resourceId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  resolutionNotes: 'resolutionNotes',
+  resolvedByAdminId: 'resolvedByAdminId',
+  resolvedAt: 'resolvedAt',
+  deadline: 'deadline',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ModerationReportScalarFieldEnum = (typeof ModerationReportScalarFieldEnum)[keyof typeof ModerationReportScalarFieldEnum]
+
+
+export const EthicsBoardMemberScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  title: 'title',
+  institution: 'institution',
+  role: 'role',
+  appointedAt: 'appointedAt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EthicsBoardMemberScalarFieldEnum = (typeof EthicsBoardMemberScalarFieldEnum)[keyof typeof EthicsBoardMemberScalarFieldEnum]
+
+
+export const EthicsBoardDecisionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  meetingDate: 'meetingDate',
+  summary: 'summary',
+  resolution: 'resolution',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EthicsBoardDecisionScalarFieldEnum = (typeof EthicsBoardDecisionScalarFieldEnum)[keyof typeof EthicsBoardDecisionScalarFieldEnum]
+
+
+export const StudyTranslationScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  language: 'language',
+  title: 'title',
+  description: 'description',
+  objective: 'objective',
+  safetyProtocolText: 'safetyProtocolText',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StudyTranslationScalarFieldEnum = (typeof StudyTranslationScalarFieldEnum)[keyof typeof StudyTranslationScalarFieldEnum]
+
+
+export const QuestionTranslationScalarFieldEnum = {
+  id: 'id',
+  questionId: 'questionId',
+  language: 'language',
+  text: 'text',
+  options: 'options',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QuestionTranslationScalarFieldEnum = (typeof QuestionTranslationScalarFieldEnum)[keyof typeof QuestionTranslationScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -786,6 +1043,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
