@@ -15,11 +15,15 @@ import {
   ShieldUser,
   WalletCards,
   Workflow,
+  Layers,
+  HelpCircle,
 } from "lucide-react";
 import { SidebarLink } from "./Sidebar";
 
 export const publicLinks: SidebarLink[] = [
+  { title: "Features", href: "/#features", icon: <Layers /> },
   { title: "Health Studies", href: "/participant/studies", icon: <Microscope /> },
+  { title: "FAQ", href: "/#faq", icon: <HelpCircle /> },
 ];
 
 export const participantLinks: SidebarLink[] = [

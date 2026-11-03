@@ -17,6 +17,8 @@ import {
 import type { Prisma } from "@/generated/prisma/client";
 import { MEDICAL_DISCLAIMER } from "@/lib/healthCategories";
 import { prisma } from "@/lib/prisma";
+import { FeatureSnapshot } from "./components/landing/FeatureSnapshot";
+import { LandingFaq } from "./components/landing/LandingFaq";
 
 type FeaturedStudy = Prisma.StudyGetPayload<{
   include: { _count: { select: { responses: true; questions: true } } };
