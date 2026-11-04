@@ -263,22 +263,14 @@ export async function DELETE(
       );
     }
 
-    // Safe archiving preserves all research artifacts and audit trails
-    await prisma.researchProject.update({
+    // Permanently remove the research project and all related cascade records
+    await prisma.researchProject.delete({
       where: { id },
-      data: { isArchived: true, status: ProjectStatus.ARCHIVED },
-    });
-
-    await logProjectActivity({
-      projectId: id,
-      userId: auth.userId,
-      action: "ARCHIVED_PROJECT",
-      description: "Archived research project workspace. Artifacts and logs preserved.",
     });
 
     return NextResponse.json({
       success: true,
-      message: "Project archived successfully. Research artifacts preserved.",
+      message: "Research project deleted successfully.",
     });
   } catch (error) {
     console.error("Error archiving project:", error);

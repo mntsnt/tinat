@@ -22,6 +22,14 @@ export default function NavContent({ user, links }: NavContentProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const homeHref = user
+    ? user.role === "ADMIN"
+      ? "/admin"
+      : user.role === "RESEARCHER"
+        ? "/researcher"
+        : "/participant"
+    : "/";
+
   useEffect(() => {
     if (typeof window !== "undefined" && window.location.hash) {
       const targetId = window.location.hash.replace("#", "");
@@ -60,12 +68,12 @@ export default function NavContent({ user, links }: NavContentProps) {
       <div className="container mx-auto flex h-14 items-center px-4 md:px-6">
         {/* Logo */}
         <Link
-          href="/"
+          href={homeHref}
           onClick={(e) => {
-            if (pathname === "/") {
+            if (pathname === homeHref) {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
-              window.history.pushState(null, "", "/");
+              window.history.pushState(null, "", homeHref);
             }
           }}
           className="flex items-center gap-2.5 mr-6 transition-transform hover:scale-105"

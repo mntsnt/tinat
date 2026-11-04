@@ -148,3 +148,39 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE() {
+  try {
+    const session = await getSession();
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const profile = await prisma.askProfile.findUnique({
+      where: { userId: session.userId },
+    });
+
+    if (!profile) {
+      return NextResponse.json({ error: "Ask profile not found." }, { status: 404 });
+    }
+
+    await prisma.askQuestion.deleteMany({
+      where: { profileId: profile.id },
+    });
+
+    await prisma.askProfile.delete({
+      where: { id: profile.id },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Ask profile deleted successfully.",
+    });
+  } catch (error) {
+    console.error("Error deleting ask profile:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}

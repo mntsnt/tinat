@@ -44,6 +44,7 @@ export function Sidebar({
 }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const dashboardHref = roleColor === "admin" ? "/admin" : roleColor === "researcher" ? "/researcher" : "/participant";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -287,7 +288,7 @@ export function Sidebar({
     
     return (
     <div className={cn("border-b border-border py-3 flex items-center shrink-0", collapsed ? "px-0 justify-center h-16" : "px-3.5 h-16")}>
-      <Link href="/" className={cn("flex items-center transition-opacity hover:opacity-80", collapsed ? "justify-center" : "gap-2.5")}>
+      <Link href={dashboardHref} className={cn("flex items-center transition-opacity hover:opacity-80", collapsed ? "justify-center" : "gap-2.5")}>
         <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-black text-xs font-bold text-white dark:bg-white dark:text-black">
           T
         </div>
@@ -327,7 +328,7 @@ export function Sidebar({
 
       {/* Mobile Top Bar */}
       <div className="md:hidden flex shrink-0 items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href={dashboardHref} className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black font-bold text-white text-xs shadow-sm dark:bg-white dark:text-black">
             T
           </div>
@@ -364,7 +365,7 @@ export function Sidebar({
             className="relative flex h-full w-64 max-w-[85vw] flex-col border-r border-border bg-card shadow-2xl"
           >
             <div className="flex items-center justify-between border-b border-border p-3.5">
-              <Link href="/" className="flex items-center gap-2">
+              <Link href={dashboardHref} className="flex items-center gap-2">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black font-bold text-white text-sm shadow-sm dark:bg-white dark:text-black">
                   T
                 </div>

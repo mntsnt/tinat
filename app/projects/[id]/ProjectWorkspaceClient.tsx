@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import type { DragEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   FolderKanban,
   ArrowLeft,
@@ -146,6 +147,8 @@ const PROJECT_MARKDOWN_CLASS =
 
 export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWorkspaceClientProps) {
   const { confirm } = useConfirm();
+  const router = useRouter();
+  const [isDeletingProject, setIsDeletingProject] = useState(false);
   const [project, setProject] = useState<any>(null);
   const [auth, setAuth] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -412,6 +415,32 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       undefined,
       "Milestone could not be deleted."
     );
+  }
+
+  // Delete Project
+  async function handleDeleteProject() {
+    const ok = await confirm({
+      title: "Delete Research Project",
+      message: `Are you sure you want to permanently delete "${project?.title}" and all its tasks, files, milestones, discussions, and activity logs? This action cannot be undone.`,
+      variant: "danger",
+      confirmText: "Delete Project",
+    });
+    if (!ok) return;
+
+    setIsDeletingProject(true);
+    try {
+      const res = await fetch(`/api/projects/${projectId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to delete project");
+      }
+      router.push("/projects");
+    } catch (err: any) {
+      setActionError(err.message || "Failed to delete project");
+      setIsDeletingProject(false);
+    }
   }
 
   // Send Invitation
@@ -946,6 +975,17 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     >
                       <Users className="h-4 w-4" />
                       Invite
+                    </button>
+                  )}
+                  {(auth?.isLead || auth?.canManageProject || auth?.userRole === "ADMIN") && (
+                    <button
+                      onClick={handleDeleteProject}
+                      disabled={isDeletingProject}
+                      className="inline-flex items-center gap-1.5 rounded-md border border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-sm font-medium text-rose-700 dark:text-rose-400 transition-colors hover:bg-rose-100 dark:hover:bg-rose-900/50"
+                      title="Delete Research Project"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      <span>{isDeletingProject ? "Deleting..." : "Delete Project"}</span>
                     </button>
                   )}
                 </div>

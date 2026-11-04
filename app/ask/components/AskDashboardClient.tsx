@@ -71,7 +71,7 @@ export function AskDashboardClient({
   initialStats,
   user,
 }: AskDashboardClientProps) {
-  const { confirm } = useConfirm();
+  const { confirm, alert } = useConfirm();
   const [profile, setProfile] = useState<AskProfile | null>(initialProfile);
   const [stats, setStats] = useState<Stats>(initialStats);
   const [tab, setTab] = useState<"unanswered" | "answered" | "archived">("unanswered");
@@ -299,6 +299,31 @@ export function AskDashboardClient({
       }
     } catch (err) {
       console.error("Delete error:", err);
+    }
+  }
+
+  async function handleDeleteProfile() {
+    const ok = await confirm({
+      title: "Delete Tinat Ask Profile",
+      message: "Are you sure you want to permanently delete your Tinat Ask profile and all its questions and answers? This action cannot be undone.",
+      variant: "danger",
+      confirmText: "Delete Profile",
+    });
+    if (!ok) return;
+
+    try {
+      const res = await fetch("/api/ask/profile", {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        window.location.reload();
+      }
+    } catch {
+      await alert({
+        title: "Error",
+        message: "Failed to delete Ask profile.",
+        variant: "danger",
+      });
     }
   }
 
@@ -931,6 +956,20 @@ export function AskDashboardClient({
                   className="px-5 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold shadow hover:bg-primary/90"
                 >
                   {isSavingProfile ? "Saving..." : "Save Changes"}
+                </button>
+              </div>
+
+              <div className="pt-4 border-t border-border flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-semibold text-destructive block">Delete Ask Profile</span>
+                  <p className="text-[11px] text-muted-foreground">Permanently delete your profile and all questions.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleDeleteProfile}
+                  className="px-3 py-1.5 rounded-xl border border-destructive/30 text-destructive hover:bg-destructive/10 text-xs font-medium transition-colors"
+                >
+                  Delete Profile
                 </button>
               </div>
             </form>

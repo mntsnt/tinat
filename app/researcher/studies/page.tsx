@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getSession } from "../../../lib/auth";
 import { prisma } from "../../../lib/prisma";
 import StudyStatusButton from "../../components/StudyStatusButton";
+import { StudyDeleteButton } from "../../components/StudyDeleteButton";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
@@ -130,11 +131,14 @@ export default async function ResearcherStudiesPage() {
               </CardContent>
               <CardFooter className="flex items-center justify-between gap-2 border-t border-border pt-3 mt-auto">
                 <StudyStatusButton studyId={study.id} currentStatus={study.status} />
-                <Link href={`/researcher/studies/${study.id}`}>
+                <div className="flex items-center gap-1.5">
+                  <StudyDeleteButton studyId={study.id} studyTitle={study.title} />
+                  <Link href={`/researcher/studies/${study.id}`}>
                   <Button variant="ghost" size="sm" className="gap-1 text-xs">
                     Details <ArrowRight className="w-3.5 h-3.5" />
                   </Button>
                 </Link>
+                </div>
               </CardFooter>
             </Card>
           ))}

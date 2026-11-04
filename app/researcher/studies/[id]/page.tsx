@@ -11,6 +11,7 @@ import { AIAnalysisTab } from "./AIAnalysisTab";
 import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
 import { StudyShareLink } from "./StudyShareLink";
+import { StudyDeleteButton } from "../../../components/StudyDeleteButton";
 import { Star, Paperclip, ShieldAlert } from "lucide-react";
 
 type Props = {
@@ -142,7 +143,15 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                 </span>
               )}
             </div>
-            <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground truncate max-w-4xl">{study.title}</h1>
+            <div className="flex items-center justify-between gap-4">
+              <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground truncate max-w-4xl">{study.title}</h1>
+              <StudyDeleteButton
+                studyId={study.id}
+                studyTitle={study.title}
+                redirectAfterDelete="/researcher/studies"
+                variant="button"
+              />
+            </div>
           </div>
         </div>
       </div>

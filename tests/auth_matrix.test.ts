@@ -470,6 +470,14 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     collector: [200, 400],
     admin: [200, 400]
   },
+  "DELETE /api/ask/profile": {
+    anonymous: [401],
+    participant: [200, 404],
+    researcher_owner: [200, 404],
+    researcher_other: [200, 404],
+    collector: [200, 404],
+    admin: [200, 404]
+  },
   "GET /api/ask/questions": {
     anonymous: [401],
     participant: [200],
@@ -569,6 +577,22 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     researcher_other: [200, 400],
     collector: [403],
     admin: [200, 400]
+  },
+  "GET /api/studies/[id]": {
+    anonymous: [200, 404],
+    participant: [200, 404],
+    researcher_owner: [200, 404],
+    researcher_other: [200, 404],
+    collector: [200, 404],
+    admin: [200, 404]
+  },
+  "DELETE /api/studies/[id]": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 404],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200, 404]
   },
   "GET /api/studies/[id]/collectors": {
     anonymous: [401],
