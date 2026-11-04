@@ -133,11 +133,6 @@ export function Footer() {
                   Code of Conduct
                 </Link>
               </li>
-              <li>
-                <Link href="/dpa" className="hover:text-foreground dark:hover:text-white transition-colors">
-                  Data Processing Agreement
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -155,24 +150,6 @@ export function Footer() {
               <li>
                 <Link href="/privacy" className="hover:text-foreground dark:hover:text-white transition-colors">
                   Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/charter" className="hover:text-foreground dark:hover:text-white transition-colors">
-                  Participant Charter
-                </Link>
-              </li>
-              <li>
-                <Link href="/transparency" className="hover:text-foreground dark:hover:text-white transition-colors">
-                  Transparency Portal
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dpa"
-                  className="hover:text-foreground dark:hover:text-white transition-colors"
-                >
-                  Data Protection (DPA)
                 </Link>
               </li>
             </ul>

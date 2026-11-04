@@ -9,16 +9,12 @@ import { IntroAnimation } from "../ui/IntroAnimation";
 const DASHBOARD_PREFIXES = ["/dashboard", "/admin", "/participant", "/researcher", "/collector", "/projects", "/ask", "/ai", "/forms", "/f"];
 const FOOTER_PATHS = new Set([
   "/",
-  "/login",
-  "/register",
-  "/verify-email",
   "/privacy",
   "/terms",
   "/charter",
   "/code-of-conduct",
   "/transparency",
   "/dpa",
-  "/agreement",
 ]);
 
 interface ClientShellProps {
