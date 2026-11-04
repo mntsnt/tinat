@@ -12,17 +12,13 @@ import {
   Flag,
   PhoneCall,
   Loader2,
-  Globe,
-  Wifi,
-  WifiOff,
-  Zap,
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
 import { StudyConsentGate } from "./StudyConsentGate";
 import { ReportProblemModal } from "../../../components/moderation/ReportProblemModal";
 import { StudyBanner } from "../../../components/studies/StudyBanner";
-import { SupportedLocale, SUPPORTED_LOCALES, getMessage } from "@/lib/i18n";
+import { SupportedLocale, getMessage } from "@/lib/i18n";
 
 type Option = {
   id: string;
@@ -588,64 +584,7 @@ export default function StudyQuestionnaire({
         {success || error}
       </div>
 
-      {/* Low-Bandwidth & Multilingual Control Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-3 mb-6 rounded-xl border border-border bg-card/80 text-xs">
-        <div className="flex items-center gap-2">
-          <Globe className="w-4 h-4 text-primary shrink-0" />
-          <span className="font-medium text-foreground">Language:</span>
-          <select
-            value={locale}
-            onChange={(e) => handleLocaleChange(e.target.value as SupportedLocale)}
-            aria-label="Select study language"
-            className="bg-background border border-border rounded-lg px-2.5 py-1 text-xs text-foreground focus-visible:ring-2 focus-visible:ring-primary min-h-[36px]"
-          >
-            {SUPPORTED_LOCALES.map((l) => (
-              <option key={l.code} value={l.code}>
-                {l.nativeName} ({l.name})
-              </option>
-            ))}
-          </select>
-          {loadingTranslation && (
-            <Loader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />
-          )}
-        </div>
 
-        <div className="flex items-center gap-3">
-          {/* Low-bandwidth toggle */}
-          <Button
-            type="button"
-            variant={lowBandwidth ? "secondary" : "outline"}
-            size="sm"
-            onClick={toggleLowBandwidth}
-            aria-label="Toggle low-bandwidth mode"
-            className="text-xs h-8 gap-1.5 min-h-[36px]"
-          >
-            <Zap className={`w-3.5 h-3.5 ${lowBandwidth ? "text-amber-500" : ""}`} />
-            <span>{lowBandwidth ? "Low-Bandwidth (Active)" : "Save Data"}</span>
-          </Button>
-
-          {/* Offline indicator */}
-          <div
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium ${
-              isOffline
-                ? "bg-amber-500/10 text-amber-600 border border-amber-500/20"
-                : "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
-            }`}
-          >
-            {isOffline ? (
-              <>
-                <WifiOff className="w-3 h-3" />
-                <span>Offline (Local Save)</span>
-              </>
-            ) : (
-              <>
-                <Wifi className="w-3 h-3" />
-                <span>Online</span>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
 
       {/* Offline Status Alert */}
       {isOffline && (
