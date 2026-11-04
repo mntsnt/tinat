@@ -17,22 +17,10 @@ const FAQ_ITEMS: FaqItem[] = [
       "Tinat is an academic research platform purpose-built for Ethiopian universities, health researchers, clinicians, students, and NGOs. It provides digital infrastructure to design multi-format questionnaires, recruit verified participant cohorts, coordinate field enumerators, and manage collaborative research investigations under standardized ethical protocols.",
   },
   {
-    id: "credits-not-money",
-    question: "Do Tinat Credits (TC) have monetary value, and can they be converted into currency?",
-    answer:
-      "No. Tinat Credits (TC) are non-monetary platform tokens earned by participants for voluntary research participation. They have zero cash value, cannot be redeemed for fiat currency (such as Telebirr or bank transfers), cannot be transferred between users, and cannot be purchased with money. They operate within a closed, double-entry token economy to recognize contribution without financial-regulatory risk.",
-  },
-  {
     id: "privacy-protection",
     question: "How is participant privacy and identity protected?",
     answer:
       "Research responses on Tinat are confidential and coded (pseudonymized), not anonymous. When you submit answers, they are tied to a randomly generated, unguessable Respondent Code that is completely isolated from your personal identity. Researchers and exported files receive only coded datasets and never see your name, phone number, email, or national ID details.",
-  },
-  {
-    id: "ethics-irb-gate",
-    question: "Does my study require Institutional Review Board (IRB) ethics approval?",
-    answer:
-      "Yes. Any human-subject observational study or funded survey on Tinat requires verified approval from a recognized Institutional Review Board (IRB) or Ethics Committee (e.g., from an Ethiopian university, hospital, or regional health bureau). Researchers upload their clearance certificate, and studies cannot be activated until the ethics approval is verified by platform administrators.",
   },
   {
     id: "collaboration-projects",
@@ -114,16 +102,6 @@ export function LandingFaq() {
               </div>
             );
           })}
-        </div>
-
-        {/* Assistance / Contact Pill */}
-        <div className="text-center pt-2">
-          <p className="text-xs text-muted-foreground">
-            Have a specific research protocol or institutional question?{" "}
-            <a href="mailto:contact@tinat.app" className="font-semibold text-foreground underline underline-offset-2 hover:text-emerald-600 transition-colors">
-              Contact the Editorial Board &rarr;
-            </a>
-          </p>
         </div>
       </div>
     </section>
