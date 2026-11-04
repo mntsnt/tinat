@@ -24,6 +24,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { QuestionDeckModal, DeckTheme } from "./QuestionDeckModal";
+import { useConfirm } from "../../components/ui/ConfirmDialog";
 
 interface AskProfile {
   id: string;
@@ -70,6 +71,7 @@ export function AskDashboardClient({
   initialStats,
   user,
 }: AskDashboardClientProps) {
+  const { confirm } = useConfirm();
   const [profile, setProfile] = useState<AskProfile | null>(initialProfile);
   const [stats, setStats] = useState<Stats>(initialStats);
   const [tab, setTab] = useState<"unanswered" | "answered" | "archived">("unanswered");
@@ -281,7 +283,13 @@ export function AskDashboardClient({
   }
 
   async function handleDelete(questionId: string) {
-    if (!confirm("Are you sure you want to permanently delete this question?")) return;
+    const ok = await confirm({
+      title: "Delete Question",
+      message: "Are you sure you want to permanently delete this question? This cannot be undone.",
+      confirmText: "Delete",
+      variant: "danger",
+    });
+    if (!ok) return;
     try {
       const res = await fetch(`/api/ask/questions/${questionId}`, {
         method: "DELETE",

@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { ConfirmProvider } from "./components/ui/ConfirmDialog";
 import { ClientShell } from "./components/layout/ClientShell";
 
 export const metadata: Metadata = {
@@ -48,9 +49,11 @@ export default function RootLayout({
             If yes → renders children only (dashboards have their own shell).
             If no  → wraps children with the public Navbar and Footer.
           */}
-          <ClientShell navbar={<Navbar />} footer={<Footer />}>
-            {children}
-          </ClientShell>
+          <ConfirmProvider>
+            <ClientShell navbar={<Navbar />} footer={<Footer />}>
+              {children}
+            </ClientShell>
+          </ConfirmProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/Button";
+import { useConfirm } from "@/app/components/ui/ConfirmDialog";
 
 interface Props {
   studyId: string;
@@ -13,10 +14,17 @@ interface Props {
 export function AdminStudyStatusControls({ studyId, status, budgetValid }: Props) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { confirm, alert } = useConfirm();
 
   const updateStatus = async (newStatus: string) => {
     if (newStatus === "PAUSED" || newStatus === "COMPLETED") {
-      if (!window.confirm(`Are you sure you want to mark this study as ${newStatus}?`)) {
+      const ok = await confirm({
+        title: "Change Study Status",
+        message: `Are you sure you want to mark this study as ${newStatus}?`,
+        variant: newStatus === "COMPLETED" ? "danger" : "warning",
+        confirmText: `Set to ${newStatus}`,
+      });
+      if (!ok) {
         return;
       }
     }
@@ -34,12 +42,20 @@ export function AdminStudyStatusControls({ studyId, status, budgetValid }: Props
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.error || "Failed to update status");
+        await alert({
+          title: "Update Failed",
+          message: data.error || "Failed to update status",
+          variant: "danger",
+        });
       } else {
         router.refresh();
       }
     } catch (err) {
-      alert("An unexpected error occurred");
+      await alert({
+        title: "Connection Error",
+        message: "An unexpected error occurred",
+        variant: "danger",
+      });
     } finally {
       setLoading(false);
     }

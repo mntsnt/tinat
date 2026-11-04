@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/Button";
+import { useConfirm } from "./ui/ConfirmDialog";
 
 type Props = {
   studyId: string;
@@ -14,6 +15,7 @@ export default function StudyStatusButton({
   currentStatus,
 }: Props) {
   const router = useRouter();
+  const { confirm, alert } = useConfirm();
   const [loading, setLoading] = useState(false);
 
   async function changeStatus(status: "ACTIVE" | "PAUSED" | "COMPLETED") {
@@ -24,7 +26,13 @@ export default function StudyStatusButton({
           ? "Pause this study? Participants will no longer be able to submit responses."
           : "Resume this study?";
 
-    if (!window.confirm(message)) {
+    const ok = await confirm({
+      title: "Update Study Status",
+      message,
+      variant: status === "COMPLETED" ? "danger" : "warning",
+      confirmText: status === "COMPLETED" ? "Complete Study" : status === "PAUSED" ? "Pause Study" : "Resume Study",
+    });
+    if (!ok) {
       return;
     }
 
@@ -42,13 +50,21 @@ export default function StudyStatusButton({
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.error || "Failed to update study.");
+        await alert({
+          title: "Update Failed",
+          message: data.error || "Failed to update study.",
+          variant: "danger",
+        });
         return;
       }
 
       router.refresh();
     } catch {
-      alert("Unable to connect to the server.");
+      await alert({
+        title: "Connection Error",
+        message: "Unable to connect to the server.",
+        variant: "danger",
+      });
     } finally {
       setLoading(false);
     }

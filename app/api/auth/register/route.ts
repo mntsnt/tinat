@@ -139,12 +139,19 @@ export async function POST(request: Request) {
       const baseUrl = getBaseUrl(request);
       const verificationLink = `${baseUrl}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
 
-      await sendVerificationEmail({
+      const emailResult = await sendVerificationEmail({
         to: user.email,
         name: user.name,
         code,
         verificationLink,
       });
+
+      if (!emailResult.success) {
+        emailDeliveryFailed = true;
+        emailErrorMessage = emailResult.simulated
+          ? "SMTP delivery was simulated because credentials were not found."
+          : "Delivery encountered a transport issue.";
+      }
     } catch (emailErr) {
       console.error("Failed to send initial verification email:", emailErr);
       emailDeliveryFailed = true;

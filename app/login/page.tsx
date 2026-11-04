@@ -49,6 +49,8 @@ export default function LoginPage({
       "Google sign-in could not be completed. Please try again."
     : "";
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
+  const [resendingCode, setResendingCode] = useState(false);
+  const [resendStatus, setResendStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -155,14 +157,51 @@ export default function LoginPage({
                 <p className="text-amber-700 dark:text-amber-400 font-medium">
                   Your account requires email verification before access is granted.
                 </p>
-                <Button
-                  type="button"
-                  size="sm"
-                  className="w-full bg-amber-600 hover:bg-amber-700 text-white"
-                  onClick={() => router.push(`/verify-email?email=${encodeURIComponent(unverifiedEmail)}`)}
-                >
-                  Verify Email Now
-                </Button>
+                {resendStatus && (
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                    {resendStatus}
+                  </p>
+                )}
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    className="flex-1 bg-amber-600 hover:bg-amber-700 text-white"
+                    onClick={() => router.push(`/verify-email?email=${encodeURIComponent(unverifiedEmail)}`)}
+                  >
+                    Enter Code
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    className="flex-1 text-xs"
+                    disabled={resendingCode}
+                    onClick={async () => {
+                      setResendingCode(true);
+                      setResendStatus(null);
+                      try {
+                        const res = await fetch("/api/auth/resend-verification", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ email: unverifiedEmail }),
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                          setResendStatus("New verification code sent to your email!");
+                        } else {
+                          setResendStatus(data.error || "Failed to resend code.");
+                        }
+                      } catch {
+                        setResendStatus("Network error resending code.");
+                      } finally {
+                        setResendingCode(false);
+                      }
+                    }}
+                  >
+                    {resendingCode ? "Sending..." : "Resend Code"}
+                  </Button>
+                </div>
               </div>
             )}
           </CardContent>

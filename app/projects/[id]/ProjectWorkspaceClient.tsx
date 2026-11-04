@@ -45,6 +45,7 @@ import { Upload } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ProjectTeamChat } from "./ProjectTeamChat";
+import { useConfirm } from "@/app/components/ui/ConfirmDialog";
 
 interface ProjectWorkspaceClientProps {
   projectId: string;
@@ -144,6 +145,7 @@ const PROJECT_MARKDOWN_CLASS =
   "prose prose-sm dark:prose-invert max-w-none break-words text-foreground [&>h1]:mb-3 [&>h1]:text-lg [&>h1]:font-semibold [&>h2]:mb-2 [&>h2]:mt-5 [&>h2]:text-base [&>h2]:font-semibold [&>h3]:mb-2 [&>h3]:mt-4 [&>h3]:text-sm [&>h3]:font-semibold [&>p]:my-3 [&>p]:leading-7 [&>ul]:my-3 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:my-3 [&>ol]:list-decimal [&>ol]:pl-5 [&>blockquote]:border-l-2 [&>blockquote]:border-primary/40 [&>blockquote]:pl-4 [&>blockquote]:text-muted-foreground [&>pre]:overflow-x-auto [&>pre]:rounded-lg [&>pre]:bg-muted [&>pre]:p-3 [&>table]:w-full [&>table]:border-collapse [&_th]:border [&_th]:border-border [&_th]:bg-muted/50 [&_th]:p-2 [&_th]:text-left [&_td]:border [&_td]:border-border [&_td]:p-2";
 
 export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWorkspaceClientProps) {
+  const { confirm } = useConfirm();
   const [project, setProject] = useState<any>(null);
   const [auth, setAuth] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -397,7 +399,13 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   }
 
   async function handleDeleteMilestone(milestoneId: string, title: string) {
-    if (!window.confirm(`Delete milestone "${title}"?`)) return;
+    const ok = await confirm({
+      title: "Delete Milestone",
+      message: `Delete milestone "${title}"?`,
+      variant: "danger",
+      confirmText: "Delete",
+    });
+    if (!ok) return;
     await mutateProjectResource(
       `/api/projects/${projectId}/milestones/${milestoneId}`,
       "DELETE",
@@ -476,7 +484,13 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   }
 
   async function handleDeleteNote(noteId: string, title: string) {
-    if (!window.confirm(`Delete note "${title}"?`)) return;
+    const ok = await confirm({
+      title: "Delete Research Note",
+      message: `Delete note "${title}"?`,
+      variant: "danger",
+      confirmText: "Delete",
+    });
+    if (!ok) return;
     await mutateProjectResource(
       `/api/projects/${projectId}/notes/${noteId}`,
       "DELETE",
@@ -512,7 +526,13 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   }
 
   async function handleDeleteDiscussion(discussionId: string, title: string) {
-    if (!window.confirm(`Delete discussion "${title}"?`)) return;
+    const ok = await confirm({
+      title: "Delete Discussion",
+      message: `Delete discussion "${title}"?`,
+      variant: "danger",
+      confirmText: "Delete",
+    });
+    if (!ok) return;
     await mutateProjectResource(
       `/api/projects/${projectId}/discussions/${discussionId}`,
       "DELETE",
@@ -657,7 +677,13 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   }
 
   const handleDeleteFile = async (fileId: string, fileName: string) => {
-    if (!window.confirm(`Are you sure you want to delete "${fileName}"? This action cannot be undone.`)) {
+    const ok = await confirm({
+      title: "Delete Research File",
+      message: `Are you sure you want to delete "${fileName}"? This action cannot be undone.`,
+      variant: "danger",
+      confirmText: "Delete File",
+    });
+    if (!ok) {
       return;
     }
     setDeletingFileId(fileId);

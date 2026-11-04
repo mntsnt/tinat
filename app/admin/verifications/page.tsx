@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ShieldCheck, ShieldAlert, ShieldQuestion, CheckCircle, XCircle } from "lucide-react";
+import { useConfirm } from "@/app/components/ui/ConfirmDialog";
 
 type VerificationStatus = "UNVERIFIED" | "PENDING" | "VERIFIED" | "REJECTED" | "SUSPENDED";
 
@@ -16,6 +17,7 @@ interface Verification {
 }
 
 export default function AdminVerificationsPage() {
+  const { confirm } = useConfirm();
   const [verifications, setVerifications] = useState<Verification[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"PENDING" | "VERIFIED" | "REJECTED" | "SUSPENDED">("PENDING");
@@ -134,7 +136,7 @@ export default function AdminVerificationsPage() {
                     <CheckCircle className="w-4 h-4" /> Approve
                   </button>
                   <button 
-                    onClick={() => {
+                    onClick={async () => {
                       const reason = prompt("Enter rejection reason (optional):");
                       if (reason !== null) handleUpdateStatus(v.id, "REJECTED", reason);
                     }}
@@ -147,9 +149,14 @@ export default function AdminVerificationsPage() {
               {activeTab === "VERIFIED" && (
                 <div className="flex gap-2 shrink-0">
                    <button 
-                    onClick={() => {
-                      const confirm = window.confirm("Are you sure you want to suspend this user's verification?");
-                      if (confirm) handleUpdateStatus(v.id, "SUSPENDED");
+                    onClick={async () => {
+                      const ok = await confirm({
+                        title: "Suspend Verification",
+                        message: "Are you sure you want to suspend this user's verification?",
+                        variant: "danger",
+                        confirmText: "Suspend",
+                      });
+                      if (ok) handleUpdateStatus(v.id, "SUSPENDED");
                     }}
                     className="flex items-center gap-1 bg-rose-50 text-rose-700 border border-rose-200 px-4 py-2 rounded-md hover:bg-rose-100 transition text-sm font-medium"
                   >

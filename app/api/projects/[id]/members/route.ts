@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { authorizeProjectAccess, logProjectActivity } from "@/lib/projects/auth";
 import { ProjectRole, InvitationStatus } from "@/generated/prisma/enums";
 import crypto from "crypto";
+import { sendProjectInvitationEmail } from "@/lib/emailService";
+import { getBaseUrl } from "@/lib/getRedirectUri";
 
 export async function GET(
   req: NextRequest,
@@ -176,6 +178,34 @@ export async function POST(
       action: "INVITED_MEMBER",
       description: `Sent invitation to ${normalizedEmail} as ${invitation.role}`,
     });
+
+    // Query project and inviter details to send invitation email
+    try {
+      const [project, inviter] = await Promise.all([
+        prisma.researchProject.findUnique({
+          where: { id },
+          select: { title: true },
+        }),
+        prisma.user.findUnique({
+          where: { id: auth.userId },
+          select: { name: true, email: true },
+        }),
+      ]);
+
+      const baseUrl = getBaseUrl(req);
+      const fullInviteLink = `${baseUrl}/projects/invite/${token}`;
+
+      await sendProjectInvitationEmail({
+        to: normalizedEmail,
+        inviterName: inviter?.name || "A project collaborator",
+        projectTitle: project?.title || "Research Project",
+        role: invitation.role,
+        inviteLink: fullInviteLink,
+        customMessage: invitation.message,
+      });
+    } catch (emailErr) {
+      console.error("[Project Invitation] Failed to dispatch invitation email:", emailErr);
+    }
 
     return NextResponse.json({
       success: true,

@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { requireStudyOwnerOrAdmin } from "@/lib/authGuard";
 import { jsonError, validateBody } from "@/lib/validation";
 import { z } from "zod";
+import { sendCollectorInvitationEmail } from "@/lib/emailService";
+import { getBaseUrl } from "@/lib/getRedirectUri";
 
 const inviteCollectorSchema = z.object({
   collectorEmail: z.string().email("A valid collector email is required"),
@@ -83,6 +85,20 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         linkUrl: "/collector/dashboard",
       },
     });
+
+    try {
+      const baseUrl = getBaseUrl(req);
+      const dashboardLink = `${baseUrl}/collector/dashboard`;
+      await sendCollectorInvitationEmail({
+        to: collectorUser.email,
+        collectorName: collectorUser.name || "Data Collector",
+        inviterName: auth.user.name || "Principal Investigator",
+        studyTitle: auth.study.title,
+        dashboardLink,
+      });
+    } catch (emailErr) {
+      console.error("[Collector Invitation] Failed to send email:", emailErr);
+    }
 
     return NextResponse.json({ success: true, invitation });
   } catch (error) {

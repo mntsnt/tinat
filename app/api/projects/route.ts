@@ -12,6 +12,8 @@ import {
   ProjectPhase,
 } from "@/generated/prisma/enums";
 import crypto from "crypto";
+import { sendProjectInvitationEmail } from "@/lib/emailService";
+import { getBaseUrl } from "@/lib/getRedirectUri";
 
 export async function GET(req: NextRequest) {
   try {
@@ -179,7 +181,7 @@ export async function POST(req: NextRequest) {
 
     const user = await prisma.user.findUnique({
       where: { id: session.userId },
-      select: { role: true },
+      select: { role: true, name: true },
     });
     if (!user || user.role !== "RESEARCHER") {
       return NextResponse.json({ error: "Only researchers can create projects." }, { status: 403 });
@@ -298,23 +300,41 @@ export async function POST(req: NextRequest) {
 
     // 5. Create Invitations if provided
     if (Array.isArray(initialMembers) && initialMembers.length > 0) {
+      const baseUrl = getBaseUrl(req);
       for (const m of initialMembers) {
         if (m.email && typeof m.email === "string" && m.email.includes("@")) {
           const token = crypto.randomBytes(24).toString("hex");
           const expiresAt = new Date();
           expiresAt.setDate(expiresAt.getDate() + 14); // 14 days expiration
+          const normalizedEmail = m.email.toLowerCase().trim();
+          const role = m.role || ProjectRole.RESEARCHER;
+          const message = m.message || `You've been invited to join the research project: ${project.title}`;
 
-          await prisma.projectInvitation.create({
+          const invitation = await prisma.projectInvitation.create({
             data: {
               projectId: project.id,
               inviterId: session.userId,
-              inviteeEmail: m.email.toLowerCase().trim(),
-              role: m.role || ProjectRole.RESEARCHER,
-              message: m.message || `You've been invited to join the research project: ${project.title}`,
+              inviteeEmail: normalizedEmail,
+              role,
+              message,
               token,
               expiresAt,
             },
           });
+
+          const inviteLink = `${baseUrl}/projects/invite/${token}`;
+          try {
+            await sendProjectInvitationEmail({
+              to: normalizedEmail,
+              inviterName: user.name || "A project collaborator",
+              projectTitle: project.title,
+              role: invitation.role,
+              inviteLink,
+              customMessage: invitation.message,
+            });
+          } catch (emailErr) {
+            console.error("[Project Creation] Failed to send invitation email:", emailErr);
+          }
         }
       }
     }

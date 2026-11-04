@@ -15,11 +15,11 @@ export type RateLimitPreset =
   | "CHAT";
 
 const PRESET_CONFIGS: Record<RateLimitPreset, { max: number; windowMs: number }> = {
-  LOGIN: { max: 10, windowMs: 15 * 60 * 1000 }, // 10 attempts / 15m
-  REGISTER: { max: 5, windowMs: 60 * 60 * 1000 }, // 5 attempts / 1h
-  EMAIL_VERIFICATION: { max: 5, windowMs: 15 * 60 * 1000 }, // 5 / 15m
-  PASSWORD_RESET: { max: 5, windowMs: 15 * 60 * 1000 }, // 5 / 15m
-  SUBMISSION: { max: 30, windowMs: 60 * 1000 }, // 30 / 1m
+  LOGIN: { max: 25, windowMs: 15 * 60 * 1000 }, // 25 attempts / 15m
+  REGISTER: { max: 30, windowMs: 60 * 60 * 1000 }, // 30 attempts / 1h
+  EMAIL_VERIFICATION: { max: 30, windowMs: 15 * 60 * 1000 }, // 30 / 15m
+  PASSWORD_RESET: { max: 15, windowMs: 15 * 60 * 1000 }, // 15 / 15m
+  SUBMISSION: { max: 60, windowMs: 60 * 1000 }, // 60 / 1m
   CHAT: { max: 60, windowMs: 60 * 1000 }, // 60 / 1m
 };
 

@@ -169,7 +169,7 @@ export function Footer() {
             }}
             className="block text-center cursor-pointer group"
           >
-            <h2 className="text-[15vw] sm:text-[16vw] font-black tracking-tighter leading-none text-foreground/15 group-hover:text-foreground/25 dark:text-white/90 dark:group-hover:text-white uppercase transition-colors">
+            <h2 className="text-[15vw] sm:text-[16vw] font-black tracking-tighter leading-none text-black dark:text-white uppercase transition-colors">
               Tinat
             </h2>
           </Link>

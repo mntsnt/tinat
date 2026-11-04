@@ -26,6 +26,7 @@ import {
 import { Button } from "../../components/ui/Button";
 import { Card, CardContent } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
+import { useConfirm } from "../../components/ui/ConfirmDialog";
 
 type QuestionTypeOption = {
   type: string;
@@ -61,6 +62,7 @@ interface FormQuestion {
 
 export default function NewFormPage() {
   const router = useRouter();
+  const { alert } = useConfirm();
 
   const [title, setTitle] = useState("Untitled Form");
   const [description, setDescription] = useState("");
@@ -114,7 +116,11 @@ export default function NewFormPage() {
 
   function deleteQuestion(id: string) {
     if (questions.length <= 1) {
-      alert("A form must have at least one question.");
+      alert({
+        title: "Validation Notice",
+        message: "A form must have at least one question.",
+        variant: "warning",
+      });
       return;
     }
     setQuestions((prev) => prev.filter((q) => q.id !== id));

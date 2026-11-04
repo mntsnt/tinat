@@ -28,6 +28,7 @@ import {
   CardTitle,
 } from "../components/ui/Card";
 import { StudyBanner } from "../components/studies/StudyBanner";
+import { useConfirm } from "../components/ui/ConfirmDialog";
 
 type TinatForm = {
   id: string;
@@ -43,6 +44,7 @@ type TinatForm = {
 };
 
 export default function FormsDashboardPage() {
+  const { confirm } = useConfirm();
   const [forms, setForms] = useState<TinatForm[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -99,9 +101,13 @@ export default function FormsDashboardPage() {
   }
 
   async function handleDeleteForm(formId: string) {
-    if (!confirm("Are you sure you want to delete this form and all its responses?")) {
-      return;
-    }
+    const ok = await confirm({
+      title: "Delete Form",
+      message: "Are you sure you want to delete this form and all its responses? This action cannot be undone.",
+      confirmText: "Delete Form",
+      variant: "danger",
+    });
+    if (!ok) return;
     try {
       setDeletingId(formId);
       const res = await fetch(`/api/forms/${formId}`, { method: "DELETE" });

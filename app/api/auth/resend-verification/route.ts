@@ -53,12 +53,19 @@ export async function POST(request: Request) {
     const baseUrl = getBaseUrl(request);
     const verificationLink = `${baseUrl}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
 
-    await sendVerificationEmail({
+    const emailResult = await sendVerificationEmail({
       to: user.email,
       name: user.name,
       code,
       verificationLink,
     });
+
+    if (!emailResult.success) {
+      return NextResponse.json(
+        { error: "Could not deliver verification email. Please check your email configuration." },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       message: "Verification code sent to your email.",

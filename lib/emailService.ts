@@ -7,24 +7,42 @@ interface SendVerificationEmailParams {
   verificationLink: string;
 }
 
+export interface SendProjectInvitationEmailParams {
+  to: string;
+  inviterName: string;
+  projectTitle: string;
+  role: string;
+  inviteLink: string;
+  customMessage?: string | null;
+}
+
+export interface SendCollectorInvitationEmailParams {
+  to: string;
+  collectorName?: string;
+  inviterName: string;
+  studyTitle: string;
+  dashboardLink: string;
+}
+
 /**
  * Creates a configured Nodemailer transporter.
  * Forces IPv4 (family: 4) to eliminate IPv6 network route timeouts on cloud hosting (VPS / aletcloud).
  */
 function createSmtpTransporter(port: number, secure: boolean) {
-  const host = process.env.SMTP_HOST || "smtp.gmail.com";
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const host = (process.env.SMTP_HOST || "smtp.gmail.com").trim();
+  const user = (process.env.SMTP_USER || "iammintesnot@gmail.com").trim();
+  const pass = (process.env.SMTP_PASS || "cympjvsszaszmerz").trim();
 
   return nodemailer.createTransport({
     host,
     port,
     secure,
-    auth: { user: user || "", pass: pass || "" },
+    auth: { user, pass },
     family: 4, // Critical for fast direct IPv4 routing and preventing IPv6 timeouts
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
+    requireTLS: !secure,
     tls: {
       rejectUnauthorized: false,
       minVersion: "TLSv1.2",
@@ -32,23 +50,22 @@ function createSmtpTransporter(port: number, secure: boolean) {
   } as any);
 }
 
-export async function sendVerificationEmail({
-  to,
-  name,
-  code,
-  verificationLink,
-}: SendVerificationEmailParams): Promise<{ success: boolean; simulated: boolean }> {
-  const host = process.env.SMTP_HOST || "smtp.gmail.com";
+/**
+ * Core delivery pipeline with automatic primary port (465) to fallback port (587) retry.
+ */
+async function deliverEmail(mailOptions: {
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+}): Promise<{ success: boolean; simulated: boolean }> {
   const primaryPort = Number(process.env.SMTP_PORT) || 465;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const user = (process.env.SMTP_USER || "iammintesnot@gmail.com").trim();
+  const pass = (process.env.SMTP_PASS || "cympjvsszaszmerz").trim();
+  const supportEmail = (process.env.SUPPORT_EMAIL || user).trim();
 
-  const recipientEmail = to.trim().toLowerCase();
-  const recipientName = name.trim() || "Researcher";
-
-  // If SMTP is not configured, warn and return simulated
   if (!user || !pass) {
-    console.warn(`[Email Service] SMTP credentials not configured. Verification email to ${recipientEmail} cannot be sent.`);
+    console.warn(`[Email Service] SMTP credentials not configured. Email to ${mailOptions.to} simulated.`);
     return { success: false, simulated: true };
   }
 
@@ -56,6 +73,49 @@ export async function sendVerificationEmail({
     name: "Tinat Research Platform",
     address: user,
   };
+
+  const fullOptions = {
+    ...mailOptions,
+    from: senderObject,
+    replyTo: supportEmail,
+  };
+
+  // Attempt 1: Try primary port (465 SSL)
+  try {
+    const isPrimarySecure = primaryPort === 465;
+    const transporter = createSmtpTransporter(primaryPort, isPrimarySecure);
+    const info = await transporter.sendMail(fullOptions);
+    console.log(`[Email Service] Email "${mailOptions.subject}" delivered to ${mailOptions.to} via port ${primaryPort} (${info.messageId})`);
+    return { success: true, simulated: false };
+  } catch (primaryError) {
+    console.warn(`[Email Service] Primary port ${primaryPort} delivery failed for ${mailOptions.to}:`, primaryError);
+
+    // Attempt 2: Fallback to alternative port (587 STARTTLS)
+    const fallbackPort = primaryPort === 465 ? 587 : 465;
+    try {
+      console.log(`[Email Service] Retrying delivery via fallback port ${fallbackPort}...`);
+      const fallbackTransporter = createSmtpTransporter(fallbackPort, fallbackPort === 465);
+      const fallbackInfo = await fallbackTransporter.sendMail(fullOptions);
+      console.log(`[Email Service] Email "${mailOptions.subject}" delivered to ${mailOptions.to} via fallback port ${fallbackPort} (${fallbackInfo.messageId})`);
+      return { success: true, simulated: false };
+    } catch (fallbackError) {
+      console.error(`[Email Service] Both primary and fallback delivery failed for ${mailOptions.to}:`, fallbackError);
+      throw new Error(`Failed to deliver email to ${mailOptions.to}: ${fallbackError instanceof Error ? fallbackError.message : "SMTP transport error"}`);
+    }
+  }
+}
+
+/**
+ * 1. User Email Verification Email
+ */
+export async function sendVerificationEmail({
+  to,
+  name,
+  code,
+  verificationLink,
+}: SendVerificationEmailParams): Promise<{ success: boolean; simulated: boolean }> {
+  const recipientEmail = to.trim().toLowerCase();
+  const recipientName = name.trim() || "Researcher";
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
@@ -79,41 +139,137 @@ export async function sendVerificationEmail({
       <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 24px 0;" />
       <p style="color: #94a3b8; font-size: 11px; text-align: center; margin: 0; line-height: 1.5;">
         If you did not register for Tinat, you can safely ignore this email.<br />
-        Tinat &bull; Research Platform &bull; ${host}
+        Tinat &bull; Research Platform
       </p>
     </div>
   `;
 
-  const mailOptions = {
-    from: senderObject,
+  return deliverEmail({
     to: recipientEmail,
-    replyTo: process.env.SUPPORT_EMAIL || user,
     subject: `Verify your Tinat account (${code})`,
     text: `Welcome to Tinat, ${recipientName}!\n\nYour 6-digit verification code is: ${code}\n\nOr click here to verify automatically:\n${verificationLink}\n\nThis code expires in 24 hours.`,
     html,
-  };
+  });
+}
 
-  // Attempt 1: Try primary port (e.g., 465 with SSL)
-  try {
-    const isPrimarySecure = primaryPort === 465;
-    const transporter = createSmtpTransporter(primaryPort, isPrimarySecure);
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`[Email Service] Verification email sent to ${recipientEmail} via port ${primaryPort} (MessageId: ${info.messageId})`);
-    return { success: true, simulated: false };
-  } catch (primaryError) {
-    console.warn(`[Email Service] Primary port ${primaryPort} failed for ${recipientEmail}:`, primaryError);
+/**
+ * 2. Research Project Collaborator Invitation Email
+ */
+export async function sendProjectInvitationEmail({
+  to,
+  inviterName,
+  projectTitle,
+  role,
+  inviteLink,
+  customMessage,
+}: SendProjectInvitationEmailParams): Promise<{ success: boolean; simulated: boolean }> {
+  const recipientEmail = to.trim().toLowerCase();
+  const readableRole = role.replace(/_/g, " ");
 
-    // Attempt 2: Fallback to alternative port (587 STARTTLS if 465 failed, or 465 if 587 failed)
-    const fallbackPort = primaryPort === 465 ? 587 : 465;
-    try {
-      console.log(`[Email Service] Retrying delivery via fallback port ${fallbackPort}...`);
-      const fallbackTransporter = createSmtpTransporter(fallbackPort, fallbackPort === 465);
-      const fallbackInfo = await fallbackTransporter.sendMail(mailOptions);
-      console.log(`[Email Service] Verification email sent to ${recipientEmail} via fallback port ${fallbackPort} (MessageId: ${fallbackInfo.messageId})`);
-      return { success: true, simulated: false };
-    } catch (fallbackError) {
-      console.error(`[Email Service] Both primary and fallback SMTP delivery failed for ${recipientEmail}:`, fallbackError);
-      throw new Error(`Failed to deliver verification email to ${recipientEmail}: ${fallbackError instanceof Error ? fallbackError.message : "SMTP transport error"}`);
-    }
-  }
+  const html = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 10px; background-color: #059669; color: #ffffff; font-weight: 800; font-size: 22px; margin-bottom: 16px;">T</div>
+        <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">Collaboration Invitation</h1>
+        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">
+          <strong>${inviterName}</strong> has invited you to collaborate on <strong>${projectTitle}</strong>.
+        </p>
+      </div>
+
+      <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin: 24px 0;">
+        <div style="margin-bottom: 12px;">
+          <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Project</span>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${projectTitle}</div>
+        </div>
+        <div style="margin-bottom: 12px;">
+          <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Assigned Role</span>
+          <div style="font-size: 14px; font-weight: 600; color: #059669; margin-top: 2px;">${readableRole}</div>
+        </div>
+        ${
+          customMessage
+            ? `
+          <div style="border-top: 1px dashed #cbd5e1; padding-top: 12px; margin-top: 12px;">
+            <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Message from ${inviterName}</span>
+            <p style="color: #334155; font-size: 13px; font-style: italic; margin: 4px 0 0 0;">&ldquo;${customMessage}&rdquo;</p>
+          </div>
+        `
+            : ""
+        }
+      </div>
+
+      <div style="text-align: center; margin: 28px 0;">
+        <p style="color: #475569; font-size: 13px; margin-bottom: 16px;">
+          Join the research workspace to access milestone boards, shared files, team discussions, and study protocols:
+        </p>
+        <a href="${inviteLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Accept Invitation & Join Project</a>
+      </div>
+
+      <p style="color: #94a3b8; font-size: 12px; text-align: center; margin: 0 0 16px 0;">
+        This invitation link is valid for 14 days. If you don't have a Tinat account yet, you will be prompted to create one.
+      </p>
+
+      <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 24px 0;" />
+      <p style="color: #94a3b8; font-size: 11px; text-align: center; margin: 0;">
+        Tinat &bull; Collaborative Health Research Ecosystem
+      </p>
+    </div>
+  `;
+
+  return deliverEmail({
+    to: recipientEmail,
+    subject: `${inviterName} invited you to join "${projectTitle}" on Tinat`,
+    text: `${inviterName} has invited you to collaborate on "${projectTitle}" as ${readableRole}.\n\nClick the link below to accept the invitation and join the workspace:\n${inviteLink}\n\nThis invitation link expires in 14 days.`,
+    html,
+  });
+}
+
+/**
+ * 3. Study Data Collector Invitation Email
+ */
+export async function sendCollectorInvitationEmail({
+  to,
+  collectorName,
+  inviterName,
+  studyTitle,
+  dashboardLink,
+}: SendCollectorInvitationEmailParams): Promise<{ success: boolean; simulated: boolean }> {
+  const recipientEmail = to.trim().toLowerCase();
+  const name = collectorName || "Data Collector";
+
+  const html = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 10px; background-color: #059669; color: #ffffff; font-weight: 800; font-size: 22px; margin-bottom: 16px;">T</div>
+        <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">Field Data Collection Assignment</h1>
+        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">Hello ${name}, you have been assigned to a research study on Tinat.</p>
+      </div>
+
+      <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin: 24px 0;">
+        <div style="margin-bottom: 12px;">
+          <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Study</span>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${studyTitle}</div>
+        </div>
+        <div>
+          <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Principal Investigator / Inviter</span>
+          <div style="font-size: 14px; font-weight: 600; color: #334155; margin-top: 2px;">${inviterName}</div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin: 28px 0;">
+        <a href="${dashboardLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Open Field Enumerator Dashboard</a>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 24px 0;" />
+      <p style="color: #94a3b8; font-size: 11px; text-align: center; margin: 0;">
+        Tinat &bull; Collaborative Health Research Ecosystem
+      </p>
+    </div>
+  `;
+
+  return deliverEmail({
+    to: recipientEmail,
+    subject: `New Data Collection Assignment: "${studyTitle}"`,
+    text: `Hello ${name},\n\n${inviterName} has assigned you as a Field Data Collector for "${studyTitle}".\n\nAccess your Field Collector Dashboard here:\n${dashboardLink}`,
+    html,
+  });
 }
