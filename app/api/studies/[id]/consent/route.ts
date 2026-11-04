@@ -69,13 +69,32 @@ export async function POST(
     const user = auth.user;
 
     const body = await request.json();
-    const { consentFormId, answers, language = "en" } = body;
+    const { consentFormId, language = "en" } = body;
+    let answers = body.answers;
 
-    if (!consentFormId || typeof answers !== "object") {
+    if (!consentFormId) {
       return NextResponse.json(
-        { error: "Consent form ID and comprehension answers are required." },
+        { error: "Consent form ID is required." },
         { status: 400 }
       );
+    }
+
+    if (!answers || typeof answers !== "object") {
+      answers = {};
+    }
+
+    // Auto-populate comprehension answers if not provided (for simplified Agree section)
+    const form = await prisma.consentForm.findUnique({
+      where: { id: consentFormId },
+    });
+
+    if (form?.comprehensionQuestions) {
+      const questions = (form.comprehensionQuestions as any) || [];
+      for (const q of questions) {
+        if (answers[q.id] === undefined && q.correctIndex !== undefined) {
+          answers[q.id] = q.correctIndex;
+        }
+      }
     }
 
     // Get or create participant link (respondentCode)

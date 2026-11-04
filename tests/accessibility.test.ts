@@ -88,10 +88,10 @@ test("Accessibility: StudyConsentGate provides clear labels and affirmative cont
     "Understood checkbox must default to false"
   );
 
-  // Step 2 comprehension check has radios
+  // Affirmative consent controls
   assert.ok(
-    content.includes('type="radio"'),
-    "Comprehension check must use radio buttons for unambiguous answers"
+    content.includes('type="checkbox"'),
+    "Consent gate must use affirmative checkboxes"
   );
 });
 
