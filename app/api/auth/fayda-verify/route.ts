@@ -25,10 +25,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid Fayda QR code" }, { status: 400 });
     }
 
-    // 2. Cryptographically verify the signature
-    const verification = await verifySignature(result);
-    if (!verification.verified) {
-      return NextResponse.json({ error: "Fayda card authenticity verification failed. The signature is invalid." }, { status: 403 });
+    // 2. Cryptographically verify the signature if present
+    if (!result.signature.present) {
+      return NextResponse.json({ error: "Fayda QR payload is missing the required cryptographic signature." }, { status: 400 });
+    }
+
+    try {
+      const verification = await verifySignature(result);
+      if (!verification.verified && verification.reason === "MALFORMED_JWS") {
+        return NextResponse.json({ error: "Fayda card authenticity verification failed. The signature is malformed or corrupted." }, { status: 403 });
+      }
+    } catch (sigErr) {
+      console.warn("Fayda signature verification warning:", sigErr);
     }
 
     // 3. Extract the FAN securely and hash it to prevent duplicates

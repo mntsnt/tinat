@@ -152,9 +152,7 @@ export default function SettingsPage({ user }: { user: UserData }) {
             Manage your profile, account details, and appearance in one place.
           </p>
         </div>
-        <div className="flex shrink-0 items-center gap-2 pt-1">
-          <ThemeToggle />
-        </div>
+
       </header>
 
       <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[220px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-6">

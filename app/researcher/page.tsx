@@ -72,10 +72,10 @@ export default async function ResearcherDashboard() {
       <div className="mb-8 flex items-center justify-between gap-4 flex-wrap">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            Welcome back, {user.name.split(" ")[0]}
+            {studies.length === 0 ? "Welcome" : "Welcome back"}, {user.name.split(" ")[0]}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage your research studies and track responses.
+            {studies.length === 0 ? "Welcome to Tinat! Create your first study to start collecting data." : "Manage your research studies and track responses."}
           </p>
         </div>
         <Link href="/researcher/studies/new">

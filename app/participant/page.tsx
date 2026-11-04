@@ -103,10 +103,10 @@ export default async function ParticipantDashboard() {
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          Welcome back, {user.name.split(" ")[0]}
+          {user.participantLinks.length === 0 ? "Welcome" : "Welcome back"}, {user.name.split(" ")[0]}
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Here&apos;s what&apos;s happening with your account today.
+          {user.participantLinks.length === 0 ? "Welcome to Tinat! Explore available health research studies to get started." : "Here's what's happening with your account today."}
         </p>
       </div>
 

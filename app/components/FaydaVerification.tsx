@@ -3,8 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/Card";
 import { Button } from "./ui/Button";
-import { ShieldCheck, Camera, UploadCloud, AlertTriangle, Loader2, UserCheck, X } from "lucide-react";
-import { prepareZXingModule, readBarcodes } from "zxing-wasm/reader";
+import { ShieldCheck, Camera, UploadCloud, AlertTriangle, Loader2, UserCheck, X, FileText } from "lucide-react";
+import { decodeImage, decodePayload, prepareQrEngine } from "fayda-decoder";
 
 type UIState = 
   | "IDLE" 
@@ -19,16 +19,37 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
   const [errorMsg, setErrorMsg] = useState("");
   const [faydaPayload, setFaydaPayload] = useState("");
   const [previewData, setPreviewData] = useState<any>(null);
+  const [showManualInput, setShowManualInput] = useState(false);
+  const [manualPayload, setManualPayload] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // Pre-load the WASM engine locally so we don't depend on CDN
-    prepareZXingModule({
+    prepareQrEngine({
       overrides: {
-        locateFile: (path) => path.endsWith(".wasm") ? "/zxing_reader.wasm" : path,
+        locateFile: (path: string) => path.endsWith(".wasm") ? "/zxing_reader.wasm" : path,
       },
     });
   }, []);
+
+  const processPayload = async (payloadText: string) => {
+    // Hit preview endpoint to get decoded data before final verification
+    const previewRes = await fetch("/api/auth/fayda-preview", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ payload: payloadText }),
+    });
+
+    const previewResData = await previewRes.json();
+
+    if (!previewRes.ok) {
+      throw new Error(previewResData.error || "Server validation failed");
+    }
+
+    setPreviewData(previewResData.data);
+    setFaydaPayload(payloadText);
+    setUiState("PREVIEW_DATA");
+  };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -38,41 +59,19 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
     setUiState("PROCESSING_LOCAL");
 
     try {
-      // Decode the QR locally; only its signed payload leaves the device.
-      const results = await readBarcodes(file, {
-        formats: ["QRCode"],
-        tryHarder: true,
-        maxNumberOfSymbols: 4,
-      });
-      const validQrResults = results.filter((result) => result.isValid && result.text);
-      if (validQrResults.length === 0) throw new Error("NO_QR_FOUND");
+      // Decode using fayda-decoder's multi-stage preprocessing pipeline
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      const result = await decodeImage(bytes);
 
-      const faydaQr = validQrResults.find(
-        (result) => result.text.includes(":DLT:") && result.text.includes(":SIGN:")
-      );
-      if (!faydaQr) throw new Error("NOT_FAYDA");
-
-      // Hit preview endpoint to get decoded data before final verification
-      const previewRes = await fetch("/api/auth/fayda-preview", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ payload: faydaQr.text })
-      });
-      
-      const previewResData = await previewRes.json();
-      
-      if (!previewRes.ok) {
-        throw new Error(previewResData.error || "Server validation failed");
+      if (!result.ok) {
+        throw new Error(result.error.code);
       }
 
-      setPreviewData(previewResData.data);
-      setFaydaPayload(faydaQr.text);
-      setUiState("PREVIEW_DATA");
-
+      await processPayload(result.raw.payload);
     } catch (err: unknown) {
       console.error(err);
       setUiState("FAILED");
-      
+
       const msg = err instanceof Error ? err.message : "";
       if (msg.includes("NO_QR_FOUND")) {
         setErrorMsg("We couldn't find the Fayda QR code. Make sure you're photographing the back of the card.");
@@ -92,17 +91,43 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
     }
   };
 
+  const handleManualSubmit = async () => {
+    if (!manualPayload.trim()) return;
+
+    setErrorMsg("");
+    setUiState("PROCESSING_LOCAL");
+
+    try {
+      const result = decodePayload(manualPayload.trim());
+      if (!result.ok) {
+        throw new Error(result.error.code);
+      }
+      await processPayload(result.raw.payload);
+    } catch (err: unknown) {
+      console.error(err);
+      setUiState("FAILED");
+      const msg = err instanceof Error ? err.message : "";
+      if (msg.includes("NOT_FAYDA") || msg.includes("NO_QR_FOUND")) {
+        setErrorMsg("This text is not a valid Fayda QR payload.");
+      } else if (msg.includes("UNSUPPORTED_VERSION")) {
+        setErrorMsg("This Fayda card format isn't supported yet. Please contact support.");
+      } else {
+        setErrorMsg(msg || "Failed to process the Fayda QR text.");
+      }
+    }
+  };
+
   const confirmAndVerify = async () => {
     setUiState("VERIFYING_SERVER");
     try {
       const res = await fetch("/api/auth/fayda-verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ payload: faydaPayload })
+        body: JSON.stringify({ payload: faydaPayload }),
       });
-      
+
       const data = await res.json();
-      
+
       if (!res.ok) {
         throw new Error(data.error || "Server verification failed");
       }
@@ -267,6 +292,37 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
                   <UploadCloud className="w-4 h-4" />
                   Upload Image
                 </Button>
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-border/60">
+                <button
+                  type="button"
+                  onClick={() => setShowManualInput(!showManualInput)}
+                  className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>{showManualInput ? "Hide raw text input" : "Have raw QR text? Paste it directly"}</span>
+                </button>
+                {showManualInput && (
+                  <div className="mt-3 space-y-2 text-left">
+                    <textarea
+                      value={manualPayload}
+                      onChange={(e) => setManualPayload(e.target.value)}
+                      placeholder="Paste Fayda QR payload string here (e.g. data:image/webp...:DLT:...)"
+                      rows={3}
+                      className="w-full text-xs p-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-1 focus:ring-primary font-mono"
+                    />
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      disabled={!manualPayload.trim()}
+                      onClick={handleManualSubmit}
+                      className="w-full sm:w-auto text-xs"
+                    >
+                      Process QR Text
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
