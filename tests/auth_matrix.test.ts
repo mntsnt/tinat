@@ -435,7 +435,23 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     admin: [403] // WITHDRAWALS_PAUSED
   },
 
-  // User / Settings / Withdrawals
+  // User / Settings / Avatar / Withdrawals
+  "POST /api/auth/avatar": {
+    anonymous: [401],
+    participant: [200, 400],
+    researcher_owner: [200, 400],
+    researcher_other: [200, 400],
+    collector: [200, 400],
+    admin: [200, 400]
+  },
+  "DELETE /api/auth/avatar": {
+    anonymous: [401],
+    participant: [200],
+    researcher_owner: [200],
+    researcher_other: [200],
+    collector: [200],
+    admin: [200]
+  },
   "PATCH /api/auth/settings": {
     anonymous: [401],
     participant: [200, 400],

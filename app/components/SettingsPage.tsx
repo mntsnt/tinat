@@ -4,20 +4,24 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
   AlertCircle,
+  Camera,
   Check,
   CheckCircle,
   ChevronRight,
   CircleUserRound,
   Clock3,
+  Loader2,
   LockKeyhole,
   Mail,
   Palette,
   Save,
   ShieldCheck,
+  Trash2,
   UserRound,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { FaydaVerification } from "./FaydaVerification";
+import { Button } from "./ui/Button";
 
 type UserData = {
   id: string;
@@ -29,6 +33,7 @@ type UserData = {
   fieldOfStudy: string | null;
   role: string;
   createdAt: Date;
+  avatarUrl?: string | null;
   isVerified?: boolean;
   faydaVerified?: boolean;
   faydaVerifiedAt?: Date | null;
@@ -42,6 +47,11 @@ export default function SettingsPage({ user }: { user: UserData }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(user.avatarUrl || null);
+  const [avatarLoading, setAvatarLoading] = useState(false);
+  const [avatarMessage, setAvatarMessage] = useState("");
+  const [avatarError, setAvatarError] = useState("");
+  const avatarInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     name: user.name || "",
     phone: user.phone || "",
@@ -51,6 +61,107 @@ export default function SettingsPage({ user }: { user: UserData }) {
   });
   const [activeSection, setActiveSection] = useState("account");
   const contentScrollRef = useRef<HTMLDivElement>(null);
+
+  async function processAndUploadAvatar(file: File) {
+    if (!file.type.startsWith("image/")) {
+      setAvatarError("Please select an image file (PNG, JPG, or WebP).");
+      setAvatarMessage("");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setAvatarError("Image is too large. Please select an image under 5MB.");
+      setAvatarMessage("");
+      return;
+    }
+
+    setAvatarLoading(true);
+    setAvatarError("");
+    setAvatarMessage("");
+
+    try {
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const size = 256;
+            const canvas = document.createElement("canvas");
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) {
+              reject(new Error("Could not process image canvas."));
+              return;
+            }
+
+            // Square center crop
+            const minDim = Math.min(img.width, img.height);
+            const sx = (img.width - minDim) / 2;
+            const sy = (img.height - minDim) / 2;
+
+            ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, size, size);
+
+            const output = canvas.toDataURL("image/webp", 0.85);
+            resolve(output);
+          };
+          img.onerror = () => reject(new Error("Failed to load image."));
+          img.src = e.target?.result as string;
+        };
+        reader.onerror = () => reject(new Error("Failed to read image file."));
+        reader.readAsDataURL(file);
+      });
+
+      const res = await fetch("/api/auth/avatar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ avatarUrl: dataUrl }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to upload profile picture.");
+      }
+
+      setAvatarUrl(data.avatarUrl);
+      setAvatarMessage("Profile picture updated successfully.");
+      router.refresh();
+    } catch (err: unknown) {
+      console.error("Avatar upload error:", err);
+      setAvatarError(err instanceof Error ? err.message : "Could not upload profile picture.");
+    } finally {
+      setAvatarLoading(false);
+      if (avatarInputRef.current) {
+        avatarInputRef.current.value = "";
+      }
+    }
+  }
+
+  async function handleAvatarDelete() {
+    if (!confirm("Are you sure you want to remove your profile picture?")) return;
+    setAvatarLoading(true);
+    setAvatarError("");
+    setAvatarMessage("");
+
+    try {
+      const res = await fetch("/api/auth/avatar", {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to remove profile picture.");
+      }
+
+      setAvatarUrl(null);
+      setAvatarMessage("Profile picture removed.");
+      router.refresh();
+    } catch (err: unknown) {
+      console.error("Avatar delete error:", err);
+      setAvatarError(err instanceof Error ? err.message : "Could not remove profile picture.");
+    } finally {
+      setAvatarLoading(false);
+    }
+  }
 
   useEffect(() => {
     const container = contentScrollRef.current;
@@ -213,23 +324,102 @@ export default function SettingsPage({ user }: { user: UserData }) {
                 {roleLabel}
               </span>
             </div>
-            <div className="flex flex-wrap items-center gap-4 px-5 py-5 sm:px-6">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary text-base font-semibold text-primary-foreground">
-                {initials}
+            <div className="flex flex-wrap items-center gap-5 px-5 py-5 sm:px-6">
+              <input
+                ref={avatarInputRef}
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) void processAndUploadAvatar(file);
+                }}
+                className="hidden"
+              />
+
+              <div className="group relative flex h-16 w-16 sm:h-20 sm:w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-border bg-muted shadow-sm ring-2 ring-primary/10">
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt={user.name}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-primary text-lg sm:text-xl font-bold text-primary-foreground">
+                    {initials}
+                  </div>
+                )}
+
+                {avatarLoading ? (
+                  <div className="absolute inset-0 flex items-center justify-center bg-background/80 text-primary">
+                    <Loader2 className="h-6 w-6 animate-spin" />
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => avatarInputRef.current?.click()}
+                    className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white opacity-0 transition-opacity group-hover:opacity-100 focus:opacity-100"
+                    title="Change profile picture"
+                  >
+                    <Camera className="h-5 w-5" />
+                    <span className="text-[10px] font-medium mt-0.5">Change</span>
+                  </button>
+                )}
               </div>
+
               <div className="min-w-0 flex-1">
-                <h3 className="truncate text-base font-semibold text-foreground">{user.name}</h3>
-                <p className="mt-0.5 truncate text-sm text-muted-foreground">{user.email}</p>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
-                  user.isVerified
-                    ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
-                    : "bg-amber-500/10 text-amber-700 dark:text-amber-400"
-                }`}>
-                  {user.isVerified ? <CheckCircle className="h-3.5 w-3.5" /> : <Mail className="h-3.5 w-3.5" />}
-                  {user.isVerified ? "Email verified" : "Email not verified"}
-                </span>
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <h3 className="truncate text-base font-semibold text-foreground">{user.name}</h3>
+                  <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                    user.isVerified
+                      ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                      : "bg-amber-500/10 text-amber-700 dark:text-amber-400"
+                  }`}>
+                    {user.isVerified ? <CheckCircle className="h-3 w-3" /> : <Mail className="h-3 w-3" />}
+                    {user.isVerified ? "Email verified" : "Email not verified"}
+                  </span>
+                </div>
+                <p className="truncate text-sm text-muted-foreground">{user.email}</p>
+
+                <div className="mt-2.5 flex flex-wrap items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => avatarInputRef.current?.click()}
+                    disabled={avatarLoading}
+                    className="gap-1.5 text-xs h-7 px-2.5"
+                  >
+                    <Camera className="h-3.5 w-3.5" />
+                    <span>{avatarUrl ? "Change photo" : "Upload photo"}</span>
+                  </Button>
+                  {avatarUrl && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleAvatarDelete}
+                      disabled={avatarLoading}
+                      className="gap-1.5 text-xs h-7 px-2 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                      <span>Remove</span>
+                    </Button>
+                  )}
+                  <span className="text-[11px] text-muted-foreground hidden sm:inline">
+                    JPG, PNG, or WebP (max 5MB, auto-cropped)
+                  </span>
+                </div>
+
+                {avatarMessage && (
+                  <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                    <Check className="h-3.5 w-3.5" /> {avatarMessage}
+                  </p>
+                )}
+                {avatarError && (
+                  <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-destructive">
+                    <AlertCircle className="h-3.5 w-3.5" /> {avatarError}
+                  </p>
+                )}
               </div>
             </div>
             <div className="grid gap-4 border-t border-border bg-muted/30 px-5 py-4 sm:grid-cols-2 sm:px-6">

@@ -14,7 +14,7 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "Enter valid profile details." }, { status: 400 });
     }
     const profile = body as Record<string, unknown>;
-    const { name, phone, bio, institution, fieldOfStudy } = profile;
+    const { name, phone, bio, institution, fieldOfStudy, avatarUrl } = profile;
 
     if (typeof name !== "string" || !name.trim()) {
       return NextResponse.json({ error: "Name is required." }, { status: 400 });
@@ -33,6 +33,19 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "One or more profile fields exceed the allowed length." }, { status: 400 });
     }
 
+    let sanitizedAvatarUrl: string | null | undefined = undefined;
+    if (avatarUrl === null || avatarUrl === "") {
+      sanitizedAvatarUrl = null;
+    } else if (typeof avatarUrl === "string") {
+      const trimmed = avatarUrl.trim();
+      const isValidFormat =
+        trimmed.startsWith("data:image/") ||
+        (trimmed.startsWith("https://") && trimmed.length <= 2048);
+      if (isValidFormat && trimmed.length <= 1_000_000) {
+        sanitizedAvatarUrl = trimmed;
+      }
+    }
+
     const user = await prisma.user.update({
       where: { id: session.userId },
       data: {
@@ -41,11 +54,13 @@ export async function PATCH(request: Request) {
         bio: typeof bio === "string" ? bio.trim() || null : null,
         institution: typeof institution === "string" ? institution.trim() || null : null,
         fieldOfStudy: typeof fieldOfStudy === "string" ? fieldOfStudy.trim() || null : null,
+        ...(sanitizedAvatarUrl !== undefined ? { avatarUrl: sanitizedAvatarUrl } : {}),
       },
       select: {
         id: true,
         name: true,
         role: true,
+        avatarUrl: true,
       }
     });
 

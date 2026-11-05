@@ -9,7 +9,7 @@ export default async function ParticipantSettings() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { name: true, bio: true, institution: true, fieldOfStudy: true, role: true, email: true, phone: true, id: true, createdAt: true, isVerified: true, faydaVerified: true, faydaVerifiedAt: true },
+    select: { name: true, bio: true, institution: true, fieldOfStudy: true, role: true, email: true, phone: true, id: true, createdAt: true, isVerified: true, faydaVerified: true, faydaVerifiedAt: true, avatarUrl: true },
   });
 
   if (!user || user.role !== "PARTICIPANT") redirect("/dashboard");

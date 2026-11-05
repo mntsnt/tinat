@@ -1,7 +1,7 @@
 # System Inventory & Architecture Index
 
 **Auto-generated via:** `scripts/generate-inventory.ts`  
-**Generated At:** 2026-11-05T07:56:27.925Z  
+**Generated At:** 2026-11-05T08:45:44.810Z  
 **Platform:** Tinat Health Research Ecosystem (Ethiopia)  
 **Regulatory Standard:** Ethiopian Personal Data Protection Proclamation No. 1321/2024
 
@@ -185,7 +185,7 @@
 
 ---
 
-## 4. API Route Handlers (111 Handlers)
+## 4. API Route Handlers (112 Handlers)
 
 | Endpoint Path | HTTP Methods | Required Authorization / Role Gate | Source File |
 | :--- | :--- | :--- | :--- |
@@ -219,6 +219,7 @@
 | `/api/auth/admin/studies/[id]/status` | `PATCH` | `PUBLIC / UNGUARDED` | `app/api/auth/admin/studies/[id]/status/route.ts` |
 | `/api/auth/admin/withdrawals` | `GET` | `[ADMIN]` | `app/api/auth/admin/withdrawals/route.ts` |
 | `/api/auth/admin/withdrawals/[id]` | `PATCH` | `[ADMIN]` | `app/api/auth/admin/withdrawals/[id]/route.ts` |
+| `/api/auth/avatar` | `POST` `DELETE` | `SESSION_CHECKED` | `app/api/auth/avatar/route.ts` |
 | `/api/auth/callback/google` | `GET` | `PUBLIC / UNGUARDED` | `app/api/auth/callback/google/route.ts` |
 | `/api/auth/fayda-preview` | `POST` | `SESSION_CHECKED` | `app/api/auth/fayda-preview/route.ts` |
 | `/api/auth/fayda-verify` | `GET` `POST` | `SESSION_CHECKED` | `app/api/auth/fayda-verify/route.ts` |
