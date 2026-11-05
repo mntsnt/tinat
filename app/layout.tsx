@@ -11,10 +11,11 @@ export const metadata: Metadata = {
   description: "Participate in research. Contribute knowledge. Earn Tinat Credits.",
   icons: {
     icon: [
+      { url: "/icon.png", type: "image/png" },
       { url: "/tinat-mark.png", type: "image/png" },
       { url: "/favicon.ico", sizes: "any" },
     ],
-    apple: "/tinat-mark.png",
+    apple: "/apple-icon.png",
   },
 };
 
