@@ -11,11 +11,14 @@ export const metadata: Metadata = {
   description: "Participate in research. Contribute knowledge. Earn Tinat Credits.",
   icons: {
     icon: [
-      { url: "/icon.png", type: "image/png" },
-      { url: "/tinat-mark.png", type: "image/png" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/favicon-32x32.png?v=2", type: "image/png", sizes: "32x32" },
+      { url: "/tinat-mark.png?v=2", type: "image/png", sizes: "512x512" },
     ],
-    apple: "/apple-icon.png",
+    apple: [
+      { url: "/apple-icon.png?v=2", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico?v=2",
   },
 };
 
