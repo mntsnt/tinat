@@ -7,6 +7,7 @@ import LogoutButton from "../LogoutButton";
 import { ThemeToggle } from "../ThemeToggle";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { TinatLogo } from "../ui/TinatLogo";
 
 type NavLink = {
   title: string;
@@ -78,10 +79,7 @@ export default function NavContent({ user, links }: NavContentProps) {
           }}
           className="flex items-center gap-2.5 mr-6 transition-transform hover:scale-105"
         >
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black text-white font-bold text-sm shadow-sm dark:bg-white dark:text-black">
-            T
-          </div>
-          <span className="text-lg font-bold tracking-tight text-foreground">Tinat</span>
+          <TinatLogo size={28} showText variant="color" />
         </Link>
 
         {/* Desktop Nav Links */}

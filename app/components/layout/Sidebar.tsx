@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "../../../lib/utils";
+import { TinatLogo } from "../ui/TinatLogo";
 import {
   Menu,
   X,
@@ -289,9 +290,7 @@ export function Sidebar({
     return (
     <div className={cn("border-b border-border py-3 flex items-center shrink-0", collapsed ? "px-0 justify-center h-16" : "px-3.5 h-16")}>
       <Link href={dashboardHref} className={cn("flex items-center transition-opacity hover:opacity-80", collapsed ? "justify-center" : "gap-2.5")}>
-        <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-black text-xs font-bold text-white dark:bg-white dark:text-black">
-          T
-        </div>
+        <TinatLogo size={28} variant="color" />
         {!collapsed && (
           <div>
             <p className="text-sm font-bold text-foreground leading-tight">Tinat</p>
@@ -329,9 +328,7 @@ export function Sidebar({
       {/* Mobile Top Bar */}
       <div className="md:hidden flex shrink-0 items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
         <Link href={dashboardHref} className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black font-bold text-white text-xs shadow-sm dark:bg-white dark:text-black">
-            T
-          </div>
+          <TinatLogo size={26} variant="color" />
           <span className="font-semibold text-sm text-foreground">
             Tinat <span className={cn("font-medium text-xs px-1.5 py-0.5 rounded", colors.badge)}>{roleTitle}</span>
           </span>

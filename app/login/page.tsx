@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { GoogleAuthButton } from "../components/GoogleAuthButton";
+import { TinatLogo } from "../components/ui/TinatLogo";
 
 const GOOGLE_AUTH_ERRORS: Record<string, string> = {
   authorization_denied: "Google sign-in was cancelled. You can try again or use your email and password.",
@@ -108,9 +109,7 @@ export default function LoginPage({
         <CardHeader className="text-center">
           <div className="flex justify-center mb-3">
             <Link href="/" className="transition-transform hover:scale-105">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-black text-white font-bold text-2xl shadow-md">
-                T
-              </div>
+              <TinatLogo size={52} variant="color" />
             </Link>
           </div>
           <CardTitle className="text-2xl">Welcome back</CardTitle>

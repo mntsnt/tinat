@@ -49,6 +49,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ProjectTeamChat } from "./ProjectTeamChat";
 import { useConfirm } from "@/app/components/ui/ConfirmDialog";
+import { TinatLogo } from "@/app/components/ui/TinatLogo";
 
 interface ProjectWorkspaceClientProps {
   projectId: string;
@@ -915,48 +916,60 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
           isMobileSidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
         }`}
       >
-        {/* Back link */}
-        <div className="flex items-center justify-between border-b border-border bg-muted/20 px-4 py-3">
-          <Link
-            href="/projects"
-            className="group inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4 text-primary transition-transform group-hover:-translate-x-1" />
-            <span>All Research Projects</span>
-          </Link>
-          <button
-            type="button"
-            onClick={() => setIsMobileSidebarOpen(false)}
-            className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-
-        {/* Project Identity */}
-        <div className="border-b border-border bg-card p-4">
-          <div className="mb-2 flex items-center justify-between gap-2">
-            <span className="rounded bg-primary/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
-              {project.studyDesign || project.category || "Study"}
-            </span>
-            <span
-              className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${
-                progress.healthStatus === "ON_TRACK"
-                  ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
-                  : progress.healthStatus === "ATTENTION_NEEDED"
-                  ? "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
-                  : "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-300"
-              }`}
-            >
-              {progress.healthLabel}
-            </span>
+        {/* Workspace Brand & Back Navigation */}
+        <div className="border-b border-border bg-card/60 p-3.5 space-y-2.5">
+          <div className="flex items-center justify-between">
+            <Link href="/projects" className="flex items-center gap-2 transition hover:opacity-85">
+              <TinatLogo size={24} variant="color" />
+              <div className="flex flex-col">
+                <span className="text-xs font-bold tracking-tight text-foreground leading-none">Tinat</span>
+                <span className="text-[10px] font-medium text-muted-foreground leading-none mt-0.5">Projects</span>
+              </div>
+            </Link>
+            <div className="flex items-center gap-1">
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                title="All Research Projects"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                <span>All Projects</span>
+              </Link>
+              <button
+                type="button"
+                onClick={() => setIsMobileSidebarOpen(false)}
+                className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
           </div>
-          <h2 className="line-clamp-2 text-sm font-bold text-foreground leading-snug" title={project.title}>
-            {project.title}
-          </h2>
-          <p className="mt-1 truncate text-[11px] text-muted-foreground">
-            Led by {project.lead?.name || "Research team"}
-          </p>
+
+          {/* Compact Project Context Tile (No duplication of design or author) */}
+          <div className="flex items-center gap-2.5 rounded-lg border border-border/70 bg-muted/30 p-2">
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary font-bold text-xs uppercase">
+              {project.title.slice(0, 2)}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-bold text-foreground" title={project.title}>
+                {project.title}
+              </p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${
+                    progress.healthStatus === "ON_TRACK"
+                      ? "bg-emerald-500"
+                      : progress.healthStatus === "ATTENTION_NEEDED"
+                      ? "bg-amber-500"
+                      : "bg-rose-500"
+                  }`}
+                />
+                <span className="text-[10px] font-medium text-muted-foreground truncate">
+                  {progress.healthLabel}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Navigation Tabs */}
@@ -1072,91 +1085,138 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       {/* 2. MAIN WORKSPACE AREA */}
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden h-full">
         {/* Workspace Top Header */}
-        <header className="shrink-0 border-b border-border bg-card px-4 py-3.5 sm:px-6 lg:px-8">
-          {/* Mobile top strip */}
-          <div className="mb-2 flex items-center justify-between gap-3 md:hidden">
-            <button
-              type="button"
-              onClick={() => setIsMobileSidebarOpen(true)}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground"
-            >
-              <Menu className="h-4 w-4" />
-              <span>Project Menu</span>
-            </button>
-            <span className="truncate text-xs font-semibold text-foreground max-w-[200px]">
-              {project.title}
-            </span>
-            <span
-              className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${
-                progress.healthStatus === "ON_TRACK"
-                  ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
-                  : progress.healthStatus === "ATTENTION_NEEDED"
-                  ? "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
-                  : "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-300"
-              }`}
-            >
-              {progress.healthLabel}
-            </span>
-          </div>
-
-          {/* Desktop Title & Details */}
-          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-            <div className="min-w-0 flex-1">
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                <h1 className="text-lg font-bold tracking-tight text-foreground sm:text-xl lg:text-2xl">
-                  {project.title}
-                </h1>
-                <span className="rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
-                  {project.studyDesign || project.category}
-                </span>
-                {project.visibility === "PUBLIC" ? (
-                  <span className="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-                    <Globe2 className="h-3 w-3" />
-                    Public
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-                    <Lock className="h-3 w-3" />
-                    Team
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-muted-foreground sm:text-sm">
-                Led by <span className="font-medium text-foreground">{project.lead?.name || "Research team"}</span>
-                {project.institution ? ` · ${project.institution}` : ""}
-                {project.category ? ` · ${project.category}` : ""}
-              </p>
+        <header className="shrink-0 border-b border-border bg-card/80 backdrop-blur-xs px-4 py-3.5 sm:px-6 lg:px-8">
+          {/* Top Bar: Breadcrumb + Primary Header Actions */}
+          <div className="flex items-center justify-between gap-3 mb-2.5">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
+              <button
+                type="button"
+                onClick={() => setIsMobileSidebarOpen(true)}
+                className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-2 py-1 text-xs font-medium text-muted-foreground hover:text-foreground md:hidden mr-1"
+              >
+                <Menu className="h-3.5 w-3.5" />
+                <span>Menu</span>
+              </button>
+              <Link href="/projects" className="hover:text-foreground transition-colors font-medium shrink-0">
+                Research Projects
+              </Link>
+              <ChevronRight className="h-3 w-3 shrink-0 opacity-40" />
+              <span className="font-semibold text-foreground truncate max-w-[200px] sm:max-w-md">
+                {project.title}
+              </span>
             </div>
 
-            {/* Header Right Actions */}
+            {/* Quick Header Actions */}
             <div className="flex shrink-0 items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setActiveTab("ai")}
+                className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted shadow-2xs transition-colors"
+                title="Ask Project AI Assistant"
+              >
+                <Sparkles className="h-3.5 w-3.5 text-primary" />
+                <span className="hidden sm:inline">Ask Project AI</span>
+                <span className="sm:hidden">AI</span>
+              </button>
+
+              {auth?.canEditTasks && (
+                <button
+                  type="button"
+                  onClick={() => setShowTaskModal(true)}
+                  className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 shadow-2xs transition-colors"
+                  title="Create New Project Task"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                  <span>New Task</span>
+                </button>
+              )}
+
               {(auth?.isLead || auth?.canManageProject || auth?.userRole === "ADMIN") && (
                 <button
                   type="button"
                   onClick={handleDeleteProject}
                   disabled={isDeletingProject}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-rose-300 bg-rose-50 px-2.5 py-1.5 text-xs font-medium text-rose-700 transition-colors hover:bg-rose-100 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-400 dark:hover:bg-rose-900/50"
+                  className="inline-flex items-center gap-1 rounded-md border border-border bg-background p-1.5 text-xs font-medium text-muted-foreground hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 dark:hover:bg-rose-950/30 dark:hover:text-rose-400 transition-colors"
                   title="Delete Research Project"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
-                  <span>{isDeletingProject ? "Deleting..." : "Delete Project"}</span>
                 </button>
               )}
             </div>
           </div>
 
+          {/* Project Title & Metadata Badges */}
+          <div className="space-y-2">
+            <h1 className="text-lg font-bold tracking-tight text-foreground sm:text-xl lg:text-2xl leading-snug">
+              {project.title}
+            </h1>
+
+            <div className="flex flex-wrap items-center gap-2 pt-0.5">
+              {/* Health Status Pill */}
+              <span
+                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                  progress.healthStatus === "ON_TRACK"
+                    ? "border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
+                    : progress.healthStatus === "ATTENTION_NEEDED"
+                    ? "border border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
+                    : "border border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-300"
+                }`}
+              >
+                <span
+                  className={`h-2 w-2 rounded-full ${
+                    progress.healthStatus === "ON_TRACK"
+                      ? "bg-emerald-500 animate-pulse"
+                      : progress.healthStatus === "ATTENTION_NEEDED"
+                      ? "bg-amber-500"
+                      : "bg-rose-500"
+                  }`}
+                />
+                {progress.healthLabel}
+              </span>
+
+              {/* Study Design Badge */}
+              <span className="rounded-md border border-border/80 bg-muted/50 px-2 py-0.5 text-xs font-medium text-foreground">
+                {project.studyDesign || project.category || "Observational Study"}
+              </span>
+
+              {/* Visibility Badge */}
+              {project.visibility === "PUBLIC" ? (
+                <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/50 px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                  <Globe2 className="h-3 w-3" />
+                  Public Study
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/50 px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                  <Lock className="h-3 w-3" />
+                  Team Workspace
+                </span>
+              )}
+
+              {/* Lead Investigator Tag */}
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/20 px-2.5 py-0.5 text-xs text-muted-foreground">
+                <span>Led by <strong className="font-semibold text-foreground">{project.lead?.name || "Research team"}</strong></span>
+                {project.institution && (
+                  <span className="text-muted-foreground">· {project.institution}</span>
+                )}
+                {project.category && (
+                  <span className="text-muted-foreground">· {project.category}</span>
+                )}
+              </span>
+            </div>
+          </div>
+
           {/* Research Phase Stepper */}
-          <div className="mt-3 flex flex-col gap-2.5 border-t border-border pt-2.5 sm:flex-row sm:items-center">
-            <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap sm:gap-3">
+          <div className="mt-3 flex flex-col gap-2.5 rounded-lg border border-border/80 bg-muted/20 p-2.5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <label htmlFor="project-phase" className="text-xs font-medium text-muted-foreground">
-                Research phase:
+                Research Phase:
               </label>
               <select
                 id="project-phase"
                 value={currentPhase}
                 disabled={!auth?.canManageProject}
                 onChange={(event) => handlePhaseChange(event.target.value)}
-                className="min-w-0 rounded-md border border-input bg-background px-2.5 py-1 text-xs font-medium text-foreground disabled:cursor-default disabled:opacity-100"
+                className="rounded-md border border-input bg-background px-2.5 py-1 text-xs font-semibold text-foreground focus:border-primary focus:outline-none disabled:cursor-default disabled:opacity-100"
               >
                 {LIFECYCLE_PHASES.map((phase) => (
                   <option key={phase} value={phase}>
@@ -1164,22 +1224,28 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   </option>
                 ))}
               </select>
-              <span className="whitespace-nowrap text-xs text-muted-foreground">
-                {currentPhaseIndex + 1} of {LIFECYCLE_PHASES.length}
+              <span className="text-xs text-muted-foreground">
+                Step <strong className="text-foreground">{currentPhaseIndex + 1}</strong> of {LIFECYCLE_PHASES.length}
               </span>
             </div>
-            <div
-              className="h-2 flex-1 overflow-hidden rounded-full bg-muted"
-              role="progressbar"
-              aria-label="Research lifecycle progress"
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={Math.round(phaseProgress)}
-            >
+
+            <div className="flex items-center gap-3 sm:w-1/3">
               <div
-                className="h-full rounded-full bg-primary transition-[width] duration-300"
-                style={{ width: `${phaseProgress}%` }}
-              />
+                className="h-2 flex-1 overflow-hidden rounded-full bg-muted border border-border/40"
+                role="progressbar"
+                aria-label="Research lifecycle progress"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={Math.round(phaseProgress)}
+              >
+                <div
+                  className="h-full rounded-full bg-primary transition-[width] duration-300"
+                  style={{ width: `${phaseProgress}%` }}
+                />
+              </div>
+              <span className="text-xs font-bold text-foreground tabular-nums">
+                {Math.round(phaseProgress)}%
+              </span>
             </div>
           </div>
         </header>

@@ -8,6 +8,7 @@ import {
   Send,
   ShieldCheck,
 } from "lucide-react";
+import { TinatLogo } from "../ui/TinatLogo";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -48,10 +49,7 @@ export function Footer() {
               }}
               className="inline-flex items-center gap-2.5 text-foreground dark:text-white group"
             >
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <Stethoscope className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              </div>
-              <span className="text-xl font-bold tracking-tight text-foreground dark:text-white">Tinat</span>
+              <TinatLogo size={32} showText variant="color" />
             </Link>
             <p className="text-sm text-muted-foreground dark:text-neutral-400 leading-relaxed max-w-sm">
               Ethiopia&apos;s academic research platform for verified health surveys, observational data collection, and collaborative investigations.

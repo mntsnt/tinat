@@ -9,6 +9,7 @@ import { Button } from "../components/ui/Button";
 import { GoogleAuthButton } from "../components/GoogleAuthButton";
 import { PlatformAgreementPanel } from "../components/auth/PlatformAgreementPanel";
 import { getPlatformDocumentPayload } from "@/lib/legal/platformDocuments";
+import { TinatLogo } from "../components/ui/TinatLogo";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -85,9 +86,7 @@ export default function RegisterPage() {
         <CardHeader className="text-center">
           <div className="flex justify-center mb-3">
             <Link href="/" className="transition-transform hover:scale-105">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-black text-white font-bold text-2xl shadow-md">
-                T
-              </div>
+              <TinatLogo size={52} variant="color" />
             </Link>
           </div>
           <CardTitle className="text-2xl">Create an account</CardTitle>
