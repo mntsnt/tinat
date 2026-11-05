@@ -31,6 +31,24 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   output: "standalone",
   serverExternalPackages: ["fayda-decoder"],
+  turbopack: {},
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve = config.resolve || {};
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        module: false,
+        fs: false,
+        "fs/promises": false,
+        url: false,
+        dns: false,
+        "node:dns/promises": false,
+        "node:https": false,
+        "node:zlib": false,
+      };
+    }
+    return config;
+  },
   async headers() {
     return [
       {

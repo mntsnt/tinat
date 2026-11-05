@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./ui/Card";
 import { Button } from "./ui/Button";
 import { ShieldCheck, Camera, UploadCloud, AlertTriangle, Loader2, UserCheck, X, FileText } from "lucide-react";
-import { decodeImage, decodePayload, prepareQrEngine } from "fayda-decoder";
+import { prepareZXingModule, readBarcodes } from "zxing-wasm/reader";
 
 type UIState = 
   | "IDLE" 
@@ -25,9 +25,9 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
 
   useEffect(() => {
     // Pre-load the WASM engine locally so we don't depend on CDN
-    prepareQrEngine({
+    prepareZXingModule({
       overrides: {
-        locateFile: (path: string) => path.endsWith(".wasm") ? "/zxing_reader.wasm" : path,
+        locateFile: (path: string) => (path.endsWith(".wasm") ? "/zxing_reader.wasm" : path),
       },
     });
   }, []);
@@ -59,15 +59,22 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
     setUiState("PROCESSING_LOCAL");
 
     try {
-      // Decode using fayda-decoder's multi-stage preprocessing pipeline
-      const bytes = new Uint8Array(await file.arrayBuffer());
-      const result = await decodeImage(bytes);
+      // Decode QR barcode from image using WASM engine
+      const results = await readBarcodes(file, {
+        formats: ["QRCode"],
+        tryHarder: true,
+        maxNumberOfSymbols: 4,
+      });
 
-      if (!result.ok) {
-        throw new Error(result.error.code);
+      const target =
+        results.find((r) => r.text && (r.text.includes(":DLT:") || r.text.startsWith("data:image/"))) ||
+        results[0];
+
+      if (!target || !target.text) {
+        throw new Error("NO_QR_FOUND");
       }
 
-      await processPayload(result.raw.payload);
+      await processPayload(target.text);
     } catch (err: unknown) {
       console.error(err);
       setUiState("FAILED");
@@ -77,7 +84,7 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
         setErrorMsg("We couldn't find the Fayda QR code. Make sure you're photographing the back of the card.");
       } else if (msg.includes("QR_UNREADABLE")) {
         setErrorMsg("The QR code couldn't be read. Try taking a clearer photo with better lighting.");
-      } else if (msg.includes("NOT_FAYDA")) {
+      } else if (msg.includes("NOT_FAYDA") || msg.includes("Invalid Fayda QR")) {
         setErrorMsg("This doesn't appear to contain a valid Fayda QR code.");
       } else if (msg.includes("UNSUPPORTED_VERSION")) {
         setErrorMsg("This Fayda card format isn't supported yet. Please contact support.");
@@ -98,16 +105,12 @@ export function FaydaVerification({ isVerified, verifiedAt }: { isVerified: bool
     setUiState("PROCESSING_LOCAL");
 
     try {
-      const result = decodePayload(manualPayload.trim());
-      if (!result.ok) {
-        throw new Error(result.error.code);
-      }
-      await processPayload(result.raw.payload);
+      await processPayload(manualPayload.trim());
     } catch (err: unknown) {
       console.error(err);
       setUiState("FAILED");
       const msg = err instanceof Error ? err.message : "";
-      if (msg.includes("NOT_FAYDA") || msg.includes("NO_QR_FOUND")) {
+      if (msg.includes("NOT_FAYDA") || msg.includes("NO_QR_FOUND") || msg.includes("Invalid Fayda QR")) {
         setErrorMsg("This text is not a valid Fayda QR payload.");
       } else if (msg.includes("UNSUPPORTED_VERSION")) {
         setErrorMsg("This Fayda card format isn't supported yet. Please contact support.");

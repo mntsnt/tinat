@@ -6,7 +6,7 @@ import { computeStudyStatistics } from "@/lib/ai/data-analysis";
 import { formatStudyContext } from "@/lib/ai/context";
 import { MEDICAL_RESEARCH_SYSTEM_PROMPT } from "@/lib/ai/prompts";
 import { ChatMessage } from "@/lib/ai/gemini";
-import { executeAIChat } from "@/lib/ai/models";
+import { executeAIChat } from "@/lib/ai/execution";
 import { FEATURES } from "@/lib/config/features";
 
 export const dynamic = "force-dynamic";

@@ -14,7 +14,7 @@ import { checkResearcherAgreements } from "@/lib/governance/policies";
 |--------------------------------------------------------------------------
 | Returns ACTIVE studies for participants.
 */
-export async function GET(request?: Request) {
+export async function GET(request: Request) {
   try {
     const auth = await requireUser(request);
     if (!auth.ok) return auth.response;

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authorizeProjectAccess } from "@/lib/projects/auth";
-import { executeAIChat } from "@/lib/ai/models";
+import { executeAIChat } from "@/lib/ai/execution";
 
 export const dynamic = "force-dynamic";
 

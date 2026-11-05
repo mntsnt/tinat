@@ -8,7 +8,7 @@ import {
   ACTION_PROMPTS,
   AnalysisAction,
 } from "@/lib/ai/prompts";
-import { executeAIAnalysis } from "@/lib/ai/models";
+import { executeAIAnalysis } from "@/lib/ai/execution";
 import { FEATURES } from "@/lib/config/features";
 
 export const dynamic = "force-dynamic";
