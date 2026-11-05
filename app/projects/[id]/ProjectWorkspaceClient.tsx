@@ -41,6 +41,8 @@ import {
   Heart,
   Info,
   MessagesSquare,
+  Menu,
+  X,
 } from "lucide-react";
 import { Upload } from "lucide-react";
 import ReactMarkdown from "react-markdown";
@@ -193,6 +195,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const [isUploadingFile, setIsUploadingFile] = useState(false);
   const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
   const [isChatHeaderExpanded, setIsChatHeaderExpanded] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   // Form states
   const [taskTitle, setTaskTitle] = useState("");
@@ -847,199 +850,129 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     );
   }
 
-  const progress = project.progress || project.stats || {
-    percentage: 0,
-    taskPercentage: 0,
-    milestonePercentage: 0,
-    totalTasks: 0,
-    completedTasks: 0,
-    totalMilestones: 0,
-    completedMilestones: 0,
-    health: "ON_TRACK",
+  const rawProgress = project.progress || project.stats || {};
+  const completedTasksCount =
+    rawProgress.completedTasks ??
+    project.tasks?.filter((t: any) => t.status === "COMPLETED").length ??
+    0;
+  const totalTasksCount =
+    rawProgress.totalTasks ?? project.tasks?.length ?? 0;
+  const computedPercentage =
+    rawProgress.progressPercentage ??
+    rawProgress.percentage ??
+    (totalTasksCount > 0 ? Math.round((completedTasksCount / totalTasksCount) * 100) : 0);
+
+  const completedMilestonesCount =
+    rawProgress.completedMilestones ??
+    project.milestones?.filter((m: any) => m.isCompleted).length ??
+    0;
+  const totalMilestonesCount =
+    rawProgress.totalMilestones ?? project.milestones?.length ?? 0;
+
+  const rawHealth = rawProgress.health;
+  const healthStatus: "ON_TRACK" | "ATTENTION_NEEDED" | "AT_RISK" =
+    typeof rawHealth === "object" && rawHealth?.status
+      ? rawHealth.status
+      : typeof rawHealth === "string"
+      ? (rawHealth as any)
+      : "ON_TRACK";
+
+  const healthLabel =
+    typeof rawHealth === "object" && rawHealth?.label
+      ? rawHealth.label
+      : healthStatus === "ON_TRACK"
+      ? "On Track"
+      : healthStatus === "ATTENTION_NEEDED"
+      ? "Attention Needed"
+      : "At Risk";
+
+  const progress = {
+    percentage: computedPercentage,
+    totalTasks: totalTasksCount,
+    completedTasks: completedTasksCount,
+    totalMilestones: totalMilestonesCount,
+    completedMilestones: completedMilestonesCount,
+    healthStatus,
+    healthLabel,
   };
   const currentPhase = project.currentPhase || "PLANNING";
   const currentPhaseIndex = Math.max(0, LIFECYCLE_PHASES.indexOf(currentPhase));
   const phaseProgress = ((currentPhaseIndex + 1) / LIFECYCLE_PHASES.length) * 100;
 
   return (
-    <div className={`flex flex-col bg-background text-foreground ${
-      activeTab === "chat" ? "h-full min-h-0" : "min-h-screen"
-    }`}>
-      {/* Top Workspace Header */}
-      <header className="shrink-0 border-b border-border bg-card">
-        <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <Link href="/projects" className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground">
-              <ArrowLeft className="h-4 w-4" />
-              Research projects
-            </Link>
+    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background text-foreground">
+      {/* Mobile Backdrop */}
+      {isMobileSidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs md:hidden"
+          onClick={() => setIsMobileSidebarOpen(false)}
+        />
+      )}
 
-            <div className="flex shrink-0 items-center gap-2">
-              <span
-                className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${
-                  progress.health === "ON_TRACK"
-                    ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800"
-                    : progress.health === "ATTENTION_NEEDED"
-                    ? "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800"
-                    : "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800"
-                }`}
-              >
-                {progress.health === "ON_TRACK"
-                  ? "On Track"
-                  : progress.health === "ATTENTION_NEEDED"
-                  ? "Attention Needed"
-                  : "At Risk"}
-              </span>
-
-              {project.visibility === "PUBLIC" ? (
-                <span className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-md">
-                  <Globe2 className="w-3 h-3" />
-                  Public
-                </span>
-              ) : (
-                <span className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-md">
-                  <Lock className="w-3 h-3" />
-                  Team
-                </span>
-              )}
-            </div>
-          </div>
-
-          {activeTab === "chat" && !isChatHeaderExpanded ? (
-            <div className="flex flex-wrap items-center justify-between gap-2.5">
-              <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                <h1 className="text-sm sm:text-base font-bold text-foreground truncate max-w-xl">
-                  {project.title}
-                </h1>
-                <span className="hidden sm:inline-flex rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground shrink-0">
-                  {currentPhase.replace(/_/g, " ")} ({currentPhaseIndex + 1}/{LIFECYCLE_PHASES.length})
-                </span>
-                <span className="text-xs text-muted-foreground hidden md:inline truncate">
-                  · Led by {project.lead?.name || "Research team"}
-                </span>
-              </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setIsChatHeaderExpanded(true)}
-                  className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground px-2.5 py-1 rounded-md border border-border bg-background transition-colors"
-                >
-                  <span>Details</span>
-                  <ChevronDown className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-          ) : (
-            <>
-              {/* Title & Quick Actions */}
-              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <h1 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-                      {project.title}
-                    </h1>
-                    <span className="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
-                      {project.studyDesign || project.category}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Led by <span className="font-medium text-foreground">{project.lead?.name || "Research team"}</span>
-                    {project.institution ? ` · ${project.institution}` : ""}
-                    {project.category ? ` · ${project.category}` : ""}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2">
-                  <button
-                    onClick={() => setActiveTab("ai")}
-                    className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-                  >
-                    <Sparkles className="h-4 w-4 text-primary" />
-                    Ask AI
-                  </button>
-
-                  {auth?.canEditTasks && (
-                    <button
-                      onClick={() => setShowTaskModal(true)}
-                      className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-                    >
-                      <Plus className="h-4 w-4" />
-                      New Task
-                    </button>
-                  )}
-
-                  {auth?.canManageTeam && (
-                    <button
-                      onClick={() => setShowInviteModal(true)}
-                      className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-                    >
-                      <Users className="h-4 w-4" />
-                      Invite
-                    </button>
-                  )}
-                  {(auth?.isLead || auth?.canManageProject || auth?.userRole === "ADMIN") && (
-                    <button
-                      onClick={handleDeleteProject}
-                      disabled={isDeletingProject}
-                      className="inline-flex items-center gap-1.5 rounded-md border border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 px-3 py-2 text-sm font-medium text-rose-700 dark:text-rose-400 transition-colors hover:bg-rose-100 dark:hover:bg-rose-900/50"
-                      title="Delete Research Project"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                      <span>{isDeletingProject ? "Deleting..." : "Delete Project"}</span>
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              <div className="mt-4 flex flex-col gap-3 border-t border-border pt-3 sm:flex-row sm:items-center">
-                <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap sm:gap-3">
-                  <label htmlFor="project-phase" className="text-xs font-medium text-muted-foreground">Research phase</label>
-                  <select
-                    id="project-phase"
-                    value={currentPhase}
-                    disabled={!auth?.canManageProject}
-                    onChange={(event) => handlePhaseChange(event.target.value)}
-                    className="min-w-0 max-w-full flex-1 rounded-md border border-input bg-background px-2.5 py-1.5 text-sm font-medium text-foreground disabled:cursor-default disabled:opacity-100 sm:flex-none"
-                  >
-                    {LIFECYCLE_PHASES.map((phase) => <option key={phase} value={phase}>{phase.replace(/_/g, " ")}</option>)}
-                  </select>
-                  <span className="whitespace-nowrap text-xs text-muted-foreground">{currentPhaseIndex + 1} of {LIFECYCLE_PHASES.length}</span>
-                </div>
-                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted" role="progressbar" aria-label="Research lifecycle progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(phaseProgress)}>
-                  <div className="h-full rounded-full bg-primary transition-[width]" style={{ width: `${phaseProgress}%` }} />
-                </div>
-              </div>
-              {activeTab === "chat" && (
-                <div className="mt-2 flex justify-end">
-                  <button
-                    type="button"
-                    onClick={() => setIsChatHeaderExpanded(false)}
-                    className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground px-2 py-0.5 rounded border border-border transition-colors"
-                  >
-                    <span>Collapse details</span>
-                    <ChevronUp className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              )}
-            </>
-          )}
+      {/* 1. PROJECT WORKSPACE SIDEBAR */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-border bg-card transition-transform duration-200 ease-in-out md:static md:translate-x-0 ${
+          isMobileSidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+        }`}
+      >
+        {/* Back link */}
+        <div className="flex items-center justify-between border-b border-border bg-muted/20 px-4 py-3">
+          <Link
+            href="/projects"
+            className="group inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4 text-primary transition-transform group-hover:-translate-x-1" />
+            <span>All Research Projects</span>
+          </Link>
+          <button
+            type="button"
+            onClick={() => setIsMobileSidebarOpen(false)}
+            className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
-      </header>
 
-      {/* Main Tab Views */}
-      <main className={`mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8 xl:flex-row xl:gap-0 ${
-        activeTab === "chat" ? "min-h-0 flex-1 flex flex-col" : "min-h-0"
-      }`}>
-        <nav aria-label="Project sections" className="no-scrollbar -mx-4 flex gap-1 overflow-x-auto border-b border-border px-4 pb-2 sm:-mx-6 sm:px-6 xl:sticky xl:top-4 xl:mx-0 xl:w-52 xl:shrink-0 xl:self-start xl:flex-col xl:overflow-visible xl:border-b-0 xl:border-r xl:px-0 xl:pb-0 xl:pr-3">
+        {/* Project Identity */}
+        <div className="border-b border-border bg-card p-4">
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <span className="rounded bg-primary/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
+              {project.studyDesign || project.category || "Study"}
+            </span>
+            <span
+              className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${
+                progress.healthStatus === "ON_TRACK"
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
+                  : progress.healthStatus === "ATTENTION_NEEDED"
+                  ? "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
+                  : "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-300"
+              }`}
+            >
+              {progress.healthLabel}
+            </span>
+          </div>
+          <h2 className="line-clamp-2 text-sm font-bold text-foreground leading-snug" title={project.title}>
+            {project.title}
+          </h2>
+          <p className="mt-1 truncate text-[11px] text-muted-foreground">
+            Led by {project.lead?.name || "Research team"}
+          </p>
+        </div>
+
+        {/* Navigation Tabs */}
+        <nav aria-label="Project sections" className="flex-1 space-y-1 overflow-y-auto p-3">
+          <div className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Project Views
+          </div>
           {[
-            { id: "overview", label: "Overview", icon: Layers },
-            { id: "tasks", label: `Tasks (${project.tasks?.length || 0})`, icon: CheckCircle2 },
-            { id: "team", label: `Team (${project.members?.length || 0})`, icon: Users },
-            { id: "files", label: `Files & Data (${project.files?.length || 0})`, icon: FileText },
-            { id: "studies", label: `Linked Studies (${project.linkedStudies?.length || 0})`, icon: Activity },
-            { id: "records", label: "Research Log", icon: BookOpen },
-            { id: "chat", label: "Team chat", icon: MessagesSquare },
-            { id: "ai", label: "Project AI", icon: Sparkles },
+            { id: "overview", label: "Overview", icon: Layers, count: null },
+            { id: "tasks", label: "Tasks", icon: CheckCircle2, count: project.tasks?.length ?? 0 },
+            { id: "team", label: "Team", icon: Users, count: project.members?.length ?? 0 },
+            { id: "files", label: "Files & Data", icon: FileText, count: project.files?.length ?? 0 },
+            { id: "studies", label: "Linked Studies", icon: Activity, count: project.linkedStudies?.length ?? 0 },
+            { id: "records", label: "Research Log", icon: BookOpen, count: null },
+            { id: "chat", label: "Team Chat", icon: MessagesSquare, count: null },
+            { id: "ai", label: "Project AI", icon: Sparkles, count: null },
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -1047,23 +980,217 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               <button
                 key={tab.id}
                 type="button"
-                aria-current={isActive ? "page" : undefined}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`flex shrink-0 items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors xl:w-full ${
+                onClick={() => {
+                  setActiveTab(tab.id as any);
+                  setIsMobileSidebarOpen(false);
+                }}
+                className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition-all ${
                   isActive
-                    ? "bg-primary/10 text-primary xl:rounded-r-none xl:border-r-2 xl:border-primary"
+                    ? "bg-primary text-primary-foreground font-semibold shadow-sm"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`}
               >
-                <Icon className="h-4 w-4 shrink-0" />
-                <span className="whitespace-nowrap">{tab.label}</span>
+                <div className="flex min-w-0 items-center gap-2.5">
+                  <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-primary-foreground" : "text-muted-foreground"}`} />
+                  <span className="truncate">{tab.label}</span>
+                </div>
+                {tab.count !== null && (
+                  <span
+                    className={`ml-2 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${
+                      isActive
+                        ? "bg-primary-foreground/20 text-primary-foreground"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {tab.count}
+                  </span>
+                )}
               </button>
             );
           })}
         </nav>
-        <div className={`min-w-0 flex-1 xl:pl-6 ${
-          activeTab === "chat" ? "min-h-0 flex-1 flex flex-col" : ""
-        }`}>
+
+        {/* Quick Actions */}
+        <div className="border-t border-border bg-muted/10 p-3 space-y-1.5">
+          <div className="px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Quick Actions
+          </div>
+          {auth?.canEditTasks && (
+            <button
+              type="button"
+              onClick={() => {
+                setShowTaskModal(true);
+                setIsMobileSidebarOpen(false);
+              }}
+              className="flex w-full items-center gap-2 rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              <span>New Task</span>
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab("ai");
+              setIsMobileSidebarOpen(false);
+            }}
+            className="flex w-full items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition hover:bg-muted"
+          >
+            <Sparkles className="h-3.5 w-3.5 text-primary" />
+            <span>Ask Project AI</span>
+          </button>
+          {auth?.canManageTeam && (
+            <button
+              type="button"
+              onClick={() => {
+                setShowInviteModal(true);
+                setIsMobileSidebarOpen(false);
+              }}
+              className="flex w-full items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition hover:bg-muted"
+            >
+              <Users className="h-3.5 w-3.5 text-muted-foreground" />
+              <span>Invite Member</span>
+            </button>
+          )}
+        </div>
+
+        {/* Lifecycle Phase in Sidebar */}
+        <div className="border-t border-border bg-card p-3">
+          <div className="flex items-center justify-between text-xs mb-1">
+            <span className="text-[10px] font-medium text-muted-foreground">Lifecycle Phase</span>
+            <span className="text-[10px] font-bold text-primary">{Math.round(phaseProgress)}%</span>
+          </div>
+          <div className="truncate text-xs font-semibold text-foreground">
+            {currentPhase.replace(/_/g, " ")}
+          </div>
+          <div className="mt-0.5 text-[10px] text-muted-foreground">
+            Step {currentPhaseIndex + 1} of {LIFECYCLE_PHASES.length}
+          </div>
+        </div>
+      </aside>
+
+      {/* 2. MAIN WORKSPACE AREA */}
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden h-full">
+        {/* Workspace Top Header */}
+        <header className="shrink-0 border-b border-border bg-card px-4 py-3.5 sm:px-6 lg:px-8">
+          {/* Mobile top strip */}
+          <div className="mb-2 flex items-center justify-between gap-3 md:hidden">
+            <button
+              type="button"
+              onClick={() => setIsMobileSidebarOpen(true)}
+              className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground"
+            >
+              <Menu className="h-4 w-4" />
+              <span>Project Menu</span>
+            </button>
+            <span className="truncate text-xs font-semibold text-foreground max-w-[200px]">
+              {project.title}
+            </span>
+            <span
+              className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${
+                progress.healthStatus === "ON_TRACK"
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
+                  : progress.healthStatus === "ATTENTION_NEEDED"
+                  ? "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
+                  : "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-300"
+              }`}
+            >
+              {progress.healthLabel}
+            </span>
+          </div>
+
+          {/* Desktop Title & Details */}
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <h1 className="text-lg font-bold tracking-tight text-foreground sm:text-xl lg:text-2xl">
+                  {project.title}
+                </h1>
+                <span className="rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                  {project.studyDesign || project.category}
+                </span>
+                {project.visibility === "PUBLIC" ? (
+                  <span className="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                    <Globe2 className="h-3 w-3" />
+                    Public
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                    <Lock className="h-3 w-3" />
+                    Team
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground sm:text-sm">
+                Led by <span className="font-medium text-foreground">{project.lead?.name || "Research team"}</span>
+                {project.institution ? ` · ${project.institution}` : ""}
+                {project.category ? ` · ${project.category}` : ""}
+              </p>
+            </div>
+
+            {/* Header Right Actions */}
+            <div className="flex shrink-0 items-center gap-2">
+              {(auth?.isLead || auth?.canManageProject || auth?.userRole === "ADMIN") && (
+                <button
+                  type="button"
+                  onClick={handleDeleteProject}
+                  disabled={isDeletingProject}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-rose-300 bg-rose-50 px-2.5 py-1.5 text-xs font-medium text-rose-700 transition-colors hover:bg-rose-100 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-400 dark:hover:bg-rose-900/50"
+                  title="Delete Research Project"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                  <span>{isDeletingProject ? "Deleting..." : "Delete Project"}</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Research Phase Stepper */}
+          <div className="mt-3 flex flex-col gap-2.5 border-t border-border pt-2.5 sm:flex-row sm:items-center">
+            <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap sm:gap-3">
+              <label htmlFor="project-phase" className="text-xs font-medium text-muted-foreground">
+                Research phase:
+              </label>
+              <select
+                id="project-phase"
+                value={currentPhase}
+                disabled={!auth?.canManageProject}
+                onChange={(event) => handlePhaseChange(event.target.value)}
+                className="min-w-0 rounded-md border border-input bg-background px-2.5 py-1 text-xs font-medium text-foreground disabled:cursor-default disabled:opacity-100"
+              >
+                {LIFECYCLE_PHASES.map((phase) => (
+                  <option key={phase} value={phase}>
+                    {phase.replace(/_/g, " ")}
+                  </option>
+                ))}
+              </select>
+              <span className="whitespace-nowrap text-xs text-muted-foreground">
+                {currentPhaseIndex + 1} of {LIFECYCLE_PHASES.length}
+              </span>
+            </div>
+            <div
+              className="h-2 flex-1 overflow-hidden rounded-full bg-muted"
+              role="progressbar"
+              aria-label="Research lifecycle progress"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(phaseProgress)}
+            >
+              <div
+                className="h-full rounded-full bg-primary transition-[width] duration-300"
+                style={{ width: `${phaseProgress}%` }}
+              />
+            </div>
+          </div>
+        </header>
+
+        {/* Main Content Area */}
+        <main
+          className={`min-h-0 flex-1 overflow-y-auto bg-muted/10 p-4 sm:p-6 lg:p-8 ${
+            activeTab === "chat" ? "flex flex-col p-2 sm:p-4" : ""
+          }`}
+        >
+          <div className={activeTab === "chat" ? "h-full flex flex-col" : "mx-auto w-full max-w-7xl"}>
         {/* TAB 1: OVERVIEW */}
         {activeTab === "overview" && (
           <div className="space-y-6">
@@ -1163,7 +1290,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         >
                           {m.isCompleted && <Check className="w-3 h-3" />}
                         </button>
-                        <div>
+                        <div className="flex flex-wrap items-center gap-1.5">
                           <span
                             className={`font-semibold ${
                               m.isCompleted
@@ -1173,7 +1300,11 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                           >
                             {m.title}
                           </span>
-                          <span className="text-[10px] text-muted-foreground ml-2">Phase: {m.phase}</span>
+                          {m.phase && (
+                            <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                              {m.phase.replace(/_/g, " ")}
+                            </span>
+                          )}
                         </div>
                       </div>
 
@@ -2190,6 +2321,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         )}
         </div>
       </main>
+      </div>
 
       {actionError && (
         <div role="alert" className="fixed bottom-4 right-4 z-[60] flex max-w-md items-start gap-4 rounded-lg border border-rose-300 bg-white p-4 text-sm text-rose-800 shadow-lg dark:border-rose-900 dark:bg-slate-900 dark:text-rose-200">
