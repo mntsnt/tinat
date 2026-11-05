@@ -1,7 +1,7 @@
 # System Inventory & Architecture Index
 
 **Auto-generated via:** `scripts/generate-inventory.ts`  
-**Generated At:** 2026-11-03T13:46:38.019Z  
+**Generated At:** 2026-11-05T07:56:27.925Z  
 **Platform:** Tinat Health Research Ecosystem (Ethiopia)  
 **Regulatory Standard:** Ethiopian Personal Data Protection Proclamation No. 1321/2024
 
@@ -128,7 +128,7 @@
 
 ---
 
-## 3. Web Application Page Routes (49 Pages)
+## 3. Web Application Page Routes (50 Pages)
 
 | Page Route | Relative Path |
 | :--- | :--- |
@@ -145,6 +145,7 @@
 | `/admin/users` | `app/admin/users/page.tsx` |
 | `/admin/verifications` | `app/admin/verifications/page.tsx` |
 | `/admin/withdrawals` | `app/admin/withdrawals/page.tsx` |
+| `/agreement` | `app/agreement/page.tsx` |
 | `/ai` | `app/ai/page.tsx` |
 | `/ask` | `app/ask/page.tsx` |
 | `/ask/[username]` | `app/ask/[username]/page.tsx` |
@@ -184,7 +185,7 @@
 
 ---
 
-## 4. API Route Handlers (109 Handlers)
+## 4. API Route Handlers (111 Handlers)
 
 | Endpoint Path | HTTP Methods | Required Authorization / Role Gate | Source File |
 | :--- | :--- | :--- | :--- |
@@ -211,7 +212,7 @@
 | `/api/ai/conversations` | `GET` `POST` | `SESSION_CHECKED` | `app/api/ai/conversations/route.ts` |
 | `/api/ai/conversations/[id]` | `GET` `PATCH` `DELETE` | `AUTHENTICATED_USER` | `app/api/ai/conversations/[id]/route.ts` |
 | `/api/ai/conversations/[id]/messages` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/ai/conversations/[id]/messages/route.ts` |
-| `/api/ask/profile` | `GET` `POST` | `SESSION_CHECKED` | `app/api/ask/profile/route.ts` |
+| `/api/ask/profile` | `GET` `POST` `DELETE` | `SESSION_CHECKED` | `app/api/ask/profile/route.ts` |
 | `/api/ask/questions` | `GET` | `SESSION_CHECKED` | `app/api/ask/questions/route.ts` |
 | `/api/ask/questions/[id]` | `PATCH` `DELETE` | `SESSION_CHECKED` | `app/api/ask/questions/[id]/route.ts` |
 | `/api/ask/submit` | `POST` | `PUBLIC / UNGUARDED` | `app/api/ask/submit/route.ts` |
@@ -275,6 +276,7 @@
 | `/api/projects/invite/[token]` | `GET` `POST` | `SESSION_CHECKED` | `app/api/projects/invite/[token]/route.ts` |
 | `/api/reports` | `POST` | `SESSION_CHECKED` | `app/api/reports/route.ts` |
 | `/api/studies` | `GET` `POST` | `[RESEARCHER, ADMIN]` | `app/api/studies/route.ts` |
+| `/api/studies/[id]` | `GET` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/route.ts` |
 | `/api/studies/[id]/collectors` | `GET` `POST` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/collectors/route.ts` |
 | `/api/studies/[id]/comment` | `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/comment/route.ts` |
 | `/api/studies/[id]/consent` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/consent/route.ts` |
@@ -296,6 +298,7 @@
 | `/api/user/dsr/export` | `GET` | `AUTHENTICATED_USER` | `app/api/user/dsr/export/route.ts` |
 | `/api/user/dsr/profile` | `PUT` | `AUTHENTICATED_USER` | `app/api/user/dsr/profile/route.ts` |
 | `/api/user/dsr/requests` | `GET` | `AUTHENTICATED_USER` | `app/api/user/dsr/requests/route.ts` |
+| `/api/user/platform-consent` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/user/platform-consent/route.ts` |
 | `/api/user/policy-acceptance` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/user/policy-acceptance/route.ts` |
 
 ---
