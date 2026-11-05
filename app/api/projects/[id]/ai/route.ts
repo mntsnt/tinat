@@ -142,7 +142,7 @@ GUIDELINES:
     ];
 
     const aiResult = await executeAIChat({
-      modelId: model || "gemini",
+      modelId: "gemini",
       systemPrompt: systemInstruction,
       messages: chatMessages,
     });

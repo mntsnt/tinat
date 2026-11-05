@@ -403,23 +403,10 @@ export function AIAnalysisTab({
               <span>Study Info</span>
             </button>
 
-            {/* AI Model Dropdown Picker */}
-            <div className="relative flex items-center">
-              <Cpu className="pointer-events-none absolute left-2.5 h-3.5 w-3.5 text-muted-foreground" />
-              <select
-                value={selectedModel}
-                onChange={(e) => setSelectedModel(e.target.value as AIModelId)}
-                disabled={chatLoading}
-                aria-label="Select AI Model"
-                className="h-8 appearance-none rounded-md border border-input bg-background pl-8 pr-7 text-xs font-medium text-foreground transition-colors hover:bg-muted focus:border-primary/50 focus:outline-none disabled:opacity-50"
-              >
-                {AVAILABLE_MODELS.map((model) => (
-                  <option key={model.id} value={model.id}>
-                    {model.name}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
+            {/* AI Model Indicator */}
+            <div className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted/40 px-2.5 py-1 text-xs font-medium text-foreground">
+              <Sparkles className="h-3.5 w-3.5 text-primary" />
+              <span>Google Gemini</span>
             </div>
 
             {/* Clear Chat Button */}

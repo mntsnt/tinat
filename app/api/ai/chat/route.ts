@@ -121,9 +121,9 @@ Always ground your answers in the numbers and distributions above. If the user a
       content: message.trim().slice(0, 2000),
     });
 
-    // 7. Invoke selected AI engine (Google Gemini or NVIDIA Nemotron)
+    // 7. Invoke Google Gemini engine
     const aiResult = await executeAIChat({
-      modelId: model,
+      modelId: "gemini",
       systemPrompt: studySystemPrompt,
       messages: sanitizedHistory,
       temperature: 0.25,

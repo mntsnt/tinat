@@ -69,7 +69,7 @@ export interface AIResponse {
 }
 
 const DEFAULT_MODEL = "gemini-3.6-flash";
-const FALLBACK_MODELS = ["gemini-3.5-flash", "gemini-flash-latest"];
+const FALLBACK_MODELS = ["gemini-flash-lite-latest", "gemini-3.5-flash", "gemini-3.7-flash"];
 
 /**
  * Initializes and executes a Gemini generation request.
@@ -110,13 +110,19 @@ export async function generateGeminiResponse(options: GenerateOptions): Promise<
       };
     } catch (err: any) {
       lastError = err;
-      // If error is model not found or quota, try fallback model
-      const msg = err?.message || String(err);
+      // If error is model not found, busy, or quota, try fallback model
+      const msg = (err?.message || String(err)).toLowerCase();
       const isRecoverableModelError =
         msg.includes("404") ||
+        msg.includes("503") ||
+        msg.includes("unavailable") ||
+        msg.includes("overloaded") ||
+        msg.includes("high demand") ||
         msg.includes("not found") ||
         msg.includes("unsupported") ||
-        msg.includes("deprecated");
+        msg.includes("deprecated") ||
+        msg.includes("resource_exhausted") ||
+        msg.includes("429");
 
       if (!isRecoverableModelError) {
         break; // Non-model error (e.g. invalid key or network failure), do not retry
@@ -144,7 +150,7 @@ export async function generateGeminiChatResponse(options: GenerateChatOptions): 
   // Build message history for Gemini SDK
   // Gemini expects: { role: 'user' | 'model', parts: [{ text }] }
   const formattedContents = options.messages.map((msg) => ({
-    role: msg.role === "assistant" ? "model" : msg.role,
+    role: msg.role === "assistant" || msg.role === "model" ? "model" : "user",
     parts: [{ text: msg.content }],
   }));
 
@@ -173,12 +179,18 @@ export async function generateGeminiChatResponse(options: GenerateChatOptions): 
       };
     } catch (err: any) {
       lastError = err;
-      const msg = err?.message || String(err);
+      const msg = (err?.message || String(err)).toLowerCase();
       const isRecoverableModelError =
         msg.includes("404") ||
+        msg.includes("503") ||
+        msg.includes("unavailable") ||
+        msg.includes("overloaded") ||
+        msg.includes("high demand") ||
         msg.includes("not found") ||
         msg.includes("unsupported") ||
-        msg.includes("deprecated");
+        msg.includes("deprecated") ||
+        msg.includes("resource_exhausted") ||
+        msg.includes("429");
 
       if (!isRecoverableModelError) {
         break;

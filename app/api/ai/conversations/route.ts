@@ -44,8 +44,8 @@ export async function POST(request: Request) {
         title: title || "New Research Chat",
         studyId: studyId || null,
         projectId: projectId || null,
-        provider: provider || "GEMINI",
-        model: model || "gemini-3.6-flash",
+        provider: "GEMINI",
+        model: "gemini-3.6-flash",
       }
     });
 

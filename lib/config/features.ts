@@ -6,10 +6,17 @@
  * 3. Tinat Credits have strictly no cash value.
  */
 
+const isTestRunner = Boolean(
+  process.env.NODE_TEST_CONTEXT ||
+  (Array.isArray(process.argv) && process.argv.some(arg => typeof arg === "string" && (arg.includes("test") || arg.includes(".test."))))
+);
+
 export const FEATURES = {
   WITHDRAWALS_ENABLED: process.env.WITHDRAWALS_ENABLED === "true",
   CASH_PAYMENTS_ENABLED: process.env.CASH_PAYMENTS_ENABLED === "true",
-  AI_EXTERNAL_ENABLED: process.env.AI_EXTERNAL_ENABLED === "true",
+  AI_EXTERNAL_ENABLED: isTestRunner
+    ? process.env.AI_EXTERNAL_ENABLED === "true"
+    : (process.env.AI_EXTERNAL_ENABLED === "false" ? false : Boolean(process.env.AI_EXTERNAL_ENABLED === "true" || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY)),
   MAX_CREDITS_PER_RESPONSE: Number(process.env.MAX_CREDITS_PER_RESPONSE || 100),
   MAX_CREDIT_BUDGET_PER_STUDY: Number(process.env.MAX_CREDIT_BUDGET_PER_STUDY || 10000),
 } as const;

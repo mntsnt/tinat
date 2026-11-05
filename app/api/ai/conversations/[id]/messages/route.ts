@@ -132,14 +132,11 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     });
 
     // Save Usage
-    const providerEnum = modelInfo.provider.toLowerCase().includes("google")
-      ? "GEMINI"
-      : "OPENROUTER";
     await prisma.aIUsage.create({
       data: {
         conversationId,
         userId: auth.user.id,
-        provider: providerEnum as any,
+        provider: "GEMINI",
         model: aiResponse.modelUsed,
         totalTokens: aiResponse.tokensUsed || 0,
       },

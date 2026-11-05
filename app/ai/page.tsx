@@ -436,23 +436,10 @@ export default function AIChatPage() {
               </select>
               <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
             </label>
-            <label className="relative flex max-w-[190px] items-center gap-2 rounded-md border border-border bg-card px-2.5 py-2">
-              <BrainCircuit className="h-3.5 w-3.5 shrink-0 text-emerald-700 dark:text-emerald-400" />
-              <select
-                aria-label="AI model"
-                value={selectedModel}
-                disabled={isBusy}
-                onChange={(event) => void saveChatSettings(selectedStudyId, event.target.value)}
-                className="w-full min-w-0 appearance-none bg-transparent pr-4 text-xs text-foreground outline-none disabled:opacity-60"
-              >
-                {AVAILABLE_MODELS.map((model) => (
-                  <option key={model.id} value={model.id}>
-                    {model.name}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
-            </label>
+            <div className="flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-2 text-xs font-medium text-foreground">
+              <BrainCircuit className="h-3.5 w-3.5 shrink-0 text-primary" />
+              <span>Google Gemini</span>
+            </div>
           </div>
         </header>
 

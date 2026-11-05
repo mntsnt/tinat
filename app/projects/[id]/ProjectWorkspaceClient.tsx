@@ -2280,21 +2280,12 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 }}
                 className="shrink-0 space-y-2 border-t border-border bg-background p-3"
               >
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <label htmlFor="project-ai-model" className="text-xs font-medium text-muted-foreground">
-                    AI model
-                  </label>
-                  <select
-                    id="project-ai-model"
-                    value={aiModel}
-                    onChange={(e) => setAiModel(e.target.value)}
-                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground sm:w-auto"
-                  >
-                    <option value="gemini">Google Gemini 3.6 Flash (Recommended)</option>
-                    <option value="ling-sante">InclusionAI: Ling Santé MoE (Free)</option>
-                    <option value="nemotron">NVIDIA: Nemotron 3 Ultra (Free)</option>
-                    <option value="gemma-31b">Google: Gemma 4 31B (Free)</option>
-                  </select>
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1.5">
+                    <Sparkles className="h-3.5 w-3.5 text-primary" />
+                    <span className="font-medium text-foreground">Google Gemini Flash</span>
+                    <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">Clinical AI</span>
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <input

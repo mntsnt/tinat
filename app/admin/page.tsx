@@ -133,10 +133,7 @@ export default async function AdminDashboard() {
     "GEMINI_KEY",
     "GEMINI_API",
     "GEMINI",
-    "GOOGLE_AI_API_KEY",
-    "TINAT_AI_KEY",
-    "OPENROUTER_API_KEY",
-    "NVIDIA_API_KEY",
+    "GOOGLE_AI_API_KEY"
   );
   const services = [
     {

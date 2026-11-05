@@ -109,9 +109,9 @@ export async function POST(request: Request) {
     const contextText = formatStudyContext(summary);
     const userPrompt = ACTION_PROMPTS[selectedAction](contextText);
 
-    // 7. Invoke selected AI engine (Google Gemini or NVIDIA Nemotron)
+    // 7. Invoke Google Gemini engine
     const aiResult = await executeAIAnalysis({
-      modelId: model,
+      modelId: "gemini",
       systemPrompt: MEDICAL_RESEARCH_SYSTEM_PROMPT,
       userPrompt,
       temperature: 0.2, // Conservative, highly factual
