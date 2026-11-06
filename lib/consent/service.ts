@@ -91,7 +91,7 @@ export async function getOrCreateConsentForm(studyId: string, language = "en") {
       : "This study provides no financial compensation or platform credits. Participation is voluntary.",
     confidentialityStatement:
       "Your answers are confidential and pseudonymized under a random respondent code. Your National ID and personal account are decoupled from your responses.",
-    contactInfo: study.researcher?.email || "ethics@tinat.et",
+    contactInfo: study.researcher?.email || "contact.tinatapp@gmail.com",
   };
 
   const fullText = `# Informed Consent: ${study.title}

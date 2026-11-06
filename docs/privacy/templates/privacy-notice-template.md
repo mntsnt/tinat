@@ -11,7 +11,7 @@
 ## 1. Who We Are (Data Controller)
 Tinat Research Technologies ("Tinat", "we", "us") operates an academic and clinical health research platform designed to connect verified participants with institutional research studies in Ethiopia.
 - **Physical Address:** `<!-- TODO: HUMAN TASK: Insert registered corporate address in Addis Ababa, Ethiopia -->`
-- **Data Protection Officer (DPO):** `privacy@tinat.et` &bull; `<!-- TODO: HUMAN TASK: Designate and register DPO name -->`
+- **Data Protection Officer (DPO):** `contact.tinatapp@gmail.com` &bull; `<!-- TODO: HUMAN TASK: Designate and register DPO name -->`
 - **Supervisory Regulator:** Ethiopian Data Protection Authority
 
 ---

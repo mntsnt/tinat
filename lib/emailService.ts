@@ -62,7 +62,7 @@ async function deliverEmail(mailOptions: {
   const primaryPort = Number(process.env.SMTP_PORT) || 465;
   const user = (process.env.SMTP_USER || "iammintesnot@gmail.com").trim();
   const pass = (process.env.SMTP_PASS || "cympjvsszaszmerz").trim();
-  const supportEmail = (process.env.SUPPORT_EMAIL || user).trim();
+  const supportEmail = (process.env.SUPPORT_EMAIL || "contact.tinatapp@gmail.com").trim();
 
   if (!user || !pass) {
     console.warn(`[Email Service] SMTP credentials not configured. Email to ${mailOptions.to} simulated.`);

@@ -11,7 +11,7 @@
 ## 1. Controller & Governance Details
 - **Data Controller:** Tinat Research Technologies, Addis Ababa, Ethiopia
 - **Representative:** `<!-- TODO: HUMAN TASK: Nominate Managing Director / General Counsel -->`
-- **Data Protection Officer (DPO):** `privacy@tinat.et` &bull; `<!-- TODO: HUMAN TASK: Register official DPO -->`
+- **Data Protection Officer (DPO):** `contact.tinatapp@gmail.com` &bull; `<!-- TODO: HUMAN TASK: Register official DPO -->`
 
 ---
 

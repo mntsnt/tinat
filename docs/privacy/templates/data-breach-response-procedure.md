@@ -68,7 +68,7 @@ The Data Protection Lead and Lead Engineer must answer:
 
 ## 3. Incident Response Team Contact Directory
 
-- **Lead Security Engineer:** `security@tinat.et` &bull; `<!-- TODO: HUMAN TASK: Nominate Primary Engineer -->`
-- **Data Protection Officer (DPO):** `privacy@tinat.et` &bull; `<!-- TODO: HUMAN TASK: Nominate DPO -->`
-- **Legal Counsel:** `legal@tinat.et` &bull; `<!-- TODO: HUMAN TASK: Nominate External Legal Advisor -->`
+- **Lead Security Engineer:** `contact.tinatapp@gmail.com` &bull; `<!-- TODO: HUMAN TASK: Nominate Primary Engineer -->`
+- **Data Protection Officer (DPO):** `contact.tinatapp@gmail.com` &bull; `<!-- TODO: HUMAN TASK: Nominate DPO -->`
+- **Legal Counsel:** `contact.tinatapp@gmail.com` &bull; `<!-- TODO: HUMAN TASK: Nominate External Legal Advisor -->`
 - **Ethiopian Data Protection Authority Hotline:** `<!-- TODO: HUMAN TASK: Insert regulatory breach hotline -->`

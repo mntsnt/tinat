@@ -53,4 +53,4 @@ The written notification to the Ethiopian Personal Data Protection Authority mus
 When participant notification is required under Proclamation 1321/2024:
 - Communications must be delivered in clear, plain language (Amharic, Afaan Oromoo, English).
 - Detail exact steps participants can take to protect themselves (e.g. password resets, security inquiries).
-- Provide a dedicated support channel: `privacy@tinat.et`.
+- Provide a dedicated support channel: `contact.tinatapp@gmail.com`.
