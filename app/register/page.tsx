@@ -7,9 +7,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { GoogleAuthButton } from "../components/GoogleAuthButton";
-import { PlatformAgreementPanel } from "../components/auth/PlatformAgreementPanel";
-import { getPlatformDocumentPayload } from "@/lib/legal/platformDocuments";
 import { TinatLogo } from "../components/ui/TinatLogo";
+import { AuthStepper } from "../components/auth/AuthStepper";
+import { ArrowRight } from "lucide-react";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -19,98 +19,96 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<"PARTICIPANT" | "RESEARCHER">("PARTICIPANT");
 
-  const [termsAccepted, setTermsAccepted] = useState(false);
-  const [optionalContactConsent, setOptionalContactConsent] = useState(false);
-  const [documentHash, setDocumentHash] = useState("");
-
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const payload = getPlatformDocumentPayload();
-    setDocumentHash(payload.documentHash);
+    try {
+      const draftStr = sessionStorage.getItem("tinat_registration_draft");
+      if (draftStr) {
+        const draft = JSON.parse(draftStr);
+        if (draft.name) setName(draft.name);
+        if (draft.email) setEmail(draft.email);
+        if (draft.role) setRole(draft.role);
+        if (draft.password) setPassword(draft.password);
+      }
+    } catch {
+      // Ignore sessionStorage read errors
+    }
   }, []);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setError("");
 
-    if (!termsAccepted) {
-      setError("Please review and agree to the Terms of Use and Privacy Notice to proceed.");
+    if (!name.trim()) {
+      setError("Please enter your full name.");
       return;
     }
 
-    setError("");
-    setLoading(true);
+    if (!email.trim() || !email.includes("@")) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
+    setSubmitting(true);
 
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
+      sessionStorage.setItem(
+        "tinat_registration_draft",
+        JSON.stringify({
+          name: name.trim(),
+          email: email.trim().toLowerCase(),
           password,
           role,
-          termsAccepted,
-          optionalContactConsent,
-          documentHash,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || "Registration failed.");
-        return;
-      }
-
-      const queryParams = new URLSearchParams();
-      queryParams.set("email", email);
-      if (data.emailSent === false) {
-        queryParams.set("deliveryWarning", "1");
-      }
-
-      router.push(`/verify-email?${queryParams.toString()}`);
+        })
+      );
+      router.push("/agreement?flow=signup");
     } catch {
-      setError("Unable to connect to the server.");
-    } finally {
-      setLoading(false);
+      setError("Unable to save registration details. Please check your browser storage settings.");
+      setSubmitting(false);
     }
   }
 
   return (
     <main className="flex flex-1 items-center justify-center p-4 py-8 md:py-12">
-      <Card className="w-full max-w-xl">
-        <CardHeader className="text-center">
+      <Card className="w-full max-w-lg shadow-xl border-border bg-card">
+        <CardHeader className="text-center pb-2">
           <div className="flex justify-center mb-3">
             <Link href="/" className="transition-transform hover:scale-105">
               <TinatLogo size={52} variant="color" />
             </Link>
           </div>
-          <CardTitle className="text-2xl">Create an account</CardTitle>
+          <AuthStepper currentStep={1} />
+          <CardTitle className="text-2xl font-bold tracking-tight">Create your account</CardTitle>
           <CardDescription>
-            Join Tinat to participate in research or publish studies.
+            Join Tinat to participate in clinical studies or lead health research.
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-2">
             <Input
               label="Full Name"
               type="text"
-              placeholder="John Doe"
+              placeholder="e.g. Dr. Jane Doe"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              autoComplete="name"
             />
             <Input
-              label="Email"
+              label="Email Address"
               type="email"
               placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email"
             />
             <Input
               label="Password (min 8 characters)"
@@ -120,6 +118,7 @@ export default function RegisterPage() {
               onChange={(e) => setPassword(e.target.value)}
               minLength={8}
               required
+              autoComplete="new-password"
             />
             <div className="space-y-1">
               <label className="mb-1.5 block text-sm font-medium text-foreground">
@@ -130,37 +129,24 @@ export default function RegisterPage() {
                 value={role}
                 onChange={(e) => setRole(e.target.value === "RESEARCHER" ? "RESEARCHER" : "PARTICIPANT")}
               >
-                <option value="PARTICIPANT">Participant</option>
-                <option value="RESEARCHER">Researcher</option>
+                <option value="PARTICIPANT">Study Participant / Contributor</option>
+                <option value="RESEARCHER">Clinical Researcher / Principal Investigator</option>
               </select>
-            </div>
-
-            {/* Combined Platform Agreement Panel */}
-            <div className="pt-2">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
-                Platform Agreement & Legal Documents
-              </label>
-              <PlatformAgreementPanel
-                requireScrollToEnd={true}
-                requiredChecked={termsAccepted}
-                onRequiredCheckedChange={setTermsAccepted}
-                optionalContactChecked={optionalContactConsent}
-                onOptionalContactCheckedChange={setOptionalContactConsent}
-              />
             </div>
 
             {error && (
               <p className="text-sm font-medium text-destructive">{error}</p>
             )}
           </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
+          <CardFooter className="flex flex-col space-y-4 pt-2">
             <Button
               type="submit"
-              className="w-full"
-              isLoading={loading}
-              disabled={!termsAccepted || loading}
+              className="w-full flex items-center justify-center gap-2"
+              isLoading={submitting}
+              disabled={submitting}
             >
-              Create Account & Continue to Verification
+              <span>Continue to Platform Agreement</span>
+              <ArrowRight className="w-4 h-4" />
             </Button>
 
             <div className="flex w-full items-center gap-3">

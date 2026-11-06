@@ -69,15 +69,16 @@ export async function authorizeProjectAccess(
     : ProjectRole.ADVISOR_VIEWER;
 
   const canManageProject =
+    isLead ||
     projectRole === ProjectRole.PROJECT_OWNER ||
     projectRole === ProjectRole.PRINCIPAL_INVESTIGATOR ||
+    projectRole === ProjectRole.RESEARCHER ||
     isGlobalAdmin;
 
   const canManageTeam = canManageProject;
 
   const canEditTasks =
     canManageProject ||
-    projectRole === ProjectRole.RESEARCHER ||
     projectRole === ProjectRole.DATA_ANALYST ||
     projectRole === ProjectRole.RESEARCH_ASSISTANT;
 
@@ -88,8 +89,7 @@ export async function authorizeProjectAccess(
   const canAccessHealthData =
     canManageProject || projectRole === ProjectRole.DATA_ANALYST;
 
-  const canMakeDecisions =
-    canManageProject || projectRole === ProjectRole.RESEARCHER;
+  const canMakeDecisions = canManageProject;
 
   const canManageStudies = canManageProject;
 

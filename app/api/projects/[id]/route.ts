@@ -178,7 +178,7 @@ export async function PATCH(
 
     if (!auth.canManageProject) {
       return NextResponse.json(
-        { error: "Only project owners and principal investigators can edit project settings." },
+        { error: "You do not have permission to edit this project's settings or research phase." },
         { status: 403 }
       );
     }

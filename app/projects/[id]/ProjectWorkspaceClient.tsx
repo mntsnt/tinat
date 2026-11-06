@@ -169,6 +169,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     | "ai"
   >("overview");
   const [recordTab, setRecordTab] = useState<"milestones" | "notes" | "discussions" | "decisions" | "outputs">("milestones");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Tab sub-states
   const [taskView, setTaskView] = useState<"kanban" | "list">("kanban");
@@ -326,7 +327,17 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   // Phase advance / update
   async function handlePhaseChange(newPhase: string) {
     if (!auth?.canManageProject) return;
-    await mutateProjectResource(`/api/projects/${projectId}`, "PATCH", { currentPhase: newPhase }, "Project phase could not be updated.");
+    const previousPhase = project?.currentPhase;
+    setProject((prev: any) => (prev ? { ...prev, currentPhase: newPhase } : prev));
+    const success = await mutateProjectResource(
+      `/api/projects/${projectId}`,
+      "PATCH",
+      { currentPhase: newPhase },
+      "Project phase could not be updated."
+    );
+    if (!success) {
+      setProject((prev: any) => (prev ? { ...prev, currentPhase: previousPhase } : prev));
+    }
   }
 
   // Task creation
@@ -901,227 +912,132 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
   return (
     <div className="fixed inset-0 flex flex-col overflow-hidden bg-background text-foreground">
-      {/* BEAUTIFUL UNIFIED CLINICAL PROJECT HEADER */}
-      <header className="shrink-0 border-b border-border bg-card/95 backdrop-blur-md">
-        {/* Row 1: Brand / Back Link, Breadcrumbs & Action CTAs */}
-        <div className="border-b border-border/60 px-4 py-2.5 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3">
-            {/* Left: Brand + Breadcrumb Back to All Projects */}
-            <div className="flex items-center gap-2.5 min-w-0">
-              <Link
-                href="/projects"
-                className="group flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
-                title="Return to all research projects"
-              >
-                <ArrowLeft className="h-4 w-4 text-primary transition-transform group-hover:-translate-x-0.5" />
-                <span>All Research Projects</span>
-              </Link>
-              <ChevronRight className="h-3 w-3 shrink-0 text-muted-foreground/40" />
-              <span className="truncate text-xs font-semibold text-foreground max-w-[160px] sm:max-w-xs md:max-w-md">
-                {project.title}
-              </span>
-            </div>
+      {/* COMPACT TOP APP HEADER */}
+      <header className="shrink-0 h-14 border-b border-border bg-card/95 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between gap-3 z-20">
+        {/* Left: Mobile Toggle + Return Link + Breadcrumbs */}
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <button
+            type="button"
+            onClick={() => setSidebarOpen((prev) => !prev)}
+            className="lg:hidden p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Toggle navigation menu"
+          >
+            {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
 
-            {/* Right: Quick Action CTAs */}
-            <div className="flex shrink-0 items-center gap-2">
-              {/* Live Project Health Pill */}
-              <span
-                className={`hidden sm:inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
-                  progress.healthStatus === "ON_TRACK"
-                    ? "border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                    : progress.healthStatus === "ATTENTION_NEEDED"
-                    ? "border border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                    : "border border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400"
-                }`}
-              >
-                <span
-                  className={`h-2 w-2 rounded-full ${
-                    progress.healthStatus === "ON_TRACK"
-                      ? "bg-emerald-500 animate-pulse"
-                      : progress.healthStatus === "ATTENTION_NEEDED"
-                      ? "bg-amber-500"
-                      : "bg-rose-500"
-                  }`}
-                />
-                {progress.healthLabel}
-              </span>
-
-              {/* Ask Project AI */}
-              <button
-                type="button"
-                onClick={() => setActiveTab("ai")}
-                className={`inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs font-medium transition-colors shadow-2xs ${
-                  activeTab === "ai"
-                    ? "bg-primary text-primary-foreground font-semibold"
-                    : "bg-background text-foreground hover:bg-muted"
-                }`}
-                title="Ask Project AI Assistant"
-              >
-                <Sparkles className={`h-3.5 w-3.5 ${activeTab === "ai" ? "text-primary-foreground" : "text-primary"}`} />
-                <span className="hidden sm:inline">Ask Project AI</span>
-                <span className="sm:hidden">AI</span>
-              </button>
-
-              {/* Invite Member */}
-              {auth?.canManageTeam && (
-                <button
-                  type="button"
-                  onClick={() => setShowInviteModal(true)}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted shadow-2xs transition-colors"
-                  title="Invite Team Member"
-                >
-                  <Users className="h-3.5 w-3.5 text-muted-foreground" />
-                  <span className="hidden md:inline">Invite Member</span>
-                </button>
-              )}
-
-              {/* New Task */}
-              {auth?.canEditTasks && (
-                <button
-                  type="button"
-                  onClick={() => setShowTaskModal(true)}
-                  className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90 shadow-2xs transition-colors"
-                  title="Create New Project Task"
-                >
-                  <Plus className="h-3.5 w-3.5" />
-                  <span>New Task</span>
-                </button>
-              )}
-
-              {/* Delete Project */}
-              {(auth?.isLead || auth?.canManageProject || auth?.userRole === "ADMIN") && (
-                <button
-                  type="button"
-                  onClick={handleDeleteProject}
-                  disabled={isDeletingProject}
-                  className="inline-flex items-center rounded-md border border-border bg-background p-1.5 text-xs font-medium text-muted-foreground hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 dark:hover:bg-rose-950/30 dark:hover:text-rose-400 transition-colors"
-                  title="Delete Research Project"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
-              )}
-            </div>
-          </div>
+          <Link
+            href="/projects"
+            className="group flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
+            title="Return to all research projects"
+          >
+            <ArrowLeft className="h-4 w-4 text-primary transition-transform group-hover:-translate-x-0.5" />
+            <span className="hidden sm:inline">All Research Projects</span>
+          </Link>
+          <ChevronRight className="h-3 w-3 shrink-0 text-muted-foreground/40" />
+          <span className="truncate text-xs font-semibold text-foreground max-w-[140px] sm:max-w-xs md:max-w-md">
+            {project.title}
+          </span>
         </div>
 
-        {/* Row 2: Hero Project Title, Study Badges & Lifecycle Progress */}
-        <div className="px-4 pt-3.5 pb-3 sm:px-6 lg:px-8 space-y-3">
-          <div className="space-y-1.5">
-            <div className="flex flex-wrap items-center gap-2">
-              {/* Study Design Badge */}
-              <span className="rounded-md border border-border/80 bg-muted/60 px-2 py-0.5 text-[11px] font-semibold text-foreground uppercase tracking-wider">
-                {project.studyDesign || project.category || "Observational Study"}
-              </span>
+        {/* Right: Quick Action CTAs & Health Pill */}
+        <div className="flex shrink-0 items-center gap-2">
+          {/* Live Project Health Pill */}
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
+              progress.healthStatus === "ON_TRACK"
+                ? "border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                : progress.healthStatus === "ATTENTION_NEEDED"
+                ? "border border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                : "border border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400"
+            }`}
+          >
+            <span
+              className={`h-2 w-2 rounded-full ${
+                progress.healthStatus === "ON_TRACK"
+                  ? "bg-emerald-500 animate-pulse"
+                  : progress.healthStatus === "ATTENTION_NEEDED"
+                  ? "bg-amber-500"
+                  : "bg-rose-500"
+              }`}
+            />
+            <span className="hidden sm:inline">{progress.healthLabel}</span>
+          </span>
 
-              {/* Visibility Badge */}
-              {project.visibility === "PUBLIC" ? (
-                <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-                  <Globe2 className="h-3 w-3" />
-                  Public Study
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-                  <Lock className="h-3 w-3" />
-                  Team Workspace
-                </span>
-              )}
+          {/* Invite Member */}
+          {auth?.canManageTeam && (
+            <button
+              type="button"
+              onClick={() => setShowInviteModal(true)}
+              className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted shadow-2xs transition-colors"
+              title="Invite Team Member"
+            >
+              <Users className="h-3.5 w-3.5 text-muted-foreground" />
+              <span className="hidden md:inline">Invite Member</span>
+            </button>
+          )}
 
-              {/* Mobile Health Status */}
-              <span
-                className={`sm:hidden inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                  progress.healthStatus === "ON_TRACK"
-                    ? "border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                    : progress.healthStatus === "ATTENTION_NEEDED"
-                    ? "border border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                    : "border border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400"
-                }`}
-              >
-                <span
-                  className={`h-1.5 w-1.5 rounded-full ${
-                    progress.healthStatus === "ON_TRACK"
-                      ? "bg-emerald-500 animate-pulse"
-                      : progress.healthStatus === "ATTENTION_NEEDED"
-                      ? "bg-amber-500"
-                      : "bg-rose-500"
-                  }`}
-                />
-                {progress.healthLabel}
-              </span>
-            </div>
+          {/* New Task */}
+          {auth?.canEditTasks && (
+            <button
+              type="button"
+              onClick={() => setShowTaskModal(true)}
+              className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90 shadow-2xs transition-colors"
+              title="Create New Project Task"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">New Task</span>
+            </button>
+          )}
 
-            {/* Project Title */}
-            <h1 className="text-lg font-bold tracking-tight text-foreground sm:text-xl lg:text-2xl leading-snug">
-              {project.title}
-            </h1>
-
-            {/* Lead Investigator & Institution */}
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
-              <span>
-                Led by <strong className="font-semibold text-foreground">{project.lead?.name || "Research team"}</strong>
-              </span>
-              {project.institution && (
-                <>
-                  <span className="text-muted-foreground/40">·</span>
-                  <span>{project.institution}</span>
-                </>
-              )}
-              {project.category && (
-                <>
-                  <span className="text-muted-foreground/40">·</span>
-                  <span>{project.category}</span>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Research Phase Stepper Card */}
-          <div className="flex flex-col gap-2.5 rounded-lg border border-border/80 bg-muted/20 p-2.5 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-              <label htmlFor="project-phase" className="text-xs font-semibold text-muted-foreground">
-                Research Phase:
-              </label>
-              <select
-                id="project-phase"
-                value={currentPhase}
-                disabled={!auth?.canManageProject}
-                onChange={(event) => handlePhaseChange(event.target.value)}
-                className="rounded-md border border-input bg-background px-2.5 py-1 text-xs font-semibold text-foreground focus:border-primary focus:outline-none disabled:cursor-default disabled:opacity-100"
-              >
-                {LIFECYCLE_PHASES.map((phase) => (
-                  <option key={phase} value={phase}>
-                    {phase.replace(/_/g, " ")}
-                  </option>
-                ))}
-              </select>
-              <span className="text-xs text-muted-foreground">
-                Step <strong className="text-foreground">{currentPhaseIndex + 1}</strong> of {LIFECYCLE_PHASES.length}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3 sm:w-1/3">
-              <div
-                className="h-2 flex-1 overflow-hidden rounded-full bg-muted border border-border/40"
-                role="progressbar"
-                aria-label="Research lifecycle progress"
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-valuenow={Math.round(phaseProgress)}
-              >
-                <div
-                  className="h-full rounded-full bg-primary transition-[width] duration-300"
-                  style={{ width: `${phaseProgress}%` }}
-                />
-              </div>
-              <span className="text-xs font-bold text-foreground tabular-nums">
-                {Math.round(phaseProgress)}%
-              </span>
-            </div>
-          </div>
+          {/* Delete Project */}
+          {(auth?.isLead || auth?.canManageProject || auth?.userRole === "ADMIN") && (
+            <button
+              type="button"
+              onClick={handleDeleteProject}
+              disabled={isDeletingProject}
+              className="inline-flex items-center rounded-md border border-border bg-background p-1.5 text-xs font-medium text-muted-foreground hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 dark:hover:bg-rose-950/30 dark:hover:text-rose-400 transition-colors"
+              title="Delete Research Project"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+            </button>
+          )}
         </div>
+      </header>
 
-        {/* Row 3: Horizontal Navigation Tabs Bar */}
-        <div className="border-t border-border/60 bg-muted/10 px-4 sm:px-6 lg:px-8">
-          <nav aria-label="Project workspace sections" className="flex items-center gap-1 overflow-x-auto no-scrollbar -mb-px">
+      {/* MAIN CONTAINER: SIDEBAR + CONTENT */}
+      <div className="flex-1 flex min-h-0 overflow-hidden relative">
+        {/* Mobile backdrop */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-background/80 backdrop-blur-xs z-30 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
+        {/* DEDICATED LEFT NAVIGATION SIDEBAR */}
+        <aside
+          className={`fixed lg:static inset-y-0 left-0 z-40 w-60 sm:w-64 shrink-0 flex flex-col border-r border-border bg-card transition-transform duration-200 lg:translate-x-0 ${
+            sidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+          }`}
+          aria-label="Project workspace sidebar"
+        >
+          {/* Sidebar Top: Workspace Views Label */}
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border/60">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+              Workspace Views
+            </span>
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(false)}
+              className="lg:hidden p-1 text-muted-foreground hover:text-foreground"
+              aria-label="Close sidebar"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* Navigation view items (Overview, Tasks, Team, Files, Studies, Records, Chat, AI) */}
+          <nav className="flex-1 overflow-y-auto p-3 space-y-1">
             {[
               { id: "overview", label: "Overview", icon: Layers, count: null },
               { id: "tasks", label: "Tasks", icon: CheckCircle2, count: project.tasks?.length ?? 0 },
@@ -1138,27 +1054,30 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 <button
                   key={tab.id}
                   type="button"
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`group inline-flex items-center gap-2 whitespace-nowrap border-b-2 px-3.5 py-2.5 text-xs font-medium transition-colors ${
+                  onClick={() => {
+                    setActiveTab(tab.id as any);
+                    setSidebarOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-colors ${
                     isActive
-                      ? "border-primary text-primary font-semibold"
-                      : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"
+                      ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
                 >
-                  <Icon
-                    className={`h-4 w-4 transition-colors ${
-                      isActive
-                        ? "text-primary"
-                        : "text-muted-foreground group-hover:text-foreground"
-                    }`}
-                  />
-                  <span>{tab.label}</span>
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <Icon
+                      className={`h-4 w-4 shrink-0 transition-colors ${
+                        isActive ? "text-primary-foreground" : "text-muted-foreground"
+                      }`}
+                    />
+                    <span className="truncate">{tab.label}</span>
+                  </div>
                   {tab.count !== null && (
                     <span
-                      className={`ml-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold transition-colors ${
+                      className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
                         isActive
-                          ? "bg-primary/10 text-primary dark:bg-primary/20"
-                          : "bg-muted text-muted-foreground group-hover:bg-muted/80"
+                          ? "bg-primary-foreground/20 text-primary-foreground"
+                          : "bg-muted text-muted-foreground"
                       }`}
                     >
                       {tab.count}
@@ -1168,18 +1087,120 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               );
             })}
           </nav>
-        </div>
-      </header>
 
-      {/* Main Content Area */}
-      <main
-        className={`min-h-0 flex-1 ${
-          activeTab === "chat" || activeTab === "ai"
-            ? "flex flex-col overflow-hidden p-2 sm:p-4 bg-muted/10"
-            : "overflow-y-auto p-4 sm:p-6 lg:p-8 bg-muted/10"
-        }`}
-      >
-        <div
+          {/* Sidebar Footer: Compliance standard indicator */}
+          <div className="p-3 border-t border-border/60 text-[11px] text-muted-foreground flex items-center gap-2 bg-muted/20">
+            <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0" />
+            <span className="truncate">IRB & Ethics Compliant</span>
+          </div>
+        </aside>
+
+        {/* MAIN WORKSPACE CONTENT */}
+        <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden bg-background">
+          {/* Row: Hero Project Title, Study Badges & Lifecycle Progress */}
+          <div className="shrink-0 border-b border-border/60 bg-card/60 backdrop-blur-xs px-4 py-3 sm:px-6 lg:px-8 space-y-3">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-1 min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  {/* Study Design Badge */}
+                  <span className="rounded-md border border-border/80 bg-muted/60 px-2 py-0.5 text-[11px] font-semibold text-foreground uppercase tracking-wider">
+                    {project.studyDesign || project.category || "Observational Study"}
+                  </span>
+
+                  {/* Visibility Badge */}
+                  {project.visibility === "PUBLIC" ? (
+                    <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                      <Globe2 className="h-3 w-3" />
+                      Public Study
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                      <Lock className="h-3 w-3" />
+                      Team Workspace
+                    </span>
+                  )}
+                </div>
+
+                {/* Project Title */}
+                <h1 className="text-lg font-bold tracking-tight text-foreground sm:text-xl lg:text-2xl leading-snug truncate">
+                  {project.title}
+                </h1>
+
+                {/* Lead Investigator & Institution */}
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+                  <span>
+                    Led by <strong className="font-semibold text-foreground">{project.lead?.name || "Research team"}</strong>
+                  </span>
+                  {project.institution && (
+                    <>
+                      <span className="text-muted-foreground/40">·</span>
+                      <span>{project.institution}</span>
+                    </>
+                  )}
+                  {project.category && (
+                    <>
+                      <span className="text-muted-foreground/40">·</span>
+                      <span>{project.category}</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Research Phase Stepper Card */}
+            <div className="flex flex-col gap-2.5 rounded-lg border border-border/80 bg-muted/20 p-2.5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <label htmlFor="project-phase" className="text-xs font-semibold text-muted-foreground">
+                  Research Phase:
+                </label>
+                <select
+                  id="project-phase"
+                  value={currentPhase}
+                  disabled={!auth?.canManageProject}
+                  onChange={(event) => handlePhaseChange(event.target.value)}
+                  className="rounded-md border border-input bg-background px-2.5 py-1 text-xs font-semibold text-foreground focus:border-primary focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 cursor-pointer"
+                >
+                  {LIFECYCLE_PHASES.map((phase) => (
+                    <option key={phase} value={phase}>
+                      {phase.replace(/_/g, " ")}
+                    </option>
+                  ))}
+                </select>
+                <span className="text-xs text-muted-foreground">
+                  Step <strong className="text-foreground">{currentPhaseIndex + 1}</strong> of {LIFECYCLE_PHASES.length}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 sm:w-1/3">
+                <div
+                  className="h-2 flex-1 overflow-hidden rounded-full bg-muted border border-border/40"
+                  role="progressbar"
+                  aria-label="Research lifecycle progress"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={Math.round(phaseProgress)}
+                >
+                  <div
+                    className="h-full rounded-full bg-primary transition-[width] duration-300"
+                    style={{ width: `${phaseProgress}%` }}
+                  />
+                </div>
+                <span className="text-xs font-bold text-foreground tabular-nums">
+                  {Math.round(phaseProgress)}%
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Tab Content View */}
+          <main
+            className={`min-h-0 flex-1 ${
+              activeTab === "chat" || activeTab === "ai"
+                ? "flex flex-col overflow-hidden p-2 sm:p-4 bg-muted/10"
+                : "overflow-y-auto p-4 sm:p-6 lg:p-8 bg-muted/10"
+            }`}
+          >
+            <div
           className={
             activeTab === "chat" || activeTab === "ai"
               ? "h-full flex-1 min-h-0 flex flex-col mx-auto w-full max-w-7xl"
@@ -2307,6 +2328,8 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         )}
         </div>
       </main>
+        </div>
+      </div>
 
       {actionError && (
         <div role="alert" className="fixed bottom-4 right-4 z-[60] flex max-w-md items-start gap-4 rounded-lg border border-rose-300 bg-white p-4 text-sm text-rose-800 shadow-lg dark:border-rose-900 dark:bg-slate-900 dark:text-rose-200">

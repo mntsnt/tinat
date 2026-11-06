@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/Card";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
+import { AuthStepper } from "../components/auth/AuthStepper";
+import { TinatLogo } from "../components/ui/TinatLogo";
 
 function VerifyEmailContent() {
   const router = useRouter();
@@ -153,8 +155,18 @@ function VerifyEmailContent() {
   }
 
   return (
-    <main className="flex flex-1 items-center justify-center p-4 py-12 md:py-16">
+    <main className="flex flex-1 items-center justify-center p-4 py-8 md:py-12">
       <Card className="w-full max-w-md shadow-lg border-border">
+        {!success && (
+          <div className="pt-6 px-6">
+            <div className="flex justify-center mb-2">
+              <Link href="/" className="transition-transform hover:scale-105">
+                <TinatLogo size={46} variant="color" />
+              </Link>
+            </div>
+            <AuthStepper currentStep={3} />
+          </div>
+        )}
         {success ? (
           <div>
             <CardHeader className="text-center">
