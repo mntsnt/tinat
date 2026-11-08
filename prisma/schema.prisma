@@ -136,6 +136,15 @@ model Study {
   payments             StudyPayment[]
   ratings              StudyRating[]
   translations         StudyTranslation[]
+
+  format               StudyFormat           @default(STANDARD)
+  parentStudyId        String?
+  parentStudy          Study?                @relation("StudyHierarchy", fields: [parentStudyId], references: [id], onDelete: SetNull)
+  childStudies         Study[]               @relation("StudyHierarchy")
+  linkType             StudyLinkType?
+  teaserLinkEnabled    Boolean               @default(false)
+
+  @@index([parentStudyId])
 }
 
 model StudyBookmark {
@@ -969,6 +978,15 @@ enum StudyType {
   OBSERVATIONAL
   FUNDED
   FREE_DATA_COLLECTION
+}
+
+enum StudyFormat {
+  STANDARD
+  TINTOK
+}
+
+enum StudyLinkType {
+  TINTOK_VERSION
 }
 
 enum EthicsApprovalStatus {

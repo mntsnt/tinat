@@ -224,6 +224,20 @@ export type EnumStudyTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel> | $Enums.StudyType
 }
 
+export type EnumStudyFormatFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyFormat | Prisma.EnumStudyFormatFieldRefInput<$PrismaModel>
+  in?: $Enums.StudyFormat[] | Prisma.ListEnumStudyFormatFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudyFormat[] | Prisma.ListEnumStudyFormatFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudyFormatFilter<$PrismaModel> | $Enums.StudyFormat
+}
+
+export type EnumStudyLinkTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyLinkType | Prisma.EnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.StudyLinkType[] | Prisma.ListEnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.StudyLinkType[] | Prisma.ListEnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumStudyLinkTypeNullableFilter<$PrismaModel> | $Enums.StudyLinkType | null
+}
+
 export type EnumStudyStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.StudyStatus | Prisma.EnumStudyStatusFieldRefInput<$PrismaModel>
   in?: $Enums.StudyStatus[] | Prisma.ListEnumStudyStatusFieldRefInput<$PrismaModel>
@@ -268,6 +282,26 @@ export type EnumStudyTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
+}
+
+export type EnumStudyFormatWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyFormat | Prisma.EnumStudyFormatFieldRefInput<$PrismaModel>
+  in?: $Enums.StudyFormat[] | Prisma.ListEnumStudyFormatFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudyFormat[] | Prisma.ListEnumStudyFormatFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudyFormatWithAggregatesFilter<$PrismaModel> | $Enums.StudyFormat
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStudyFormatFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStudyFormatFilter<$PrismaModel>
+}
+
+export type EnumStudyLinkTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyLinkType | Prisma.EnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.StudyLinkType[] | Prisma.ListEnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.StudyLinkType[] | Prisma.ListEnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumStudyLinkTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.StudyLinkType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStudyLinkTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStudyLinkTypeNullableFilter<$PrismaModel>
 }
 
 export type JsonNullableFilter<$PrismaModel = never> =
@@ -1114,6 +1148,20 @@ export type NestedEnumStudyTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel> | $Enums.StudyType
 }
 
+export type NestedEnumStudyFormatFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyFormat | Prisma.EnumStudyFormatFieldRefInput<$PrismaModel>
+  in?: $Enums.StudyFormat[] | Prisma.ListEnumStudyFormatFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudyFormat[] | Prisma.ListEnumStudyFormatFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudyFormatFilter<$PrismaModel> | $Enums.StudyFormat
+}
+
+export type NestedEnumStudyLinkTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyLinkType | Prisma.EnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.StudyLinkType[] | Prisma.ListEnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.StudyLinkType[] | Prisma.ListEnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumStudyLinkTypeNullableFilter<$PrismaModel> | $Enums.StudyLinkType | null
+}
+
 export type NestedEnumStudyStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.StudyStatus | Prisma.EnumStudyStatusFieldRefInput<$PrismaModel>
   in?: $Enums.StudyStatus[] | Prisma.ListEnumStudyStatusFieldRefInput<$PrismaModel>
@@ -1169,6 +1217,26 @@ export type NestedEnumStudyTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumStudyTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumStudyFormatWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyFormat | Prisma.EnumStudyFormatFieldRefInput<$PrismaModel>
+  in?: $Enums.StudyFormat[] | Prisma.ListEnumStudyFormatFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StudyFormat[] | Prisma.ListEnumStudyFormatFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStudyFormatWithAggregatesFilter<$PrismaModel> | $Enums.StudyFormat
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStudyFormatFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStudyFormatFilter<$PrismaModel>
+}
+
+export type NestedEnumStudyLinkTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StudyLinkType | Prisma.EnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.StudyLinkType[] | Prisma.ListEnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.StudyLinkType[] | Prisma.ListEnumStudyLinkTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumStudyLinkTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.StudyLinkType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStudyLinkTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStudyLinkTypeNullableFilter<$PrismaModel>
 }
 
 export type NestedJsonNullableFilter<$PrismaModel = never> =

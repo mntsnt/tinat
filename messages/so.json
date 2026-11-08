@@ -51,5 +51,19 @@
     "balance": "Haraaga TC",
     "explanation": "Dhibcaha Tinat waa calaamado gudaha ah oo loogu talagalay ka qaybgalka cilmi-baarista. Ma laha qiimo lacageed loomana beddeli karo lacag.",
     "history": "Taariikhda Dhaqdhaqaaqa Dhibcaha"
+  },
+  "tintok": {
+    "createButton": "Samee nooca Tintok",
+    "createExplanation": "Nooc kaarar kooban oo loogu talagalay taleefannada iyo kombiyuutarada, leh oggolaansho iyo xog u gaar ah.",
+    "modalTitle": "Samee Nooca Tintok",
+    "modalDescription": "Tani waxay abuuraysaa daraasad yar oo gooni ah. Waxay leedahay oggolaansho anshaxeed oo u gaar ah, oggolaansho, iyo goob xogeed u gaar ah.",
+    "eligibleQuestions": "Su'aalaha U Qalma",
+    "skippedQuestions": "Su'aalaha La Dhaafay",
+    "fundingChoice": "Qaabka Maalgelinta",
+    "teaserOption": "Ku dar kaar ugu dambeeya oo ka qaybgalayaasha ku martiqaadaya daraasadda buuxda",
+    "creditsDisclaimer": "Dhibcaha Tinat ma laha qiimo lacageed loomana beddeli karo lacag dhab ah.",
+    "separateDatasetNotice": "Labada xogood waxaa lagu soo ururiyay qaabab kala duwan waana inaan la isku darin iyadoo aan la xisaabin qaabka jawaabta.",
+    "linkedQuickVersion": "Nooca kooban ee",
+    "linkedFullStudy": "Daraasadda buuxda"
   }
 }

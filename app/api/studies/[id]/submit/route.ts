@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { logActivity } from "@/lib/activityLog";
 import { executeBalancedReward } from "@/lib/ledger";
 import { CREDITS_DISCLAIMER } from "@/lib/config/features";
-import { getOrCreateParticipantLink, hasUserParticipated } from "@/lib/identity/linkService";
+import { getOrCreateParticipantLink, hasUserParticipated, isCrossModeExcluded } from "@/lib/identity/linkService";
 import { checkPlatformConsent } from "@/lib/legal/consentService";
 
 export async function POST(
@@ -311,6 +311,17 @@ export async function POST(
           throw new Error("ALREADY_COMPLETED");
         }
 
+        // Check cross-mode participation exclusion
+        const crossModeCheck = await isCrossModeExcluded({
+          userId: user.id,
+          studyId,
+          tx,
+        });
+
+        if (crossModeCheck.excluded) {
+          throw new Error(crossModeCheck.reason || "CROSS_MODE_EXCLUDED");
+        }
+
         // Get current study state again
         const currentStudy =
           await tx.study.findUnique({
@@ -512,6 +523,20 @@ export async function POST(
     // ---------------------------------------------
     // Known errors
     // ---------------------------------------------
+
+    if (
+      error instanceof Error &&
+      (error.message.includes("CROSS_MODE_EXCLUDED") ||
+        error.message.includes("answering modes"))
+    ) {
+      return NextResponse.json(
+        {
+          error: error.message.replace(/^CROSS_MODE_EXCLUDED:\s*/, ""),
+          code: "CROSS_MODE_EXCLUDED",
+        },
+        { status: 400 }
+      );
+    }
 
     if (
       error instanceof Error &&

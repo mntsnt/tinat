@@ -67,6 +67,21 @@ export const StudyType = {
 export type StudyType = (typeof StudyType)[keyof typeof StudyType]
 
 
+export const StudyFormat = {
+  STANDARD: 'STANDARD',
+  TINTOK: 'TINTOK'
+} as const
+
+export type StudyFormat = (typeof StudyFormat)[keyof typeof StudyFormat]
+
+
+export const StudyLinkType = {
+  TINTOK_VERSION: 'TINTOK_VERSION'
+} as const
+
+export type StudyLinkType = (typeof StudyLinkType)[keyof typeof StudyLinkType]
+
+
 export const EthicsApprovalStatus = {
   PENDING: 'PENDING',
   VERIFIED: 'VERIFIED',

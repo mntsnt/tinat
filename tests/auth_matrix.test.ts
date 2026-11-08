@@ -610,6 +610,30 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     collector: [403],
     admin: [200, 404]
   },
+  "PATCH /api/studies/[id]": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 400, 404],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200, 400, 404]
+  },
+  "GET /api/studies/[id]/tintok-version": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 400, 422, 404],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200, 400, 422, 404]
+  },
+  "POST /api/studies/[id]/tintok-version": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 400, 422, 404],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200, 400, 422, 404]
+  },
   "GET /api/studies/[id]/collectors": {
     anonymous: [401],
     participant: [403],

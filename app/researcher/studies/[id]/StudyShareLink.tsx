@@ -77,7 +77,7 @@ export function StudyShareLink({ studyId }: StudyShareLinkProps) {
 
       <div className="flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground font-mono">
         <Link2 className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
-        <span className="truncate flex-1 select-all">{getFullUrl()}</span>
+        <span suppressHydrationWarning className="truncate flex-1 select-all">{getFullUrl()}</span>
       </div>
     </div>
   );

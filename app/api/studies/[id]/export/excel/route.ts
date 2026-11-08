@@ -30,6 +30,13 @@ export async function GET(
           include: { answers: true },
           orderBy: { submittedAt: "asc" },
         },
+        parentStudy: {
+          select: { id: true, title: true, format: true },
+        },
+        childStudies: {
+          where: { linkType: "TINTOK_VERSION" },
+          select: { id: true, title: true, format: true },
+        },
       },
     });
 
@@ -96,7 +103,9 @@ export async function GET(
       { Parameter: "Study Status", Value: study.status },
       { Parameter: "Total Responses", Value: study.responses.length },
       { Parameter: "Total Questions", Value: study.questions.length },
+      { Parameter: "Study Format", Value: study.format },
       { Parameter: "Funding Type", Value: study.fundingType },
+      ...(study.parentStudyId ? [{ Parameter: "Linked Parent Study ID", Value: study.parentStudyId }] : []),
       { Parameter: "Small-Cell Threshold (k)", Value: 5 },
       { Parameter: "Cells Suppressed (<5 count)", Value: deidentified.codebook.suppressedCellsCount },
       { Parameter: "Export Timestamp", Value: new Date().toISOString() },
@@ -114,6 +123,27 @@ export async function GET(
     XLSX.utils.book_append_sheet(workbook, responsesSheet, "De-Identified Responses");
     XLSX.utils.book_append_sheet(workbook, codebookSheet, "Codebook");
     XLSX.utils.book_append_sheet(workbook, summarySheet, "Summary & Notice");
+
+    // Add Mode Safety README sheet if linked study
+    const hasLinkedCounterpart = Boolean(study.parentStudy || (study.childStudies && study.childStudies.length > 0));
+    if (hasLinkedCounterpart) {
+      const linkedStudyTitle = study.parentStudy ? study.parentStudy.title : study.childStudies[0]?.title || "Linked Study";
+      const linkedStudyFormat = study.parentStudy ? "STANDARD (Comprehensive Full Survey)" : "TINTOK (Card-style Micro-survey)";
+      const currentStudyFormat = study.format === "TINTOK" ? "TINTOK (Card-style Micro-survey)" : "STANDARD (Comprehensive Full Survey)";
+
+      const modeSafetyNotice = [
+        { "Section": "CRITICAL METHODOLOGICAL WARNING", "Detail": "DO NOT POOL OR AUTOMATICALLY MERGE THIS DATASET WITH LINKED STUDIES." },
+        { "Section": "Current Study Mode", "Detail": `${study.title} (Mode: ${currentStudyFormat}, ID: ${study.id})` },
+        { "Section": "Linked Study", "Detail": `${linkedStudyTitle} (Mode: ${linkedStudyFormat})` },
+        { "Section": "Survey Mode Differences", "Detail": "Responses in this file were gathered under a specific interaction format. Card-format micro-surveys and standard long-form surveys induce different cognitive and satisficing response behaviors." },
+        { "Section": "Analytical Recommendation", "Detail": "If performing comparative or joint analysis, you MUST model survey mode as an explicit covariate/variable (e.g. mode = 'tintok' vs mode = 'standard')." },
+        { "Section": "Pseudonymization & Linkage Safety", "Detail": "Respondent codes (respondentCode) are cryptographically randomized per study space. By privacy-by-design architecture, respondentCode values CANNOT be linked across studies." },
+        { "Section": "Ethics & Regulatory Compliance", "Detail": "Both studies operate under independent ethics reviews and consent records. Treating responses as identical without mode control violates research integrity protocols." },
+      ];
+
+      const readmeSheet = XLSX.utils.json_to_sheet(modeSafetyNotice);
+      XLSX.utils.book_append_sheet(workbook, readmeSheet, "README - Mode Safety");
+    }
 
     const buffer = XLSX.write(workbook, {
       type: "buffer",

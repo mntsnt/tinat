@@ -29,6 +29,10 @@ export async function GET(
           include: { answers: true },
           orderBy: { submittedAt: "asc" },
         },
+        childStudies: {
+          where: { linkType: "TINTOK_VERSION" },
+          select: { id: true },
+        },
       },
     });
 
@@ -93,6 +97,17 @@ export async function GET(
       `#  3. Age Banding: Numerical ages grouped into discrete demographic brackets.`,
       `#  4. Small-Cell Suppression: Categories with count < 5 suppressed to prevent re-identification.`,
       `#  5. Free-Text Notice: Columns marked [FREE_TEXT_NEEDS_REVIEW] require manual review prior to release.`,
+      ...(study.parentStudyId || (study.childStudies && study.childStudies.length > 0)
+        ? [
+            `# ------------------------------------------------------------------------------`,
+            `# CRITICAL METHODOLOGICAL NOTICE - LINKED STUDY DATASET:`,
+            `# DO NOT POOL OR AUTOMATICALLY MERGE THIS DATASET WITH LINKED STUDIES.`,
+            `# This study was collected in ${study.format} mode. Responses reflect mode-specific interaction.`,
+            `# Model survey mode as an explicit covariate in joint analysis.`,
+            `# Respondent codes are non-linkable across studies by privacy-by-design architecture.`,
+            `# ------------------------------------------------------------------------------`,
+          ]
+        : []),
       `# ==============================================================================`,
     ];
 

@@ -93,6 +93,7 @@ export default async function AdminStudyDetailPage({ params }: Props) {
           ethicsApproval={ethicsApproval as any}
           ethicsExempt={study.ethicsExempt}
           ethicsExemptionReason={study.ethicsExemptionReason}
+          studyFormat={study.format}
         />
       </div>
 
