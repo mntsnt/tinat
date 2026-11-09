@@ -15,7 +15,7 @@ import {
 
 interface Feature {
   id: string;
-  category: "all" | "forms" | "studies" | "projects" | "ask" | "ai";
+  category: "all" | "forms" | "studies" | "tintok" | "projects" | "ask" | "ai";
   badge: string;
   title: string;
   summary: string;
@@ -27,6 +27,23 @@ interface Feature {
 }
 
 const FEATURES: Feature[] = [
+  {
+    id: "tintok",
+    category: "tintok",
+    badge: "Micro-Studies",
+    title: "TinTok Card-Format Micro-Surveys",
+    summary:
+      "Engage mobile and desktop respondents through quick, swipeable card-style micro-surveys (1–10 cards) with separate ethics governance, dedicated respondent codes, and rapid completion.",
+    icon: Sparkles,
+    highlights: [
+      "Swipeable vertical feed designed for quick mobile completion (~2 mins)",
+      "Independent datasets and distinct respondent tokens separating micro-study data",
+      "Optional teaser links connecting micro-study respondents to full parent investigations",
+    ],
+    link: "/participant/tintok",
+    linkLabel: "Explore TinTok",
+    architectureTag: "TinTok Micro-Survey Engine",
+  },
   {
     id: "tinat-forms",
     category: "forms",
@@ -116,13 +133,17 @@ const FEATURES: Feature[] = [
 
 export function FeatureSnapshot() {
   const [activeCategory, setActiveCategory] = useState<
-    "all" | "forms" | "studies" | "projects" | "ask" | "ai"
+    "all" | "tintok" | "forms" | "studies" | "projects" | "ask" | "ai"
   >("all");
 
   const filteredFeatures =
     activeCategory === "all"
       ? FEATURES
-      : FEATURES.filter((f) => f.category === activeCategory);
+      : FEATURES.filter(
+          (f) =>
+            f.category === activeCategory ||
+            (activeCategory === "studies" && f.id === "tintok")
+        );
 
   return (
     <section id="features" className="relative z-10 py-20 lg:py-28 bg-muted/20 border-b border-border scroll-mt-16 transition-colors duration-200">
@@ -145,6 +166,7 @@ export function FeatureSnapshot() {
         <div className="flex flex-wrap items-center justify-center gap-2" role="tablist">
           {[
             { id: "all", label: "All Features" },
+            { id: "tintok", label: "TinTok" },
             { id: "forms", label: "Tinat Forms" },
             { id: "studies", label: "Studies" },
             { id: "projects", label: "Research Projects" },
