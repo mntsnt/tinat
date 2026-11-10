@@ -1,6 +1,6 @@
-import { DashboardTopNav } from "../components/layout/DashboardTopNav";
 "use client";
 
+import { DashboardTopNav } from "../components/layout/DashboardTopNav";
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
