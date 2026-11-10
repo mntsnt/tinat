@@ -44,14 +44,14 @@ export default async function AdminUsersPage() {
         select: {
           studies: true,
           participantLinks: true,
-          withdrawals: true,
+          
         },
       },
     },
   });
 
   return (
-    <div className="container mx-auto max-w-[1440px] px-4 py-6 md:px-7 md:py-8">
+    <div className="w-full px-4 py-6 md:px-7 md:py-8">
       <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
           <Link href="/admin" className={getButtonClasses("ghost", "md", "-ml-4 mb-4")}>
@@ -131,10 +131,7 @@ export default async function AdminUsersPage() {
                             <span className="text-muted-foreground">Completed:</span>
                             <span className="font-medium text-foreground">{user._count.participantLinks}</span>
                           </div>
-                          <div className="flex justify-between w-32">
-                            <span className="text-muted-foreground">Withdrawals:</span>
-                            <span className="font-medium text-foreground">{user._count.withdrawals}</span>
-                          </div>
+
                         </div>
                       )}
                       

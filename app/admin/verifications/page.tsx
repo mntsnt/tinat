@@ -66,7 +66,7 @@ export default function AdminVerificationsPage() {
   const tabs = ["PENDING", "VERIFIED", "REJECTED", "SUSPENDED"] as const;
 
   return (
-    <div className="container mx-auto max-w-[1440px] space-y-6 px-4 py-6 md:px-7 md:py-8">
+    <div className="w-full space-y-6 px-4 py-6 md:px-7 md:py-8">
       <div className="mb-8">
         <h1 className="text-xl font-bold text-foreground flex items-center gap-3">
           <ShieldCheck className="w-8 h-8 text-primary" />

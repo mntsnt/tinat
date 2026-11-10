@@ -316,7 +316,7 @@ export function Sidebar({
         onTransitionEnd={() => setIsAnimating(false)}
         className={cn(
           "sticky top-0 hidden h-full shrink-0 flex-col border-r border-border bg-card/70 md:flex",
-          isAnimating && "transition-[width] duration-200 ease-out",
+          "transition-[width] duration-200 ease-out",
           isCollapsed ? "w-16" : "w-56"
         )}
       >

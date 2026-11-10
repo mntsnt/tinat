@@ -138,7 +138,7 @@ export default function AdminIncidentsPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl space-y-6">
+    <div className="w-full px-4 py-6 md:px-7 md:py-8 space-y-6">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
         <div>

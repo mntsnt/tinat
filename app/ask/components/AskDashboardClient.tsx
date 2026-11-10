@@ -446,7 +446,7 @@ export function AskDashboardClient({
 
   // --- FULL DASHBOARD SCREEN ---
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8 space-y-6">
+    <div className="w-full px-4 py-6 md:px-7 md:py-8 space-y-6">
       {/* Top Banner Card */}
       <div className="bg-card border border-border rounded-2xl shadow-sm p-5 sm:p-6 space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

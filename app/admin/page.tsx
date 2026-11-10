@@ -187,7 +187,7 @@ export default async function AdminDashboard() {
   }
 
   return (
-    <div className="container mx-auto max-w-[1440px] space-y-6 px-4 py-6 md:px-7 md:py-8">
+    <div className="w-full space-y-6 px-4 py-6 md:px-7 md:py-8">
       <header className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <p className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">

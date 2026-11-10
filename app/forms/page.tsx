@@ -161,7 +161,7 @@ export default function FormsDashboardPage() {
   ];
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
+    <div className="w-full px-4 py-6 md:px-7 md:py-8">
       {/* Page Header */}
       <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>

@@ -226,7 +226,7 @@ export default async function ProfilePage({
                         </span>
                       </div>
                       <h3 className="font-semibold leading-snug text-foreground">{study.title}</h3>
-                      <p className="line-clamp-2 text-sm leading-5 text-muted-foreground">
+                      <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
                         {study.objective || study.description || "A health research study on Tinat."}
                       </p>
                       <div className="flex items-center justify-between border-t border-border pt-3 text-xs text-muted-foreground">

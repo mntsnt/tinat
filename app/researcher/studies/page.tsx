@@ -42,7 +42,7 @@ export default async function ResearcherStudiesPage() {
   }
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
+    <div className="w-full px-4 py-6 md:px-7 md:py-8">
       <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-xl font-bold tracking-tight text-foreground">My Studies</h1>

@@ -85,7 +85,7 @@ export default async function StudyDiscoveryPage({
   );
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
+    <div className="w-full px-4 py-6 md:px-7 md:py-8">
       {/* Header */}
       <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end justify-between">
         <div>
@@ -292,11 +292,13 @@ export default async function StudyDiscoveryPage({
 
                 <CardContent className="flex-1 space-y-3 pb-4">
                   {study.objective ? (
-                    <p className="text-xs text-foreground/80 line-clamp-2 italic bg-muted/40 p-2 rounded-md">
-                      &quot;{study.objective}&quot;
-                    </p>
+                    <div className="rounded-md bg-muted/40 p-2.5">
+                      <p className="text-xs text-foreground/80 italic leading-relaxed line-clamp-3">
+                        &quot;{study.objective}&quot;
+                      </p>
+                    </div>
                   ) : (
-                    <p className="text-xs text-muted-foreground line-clamp-2">
+                    <p className="text-xs text-muted-foreground line-clamp-3 leading-relaxed">
                       {study.description || "No description provided."}
                     </p>
                   )}

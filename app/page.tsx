@@ -146,7 +146,7 @@ export default async function Home() {
                       <p className="text-base font-semibold leading-snug">
                         {featuredStudy.title}
                       </p>
-                      <p className="text-xs text-muted-foreground mt-2 line-clamp-2 italic">
+                      <p className="text-xs text-muted-foreground mt-2 line-clamp-3 leading-relaxed italic">
                         {featuredStudy.objective || featuredStudy.description || "Healthcare research study collecting participant responses on Tinat."}
                       </p>
                     </div>

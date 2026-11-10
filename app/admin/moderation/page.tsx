@@ -35,7 +35,7 @@ export default async function AdminModerationPage() {
   const resolvedCount = reports.filter((r) => r.status === "RESOLVED").length;
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6 md:py-12 max-w-6xl space-y-8">
+    <div className="w-full px-4 py-6 md:px-7 md:py-8 space-y-8">
       {/* Header */}
       <div>
         <div className="flex items-center gap-2 mb-2">

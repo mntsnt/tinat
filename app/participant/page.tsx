@@ -99,7 +99,7 @@ export default async function ParticipantDashboard() {
   ];
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
+    <div className="w-full px-4 py-6 md:px-7 md:py-8">
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight text-foreground">

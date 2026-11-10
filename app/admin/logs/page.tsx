@@ -36,7 +36,7 @@ export default async function AdminLogsPage() {
   });
 
   return (
-    <div className="container mx-auto max-w-[1440px] px-4 py-6 md:px-7 md:py-8">
+    <div className="w-full px-4 py-6 md:px-7 md:py-8">
       <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
           <Link href="/admin" className={getButtonClasses("ghost", "md", "-ml-4 mb-4")}>
