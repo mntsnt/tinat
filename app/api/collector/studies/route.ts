@@ -18,11 +18,10 @@ export async function GET(req: Request) {
 
     const isVerified = verification?.status === "VERIFIED";
 
-    // Free data collectors can view and collect for assigned studies without verification
+    // Return all assigned studies for this data collector
     const assignedStudies = await prisma.studyDataCollector.findMany({
       where: {
         userId: user.id,
-        ...(isVerified ? {} : { study: { studyType: "FREE_DATA_COLLECTION" } })
       },
       include: {
         study: {
@@ -30,20 +29,23 @@ export async function GET(req: Request) {
             id: true,
             title: true,
             status: true,
+            studyType: true,
+            rewardCredits: true,
             researcher: { select: { name: true } },
             _count: {
               select: {
                 responses: {
                   where: {
                     collectorId: user.id,
-                    collectionMethod: "FIELD_COLLECTED"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+                    collectionMethod: "FIELD_COLLECTED",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: { assignedAt: "desc" },
     });
 
     return NextResponse.json({ studies: assignedStudies });

@@ -127,6 +127,24 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         update: {},
       });
 
+      // Ensure user is marked verified for DATA_COLLECTOR
+      await prisma.verification.upsert({
+        where: {
+          userId_verificationType: {
+            userId: collectorUser.id,
+            verificationType: "DATA_COLLECTOR",
+          },
+        },
+        create: {
+          userId: collectorUser.id,
+          verificationType: "DATA_COLLECTOR",
+          status: "VERIFIED",
+        },
+        update: {
+          status: "VERIFIED",
+        },
+      });
+
       // Update any pending application
       await prisma.collectorApplication.updateMany({
         where: { studyId, applicantId: collectorUser.id, status: "PENDING" },

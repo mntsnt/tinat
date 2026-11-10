@@ -6,7 +6,7 @@ import { IntroAnimation } from "../ui/IntroAnimation";
 
 // Routes that use their own full shell (sidebar + internal nav).
 // The global Navbar and Footer must NOT render inside these.
-const DASHBOARD_PREFIXES = ["/dashboard", "/admin", "/participant", "/researcher", "/collector", "/projects", "/ask", "/ai", "/forms", "/f"];
+const DASHBOARD_PREFIXES = ["/dashboard", "/admin", "/participant", "/researcher", "/collector", "/projects", "/ask", "/ai", "/forms", "/f", "/profile"];
 const FOOTER_PATHS = new Set([
   "/",
   "/privacy",

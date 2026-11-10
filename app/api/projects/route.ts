@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
 
     const isGlobalAdmin = user.role === "ADMIN";
 
-    // Where clause based on membership and public visibility
+    // Where clause based on membership and public/team visibility
     const baseWhere: Prisma.ResearchProjectWhereInput = isGlobalAdmin
       ? {}
       : {
@@ -45,6 +45,7 @@ export async function GET(req: NextRequest) {
             { projectLeadId: user.id },
             { members: { some: { userId: user.id } } },
             { visibility: ProjectVisibility.PUBLIC },
+            ...(user.role === "RESEARCHER" ? [{ visibility: ProjectVisibility.TEAM }] : []),
           ],
         };
 

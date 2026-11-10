@@ -36,12 +36,12 @@ export function TinatLogo({
   return (
     <div className={cn("inline-flex items-center gap-2.5", className)}>
       <div
-        className="relative flex shrink-0 items-center justify-center overflow-hidden rounded-lg bg-card/60 p-0.5 shadow-2xs border border-border/40"
+        className="relative flex shrink-0 items-center justify-center"
         style={{ width: size, height: size }}
       >
         {variant === "color" && (
           <Image
-            src="/tinat-mark.png"
+            src="/logo.png"
             alt="Tinat Logo"
             width={size}
             height={size}
@@ -52,7 +52,7 @@ export function TinatLogo({
         {variant === "adaptive" && (
           <>
             <Image
-              src="/tinat-mark-black.png"
+              src="/logo_black_transparent.png"
               alt="Tinat Logo"
               width={size}
               height={size}
@@ -60,7 +60,7 @@ export function TinatLogo({
               priority
             />
             <Image
-              src="/tinat-mark-white.png"
+              src="/logo_white_transparent.png"
               alt="Tinat Logo"
               width={size}
               height={size}

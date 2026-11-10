@@ -175,10 +175,13 @@ export default function ProjectsPage() {
   const stats = useMemo(() => {
     const active = projects.filter((p) => p.status === "ACTIVE" && !p.isArchived).length;
     const completed = projects.filter((p) => p.status === "COMPLETED" && !p.isArchived).length;
-    const teamMembers = new Set(projects.flatMap((project) => project.members.map((member) => member.user.id)));
+    const teamMembers = new Set(
+      projects.flatMap((project) => (project.members || []).map((m) => m?.user?.id).filter(Boolean))
+    );
     const overdue = projects.reduce(
-      (total, project) => total + project.progress.overdueTasks + project.progress.blockedTasks,
-      0,
+      (total, project) =>
+        total + (project.progress?.overdueTasks ?? 0) + (project.progress?.blockedTasks ?? 0),
+      0
     );
     return { total: projects.length, active, completed, teamMembers: teamMembers.size, overdue };
   }, [projects]);
@@ -307,8 +310,25 @@ export default function ProjectsPage() {
 }
 
 function ProjectCard({ project }: { project: ProjectSummary }) {
-  const progress = project.progress;
-  const healthStatus = progress.health.status;
+  const progress = project.progress || {
+    progressPercentage: 0,
+    health: { status: "ON_TRACK", label: "On Track", description: "", badgeColor: "emerald" },
+    totalTasks: 0,
+    completedTasks: 0,
+    inProgressTasks: 0,
+    blockedTasks: 0,
+    overdueTasks: 0,
+    totalMilestones: 0,
+    completedMilestones: 0,
+    totalMembers: 0,
+    totalFiles: 0,
+    sensitiveFiles: 0,
+    totalDiscussions: 0,
+    totalDecisions: 0,
+    totalLinkedStudies: 0,
+    totalOutputs: 0,
+  };
+  const healthStatus = progress.health?.status || "ON_TRACK";
   const healthColorMap: Record<string, string> = {
     ON_TRACK: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
     ATTENTION_NEEDED: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800",

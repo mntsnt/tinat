@@ -39,7 +39,7 @@ export async function PATCH(
         data: { status },
       });
 
-      // 2. If approved, create the StudyDataCollector record
+      // 2. If approved, create the StudyDataCollector record & verify DATA_COLLECTOR
       if (status === "APPROVED") {
         await tx.studyDataCollector.upsert({
           where: {
@@ -53,6 +53,23 @@ export async function PATCH(
             userId: application.applicantId,
           },
           update: {},
+        });
+
+        await tx.verification.upsert({
+          where: {
+            userId_verificationType: {
+              userId: application.applicantId,
+              verificationType: "DATA_COLLECTOR",
+            },
+          },
+          create: {
+            userId: application.applicantId,
+            verificationType: "DATA_COLLECTOR",
+            status: "VERIFIED",
+          },
+          update: {
+            status: "VERIFIED",
+          },
         });
       }
 

@@ -50,9 +50,10 @@ export async function authorizeProjectAccess(
   const isLead = project.projectLeadId === user.id;
   const memberRecord = project.members[0];
   const isPublic = project.visibility === ProjectVisibility.PUBLIC;
+  const isTeamAccessible = project.visibility === ProjectVisibility.TEAM && (user.role === "RESEARCHER" || user.role === "ADMIN");
 
-  // If not a member, not the lead, not admin, and not a public project:
-  if (!memberRecord && !isLead && !isGlobalAdmin && !isPublic) {
+  // If not a member, not the lead, not admin, and not a public or team project:
+  if (!memberRecord && !isLead && !isGlobalAdmin && !isPublic && !isTeamAccessible) {
     return {
       auth: null,
       error: "You are not a member of this research project workspace.",
