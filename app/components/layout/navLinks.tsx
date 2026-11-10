@@ -5,7 +5,6 @@ import {
   ChartNoAxesCombined,
   ClipboardList,
   ClipboardClock,
-  HandCoins,
   HeartPulse,
   MessageCircleMore,
   Microscope,
@@ -50,7 +49,6 @@ export const adminLinks: SidebarLink[] = [
   { title: "Manage Studies", href: "/admin/studies", icon: <ScanSearch /> },
   { title: "User Management", href: "/admin/users", icon: <ShieldUser /> },
   { title: "Admin Community", href: "/admin/community", icon: <MessageCircleMore /> },
-  { title: "Withdrawals", href: "/admin/withdrawals", icon: <HandCoins /> },
   { title: "Activity Logs", href: "/admin/logs", icon: <ScrollText /> },
 ];
 

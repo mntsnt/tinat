@@ -22,7 +22,8 @@ type TrendPoint = {
 };
 
 type Props = {
-  growthData: TrendPoint[];
+  growthData?: TrendPoint[];
+  data?: TrendPoint[];
 };
 
 const tooltipStyle = {
@@ -33,8 +34,9 @@ const tooltipStyle = {
   fontSize: "12px",
 };
 
-export function AdminCharts({ growthData }: Props) {
-  const hasTrend = growthData.some((item) => item.users + item.studies + item.responses > 0);
+export function AdminCharts({ growthData, data }: Props) {
+  const effectiveData = growthData ?? data ?? [];
+  const hasTrend = effectiveData.some((item) => item.users + item.studies + item.responses > 0);
 
   return (
     <Card className="min-w-0">
@@ -49,7 +51,7 @@ export function AdminCharts({ growthData }: Props) {
         {hasTrend ? (
           <div className="h-[290px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={growthData} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
+              <AreaChart data={effectiveData} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="adminUsersFill" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#2563eb" stopOpacity={0.2} />

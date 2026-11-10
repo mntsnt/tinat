@@ -6,7 +6,6 @@ import {
   ArrowRight,
   BookOpen,
   CheckCircle2,
-  CreditCard,
   Database,
   HeartPulse,
   Mail,
@@ -53,7 +52,6 @@ export default async function AdminDashboard() {
     totalResponses,
     responsesToday,
     pendingVerifications,
-    pendingWithdrawals,
     failedPayments,
     recentLogs,
     dailyUsers,
@@ -81,7 +79,6 @@ export default async function AdminDashboard() {
     prisma.response.count(),
     prisma.response.count({ where: { submittedAt: { gte: startOfToday } } }),
     prisma.verification.count({ where: { status: "PENDING" } }),
-    prisma.withdrawal.count({ where: { status: "PENDING" } }),
     prisma.studyPayment.count({ where: { status: "FAILED" } }),
     prisma.activityLog.findMany({
       take: 5,
@@ -108,34 +105,25 @@ export default async function AdminDashboard() {
     `,
   ]);
 
-  const growthMap: Record<string, { users: number; studies: number; responses: number }> = {};
-  for (let day = 0; day < 30; day += 1) {
+  const userMap = new Map(dailyUsers.map((item) => [item.day, Number(item.count)]));
+  const studyMap = new Map(dailyStudies.map((item) => [item.day, Number(item.count)]));
+  const responseMap = new Map(dailyResponses.map((item) => [item.day, Number(item.count)]));
+
+  const chartData = Array.from({ length: 30 }, (_, index) => {
     const date = new Date(thirtyDaysAgo);
-    date.setUTCDate(date.getUTCDate() + day);
-    growthMap[dayKey(date)] = { users: 0, studies: 0, responses: 0 };
-  }
-  dailyUsers.forEach(({ day, count }) => {
-    if (growthMap[day]) growthMap[day].users = Number(count);
-  });
-  dailyStudies.forEach(({ day, count }) => {
-    if (growthMap[day]) growthMap[day].studies = Number(count);
-  });
-  dailyResponses.forEach(({ day, count }) => {
-    if (growthMap[day]) growthMap[day].responses = Number(count);
+    date.setUTCDate(date.getUTCDate() + index);
+    const key = dayKey(date);
+
+    return {
+      date: key.slice(5),
+      users: userMap.get(key) ?? 0,
+      studies: studyMap.get(key) ?? 0,
+      responses: responseMap.get(key) ?? 0,
+    };
   });
 
-  const aiConfigured = isAnyKeySet(
-    "GEMINI_API_KEY",
-    "GOOGLE_API_KEY",
-    "GOOGLE_GENERATIVE_AI_API_KEY",
-    "GOOGLE_GEMINI_API_KEY",
-    "NEXT_PUBLIC_GEMINI_API_KEY",
-    "GEMINI_KEY",
-    "GEMINI_API",
-    "GEMINI",
-    "GOOGLE_AI_API_KEY"
-  );
-  const services = [
+  const aiConfigured = isAnyKeySet("GEMINI_API_KEY", "GOOGLE_AI_KEY", "GOOGLE_API_KEY");
+  const integrations = [
     {
       name: "Database",
       detail: databaseHealth.status === "online" ? `${databaseHealth.latencyMs} ms` : "Connection failed",
@@ -183,12 +171,12 @@ export default async function AdminDashboard() {
     },
     {
       label: "Needs review",
-      value: pendingVerifications + pendingWithdrawals,
-      detail: `${pendingVerifications} verifications · ${pendingWithdrawals} payouts`,
-      href: pendingVerifications > 0 ? "/admin/verifications" : "/admin/withdrawals",
+      value: pendingVerifications,
+      detail: `${pendingVerifications} verification requests pending review`,
+      href: "/admin/verifications",
       icon: ShieldCheck,
       accent:
-        pendingVerifications + pendingWithdrawals > 0
+        pendingVerifications > 0
           ? "text-amber-600 bg-amber-50 dark:bg-amber-900/20 dark:text-amber-400"
           : "text-muted-foreground bg-muted",
     },
@@ -207,7 +195,7 @@ export default async function AdminDashboard() {
           </p>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">Operations overview</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            A clear view of platform activity and the few items that need attention.
+            A clear view of platform activity and items needing attention.
           </p>
         </div>
         <div
@@ -233,65 +221,57 @@ export default async function AdminDashboard() {
               <CardContent className="p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                      {metric.label}
-                    </p>
-                    <p className="mt-1.5 text-2xl font-bold leading-none text-foreground">
-                      {metric.value.toLocaleString()}
-                    </p>
+                    <p className="text-xs font-medium text-muted-foreground">{metric.label}</p>
+                    <p className="mt-1 text-2xl font-bold text-foreground">{metric.value.toLocaleString()}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{metric.detail}</p>
                   </div>
-                  <span className={`rounded-lg p-2 ${metric.accent}`}>
+                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${metric.accent}`}>
                     <metric.icon className="h-4 w-4" />
                   </span>
                 </div>
-                <p className="mt-3 text-xs text-muted-foreground">{metric.detail}</p>
               </CardContent>
             </Card>
           </Link>
         ))}
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_320px]">
-        <AdminCharts growthData={Object.entries(growthMap).map(([date, counts]) => ({ date, ...counts }))} />
+      <AdminCharts growthData={chartData} />
+
+      <section className="grid gap-6 lg:grid-cols-3">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-base">
-              <HeartPulse className="h-4 w-4 text-emerald-600" /> Service readiness
-            </CardTitle>
-            <CardDescription>Configuration and live database connectivity</CardDescription>
+            <CardTitle className="text-base">System status</CardTitle>
+            <CardDescription>Core infrastructure and external service connectivity</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-1">
-            {services.map((service) => (
-              <div key={service.name} className="flex items-center gap-2.5 rounded-md px-1 py-2">
-                <service.icon
-                  className={`h-4 w-4 ${
-                    service.configured ? "text-emerald-600 dark:text-emerald-400" : "text-amber-500"
-                  }`}
-                />
-                <span className="flex-1 text-xs font-medium text-foreground">{service.name}</span>
-                <span className="text-[11px] text-muted-foreground">{service.detail}</span>
-                <span
-                  aria-label={service.configured ? "Ready" : "Not configured"}
-                  className={`h-2 w-2 rounded-full ${
-                    service.configured ? "bg-emerald-500" : "bg-amber-500"
-                  }`}
-                />
+          <CardContent className="space-y-3">
+            {integrations.map((item) => (
+              <div
+                key={item.name}
+                className="flex items-center justify-between rounded-lg border border-border p-3 text-xs"
+              >
+                <div className="flex items-center gap-2.5">
+                  <item.icon className="h-4 w-4 text-muted-foreground" />
+                  <span className="font-medium text-foreground">{item.name}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-muted-foreground">{item.detail}</span>
+                  <span
+                    className={`inline-block h-2 w-2 rounded-full ${
+                      item.configured ? "bg-emerald-600" : "bg-muted-foreground/40"
+                    }`}
+                  />
+                </div>
               </div>
             ))}
-            <p className="border-t border-border pt-2 text-[10px] leading-4 text-muted-foreground">
-              Integration indicators report configuration only; they do not send messages or make transactions.
-            </p>
           </CardContent>
         </Card>
-      </section>
 
-      <section className="grid gap-4 xl:grid-cols-2">
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-base">Needs attention</CardTitle>
-            <CardDescription>Open the relevant queue to review pending work</CardDescription>
+            <CardTitle className="text-base">Items needing attention</CardTitle>
+            <CardDescription>Approvals and operational anomalies</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-3">
             <Link
               href="/admin/verifications"
               className="flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
@@ -299,15 +279,6 @@ export default async function AdminDashboard() {
               <ShieldCheck className="h-4 w-4 text-blue-600" />
               <span className="flex-1 text-xs font-medium text-foreground">Identity verifications</span>
               <span className="text-xs text-muted-foreground">{pendingVerifications} pending</span>
-              <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
-            </Link>
-            <Link
-              href="/admin/withdrawals"
-              className="flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
-            >
-              <CreditCard className="h-4 w-4 text-amber-600" />
-              <span className="flex-1 text-xs font-medium text-foreground">Participant payouts</span>
-              <span className="text-xs text-muted-foreground">{pendingWithdrawals} pending</span>
               <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
             </Link>
             <Link
