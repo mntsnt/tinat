@@ -48,22 +48,44 @@ export function Sidebar({
   const dashboardHref = roleColor === "admin" ? "/admin" : roleColor === "researcher" ? "/researcher" : "/participant";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        return localStorage.getItem("tinat_sidebar_collapsed") === "true";
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  });
   const [isAnimating, setIsAnimating] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("tinat_sidebar_collapsed") === "true";
-    setIsCollapsed(stored);
+    try {
+      const stored = localStorage.getItem("tinat_sidebar_collapsed") === "true";
+      if (stored !== isCollapsed) {
+        setIsCollapsed(stored);
+      }
+    } catch {
+      // ignore
+    }
   }, []);
 
   const toggleCollapse = () => {
     setIsAnimating(true);
     setIsCollapsed(prev => {
       const next = !prev;
-      localStorage.setItem("tinat_sidebar_collapsed", String(next));
+      try {
+        localStorage.setItem("tinat_sidebar_collapsed", String(next));
+      } catch {
+        // ignore
+      }
       return next;
     });
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 250);
   };
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -313,10 +335,11 @@ export function Sidebar({
     <>
       {/* Desktop Sidebar */}
       <aside
+        suppressHydrationWarning
         onTransitionEnd={() => setIsAnimating(false)}
         className={cn(
           "sticky top-0 hidden h-full shrink-0 flex-col border-r border-border bg-card/70 md:flex",
-          "transition-[width] duration-200 ease-out",
+          isAnimating && "transition-[width] duration-200 ease-out",
           isCollapsed ? "w-16" : "w-56"
         )}
       >
