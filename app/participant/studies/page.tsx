@@ -9,6 +9,7 @@ import { Search, Bookmark, BookmarkCheck, Stethoscope, Coins, ClipboardCheck, Cl
 import { toggleBookmark } from "./actions";
 import { HEALTH_CATEGORIES, MEDICAL_DISCLAIMER } from "@/lib/healthCategories";
 import { StudyBanner } from "../../components/studies/StudyBanner";
+import type { Prisma } from "@/generated/prisma/client";
 
 export default async function StudyDiscoveryPage({
   searchParams,
@@ -379,4 +380,3 @@ export default async function StudyDiscoveryPage({
     </div>
   );
 }
-import type { Prisma } from "@/generated/prisma/client";

@@ -27,7 +27,7 @@ export default function CollectorDashboardPage() {
         setStudies(sData.studies || []);
       } else {
         // If 403, maybe not verified. Redirect?
-        if (studiesRes.status === 403) router.push("/verify");
+        if (studiesRes.status === 403) router.push("/verify-email");
       }
 
       if (invRes.ok) {

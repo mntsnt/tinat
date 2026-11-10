@@ -36,6 +36,7 @@ export default async function ResearcherDashboard() {
       sub: `${activeStudies} currently active`,
       icon: <BookOpen className="w-5 h-5" />,
       color: "text-cyan-900 bg-cyan-50 dark:bg-cyan-950/40 dark:text-cyan-300",
+      href: "/researcher/studies",
     },
     {
       label: "Total Responses",
@@ -43,6 +44,7 @@ export default async function ResearcherDashboard() {
       sub: "Across all your studies",
       icon: <TrendingUp className="w-5 h-5" />,
       color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400",
+      href: "/researcher/studies",
     },
     {
       label: "Active Studies",
@@ -50,6 +52,7 @@ export default async function ResearcherDashboard() {
       sub: "Collecting responses now",
       icon: <Users className="w-5 h-5" />,
       color: "text-primary bg-primary/5 dark:bg-primary/15",
+      href: "/researcher/studies",
     },
     {
       label: "Credits Paid Out",
@@ -57,6 +60,7 @@ export default async function ResearcherDashboard() {
       sub: "To participants",
       icon: <Coins className="w-5 h-5" />,
       color: "text-amber-600 bg-amber-50 dark:bg-amber-900/20 dark:text-amber-400",
+      href: "/researcher/studies",
     },
   ];
 
@@ -89,22 +93,24 @@ export default async function ResearcherDashboard() {
       {/* Stat Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
         {statCards.map((card) => (
-          <Card key={card.label}>
-            <CardContent className="p-4">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">
-                    {card.label}
-                  </p>
-                  <p className="text-xl font-bold text-foreground leading-none">{card.value}</p>
-                  <p className="text-xs text-muted-foreground mt-1.5">{card.sub}</p>
+          <Link key={card.label} href={card.href}>
+            <Card className="hover:border-primary/40 transition-colors cursor-pointer h-full">
+              <CardContent className="p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">
+                      {card.label}
+                    </p>
+                    <p className="text-2xl font-bold text-foreground leading-none">{card.value}</p>
+                    <p className="text-xs text-muted-foreground mt-1.5">{card.sub}</p>
+                  </div>
+                  <div className={`flex-shrink-0 rounded-md p-2 ${card.color}`}>
+                    {card.icon}
+                  </div>
                 </div>
-                <div className={`flex-shrink-0 rounded-md p-2 ${card.color}`}>
-                  {card.icon}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
 

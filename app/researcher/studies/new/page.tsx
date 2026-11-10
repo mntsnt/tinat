@@ -8,7 +8,6 @@ import { Input } from "../../../components/ui/Input";
 import { Button, getButtonClasses } from "../../../components/ui/Button";
 import {
   HEALTH_CATEGORIES,
-  STUDY_TYPES,
   MEDICAL_DISCLAIMER,
   HealthCategory,
 } from "@/lib/healthCategories";
@@ -24,6 +23,8 @@ import {
   CheckCircle2,
   Check,
   ShieldAlert,
+  ChevronUp,
+  ChevronDown,
 } from "lucide-react";
 import { STUDY_BANNERS, type StudyBannerTheme } from "@/lib/studyBanners";
 import { StudyBanner as StudyBannerPreview } from "../../../components/studies/StudyBanner";
@@ -177,7 +178,7 @@ export default function CreateStudyPage() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/studies", {
+      const response = await fetch("/api/studies", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -188,6 +189,11 @@ export default function CreateStudyPage() {
           category,
           objective,
           targetPopulation,
+          populationDescription,
+          recruitmentMethod,
+          containsSensitiveTopics,
+          involvesMinors,
+          safetyProtocolText,
           estimatedMinutes,
           rewardCredits: studyType === "FREE_DATA_COLLECTION" ? 0 : rewardCredits,
           participantTarget,
@@ -633,15 +639,37 @@ export default function CreateStudyPage() {
                   <span className="text-xs font-bold text-muted-foreground uppercase">
                     Question {idx + 1}
                   </span>
-                  {questions.length > 1 && (
+                  <div className="flex items-center gap-1.5">
                     <button
                       type="button"
-                      onClick={() => removeQuestion(idx)}
-                      className="text-xs text-destructive hover:underline"
+                      disabled={idx === 0}
+                      onClick={() => moveQuestionUp(idx)}
+                      className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-20 disabled:pointer-events-none transition-colors"
+                      title="Move question up"
+                      aria-label="Move question up"
                     >
-                      Delete
+                      <ChevronUp className="w-4 h-4" />
                     </button>
-                  )}
+                    <button
+                      type="button"
+                      disabled={idx === questions.length - 1}
+                      onClick={() => moveQuestionDown(idx)}
+                      className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-20 disabled:pointer-events-none transition-colors"
+                      title="Move question down"
+                      aria-label="Move question down"
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                    {questions.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => removeQuestion(idx)}
+                        className="text-xs text-destructive hover:underline ml-2"
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid gap-4 md:grid-cols-3">

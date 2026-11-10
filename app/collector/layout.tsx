@@ -3,7 +3,7 @@ import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "../../lib/prisma";
 import { Sidebar } from "../components/layout/Sidebar";
-import { LayoutDashboard } from "lucide-react";
+import { getLinksForUser } from "../components/layout/navLinks";
 
 export default async function CollectorLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -42,9 +42,7 @@ export default async function CollectorLayout({ children }: { children: ReactNod
     redirect("/dashboard");
   }
 
-  const links = [
-    { title: "Dashboard", href: "/collector/dashboard", icon: <LayoutDashboard /> },
-  ];
+  const links = getLinksForUser({ ...user, isCollector: true });
 
   return (
     <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   AlertCircle,
@@ -263,7 +264,6 @@ export default function SettingsPage({ user }: { user: UserData }) {
             Manage your profile, account details, and appearance in one place.
           </p>
         </div>
-
       </header>
 
       <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[220px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-6">
@@ -439,12 +439,12 @@ export default function SettingsPage({ user }: { user: UserData }) {
                 <p className="text-xs text-muted-foreground">
                   Verify your email to secure your account and access all features.
                 </p>
-                <a
+                <Link
                   href={`/verify-email?email=${encodeURIComponent(user.email)}`}
                   className="text-xs font-semibold text-primary underline-offset-4 hover:underline"
                 >
                   Verify email
-                </a>
+                </Link>
               </div>
             )}
           </section>

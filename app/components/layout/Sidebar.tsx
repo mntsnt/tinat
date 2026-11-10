@@ -362,11 +362,9 @@ export function Sidebar({
             className="relative flex h-full w-64 max-w-[85vw] flex-col border-r border-border bg-card shadow-2xl"
           >
             <div className="flex items-center justify-between border-b border-border p-3.5">
-              <Link href={dashboardHref} className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black font-bold text-white text-sm shadow-sm dark:bg-white dark:text-black">
-                  T
-                </div>
-                <span className="font-bold text-foreground">Tinat</span>
+              <Link href={dashboardHref} className="flex items-center gap-2.5">
+                <TinatLogo size={28} variant="color" />
+                <span className="font-bold text-foreground text-sm">Tinat</span>
               </Link>
               <button
                 ref={closeButtonRef}

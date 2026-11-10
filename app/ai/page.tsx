@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import {
   AlertCircle,
   ArrowUp,
@@ -309,12 +310,12 @@ export default function AIChatPage() {
         }`}
       >
         <div className="flex h-[68px] items-center justify-between border-b border-border px-4">
-          <a href="/researcher" className="flex min-w-0 items-center gap-2.5">
+          <Link href="/researcher" className="flex min-w-0 items-center gap-2.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white">
               <Sparkles className="h-4 w-4" />
             </span>
             <span className="truncate text-sm font-semibold tracking-tight">Tinat AI</span>
-          </a>
+          </Link>
           <button
             aria-label="Close chat history"
             className="rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
