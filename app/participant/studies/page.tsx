@@ -9,6 +9,7 @@ import { Search, Bookmark, BookmarkCheck, Stethoscope, Coins, ClipboardCheck, Cl
 import { toggleBookmark } from "./actions";
 import { HEALTH_CATEGORIES, MEDICAL_DISCLAIMER } from "@/lib/healthCategories";
 import { StudyBanner } from "../../components/studies/StudyBanner";
+import { BecomeCollectorButton } from "../../components/studies/BecomeCollectorButton";
 import type { Prisma } from "@/generated/prisma/client";
 
 export default async function StudyDiscoveryPage({
@@ -76,6 +77,19 @@ export default async function StudyDiscoveryPage({
 
   const completedStudyIds = new Set(user.participantLinks.map((r) => r.studyId));
   const bookmarkedStudyIds = new Set(user.bookmarks.map((b) => b.studyId));
+
+  const [assignedCollectorRecords, userApplications] = await Promise.all([
+    prisma.studyDataCollector.findMany({
+      where: { userId: user.id },
+      select: { studyId: true },
+    }),
+    prisma.collectorApplication.findMany({
+      where: { applicantId: user.id },
+      select: { studyId: true, status: true },
+    }),
+  ]);
+  const assignedStudyIds = new Set(assignedCollectorRecords.map((r) => r.studyId));
+  const userCollectorApplications = new Map(userApplications.map((a) => [a.studyId, a.status]));
 
   const availableStudies = studies.filter(
     (study) =>
@@ -293,12 +307,12 @@ export default async function StudyDiscoveryPage({
                 <CardContent className="flex-1 space-y-3 pb-4">
                   {study.objective ? (
                     <div className="rounded-md bg-muted/40 p-2.5">
-                      <p className="text-xs text-foreground/80 italic leading-relaxed line-clamp-3">
+                      <p className="text-xs text-foreground/80 italic leading-relaxed line-clamp-3 break-words">
                         &quot;{study.objective}&quot;
                       </p>
                     </div>
                   ) : (
-                    <p className="text-xs text-muted-foreground line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-muted-foreground line-clamp-3 leading-relaxed break-words">
                       {study.description || "No description provided."}
                     </p>
                   )}
@@ -363,6 +377,17 @@ export default async function StudyDiscoveryPage({
                         {isFunded ? "Participate & Earn" : "Participate"}
                       </Button>
                     </Link>
+                  </div>
+
+                  <div className="w-full">
+                    <BecomeCollectorButton
+                      studyId={study.id}
+                      studyTitle={study.title}
+                      researcherName={study.researcher.name}
+                      category={study.category || undefined}
+                      initialStatus={userCollectorApplications.get(study.id) || null}
+                      isAssigned={assignedStudyIds.has(study.id)}
+                    />
                   </div>
                 </CardFooter>
               </Card>

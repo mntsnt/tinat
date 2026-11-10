@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -81,6 +81,17 @@ export default function NewFormPage() {
   const [error, setError] = useState<string | null>(null);
   const [createdFormId, setCreatedFormId] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user && data.user.role === "PARTICIPANT") {
+          router.replace("/forms");
+        }
+      })
+      .catch(() => {});
+  }, [router]);
 
   function addQuestion() {
     const newId = `q_${Date.now()}`;

@@ -273,3 +273,135 @@ export async function sendCollectorInvitationEmail({
     html,
   });
 }
+
+/**
+ * 4. Collector Application Submitted Email (sent to Researcher)
+ */
+export async function sendCollectorApplicationSubmittedEmail({
+  to,
+  researcherName,
+  applicantName,
+  applicantEmail,
+  studyTitle,
+  notes,
+  reviewLink,
+}: {
+  to: string;
+  researcherName: string;
+  applicantName: string;
+  applicantEmail: string;
+  studyTitle: string;
+  notes?: string | null;
+  reviewLink: string;
+}): Promise<{ success: boolean; simulated: boolean }> {
+  const recipientEmail = to.trim().toLowerCase();
+
+  const html = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 10px; background-color: #059669; color: #ffffff; font-weight: 800; font-size: 22px; margin-bottom: 16px;">T</div>
+        <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">New Field Collector Application</h1>
+        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">Hello ${researcherName}, a participant has applied to collect data for your study.</p>
+      </div>
+
+      <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin: 24px 0;">
+        <div style="margin-bottom: 12px;">
+          <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Study</span>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${studyTitle}</div>
+        </div>
+        <div style="margin-bottom: 12px;">
+          <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Applicant</span>
+          <div style="font-size: 14px; font-weight: 600; color: #334155; margin-top: 2px;">${applicantName} (${applicantEmail})</div>
+        </div>
+        ${notes ? `
+        <div>
+          <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Applicant Pitch / Experience</span>
+          <div style="font-size: 13px; color: #475569; margin-top: 4px; font-style: italic;">"${notes}"</div>
+        </div>
+        ` : ''}
+      </div>
+
+      <div style="text-align: center; margin: 28px 0;">
+        <a href="${reviewLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Review & Approve Collector</a>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 24px 0;" />
+      <p style="color: #94a3b8; font-size: 11px; text-align: center; margin: 0;">
+        Tinat &bull; Collaborative Health Research Ecosystem
+      </p>
+    </div>
+  `;
+
+  return deliverEmail({
+    to: recipientEmail,
+    subject: `[Collector Application] ${applicantName} applied for "${studyTitle}"`,
+    text: `Hello ${researcherName},\n\n${applicantName} (${applicantEmail}) has applied to become a field data collector for your study "${studyTitle}".\n\nReview the application here:\n${reviewLink}`,
+    html,
+  });
+}
+
+/**
+ * 5. Collector Application Decision Email (sent to Applicant)
+ */
+export async function sendCollectorApplicationStatusEmail({
+  to,
+  applicantName,
+  studyTitle,
+  status,
+  dashboardLink,
+}: {
+  to: string;
+  applicantName: string;
+  studyTitle: string;
+  status: 'APPROVED' | 'DECLINED';
+  dashboardLink: string;
+}): Promise<{ success: boolean; simulated: boolean }> {
+  const recipientEmail = to.trim().toLowerCase();
+  const isApproved = status === 'APPROVED';
+
+  const html = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 10px; background-color: ${isApproved ? '#059669' : '#64748b'}; color: #ffffff; font-weight: 800; font-size: 22px; margin-bottom: 16px;">T</div>
+        <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">
+          ${isApproved ? 'Collector Application Approved! 🎉' : 'Collector Application Update'}
+        </h1>
+        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">Hello ${applicantName},</p>
+      </div>
+
+      <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin: 24px 0;">
+        <div style="margin-bottom: 8px;">
+          <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Study</span>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${studyTitle}</div>
+        </div>
+        <p style="font-size: 14px; color: #334155; margin: 12px 0 0 0; line-height: 1.5;">
+          ${isApproved 
+            ? 'The principal investigator has approved your application! You are now an authorized field data collector for this study.' 
+            : 'Thank you for your interest in collecting data for this study. The research team was unable to approve your application at this time.'}
+        </p>
+      </div>
+
+      ${isApproved ? `
+      <div style="text-align: center; margin: 28px 0;">
+        <a href="${dashboardLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Open Field Collection Dashboard</a>
+      </div>
+      ` : ''}
+
+      <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 24px 0;" />
+      <p style="color: #94a3b8; font-size: 11px; text-align: center; margin: 0;">
+        Tinat &bull; Collaborative Health Research Ecosystem
+      </p>
+    </div>
+  `;
+
+  return deliverEmail({
+    to: recipientEmail,
+    subject: isApproved 
+      ? `Approved: You are now a Data Collector for "${studyTitle}"`
+      : `Update on your application for "${studyTitle}"`,
+    text: isApproved
+      ? `Hello ${applicantName},\n\nCongratulations! Your application to collect data for "${studyTitle}" has been approved.\n\nAccess your collector dashboard here:\n${dashboardLink}`
+      : `Hello ${applicantName},\n\nThank you for applying to collect data for "${studyTitle}". The researcher was unable to approve your application at this time.`,
+    html,
+  });
+}

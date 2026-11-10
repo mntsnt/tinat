@@ -18,6 +18,7 @@ import {
 import { StudyConsentGate } from "./StudyConsentGate";
 import { ReportProblemModal } from "../../../components/moderation/ReportProblemModal";
 import { StudyBanner } from "../../../components/studies/StudyBanner";
+import { BecomeCollectorButton } from "../../../components/studies/BecomeCollectorButton";
 import { SupportedLocale, getMessage } from "@/lib/i18n";
 
 type Option = {
@@ -675,6 +676,14 @@ export default function StudyQuestionnaire({
             </div>
 
             <div className="flex items-center gap-2">
+              <BecomeCollectorButton
+                studyId={study.id}
+                studyTitle={study.title}
+                researcherName={study.researcher.name}
+                category={study.category || undefined}
+                className="text-xs h-8 gap-1.5 min-h-[36px]"
+              />
+
               <Button
                 variant="ghost"
                 size="sm"

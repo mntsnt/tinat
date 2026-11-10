@@ -447,6 +447,7 @@ export const ModelName = {
   Verification: 'Verification',
   StudyDataCollector: 'StudyDataCollector',
   CollectorInvitation: 'CollectorInvitation',
+  CollectorApplication: 'CollectorApplication',
   CollectionSession: 'CollectionSession',
   EthicsApproval: 'EthicsApproval',
   ConsentForm: 'ConsentForm',
@@ -472,7 +473,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "incidentLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "participantLink" | "dataSubjectRequest" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "ledgerAccount" | "ledgerJournal" | "ledgerEntry" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDiscussionReaction" | "projectDiscussionReplyReaction" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectionSession" | "ethicsApproval" | "consentForm" | "consentRecord" | "moderationReport" | "ethicsBoardMember" | "ethicsBoardDecision" | "studyTranslation" | "questionTranslation" | "platformConsentRecord"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "incidentLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "participantLink" | "dataSubjectRequest" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "ledgerAccount" | "ledgerJournal" | "ledgerEntry" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDiscussionReaction" | "projectDiscussionReplyReaction" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectorApplication" | "collectionSession" | "ethicsApproval" | "consentForm" | "consentRecord" | "moderationReport" | "ethicsBoardMember" | "ethicsBoardDecision" | "studyTranslation" | "questionTranslation" | "platformConsentRecord"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4176,6 +4177,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CollectorApplication: {
+      payload: Prisma.$CollectorApplicationPayload<ExtArgs>
+      fields: Prisma.CollectorApplicationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CollectorApplicationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CollectorApplicationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload>
+        }
+        findFirst: {
+          args: Prisma.CollectorApplicationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CollectorApplicationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload>
+        }
+        findMany: {
+          args: Prisma.CollectorApplicationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload>[]
+        }
+        create: {
+          args: Prisma.CollectorApplicationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload>
+        }
+        createMany: {
+          args: Prisma.CollectorApplicationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CollectorApplicationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload>[]
+        }
+        delete: {
+          args: Prisma.CollectorApplicationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload>
+        }
+        update: {
+          args: Prisma.CollectorApplicationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CollectorApplicationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CollectorApplicationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CollectorApplicationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload>[]
+        }
+        upsert: {
+          args: Prisma.CollectorApplicationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorApplicationPayload>
+        }
+        aggregate: {
+          args: Prisma.CollectorApplicationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCollectorApplication>
+        }
+        groupBy: {
+          args: Prisma.CollectorApplicationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectorApplicationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CollectorApplicationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectorApplicationCountAggregateOutputType> | number
+        }
+      }
+    }
     CollectionSession: {
       payload: Prisma.$CollectionSessionPayload<ExtArgs>
       fields: Prisma.CollectionSessionFieldRefs
@@ -5719,6 +5794,19 @@ export const CollectorInvitationScalarFieldEnum = {
 export type CollectorInvitationScalarFieldEnum = (typeof CollectorInvitationScalarFieldEnum)[keyof typeof CollectorInvitationScalarFieldEnum]
 
 
+export const CollectorApplicationScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  applicantId: 'applicantId',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CollectorApplicationScalarFieldEnum = (typeof CollectorApplicationScalarFieldEnum)[keyof typeof CollectorApplicationScalarFieldEnum]
+
+
 export const CollectionSessionScalarFieldEnum = {
   id: 'id',
   studyId: 'studyId',
@@ -6411,6 +6499,20 @@ export type ListEnumVerificationStatusFieldRefInput<$PrismaModel> = FieldRefInpu
 
 
 /**
+ * Reference to a field of type 'ApplicationStatus'
+ */
+export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ApplicationStatus[]'
+ */
+export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'SessionStatus'
  */
 export type EnumSessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SessionStatus'>
@@ -6652,6 +6754,7 @@ export type GlobalOmitConfig = {
   verification?: Prisma.VerificationOmit
   studyDataCollector?: Prisma.StudyDataCollectorOmit
   collectorInvitation?: Prisma.CollectorInvitationOmit
+  collectorApplication?: Prisma.CollectorApplicationOmit
   collectionSession?: Prisma.CollectionSessionOmit
   ethicsApproval?: Prisma.EthicsApprovalOmit
   consentForm?: Prisma.ConsentFormOmit

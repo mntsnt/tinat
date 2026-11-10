@@ -71,6 +71,7 @@ model User {
   bookmarks                    StudyBookmark[]
   comments                     StudyComment[]
   assignedStudies              StudyDataCollector[]     @relation("AssignedCollector")
+  collectorApplications        CollectorApplication[]   @relation("CollectorApplications")
   likes                        StudyLike[]
   studyPayments                StudyPayment[]
   ratings                      StudyRating[]
@@ -132,6 +133,7 @@ model Study {
   bookmarks            StudyBookmark[]
   comments             StudyComment[]
   dataCollectors       StudyDataCollector[]  @relation("StudyDataCollectors")
+  collectorApplications CollectorApplication[] @relation("StudyCollectorApplications")
   likes                StudyLike[]
   payments             StudyPayment[]
   ratings              StudyRating[]
@@ -933,6 +935,28 @@ model CollectorInvitation {
   study     Study            @relation("StudyCollectorInvitations", fields: [studyId], references: [id], onDelete: Cascade)
 
   @@unique([studyId, inviteeId])
+}
+
+model CollectorApplication {
+  id          String            @id @default(cuid())
+  studyId     String
+  applicantId String
+  status      ApplicationStatus @default(PENDING)
+  notes       String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  applicant   User              @relation("CollectorApplications", fields: [applicantId], references: [id], onDelete: Cascade)
+  study       Study             @relation("StudyCollectorApplications", fields: [studyId], references: [id], onDelete: Cascade)
+
+  @@unique([studyId, applicantId])
+  @@index([studyId, status])
+  @@index([applicantId])
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  DECLINED
 }
 
 model CollectionSession {

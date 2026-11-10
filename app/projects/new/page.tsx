@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -105,6 +105,17 @@ const CATEGORIES = [
 
 export default function NewProjectPage() {
   const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user && data.user.role === "PARTICIPANT") {
+          router.replace("/projects");
+        }
+      })
+      .catch(() => {});
+  }, [router]);
   const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);

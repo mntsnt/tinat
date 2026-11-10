@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Badge } from "../../../components/ui/Badge";
 import { Button, getButtonClasses } from "../../../components/ui/Button";
 import { AIAnalysisTab } from "./AIAnalysisTab";
+import { StudyCollectorsTab } from "./StudyCollectorsTab";
 import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
 import { StudyShareLink } from "./StudyShareLink";
@@ -24,6 +25,7 @@ const studyViews = [
   { id: "analysis", label: "AI analysis" },
   { id: "visualizations", label: "Data visualizations" },
   { id: "responses", label: "Responses" },
+  { id: "collectors", label: "Data Collectors" },
   { id: "discussion", label: "Discussion & feedback" },
 ] as const;
 
@@ -664,6 +666,10 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
       )}
 
       {/* ── View 5: Discussion & Feedback ── */}
+      {activeView === "collectors" && (
+        <StudyCollectorsTab studyId={study.id} studyTitle={study.title} />
+      )}
+
       {activeView === "discussion" && (
         <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8 space-y-6">
           <section id="study-discussion" className="scroll-mt-6 space-y-6">

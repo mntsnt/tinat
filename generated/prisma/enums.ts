@@ -37,6 +37,15 @@ export const LedgerAccountKind = {
 export type LedgerAccountKind = (typeof LedgerAccountKind)[keyof typeof LedgerAccountKind]
 
 
+export const ApplicationStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  DECLINED: 'DECLINED'
+} as const
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
+
+
 export const UserRole = {
   PARTICIPANT: 'PARTICIPANT',
   RESEARCHER: 'RESEARCHER',

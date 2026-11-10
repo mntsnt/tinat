@@ -101,6 +101,7 @@ export const ModelName = {
   Verification: 'Verification',
   StudyDataCollector: 'StudyDataCollector',
   CollectorInvitation: 'CollectorInvitation',
+  CollectorApplication: 'CollectorApplication',
   CollectionSession: 'CollectionSession',
   EthicsApproval: 'EthicsApproval',
   ConsentForm: 'ConsentForm',
@@ -891,6 +892,19 @@ export const CollectorInvitationScalarFieldEnum = {
 } as const
 
 export type CollectorInvitationScalarFieldEnum = (typeof CollectorInvitationScalarFieldEnum)[keyof typeof CollectorInvitationScalarFieldEnum]
+
+
+export const CollectorApplicationScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  applicantId: 'applicantId',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CollectorApplicationScalarFieldEnum = (typeof CollectorApplicationScalarFieldEnum)[keyof typeof CollectorApplicationScalarFieldEnum]
 
 
 export const CollectionSessionScalarFieldEnum = {

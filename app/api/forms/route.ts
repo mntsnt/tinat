@@ -40,6 +40,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "You must be logged in to create a Tinat Form." }, { status: 401 });
     }
 
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: { role: true },
+    });
+    if (!user || (user.role !== "RESEARCHER" && user.role !== "ADMIN")) {
+      return NextResponse.json(
+        { error: "Participants cannot create research forms. Only researchers and administrators have permission." },
+        { status: 403 }
+      );
+    }
+
     const body = await req.json();
     const { title, description, questions } = body;
 

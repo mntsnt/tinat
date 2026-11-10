@@ -442,6 +442,7 @@ export type UserWhereInput = {
   bookmarks?: Prisma.StudyBookmarkListRelationFilter
   comments?: Prisma.StudyCommentListRelationFilter
   assignedStudies?: Prisma.StudyDataCollectorListRelationFilter
+  collectorApplications?: Prisma.CollectorApplicationListRelationFilter
   likes?: Prisma.StudyLikeListRelationFilter
   studyPayments?: Prisma.StudyPaymentListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
@@ -517,6 +518,7 @@ export type UserOrderByWithRelationInput = {
   bookmarks?: Prisma.StudyBookmarkOrderByRelationAggregateInput
   comments?: Prisma.StudyCommentOrderByRelationAggregateInput
   assignedStudies?: Prisma.StudyDataCollectorOrderByRelationAggregateInput
+  collectorApplications?: Prisma.CollectorApplicationOrderByRelationAggregateInput
   likes?: Prisma.StudyLikeOrderByRelationAggregateInput
   studyPayments?: Prisma.StudyPaymentOrderByRelationAggregateInput
   ratings?: Prisma.StudyRatingOrderByRelationAggregateInput
@@ -595,6 +597,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   bookmarks?: Prisma.StudyBookmarkListRelationFilter
   comments?: Prisma.StudyCommentListRelationFilter
   assignedStudies?: Prisma.StudyDataCollectorListRelationFilter
+  collectorApplications?: Prisma.CollectorApplicationListRelationFilter
   likes?: Prisma.StudyLikeListRelationFilter
   studyPayments?: Prisma.StudyPaymentListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
@@ -742,6 +745,7 @@ export type UserCreateInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -817,6 +821,7 @@ export type UserUncheckedCreateInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -892,6 +897,7 @@ export type UserUpdateInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -967,6 +973,7 @@ export type UserUncheckedUpdateInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -1774,6 +1781,20 @@ export type UserUpdateOneRequiredWithoutSentCollectorInvitationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentCollectorInvitationsInput, Prisma.UserUpdateWithoutSentCollectorInvitationsInput>, Prisma.UserUncheckedUpdateWithoutSentCollectorInvitationsInput>
 }
 
+export type UserCreateNestedOneWithoutCollectorApplicationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectorApplicationsInput, Prisma.UserUncheckedCreateWithoutCollectorApplicationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectorApplicationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCollectorApplicationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectorApplicationsInput, Prisma.UserUncheckedCreateWithoutCollectorApplicationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectorApplicationsInput
+  upsert?: Prisma.UserUpsertWithoutCollectorApplicationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCollectorApplicationsInput, Prisma.UserUpdateWithoutCollectorApplicationsInput>, Prisma.UserUncheckedUpdateWithoutCollectorApplicationsInput>
+}
+
 export type UserCreateNestedOneWithoutCollectionSessionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCollectionSessionsInput, Prisma.UserUncheckedCreateWithoutCollectionSessionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectionSessionsInput
@@ -1897,6 +1918,7 @@ export type UserCreateWithoutStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -1971,6 +1993,7 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -2061,6 +2084,7 @@ export type UserUpdateWithoutStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -2135,6 +2159,7 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -2209,6 +2234,7 @@ export type UserCreateWithoutBookmarksInput = {
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -2283,6 +2309,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -2373,6 +2400,7 @@ export type UserUpdateWithoutBookmarksInput = {
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -2447,6 +2475,7 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -2522,6 +2551,7 @@ export type UserCreateWithoutRatingsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
@@ -2596,6 +2626,7 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
@@ -2686,6 +2717,7 @@ export type UserUpdateWithoutRatingsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
@@ -2760,6 +2792,7 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -2834,6 +2867,7 @@ export type UserCreateWithoutLikesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
@@ -2908,6 +2942,7 @@ export type UserUncheckedCreateWithoutLikesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
@@ -2998,6 +3033,7 @@ export type UserUpdateWithoutLikesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
@@ -3072,6 +3108,7 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -3145,6 +3182,7 @@ export type UserCreateWithoutCommentsInput = {
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -3219,6 +3257,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -3309,6 +3348,7 @@ export type UserUpdateWithoutCommentsInput = {
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -3383,6 +3423,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -3457,6 +3498,7 @@ export type UserCreateWithoutNotificationsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -3531,6 +3573,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -3621,6 +3664,7 @@ export type UserUpdateWithoutNotificationsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -3695,6 +3739,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -3769,6 +3814,7 @@ export type UserCreateWithoutActivityLogsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -3843,6 +3889,7 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -3933,6 +3980,7 @@ export type UserUpdateWithoutActivityLogsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -4007,6 +4055,7 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -4081,6 +4130,7 @@ export type UserCreateWithoutAdminChatMessagesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -4155,6 +4205,7 @@ export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -4245,6 +4296,7 @@ export type UserUpdateWithoutAdminChatMessagesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -4319,6 +4371,7 @@ export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -4393,6 +4446,7 @@ export type UserCreateWithoutParticipantLinksInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -4467,6 +4521,7 @@ export type UserUncheckedCreateWithoutParticipantLinksInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -4557,6 +4612,7 @@ export type UserUpdateWithoutParticipantLinksInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -4631,6 +4687,7 @@ export type UserUncheckedUpdateWithoutParticipantLinksInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -4705,6 +4762,7 @@ export type UserCreateWithoutDataSubjectRequestsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -4779,6 +4837,7 @@ export type UserUncheckedCreateWithoutDataSubjectRequestsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -4869,6 +4928,7 @@ export type UserUpdateWithoutDataSubjectRequestsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -4943,6 +5003,7 @@ export type UserUncheckedUpdateWithoutDataSubjectRequestsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -5017,6 +5078,7 @@ export type UserCreateWithoutCollectedResponsesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -5091,6 +5153,7 @@ export type UserUncheckedCreateWithoutCollectedResponsesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -5181,6 +5244,7 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -5255,6 +5319,7 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -5330,6 +5395,7 @@ export type UserCreateWithoutWalletInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -5404,6 +5470,7 @@ export type UserUncheckedCreateWithoutWalletInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -5494,6 +5561,7 @@ export type UserUpdateWithoutWalletInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -5568,6 +5636,7 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -5642,6 +5711,7 @@ export type UserCreateWithoutLedgerAccountInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -5716,6 +5786,7 @@ export type UserUncheckedCreateWithoutLedgerAccountInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -5806,6 +5877,7 @@ export type UserUpdateWithoutLedgerAccountInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -5880,6 +5952,7 @@ export type UserUncheckedUpdateWithoutLedgerAccountInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -5954,6 +6027,7 @@ export type UserCreateWithoutStudyPaymentsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
@@ -6028,6 +6102,7 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
@@ -6118,6 +6193,7 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
@@ -6192,6 +6268,7 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -6266,6 +6343,7 @@ export type UserCreateWithoutWithdrawalsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -6340,6 +6418,7 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -6430,6 +6509,7 @@ export type UserUpdateWithoutWithdrawalsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -6504,6 +6584,7 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -6577,6 +6658,7 @@ export type UserCreateWithoutAskProfileInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -6651,6 +6733,7 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -6741,6 +6824,7 @@ export type UserUpdateWithoutAskProfileInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -6815,6 +6899,7 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -6889,6 +6974,7 @@ export type UserCreateWithoutLeadProjectsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -6963,6 +7049,7 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -7053,6 +7140,7 @@ export type UserUpdateWithoutLeadProjectsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -7127,6 +7215,7 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -7201,6 +7290,7 @@ export type UserCreateWithoutProjectMembershipsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -7275,6 +7365,7 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -7365,6 +7456,7 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -7439,6 +7531,7 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -7513,6 +7606,7 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -7587,6 +7681,7 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -7677,6 +7772,7 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -7751,6 +7847,7 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -7825,6 +7922,7 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -7899,6 +7997,7 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -7978,6 +8077,7 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -8052,6 +8152,7 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -8142,6 +8243,7 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -8216,6 +8318,7 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -8301,6 +8404,7 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -8375,6 +8479,7 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -8449,6 +8554,7 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -8523,6 +8629,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -8613,6 +8720,7 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -8687,6 +8795,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -8761,6 +8870,7 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -8835,6 +8945,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -8925,6 +9036,7 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -8999,6 +9111,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -9073,6 +9186,7 @@ export type UserCreateWithoutProjectNotesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -9147,6 +9261,7 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -9237,6 +9352,7 @@ export type UserUpdateWithoutProjectNotesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -9311,6 +9427,7 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -9385,6 +9502,7 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -9459,6 +9577,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -9549,6 +9668,7 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -9623,6 +9743,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -9697,6 +9818,7 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -9771,6 +9893,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -9861,6 +9984,7 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -9935,6 +10059,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -10009,6 +10134,7 @@ export type UserCreateWithoutProjectDiscussionReactionsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -10083,6 +10209,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionReactionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -10173,6 +10300,7 @@ export type UserUpdateWithoutProjectDiscussionReactionsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -10247,6 +10375,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReactionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -10321,6 +10450,7 @@ export type UserCreateWithoutProjectDiscussionReplyReactionsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -10395,6 +10525,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -10485,6 +10616,7 @@ export type UserUpdateWithoutProjectDiscussionReplyReactionsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -10559,6 +10691,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -10633,6 +10766,7 @@ export type UserCreateWithoutProjectDecisionsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -10707,6 +10841,7 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -10797,6 +10932,7 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -10871,6 +11007,7 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -10945,6 +11082,7 @@ export type UserCreateWithoutProjectActivitiesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -11019,6 +11157,7 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -11109,6 +11248,7 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -11183,6 +11323,7 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -11257,6 +11398,7 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -11331,6 +11473,7 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -11421,6 +11564,7 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -11495,6 +11639,7 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -11569,6 +11714,7 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -11643,6 +11789,7 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -11733,6 +11880,7 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -11807,6 +11955,7 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -11881,6 +12030,7 @@ export type UserCreateWithoutAiConversationsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -11955,6 +12105,7 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -12045,6 +12196,7 @@ export type UserUpdateWithoutAiConversationsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -12119,6 +12271,7 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -12193,6 +12346,7 @@ export type UserCreateWithoutAiUsagesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -12267,6 +12421,7 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -12357,6 +12512,7 @@ export type UserUpdateWithoutAiUsagesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -12431,6 +12587,7 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -12506,6 +12663,7 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -12580,6 +12738,7 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -12659,6 +12818,7 @@ export type UserCreateWithoutVerificationsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -12733,6 +12893,7 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -12823,6 +12984,7 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -12897,6 +13059,7 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -12982,6 +13145,7 @@ export type UserUpdateWithoutVerificationsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -13056,6 +13220,7 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -13129,6 +13294,7 @@ export type UserCreateWithoutAssignedStudiesInput = {
   studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -13203,6 +13369,7 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -13293,6 +13460,7 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -13367,6 +13535,7 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -13441,6 +13610,7 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -13515,6 +13685,7 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -13594,6 +13765,7 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -13668,6 +13840,7 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -13758,6 +13931,7 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -13832,6 +14006,7 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -13917,6 +14092,7 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -13965,6 +14141,323 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
   collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
   receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCollectorApplicationsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCollectorApplicationsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCollectorApplicationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCollectorApplicationsInput, Prisma.UserUncheckedCreateWithoutCollectorApplicationsInput>
+}
+
+export type UserUpsertWithoutCollectorApplicationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCollectorApplicationsInput, Prisma.UserUncheckedUpdateWithoutCollectorApplicationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCollectorApplicationsInput, Prisma.UserUncheckedCreateWithoutCollectorApplicationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCollectorApplicationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCollectorApplicationsInput, Prisma.UserUncheckedUpdateWithoutCollectorApplicationsInput>
+}
+
+export type UserUpdateWithoutCollectorApplicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCollectorApplicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
   projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -14065,6 +14558,7 @@ export type UserCreateWithoutCollectionSessionsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -14139,6 +14633,7 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -14229,6 +14724,7 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -14303,6 +14799,7 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -14377,6 +14874,7 @@ export type UserCreateWithoutVerifiedEthicsApprovalsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -14451,6 +14949,7 @@ export type UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -14541,6 +15040,7 @@ export type UserUpdateWithoutVerifiedEthicsApprovalsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -14615,6 +15115,7 @@ export type UserUncheckedUpdateWithoutVerifiedEthicsApprovalsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -14689,6 +15190,7 @@ export type UserCreateWithoutModerationReportsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -14763,6 +15265,7 @@ export type UserUncheckedCreateWithoutModerationReportsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -14853,6 +15356,7 @@ export type UserUpdateWithoutModerationReportsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -14927,6 +15431,7 @@ export type UserUncheckedUpdateWithoutModerationReportsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -15002,6 +15507,7 @@ export type UserCreateWithoutPlatformConsentRecordsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -15076,6 +15582,7 @@ export type UserUncheckedCreateWithoutPlatformConsentRecordsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -15166,6 +15673,7 @@ export type UserUpdateWithoutPlatformConsentRecordsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -15240,6 +15748,7 @@ export type UserUncheckedUpdateWithoutPlatformConsentRecordsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -15289,6 +15798,7 @@ export type UserCountOutputType = {
   bookmarks: number
   comments: number
   assignedStudies: number
+  collectorApplications: number
   likes: number
   studyPayments: number
   ratings: number
@@ -15332,6 +15842,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
   comments?: boolean | UserCountOutputTypeCountCommentsArgs
   assignedStudies?: boolean | UserCountOutputTypeCountAssignedStudiesArgs
+  collectorApplications?: boolean | UserCountOutputTypeCountCollectorApplicationsArgs
   likes?: boolean | UserCountOutputTypeCountLikesArgs
   studyPayments?: boolean | UserCountOutputTypeCountStudyPaymentsArgs
   ratings?: boolean | UserCountOutputTypeCountRatingsArgs
@@ -15585,6 +16096,13 @@ export type UserCountOutputTypeCountAssignedStudiesArgs<ExtArgs extends runtime.
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountCollectorApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CollectorApplicationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StudyLikeWhereInput
 }
@@ -15696,6 +16214,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   assignedStudies?: boolean | Prisma.User$assignedStudiesArgs<ExtArgs>
+  collectorApplications?: boolean | Prisma.User$collectorApplicationsArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
   studyPayments?: boolean | Prisma.User$studyPaymentsArgs<ExtArgs>
   ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
@@ -15840,6 +16359,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   bookmarks?: boolean | Prisma.User$bookmarksArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   assignedStudies?: boolean | Prisma.User$assignedStudiesArgs<ExtArgs>
+  collectorApplications?: boolean | Prisma.User$collectorApplicationsArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
   studyPayments?: boolean | Prisma.User$studyPaymentsArgs<ExtArgs>
   ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
@@ -15891,6 +16411,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     bookmarks: Prisma.$StudyBookmarkPayload<ExtArgs>[]
     comments: Prisma.$StudyCommentPayload<ExtArgs>[]
     assignedStudies: Prisma.$StudyDataCollectorPayload<ExtArgs>[]
+    collectorApplications: Prisma.$CollectorApplicationPayload<ExtArgs>[]
     likes: Prisma.$StudyLikePayload<ExtArgs>[]
     studyPayments: Prisma.$StudyPaymentPayload<ExtArgs>[]
     ratings: Prisma.$StudyRatingPayload<ExtArgs>[]
@@ -16359,6 +16880,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   bookmarks<T extends Prisma.User$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedStudies<T extends Prisma.User$assignedStudiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedStudiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyDataCollectorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  collectorApplications<T extends Prisma.User$collectorApplicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectorApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   likes<T extends Prisma.User$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   studyPayments<T extends Prisma.User$studyPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$studyPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ratings<T extends Prisma.User$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -17627,6 +18149,30 @@ export type User$assignedStudiesArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.StudyDataCollectorScalarFieldEnum | Prisma.StudyDataCollectorScalarFieldEnum[]
+}
+
+/**
+ * User.collectorApplications
+ */
+export type User$collectorApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CollectorApplication
+   */
+  select?: Prisma.CollectorApplicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CollectorApplication
+   */
+  omit?: Prisma.CollectorApplicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CollectorApplicationInclude<ExtArgs> | null
+  where?: Prisma.CollectorApplicationWhereInput
+  orderBy?: Prisma.CollectorApplicationOrderByWithRelationInput | Prisma.CollectorApplicationOrderByWithRelationInput[]
+  cursor?: Prisma.CollectorApplicationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CollectorApplicationScalarFieldEnum | Prisma.CollectorApplicationScalarFieldEnum[]
 }
 
 /**

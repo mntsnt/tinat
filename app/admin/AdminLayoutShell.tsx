@@ -1,3 +1,4 @@
+import { DashboardTopNav } from "../components/layout/DashboardTopNav";
 "use client";
 
 import type { ReactNode } from "react";
@@ -32,7 +33,10 @@ export function AdminLayoutShell({ children, links, user }: AdminLayoutShellProp
         roleColor="admin"
       />
       <main className={`min-h-0 min-w-0 flex-1 bg-muted/10 ${isCommunityChat ? "overflow-hidden" : "overflow-y-auto [scrollbar-gutter:stable]"}`}>
-        {children}
+        <DashboardTopNav />
+        <div className="flex-1 min-h-0">
+          {children}
+        </div>
       </main>
     </div>
   );

@@ -64,7 +64,7 @@ export function Footer() {
           </div>
 
           {/* Column 1: Navigate */}
-          <div className="md:col-span-2 space-y-3">
+          <div className="md:col-span-3 space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground dark:text-neutral-200">
               Navigate
             </h4>
@@ -105,37 +105,10 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 2: Researchers */}
-          <div className="md:col-span-2 space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground dark:text-neutral-200">
-              Researchers
-            </h4>
-            <ul className="space-y-2.5 text-sm text-muted-foreground dark:text-neutral-400">
-              <li>
-                <Link href="/researcher/studies/new" className="hover:text-foreground dark:hover:text-white transition-colors">
-                  Create Study
-                </Link>
-              </li>
-              <li>
-                <Link href="/forms/new" className="hover:text-foreground dark:hover:text-white transition-colors">
-                  Free Form Builder
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects/new" className="hover:text-foreground dark:hover:text-white transition-colors">
-                  New Project
-                </Link>
-              </li>
-              <li>
-                <Link href="/code-of-conduct" className="hover:text-foreground dark:hover:text-white transition-colors">
-                  Code of Conduct
-                </Link>
-              </li>
-            </ul>
-          </div>
 
-          {/* Column 3: Terms & Policies */}
-          <div className="md:col-span-3 space-y-3">
+
+          {/* Column 2: Terms & Policies */}
+          <div className="md:col-span-4 space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground dark:text-neutral-200">
               Terms & Policies
             </h4>

@@ -1,3 +1,4 @@
+import { DashboardTopNav } from "../components/layout/DashboardTopNav";
 "use client";
 
 import type { ReactNode } from "react";
@@ -51,8 +52,11 @@ export function ProjectsLayoutShell({
         avatarUrl={user.avatarUrl}
         roleColor={roleColor}
       />
-      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10">
-        {children}
+      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 flex flex-col">
+        <DashboardTopNav />
+        <div className="flex-1 min-h-0">
+          {children}
+        </div>
       </main>
     </div>
   );

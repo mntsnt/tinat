@@ -8,6 +8,7 @@ import { getBaseUrl } from "@/lib/getRedirectUri";
 
 const inviteCollectorSchema = z.object({
   collectorEmail: z.string().email("A valid collector email is required"),
+  directAssign: z.boolean().optional().default(true),
 });
 
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -16,14 +17,72 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     const auth = await requireStudyOwnerOrAdmin(studyId, req);
     if (!auth.ok) return auth.response;
 
-    const collectors = await prisma.studyDataCollector.findMany({
-      where: { studyId },
-      include: {
-        user: { select: { id: true, name: true, email: true } },
-      },
+    const [collectors, applications, invitations] = await Promise.all([
+      prisma.studyDataCollector.findMany({
+        where: { studyId },
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              avatarUrl: true,
+              phone: true,
+              institution: true,
+              fieldOfStudy: true,
+            },
+          },
+        },
+        orderBy: { assignedAt: "desc" },
+      }),
+      prisma.collectorApplication.findMany({
+        where: { studyId },
+        include: {
+          applicant: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              avatarUrl: true,
+              phone: true,
+              institution: true,
+              fieldOfStudy: true,
+            },
+          },
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.collectorInvitation.findMany({
+        where: { studyId, status: "PENDING" },
+        include: {
+          invitee: { select: { id: true, name: true, email: true } },
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+    ]);
+
+    // Fetch response counts per collector for this study
+    const responseCounts = await prisma.response.groupBy({
+      by: ["collectorId"],
+      where: { studyId, collectorId: { not: null } },
+      _count: { id: true },
     });
 
-    return NextResponse.json({ collectors });
+    const countsMap = new Map<string, number>();
+    responseCounts.forEach((rc) => {
+      if (rc.collectorId) countsMap.set(rc.collectorId, rc._count.id);
+    });
+
+    const collectorsWithStats = collectors.map((c) => ({
+      ...c,
+      responsesGathered: countsMap.get(c.userId) || 0,
+    }));
+
+    return NextResponse.json({
+      collectors: collectorsWithStats,
+      applications,
+      invitations,
+    });
   } catch (error) {
     console.error("GET study collectors error:", error);
     return jsonError("Internal error", 500);
@@ -38,41 +97,88 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
     const validation = await validateBody(inviteCollectorSchema, req);
     if (!validation.ok) return validation.response;
-    const { collectorEmail } = validation.data;
+    const { collectorEmail, directAssign } = validation.data;
 
     const collectorUser = await prisma.user.findUnique({
       where: { email: collectorEmail.toLowerCase().trim() },
     });
 
     if (!collectorUser) {
-      return jsonError("User not found", 404);
+      return jsonError("User not found with this email.", 404);
     }
 
-    // Free data collectors do not need verification; funded studies require verification
-    if (auth.study.studyType === "FUNDED") {
-      const verification = await prisma.verification.findUnique({
+    if (collectorUser.id === auth.study.researcherId) {
+      return jsonError("You are already the study owner.", 400);
+    }
+
+    // Direct assignment
+    if (directAssign) {
+      await prisma.studyDataCollector.upsert({
         where: {
-          userId_verificationType: {
+          studyId_userId: {
+            studyId,
             userId: collectorUser.id,
-            verificationType: "DATA_COLLECTOR",
           },
+        },
+        create: {
+          studyId,
+          userId: collectorUser.id,
+        },
+        update: {},
+      });
+
+      // Update any pending application
+      await prisma.collectorApplication.updateMany({
+        where: { studyId, applicantId: collectorUser.id, status: "PENDING" },
+        data: { status: "APPROVED" },
+      });
+
+      // In-platform notification
+      await prisma.notification.create({
+        data: {
+          userId: collectorUser.id,
+          title: "Assigned as Field Data Collector 📋",
+          message: `${auth.user.name || "A researcher"} assigned you as an active data collector for "${auth.study.title}".`,
+          linkUrl: "/collector/dashboard",
         },
       });
 
-      if (!verification || verification.status !== "VERIFIED") {
-        return jsonError(
-          "User is not a verified data collector. Verification is required for funded research.",
-          400,
-          "UNVERIFIED_COLLECTOR"
-        );
+      // Email notification
+      try {
+        const baseUrl = getBaseUrl(req);
+        const dashboardLink = `${baseUrl}/collector/dashboard`;
+        await sendCollectorInvitationEmail({
+          to: collectorUser.email,
+          collectorName: collectorUser.name || "Data Collector",
+          inviterName: auth.user.name || "Principal Investigator",
+          studyTitle: auth.study.title,
+          dashboardLink,
+        });
+      } catch (emailErr) {
+        console.error("[Collector Assignment] Email error:", emailErr);
       }
+
+      return NextResponse.json({
+        success: true,
+        message: `${collectorUser.name} has been assigned as a data collector.`,
+      });
     }
 
-    const invitation = await prisma.collectorInvitation.create({
-      data: {
+    // Invitation flow
+    const invitation = await prisma.collectorInvitation.upsert({
+      where: {
+        studyId_inviteeId: {
+          studyId,
+          inviteeId: collectorUser.id,
+        },
+      },
+      create: {
         studyId,
         inviterId: auth.user.id,
         inviteeId: collectorUser.id,
+        status: "PENDING",
+      },
+      update: {
         status: "PENDING",
       },
     });
@@ -103,6 +209,30 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     return NextResponse.json({ success: true, invitation });
   } catch (error) {
     console.error("POST study collectors error:", error);
+    return jsonError("Internal error", 500);
+  }
+}
+
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id: studyId } = await params;
+    const auth = await requireStudyOwnerOrAdmin(studyId, req);
+    if (!auth.ok) return auth.response;
+
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+
+    if (!userId) {
+      return jsonError("Missing userId parameter", 400);
+    }
+
+    await prisma.studyDataCollector.deleteMany({
+      where: { studyId, userId },
+    });
+
+    return NextResponse.json({ success: true, message: "Collector removed from study." });
+  } catch (error) {
+    console.error("DELETE study collector error:", error);
     return jsonError("Internal error", 500);
   }
 }
