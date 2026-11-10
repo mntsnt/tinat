@@ -33,7 +33,6 @@ interface Props {
   ethicsApproval: EthicsApprovalData | null;
   ethicsExempt: boolean;
   ethicsExemptionReason?: string | null;
-  studyFormat?: "STANDARD" | "TINTOK";
 }
 
 export function AdminEthicsReviewPanel({
@@ -41,32 +40,16 @@ export function AdminEthicsReviewPanel({
   ethicsApproval,
   ethicsExempt,
   ethicsExemptionReason,
-  studyFormat = "STANDARD",
 }: Props) {
   const router = useRouter();
-  const isTintok = studyFormat === "TINTOK";
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [adminNotes, setAdminNotes] = useState(ethicsApproval?.adminNotes || "");
   const [checklist, setChecklist] = useState({
-    // Standard items
     committeeRecognized: Boolean(ethicsApproval?.checklist?.committeeRecognized),
     coversOnlineDataCollection: Boolean(ethicsApproval?.checklist?.coversOnlineDataCollection),
     incentiveDescribedCorrectly: Boolean(ethicsApproval?.checklist?.incentiveDescribedCorrectly),
     consentMatches: Boolean(ethicsApproval?.checklist?.consentMatches),
-    // Tintok items
-    coversCardFormatSurvey: Boolean(
-      ethicsApproval?.checklist?.coversCardFormatSurvey ??
-        ethicsApproval?.checklist?.coversOnlineDataCollection
-    ),
-    nonSensitiveAdultOnly: Boolean(ethicsApproval?.checklist?.nonSensitiveAdultOnly),
-    appropriateConsent: Boolean(
-      ethicsApproval?.checklist?.appropriateConsent ?? ethicsApproval?.checklist?.consentMatches
-    ),
-    creditsDescribedNonCash: Boolean(
-      ethicsApproval?.checklist?.creditsDescribedNonCash ??
-        ethicsApproval?.checklist?.incentiveDescribedCorrectly
-    ),
   });
 
   const [showExemptModal, setShowExemptModal] = useState(false);
@@ -79,28 +62,13 @@ export function AdminEthicsReviewPanel({
     }
 
     if (status === "VERIFIED") {
-      if (isTintok) {
-        if (
-          !checklist.coversCardFormatSurvey ||
-          !checklist.nonSensitiveAdultOnly ||
-          !checklist.appropriateConsent ||
-          !checklist.creditsDescribedNonCash
-        ) {
-          return setError(
-            "All 4 Tintok review checklist requirements must be confirmed to verify ethics approval: (1) covers short card-format survey, (2) non-sensitive and adult-only, (3) consent text appropriate, (4) credits described as non-cash."
-          );
-        }
-      } else {
-        if (
-          !checklist.committeeRecognized ||
-          !checklist.coversOnlineDataCollection ||
-          !checklist.incentiveDescribedCorrectly ||
-          !checklist.consentMatches
-        ) {
-          return setError(
-            "All 4 checklist requirements must be confirmed to verify ethics approval."
-          );
-        }
+      if (
+        !checklist.committeeRecognized ||
+        !checklist.coversOnlineDataCollection ||
+        !checklist.incentiveDescribedCorrectly ||
+        !checklist.consentMatches
+      ) {
+        return setError("All 4 checklist requirements must be confirmed to verify ethics approval.");
       }
     }
 
@@ -286,163 +254,83 @@ export function AdminEthicsReviewPanel({
               Administrative Review Checklist (All Required for Verification)
             </h4>
 
-            {isTintok ? (
-              <div className="space-y-2 text-xs">
-                <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="mt-0.5 rounded border-gray-300 text-purple-600"
-                    checked={checklist.coversCardFormatSurvey}
-                    onChange={(e) =>
-                      setChecklist({ ...checklist, coversCardFormatSurvey: e.target.checked })
-                    }
-                  />
-                  <div>
-                    <span className="font-medium text-foreground block">
-                      1. Approval covers short card-format online survey
-                    </span>
-                    <span className="text-muted-foreground">
-                      IRB/ethics approval explicitly covers mobile card-style micro-questionnaire format.
-                    </span>
-                  </div>
-                </label>
+            <div className="space-y-2 text-xs">
+              <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="mt-0.5 rounded border-gray-300 text-emerald-600"
+                  checked={checklist.committeeRecognized}
+                  onChange={(e) =>
+                    setChecklist({ ...checklist, committeeRecognized: e.target.checked })
+                  }
+                />
+                <div>
+                  <span className="font-medium text-foreground block">
+                    1. Committee is recognized & accredited
+                  </span>
+                  <span className="text-muted-foreground">
+                    Issued by an accredited IRB, EPHI, NRERC, or university ethics committee.
+                  </span>
+                </div>
+              </label>
 
-                <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="mt-0.5 rounded border-gray-300 text-purple-600"
-                    checked={checklist.nonSensitiveAdultOnly}
-                    onChange={(e) =>
-                      setChecklist({ ...checklist, nonSensitiveAdultOnly: e.target.checked })
-                    }
-                  />
-                  <div>
-                    <span className="font-medium text-foreground block">
-                      2. Content is non-sensitive and adult-only
-                    </span>
-                    <span className="text-muted-foreground">
-                      Study contains no sensitive topics and strictly excludes minors (adults only).
-                    </span>
-                  </div>
-                </label>
+              <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="mt-0.5 rounded border-gray-300 text-emerald-600"
+                  checked={checklist.coversOnlineDataCollection}
+                  onChange={(e) =>
+                    setChecklist({ ...checklist, coversOnlineDataCollection: e.target.checked })
+                  }
+                />
+                <div>
+                  <span className="font-medium text-foreground block">
+                    2. Approval covers digital / online data collection
+                  </span>
+                  <span className="text-muted-foreground">
+                    Protocol explicitly permits remote electronic questionnaires or mobile data collection.
+                  </span>
+                </div>
+              </label>
 
-                <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="mt-0.5 rounded border-gray-300 text-purple-600"
-                    checked={checklist.appropriateConsent}
-                    onChange={(e) =>
-                      setChecklist({ ...checklist, appropriateConsent: e.target.checked })
-                    }
-                  />
-                  <div>
-                    <span className="font-medium text-foreground block">
-                      3. Consent text is appropriate for micro-study format
-                    </span>
-                    <span className="text-muted-foreground">
-                      Micro-study consent text is clear, concise, and maintains participant rights and voluntary withdrawal.
-                    </span>
-                  </div>
-                </label>
+              <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="mt-0.5 rounded border-gray-300 text-emerald-600"
+                  checked={checklist.incentiveDescribedCorrectly}
+                  onChange={(e) =>
+                    setChecklist({ ...checklist, incentiveDescribedCorrectly: e.target.checked })
+                  }
+                />
+                <div>
+                  <span className="font-medium text-foreground block">
+                    3. Incentive described as non-cash platform credits (or none)
+                  </span>
+                  <span className="text-muted-foreground">
+                    No promises of cash prizes, money transfers, or financial remuneration.
+                  </span>
+                </div>
+              </label>
 
-                <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="mt-0.5 rounded border-gray-300 text-purple-600"
-                    checked={checklist.creditsDescribedNonCash}
-                    onChange={(e) =>
-                      setChecklist({ ...checklist, creditsDescribedNonCash: e.target.checked })
-                    }
-                  />
-                  <div>
-                    <span className="font-medium text-foreground block">
-                      4. Credits described as non-cash research tokens
-                    </span>
-                    <span className="text-muted-foreground">
-                      No monetary claims and no cash value; clearly indicates internal research credits.
-                    </span>
-                  </div>
-                </label>
-              </div>
-            ) : (
-              <div className="space-y-2 text-xs">
-                <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="mt-0.5 rounded border-gray-300 text-emerald-600"
-                    checked={checklist.committeeRecognized}
-                    onChange={(e) =>
-                      setChecklist({ ...checklist, committeeRecognized: e.target.checked })
-                    }
-                  />
-                  <div>
-                    <span className="font-medium text-foreground block">
-                      1. Committee is recognized & accredited
-                    </span>
-                    <span className="text-muted-foreground">
-                      Issued by an accredited IRB, EPHI, NRERC, or university ethics committee.
-                    </span>
-                  </div>
-                </label>
-
-                <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="mt-0.5 rounded border-gray-300 text-emerald-600"
-                    checked={checklist.coversOnlineDataCollection}
-                    onChange={(e) =>
-                      setChecklist({ ...checklist, coversOnlineDataCollection: e.target.checked })
-                    }
-                  />
-                  <div>
-                    <span className="font-medium text-foreground block">
-                      2. Approval covers digital / online data collection
-                    </span>
-                    <span className="text-muted-foreground">
-                      Protocol explicitly permits remote electronic questionnaires or mobile data collection.
-                    </span>
-                  </div>
-                </label>
-
-                <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="mt-0.5 rounded border-gray-300 text-emerald-600"
-                    checked={checklist.incentiveDescribedCorrectly}
-                    onChange={(e) =>
-                      setChecklist({ ...checklist, incentiveDescribedCorrectly: e.target.checked })
-                    }
-                  />
-                  <div>
-                    <span className="font-medium text-foreground block">
-                      3. Incentive described as non-cash platform credits (or none)
-                    </span>
-                    <span className="text-muted-foreground">
-                      No promises of cash prizes, money transfers, or financial remuneration.
-                    </span>
-                  </div>
-                </label>
-
-                <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="mt-0.5 rounded border-gray-300 text-emerald-600"
-                    checked={checklist.consentMatches}
-                    onChange={(e) =>
-                      setChecklist({ ...checklist, consentMatches: e.target.checked })
-                    }
-                  />
-                  <div>
-                    <span className="font-medium text-foreground block">
-                      4. Informed consent form matches protocol
-                    </span>
-                    <span className="text-muted-foreground">
-                      Participant key information, risks, and voluntary withdrawal terms match the submitted instrument.
-                    </span>
-                  </div>
-                </label>
-              </div>
-            )}
+              <label className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-muted/30 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="mt-0.5 rounded border-gray-300 text-emerald-600"
+                  checked={checklist.consentMatches}
+                  onChange={(e) =>
+                    setChecklist({ ...checklist, consentMatches: e.target.checked })
+                  }
+                />
+                <div>
+                  <span className="font-medium text-foreground block">
+                    4. Informed consent form matches protocol
+                  </span>
+                  <span className="text-muted-foreground">
+                    Participant key information, risks, and voluntary withdrawal terms match the submitted instrument.
+                  </span>
+                </div>
+              </label>
+            </div>
           </div>
 
           {/* Admin Decision Notes */}

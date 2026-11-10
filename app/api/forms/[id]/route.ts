@@ -78,13 +78,6 @@ export async function PATCH(
       }
     }
 
-    if (body.format && body.format !== existingForm.format) {
-      return NextResponse.json(
-        { error: "Study format cannot be changed after creation." },
-        { status: 400 }
-      );
-    }
-
     const updateData: any = {};
     if (body.title && typeof body.title === "string") {
       updateData.title = body.title.trim();

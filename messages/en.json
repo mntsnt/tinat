@@ -51,19 +51,5 @@
     "balance": "TC Balance",
     "explanation": "Tinat Credits are platform tokens earned for research participation. They have zero cash value and cannot be withdrawn or transferred.",
     "history": "Credit Activity History"
-  },
-  "tintok": {
-    "createButton": "Create a Tintok version",
-    "createExplanation": "A quick card-style version for phones and computers, with its own approval and data.",
-    "modalTitle": "Create a Tintok Version",
-    "modalDescription": "This creates a separate, linked card-format micro-study. It will have its own independent ethics review, informed consent, and respondent data space.",
-    "eligibleQuestions": "Eligible Questions",
-    "skippedQuestions": "Skipped Questions",
-    "fundingChoice": "Funding Model",
-    "teaserOption": "Add a final card inviting participants to the full study",
-    "creditsDisclaimer": "Tinat Credits have no cash value and cannot be exchanged for money.",
-    "separateDatasetNotice": "Datasets are collected in separate modes and must not be pooled without accounting for the answering mode variable.",
-    "linkedQuickVersion": "Quick version of",
-    "linkedFullStudy": "Full study"
   }
 }

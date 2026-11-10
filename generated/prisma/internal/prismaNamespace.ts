@@ -5025,11 +5025,7 @@ export const StudyScalarFieldEnum = {
   involvesMinors: 'involvesMinors',
   safetyProtocolText: 'safetyProtocolText',
   firstApprovedByAdminId: 'firstApprovedByAdminId',
-  secondApprovedByAdminId: 'secondApprovedByAdminId',
-  format: 'format',
-  parentStudyId: 'parentStudyId',
-  linkType: 'linkType',
-  teaserLinkEnabled: 'teaserLinkEnabled'
+  secondApprovedByAdminId: 'secondApprovedByAdminId'
 } as const
 
 export type StudyScalarFieldEnum = (typeof StudyScalarFieldEnum)[keyof typeof StudyScalarFieldEnum]
@@ -6033,34 +6029,6 @@ export type EnumStudyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'StudyType[]'
  */
 export type ListEnumStudyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyType[]'>
-    
-
-
-/**
- * Reference to a field of type 'StudyFormat'
- */
-export type EnumStudyFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyFormat'>
-    
-
-
-/**
- * Reference to a field of type 'StudyFormat[]'
- */
-export type ListEnumStudyFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyFormat[]'>
-    
-
-
-/**
- * Reference to a field of type 'StudyLinkType'
- */
-export type EnumStudyLinkTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyLinkType'>
-    
-
-
-/**
- * Reference to a field of type 'StudyLinkType[]'
- */
-export type ListEnumStudyLinkTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyLinkType[]'>
     
 
 

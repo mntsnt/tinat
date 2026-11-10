@@ -199,11 +199,7 @@ export const StudyScalarFieldEnum = {
   involvesMinors: 'involvesMinors',
   safetyProtocolText: 'safetyProtocolText',
   firstApprovedByAdminId: 'firstApprovedByAdminId',
-  secondApprovedByAdminId: 'secondApprovedByAdminId',
-  format: 'format',
-  parentStudyId: 'parentStudyId',
-  linkType: 'linkType',
-  teaserLinkEnabled: 'teaserLinkEnabled'
+  secondApprovedByAdminId: 'secondApprovedByAdminId'
 } as const
 
 export type StudyScalarFieldEnum = (typeof StudyScalarFieldEnum)[keyof typeof StudyScalarFieldEnum]

@@ -14,11 +14,7 @@ import {
   Loader2,
   CheckCircle2,
   AlertCircle,
-  Clock,
-  Sparkles,
 } from "lucide-react";
-import Link from "next/link";
-import { CREDITS_DISCLAIMER } from "@/lib/config/features";
 import { StudyConsentGate } from "./StudyConsentGate";
 import { ReportProblemModal } from "../../../components/moderation/ReportProblemModal";
 import { StudyBanner } from "../../../components/studies/StudyBanner";
@@ -65,8 +61,6 @@ type StudyComment = {
 type Study = {
   id: string;
   title: string;
-  format?: string;
-  teaserLinkEnabled?: boolean;
   bannerTheme?: string;
   description: string | null;
   studyType?: string;
@@ -83,14 +77,6 @@ type Study = {
   comments: StudyComment[];
 };
 
-export type ParentTeaser = {
-  id: string;
-  title: string;
-  estimatedMinutes: number;
-  fundingType: string;
-  rewardCredits: number;
-} | null;
-
 type SubmitResponse = {
   message?: string;
   error?: string;
@@ -103,13 +89,11 @@ export default function StudyQuestionnaire({
   currentUserId,
   initialHasLiked,
   initialLikeCount,
-  parentTeaser,
 }: {
   study: Study;
   currentUserId: string;
   initialHasLiked?: boolean;
   initialLikeCount?: number;
-  parentTeaser?: ParentTeaser;
 }) {
   const router = useRouter();
 
@@ -333,12 +317,10 @@ export default function StudyQuestionnaire({
         setSuccess("Thank you! Your research response was recorded successfully.");
       }
 
-      if (!parentTeaser) {
-        setTimeout(() => {
-          router.push("/participant");
-          router.refresh();
-        }, 1800);
-      }
+      setTimeout(() => {
+        router.push("/participant");
+        router.refresh();
+      }, 1800);
     } catch (caughtError) {
       console.error("Study submission error:", caughtError);
       setError(
@@ -541,7 +523,6 @@ export default function StudyQuestionnaire({
           </div>
         );
       case "RATING_SCALE":
-      case "LINEAR_SCALE":
         const min = question.scaleMin ?? 1;
         const max = question.scaleMax ?? 5;
         const scaleValues: number[] = [];
@@ -833,89 +814,6 @@ export default function StudyQuestionnaire({
                 </p>
               </div>
             </form>
-          )}
-
-          {submitted && (
-            <div className="space-y-6 py-4 max-w-xl mx-auto" data-testid="study-completion-view">
-              {/* Completion Card */}
-              <Card className="border-emerald-500/30 bg-emerald-500/5 text-center p-6 sm:p-8" data-testid="tintok-completion-card">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center mb-4">
-                  <CheckCircle2 className="w-7 h-7" />
-                </div>
-                <h2 className="text-xl font-bold text-foreground mb-2">
-                  {study.format === "TINTOK" ? "Micro-study Completed" : "Research Study Completed"}
-                </h2>
-                <p className="text-sm text-muted-foreground mb-3">
-                  {study.rewardCredits > 0
-                    ? `Thank you for your valuable participation. You earned ${study.rewardCredits} Tinat Credits.`
-                    : "Thank you for volunteering your responses to support Ethiopian health research."}
-                </p>
-                {study.rewardCredits > 0 && (
-                  <p className="text-xs text-muted-foreground/80 italic">
-                    {CREDITS_DISCLAIMER}
-                  </p>
-                )}
-
-                {!parentTeaser && (
-                  <div className="mt-6">
-                    <Link href="/participant/studies">
-                      <Button variant="primary">Discover More Studies</Button>
-                    </Link>
-                  </div>
-                )}
-              </Card>
-
-              {/* Teaser Card offering full parent study */}
-              {parentTeaser && (
-                <Card className="border-primary/30 shadow-md p-6 sm:p-8 bg-card relative overflow-hidden" data-testid="tintok-teaser-card">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-3">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Full Research Study Available</span>
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">
-                    {parentTeaser.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    This quick micro-study was adapted from an in-depth standard research study. If you would like to contribute further to this topic, the comprehensive study is currently open.
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-3 p-3 rounded-lg bg-muted/40 text-xs mb-6">
-                    <div>
-                      <span className="text-muted-foreground block text-[11px]">Estimated time</span>
-                      <span className="font-semibold text-foreground flex items-center gap-1 mt-0.5">
-                        <Clock className="w-3.5 h-3.5 text-muted-foreground" />
-                        ~{parentTeaser.estimatedMinutes} minutes
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground block text-[11px]">Participation mode</span>
-                      <span className="font-semibold text-foreground mt-0.5 block">
-                        {parentTeaser.rewardCredits > 0
-                          ? `${parentTeaser.rewardCredits} TC (Funded)`
-                          : "Voluntary (Free)"}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="p-3 rounded-md bg-muted/20 border border-muted text-[11px] text-muted-foreground mb-6 leading-relaxed">
-                    The full study involves its own detailed informed consent process and distinct research questions. You may decline with no impact on your completed micro-study or earned credits.
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-3 justify-end items-center">
-                    <Link href="/participant/studies" className="w-full sm:w-auto">
-                      <Button variant="ghost" className="w-full sm:w-auto text-muted-foreground">
-                        No thanks
-                      </Button>
-                    </Link>
-                    <Link href={`/participant/studies/${parentTeaser.id}`} className="w-full sm:w-auto">
-                      <Button variant="primary" className="w-full sm:w-auto">
-                        Take the full study
-                      </Button>
-                    </Link>
-                  </div>
-                </Card>
-              )}
-            </div>
           )}
 
           {/* Report Problem Modal */}

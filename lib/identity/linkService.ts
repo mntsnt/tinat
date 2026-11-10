@@ -2,7 +2,6 @@ import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { logActivity } from "@/lib/activityLog";
 import { Prisma } from "@/generated/prisma/client";
-import { FEATURES } from "@/lib/config/features";
 
 /**
  * Link Service (Identity Separation Module)
@@ -87,20 +86,10 @@ export async function hasUserParticipated(params: {
         userId,
       },
     },
-    select: { respondentCode: true },
-  });
-
-  if (!link) return false;
-
-  const response = await db.response.findFirst({
-    where: {
-      studyId,
-      respondentCode: link.respondentCode,
-    },
     select: { id: true },
   });
 
-  return Boolean(response);
+  return Boolean(link);
 }
 
 /**
@@ -217,86 +206,3 @@ export async function resolveRespondentForFraudInvestigation(params: {
     user: link.user,
   };
 }
-
-/**
- * Checks cross-mode participation exclusion.
- * Rule: A participant who already completed the parent study cannot take the Tintok version.
- * Conversely, if a participant completed a Tintok version that didn't have teaserLinkEnabled,
- * they cannot take the parent study (preventing duplicate answers across modes).
- */
-export async function isCrossModeExcluded(params: {
-  userId: string;
-  studyId: string;
-  tx?: Prisma.TransactionClient;
-}): Promise<{ excluded: boolean; reason?: string }> {
-  if (!FEATURES.TINTOK_CROSS_MODE_EXCLUSION_DEFAULT) {
-    return { excluded: false };
-  }
-
-  const { userId, studyId, tx } = params;
-  const db = tx ?? prisma;
-
-  const study = await db.study.findUnique({
-    where: { id: studyId },
-    select: {
-      id: true,
-      format: true,
-      parentStudyId: true,
-      childStudies: {
-        where: { linkType: "TINTOK_VERSION" },
-        select: { id: true, teaserLinkEnabled: true },
-      },
-    },
-  });
-
-  if (!study) {
-    return { excluded: false };
-  }
-
-  // Case 1: The current study is a Tintok child study
-  if (study.parentStudyId) {
-    const parentParticipated = await db.participantLink.findUnique({
-      where: {
-        studyId_userId: {
-          studyId: study.parentStudyId,
-          userId,
-        },
-      },
-    });
-
-    if (parentParticipated) {
-      return {
-        excluded: true,
-        reason:
-          "You have already completed the full standard version of this study. To maintain research statistical integrity across answering modes, the quick version cannot be taken.",
-      };
-    }
-  }
-
-  // Case 2: The current study is a Standard parent study with linked Tintok child versions
-  if (study.childStudies && study.childStudies.length > 0) {
-    const childIds = study.childStudies.map((c) => c.id);
-    const completedChild = await db.participantLink.findFirst({
-      where: {
-        userId,
-        studyId: { in: childIds },
-      },
-      include: {
-        study: {
-          select: { id: true, teaserLinkEnabled: true },
-        },
-      },
-    });
-
-    if (completedChild && !completedChild.study.teaserLinkEnabled) {
-      return {
-        excluded: true,
-        reason:
-          "You have already completed the quick card version of this study. To maintain research statistical integrity across answering modes, the full version cannot be taken.",
-      };
-    }
-  }
-
-  return { excluded: false };
-}
-

@@ -12,9 +12,7 @@ import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
 import { StudyShareLink } from "./StudyShareLink";
 import { StudyDeleteButton } from "../../../components/StudyDeleteButton";
-import { Star, Paperclip, ShieldAlert, Sparkles, Layers } from "lucide-react";
-import { CreateTintokVersionModal } from "./CreateTintokVersionModal";
-import { LinkedStudiesPanel } from "./LinkedStudiesPanel";
+import { Star, Paperclip, ShieldAlert } from "lucide-react";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -60,25 +58,6 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
       ratings: {
         include: { user: { select: { name: true, avatarUrl: true } } },
         orderBy: { createdAt: "desc" }
-      },
-      parentStudy: {
-        select: {
-          id: true,
-          title: true,
-          status: true,
-          format: true,
-          _count: { select: { responses: true } }
-        }
-      },
-      childStudies: {
-        where: { linkType: "TINTOK_VERSION" },
-        select: {
-          id: true,
-          title: true,
-          status: true,
-          format: true,
-          _count: { select: { responses: true } }
-        }
       }
     },
   });
@@ -112,22 +91,6 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
       acc[name] = (acc[name] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-
-  const activeTintokVersion = study.childStudies.find((c: any) => c.status !== "COMPLETED") || study.childStudies[0] || null;
-  const parentStudyData = study.parentStudy ? {
-    id: study.parentStudy.id,
-    title: study.parentStudy.title,
-    status: study.parentStudy.status,
-    format: study.parentStudy.format,
-    responsesCount: study.parentStudy._count.responses,
-  } : null;
-  const childStudyData = activeTintokVersion ? {
-    id: activeTintokVersion.id,
-    title: activeTintokVersion.title,
-    status: activeTintokVersion.status,
-    format: activeTintokVersion.format,
-    responsesCount: activeTintokVersion._count.responses,
-  } : null;
 
   const remainingCredits = Math.max(0, study.budgetCredits - study.creditsPaid);
   const participantTargetReached = study.participantTarget > 0 && totalResponses >= study.participantTarget;
@@ -180,29 +143,14 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                 </span>
               )}
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center justify-between gap-4">
               <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground truncate max-w-4xl">{study.title}</h1>
-              <div className="flex items-center gap-3 shrink-0">
-                {study.format === "STANDARD" && (
-                  <CreateTintokVersionModal
-                    studyId={study.id}
-                    parentTitle={study.title}
-                    parentStatus={study.status}
-                    parentFormat={study.format}
-                    parentFundingType={study.fundingType}
-                    parentRewardCredits={study.rewardCredits}
-                    involvesMinors={study.involvesMinors}
-                    containsSensitiveTopics={study.containsSensitiveTopics}
-                    existingTintokVersion={childStudyData}
-                  />
-                )}
-                <StudyDeleteButton
-                  studyId={study.id}
-                  studyTitle={study.title}
-                  redirectAfterDelete="/researcher/studies"
-                  variant="button"
-                />
-              </div>
+              <StudyDeleteButton
+                studyId={study.id}
+                studyTitle={study.title}
+                redirectAfterDelete="/researcher/studies"
+                variant="button"
+              />
             </div>
           </div>
         </div>
@@ -249,14 +197,6 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
               </CardContent>
             </Card>
           )}
-
-          <LinkedStudiesPanel
-            currentStudyId={study.id}
-            currentStudyFormat={study.format}
-            currentResponsesCount={totalResponses}
-            parentStudy={parentStudyData}
-            tintokChildStudy={childStudyData}
-          />
 
           <StudyShareLink studyId={study.id} />
 

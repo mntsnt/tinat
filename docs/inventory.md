@@ -1,7 +1,7 @@
 # System Inventory & Architecture Index
 
 **Auto-generated via:** `scripts/generate-inventory.ts`  
-**Generated At:** 2026-11-06T11:43:41.265Z  
+**Generated At:** 2026-11-05T08:45:44.810Z  
 **Platform:** Tinat Health Research Ecosystem (Ethiopia)  
 **Regulatory Standard:** Ethiopian Personal Data Protection Proclamation No. 1321/2024
 
@@ -22,9 +22,9 @@
 ## 2. Database Schema Summary
 
 - **Total Models:** 60
-- **Total Enums:** 34
+- **Total Enums:** 32
 
-### 2.1 Enums (34 Enums)
+### 2.1 Enums (32 Enums)
 
 | Enum Name | Allowed Values Count | Values |
 | :--- | :--- | :--- |
@@ -52,9 +52,7 @@
 | `ProjectVisibility` | 3 | `PRIVATE`, `TEAM`, `PUBLIC` |
 | `QuestionType` | 13 | `SHORT_TEXT`, `LONG_TEXT`, `SINGLE_CHOICE`, `MULTIPLE_CHOICE`, `NUMBER`, `YES_NO`, `DATE`, `DROPDOWN`, `FILE_UPLOAD`, `LINEAR_SCALE`, `MULTIPLE_CHOICE_GRID`, `CHECKBOX_GRID`, `TIME` |
 | `SessionStatus` | 3 | `ACTIVE`, `PAUSED`, `COMPLETED` |
-| `StudyFormat` | 2 | `STANDARD`, `TINTOK` |
 | `StudyFundingType` | 2 | `FREE`, `FUNDED` |
-| `StudyLinkType` | 1 | `TINTOK_VERSION` |
 | `StudyStatus` | 4 | `DRAFT`, `ACTIVE`, `PAUSED`, `COMPLETED` |
 | `StudyType` | 4 | `SURVEY`, `OBSERVATIONAL`, `FUNDED`, `FREE_DATA_COLLECTION` |
 | `TransactionType` | 7 | `EARN`, `SPEND`, `WITHDRAW`, `REFUND`, `ADJUSTMENT`, `REWARD_CREDIT`, `ADMIN_ADJUSTMENT` |
@@ -114,7 +112,7 @@
 | `QuestionTranslation` | 8 | `id: String` |
 | `ResearchProject` | 35 | `id: String` |
 | `Response` | 14 | `id: String` |
-| `Study` | 59 | `id: String` |
+| `Study` | 53 | `id: String` |
 | `StudyBookmark` | 6 | `id: String` |
 | `StudyComment` | 11 | `id: String` |
 | `StudyDataCollector` | 6 | `id: String` |
@@ -187,7 +185,7 @@
 
 ---
 
-## 4. API Route Handlers (113 Handlers)
+## 4. API Route Handlers (112 Handlers)
 
 | Endpoint Path | HTTP Methods | Required Authorization / Role Gate | Source File |
 | :--- | :--- | :--- | :--- |
@@ -279,7 +277,7 @@
 | `/api/projects/invite/[token]` | `GET` `POST` | `SESSION_CHECKED` | `app/api/projects/invite/[token]/route.ts` |
 | `/api/reports` | `POST` | `SESSION_CHECKED` | `app/api/reports/route.ts` |
 | `/api/studies` | `GET` `POST` | `[RESEARCHER, ADMIN]` | `app/api/studies/route.ts` |
-| `/api/studies/[id]` | `GET` `PATCH` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/route.ts` |
+| `/api/studies/[id]` | `GET` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/route.ts` |
 | `/api/studies/[id]/collectors` | `GET` `POST` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/collectors/route.ts` |
 | `/api/studies/[id]/comment` | `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/comment/route.ts` |
 | `/api/studies/[id]/consent` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/consent/route.ts` |
@@ -293,7 +291,6 @@
 | `/api/studies/[id]/responses` | `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/responses/route.ts` |
 | `/api/studies/[id]/status` | `PATCH` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/status/route.ts` |
 | `/api/studies/[id]/submit` | `POST` | `[PARTICIPANT]` | `app/api/studies/[id]/submit/route.ts` |
-| `/api/studies/[id]/tintok-version` | `GET` `POST` | `SESSION_CHECKED` | `app/api/studies/[id]/tintok-version/route.ts` |
 | `/api/studies/[id]/translations` | `GET` `POST` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/translations/route.ts` |
 | `/api/studies/[id]/withdraw` | `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/withdraw/route.ts` |
 | `/api/transparency` | `GET` | `PUBLIC / UNGUARDED` | `app/api/transparency/route.ts` |

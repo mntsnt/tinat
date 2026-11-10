@@ -51,19 +51,5 @@
     "balance": "Hanga Kireeditii",
     "explanation": "Kireeditiin Tiinaat hirmaannaa qorannoof kan kennamudha. Gatii maallaqaa hin qabu, gara qarshiitti hin jijjiiramu.",
     "history": "Seenaa Sochii Kireeditii"
-  },
-  "tintok": {
-    "createButton": "Waraqaa Tintok Uumi",
-    "createExplanation": "Qorannoo gabaabaa bilbilaafi kompiitaraaf ta'u, hayyama qorannoofi daataasaa mataa isaa qaba.",
-    "modalTitle": "Gosa Tintok Uumi",
-    "modalDescription": "Kun qorannoo gabaabaa addaa uuma. Hayyama naamusaa mataa isaa, walii galtee fi bakka daataa mataa isaa qaba.",
-    "eligibleQuestions": "Gaaffilee Filataman",
-    "skippedQuestions": "Gaaffilee Irra Darbaman",
-    "fundingChoice": "Gosa Baasii",
-    "teaserOption": "Waraqaa xumuraa kan hirmaattota qorannoo guutuutti afeeru dabaladhu",
-    "creditsDisclaimer": "Kireeditiin Tiinaat gatii maallaqaa hin qabu, gara qarshiitti hin jijjiiramu.",
-    "separateDatasetNotice": "Daataan lamaan karaalee adda addaatiin kan walitti qabamaniidha, walitti makuun hin danda'amu.",
-    "linkedQuickVersion": "Gosa gabaabaa",
-    "linkedFullStudy": "Qorannoo guutuu"
   }
 }

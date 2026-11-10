@@ -32,8 +32,7 @@
     "no-cash credit policy",
     "real-money cashouts disabled",
     "cashouts disabled",
-    "zero cash",
-    "creditsDescribedNonCash"
+    "zero cash"
   ],
   "allowedFilePrefixes": [
     "modules/payments-legacy/",

@@ -37,7 +37,6 @@ export async function GET(
     return NextResponse.json({
       studyId: study.id,
       title: study.title,
-      format: study.format,
       ethicsApproval: study.ethicsApproval,
       ethicsExempt: study.ethicsExempt,
       ethicsExemptionReason: study.ethicsExemptionReason,
@@ -130,32 +129,18 @@ export async function PATCH(
     }
 
     if (status === "VERIFIED") {
-      if (study.format === "TINTOK") {
-        const coversCard = Boolean(checklist?.coversCardFormatSurvey ?? checklist?.coversOnlineDataCollection);
-        const nonSensitive = Boolean(checklist?.nonSensitiveAdultOnly);
-        const appropriateConsent = Boolean(checklist?.appropriateConsent ?? checklist?.consentMatches);
-        const creditsCompliant = Boolean(checklist?.creditsDescribedNonCash ?? checklist?.incentiveDescribedCorrectly);
-
-        if (!coversCard || !nonSensitive || !appropriateConsent || !creditsCompliant) {
-          return jsonError(
-            "All 4 Tintok review checklist items must be confirmed before verifying ethics approval: (1) approval covers a short card-format online survey, (2) content is non-sensitive and adult-only, (3) consent text is appropriate, and (4) credits are described as non-cash.",
-            400
-          );
-        }
-      } else {
-        // Standard study checklist
-        if (
-          !checklist ||
-          !checklist.committeeRecognized ||
-          !checklist.coversOnlineDataCollection ||
-          !checklist.incentiveDescribedCorrectly ||
-          !checklist.consentMatches
-        ) {
-          return jsonError(
-            "All 4 review checklist items must be confirmed before verifying ethics approval: (1) committee recognized, (2) covers online data collection, (3) incentive described as non-cash credits (or none), and (4) consent text matches.",
-            400
-          );
-        }
+      // Must pass the 4-item checklist
+      if (
+        !checklist ||
+        !checklist.committeeRecognized ||
+        !checklist.coversOnlineDataCollection ||
+        !checklist.incentiveDescribedCorrectly ||
+        !checklist.consentMatches
+      ) {
+        return jsonError(
+          "All 4 review checklist items must be confirmed before verifying ethics approval: (1) committee recognized, (2) covers online data collection, (3) incentive described as non-cash credits (or none), and (4) consent text matches.",
+          400
+        );
       }
     }
 

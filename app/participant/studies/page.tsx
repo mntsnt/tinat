@@ -69,7 +69,6 @@ export default async function StudyDiscoveryPage({
     include: {
       researcher: { select: { name: true, isVerified: true, institution: true } },
       _count: { select: { questions: true, responses: true } },
-      childStudies: { select: { id: true, teaserLinkEnabled: true } },
     },
     orderBy: { createdAt: "desc" },
   });
@@ -77,22 +76,12 @@ export default async function StudyDiscoveryPage({
   const completedStudyIds = new Set(user.participantLinks.map((r) => r.studyId));
   const bookmarkedStudyIds = new Set(user.bookmarks.map((b) => b.studyId));
 
-  const availableStudies = studies.filter((study) => {
-    if (completedStudyIds.has(study.id)) return false;
-    // Cross-mode exclusion: if participant already completed parent, exclude Tintok micro-study
-    if (study.parentStudyId && completedStudyIds.has(study.parentStudyId)) return false;
-    // Cross-mode exclusion: if participant completed child Tintok without teaser link, exclude parent
-    if (
-      study.childStudies &&
-      study.childStudies.some((c) => completedStudyIds.has(c.id) && !c.teaserLinkEnabled)
-    ) {
-      return false;
-    }
-    return (
+  const availableStudies = studies.filter(
+    (study) =>
+      !completedStudyIds.has(study.id) &&
       (study.participantTarget === 0 || study._count.responses < study.participantTarget) &&
       (study.rewardCredits <= 0 || study.budgetCredits - study.creditsPaid >= study.rewardCredits)
-    );
-  });
+  );
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-6 md:px-7 md:py-8">
@@ -257,16 +246,9 @@ export default async function StudyDiscoveryPage({
                 <StudyBanner theme={study.bannerTheme} className="h-24" />
                 {/* Category Top Banner */}
                 <div className="px-6 pt-5 pb-0 flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-1.5 overflow-hidden">
-                    {study.format === "TINTOK" && (
-                      <span className="text-[10px] font-bold text-purple-700 dark:text-purple-300 bg-purple-500/15 border border-purple-500/30 px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0">
-                        ⚡ Tintok
-                      </span>
-                    )}
-                    <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full truncate max-w-[180px]">
-                      {study.category || "Health Research"}
-                    </span>
-                  </div>
+                  <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full truncate max-w-[180px]">
+                    {study.category || "Health Research"}
+                  </span>
 
                   {isFunded ? (
                     <Badge className="bg-emerald-600 text-white font-bold border-0 text-xs px-2.5">
