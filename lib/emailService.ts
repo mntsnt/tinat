@@ -30,8 +30,8 @@ export interface SendCollectorInvitationEmailParams {
  */
 function createSmtpTransporter(port: number, secure: boolean) {
   const host = (process.env.SMTP_HOST || "smtp.gmail.com").trim();
-  const user = (process.env.SMTP_USER || "iammintesnot@gmail.com").trim();
-  const pass = (process.env.SMTP_PASS || "cympjvsszaszmerz").trim();
+  const user = (process.env.SMTP_USER || "contact.tinatapp@gmail.com").trim();
+  const pass = (process.env.SMTP_PASS || "").trim();
 
   return nodemailer.createTransport({
     host,
@@ -60,8 +60,8 @@ async function deliverEmail(mailOptions: {
   html: string;
 }): Promise<{ success: boolean; simulated: boolean }> {
   const primaryPort = Number(process.env.SMTP_PORT) || 465;
-  const user = (process.env.SMTP_USER || "iammintesnot@gmail.com").trim();
-  const pass = (process.env.SMTP_PASS || "cympjvsszaszmerz").trim();
+  const user = (process.env.SMTP_USER || "contact.tinatapp@gmail.com").trim();
+  const pass = (process.env.SMTP_PASS || "").trim();
   const supportEmail = (process.env.SUPPORT_EMAIL || "contact.tinatapp@gmail.com").trim();
 
   if (!user || !pass) {
