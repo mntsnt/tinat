@@ -10,61 +10,67 @@ import {
   EyeOff,
   ChevronLeft,
   ChevronRight,
-  Star,
   CheckCircle2,
   ArrowRight,
   Loader2,
   ShieldCheck,
+  Activity,
+  Coins,
+  Clock,
+  Building2,
 } from "lucide-react";
 import { TinatLogo } from "../components/ui/TinatLogo";
 import { GoogleAuthButton } from "../components/GoogleAuthButton";
 
-interface Testimonial {
-  quote: string;
-  author: string;
-  role: string;
-  initials: string;
-  avatarColor: string;
+interface PublicStudyShowcase {
+  id: string;
+  category: string;
+  title: string;
+  institution: string;
+  rewardCredits: number;
+  durationMinutes: number;
+  participantsCount: number;
+  targetCount: number;
+  eligibility: string;
+  highlights: string[];
 }
 
-const PARTICIPANT_TESTIMONIALS: Testimonial[] = [
+const FEATURED_PUBLIC_STUDIES: PublicStudyShowcase[] = [
   {
-    quote: "It's a cool way of spending quality time and earn some money as well as helping to shape decisions.",
-    author: "Lori Bryson",
-    role: "Health Contributor",
-    initials: "LB",
-    avatarColor: "bg-emerald-600",
+    id: "study-1",
+    category: "Cardiovascular & Epidemiology",
+    title: "Community Hypertension Screening & Lifestyle Registry",
+    institution: "Addis Ababa Health Sciences Institute",
+    rewardCredits: 25,
+    durationMinutes: 8,
+    participantsCount: 420,
+    targetCount: 500,
+    eligibility: "Adults aged 25–65 in urban & peri-urban health centers",
+    highlights: ["Institutional Ethics Approved", "Instant TC payout upon verification", "Confidential & secure"],
   },
   {
-    quote: "Contributing to real university medical studies in Ethiopia from my phone while earning Tinat Credits is super rewarding.",
-    author: "Amanuel Tadesse",
-    role: "Verified Contributor",
-    initials: "AT",
-    avatarColor: "bg-teal-600",
+    id: "study-2",
+    category: "Maternal & Child Health",
+    title: "Postnatal Nutrition Monitoring & Clinical Care Tracker",
+    institution: "Regional Health Bureau & Clinical Partners",
+    rewardCredits: 35,
+    durationMinutes: 12,
+    participantsCount: 285,
+    targetCount: 300,
+    eligibility: "Mothers within first 12 months postnatal with clinic follow-up",
+    highlights: ["Maternal care protocol", "Clinical oversight", "Field collector supported"],
   },
   {
-    quote: "The studies are well designed, safe, and confidential. It feels great to make a difference in African health research.",
-    author: "Selamawit Desta",
-    role: "Community Participant",
-    initials: "SD",
-    avatarColor: "bg-indigo-600",
-  },
-];
-
-const RESEARCHER_TESTIMONIALS: Testimonial[] = [
-  {
-    quote: "Recruiting verified participants across clinical centers and tracking real-time field data saved us months of research time.",
-    author: "Dr. Meron Kebede",
-    role: "Principal Investigator",
-    initials: "MK",
-    avatarColor: "bg-indigo-600",
-  },
-  {
-    quote: "The ability to assign field data collectors with full ethics compliance and verify entries instantly revolutionized our workflow.",
-    author: "Ermias Haile",
-    role: "Clinical Epidemiology Lead",
-    initials: "EH",
-    avatarColor: "bg-teal-600",
+    id: "study-3",
+    category: "Health Informatics & Access",
+    title: "Digital Tele-triage Adoption & Primary Clinic Utilization",
+    institution: "Health Innovation Research Alliance",
+    rewardCredits: 20,
+    durationMinutes: 6,
+    participantsCount: 860,
+    targetCount: 1000,
+    eligibility: "Primary care clinic visitors & mobile health users",
+    highlights: ["Direct health policy impact", "Instant verification", "Zero third-party data sharing"],
   },
 ];
 
@@ -91,21 +97,15 @@ function RegisterContent() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Testimonial Carousel State
-  const [activeSlide, setActiveSlide] = useState(0);
-  const testimonials =
-    selectedRole === "RESEARCHER" ? RESEARCHER_TESTIMONIALS : PARTICIPANT_TESTIMONIALS;
-
-  useEffect(() => {
-    setActiveSlide(0);
-  }, [selectedRole]);
+  // Active public study index in showcase
+  const [activeStudyIndex, setActiveStudyIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % testimonials.length);
-    }, 7000);
+      setActiveStudyIndex((prev) => (prev + 1) % FEATURED_PUBLIC_STUDIES.length);
+    }, 8000);
     return () => clearInterval(timer);
-  }, [testimonials.length]);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -184,15 +184,15 @@ function RegisterContent() {
               Join Tinat
             </h1>
             <p className="text-muted-foreground text-sm sm:text-base max-w-md mx-auto">
-              Select how you would like to participate in the research ecosystem.
+              Select how you would like to participate in the health research ecosystem.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Card 1: Researcher */}
-            <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:border-primary/50 hover:shadow-md transition-all">
+            <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                   <Search className="w-6 h-6" />
                 </div>
                 <div className="space-y-1.5">
@@ -200,7 +200,7 @@ function RegisterContent() {
                     Sign up as a researcher
                   </h2>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Find the right participants, administer field studies, and run better research.
+                    Find verified participants, assign field data collectors, and administer clinical and public health research.
                   </p>
                 </div>
               </div>
@@ -209,7 +209,7 @@ function RegisterContent() {
                 <button
                   type="button"
                   onClick={() => setSelectedRole("RESEARCHER")}
-                  className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all active:scale-[0.99] flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-600/20 transition-all active:scale-[0.99] flex items-center justify-center gap-2"
                 >
                   Start recruiting <ArrowRight className="w-4 h-4" />
                 </button>
@@ -217,9 +217,9 @@ function RegisterContent() {
             </div>
 
             {/* Card 2: Participant */}
-            <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all">
+            <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:border-teal-500/50 hover:shadow-md transition-all">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center">
                   <Users className="w-6 h-6" />
                 </div>
                 <div className="space-y-1.5">
@@ -227,7 +227,7 @@ function RegisterContent() {
                     Sign up as a participant
                   </h2>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Share your expertise, take part in verified studies, and get paid for research opportunities.
+                    Share your health insights, participate in ethical studies, and earn Tinat Credits (TC) rewards.
                   </p>
                 </div>
               </div>
@@ -248,7 +248,7 @@ function RegisterContent() {
           <div className="text-center pt-2">
             <p className="text-sm text-muted-foreground">
               Already have an account?{" "}
-              <Link href="/login" className="font-semibold text-primary hover:underline">
+              <Link href="/login" className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
                 Log in
               </Link>
             </p>
@@ -264,9 +264,14 @@ function RegisterContent() {
   }
 
   // ─────────────────────────────────────────────────────────────
-  // STEP 2: SPLIT SCREEN REGISTRATION (Respondent.io inspired)
+  // STEP 2: SPLIT SCREEN REGISTRATION
   // ─────────────────────────────────────────────────────────────
   const isParticipant = selectedRole === "PARTICIPANT";
+  const currentStudy = FEATURED_PUBLIC_STUDIES[activeStudyIndex];
+  const progressPercent = Math.min(
+    100,
+    Math.round((currentStudy.participantsCount / currentStudy.targetCount) * 100)
+  );
 
   return (
     <div className="min-h-screen bg-background flex flex-col lg:flex-row">
@@ -294,8 +299,8 @@ function RegisterContent() {
             </h1>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {isParticipant
-                ? "Get paid for sharing valuable insights and help shape world-class health research."
-                : "Find verified participants, administer field studies, and run better research."}
+                ? "Contribute to verified health research and earn Tinat Credits for your insights."
+                : "Recruit verified participants, coordinate data collectors, and manage studies."}
             </p>
           </div>
 
@@ -312,7 +317,7 @@ function RegisterContent() {
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="Enter first name"
                   autoComplete="given-name"
-                  className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                  className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
                 />
               </div>
 
@@ -325,7 +330,7 @@ function RegisterContent() {
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Enter last name"
                   autoComplete="family-name"
-                  className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                  className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
                 />
               </div>
             </div>
@@ -340,7 +345,7 @@ function RegisterContent() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 autoComplete="email"
-                className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
               />
             </div>
 
@@ -356,7 +361,7 @@ function RegisterContent() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Create a password"
                   autoComplete="new-password"
-                  className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                  className="w-full rounded-xl border border-input bg-background px-3.5 py-2.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
                 />
                 <button
                   type="button"
@@ -378,7 +383,7 @@ function RegisterContent() {
                   required
                   checked={agreed}
                   onChange={(e) => setAgreed(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 rounded border-input text-primary focus:ring-primary/40"
+                  className="mt-0.5 h-4 w-4 rounded border-input text-emerald-600 focus:ring-emerald-500/30"
                 />
                 <span className="text-xs text-muted-foreground leading-relaxed">
                   I agree to Tinat&apos;s{" "}
@@ -406,7 +411,7 @@ function RegisterContent() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3 px-6 rounded-xl font-bold text-sm bg-indigo-600 hover:bg-indigo-700 text-white shadow-md transition-all active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-6 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 transition-all active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {submitting ? (
                   <>
@@ -432,7 +437,7 @@ function RegisterContent() {
           <div className="mt-8 pt-6 border-t border-border/60 space-y-2 text-xs text-muted-foreground">
             <div>
               Already have an account?{" "}
-              <Link href="/login" className="font-semibold text-primary hover:underline">
+              <Link href="/login" className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
                 Log in
               </Link>
             </div>
@@ -443,7 +448,7 @@ function RegisterContent() {
                   <button
                     type="button"
                     onClick={() => setSelectedRole("RESEARCHER")}
-                    className="font-semibold text-primary hover:underline"
+                    className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
                   >
                     Sign up as a researcher
                   </button>
@@ -454,7 +459,7 @@ function RegisterContent() {
                   <button
                     type="button"
                     onClick={() => setSelectedRole("PARTICIPANT")}
-                    className="font-semibold text-primary hover:underline"
+                    className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
                   >
                     Sign up as a participant
                   </button>
@@ -466,85 +471,169 @@ function RegisterContent() {
 
         {/* Copyright */}
         <footer className="pt-8 text-xs text-muted-foreground">
-          &copy; Tinat {new Date().getFullYear()}
+          &copy; Tinat {new Date().getFullYear()} &bull; Research Ecosystem
         </footer>
       </div>
 
-      {/* ── RIGHT COLUMN: TESTIMONIALS CAROUSEL ── */}
-      <div className="hidden lg:flex flex-1 relative bg-gradient-to-br from-indigo-950 via-slate-900 to-emerald-950 p-12 xl:p-16 flex-col justify-between text-white overflow-hidden">
+      {/* ── RIGHT COLUMN: PUBLIC STUDIES SHOWCASE & RESEARCH NETWORK ── */}
+      <div className="hidden lg:flex flex-1 relative bg-gradient-to-br from-emerald-950 via-zinc-950 to-teal-950 p-10 xl:p-14 flex-col justify-between text-white border-l border-emerald-900/30 overflow-hidden">
         {/* Subtle decorative background circles */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Top tag */}
         <div className="relative z-10 flex items-center justify-between">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-semibold tracking-wide border border-white/10 text-white/90">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-semibold text-emerald-300 backdrop-blur-md">
+            <Activity className="w-3.5 h-3.5 text-emerald-400" />
+            Tinat Research Network &bull; Public Studies
+          </div>
+          <span className="text-[11px] font-medium text-emerald-400/80">
             Verified Health Research
-          </div>
+          </span>
         </div>
 
-        {/* Center Quote & Testimonial Card */}
-        <div className="relative z-10 max-w-lg mx-auto w-full my-auto space-y-8 animate-in fade-in duration-300">
-          {/* Star Rating */}
-          <div className="flex items-center justify-center gap-1 text-amber-400">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 fill-amber-400" />
-            ))}
+        {/* Center Study Card Showcase */}
+        <div className="relative z-10 my-auto py-6 max-w-lg mx-auto w-full space-y-6 animate-in fade-in duration-300">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-400/15 text-emerald-300 border border-emerald-400/20">
+                {currentStudy.category}
+              </span>
+              <span className="text-[11px] font-medium text-emerald-400 flex items-center gap-1">
+                <Clock className="w-3 h-3" /> ~{currentStudy.durationMinutes} mins
+              </span>
+            </div>
+
+            <h3 className="text-xl xl:text-2xl font-bold text-white tracking-tight leading-snug">
+              {currentStudy.title}
+            </h3>
+
+            <p className="text-xs text-white/70 flex items-center gap-1.5 font-medium">
+              <Building2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              {currentStudy.institution}
+            </p>
           </div>
 
-          {/* Testimonial Quote */}
-          <blockquote className="text-xl xl:text-2xl font-medium text-center leading-relaxed text-white/95">
-            &ldquo;{testimonials[activeSlide].quote}&rdquo;
-          </blockquote>
-
-          {/* Author info */}
-          <div className="flex flex-col items-center justify-center space-y-3 pt-2">
-            <div className={`w-14 h-14 rounded-full ${testimonials[activeSlide].avatarColor} text-white font-bold text-lg flex items-center justify-center shadow-lg ring-4 ring-white/10`}>
-              {testimonials[activeSlide].initials}
+          {/* Featured Study Box */}
+          <div className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md p-5 space-y-4 shadow-xl">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div>
+                <span className="text-[11px] uppercase tracking-wider text-white/60 font-semibold block">
+                  Participant Reward
+                </span>
+                <span className="text-lg font-bold text-emerald-400 flex items-center gap-1.5">
+                  <Coins className="w-4 h-4 text-emerald-400" />
+                  {currentStudy.rewardCredits} TC
+                  <span className="text-xs font-normal text-white/60">(Tinat Credits)</span>
+                </span>
+              </div>
+              <div className="text-right">
+                <span className="text-[11px] uppercase tracking-wider text-white/60 font-semibold block">
+                  Enrolled
+                </span>
+                <span className="text-sm font-semibold text-white">
+                  {currentStudy.participantsCount} / {currentStudy.targetCount}
+                </span>
+              </div>
             </div>
-            <div className="text-center">
-              <p className="font-bold text-base text-white">{testimonials[activeSlide].author}</p>
-              <p className="text-xs text-white/70 font-medium">{testimonials[activeSlide].role}</p>
+
+            {/* Progress Bar */}
+            <div className="space-y-1.5">
+              <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-[11px] text-white/60">
+                <span>Target Progress</span>
+                <span className="font-semibold text-emerald-400">
+                  {progressPercent}% Complete
+                </span>
+              </div>
+            </div>
+
+            {/* Criteria */}
+            <div className="rounded-xl bg-white/[0.03] p-3 border border-white/5 space-y-1">
+              <span className="text-[10px] font-semibold text-emerald-300 uppercase tracking-wide block">
+                Target Criteria
+              </span>
+              <p className="text-xs text-white/90 leading-relaxed">
+                {currentStudy.eligibility}
+              </p>
+            </div>
+
+            {/* Key Highlights */}
+            <div className="grid grid-cols-1 gap-2 pt-1">
+              {currentStudy.highlights.map((h, i) => (
+                <div key={i} className="flex items-center gap-2 text-xs text-white/80">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>{h}</span>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
 
-        {/* Carousel Dots & Controls */}
-        <div className="relative z-10 flex items-center justify-center gap-4">
-          <button
-            type="button"
-            onClick={() =>
-              setActiveSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-            }
-            className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white transition-colors"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
+          {/* Study Switcher Controls */}
+          <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center gap-1.5">
+              {FEATURED_PUBLIC_STUDIES.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveStudyIndex(idx)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    activeStudyIndex === idx ? "w-7 bg-emerald-400" : "w-2 bg-white/30 hover:bg-white/50"
+                  }`}
+                  aria-label={`Show study ${idx + 1}`}
+                />
+              ))}
+            </div>
 
-          <div className="flex items-center gap-1.5">
-            {testimonials.map((_, idx) => (
+            <div className="flex items-center gap-2">
               <button
-                key={idx}
                 type="button"
-                onClick={() => setActiveSlide(idx)}
-                className={`h-1.5 rounded-full transition-all ${
-                  activeSlide === idx ? "w-6 bg-white" : "w-1.5 bg-white/40"
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
+                onClick={() =>
+                  setActiveStudyIndex(
+                    (prev) => (prev - 1 + FEATURED_PUBLIC_STUDIES.length) % FEATURED_PUBLIC_STUDIES.length
+                  )
+                }
+                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition-colors"
+                aria-label="Previous study"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="text-xs text-white/60 font-medium">
+                {activeStudyIndex + 1} of {FEATURED_PUBLIC_STUDIES.length}
+              </span>
+              <button
+                type="button"
+                onClick={() =>
+                  setActiveStudyIndex((prev) => (prev + 1) % FEATURED_PUBLIC_STUDIES.length)
+                }
+                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition-colors"
+                aria-label="Next study"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
+        </div>
 
-          <button
-            type="button"
-            onClick={() => setActiveSlide((prev) => (prev + 1) % testimonials.length)}
-            className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white transition-colors"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
+        {/* Bottom Trust & Compliance Bar */}
+        <div className="relative z-10 border-t border-white/10 pt-4 grid grid-cols-3 gap-3 text-center">
+          <div>
+            <div className="text-base font-bold text-white tracking-tight">15,400+</div>
+            <div className="text-[10px] text-white/60 font-medium uppercase tracking-wider">Responses Logged</div>
+          </div>
+          <div className="border-x border-white/10">
+            <div className="text-base font-bold text-emerald-400 tracking-tight">100%</div>
+            <div className="text-[10px] text-white/60 font-medium uppercase tracking-wider">Ethics Compliant</div>
+          </div>
+          <div>
+            <div className="text-base font-bold text-teal-300 tracking-tight">0%</div>
+            <div className="text-[10px] text-white/60 font-medium uppercase tracking-wider">Third-Party Data Sale</div>
+          </div>
         </div>
       </div>
     </div>

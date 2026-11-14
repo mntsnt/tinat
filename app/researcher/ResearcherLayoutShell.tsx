@@ -25,7 +25,7 @@ export function ResearcherLayoutShell({
 }: ResearcherLayoutShellProps) {
   const pathname = usePathname();
 
-  // When routed to a study detail page (/researcher/studies/[id]), replace the vertical dashboard sidebar with the study's dedicated horizontal navigation tabs
+  // When routed to a study detail page (/researcher/studies/[id]), replace the main dashboard sidebar with the study's dedicated StudyDetailSidebar
   const isStudyDetailPage =
     pathname.startsWith("/researcher/studies/") &&
     pathname !== "/researcher/studies" &&
@@ -33,7 +33,7 @@ export function ResearcherLayoutShell({
 
   if (isStudyDetailPage) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
+      <div className="fixed inset-0 overflow-hidden bg-background">
         {children}
       </div>
     );

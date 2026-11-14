@@ -205,7 +205,7 @@ export default function LoginPage({
             )}
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" isLoading={loading}>
+            <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20" isLoading={loading}>
               Sign In
             </Button>
 

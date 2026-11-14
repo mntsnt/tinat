@@ -17,6 +17,7 @@ import { Star, Paperclip, ShieldAlert, ArrowLeft } from "lucide-react";
 import { TinatLogo } from "../../../components/ui/TinatLogo";
 import { ThemeToggle } from "../../../components/ThemeToggle";
 import { DashboardNotificationBell } from "../../../components/layout/DashboardNotificationBell";
+import { StudyDetailSidebar } from "./StudyDetailSidebar";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -80,7 +81,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
 
   const researcher = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { faydaVerified: true },
+    select: { name: true, email: true, avatarUrl: true, faydaVerified: true },
   });
 
   const totalResponses = activeStudy.responses.length;
@@ -112,28 +113,30 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      {/* ── Top Study Navigation Bar (Replaces left sidebar on study detail) ── */}
-      <header className="sticky top-0 z-40 w-full border-b border-border bg-card/95 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3 min-w-0">
-            <Link href="/researcher/studies" className="flex items-center gap-2 shrink-0 hover:opacity-90 transition-opacity">
-              <TinatLogo size={22} showText variant="color" />
-            </Link>
-            <div className="h-4 w-px bg-border hidden sm:block" />
-            <Link
-              href="/researcher/studies"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors shrink-0"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Studies</span>
-            </Link>
-            <div className="h-4 w-px bg-border hidden md:block" />
-            <div className="min-w-0 hidden md:block">
-              <span className="truncate text-xs font-semibold text-foreground/90 block max-w-sm">
-                {study.title}
-              </span>
-            </div>
+    <div className="h-full w-full flex flex-col md:flex-row overflow-hidden bg-background">
+      {/* ── Left Study Navigation Sidebar (Overview, AI analysis, Visualizations, Responses, Collectors, Discussion) ── */}
+      <StudyDetailSidebar
+        studyId={study.id}
+        studyTitle={study.title}
+        studyStatus={study.status}
+        category={study.category}
+        activeView={activeView}
+        totalResponses={totalResponses}
+        totalCollectors={study.dataCollectors?.length ?? 0}
+        totalComments={totalComments}
+        userName={researcher?.name || "Researcher"}
+        userEmail={researcher?.email || undefined}
+        avatarUrl={researcher?.avatarUrl || undefined}
+      />
+
+      {/* ── Right Content Area: Minimal Top Bar + Scrollable Study View ── */}
+      <div className="flex-1 flex flex-col min-h-0 min-w-0 overflow-hidden">
+        {/* Top Header Bar */}
+        <header className="sticky top-0 z-20 shrink-0 h-14 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="truncate text-xs sm:text-sm font-semibold text-foreground/90 block max-w-sm sm:max-w-md">
+              {study.title}
+            </span>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
@@ -150,50 +153,11 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
             <ThemeToggle />
             <DashboardNotificationBell />
           </div>
-        </div>
+        </header>
 
-        {/* ── Horizontal Navigation Tabs (Replacing Sidebar) ── */}
-        <div className="border-t border-border/60 bg-card">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <nav aria-label="Study sections" className="flex gap-4 sm:gap-8 overflow-x-auto scrollbar-none -mb-px">
-              {studyViews.map((view) => {
-                const isActive = activeView === view.id;
-                let badgeCount: number | null = null;
-                if (view.id === "responses") badgeCount = totalResponses;
-                if (view.id === "collectors") badgeCount = (study.dataCollectors?.length ?? 0) > 0 ? study.dataCollectors.length : null;
-                if (view.id === "discussion") badgeCount = totalComments > 0 ? totalComments : null;
-
-                return (
-                  <Link
-                    key={view.id}
-                    href={`/researcher/studies/${study.id}?view=${view.id}`}
-                    aria-current={isActive ? "page" : undefined}
-                    className={`shrink-0 py-3 text-sm font-medium transition-all border-b-2 flex items-center gap-2 ${
-                      isActive
-                        ? "border-foreground text-foreground font-semibold"
-                        : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
-                    }`}
-                  >
-                    <span>{view.label}</span>
-                    {badgeCount !== null && (
-                      <span className={`text-[11px] px-1.5 py-0.2 rounded-full font-semibold ${
-                        isActive
-                          ? "bg-foreground text-background"
-                          : "bg-muted text-muted-foreground"
-                      }`}>
-                        {badgeCount}
-                      </span>
-                    )}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-        </div>
-      </header>
-
-      {/* ── Main Full-Width Study Body Container ── */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 pb-16">
+        {/* ── Scrollable Main Study Content ── */}
+        <main className="flex-1 min-h-0 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 px-4 sm:px-6 lg:px-8 py-6 pb-20">
+          <div className="max-w-6xl mx-auto space-y-6">
         {/* Study Info Header on Overview */}
         {activeView === "overview" && (
           <div className="mb-6 space-y-2">
@@ -852,7 +816,9 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
           </section>
         </div>
       )}
-      </main>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
