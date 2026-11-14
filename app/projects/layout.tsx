@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
 import { ProjectsLayoutShell } from "./ProjectsLayoutShell";
+import { checkIsUserCollector } from "@/lib/collector/status";
 
 export default async function ProjectsLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -21,16 +22,8 @@ export default async function ProjectsLayout({ children }: { children: ReactNode
     redirect("/login");
   }
 
-  const verification = await prisma.verification.findUnique({
-    where: {
-      userId_verificationType: {
-        userId: user.id,
-        verificationType: "DATA_COLLECTOR"
-      }
-    }
-  });
-
-  const links = getLinksForUser({ ...user, isCollector: verification?.status === "VERIFIED" });
+  const isCollector = user.role === "PARTICIPANT" ? await checkIsUserCollector(user.id) : false;
+  const links = getLinksForUser({ ...user, isCollector });
 
   let roleTitle = "Participant";
   let roleColor: "participant" | "researcher" | "admin" = "participant";

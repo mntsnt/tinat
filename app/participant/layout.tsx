@@ -6,6 +6,7 @@ import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
 import { checkPlatformConsent } from "@/lib/legal/consentService";
+import { checkIsUserCollector } from "@/lib/collector/status";
 
 export default async function ParticipantLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -32,21 +33,7 @@ export default async function ParticipantLayout({ children }: { children: ReactN
     redirect(`/verify-email?email=${encodeURIComponent(user.email)}`);
   }
 
-  const verification = await prisma.verification.findUnique({
-    where: {
-      userId_verificationType: {
-        userId: user.id,
-        verificationType: "DATA_COLLECTOR"
-      }
-    }
-  });
-
-  const [assignedCount, pendingInvites] = await Promise.all([
-    prisma.studyDataCollector.count({ where: { userId: user.id } }),
-    prisma.collectorInvitation.count({ where: { inviteeId: user.id, status: "PENDING" } })
-  ]);
-
-  const isCollector = verification?.status === "VERIFIED" || assignedCount > 0 || pendingInvites > 0;
+  const isCollector = await checkIsUserCollector(user.id);
   const links = getLinksForUser({ ...user, isCollector });
 
   return (

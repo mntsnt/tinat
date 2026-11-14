@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Sidebar } from "../components/layout/Sidebar";
 import { getLinksForUser } from "../components/layout/navLinks";
+import { checkIsUserCollector } from "@/lib/collector/status";
 
 export default async function FormsLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -22,7 +23,8 @@ export default async function FormsLayout({ children }: { children: ReactNode })
     redirect("/login");
   }
 
-  const links = getLinksForUser(user);
+  const isCollector = user.role === "PARTICIPANT" ? await checkIsUserCollector(user.id) : false;
+  const links = getLinksForUser({ ...user, isCollector });
 
   let roleTitle = "Participant";
   let roleColor: "participant" | "researcher" | "admin" = "participant";

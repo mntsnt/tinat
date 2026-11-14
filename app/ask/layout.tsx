@@ -3,6 +3,7 @@ import { getSession } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
 import { AskLayoutShell } from "./AskLayoutShell";
+import { checkIsUserCollector } from "@/lib/collector/status";
 
 export default async function AskLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -26,7 +27,8 @@ export default async function AskLayout({ children }: { children: ReactNode }) {
     }
   }
 
-  const links = getLinksForUser(user);
+  const isCollector = (user && user.role === "PARTICIPANT") ? await checkIsUserCollector(user.id) : false;
+  const links = getLinksForUser(user ? { ...user, isCollector } : null);
 
   return (
     <AskLayoutShell

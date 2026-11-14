@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { TinatLogo } from "../components/ui/TinatLogo";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { DashboardNotificationBell } from "../components/layout/DashboardNotificationBell";
+import LogoutButton from "../components/LogoutButton";
 
 export default async function ProfileLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -37,9 +38,10 @@ export default async function ProfileLayout({ children }: { children: ReactNode 
             </Link>
           )}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
           {session && <DashboardNotificationBell />}
+          {session && <LogoutButton />}
         </div>
       </header>
       <main className="flex-1">{children}</main>
