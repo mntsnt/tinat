@@ -90,6 +90,8 @@ export function Sidebar({
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
   
   const roleColors = {
     participant: {
@@ -117,11 +119,40 @@ export function Sidebar({
         : "/participant/settings";
 
   useEffect(() => {
-    if (!mobileOpen) return;
+    if (!mobileOpen) {
+      returnFocusRef.current?.focus({ preventScroll: true });
+      returnFocusRef.current = null;
+      return;
+    }
 
+    returnFocusRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     closeButtonRef.current?.focus();
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeMobileMenu();
+      if (event.key === "Escape") {
+        closeMobileMenu();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const focusableElements = drawerRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusableElements || focusableElements.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusableElements[0];
+      const last = focusableElements[focusableElements.length - 1];
+      const focusIsOutside = !drawerRef.current?.contains(document.activeElement);
+      if (event.shiftKey && (document.activeElement === first || focusIsOutside)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || focusIsOutside)) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -129,7 +160,6 @@ export function Sidebar({
 
   function closeMobileMenu() {
     setMobileOpen(false);
-    menuButtonRef.current?.focus();
   }
 
   async function handleLogout() {
@@ -168,7 +198,9 @@ export function Sidebar({
             key={link.href}
             href={link.href}
             title={collapsed ? link.title : undefined}
-            onClick={() => setMobileOpen(false)}
+            onClick={() => {
+              if (mobile) closeMobileMenu();
+            }}
             className={cn(
               "group flex min-h-9 items-center rounded-md px-2.5 py-2 text-[13px] font-medium transition-colors border-l-2",
               collapsed ? "justify-center gap-0" : "gap-2.5",
@@ -219,7 +251,10 @@ export function Sidebar({
           <Link
             href={`/profile/${userId}`}
             role="menuitem"
-            onClick={() => setAccountMenuOpen(false)}
+            onClick={() => {
+              setAccountMenuOpen(false);
+              if (mobile) closeMobileMenu();
+            }}
             className="flex min-h-9 items-center gap-2.5 rounded-md px-3 py-2 text-[13px] text-foreground transition-colors hover:bg-muted"
           >
             <UserRound className="h-4 w-4 text-muted-foreground" />
@@ -228,7 +263,10 @@ export function Sidebar({
           <Link
             href={settingsHref}
             role="menuitem"
-            onClick={() => setAccountMenuOpen(false)}
+            onClick={() => {
+              setAccountMenuOpen(false);
+              if (mobile) closeMobileMenu();
+            }}
             className="flex min-h-9 items-center gap-2.5 rounded-md px-3 py-2 text-[13px] text-foreground transition-colors hover:bg-muted"
           >
             <Settings className="h-4 w-4 text-muted-foreground" />
@@ -379,6 +417,7 @@ export function Sidebar({
           {/* Drawer */}
           <div
             id="dashboard-mobile-navigation"
+            ref={drawerRef}
             role="dialog"
             aria-modal="true"
             aria-label={`${roleTitle} navigation`}

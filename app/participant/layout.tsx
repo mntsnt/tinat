@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { DashboardTopNav } from "../components/layout/DashboardTopNav";
 import { ReactNode } from "react";
 import { getSession } from "../../lib/auth";
@@ -7,6 +8,11 @@ import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
 import { checkPlatformConsent } from "@/lib/legal/consentService";
 import { checkIsUserCollector } from "@/lib/collector/status";
+
+export const metadata: Metadata = {
+  title: "Participant Dashboard | Tinat",
+  description: "Discover health research studies and manage your participant account.",
+};
 
 export default async function ParticipantLayout({ children }: { children: ReactNode }) {
   const session = await getSession();

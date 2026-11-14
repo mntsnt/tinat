@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "./components/ui/Button";
+import { Button, ButtonLink } from "./components/ui/Button";
 import {
   ArrowRight,
   Stethoscope,
@@ -86,17 +86,13 @@ export default async function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Link href="/researcher/studies/new">
-                  <Button size="lg" className="w-full sm:w-auto group rounded-xl px-6 h-12 text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20">
-                    Create Health Study
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </Link>
-                <Link href="/participant/studies">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto rounded-xl px-6 h-12 text-sm font-semibold border-border hover:bg-muted">
-                    Discover Studies
-                  </Button>
-                </Link>
+                <ButtonLink href="/researcher/studies/new" size="lg" className="w-full sm:w-auto group rounded-xl px-6 h-12 text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20">
+                  Create Health Study
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </ButtonLink>
+                <ButtonLink href="/participant/studies" variant="outline" size="lg" className="w-full sm:w-auto rounded-xl px-6 h-12 text-sm font-semibold border-border hover:bg-muted">
+                  Discover Studies
+                </ButtonLink>
               </div>
 
               <div className="flex flex-wrap gap-x-6 gap-y-2.5 pt-2">
@@ -178,19 +174,15 @@ export default async function Home() {
                       </div>
                     </div>
 
-                    <Link href={`/participant/studies/${featuredStudy.id}`} className="block pt-1">
-                      <Button variant="outline" size="sm" className="w-full text-xs gap-1.5 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 dark:hover:bg-emerald-950/30">
-                        View & Participate in this Study <ArrowRight className="w-3.5 h-3.5" />
-                      </Button>
-                    </Link>
+                    <ButtonLink href={`/participant/studies/${featuredStudy.id}`} variant="outline" size="sm" className="mt-1 w-full text-xs gap-1.5 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 dark:hover:bg-emerald-950/30">
+                      View & Participate in this Study <ArrowRight className="w-3.5 h-3.5" />
+                    </ButtonLink>
                   </div>
                 ) : (
                   <div className="py-8 text-center space-y-3">
                     <p className="text-sm font-semibold text-foreground">No active studies currently</p>
                     <p className="text-xs text-muted-foreground">Be the first to publish a health study or survey.</p>
-                    <Link href="/researcher/studies/new">
-                      <Button size="sm" className="bg-emerald-600 text-white">Create Study</Button>
-                    </Link>
+                    <ButtonLink href="/researcher/studies/new" size="sm" className="bg-emerald-600 text-white">Create Study</ButtonLink>
                   </div>
                 )}
               </div>
@@ -305,11 +297,9 @@ export default async function Home() {
                   </li>
                 </ul>
               </div>
-              <Link href="/researcher/studies/new">
-                <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
-                  Launch Funded Study
-                </Button>
-              </Link>
+              <ButtonLink href="/researcher/studies/new" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
+                Launch Funded Study
+              </ButtonLink>
             </div>
 
             {/* Pathway 2: Free Data Collection */}
@@ -342,11 +332,9 @@ export default async function Home() {
                   </li>
                 </ul>
               </div>
-              <Link href="/researcher/studies/new">
-                <Button variant="outline" className="w-full border-primary/40 text-foreground hover:bg-primary/10">
-                  Publish Free Health Form
-                </Button>
-              </Link>
+              <ButtonLink href="/researcher/studies/new" variant="outline" className="w-full border-primary/40 text-foreground hover:bg-primary/10">
+                Publish Free Health Form
+              </ButtonLink>
             </div>
           </div>
         </div>
@@ -397,11 +385,9 @@ export default async function Home() {
           </div>
 
           <div className="text-center pt-4">
-            <Link href="/participant/studies">
-              <Button variant="outline" className="rounded-xl px-6">
-                Explore All 14 Health Categories &rarr;
-              </Button>
-            </Link>
+            <ButtonLink href="/participant/studies" variant="outline" className="rounded-xl px-6">
+              Explore All 14 Health Categories &rarr;
+            </ButtonLink>
           </div>
         </div>
       </section>

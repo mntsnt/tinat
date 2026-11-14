@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { DashboardTopNav } from "../components/layout/DashboardTopNav";
 import { ReactNode } from "react";
 import { getSession } from "@/lib/auth";
@@ -6,6 +7,11 @@ import { prisma } from "@/lib/prisma";
 import { Sidebar } from "../components/layout/Sidebar";
 import { getLinksForUser } from "../components/layout/navLinks";
 import { checkIsUserCollector } from "@/lib/collector/status";
+
+export const metadata: Metadata = {
+  title: "Forms | Tinat",
+  description: "Create and manage Tinat research forms.",
+};
 
 export default async function FormsLayout({ children }: { children: ReactNode }) {
   const session = await getSession();

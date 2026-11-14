@@ -3,7 +3,7 @@ import { getSession } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
 import Link from "next/link";
 import StudyQuestionnaire from "./StudyQuestionnaire";
-import { Button } from "../../../components/ui/Button";
+import { ButtonLink } from "../../../components/ui/Button";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -93,9 +93,9 @@ export default async function StudyPage(props: Props) {
               ? "This study is currently paused or has already been completed." 
               : "This study has reached its participant limit or budget capacity and is no longer accepting responses."}
           </p>
-          <Link href="/participant/studies">
-            <Button className="w-full">Back to Discover</Button>
-          </Link>
+          <ButtonLink href="/participant/studies" className="w-full">
+            Back to Discover
+          </ButtonLink>
         </div>
       </div>
     );

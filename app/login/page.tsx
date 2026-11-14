@@ -9,6 +9,7 @@ import { Button } from "../components/ui/Button";
 import { GoogleAuthButton } from "../components/GoogleAuthButton";
 import { TinatLogo } from "../components/ui/TinatLogo";
 import { ThemeToggle } from "../components/ThemeToggle";
+import { getSafeInternalRedirectPath } from "@/lib/safeRedirect";
 
 const GOOGLE_AUTH_ERRORS: Record<string, string> = {
   authorization_denied: "Google sign-in was cancelled. You can try again or use your email and password.",
@@ -19,6 +20,7 @@ const GOOGLE_AUTH_ERRORS: Record<string, string> = {
   profile_fetch_failed: "We could not retrieve your Google profile. Please try again.",
   token_exchange_failed: "Google could not complete sign-in. Please try again.",
   unverified_email: "Google requires a verified email address to sign in.",
+  SessionExpired: "Your session expired. Please sign in again.",
 };
 
 type LoginResponse = {
@@ -37,10 +39,19 @@ type LoginResponse = {
 export default function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; redirect?: string | string[] }>;
 }) {
   const router = useRouter();
-  const { error: googleErrorCode } = use(searchParams);
+  const { error: googleErrorCode, redirect: redirectParam } = use(searchParams);
+  const redirectTarget = getSafeInternalRedirectPath(redirectParam);
+  const registrationHref = redirectTarget
+    ? `/register?redirect=${encodeURIComponent(redirectTarget)}`
+    : "/register";
+  const verificationHref = (emailAddress: string) => {
+    const params = new URLSearchParams({ email: emailAddress });
+    if (redirectTarget) params.set("redirect", redirectTarget);
+    return `/verify-email?${params.toString()}`;
+  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -95,7 +106,7 @@ export default function LoginPage({
         destination = "/researcher";
       }
 
-      router.push(destination);
+      router.replace(redirectTarget || destination);
     } catch (error) {
       console.error("Login error:", error);
       setError("Unable to connect to the server.");
@@ -180,7 +191,7 @@ export default function LoginPage({
                     type="button"
                     size="sm"
                     className="flex-1 bg-amber-600 hover:bg-amber-700 text-white"
-                    onClick={() => router.push(`/verify-email?email=${encodeURIComponent(unverifiedEmail)}`)}
+                    onClick={() => router.push(verificationHref(unverifiedEmail))}
                   >
                     Enter Code
                   </Button>
@@ -228,14 +239,24 @@ export default function LoginPage({
               <span className="text-xs text-muted-foreground">or continue with</span>
               <div className="h-px flex-1 bg-border" />
             </div>
-            <GoogleAuthButton label="Continue with Google" />
+            <GoogleAuthButton label="Continue with Google" redirect={redirectTarget || undefined} />
 
             <div className="text-center text-sm text-muted-foreground mt-4">
               Don&apos;t have an account?{" "}
-              <Link href="/register" className="font-medium text-primary hover:underline transition-colors">
+              <Link href={registrationHref} className="font-medium text-primary hover:underline transition-colors">
                 Create one
               </Link>
             </div>
+            <p className="text-center text-xs text-muted-foreground">
+              Need help with your password?{" "}
+              <a
+                href="mailto:contact.tinatapp@gmail.com?subject=Password%20reset%20assistance"
+                className="font-medium text-primary hover:underline"
+              >
+                Contact support
+              </a>
+              . Self-service password reset is not available yet.
+            </p>
           </CardFooter>
         </form>
       </Card>

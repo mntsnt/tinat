@@ -97,6 +97,18 @@ export function PlatformAgreementPanel({
         </div>
       )}
 
+      <div
+        role="note"
+        className="flex items-start gap-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3.5 text-xs leading-relaxed text-amber-900 dark:text-amber-200"
+      >
+        <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+        <span>
+          <strong>Draft under legal review.</strong> The Terms of Use and Privacy Notice below are
+          marked “DRAFT FOR LAWYER REVIEW” and are not represented as final, counsel-approved
+          documents.
+        </span>
+      </div>
+
       {/* Table of Contents & Quick Jump */}
       <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-muted/60 border border-border text-xs">
         <div className="flex items-center gap-1.5 font-semibold text-foreground">

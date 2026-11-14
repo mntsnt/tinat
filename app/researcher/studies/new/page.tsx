@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/Card";
 import { Input } from "../../../components/ui/Input";
-import { Button, getButtonClasses } from "../../../components/ui/Button";
+import { Button, ButtonLink, getButtonClasses } from "../../../components/ui/Button";
 import {
   HEALTH_CATEGORIES,
   MEDICAL_DISCLAIMER,
@@ -250,11 +250,9 @@ export default function CreateStudyPage() {
               Researchers must verify their identity using their Ethiopian Fayda National ID before publishing research studies. You may design your questionnaire now, but publishing requires a verified Fayda credential.
             </div>
           </div>
-          <Link href="/researcher/settings#verification" className="shrink-0">
-            <Button variant="outline" size="sm" className="border-amber-500/40 text-xs">
-              Verify Fayda
-            </Button>
-          </Link>
+          <ButtonLink href="/researcher/settings#verification" variant="outline" size="sm" className="shrink-0 border-amber-500/40 text-xs">
+            Verify Fayda
+          </ButtonLink>
         </div>
       )}
 

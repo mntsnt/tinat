@@ -1,12 +1,15 @@
 interface GoogleAuthButtonProps {
   role?: "PARTICIPANT" | "RESEARCHER";
   label: string;
+  redirect?: string;
 }
 
-export function GoogleAuthButton({ role, label }: GoogleAuthButtonProps) {
-  const href = role
-    ? `/api/auth/google?role=${role}`
-    : "/api/auth/google";
+export function GoogleAuthButton({ role, label, redirect }: GoogleAuthButtonProps) {
+  const params = new URLSearchParams();
+  if (role) params.set("role", role);
+  if (redirect) params.set("redirect", redirect);
+  const query = params.toString();
+  const href = query ? `/api/auth/google?${query}` : "/api/auth/google";
 
   return (
     <a

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../..
 import { Badge } from "../../components/ui/Badge";
 import { RatingForm } from "./RatingForm";
 import Link from "next/link";
-import { Button } from "../../components/ui/Button";
+import { ButtonLink } from "../../components/ui/Button";
 
 export default async function HistoryPage() {
   const session = await getSession();
@@ -49,9 +49,7 @@ export default async function HistoryPage() {
           <CardContent>
             <h3 className="mb-2 text-xl font-semibold text-foreground">No history yet</h3>
             <p className="text-muted-foreground mb-4 max-w-sm mx-auto">You haven't participated in any studies yet. Discover new studies to start earning Tinat Credits.</p>
-            <Link href="/participant/studies">
-              <Button>Browse Studies</Button>
-            </Link>
+            <ButtonLink href="/participant/studies">Browse Studies</ButtonLink>
           </CardContent>
         </Card>
       ) : (

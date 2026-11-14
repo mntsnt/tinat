@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../../lib/utils";
 import { Loader2 } from "lucide-react";
@@ -51,6 +52,28 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 Button.displayName = "Button";
+
+type ButtonLinkProps = Omit<
+  React.ComponentProps<typeof Link>,
+  "className" | "href"
+> &
+  Pick<ButtonProps, "variant" | "size" | "className"> & {
+    href: React.ComponentProps<typeof Link>["href"];
+  };
+
+export function ButtonLink({
+  className,
+  variant,
+  size,
+  ...props
+}: ButtonLinkProps) {
+  return (
+    <Link
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  );
+}
 
 export function getButtonClasses(variant: ButtonProps["variant"] = "primary", size: ButtonProps["size"] = "md", className = "") {
   return cn(buttonVariants({ variant, size, className }));

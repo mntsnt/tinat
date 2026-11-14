@@ -13,7 +13,7 @@ import {
   RotateCcw,
   AlertCircle,
 } from "lucide-react";
-import { Button } from "../../components/ui/Button";
+import { Button, ButtonLink } from "../../components/ui/Button";
 
 type QuestionOption = {
   id: string;
@@ -175,11 +175,9 @@ export default function PublicFormFillingPage({
           </div>
           <h2 className="text-xl font-bold">Unable to Open Form</h2>
           <p className="text-sm text-muted-foreground">{error}</p>
-          <Link href="/">
-            <Button variant="outline" className="mt-2 text-xs">
-              Go to Tinat Home
-            </Button>
-          </Link>
+          <ButtonLink href="/" variant="outline" className="mt-2 text-xs">
+            Go to Tinat Home
+          </ButtonLink>
         </div>
       </div>
     );
@@ -279,17 +277,13 @@ export default function PublicFormFillingPage({
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-2">
-              <Link href="/register" className="flex-1">
-                <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs flex items-center justify-center gap-1.5">
-                  <span>Create Free Account</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Button>
-              </Link>
-              <Link href="/login" className="sm:w-auto">
-                <Button variant="outline" className="w-full text-xs">
-                  Sign In
-                </Button>
-              </Link>
+              <ButtonLink href="/register" className="flex-1 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs gap-1.5">
+                <span>Create Free Account</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </ButtonLink>
+              <ButtonLink href="/login" variant="outline" className="w-full text-xs sm:w-auto">
+                Sign In
+              </ButtonLink>
             </div>
           </div>
 

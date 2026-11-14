@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import {
   ClipboardList,
   Clock,
@@ -13,7 +12,7 @@ import {
   MapPin,
   Check,
 } from "lucide-react";
-import { Button } from "../ui/Button";
+import { Button, ButtonLink } from "../ui/Button";
 
 interface BecomeCollectorButtonProps {
   studyId: string;
@@ -91,19 +90,18 @@ export function BecomeCollectorButton({
 
   if (assigned) {
     return (
-      <Link href="/collector/dashboard" className="w-full block">
-        <Button
-          variant="outline"
-          size="sm"
-          className={
-            className ||
-            "w-full text-xs border-emerald-600/40 text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20 hover:bg-emerald-100/50 gap-1.5 h-8"
-          }
-        >
-          <CheckCircle2 className="w-3.5 h-3.5" />
-          Active Collector
-        </Button>
-      </Link>
+      <ButtonLink
+        href="/collector/dashboard"
+        variant="outline"
+        size="sm"
+        className={
+          className ||
+          "w-full text-xs border-emerald-600/40 text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20 hover:bg-emerald-100/50 gap-1.5 h-8"
+        }
+      >
+        <CheckCircle2 className="w-3.5 h-3.5" />
+        Active Collector
+      </ButtonLink>
     );
   }
 

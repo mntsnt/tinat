@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-// In-memory lightweight rate limiting (never persisted to DB to preserve strict anonymity)
+// In-memory lightweight rate limiting; the key is not persisted or attached to the question.
 const rateLimitMap = new Map<string, { count: number; expiresAt: number }>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
 const MAX_REQUESTS_PER_WINDOW = 10;
@@ -37,7 +37,7 @@ if (typeof setInterval !== "undefined") {
 
 export async function POST(req: NextRequest) {
   try {
-    // Quick IP hash for transient in-memory rate-limiting only (never stored in DB)
+    // The IP address is used only as a transient in-memory rate-limit key.
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       req.headers.get("x-real-ip") ||

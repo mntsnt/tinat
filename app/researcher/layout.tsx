@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
@@ -5,6 +6,11 @@ import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
 import { checkPlatformConsent } from "@/lib/legal/consentService";
 import { ResearcherLayoutShell } from "./ResearcherLayoutShell";
+
+export const metadata: Metadata = {
+  title: "Researcher Workspace | Tinat",
+  description: "Design and manage health research studies on Tinat.",
+};
 
 export default async function ResearcherLayout({ children }: { children: ReactNode }) {
   const session = await getSession();

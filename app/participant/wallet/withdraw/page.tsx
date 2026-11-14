@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/Card";
-import { Button, getButtonClasses } from "../../../components/ui/Button";
+import { ButtonLink, getButtonClasses } from "../../../components/ui/Button";
 import Link from "next/link";
 import { CREDITS_DISCLAIMER, formatCredits } from "@/lib/config/features";
 import { AlertCircle, ArrowLeft, Coins, ShieldAlert } from "lucide-react";
@@ -70,11 +70,9 @@ export default async function WithdrawPage() {
           </div>
 
           <div className="pt-2">
-            <Link href="/participant/wallet">
-              <Button className="w-full">
-                Return to My Wallet
-              </Button>
-            </Link>
+            <ButtonLink href="/participant/wallet" className="w-full">
+              Return to My Wallet
+            </ButtonLink>
           </div>
         </CardContent>
       </Card>

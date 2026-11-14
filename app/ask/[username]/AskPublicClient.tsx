@@ -131,12 +131,13 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
           <div className="bg-card border border-border/80 rounded-2xl shadow-xl p-5 sm:p-5 space-y-5 transition-all">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="sr-only">Your Question</label>
+                <label htmlFor="ask-question" className="sr-only">Your Question</label>
                 <textarea
+                  id="ask-question"
                   rows={4}
                   value={questionText}
                   onChange={(e) => setQuestionText(e.target.value)}
-                  placeholder={`Send a confidential question to ${profile.displayName}...\nYour identity is completely private.`}
+                  placeholder={`Send a question to ${profile.displayName}...\nYour name and account profile aren't attached to the question.`}
                   className="w-full rounded-xl border border-input bg-background/50 p-4 text-sm sm:text-base placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none transition-all"
                   maxLength={maxChars}
                   disabled={isSubmitting}
@@ -144,7 +145,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                 <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Lock className="w-3 h-3 text-emerald-500" />
-                    Confidential & Coded
+                    No sender profile attached
                   </span>
                   <span
                     className={
@@ -206,7 +207,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
             <div className="pt-2 border-t border-border/40 text-center">
               <p className="text-[11px] text-muted-foreground/80 flex items-center justify-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                Zero sender data is logged. No accounts, cookies, IP addresses, or fingerprints.
+                Your name and account profile are not saved with this question. IP addresses are processed temporarily in memory for rate limiting, not stored with the question.
               </p>
             </div>
           </div>
@@ -222,7 +223,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                 Question Sent Confidentially
               </h2>
               <p className="text-sm text-muted-foreground">
-                Your question was delivered to {profile.displayName}. They will never know who sent it.
+                Your question was delivered to {profile.displayName}.                 The question is delivered without your name or account profile attached.
               </p>
             </div>
 

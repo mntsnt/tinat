@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Link from "next/link";
-import { Button } from "./components/ui/Button";
+import { Button, ButtonLink } from "./components/ui/Button";
 import { AlertCircle, RotateCcw, Home } from "lucide-react";
 
 export default function GlobalError({
@@ -42,12 +41,10 @@ export default function GlobalError({
           <RotateCcw className="w-4 h-4" />
           Try Again
         </Button>
-        <Link href="/">
-          <Button variant="outline" className="w-full sm:w-auto gap-2">
-            <Home className="w-4 h-4" />
-            Return Home
-          </Button>
-        </Link>
+        <ButtonLink href="/" variant="outline" className="w-full sm:w-auto gap-2">
+          <Home className="w-4 h-4" />
+          Return Home
+        </ButtonLink>
       </div>
     </div>
   );

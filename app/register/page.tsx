@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { TinatLogo } from "../components/ui/TinatLogo";
 import { GoogleAuthButton } from "../components/GoogleAuthButton";
+import { getSafeInternalRedirectPath } from "@/lib/safeRedirect";
 
 interface PublicStudyShowcase {
   id: string;
@@ -78,6 +79,7 @@ function RegisterContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialRoleParam = searchParams.get("role")?.toUpperCase();
+  const redirectTarget = getSafeInternalRedirectPath(searchParams.get("redirect"));
 
   const [selectedRole, setSelectedRole] = useState<"CHOOSE" | "PARTICIPANT" | "RESEARCHER">(
     initialRoleParam === "RESEARCHER"
@@ -157,7 +159,11 @@ function RegisterContent() {
       }
 
       // Automatically forward to email verification
-      router.push(`/verify-email?email=${encodeURIComponent(email.trim().toLowerCase())}`);
+      const verificationParams = new URLSearchParams({
+        email: email.trim().toLowerCase(),
+      });
+      if (redirectTarget) verificationParams.set("redirect", redirectTarget);
+      router.push(`/verify-email?${verificationParams.toString()}`);
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred. Please try again.");
       setSubmitting(false);
@@ -284,7 +290,10 @@ function RegisterContent() {
           <div className="text-center pt-2">
             <p className="text-sm text-muted-foreground">
               Already have an account?{" "}
-              <Link href="/login" className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+              <Link
+                href={redirectTarget ? `/login?redirect=${encodeURIComponent(redirectTarget)}` : "/login"}
+                className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+              >
                 Log in
               </Link>
             </p>
@@ -349,8 +358,9 @@ function RegisterContent() {
             {/* First & Last Name side by side */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-foreground/90">First name *</label>
+                <label htmlFor="first-name" className="text-xs font-semibold text-foreground/90">First name *</label>
                 <input
+                  id="first-name"
                   type="text"
                   required
                   value={firstName}
@@ -362,8 +372,9 @@ function RegisterContent() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-foreground/90">Last name *</label>
+                <label htmlFor="last-name" className="text-xs font-semibold text-foreground/90">Last name *</label>
                 <input
+                  id="last-name"
                   type="text"
                   required
                   value={lastName}
@@ -377,8 +388,9 @@ function RegisterContent() {
 
             {/* Email */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground/90">Email *</label>
+              <label htmlFor="registration-email" className="text-xs font-semibold text-foreground/90">Email *</label>
               <input
+                id="registration-email"
                 type="email"
                 required
                 value={email}
@@ -391,9 +403,10 @@ function RegisterContent() {
 
             {/* Password */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground/90">Password *</label>
+              <label htmlFor="registration-password" className="text-xs font-semibold text-foreground/90">Password *</label>
               <div className="relative">
                 <input
+                  id="registration-password"
                   type={showPassword ? "text" : "password"}
                   required
                   minLength={8}
@@ -468,6 +481,7 @@ function RegisterContent() {
             <div className="pt-2">
               <GoogleAuthButton
                 role={selectedRole}
+                redirect={redirectTarget || undefined}
                 label={`Continue with Google as ${isParticipant ? "Participant" : "Researcher"}`}
               />
             </div>
@@ -477,7 +491,10 @@ function RegisterContent() {
           <div className="mt-6 pt-5 border-t border-border/60 space-y-2 text-xs text-muted-foreground">
             <div>
               Already have an account?{" "}
-              <Link href="/login" className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+              <Link
+                href={redirectTarget ? `/login?redirect=${encodeURIComponent(redirectTarget)}` : "/login"}
+                className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+              >
                 Log in
               </Link>
             </div>

@@ -6,17 +6,30 @@ import { createSession } from "@/lib/auth";
 import { getBaseUrl, getGoogleRedirectUri } from "@/lib/getRedirectUri";
 import { prisma } from "@/lib/prisma";
 import { checkPlatformConsent } from "@/lib/legal/consentService";
+import { getSafeInternalRedirectPath } from "@/lib/safeRedirect";
 
 const OAUTH_NONCE_COOKIE = "tinat_google_oauth_nonce";
+const OAUTH_REDIRECT_COOKIE = "tinat_google_oauth_redirect";
 const OAUTH_COOKIE_PATH = "/api/auth/callback/google";
 
 function redirectToLogin(request: NextRequest, error: string) {
   const baseUrl = getBaseUrl(request);
-  const response = NextResponse.redirect(
-    new URL(`/login?error=${encodeURIComponent(error)}`, baseUrl)
+  const loginUrl = new URL("/login", baseUrl);
+  loginUrl.searchParams.set("error", error);
+  const redirectTarget = getSafeInternalRedirectPath(
+    request.cookies.get(OAUTH_REDIRECT_COOKIE)?.value
   );
+  if (redirectTarget) loginUrl.searchParams.set("redirect", redirectTarget);
+  const response = NextResponse.redirect(loginUrl);
 
   response.cookies.set(OAUTH_NONCE_COOKIE, "", {
+    httpOnly: true,
+    secure: baseUrl.startsWith("https://"),
+    sameSite: "lax",
+    maxAge: 0,
+    path: OAUTH_COOKIE_PATH,
+  });
+  response.cookies.set(OAUTH_REDIRECT_COOKIE, "", {
     httpOnly: true,
     secure: baseUrl.startsWith("https://"),
     sameSite: "lax",
@@ -29,9 +42,17 @@ function redirectToLogin(request: NextRequest, error: string) {
 
 function redirectToDestination(request: NextRequest, destination: string) {
   const baseUrl = getBaseUrl(request);
-  const response = NextResponse.redirect(new URL(destination, baseUrl));
+  const safeDestination = getSafeInternalRedirectPath(destination) || "/participant";
+  const response = NextResponse.redirect(new URL(safeDestination, baseUrl));
 
   response.cookies.set(OAUTH_NONCE_COOKIE, "", {
+    httpOnly: true,
+    secure: baseUrl.startsWith("https://"),
+    sameSite: "lax",
+    maxAge: 0,
+    path: OAUTH_COOKIE_PATH,
+  });
+  response.cookies.set(OAUTH_REDIRECT_COOKIE, "", {
     httpOnly: true,
     secure: baseUrl.startsWith("https://"),
     sameSite: "lax",
@@ -207,12 +228,19 @@ export async function GET(request: NextRequest) {
         break;
     }
 
+    const requestedDestination = getSafeInternalRedirectPath(
+      request.cookies.get(OAUTH_REDIRECT_COOKIE)?.value
+    );
+    const destination = requestedDestination || defaultTarget;
     const consentCheck = await checkPlatformConsent(user.id);
     if (!consentCheck.hasValidConsent) {
-      return redirectToDestination(request, `/agreement?redirect=${encodeURIComponent(defaultTarget)}`);
+      return redirectToDestination(
+        request,
+        `/agreement?redirect=${encodeURIComponent(destination)}`
+      );
     }
 
-    return redirectToDestination(request, defaultTarget);
+    return redirectToDestination(request, destination);
   } catch (error) {
     console.error("Google Callback Error:", error);
     return redirectToLogin(request, "internal_error");

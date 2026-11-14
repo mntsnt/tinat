@@ -18,7 +18,7 @@ import {
   Search,
   HelpCircle,
 } from "lucide-react";
-import { Button } from "../../../components/ui/Button";
+import { Button, ButtonLink } from "../../../components/ui/Button";
 import { Badge } from "../../../components/ui/Badge";
 import { Card, CardContent } from "../../../components/ui/Card";
 
@@ -135,9 +135,7 @@ export default function FormResponsesPage({
         <p className="text-muted-foreground text-sm mt-1 mb-6">
           This form could not be found or you do not have permission to view it.
         </p>
-        <Link href="/forms">
-          <Button variant="outline">Back to Forms</Button>
-        </Link>
+        <ButtonLink href="/forms" variant="outline">Back to Forms</ButtonLink>
       </div>
     );
   }

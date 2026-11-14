@@ -7,7 +7,7 @@ import { ConfirmProvider } from "./components/ui/ConfirmDialog";
 import { ClientShell } from "./components/layout/ClientShell";
 
 export const metadata: Metadata = {
-  title: "Tinat | Research Ecosystem",
+  title: "Tinat | Health Research Ecosystem",
   description: "Participate in research. Contribute knowledge. Earn Tinat Credits.",
   icons: {
     icon: [

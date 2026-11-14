@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Button } from "./components/ui/Button";
+import { ButtonLink } from "./components/ui/Button";
 import { Home, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
@@ -22,18 +21,14 @@ export default function NotFound() {
       </p>
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <Link href="/">
-          <Button className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white gap-2">
-            <Home className="w-4 h-4" />
-            Back to Home
-          </Button>
-        </Link>
-        <Link href="/dashboard">
-          <Button variant="outline" className="w-full sm:w-auto gap-2">
-            <ArrowLeft className="w-4 h-4" />
-            Go to Dashboard
-          </Button>
-        </Link>
+        <ButtonLink href="/" className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white gap-2">
+          <Home className="w-4 h-4" />
+          Back to Home
+        </ButtonLink>
+        <ButtonLink href="/dashboard" variant="outline" className="w-full sm:w-auto gap-2">
+          <ArrowLeft className="w-4 h-4" />
+          Go to Dashboard
+        </ButtonLink>
       </div>
     </div>
   );

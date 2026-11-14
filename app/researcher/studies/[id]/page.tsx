@@ -6,7 +6,7 @@ import FundStudyButton from "../../../components/FundStudyButton";
 import PublishUnfundedButton from "../../../components/PublishUnfundedButton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../../../components/ui/Card";
 import { Badge } from "../../../components/ui/Badge";
-import { Button, getButtonClasses } from "../../../components/ui/Button";
+import { Button, ButtonLink, getButtonClasses } from "../../../components/ui/Button";
 import { AIAnalysisTab } from "./AIAnalysisTab";
 import { StudyCollectorsTab } from "./StudyCollectorsTab";
 import { DataVisualizationStudio } from "./DataVisualizationStudio";
@@ -251,11 +251,9 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                     <p className="text-muted-foreground mb-3">
                       Researchers are required to verify their identity with their Ethiopian Fayda National ID before publishing this research study.
                     </p>
-                    <Link href="/researcher/settings#verification">
-                      <Button variant="outline" size="sm" className="gap-1 border-amber-500/30 text-xs">
-                        Verify with Fayda in Settings
-                      </Button>
-                    </Link>
+                    <ButtonLink href="/researcher/settings#verification" variant="outline" size="sm" className="gap-1 border-amber-500/30 text-xs">
+                      Verify with Fayda in Settings
+                    </ButtonLink>
                   </div>
                 ) : study.studyType === "FREE_DATA_COLLECTION" || study.budgetCredits <= 0 ? (
                   <div>

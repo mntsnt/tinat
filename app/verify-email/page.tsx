@@ -8,12 +8,17 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { AuthStepper } from "../components/auth/AuthStepper";
 import { TinatLogo } from "../components/ui/TinatLogo";
+import { getSafeInternalRedirectPath } from "@/lib/safeRedirect";
 
 function VerifyEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const emailParam = searchParams.get("email") || "";
+  const redirectTarget = getSafeInternalRedirectPath(searchParams.get("redirect"));
+  const loginHref = redirectTarget
+    ? `/login?redirect=${encodeURIComponent(redirectTarget)}`
+    : "/login";
   const tokenParam = searchParams.get("token") || "";
   const statusParam = searchParams.get("status") || "";
   const deliveryWarningParam = searchParams.get("deliveryWarning") === "1";
@@ -72,17 +77,17 @@ function VerifyEmailContent() {
     }
   }, [cooldown]);
 
-  // Auto redirect to dashboard upon successful verification
+  // Verification does not create an authenticated session, so continue to sign-in.
   useEffect(() => {
     if (success) {
       if (redirectCountdown > 0) {
         const timer = setTimeout(() => setRedirectCountdown((c) => c - 1), 1000);
         return () => clearTimeout(timer);
       } else {
-        router.push("/dashboard");
+        router.replace(loginHref);
       }
     }
-  }, [success, redirectCountdown, router]);
+  }, [success, redirectCountdown, router, loginHref]);
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
@@ -179,21 +184,21 @@ function VerifyEmailContent() {
               <CardDescription className="text-muted-foreground">
                 Your email address has been successfully verified. Your account is now fully active.
                 <span className="block mt-2 font-medium text-emerald-600 dark:text-emerald-400">
-                  Redirecting to your dashboard in {redirectCountdown}s...
+                  Redirecting to sign in in {redirectCountdown}s...
                 </span>
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex flex-col space-y-3 pt-4">
               <Button
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.replace(loginHref)}
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               >
-                Access Platform Now &rarr;
+                Continue to Sign In &rarr;
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => router.push("/login")}
+                onClick={() => router.replace(loginHref)}
                 className="w-full text-xs text-muted-foreground"
               >
                 Sign In With Password
@@ -231,12 +236,16 @@ function VerifyEmailContent() {
                 />
 
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-foreground">
+                  <label htmlFor="verification-code" className="mb-1.5 block text-sm font-medium text-foreground">
                     6-Digit Verification Code
                   </label>
                   <input
+                    id="verification-code"
                     type="text"
                     maxLength={6}
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    pattern="[0-9]{6}"
                     placeholder="123456"
                     value={code}
                     onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
@@ -282,7 +291,7 @@ function VerifyEmailContent() {
                 </div>
 
                 <div className="text-center text-sm text-muted-foreground pt-2">
-                  <Link href="/login" className="hover:text-foreground transition-colors">
+                  <Link href={loginHref} className="hover:text-foreground transition-colors">
                     Back to Sign In
                   </Link>
                 </div>

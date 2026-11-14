@@ -1,7 +1,7 @@
 # System Inventory & Architecture Index
 
 **Auto-generated via:** `scripts/generate-inventory.ts`<br />
-**Generated At:** 2026-11-14T11:15:16.066Z<br />
+**Generated At:** 2026-11-14T12:22:13.168Z<br />
 **Platform:** Tinat Health Research Ecosystem (Ethiopia)<br />
 **Regulatory Standard:** Ethiopian Personal Data Protection Proclamation No. 1321/2024
 
@@ -282,7 +282,7 @@
 | `/api/projects/invite/[token]` | `GET` `POST` | `SESSION_CHECKED` | `app/api/projects/invite/[token]/route.ts` |
 | `/api/reports` | `POST` | `SESSION_CHECKED` | `app/api/reports/route.ts` |
 | `/api/studies` | `GET` `POST` | `[RESEARCHER, ADMIN]` | `app/api/studies/route.ts` |
-| `/api/studies/[id]` | `GET` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/route.ts` |
+| `/api/studies/[id]` | `GET` `PATCH` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/route.ts` |
 | `/api/studies/[id]/applications` | `GET` | `SESSION_CHECKED` | `app/api/studies/[id]/applications/route.ts` |
 | `/api/studies/[id]/applications/[applicationId]` | `PATCH` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/applications/[applicationId]/route.ts` |
 | `/api/studies/[id]/apply-collector` | `POST` | `SESSION_CHECKED` | `app/api/studies/[id]/apply-collector/route.ts` |

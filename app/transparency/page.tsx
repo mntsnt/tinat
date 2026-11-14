@@ -1,4 +1,4 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { CREDITS_DISCLAIMER } from "@/lib/config/features";
 import {
@@ -12,9 +12,13 @@ import {
   Building,
   Flag,
 } from "lucide-react";
-import { Button } from "../components/ui/Button";
+import { ButtonLink } from "../components/ui/Button";
 
 export const revalidate = 60; // Revalidate every minute
+export const metadata: Metadata = {
+  title: "Transparency Report | Tinat",
+  description: "Review current public metrics for Tinat research, governance, and moderation.",
+};
 
 export default async function PublicTransparencyPage() {
   const totalStudies = await prisma.study.count();
@@ -51,11 +55,9 @@ export default async function PublicTransparencyPage() {
   return (
     <div className="container mx-auto px-4 py-12 md:py-16 max-w-5xl space-y-12">
       <div>
-        <Link href="/">
-          <Button variant="ghost" size="sm" className="gap-2 text-xs mb-6 -ml-3">
-            <ArrowLeft className="w-4 h-4" /> Back to Home
-          </Button>
-        </Link>
+        <ButtonLink href="/" variant="ghost" size="sm" className="gap-2 text-xs mb-6 -ml-3">
+          <ArrowLeft className="w-4 h-4" /> Back to Home
+        </ButtonLink>
 
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-3">
           <Scale className="w-3.5 h-3.5" />
@@ -182,8 +184,15 @@ export default async function PublicTransparencyPage() {
           <div className="p-3 rounded-xl border border-border bg-muted/20">
             <span className="text-muted-foreground block">Resolution Compliance:</span>
             <span className="text-lg font-bold text-foreground">
-              {totalReports > 0 ? Math.round((resolvedReports / totalReports) * 100) : 100}%
+            {totalReports > 0
+              ? `${Math.round((resolvedReports / totalReports) * 100)}%`
+              : "N/A"}
             </span>
+            {totalReports === 0 && (
+              <span className="block text-muted-foreground">
+                No reports have been submitted yet.
+              </span>
+            )}
           </div>
         </div>
       </div>

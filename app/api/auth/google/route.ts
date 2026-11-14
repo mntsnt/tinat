@@ -1,16 +1,25 @@
 import { NextResponse } from "next/server";
 import { createHmac, randomBytes } from "node:crypto";
 import { getGoogleRedirectUri } from "@/lib/getRedirectUri";
+import { getSafeInternalRedirectPath } from "@/lib/safeRedirect";
 
 export async function GET(request: Request) {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const authSecret = process.env.AUTH_SECRET;
   const url = new URL(request.url);
   const baseUrl = url.origin;
+  const requestedDestination = getSafeInternalRedirectPath(
+    url.searchParams.get("redirect")
+  );
 
   if (!clientId || !authSecret) {
     console.error("Google sign-in requires GOOGLE_CLIENT_ID and AUTH_SECRET.");
-    return NextResponse.redirect(new URL("/login?error=configuration_error", baseUrl));
+    const loginUrl = new URL("/login", baseUrl);
+    loginUrl.searchParams.set("error", "configuration_error");
+    if (requestedDestination) {
+      loginUrl.searchParams.set("redirect", requestedDestination);
+    }
+    return NextResponse.redirect(loginUrl);
   }
 
   const redirectUri = getGoogleRedirectUri(request);
@@ -38,6 +47,15 @@ export async function GET(request: Request) {
     maxAge: 60 * 10,
     path: "/api/auth/callback/google",
   });
+  if (requestedDestination) {
+    response.cookies.set("tinat_google_oauth_redirect", requestedDestination, {
+      httpOnly: true,
+      secure: redirectUri.startsWith("https://"),
+      sameSite: "lax",
+      maxAge: 60 * 10,
+      path: "/api/auth/callback/google",
+    });
+  }
 
   return response;
 }

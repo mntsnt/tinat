@@ -11,7 +11,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../components/ui/Card";
-import { Button } from "../../../components/ui/Button";
+import { Button, ButtonLink } from "../../../components/ui/Button";
 
 interface ComprehensionQuestion {
   id: string;
@@ -235,11 +235,9 @@ export function StudyConsentGate({
         </CardContent>
 
         <CardFooter className="flex items-center justify-between pt-4 border-t border-border">
-          <Link href="/participant/studies">
-            <Button variant="ghost" size="sm" className="text-xs gap-1.5 text-muted-foreground hover:text-foreground">
-              <ArrowLeft className="w-3.5 h-3.5" /> Decline &amp; Exit
-            </Button>
-          </Link>
+          <ButtonLink href="/participant/studies" variant="ghost" size="sm" className="text-xs gap-1.5 text-muted-foreground hover:text-foreground">
+            <ArrowLeft className="w-3.5 h-3.5" /> Decline &amp; Exit
+          </ButtonLink>
 
           <Button
             size="sm"

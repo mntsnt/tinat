@@ -340,6 +340,9 @@ export default function StudyQuestionnaire({
   const activeTitle = translatedStudy?.title || study.title;
   const activeDescription = translatedStudy?.description || study.description;
   const activeSafetyProtocol = translatedStudy?.safetyProtocolText || study.safetyProtocolText;
+  const hasRequiredFileUpload = study.questions.some(
+    (question) => question.required && question.type === "FILE_UPLOAD"
+  );
 
   function renderQuestion(question: Question) {
     const value = answers[question.id];
@@ -524,6 +527,99 @@ export default function StudyQuestionnaire({
             })}
           </div>
         );
+      case "DROPDOWN":
+        return (
+          <select
+            aria-label={questionText}
+            aria-required={question.required}
+            value={typeof value === "string" ? value : ""}
+            onChange={(e) => updateAnswer(question.id, e.target.value)}
+            disabled={loading || submitted}
+            className="min-h-[44px] w-full rounded-md border border-border bg-card px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <option value="">Select an option</option>
+            {question.options.map((option) => {
+              const optionLabel =
+                trans?.options && typeof trans.options === "object" && trans.options[option.id]
+                  ? trans.options[option.id]
+                  : option.text;
+              return (
+                <option key={option.id} value={option.value}>
+                  {optionLabel}
+                </option>
+              );
+            })}
+          </select>
+        );
+      case "MULTIPLE_CHOICE_GRID":
+        return (
+          <div className="space-y-4">
+            {question.rows.map((row) => {
+              const grid = value && typeof value === "object" ? value : {};
+              return (
+                <fieldset key={row.id} className="space-y-2 rounded-lg border border-border p-3">
+                  <legend className="px-1 text-sm font-semibold text-foreground">{row.text}</legend>
+                  {question.options.map((option) => {
+                    const optionLabel =
+                      trans?.options && typeof trans.options === "object" && trans.options[option.id]
+                        ? trans.options[option.id]
+                        : option.text;
+                    return (
+                      <label key={option.id} className="flex min-h-[44px] items-center gap-3 rounded-md px-2 text-sm hover:bg-muted/40">
+                        <input
+                          type="radio"
+                          name={`${question.id}-${row.id}`}
+                          checked={grid[row.value] === option.value}
+                          onChange={() =>
+                            handleGridMultipleChoice(question.id, row.value, option.value)
+                          }
+                          disabled={loading || submitted}
+                          className="h-4 w-4 text-primary"
+                        />
+                        <span>{optionLabel}</span>
+                      </label>
+                    );
+                  })}
+                </fieldset>
+              );
+            })}
+          </div>
+        );
+      case "CHECKBOX_GRID":
+        return (
+          <div className="space-y-4">
+            {question.rows.map((row) => {
+              const grid = value && typeof value === "object" ? value : {};
+              const selected: string[] = Array.isArray(grid[row.value]) ? grid[row.value] : [];
+              return (
+                <fieldset key={row.id} className="space-y-2 rounded-lg border border-border p-3">
+                  <legend className="px-1 text-sm font-semibold text-foreground">{row.text}</legend>
+                  {question.options.map((option) => {
+                    const optionLabel =
+                      trans?.options && typeof trans.options === "object" && trans.options[option.id]
+                        ? trans.options[option.id]
+                        : option.text;
+                    return (
+                      <label key={option.id} className="flex min-h-[44px] items-center gap-3 rounded-md px-2 text-sm hover:bg-muted/40">
+                        <input
+                          type="checkbox"
+                          checked={selected.includes(option.value)}
+                          onChange={() =>
+                            handleGridCheckbox(question.id, row.value, option.value)
+                          }
+                          disabled={loading || submitted}
+                          className="h-4 w-4 rounded text-primary"
+                        />
+                        <span>{optionLabel}</span>
+                      </label>
+                    );
+                  })}
+                </fieldset>
+              );
+            })}
+          </div>
+        );
+      case "LINEAR_SCALE":
       case "RATING_SCALE":
         const min = question.scaleMin ?? 1;
         const max = question.scaleMax ?? 5;
@@ -564,6 +660,15 @@ export default function StudyQuestionnaire({
             )}
           </div>
         );
+      case "FILE_UPLOAD":
+        return (
+          <div
+            role="status"
+            className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-800 dark:text-amber-200"
+          >
+            Secure file upload is not available for study responses yet. Contact the researcher before continuing.
+          </div>
+        );
       default:
         return (
           <Input
@@ -599,6 +704,15 @@ export default function StudyQuestionnaire({
               reconnected.
             </span>
           </div>
+        </div>
+      )}
+
+      {hasRequiredFileUpload && (
+        <div
+          role="alert"
+          className="mb-6 rounded-lg border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-800 dark:text-amber-200"
+        >
+          This study includes a required file-upload question, but secure file upload is not available yet. Contact the researcher before starting so your response is not blocked.
         </div>
       )}
 
@@ -819,7 +933,7 @@ export default function StudyQuestionnaire({
                   <Button
                     type="submit"
                     size="lg"
-                    disabled={loading}
+                    disabled={loading || hasRequiredFileUpload}
                     className="px-8 min-h-[48px] text-sm font-semibold"
                   >
                     {loading

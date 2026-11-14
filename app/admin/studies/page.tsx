@@ -4,7 +4,7 @@ import { getSession } from "../../../lib/auth";
 import { prisma } from "../../../lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
-import { Button } from "../../components/ui/Button";
+import { ButtonLink } from "../../components/ui/Button";
 import { Search } from "lucide-react";
 
 export default async function AdminStudiesPage() {
@@ -100,11 +100,9 @@ export default async function AdminStudiesPage() {
                           </div>
                         </td>
                         <td className="py-3 px-4 text-right">
-                          <Link href={`/admin/studies/${study.id}`}>
-                            <Button variant="outline" size="sm">
-                              View
-                            </Button>
-                          </Link>
+                          <ButtonLink href={`/admin/studies/${study.id}`} variant="outline" size="sm">
+                            View
+                          </ButtonLink>
                         </td>
                       </tr>
                     );

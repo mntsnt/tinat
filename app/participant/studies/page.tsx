@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "../../../lib/auth";
 import { prisma } from "../../../lib/prisma";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/Card";
-import { Button } from "../../components/ui/Button";
+import { Button, ButtonLink } from "../../components/ui/Button";
 import { Badge } from "../../components/ui/Badge";
 import { Search, Bookmark, BookmarkCheck, Stethoscope, Coins, ClipboardCheck, Clock, Users, AlertCircle } from "lucide-react";
 import { toggleBookmark } from "./actions";
@@ -173,16 +173,21 @@ export default async function StudyDiscoveryPage({
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <input
+              id="study-search"
               name="q"
+              type="search"
               defaultValue={query}
               placeholder="Search medical topics, objectives, or diseases..."
+              aria-label="Search studies"
               className="flex h-10 w-full rounded-md border border-input bg-background pl-9 pr-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors"
             />
           </div>
 
           <select
+            id="study-category"
             name="category"
             defaultValue={selectedCategory}
+            aria-label="Filter studies by health category"
             className="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors sm:w-64"
           >
             <option value="">All Health Categories</option>
@@ -198,9 +203,9 @@ export default async function StudyDiscoveryPage({
           <Button type="submit">Search</Button>
 
           {(query || selectedCategory || selectedType) && (
-            <Link href="/participant/studies">
-              <Button variant="outline">Clear Filters</Button>
-            </Link>
+            <ButtonLink href="/participant/studies" variant="outline">
+              Clear Filters
+            </ButtonLink>
           )}
         </form>
 
@@ -236,11 +241,9 @@ export default async function StudyDiscoveryPage({
             <p className="text-muted-foreground max-w-sm text-sm">
               We couldn&apos;t find any active health studies matching your search filters. Try clearing filters or exploring other health categories.
             </p>
-            <Link href="/participant/studies" className="mt-4">
-              <Button variant="outline" size="sm">
-                View All Studies
-              </Button>
-            </Link>
+            <ButtonLink href="/participant/studies" variant="outline" size="sm" className="mt-4">
+              View All Studies
+            </ButtonLink>
           </CardContent>
         </Card>
       ) : (
@@ -382,11 +385,9 @@ export default async function StudyDiscoveryPage({
                         )}
                       </Button>
                     </form>
-                    <Link href={`/participant/studies/${study.id}`} className="flex-1">
-                      <Button className="w-full">
-                        {isFunded ? "Participate & Earn" : "Participate"}
-                      </Button>
-                    </Link>
+                    <ButtonLink href={`/participant/studies/${study.id}`} className="flex-1 w-full">
+                      {isFunded ? "Participate & Earn" : "Participate"}
+                    </ButtonLink>
                   </div>
 
                   <div className="w-full">

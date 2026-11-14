@@ -6,7 +6,7 @@ import StudyStatusButton from "../components/StudyStatusButton";
 import {
   Card, CardContent, CardFooter, CardHeader, CardTitle,
 } from "../components/ui/Card";
-import { Button } from "../components/ui/Button";
+import { Button, ButtonLink } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
 import { BookOpen, Users, TrendingUp, Coins, ArrowRight, FilePlus } from "lucide-react";
 
@@ -82,12 +82,10 @@ export default async function ResearcherDashboard() {
             {studies.length === 0 ? "Welcome to Tinat! Create your first study to start collecting data." : "Manage your research studies and track responses."}
           </p>
         </div>
-        <Link href="/researcher/studies/new">
-          <Button className="gap-2">
-            <FilePlus className="w-4 h-4" />
-            Create New Study
-          </Button>
-        </Link>
+        <ButtonLink href="/researcher/studies/new" className="gap-2">
+          <FilePlus className="w-4 h-4" />
+          Create New Study
+        </ButtonLink>
       </div>
 
       {/* Stat Cards */}
@@ -118,11 +116,9 @@ export default async function ResearcherDashboard() {
       <div>
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-lg font-bold text-foreground">My Research Studies</h2>
-          <Link href="/researcher/studies">
-            <Button variant="ghost" size="sm" className="gap-1 text-xs">
-              View all <ArrowRight className="w-3.5 h-3.5" />
-            </Button>
-          </Link>
+          <ButtonLink href="/researcher/studies" variant="ghost" size="sm" className="gap-1 text-xs">
+            View all <ArrowRight className="w-3.5 h-3.5" />
+          </ButtonLink>
         </div>
 
         {studies.length === 0 ? (
@@ -135,12 +131,10 @@ export default async function ResearcherDashboard() {
               <p className="text-sm text-muted-foreground mb-6 max-w-sm">
                 Create your first study to start gathering data from participants.
               </p>
-              <Link href="/researcher/studies/new">
-                <Button className="gap-2">
-                  <FilePlus className="w-4 h-4" />
-                  Create Your First Study
-                </Button>
-              </Link>
+              <ButtonLink href="/researcher/studies/new" className="gap-2">
+                <FilePlus className="w-4 h-4" />
+                Create Your First Study
+              </ButtonLink>
             </CardContent>
           </Card>
         ) : (
@@ -199,11 +193,9 @@ export default async function ResearcherDashboard() {
                 </CardContent>
                 <CardFooter className="flex items-center justify-between gap-2 border-t border-border pt-3 mt-auto">
                   <StudyStatusButton studyId={study.id} currentStatus={study.status} />
-                  <Link href={`/researcher/studies/${study.id}`}>
-                    <Button variant="ghost" size="sm" className="gap-1 text-xs">
-                      Details <ArrowRight className="w-3.5 h-3.5" />
-                    </Button>
-                  </Link>
+                  <ButtonLink href={`/researcher/studies/${study.id}`} variant="ghost" size="sm" className="gap-1 text-xs">
+                    Details <ArrowRight className="w-3.5 h-3.5" />
+                  </ButtonLink>
                 </CardFooter>
               </Card>
             ))}

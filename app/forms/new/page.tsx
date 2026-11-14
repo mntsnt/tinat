@@ -23,7 +23,7 @@ import {
   ExternalLink,
   Share2,
 } from "lucide-react";
-import { Button } from "../../components/ui/Button";
+import { Button, ButtonLink } from "../../components/ui/Button";
 import { Card, CardContent } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
 import { useConfirm } from "../../components/ui/ConfirmDialog";
@@ -282,12 +282,14 @@ export default function NewFormPage() {
         <div className="p-6 space-y-4">
           <input
             type="text"
+            aria-label="Form title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Form Title"
             className="w-full text-2xl sm:text-3xl font-bold bg-transparent border-b border-transparent hover:border-border focus:border-emerald-500 focus:outline-none transition-colors pb-1"
           />
           <textarea
+            aria-label="Form description or instructions"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Form description or instructions for respondents (optional)"
@@ -307,7 +309,7 @@ export default function NewFormPage() {
           return (
             <div
               key={question.id}
-              onClick={() => setActiveQuestionId(question.id)}
+              onFocus={() => setActiveQuestionId(question.id)}
               className={`rounded-xl border bg-card shadow-sm transition-all overflow-hidden relative ${
                 isActive
                   ? "border-emerald-500 ring-1 ring-emerald-500/30"
@@ -324,6 +326,7 @@ export default function NewFormPage() {
                   <div className="flex-1">
                     <input
                       type="text"
+                      aria-label={`Question ${qIndex + 1} text`}
                       value={question.text}
                       onChange={(e) =>
                         updateQuestion(question.id, { text: e.target.value })
@@ -336,6 +339,7 @@ export default function NewFormPage() {
                   {/* Type Selector */}
                   <div className="sm:w-56">
                     <select
+                      aria-label={`Question ${qIndex + 1} type`}
                       value={question.type}
                       onChange={(e) =>
                         updateQuestion(question.id, {
@@ -418,6 +422,7 @@ export default function NewFormPage() {
 
                           <input
                             type="text"
+                            aria-label={`Question ${qIndex + 1}, option ${optIndex + 1}`}
                             value={opt}
                             onChange={(e) =>
                               updateOption(question.id, optIndex, e.target.value)
@@ -428,7 +433,9 @@ export default function NewFormPage() {
 
                           {question.options.length > 1 && (
                             <button
+                              type="button"
                               onClick={() => removeOption(question.id, optIndex)}
+                              aria-label={`Remove option ${optIndex + 1} from question ${qIndex + 1}`}
                               className="text-muted-foreground hover:text-destructive p-1 rounded transition-colors"
                               title="Remove option"
                             >
@@ -439,6 +446,7 @@ export default function NewFormPage() {
                       ))}
 
                       <button
+                        type="button"
                         onClick={() => addOption(question.id)}
                         className="text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1.5 pt-1"
                       >
@@ -455,8 +463,9 @@ export default function NewFormPage() {
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                         <div>
-                          <label className="text-muted-foreground">Label for 1 (optional)</label>
+                          <label htmlFor={`scale-min-${question.id}`} className="text-muted-foreground">Label for 1 (optional)</label>
                           <input
+                            id={`scale-min-${question.id}`}
                             type="text"
                             value={question.scaleMinLabel || ""}
                             onChange={(e) =>
@@ -469,8 +478,9 @@ export default function NewFormPage() {
                           />
                         </div>
                         <div>
-                          <label className="text-muted-foreground">Label for 5 (optional)</label>
+                          <label htmlFor={`scale-max-${question.id}`} className="text-muted-foreground">Label for 5 (optional)</label>
                           <input
+                            id={`scale-max-${question.id}`}
                             type="text"
                             value={question.scaleMaxLabel || ""}
                             onChange={(e) =>
@@ -579,6 +589,7 @@ export default function NewFormPage() {
               <input
                 type="text"
                 readOnly
+                aria-label="Public form link"
                 value={`${typeof window !== "undefined" ? window.location.origin : ""}/f/${createdFormId}`}
                 className="flex-1 bg-transparent text-xs font-mono px-2 outline-none select-all"
               />
@@ -601,23 +612,20 @@ export default function NewFormPage() {
 
             {/* Modal Actions */}
             <div className="grid grid-cols-2 gap-3 pt-2">
-              <Link
+              <ButtonLink
                 href={`/f/${createdFormId}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full"
+                className="w-full text-xs"
+                variant="outline"
               >
-                <Button variant="outline" className="w-full text-xs">
-                  <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
-                  View Form
-                </Button>
-              </Link>
+                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
+                View Form
+              </ButtonLink>
 
-              <Link href="/forms" className="w-full">
-                <Button className="w-full bg-foreground text-background text-xs">
-                  Go to Dashboard
-                </Button>
-              </Link>
+              <ButtonLink href="/forms" className="w-full bg-foreground text-background text-xs">
+                Go to Dashboard
+              </ButtonLink>
             </div>
           </div>
         </div>

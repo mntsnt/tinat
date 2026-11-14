@@ -1,21 +1,24 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import { Shield, ArrowLeft } from "lucide-react";
-import { Button } from "../components/ui/Button";
+import { ButtonLink } from "../components/ui/Button";
 import { PolicyAcceptanceBanner } from "../components/governance/PolicyAcceptanceBanner";
 import {
   PLATFORM_DOCUMENT_VERSIONS,
   PRIVACY_NOTICE_SECTIONS,
 } from "@/lib/legal/platformDocuments";
 
+export const metadata: Metadata = {
+  title: "Privacy Notice | Tinat",
+  description: "Review the current Tinat Privacy Notice and data-use information.",
+};
+
 export default function PrivacyPolicyPage() {
   return (
     <div className="container mx-auto px-4 py-12 md:py-16 max-w-4xl">
       <div className="mb-8">
-        <Link href="/">
-          <Button variant="ghost" size="sm" className="gap-2 text-xs">
-            <ArrowLeft className="w-4 h-4" /> Back to Home
-          </Button>
-        </Link>
+        <ButtonLink href="/" variant="ghost" size="sm" className="gap-2 text-xs">
+          <ArrowLeft className="w-4 h-4" /> Back to Home
+        </ButtonLink>
       </div>
 
       <div className="space-y-8">

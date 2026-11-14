@@ -5,7 +5,7 @@ import { prisma } from "../../lib/prisma";
 import {
   Card, CardContent, CardFooter, CardHeader, CardTitle,
 } from "../components/ui/Card";
-import { Button } from "../components/ui/Button";
+import { Button, ButtonLink } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
 import { Wallet, CheckCircle, BookOpen, Compass, ArrowRight } from "lucide-react";
 import { StudyBanner } from "../components/studies/StudyBanner";
@@ -140,11 +140,9 @@ export default async function ParticipantDashboard() {
         <Card>
           <CardHeader className="pb-3 flex flex-row items-center justify-between">
             <CardTitle className="text-base">Recent Submissions</CardTitle>
-            <Link href="/participant/history">
-              <Button variant="ghost" size="sm" className="gap-1 text-xs">
-                View all <ArrowRight className="w-3.5 h-3.5" />
-              </Button>
-            </Link>
+            <ButtonLink href="/participant/history" variant="ghost" size="sm" className="gap-1 text-xs">
+              View all <ArrowRight className="w-3.5 h-3.5" />
+            </ButtonLink>
           </CardHeader>
           <CardContent>
             {user.participantLinks.length === 0 ? (
@@ -154,9 +152,9 @@ export default async function ParticipantDashboard() {
                 <p className="text-xs text-muted-foreground mt-1">
                   Complete a study to see your history here.
                 </p>
-                <Link href="/participant/studies" className="mt-4 inline-block">
-                  <Button size="sm">Browse Studies</Button>
-                </Link>
+                <ButtonLink href="/participant/studies" size="sm" className="mt-4">
+                  Browse Studies
+                </ButtonLink>
               </div>
             ) : (
               <div className="space-y-3">
@@ -191,11 +189,9 @@ export default async function ParticipantDashboard() {
         <Card>
           <CardHeader className="pb-3 flex flex-row items-center justify-between">
             <CardTitle className="text-base">Saved Studies</CardTitle>
-            <Link href="/participant/studies">
-              <Button variant="ghost" size="sm" className="gap-1 text-xs">
-                Browse more <ArrowRight className="w-3.5 h-3.5" />
-              </Button>
-            </Link>
+            <ButtonLink href="/participant/studies" variant="ghost" size="sm" className="gap-1 text-xs">
+              Browse more <ArrowRight className="w-3.5 h-3.5" />
+            </ButtonLink>
           </CardHeader>
           <CardContent>
             {user.bookmarks.length === 0 ? (
@@ -205,9 +201,9 @@ export default async function ParticipantDashboard() {
                 <p className="text-xs text-muted-foreground mt-1">
                   Bookmark studies you want to come back to.
                 </p>
-                <Link href="/participant/studies" className="mt-4 inline-block">
-                  <Button size="sm">Discover Studies</Button>
-                </Link>
+                <ButtonLink href="/participant/studies" size="sm" className="mt-4">
+                  Discover Studies
+                </ButtonLink>
               </div>
             ) : (
               <div className="space-y-3">
@@ -224,9 +220,9 @@ export default async function ParticipantDashboard() {
                         {bookmark.study.rewardCredits > 0 ? `${bookmark.study.rewardCredits} TC reward` : "Open Data Collection"}
                       </p>
                     </div>
-                    <Link href={`/participant/studies/${bookmark.study.id}`} className="ml-3 flex-shrink-0">
-                      <Button variant="outline" size="sm">View</Button>
-                    </Link>
+                    <ButtonLink href={`/participant/studies/${bookmark.study.id}`} variant="outline" size="sm" className="ml-3 flex-shrink-0">
+                      View
+                    </ButtonLink>
                   </div>
                 ))}
               </div>
@@ -243,9 +239,7 @@ export default async function ParticipantDashboard() {
               <h2 className="text-lg font-bold text-foreground">New Studies Available</h2>
               <p className="text-xs text-muted-foreground mt-0.5">{availableStudies.length} studies open for you</p>
             </div>
-            <Link href="/participant/studies">
-              <Button variant="outline" size="sm">View All</Button>
-            </Link>
+            <ButtonLink href="/participant/studies" variant="outline" size="sm">View All</ButtonLink>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {availableStudies.slice(0, 3).map((study) => (
@@ -279,11 +273,9 @@ export default async function ParticipantDashboard() {
                   </p>
                 </CardContent>
                 <CardFooter className="pt-0">
-                  <Link href={`/participant/studies/${study.id}`} className="w-full">
-                    <Button variant="outline" size="sm" className="w-full">
-                      Start Study
-                    </Button>
-                  </Link>
+                  <ButtonLink href={`/participant/studies/${study.id}`} variant="outline" size="sm" className="w-full">
+                    Start Study
+                  </ButtonLink>
                 </CardFooter>
               </Card>
             ))}

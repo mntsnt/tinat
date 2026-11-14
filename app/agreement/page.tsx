@@ -10,6 +10,7 @@ import { AuthStepper } from "../components/auth/AuthStepper";
 import { getPlatformDocumentPayload } from "@/lib/legal/platformDocuments";
 import { ShieldCheck, Lock, ArrowLeft, ArrowRight } from "lucide-react";
 import { TinatLogo } from "../components/ui/TinatLogo";
+import { getSafeInternalRedirectPath } from "@/lib/safeRedirect";
 
 interface RegistrationDraft {
   name: string;
@@ -23,7 +24,8 @@ function AgreementContent() {
   const searchParams = useSearchParams();
   const flow = searchParams.get("flow");
   const isSignupFlow = flow === "signup";
-  const redirectTarget = searchParams.get("redirect") || "/dashboard";
+  const redirectTarget =
+    getSafeInternalRedirectPath(searchParams.get("redirect")) || "/dashboard";
 
   const [signupDraft, setSignupDraft] = useState<RegistrationDraft | null>(null);
 
@@ -135,6 +137,7 @@ function AgreementContent() {
 
         const queryParams = new URLSearchParams();
         queryParams.set("email", signupDraft.email);
+        if (redirectTarget) queryParams.set("redirect", redirectTarget);
         if (data.emailSent === false) {
           queryParams.set("deliveryWarning", "1");
         }
@@ -247,7 +250,10 @@ function AgreementContent() {
                     <Link href="/register" className="underline font-semibold mr-3">
                       Edit registration details
                     </Link>
-                    <Link href="/login" className="underline font-semibold">
+                    <Link
+                      href={`/login?redirect=${encodeURIComponent(redirectTarget)}`}
+                      className="underline font-semibold"
+                    >
                       Sign in instead
                     </Link>
                   </div>

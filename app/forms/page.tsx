@@ -17,7 +17,7 @@ import {
   Search,
   ArrowRight,
 } from "lucide-react";
-import { Button, buttonVariants } from "../components/ui/Button";
+import { Button, ButtonLink, buttonVariants } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
 import { cn } from "@/lib/utils";
 import {
@@ -173,12 +173,10 @@ export default function FormsDashboardPage() {
             Create simple surveys, collect responses from anyone without login, and export your data instantly.
           </p>
         </div>
-        <Link href="/forms/new">
-          <Button className="gap-2">
-            <Plus className="w-4 h-4" />
-            Create New Form
-          </Button>
-        </Link>
+        <ButtonLink href="/forms/new" className="gap-2">
+          <Plus className="w-4 h-4" />
+          Create New Form
+        </ButtonLink>
       </div>
 
       {/* Stat Cards Row (identical design to participant dashboard) */}
@@ -233,12 +231,10 @@ export default function FormsDashboardPage() {
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
               You do not need to be an academic researcher to collect survey data. Create simple questionnaires and collect responses from anyone with zero sign-in barrier.
             </p>
-            <Link href="/forms/new">
-              <Button className="gap-2">
-                <Plus className="w-4 h-4" />
-                Create Your First Form
-              </Button>
-            </Link>
+            <ButtonLink href="/forms/new" className="gap-2">
+              <Plus className="w-4 h-4" />
+              Create Your First Form
+            </ButtonLink>
           </CardContent>
         </Card>
       ) : filteredForms.length === 0 ? (
@@ -333,11 +329,18 @@ export default function FormsDashboardPage() {
                       )}
                     </Button>
 
-                    <Link href={`/f/${form.id}`} target="_blank" rel="noopener noreferrer">
-                      <Button variant="ghost" size="sm" className="px-2" title="Open form in new tab">
-                        <ExternalLink className="h-3.5 w-3.5" />
-                      </Button>
-                    </Link>
+                    <ButtonLink
+                      href={`/f/${form.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      variant="ghost"
+                      size="sm"
+                      className="px-2"
+                      title="Open form in new tab"
+                      aria-label="Open form in new tab"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </ButtonLink>
 
                     <Button
                       variant="ghost"

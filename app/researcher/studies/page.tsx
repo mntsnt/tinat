@@ -6,7 +6,7 @@ import StudyStatusButton from "../../components/StudyStatusButton";
 import { StudyDeleteButton } from "../../components/StudyDeleteButton";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
-import { Button } from "../../components/ui/Button";
+import { Button, ButtonLink } from "../../components/ui/Button";
 import { BookOpen, FilePlus, ArrowRight } from "lucide-react";
 import { StudyBanner } from "../../components/studies/StudyBanner";
 
@@ -48,12 +48,10 @@ export default async function ResearcherStudiesPage() {
           <h1 className="text-xl font-bold tracking-tight text-foreground">My Studies</h1>
           <p className="text-muted-foreground mt-1">Manage and track your research studies.</p>
         </div>
-        <Link href="/researcher/studies/new">
-          <Button className="gap-2">
-            <FilePlus className="w-4 h-4" />
-            Create New Study
-          </Button>
-        </Link>
+        <ButtonLink href="/researcher/studies/new" className="gap-2">
+          <FilePlus className="w-4 h-4" />
+          Create New Study
+        </ButtonLink>
       </div>
 
       {studies.length === 0 ? (
@@ -66,12 +64,10 @@ export default async function ResearcherStudiesPage() {
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
               Create your first study to start gathering data from participants.
             </p>
-            <Link href="/researcher/studies/new">
-              <Button className="gap-2">
-                <FilePlus className="w-4 h-4" />
-                Create Your First Study
-              </Button>
-            </Link>
+            <ButtonLink href="/researcher/studies/new" className="gap-2">
+              <FilePlus className="w-4 h-4" />
+              Create Your First Study
+            </ButtonLink>
           </CardContent>
         </Card>
       ) : (
@@ -133,11 +129,9 @@ export default async function ResearcherStudiesPage() {
                 <StudyStatusButton studyId={study.id} currentStatus={study.status} />
                 <div className="flex items-center gap-1.5">
                   <StudyDeleteButton studyId={study.id} studyTitle={study.title} />
-                  <Link href={`/researcher/studies/${study.id}`}>
-                  <Button variant="ghost" size="sm" className="gap-1 text-xs">
+                  <ButtonLink href={`/researcher/studies/${study.id}`} variant="ghost" size="sm" className="gap-1 text-xs">
                     Details <ArrowRight className="w-3.5 h-3.5" />
-                  </Button>
-                </Link>
+                  </ButtonLink>
                 </div>
               </CardFooter>
             </Card>

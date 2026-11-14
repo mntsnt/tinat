@@ -21,13 +21,14 @@ export async function proxy(request: NextRequest) {
   const sessionToken = cookieToken || bearerToken;
 
   const isApi = pathname.startsWith("/api/");
+  const returnTo = `${pathname}${request.nextUrl.search}`;
 
   if (!sessionToken) {
     if (isApi) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("redirect", pathname);
+    loginUrl.searchParams.set("redirect", returnTo);
     return NextResponse.redirect(loginUrl);
   }
 
@@ -44,6 +45,7 @@ export async function proxy(request: NextRequest) {
     }
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("error", "SessionExpired");
+    loginUrl.searchParams.set("redirect", returnTo);
     return NextResponse.redirect(loginUrl);
   }
 }
@@ -53,6 +55,12 @@ export const config = {
     "/admin/:path*",
     "/researcher/:path*",
     "/participant/:path*",
+    "/collector/:path*",
+    "/forms/:path*",
+    "/projects/:path*",
+    "/ai/:path*",
+    "/dashboard/:path*",
+    "/profile",
     "/api/auth/admin/:path*",
     "/api/admin/:path*",
   ],

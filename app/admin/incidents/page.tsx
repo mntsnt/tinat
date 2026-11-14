@@ -13,7 +13,7 @@ import {
   Bell,
   Eye,
 } from "lucide-react";
-import { Button } from "../../components/ui/Button";
+import { Button, ButtonLink } from "../../components/ui/Button";
 
 type Incident = {
   id: string;
@@ -142,11 +142,9 @@ export default function AdminIncidentsPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
         <div>
-          <Link href="/admin">
-            <Button variant="ghost" size="sm" className="gap-2 text-xs mb-2">
-              <ArrowLeft className="w-4 h-4" /> Back to Admin
-            </Button>
-          </Link>
+          <ButtonLink href="/admin" variant="ghost" size="sm" className="gap-2 text-xs mb-2">
+            <ArrowLeft className="w-4 h-4" /> Back to Admin
+          </ButtonLink>
           <div className="flex items-center gap-2 text-red-600 dark:text-red-400 text-xs font-semibold uppercase tracking-wider mb-1">
             <ShieldAlert className="w-4 h-4" />
             Security & Breach Governance

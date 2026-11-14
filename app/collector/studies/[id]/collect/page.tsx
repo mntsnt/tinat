@@ -12,16 +12,28 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/app/components/ui/Button";
+import {
+  formatCollectorAnswers,
+  hasRequiredAnswer,
+} from "@/lib/collectorAnswers";
+import { SUPPORTED_LOCALES, SupportedLocale } from "@/lib/i18n";
 
 export default function FieldCollectionPage() {
-  const params = useParams();
+  const params = useParams<{ id: string }>();
   const router = useRouter();
   const [study, setStudy] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentStep, setCurrentStep] = useState(-1); // -1 is consent, 0+ is question index
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
-  const language = "en";
+  const [language, setLanguage] = useState<SupportedLocale>("en");
+  const [availableLanguages, setAvailableLanguages] = useState<SupportedLocale[]>(["en"]);
+  const [questionTranslations, setQuestionTranslations] = useState<
+    Record<string, { text: string; options?: Record<string, string> }>
+  >({});
+  const [loadingTranslation, setLoadingTranslation] = useState(false);
+  const [languageWarning, setLanguageWarning] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -34,6 +46,9 @@ export default function FieldCollectionPage() {
       submit: "Submit Field Response",
       submitting: "Submitting...",
       required: "Required",
+      language: "Response language",
+      yes: "Yes",
+      no: "No",
     },
     am: {
       consent: "የተሳታፊ ስምምነት",
@@ -43,6 +58,9 @@ export default function FieldCollectionPage() {
       submit: "ምላሹን አስገባ",
       submitting: "በማስገባት ላይ...",
       required: "ያስፈልጋል",
+      language: "የምላሽ ቋንቋ",
+      yes: "አዎ",
+      no: "አይ",
     },
     om: {
       consent: "Eeyyama Hirmaataa",
@@ -52,6 +70,9 @@ export default function FieldCollectionPage() {
       submit: "Deebii Galchi",
       submitting: "Galchaa jira...",
       required: "Dirqama",
+      language: "Afaan deebii",
+      yes: "Eeyyee",
+      no: "Lakki",
     },
     ti: {
       consent: "ስምምነት ተሳታፊ",
@@ -61,32 +82,166 @@ export default function FieldCollectionPage() {
       submit: "ምላሽ አእቱ",
       submitting: "እየተልእከ እዩ...",
       required: "የድሊ",
+      language: "ቋንቋ መልሲ",
+      yes: "እወ",
+      no: "ኣይፋል",
     },
-  }[language] as any;
+    so: {
+      consent: "Oggolaanshaha ka qaybgalaha",
+      agree: "Waxaan xaqiijinayaa in ka qaybgaluhu oggolaaday",
+      next: "Xiga",
+      prev: "Hore",
+      submit: "Gudbi jawaabta",
+      submitting: "Waa la gudbinayaa...",
+      required: "Waa khasab",
+      language: "Luqadda jawaabta",
+      yes: "Haa",
+      no: "Maya",
+    },
+  }[language];
 
   useEffect(() => {
-    fetch(`/api/studies/${params.id}`)
-      .then((r) => r.json())
-      .then((d) => {
-        if (d.study) setStudy(d.study);
-      })
-      .catch((err) => {
-        console.error(err);
-        setErrorMessage("Failed to load study details.");
-      });
+    let cancelled = false;
+    setIsLoading(true);
+    setErrorMessage(null);
+
+    async function loadStudy() {
+      try {
+        const response = await fetch(`/api/studies/${params.id}`);
+        const data = await response.json();
+        if (!response.ok || !data.study) {
+          throw new Error(data.error || "Failed to load study details.");
+        }
+        if (cancelled) return;
+        setStudy(data.study);
+
+        try {
+          const languagesResponse = await fetch(
+            `/api/studies/${params.id}/translations?lang=en`
+          );
+          if (!languagesResponse.ok) {
+            throw new Error("Failed to load available response languages.");
+          }
+          const languageData = await languagesResponse.json();
+          const languages = SUPPORTED_LOCALES
+            .map(({ code }) => code)
+            .filter((code) =>
+              Array.isArray(languageData.availableLanguages) &&
+              languageData.availableLanguages.includes(code)
+            );
+          if (!cancelled) {
+            setAvailableLanguages(languages.length > 0 ? languages : ["en"]);
+          }
+        } catch (error) {
+          if (!cancelled) {
+            setAvailableLanguages(["en"]);
+            setLanguageWarning(
+              error instanceof Error
+                ? error.message
+                : "Could not load available response languages."
+            );
+          }
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setErrorMessage(
+            error instanceof Error ? error.message : "Failed to load study details."
+          );
+        }
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    }
+
+    void loadStudy();
+    return () => {
+      cancelled = true;
+    };
   }, [params.id]);
+
+  async function handleLanguageChange(nextLanguage: SupportedLocale) {
+    setLanguage(nextLanguage);
+    setLanguageWarning(null);
+    if (nextLanguage === "en") {
+      setQuestionTranslations({});
+      return;
+    }
+
+    setLoadingTranslation(true);
+    try {
+      const response = await fetch(
+        `/api/studies/${params.id}/translations?lang=${nextLanguage}`
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Could not load translated questions.");
+      }
+      setQuestionTranslations(data.questions || {});
+      const translations = data.questions || {};
+      const incompleteTranslations = (study?.questions || []).some((question: any) => {
+        const translation = translations[question.id];
+        return (
+          !translation?.text ||
+          question.rows?.length > 0 ||
+          question.options?.some((option: any) => !translation?.options?.[option.id])
+        );
+      });
+      if (incompleteTranslations || Object.keys(translations).length === 0) {
+        setLanguageWarning(
+          "Some study text has no translation and will appear in English."
+        );
+      }
+    } catch (error) {
+      setQuestionTranslations({});
+      setLanguageWarning(
+        error instanceof Error
+          ? error.message
+          : "Could not load translated questions; the original text is shown."
+      );
+    } finally {
+      setLoadingTranslation(false);
+    }
+  }
+
+  function renderLanguageSelect() {
+    return (
+      <label className="block text-left">
+        <span className="mb-1.5 block text-xs font-medium text-muted-foreground">
+          {t.language}
+        </span>
+        <select
+          value={language}
+          onChange={(event) => {
+            const nextLanguage = SUPPORTED_LOCALES.find(
+              ({ code }) => code === event.target.value
+            )?.code;
+            if (nextLanguage) void handleLanguageChange(nextLanguage);
+          }}
+          disabled={loadingTranslation || availableLanguages.length < 2}
+          className="h-10 w-full rounded-lg border border-border bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
+        >
+          {SUPPORTED_LOCALES.filter(({ code }) =>
+            availableLanguages.includes(code)
+          ).map(({ code, name, nativeName }) => (
+            <option key={code} value={code}>
+              {nativeName === name ? name : `${nativeName} (${name})`}
+            </option>
+          ))}
+        </select>
+        {loadingTranslation && (
+          <span role="status" className="mt-1 block text-xs text-muted-foreground">
+            Loading translated questions...
+          </span>
+        )}
+      </label>
+    );
+  }
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
     setErrorMessage(null);
     try {
-      const formattedAnswers = Object.entries(answers).map(([qId, val]) => {
-        let textValue = null;
-        let numberValue = null;
-        if (typeof val === "number") numberValue = val;
-        else textValue = typeof val === "object" ? JSON.stringify(val) : String(val);
-        return { questionId: qId, textValue, numberValue };
-      });
+      const formattedAnswers = formatCollectorAnswers(answers);
 
       const res = await fetch(`/api/studies/${params.id}/responses`, {
         method: "POST",
@@ -119,11 +274,30 @@ export default function FieldCollectionPage() {
     setErrorMessage(null);
   };
 
-  if (!study) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 text-center">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent mb-3" />
         <p className="text-sm font-medium text-muted-foreground">Loading study...</p>
+      </div>
+    );
+  }
+
+  if (!study) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 text-center">
+        <div className="max-w-sm space-y-4">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10 text-destructive">
+            <AlertCircle className="h-6 w-6" />
+          </div>
+          <h1 className="text-lg font-semibold text-foreground">Study unavailable</h1>
+          <p role="alert" className="text-sm text-muted-foreground">
+            {errorMessage || "Study details could not be loaded."}
+          </p>
+          <Button onClick={() => router.push("/collector/dashboard")}>
+            Return to Dashboard
+          </Button>
+        </div>
       </div>
     );
   }
@@ -169,6 +343,12 @@ export default function FieldCollectionPage() {
     return (
       <div className="min-h-screen bg-background flex flex-col p-5 max-w-lg mx-auto relative">
         <div className="flex-1 flex flex-col justify-center">
+          <div className="mb-6">{renderLanguageSelect()}</div>
+          {languageWarning && (
+            <p role="status" className="mb-4 text-xs text-amber-700 dark:text-amber-300">
+              {languageWarning}
+            </p>
+          )}
           <div className="w-16 h-16 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-6 mx-auto">
             <ShieldCheck className="w-8 h-8" />
           </div>
@@ -274,39 +454,235 @@ export default function FieldCollectionPage() {
 
       {/* Question Content */}
       <div className="flex-1 p-5 overflow-y-auto">
-        <h2 className="text-xl font-bold text-foreground mb-6 leading-tight">{q.text}</h2>
+        <div className="mb-4">{renderLanguageSelect()}</div>
+        {languageWarning && (
+          <p role="status" className="mb-4 text-xs text-amber-700 dark:text-amber-300">
+            {languageWarning}
+          </p>
+        )}
+        {errorMessage && (
+          <p role="alert" className="mb-4 rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+            {errorMessage}
+          </p>
+        )}
+        <h2 className="text-xl font-bold text-foreground mb-2 leading-tight">
+          {questionTranslations[q.id]?.text || q.text}
+        </h2>
+        {q.required && (
+          <p className="mb-5 text-xs font-medium text-destructive">{t.required}</p>
+        )}
 
         {/* Large Mobile Inputs based on type */}
         <div className="space-y-3">
-          {q.type === "SINGLE_CHOICE" || q.type === "YES_NO" ? (
+          {q.type === "SINGLE_CHOICE" ? (
             q.options?.map((opt: any) => (
               <button
+                type="button"
                 key={opt.id}
-                onClick={() => {
-                  setAnswers({ ...answers, [q.id]: opt.value });
-                  setTimeout(() => setCurrentStep((c) => c + 1), 300); // Auto-advance
-                }}
+                aria-pressed={answers[q.id] === opt.value}
+                onClick={() => setAnswers((previous) => ({ ...previous, [q.id]: opt.value }))}
                 className={`w-full text-left p-4 rounded-xl border-2 transition-all font-medium text-base ${
                   answers[q.id] === opt.value
                     ? "border-emerald-600 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 shadow-sm"
                     : "border-border bg-card text-foreground hover:border-emerald-500/40 active:bg-muted"
                 }`}
               >
-                {opt.text}
+                {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
               </button>
             ))
+          ) : q.type === "YES_NO" ? (
+            [
+              { label: t.yes, value: "Yes" },
+              { label: t.no, value: "No" },
+            ].map((option) => (
+              <button
+                type="button"
+                key={option.value}
+                aria-pressed={answers[q.id] === option.value}
+                onClick={() =>
+                  setAnswers((previous) => ({ ...previous, [q.id]: option.value }))
+                }
+                className={`w-full text-left p-4 rounded-xl border-2 transition-all font-medium text-base ${
+                  answers[q.id] === option.value
+                    ? "border-emerald-600 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 shadow-sm"
+                    : "border-border bg-card text-foreground hover:border-emerald-500/40 active:bg-muted"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))
+          ) : q.type === "MULTIPLE_CHOICE" ? (
+            q.options?.map((opt: any) => {
+              const selected: string[] = Array.isArray(answers[q.id]) ? answers[q.id] : [];
+              const checked = selected.includes(opt.value);
+              return (
+                <label
+                  key={opt.id}
+                  className={`flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border-2 p-4 font-medium transition-all ${
+                    checked
+                      ? "border-emerald-600 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                      : "border-border bg-card text-foreground"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() =>
+                      setAnswers((previous) => ({
+                        ...previous,
+                        [q.id]: checked
+                          ? selected.filter((value) => value !== opt.value)
+                          : [...selected, opt.value],
+                      }))
+                    }
+                    className="h-4 w-4 accent-emerald-600"
+                  />
+                  <span>{questionTranslations[q.id]?.options?.[opt.id] || opt.text}</span>
+                </label>
+              );
+            })
+          ) : q.type === "DROPDOWN" ? (
+            <select
+              aria-label={questionTranslations[q.id]?.text || q.text}
+              value={answers[q.id] || ""}
+              onChange={(event) =>
+                setAnswers((previous) => ({ ...previous, [q.id]: event.target.value }))
+              }
+              className="h-12 w-full rounded-xl border-2 border-border bg-background px-4 text-base text-foreground focus:border-emerald-600 focus:outline-none"
+            >
+              <option value="">Select an option</option>
+              {q.options?.map((opt: any) => (
+                <option key={opt.id} value={opt.value}>
+                  {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
+                </option>
+              ))}
+            </select>
           ) : q.type === "NUMBER" ? (
             <input
               type="number"
-              value={answers[q.id] || ""}
-              onChange={(e) => setAnswers({ ...answers, [q.id]: Number(e.target.value) })}
+              aria-label={questionTranslations[q.id]?.text || q.text}
+              value={answers[q.id] ?? ""}
+              onChange={(e) =>
+                setAnswers((previous) => ({
+                  ...previous,
+                  [q.id]: e.target.value === "" ? "" : Number(e.target.value),
+                }))
+              }
               className="w-full p-4 text-xl rounded-xl border-2 border-border focus:border-emerald-600 focus:ring-0 bg-background text-foreground"
               placeholder="Enter number..."
             />
+          ) : q.type === "DATE" || q.type === "TIME" ? (
+            <input
+              type={q.type.toLowerCase()}
+              aria-label={questionTranslations[q.id]?.text || q.text}
+              value={answers[q.id] || ""}
+              onChange={(e) =>
+                setAnswers((previous) => ({ ...previous, [q.id]: e.target.value }))
+              }
+              className="w-full p-4 text-base rounded-xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
+            />
+          ) : q.type === "LINEAR_SCALE" ? (
+            <div className="space-y-3">
+              <div role="radiogroup" aria-label={questionTranslations[q.id]?.text || q.text} className="flex flex-wrap gap-2">
+                {Array.from(
+                  { length: (q.scaleMax ?? 5) - (q.scaleMin ?? 1) + 1 },
+                  (_, index) => (q.scaleMin ?? 1) + index
+                ).map((value) => (
+                  <button
+                    type="button"
+                    key={value}
+                    role="radio"
+                    aria-checked={answers[q.id] === value}
+                    aria-label={`Rating ${value}`}
+                    onClick={() => setAnswers((previous) => ({ ...previous, [q.id]: value }))}
+                    className={`min-h-11 min-w-11 rounded-lg border font-semibold ${
+                      answers[q.id] === value
+                        ? "border-emerald-600 bg-emerald-600 text-white"
+                        : "border-border bg-card text-foreground hover:bg-muted"
+                    }`}
+                  >
+                    {value}
+                  </button>
+                ))}
+              </div>
+              {(q.scaleMinLabel || q.scaleMaxLabel) && (
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>{q.scaleMinLabel}</span>
+                  <span>{q.scaleMaxLabel}</span>
+                </div>
+              )}
+            </div>
+          ) : q.type === "MULTIPLE_CHOICE_GRID" || q.type === "CHECKBOX_GRID" ? (
+            <div className="space-y-4">
+              {q.rows?.map((row: any) => {
+                const grid = answers[q.id] || {};
+                const rowAnswer = grid[row.value];
+                return (
+                  <fieldset key={row.id} className="space-y-2 rounded-xl border border-border p-3">
+                    <legend className="px-1 text-sm font-semibold text-foreground">{row.text}</legend>
+                    {q.options?.map((opt: any) => {
+                      const checked =
+                        q.type === "MULTIPLE_CHOICE_GRID"
+                          ? rowAnswer === opt.value
+                          : Array.isArray(rowAnswer) && rowAnswer.includes(opt.value);
+                      return (
+                        <label key={opt.id} className="flex min-h-10 items-center gap-3 rounded-lg px-2 text-sm text-foreground hover:bg-muted/50">
+                          <input
+                            type={q.type === "MULTIPLE_CHOICE_GRID" ? "radio" : "checkbox"}
+                            name={`${q.id}-${row.id}`}
+                            checked={checked}
+                            onChange={() =>
+                              setAnswers((previous) => {
+                                const previousGrid = previous[q.id] || {};
+                                if (q.type === "MULTIPLE_CHOICE_GRID") {
+                                  return { ...previous, [q.id]: { ...previousGrid, [row.value]: opt.value } };
+                                }
+                                const currentRow: string[] = Array.isArray(previousGrid[row.value])
+                                  ? previousGrid[row.value]
+                                  : [];
+                                return {
+                                  ...previous,
+                                  [q.id]: {
+                                    ...previousGrid,
+                                    [row.value]: checked
+                                      ? currentRow.filter((value) => value !== opt.value)
+                                      : [...currentRow, opt.value],
+                                  },
+                                };
+                              })
+                            }
+                            className="h-4 w-4 accent-emerald-600"
+                          />
+                          <span>{questionTranslations[q.id]?.options?.[opt.id] || opt.text}</span>
+                        </label>
+                      );
+                    })}
+                  </fieldset>
+                );
+              })}
+            </div>
+          ) : q.type === "FILE_UPLOAD" ? (
+            <p role="alert" className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-800 dark:text-amber-200">
+              Secure file upload is not available in field collection yet. Contact the researcher before collecting this response.
+            </p>
+          ) : q.type === "SHORT_TEXT" ? (
+            <input
+              type="text"
+              aria-label={questionTranslations[q.id]?.text || q.text}
+              value={answers[q.id] || ""}
+              onChange={(e) =>
+                setAnswers((previous) => ({ ...previous, [q.id]: e.target.value }))
+              }
+              className="w-full p-4 text-base rounded-xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
+              placeholder="Type answer here..."
+            />
           ) : (
             <textarea
+              aria-label={questionTranslations[q.id]?.text || q.text}
               value={answers[q.id] || ""}
-              onChange={(e) => setAnswers({ ...answers, [q.id]: e.target.value })}
+              onChange={(e) =>
+                setAnswers((previous) => ({ ...previous, [q.id]: e.target.value }))
+              }
               className="w-full p-4 text-base rounded-xl border-2 border-border focus:border-emerald-600 focus:ring-0 bg-background text-foreground h-40 resize-none"
               placeholder="Type answer here..."
             />
@@ -318,9 +694,25 @@ export default function FieldCollectionPage() {
       <div className="p-4 bg-background border-t border-border">
         <button
           onClick={() => setCurrentStep((c) => c + 1)}
-          disabled={q.required && !answers[q.id]}
+          disabled={
+            (q.required &&
+              !hasRequiredAnswer(
+                answers[q.id],
+                q.type === "MULTIPLE_CHOICE_GRID" || q.type === "CHECKBOX_GRID"
+                  ? q.rows?.map((row: any) => row.value) || []
+                  : undefined
+              )) ||
+            (q.required && q.type === "FILE_UPLOAD")
+          }
           className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-base transition shadow-sm ${
-            q.required && !answers[q.id]
+            (q.required &&
+              !hasRequiredAnswer(
+                answers[q.id],
+                q.type === "MULTIPLE_CHOICE_GRID" || q.type === "CHECKBOX_GRID"
+                  ? q.rows?.map((row: any) => row.value) || []
+                  : undefined
+              )) ||
+            (q.required && q.type === "FILE_UPLOAD")
               ? "bg-muted text-muted-foreground cursor-not-allowed"
               : "bg-emerald-600 text-white hover:bg-emerald-700 active:scale-[0.98]"
           }`}

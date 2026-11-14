@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { DashboardTopNav } from "../components/layout/DashboardTopNav";
 import { ReactNode } from "react";
 import { getSession } from "../../lib/auth";
@@ -5,6 +6,11 @@ import { redirect } from "next/navigation";
 import { prisma } from "../../lib/prisma";
 import { Sidebar } from "../components/layout/Sidebar";
 import { getLinksForUser } from "../components/layout/navLinks";
+
+export const metadata: Metadata = {
+  title: "Field Collection | Tinat",
+  description: "Collect and submit assigned health research responses.",
+};
 
 export default async function CollectorLayout({ children }: { children: ReactNode }) {
   const session = await getSession();

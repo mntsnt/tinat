@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
@@ -5,6 +6,11 @@ import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
 import { ProjectsLayoutShell } from "./ProjectsLayoutShell";
 import { checkIsUserCollector } from "@/lib/collector/status";
+
+export const metadata: Metadata = {
+  title: "Projects | Tinat",
+  description: "Collaborate on research projects and manage project materials.",
+};
 
 export default async function ProjectsLayout({ children }: { children: ReactNode }) {
   const session = await getSession();

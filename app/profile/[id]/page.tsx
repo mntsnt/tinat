@@ -15,7 +15,7 @@ import {
 import { getSession } from "../../../lib/auth";
 import { prisma } from "../../../lib/prisma";
 import { Badge } from "../../components/ui/Badge";
-import { Button } from "../../components/ui/Button";
+import { Button, ButtonLink } from "../../components/ui/Button";
 import { Card, CardContent } from "../../components/ui/Card";
 import { StudyBanner } from "../../components/studies/StudyBanner";
 
@@ -155,11 +155,9 @@ export default async function ProfilePage({
                 </div>
               </div>
               {isOwnProfile ? (
-                <Link href={settingsHref} className="shrink-0">
-                  <Button variant="outline" size="sm" className="w-full sm:w-auto">
-                    Edit profile
-                  </Button>
-                </Link>
+                <ButtonLink href={settingsHref} variant="outline" size="sm" className="shrink-0 w-full sm:w-auto">
+                  Edit profile
+                </ButtonLink>
               ) : user.role === "RESEARCHER" && user.studies.length > 0 ? (
                 <a href="#active-studies" className="shrink-0">
                   <Button variant="outline" size="sm" className="w-full sm:w-auto border-emerald-600/30 text-emerald-700 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-950/20">
