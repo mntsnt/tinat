@@ -7,7 +7,8 @@ import { sendCollectorInvitationEmail } from "@/lib/emailService";
 import { getBaseUrl } from "@/lib/getRedirectUri";
 
 const inviteCollectorSchema = z.object({
-  collectorEmail: z.string().email("A valid collector email is required"),
+  collectorEmail: z.string().optional(),
+  identifier: z.string().optional(),
   directAssign: z.boolean().optional().default(true),
 });
 
@@ -25,6 +26,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
             select: {
               id: true,
               name: true,
+              username: true,
               email: true,
               avatarUrl: true,
               phone: true,
@@ -42,6 +44,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
             select: {
               id: true,
               name: true,
+              username: true,
               email: true,
               avatarUrl: true,
               phone: true,
@@ -55,7 +58,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       prisma.collectorInvitation.findMany({
         where: { studyId, status: "PENDING" },
         include: {
-          invitee: { select: { id: true, name: true, email: true } },
+          invitee: { select: { id: true, name: true, username: true, email: true } },
         },
         orderBy: { createdAt: "desc" },
       }),
@@ -97,14 +100,27 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
     const validation = await validateBody(inviteCollectorSchema, req);
     if (!validation.ok) return validation.response;
-    const { collectorEmail, directAssign } = validation.data;
+    const { identifier, collectorEmail, directAssign } = validation.data;
 
-    const collectorUser = await prisma.user.findUnique({
-      where: { email: collectorEmail.toLowerCase().trim() },
+    const rawInput = (identifier || collectorEmail || "").trim();
+    if (!rawInput) {
+      return jsonError("A username or email is required.", 400);
+    }
+
+    const cleanInput = rawInput.toLowerCase();
+    const cleanHandle = cleanInput.replace(/^@/, "");
+
+    const collectorUser = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { email: cleanInput },
+          { username: cleanHandle },
+        ],
+      },
     });
 
     if (!collectorUser) {
-      return jsonError("User not found with this email.", 404);
+      return jsonError(`No user found with username or email "${rawInput}".`, 404);
     }
 
     if (collectorUser.id === auth.study.researcherId) {

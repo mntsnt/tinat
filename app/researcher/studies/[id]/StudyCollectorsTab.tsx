@@ -25,6 +25,7 @@ import { Input } from "../../../components/ui/Input";
 interface CollectorUser {
   id: string;
   name: string;
+  username?: string | null;
   email: string;
   avatarUrl: string | null;
   phone: string | null;
@@ -63,7 +64,7 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   // Direct assign form state
-  const [assignEmail, setAssignEmail] = useState("");
+  const [assignIdentifier, setAssignIdentifier] = useState("");
   const [assigning, setAssigning] = useState(false);
   const [assignMessage, setAssignMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
@@ -107,7 +108,7 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
 
   const handleDirectAssign = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!assignEmail.trim()) return;
+    if (!assignIdentifier.trim()) return;
 
     try {
       setAssigning(true);
@@ -116,7 +117,7 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
       const res = await fetch(`/api/studies/${studyId}/collectors`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ collectorEmail: assignEmail.trim(), directAssign: true }),
+        body: JSON.stringify({ identifier: assignIdentifier.trim(), directAssign: true }),
       });
 
       const data = await res.json();
@@ -126,7 +127,7 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
       }
 
       setAssignMessage({ type: "success", text: data.message || "Collector assigned successfully!" });
-      setAssignEmail("");
+      setAssignIdentifier("");
       await fetchCollectorData();
     } catch (err: any) {
       setAssignMessage({ type: "error", text: err.message || "Failed to assign collector" });
@@ -217,16 +218,16 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
             <CardTitle className="text-base">Directly Assign a Field Data Collector</CardTitle>
           </div>
           <CardDescription>
-            Assign a participant by their email. They will immediately receive access to the Field Collector dashboard, along with an in-platform notification and email alert.
+            Assign a participant by their username (@handle) or email. They will immediately receive access to the Field Collector dashboard, along with an in-platform notification and email alert.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleDirectAssign} className="flex flex-col sm:flex-row gap-3">
             <Input
-              type="email"
-              value={assignEmail}
-              onChange={(e) => setAssignEmail(e.target.value)}
-              placeholder="Enter participant email (e.g. collector@university.edu.et)"
+              type="text"
+              value={assignIdentifier}
+              onChange={(e) => setAssignIdentifier(e.target.value)}
+              placeholder="Enter participant username or email (e.g. @username or collector@university.edu.et)"
               className="flex-1 text-sm"
               required
             />
@@ -302,8 +303,13 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
               {pendingApps.map((app) => (
                 <div key={app.id} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-muted/30 transition-colors">
                   <div className="space-y-1.5 min-w-0">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <span className="font-semibold text-sm text-foreground">{app.applicant.name}</span>
+                      {app.applicant.username && (
+                        <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                          @{app.applicant.username}
+                        </span>
+                      )}
                       <span className="text-xs text-muted-foreground">({app.applicant.email})</span>
                       {app.applicant.phone && (
                         <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground bg-muted px-2 py-0.5 rounded">
@@ -397,7 +403,14 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
                   {collectors.map((c) => (
                     <tr key={c.id} className="hover:bg-muted/40 transition-colors">
                       <td className="py-3.5 px-4">
-                        <div className="font-semibold text-foreground text-sm">{c.user.name}</div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-foreground text-sm">{c.user.name}</span>
+                          {c.user.username && (
+                            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                              @{c.user.username}
+                            </span>
+                          )}
+                        </div>
                         <div className="text-muted-foreground text-xs">{c.user.email}</div>
                         {c.user.phone && (
                           <div className="text-[11px] text-muted-foreground mt-0.5">{c.user.phone}</div>

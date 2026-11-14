@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
+import { validateUsername } from "@/lib/username";
 
 export async function PATCH(request: Request) {
   try {
@@ -19,6 +20,44 @@ export async function PATCH(request: Request) {
     if (typeof name !== "string" || !name.trim()) {
       return NextResponse.json({ error: "Name is required." }, { status: 400 });
     }
+
+    let cleanUsername: string | null | undefined = undefined;
+    if (profile.username !== undefined) {
+      if (typeof profile.username !== "string") {
+        return NextResponse.json({ error: "Username must be text." }, { status: 400 });
+      }
+      const rawUser = profile.username.trim();
+      if (rawUser === "") {
+        cleanUsername = null;
+      } else {
+        const val = validateUsername(rawUser);
+        if (!val.ok) {
+          return NextResponse.json({ error: val.error }, { status: 400 });
+        }
+        cleanUsername = val.username;
+
+        const existingUser = await prisma.user.findFirst({
+          where: {
+            username: cleanUsername,
+            id: { not: session.userId },
+          },
+        });
+        if (existingUser) {
+          return NextResponse.json({ error: "This username is already taken. Please choose another one." }, { status: 409 });
+        }
+
+        const existingAsk = await prisma.askProfile.findFirst({
+          where: {
+            username: cleanUsername,
+            userId: { not: session.userId },
+          },
+        });
+        if (existingAsk) {
+          return NextResponse.json({ error: "This username is already taken on Tinat Ask. Please choose another one." }, { status: 409 });
+        }
+      }
+    }
+
     const optionalFields = { phone, bio, institution, fieldOfStudy };
     if (Object.values(optionalFields).some((value) => value !== undefined && typeof value !== "string")) {
       return NextResponse.json({ error: "Profile details must be text." }, { status: 400 });
@@ -50,6 +89,7 @@ export async function PATCH(request: Request) {
       where: { id: session.userId },
       data: {
         name: name.trim(),
+        ...(cleanUsername !== undefined ? { username: cleanUsername } : {}),
         phone: typeof phone === "string" ? phone.trim() || null : null,
         bio: typeof bio === "string" ? bio.trim() || null : null,
         institution: typeof institution === "string" ? institution.trim() || null : null,
@@ -59,10 +99,26 @@ export async function PATCH(request: Request) {
       select: {
         id: true,
         name: true,
+        username: true,
         role: true,
         avatarUrl: true,
       }
     });
+
+    if (cleanUsername) {
+      await prisma.askProfile.upsert({
+        where: { userId: session.userId },
+        create: {
+          userId: session.userId,
+          username: cleanUsername,
+          displayName: name.trim(),
+          bio: typeof bio === "string" ? bio.trim().slice(0, 200) : null,
+        },
+        update: {
+          username: cleanUsername,
+        },
+      });
+    }
 
     return NextResponse.json({ message: "Settings updated successfully.", user }, { status: 200 });
   } catch (error) {

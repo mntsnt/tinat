@@ -1,26 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-
-const RESERVED_USERNAMES = new Set([
-  "api",
-  "admin",
-  "dashboard",
-  "login",
-  "register",
-  "logout",
-  "participant",
-  "researcher",
-  "ask",
-  "settings",
-  "studies",
-  "wallet",
-  "profile",
-  "support",
-  "help",
-  "terms",
-  "privacy",
-]);
+import { validateUsername } from "@/lib/username";
 
 export async function GET() {
   try {
@@ -34,6 +15,7 @@ export async function GET() {
       select: {
         id: true,
         name: true,
+        username: true,
         email: true,
         role: true,
         askProfile: true,
@@ -48,10 +30,12 @@ export async function GET() {
       user: {
         id: user.id,
         name: user.name,
+        username: user.username,
         email: user.email,
         role: user.role,
       },
       profile: user.askProfile,
+      defaultUsername: user.username || user.askProfile?.username || null,
     });
   } catch (error) {
     console.error("Error fetching ask profile:", error);
@@ -73,39 +57,26 @@ export async function POST(req: NextRequest) {
     const { displayName, bio, theme, isEnabled, allowPublicAnswers } = body;
     let { username } = body;
 
-    if (!username || typeof username !== "string") {
-      return NextResponse.json(
-        { error: "Username is required." },
-        { status: 400 }
-      );
+    const val = validateUsername(username);
+    if (!val.ok) {
+      return NextResponse.json({ error: val.error }, { status: 400 });
     }
+    username = val.username;
 
-    username = username.trim().toLowerCase();
-
-    // Username format validation: 3-30 chars, alphanumeric, underscores, hyphens
-    if (!/^[a-z0-9_-]{3,30}$/.test(username)) {
-      return NextResponse.json(
-        {
-          error:
-            "Username must be 3-30 characters long and contain only letters, numbers, hyphens, or underscores.",
+    // Check if username is taken by another user in AskProfile or User
+    const [existingAsk, existingUser] = await Promise.all([
+      prisma.askProfile.findUnique({
+        where: { username },
+      }),
+      prisma.user.findFirst({
+        where: {
+          username,
+          id: { not: session.userId },
         },
-        { status: 400 }
-      );
-    }
+      }),
+    ]);
 
-    if (RESERVED_USERNAMES.has(username)) {
-      return NextResponse.json(
-        { error: "This username is reserved. Please pick another one." },
-        { status: 400 }
-      );
-    }
-
-    // Check if username is taken by another user
-    const existing = await prisma.askProfile.findUnique({
-      where: { username },
-    });
-
-    if (existing && existing.userId !== session.userId) {
+    if ((existingAsk && existingAsk.userId !== session.userId) || existingUser) {
       return NextResponse.json(
         { error: "This username is already taken. Please pick another one." },
         { status: 409 }
@@ -116,28 +87,34 @@ export async function POST(req: NextRequest) {
     const trimmedBio = (bio || "").trim().slice(0, 200);
     const validTheme = typeof theme === "string" ? theme.trim() : "minimal";
 
-    const profile = await prisma.askProfile.upsert({
-      where: { userId: session.userId },
-      update: {
-        username,
-        displayName: trimmedDisplayName || username,
-        bio: trimmedBio,
-        theme: validTheme,
-        isEnabled: isEnabled !== undefined ? Boolean(isEnabled) : true,
-        allowPublicAnswers:
-          allowPublicAnswers !== undefined ? Boolean(allowPublicAnswers) : true,
-      },
-      create: {
-        userId: session.userId,
-        username,
-        displayName: trimmedDisplayName || username,
-        bio: trimmedBio,
-        theme: validTheme,
-        isEnabled: isEnabled !== undefined ? Boolean(isEnabled) : true,
-        allowPublicAnswers:
-          allowPublicAnswers !== undefined ? Boolean(allowPublicAnswers) : true,
-      },
-    });
+    const [profile] = await Promise.all([
+      prisma.askProfile.upsert({
+        where: { userId: session.userId },
+        update: {
+          username,
+          displayName: trimmedDisplayName || username,
+          bio: trimmedBio,
+          theme: validTheme,
+          isEnabled: isEnabled !== undefined ? Boolean(isEnabled) : true,
+          allowPublicAnswers:
+            allowPublicAnswers !== undefined ? Boolean(allowPublicAnswers) : true,
+        },
+        create: {
+          userId: session.userId,
+          username,
+          displayName: trimmedDisplayName || username,
+          bio: trimmedBio,
+          theme: validTheme,
+          isEnabled: isEnabled !== undefined ? Boolean(isEnabled) : true,
+          allowPublicAnswers:
+            allowPublicAnswers !== undefined ? Boolean(allowPublicAnswers) : true,
+        },
+      }),
+      prisma.user.update({
+        where: { id: session.userId },
+        data: { username },
+      }),
+    ]);
 
     return NextResponse.json({ success: true, profile });
   } catch (error) {

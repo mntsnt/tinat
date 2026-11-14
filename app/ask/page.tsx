@@ -30,6 +30,7 @@ export default async function AskPage() {
       select: {
         id: true,
         name: true,
+        username: true,
         email: true,
         role: true,
         askProfile: true,
@@ -37,6 +38,19 @@ export default async function AskPage() {
     });
 
     if (user) {
+      if (!user.askProfile && user.username) {
+        try {
+          user.askProfile = await prisma.askProfile.create({
+            data: {
+              userId: user.id,
+              username: user.username,
+              displayName: user.name,
+            },
+          });
+        } catch {
+          // In case username conflict occurred, fall back to normal flow
+        }
+      }
       let stats = {
         total: 0,
         unanswered: 0,
@@ -80,6 +94,7 @@ export default async function AskPage() {
           initialStats={stats}
           user={{
             name: user.name,
+            username: user.username,
             email: user.email,
             role: user.role,
           }}

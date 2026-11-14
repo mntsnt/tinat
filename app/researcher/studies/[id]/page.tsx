@@ -13,7 +13,10 @@ import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
 import { StudyShareLink } from "./StudyShareLink";
 import { StudyDeleteButton } from "../../../components/StudyDeleteButton";
-import { Star, Paperclip, ShieldAlert } from "lucide-react";
+import { Star, Paperclip, ShieldAlert, ArrowLeft } from "lucide-react";
+import { TinatLogo } from "../../../components/ui/TinatLogo";
+import { ThemeToggle } from "../../../components/ThemeToggle";
+import { DashboardNotificationBell } from "../../../components/layout/DashboardNotificationBell";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -60,7 +63,8 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
       ratings: {
         include: { user: { select: { name: true, avatarUrl: true } } },
         orderBy: { createdAt: "desc" }
-      }
+      },
+      dataCollectors: { select: { id: true } },
     },
   });
 
@@ -108,23 +112,92 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
   }
 
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden px-4 py-3 md:px-6 md:py-4">
-      {/* ── Fixed Top Header (All Views) ── */}
-      <div className="mb-3 shrink-0">
-        <div className="flex items-center justify-between gap-4 mb-1.5">
-          <Link href="/researcher" className={getButtonClasses("ghost", "sm", "-ml-2 inline-flex items-center text-xs text-muted-foreground hover:text-foreground")}>
-            &larr; Back to Dashboard
-          </Link>
-          <div className="flex items-center gap-2">
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* ── Top Study Navigation Bar (Replaces left sidebar on study detail) ── */}
+      <header className="sticky top-0 z-40 w-full border-b border-border bg-card/95 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <Link href="/researcher/studies" className="flex items-center gap-2 shrink-0 hover:opacity-90 transition-opacity">
+              <TinatLogo size={28} showText variant="color" />
+            </Link>
+            <div className="h-4 w-px bg-border hidden sm:block" />
+            <Link
+              href="/researcher/studies"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors shrink-0"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Studies</span>
+            </Link>
+            <div className="h-4 w-px bg-border hidden md:block" />
+            <div className="min-w-0 hidden md:block">
+              <span className="truncate text-xs font-semibold text-foreground/90 block max-w-sm">
+                {study.title}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <Badge variant={study.status === "ACTIVE" ? "success" : study.status === "COMPLETED" ? "secondary" : "warning"} className="text-xs">
               {study.status}
             </Badge>
+            <StudyDeleteButton
+              studyId={study.id}
+              studyTitle={study.title}
+              redirectAfterDelete="/researcher/studies"
+              variant="button"
+            />
+            <div className="h-4 w-px bg-border" />
+            <ThemeToggle />
+            <DashboardNotificationBell />
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-          <div>
-            <div className="flex items-center gap-2 flex-wrap mb-1">
+        {/* ── Horizontal Navigation Tabs (Replacing Sidebar) ── */}
+        <div className="border-t border-border/60 bg-card">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <nav aria-label="Study sections" className="flex gap-4 sm:gap-8 overflow-x-auto scrollbar-none -mb-px">
+              {studyViews.map((view) => {
+                const isActive = activeView === view.id;
+                let badgeCount: number | null = null;
+                if (view.id === "responses") badgeCount = totalResponses;
+                if (view.id === "collectors") badgeCount = (study.dataCollectors?.length ?? 0) > 0 ? study.dataCollectors.length : null;
+                if (view.id === "discussion") badgeCount = totalComments > 0 ? totalComments : null;
+
+                return (
+                  <Link
+                    key={view.id}
+                    href={`/researcher/studies/${study.id}?view=${view.id}`}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`shrink-0 py-3 text-sm font-medium transition-all border-b-2 flex items-center gap-2 ${
+                      isActive
+                        ? "border-foreground text-foreground font-semibold"
+                        : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
+                    }`}
+                  >
+                    <span>{view.label}</span>
+                    {badgeCount !== null && (
+                      <span className={`text-[11px] px-1.5 py-0.2 rounded-full font-semibold ${
+                        isActive
+                          ? "bg-foreground text-background"
+                          : "bg-muted text-muted-foreground"
+                      }`}>
+                        {badgeCount}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* ── Main Full-Width Study Body Container ── */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 pb-16">
+        {/* Study Info Header on Overview */}
+        {activeView === "overview" && (
+          <div className="mb-6 space-y-2">
+            <div className="flex items-center gap-2 flex-wrap">
               {study.category && (
                 <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
                   {study.category}
@@ -145,40 +218,13 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                 </span>
               )}
             </div>
-            <div className="flex items-center justify-between gap-4">
-              <h1 className="text-lg md:text-xl font-bold tracking-tight text-foreground truncate max-w-4xl">{study.title}</h1>
-              <StudyDeleteButton
-                studyId={study.id}
-                studyTitle={study.title}
-                redirectAfterDelete="/researcher/studies"
-                variant="button"
-              />
-            </div>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">{study.title}</h1>
           </div>
-        </div>
-      </div>
+        )}
 
-      {/* ── Fixed Navigation Tabs (All Views) ── */}
-      <nav aria-label="Study sections" className="mb-3 shrink-0 flex gap-1 overflow-x-auto border-b border-border">
-        {studyViews.map((view) => (
-          <Link
-            key={view.id}
-            href={`/researcher/studies/${study.id}?view=${view.id}`}
-            aria-current={activeView === view.id ? "page" : undefined}
-            className={`shrink-0 border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
-              activeView === view.id
-                ? "border-primary text-foreground font-semibold"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {view.label}
-          </Link>
-        ))}
-      </nav>
-
-      {/* ── View 1: Overview ── */}
-      {activeView === "overview" && (
-        <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8 space-y-6">
+        {/* ── View 1: Overview ── */}
+        {activeView === "overview" && (
+          <div className="space-y-6">
           {(study.objective || study.targetPopulation || study.description) && (
             <Card>
               <CardContent className="pt-4 space-y-2.5">
@@ -383,7 +429,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
 
       {/* ── View 2: AI Analysis ── */}
       {activeView === "analysis" && (
-        <div className="flex-1 min-h-0 overflow-hidden">
+        <div className="space-y-6 animate-in fade-in duration-150">
           <AIAnalysisTab
             studyId={study.id}
             studyTitle={study.title}
@@ -406,7 +452,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
 
       {/* ── View 3: Data Visualizations ── */}
       {activeView === "visualizations" && (
-        <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8">
+        <div className="space-y-6 animate-in fade-in duration-150">
           {totalResponses > 0 ? (
             <div className="mb-6">
               <DataVisualizationStudio
@@ -429,7 +475,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
 
       {/* ── View 4: Responses ── */}
       {activeView === "responses" && (
-        <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8 space-y-6">
+        <div className="space-y-6 animate-in fade-in duration-150">
           <div className="flex items-center justify-between pb-2 border-b border-border">
             <div>
               <h2 className="text-xl font-bold tracking-tight text-foreground">Question-by-Question Breakdown</h2>
@@ -671,7 +717,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
       )}
 
       {activeView === "discussion" && (
-        <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8 space-y-6">
+        <div className="space-y-6 animate-in fade-in duration-150">
           <section id="study-discussion" className="scroll-mt-6 space-y-6">
       {study.ratings && study.ratings.length > 0 && (
         <div className="mt-12">
@@ -806,6 +852,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
           </section>
         </div>
       )}
+      </main>
     </div>
   );
 }

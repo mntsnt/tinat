@@ -124,6 +124,16 @@ export async function POST(request: Request) {
       description: `Registered as ${user.role}`,
     });
 
+    // Welcome notification for new joiners
+    await prisma.notification.create({
+      data: {
+        userId: user.id,
+        title: "Welcome to Tinat! 🎉",
+        message: "Welcome to Tinat! Explore active research studies, share anonymous questions on Tinat Ask, or contribute as a field data collector.",
+        linkUrl: user.role === "RESEARCHER" ? "/researcher" : "/participant",
+      },
+    });
+
     let emailDeliveryFailed = false;
     let emailErrorMessage = "";
 

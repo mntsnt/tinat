@@ -36,6 +36,7 @@ export default async function ProfilePage({
       select: {
         id: true,
         name: true,
+        username: true,
         role: true,
         avatarUrl: true,
         bio: true,
@@ -115,6 +116,11 @@ export default async function ProfilePage({
                     <h1 className="truncate text-xl font-bold tracking-tight text-foreground sm:text-2xl">
                       {user.name}
                     </h1>
+                    {user.username && (
+                      <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 font-mono bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
+                        @{user.username}
+                      </span>
+                    )}
                     {user.isVerified && (
                       <Badge variant="success" className="inline-flex items-center gap-1">
                         <CheckCircle2 className="h-3 w-3" />
@@ -122,9 +128,19 @@ export default async function ProfilePage({
                       </Badge>
                     )}
                   </div>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {ROLE_LABELS[user.role] || "Tinat member"}
-                  </p>
+                  <div className="mt-1 flex flex-wrap items-center gap-3">
+                    <p className="text-sm text-muted-foreground">
+                      {ROLE_LABELS[user.role] || "Tinat member"}
+                    </p>
+                    {user.username && (
+                      <Link
+                        href={`/ask/${user.username}`}
+                        className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:underline"
+                      >
+                        Ask me anonymously on Tinat Ask →
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
               {isOwnProfile && (

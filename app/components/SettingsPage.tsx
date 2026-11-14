@@ -27,6 +27,7 @@ import { Button } from "./ui/Button";
 type UserData = {
   id: string;
   name: string;
+  username?: string | null;
   email: string;
   phone: string | null;
   bio: string | null;
@@ -55,6 +56,7 @@ export default function SettingsPage({ user }: { user: UserData }) {
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     name: user.name || "",
+    username: user.username || "",
     phone: user.phone || "",
     bio: user.bio || "",
     institution: user.institution || "",
@@ -369,6 +371,11 @@ export default function SettingsPage({ user }: { user: UserData }) {
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
                   <h3 className="truncate text-base font-semibold text-foreground">{user.name}</h3>
+                  {user.username && (
+                    <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-mono">
+                      @{user.username}
+                    </span>
+                  )}
                   <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${
                     user.isVerified
                       ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
@@ -475,19 +482,47 @@ export default function SettingsPage({ user }: { user: UserData }) {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label htmlFor="settings-phone" className="text-xs font-medium text-foreground">Phone number</label>
-                  <input
-                    id="settings-phone"
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    maxLength={30}
-                    autoComplete="tel"
-                    placeholder="Add a contact number"
-                    className={inputClassName}
-                  />
+                  <label htmlFor="settings-username" className="text-xs font-medium text-foreground flex items-center justify-between">
+                    <span>Username</span>
+                    <span className="text-[11px] text-muted-foreground">Tinat &amp; Tinat Ask</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-muted-foreground select-none">
+                      @
+                    </span>
+                    <input
+                      id="settings-username"
+                      name="username"
+                      value={formData.username}
+                      onChange={(e) => {
+                        const val = e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, "");
+                        setFormData((prev) => ({ ...prev, username: val }));
+                      }}
+                      maxLength={30}
+                      autoComplete="username"
+                      placeholder="username"
+                      className={`${inputClassName} pl-8 font-mono`}
+                    />
+                  </div>
+                  <p className="text-[11px] text-muted-foreground">
+                    Unique handle for your profile, Tinat Ask, and field collector assignment.
+                  </p>
                 </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label htmlFor="settings-phone" className="text-xs font-medium text-foreground">Phone number</label>
+                <input
+                  id="settings-phone"
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  maxLength={30}
+                  autoComplete="tel"
+                  placeholder="Add a contact number"
+                  className={inputClassName}
+                />
               </div>
 
               {user.role === "RESEARCHER" && (

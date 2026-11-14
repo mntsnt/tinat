@@ -61,6 +61,7 @@ interface AskDashboardClientProps {
   initialStats: Stats;
   user: {
     name: string;
+    username?: string | null;
     email: string;
     role: string;
   };
@@ -79,10 +80,10 @@ export function AskDashboardClient({
   const [loadingQuestions, setLoadingQuestions] = useState(false);
 
   // Setup Profile State (for initial creation)
-  const defaultSlug = (user.name || user.email.split("@")[0])
+  const defaultSlug = (user.username || user.name || user.email.split("@")[0])
     .toLowerCase()
     .replace(/[^a-z0-9_-]/g, "")
-    .slice(0, 20);
+    .slice(0, 30);
 
   const [setupUsername, setSetupUsername] = useState(defaultSlug);
   const [setupDisplayName, setSetupDisplayName] = useState(user.name || "Tinat User");

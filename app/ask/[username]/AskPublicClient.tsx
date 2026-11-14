@@ -35,10 +35,10 @@ interface AskPublicClientProps {
 }
 
 const STARTER_PROMPTS = [
-  "What is your biggest goal for this year? 🎯",
-  "What is one piece of advice you'd give your younger self? 💡",
-  "What's something people misunderstand about you? 🤔",
-  "What are you most passionate about right now? ✨",
+  "What is your biggest goal for this year?",
+  "What is one piece of advice you would give your younger self?",
+  "What is something people misunderstand about you?",
+  "What are you most passionate about right now?",
 ];
 
 export function AskPublicClient({ profile, publicQuestions }: AskPublicClientProps) {
@@ -120,9 +120,9 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
             )}
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20">
-            <Sparkles className="w-3.5 h-3.5" />
-            Ask me anything confidentially!
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-muted/80 text-foreground text-xs font-medium border border-border">
+            <Lock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            Ask a confidential question
           </div>
         </div>
 
@@ -136,7 +136,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                   rows={4}
                   value={questionText}
                   onChange={(e) => setQuestionText(e.target.value)}
-                  placeholder={`Send a confidential question to ${profile.displayName}...\nI will never know who sent this 🤫`}
+                  placeholder={`Send a confidential question to ${profile.displayName}...\nYour identity is completely private.`}
                   className="w-full rounded-xl border border-input bg-background/50 p-4 text-sm sm:text-base placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none transition-all"
                   maxLength={maxChars}
                   disabled={isSubmitting}
@@ -219,7 +219,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
 
             <div className="space-y-1">
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
-                Question Sent Confidentially! 🚀
+                Question Sent Confidentially
               </h2>
               <p className="text-sm text-muted-foreground">
                 Your question was delivered to {profile.displayName}. They will never know who sent it.
@@ -229,7 +229,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
             {/* High-converting prompt to sign up and get their own link */}
             <div className="p-5 rounded-2xl bg-primary/5 border border-primary/20 space-y-3">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/20 text-primary text-xs font-bold">
-                <Sparkles className="w-3.5 h-3.5" /> Viral Social Q&A
+                <Lock className="w-3.5 h-3.5" /> Confidential Q&amp;A
               </div>
               <h3 className="text-base font-bold text-foreground">
                 Want people to ask YOU anything confidentially?

@@ -9,7 +9,7 @@ export default async function AdminSettings() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
-    select: { name: true, bio: true, institution: true, fieldOfStudy: true, role: true, email: true, phone: true, id: true, createdAt: true, isVerified: true, faydaVerified: true, faydaVerifiedAt: true, avatarUrl: true },
+    select: { name: true, username: true, bio: true, institution: true, fieldOfStudy: true, role: true, email: true, phone: true, id: true, createdAt: true, isVerified: true, faydaVerified: true, faydaVerifiedAt: true, avatarUrl: true },
   });
 
   if (!user || user.role !== "ADMIN") redirect("/dashboard");

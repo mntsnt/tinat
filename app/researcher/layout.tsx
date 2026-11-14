@@ -1,11 +1,10 @@
-import { DashboardTopNav } from "../components/layout/DashboardTopNav";
 import { ReactNode } from "react";
 import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
-import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
 import { checkPlatformConsent } from "@/lib/legal/consentService";
+import { ResearcherLayoutShell } from "./ResearcherLayoutShell";
 
 export default async function ResearcherLayout({ children }: { children: ReactNode }) {
   const session = await getSession();
@@ -35,22 +34,14 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
   const links = getLinksForUser(user);
 
   return (
-    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
-      <Sidebar
-        links={links}
-        roleTitle="Researcher"
-        userId={user.id}
-        userName={user.name}
-        userEmail={user.email}
-        avatarUrl={user.avatarUrl}
-        roleColor="researcher"
-      />
-      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 flex flex-col">
-        <DashboardTopNav />
-        <div className="flex-1 min-h-0">
-          {children}
-        </div>
-      </main>
-    </div>
+    <ResearcherLayoutShell
+      links={links}
+      userId={user.id}
+      userName={user.name}
+      userEmail={user.email}
+      avatarUrl={user.avatarUrl}
+    >
+      {children}
+    </ResearcherLayoutShell>
   );
 }
