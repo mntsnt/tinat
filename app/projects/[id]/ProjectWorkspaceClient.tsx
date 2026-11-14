@@ -43,11 +43,13 @@ import {
   MessagesSquare,
   Menu,
   X,
+  Settings,
 } from "lucide-react";
 import { Upload } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ProjectTeamChat } from "./ProjectTeamChat";
+import { ProjectSettingsTab } from "./ProjectSettingsTab";
 import { useConfirm } from "@/app/components/ui/ConfirmDialog";
 import { TinatLogo } from "@/app/components/ui/TinatLogo";
 
@@ -167,6 +169,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     | "records"
     | "chat"
     | "ai"
+    | "settings"
   >("overview");
   const [recordTab, setRecordTab] = useState<"milestones" | "notes" | "discussions" | "decisions" | "outputs">("milestones");
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -988,19 +991,6 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               <span className="hidden sm:inline">New Task</span>
             </button>
           )}
-
-          {/* Delete Project */}
-          {(auth?.isLead || auth?.canManageProject || auth?.userRole === "ADMIN") && (
-            <button
-              type="button"
-              onClick={handleDeleteProject}
-              disabled={isDeletingProject}
-              className="inline-flex items-center rounded-md border border-border bg-background p-1.5 text-xs font-medium text-muted-foreground hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 dark:hover:bg-rose-950/30 dark:hover:text-rose-400 transition-colors"
-              title="Delete Research Project"
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-            </button>
-          )}
         </div>
       </header>
 
@@ -1047,6 +1037,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               { id: "records", label: "Research Log", icon: BookOpen, count: null },
               { id: "chat", label: "Team Chat", icon: MessagesSquare, count: null },
               { id: "ai", label: "Project AI", icon: Sparkles, count: null },
+              { id: "settings", label: "Settings", icon: Settings, count: null },
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -2325,6 +2316,15 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
               </form>
             </div>
           </div>
+        )}
+
+        {/* TAB 9: SETTINGS */}
+        {activeTab === "settings" && (
+          <ProjectSettingsTab
+            project={project}
+            auth={auth}
+            onProjectUpdated={() => fetchProject(false)}
+          />
         )}
         </div>
       </main>

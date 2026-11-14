@@ -8,6 +8,7 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { GoogleAuthButton } from "../components/GoogleAuthButton";
 import { TinatLogo } from "../components/ui/TinatLogo";
+import { ThemeToggle } from "../components/ThemeToggle";
 
 const GOOGLE_AUTH_ERRORS: Record<string, string> = {
   authorization_denied: "Google sign-in was cancelled. You can try again or use your email and password.",
@@ -104,19 +105,32 @@ export default function LoginPage({
   }
 
   return (
-    <main className="flex flex-1 items-center justify-center p-4 py-12 md:py-16">
-      <Card className="w-full max-w-md shadow-lg border-border">
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-3">
-            <Link href="/" className="transition-transform hover:scale-105">
-              <TinatLogo size={52} variant="color" />
-            </Link>
-          </div>
-          <CardTitle className="text-2xl">Welcome back</CardTitle>
-          <CardDescription>
-            Enter your credentials to access your account.
-          </CardDescription>
-        </CardHeader>
+    <main className="relative min-h-screen flex flex-col justify-between bg-background selection:bg-emerald-500/20">
+      {/* Top Left Header with Brand Logo and Name */}
+      <header className="w-full px-5 py-4 sm:px-8 sm:py-6 flex items-center justify-between">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2.5 hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg"
+        >
+          <TinatLogo size={28} showText variant="color" />
+        </Link>
+        <ThemeToggle />
+      </header>
+
+      {/* Centered Login Card */}
+      <div className="flex-1 flex items-center justify-center p-4 py-8 sm:py-12">
+        <Card className="w-full max-w-md shadow-lg border-border">
+          <CardHeader className="text-center pb-2">
+            <div className="flex justify-center mb-3">
+              <Link href="/" className="transition-transform hover:scale-105">
+                <TinatLogo size={48} variant="color" />
+              </Link>
+            </div>
+            <CardTitle className="text-2xl font-bold tracking-tight">Welcome back</CardTitle>
+            <CardDescription>
+              Enter your credentials to access your account.
+            </CardDescription>
+          </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             {googleError && (
@@ -225,6 +239,7 @@ export default function LoginPage({
           </CardFooter>
         </form>
       </Card>
+      </div>
     </main>
   );
 }

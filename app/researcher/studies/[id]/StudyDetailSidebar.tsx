@@ -162,6 +162,12 @@ export function StudyDetailSidebar({
       icon: MessageSquare,
       badge: totalComments > 0 ? totalComments : null,
     },
+    {
+      id: "settings",
+      label: "Settings",
+      icon: Settings,
+      badge: null,
+    },
   ];
 
   function renderNavItems(mobile = false) {

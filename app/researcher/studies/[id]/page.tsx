@@ -12,7 +12,7 @@ import { StudyCollectorsTab } from "./StudyCollectorsTab";
 import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
 import { StudyShareLink } from "./StudyShareLink";
-import { StudyDeleteButton } from "../../../components/StudyDeleteButton";
+import { StudySettingsTab } from "./StudySettingsTab";
 import { Star, Paperclip, ShieldAlert, ArrowLeft } from "lucide-react";
 import { TinatLogo } from "../../../components/ui/TinatLogo";
 import { ThemeToggle } from "../../../components/ThemeToggle";
@@ -31,6 +31,7 @@ const studyViews = [
   { id: "responses", label: "Responses" },
   { id: "collectors", label: "Data Collectors" },
   { id: "discussion", label: "Discussion & feedback" },
+  { id: "settings", label: "Settings" },
 ] as const;
 
 export default async function ResearchStudyPage({ params, searchParams }: Props) {
@@ -143,21 +144,39 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
             <Badge variant={study.status === "ACTIVE" ? "success" : study.status === "COMPLETED" ? "secondary" : "warning"} className="text-xs">
               {study.status}
             </Badge>
-            <StudyDeleteButton
-              studyId={study.id}
-              studyTitle={study.title}
-              redirectAfterDelete="/researcher/studies"
-              variant="button"
-            />
             <div className="h-4 w-px bg-border" />
             <ThemeToggle />
             <DashboardNotificationBell />
           </div>
         </header>
 
-        {/* ── Scrollable Main Study Content (Fluidly expands to fill extra space when sidebar collapses) ── */}
-        <main className="flex-1 min-h-0 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 px-4 sm:px-6 lg:px-8 xl:px-10 py-6 pb-20">
-          <div className="w-full max-w-[1600px] mx-auto space-y-6 transition-all duration-200">
+        {activeView === "analysis" ? (
+          /* ── View 2: Fixed-Viewport AI Analysis Workspace ── */
+          <main className="flex-1 min-h-0 overflow-hidden bg-muted/10 p-3 sm:p-4 lg:p-5 flex flex-col">
+            <div className="w-full max-w-[1600px] mx-auto flex-1 min-h-0 flex flex-col">
+              <AIAnalysisTab
+                studyId={study.id}
+                studyTitle={study.title}
+                responsesCount={totalResponses}
+                participantTarget={study.participantTarget}
+                category={study.category}
+                studyType={study.studyType}
+                status={study.status}
+                objective={study.objective}
+                description={study.description}
+                targetPopulation={study.targetPopulation}
+                estimatedMinutes={study.estimatedMinutes}
+                rewardCredits={study.rewardCredits}
+                questionCount={study.questions.length}
+                fieldCollectedResponses={fieldCollectedResponses}
+                selfResponses={selfResponses}
+              />
+            </div>
+          </main>
+        ) : (
+          /* ── Scrollable Main Content for Standard Views ── */
+          <main className="flex-1 min-h-0 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 px-4 sm:px-6 lg:px-8 xl:px-10 py-6 pb-20">
+            <div className="w-full max-w-[1600px] mx-auto space-y-6 transition-all duration-200">
         {/* Study Info Header on Overview */}
         {activeView === "overview" && (
           <div className="mb-6 space-y-2">
@@ -388,29 +407,6 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
           </CardContent>
         </Card>
       </div>
-        </div>
-      )}
-
-      {/* ── View 2: AI Analysis ── */}
-      {activeView === "analysis" && (
-        <div className="space-y-6 animate-in fade-in duration-150">
-          <AIAnalysisTab
-            studyId={study.id}
-            studyTitle={study.title}
-            responsesCount={totalResponses}
-            participantTarget={study.participantTarget}
-            category={study.category}
-            studyType={study.studyType}
-            status={study.status}
-            objective={study.objective}
-            description={study.description}
-            targetPopulation={study.targetPopulation}
-            estimatedMinutes={study.estimatedMinutes}
-            rewardCredits={study.rewardCredits}
-            questionCount={study.questions.length}
-            fieldCollectedResponses={fieldCollectedResponses}
-            selfResponses={selfResponses}
-          />
         </div>
       )}
 
@@ -844,8 +840,31 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
           </section>
         </div>
       )}
+
+      {/* ── View 7: Settings & Controls ── */}
+      {activeView === "settings" && (
+        <div className="animate-in fade-in duration-150">
+          <StudySettingsTab
+            study={{
+              id: study.id,
+              title: study.title,
+              category: study.category,
+              objective: study.objective,
+              description: study.description,
+              status: study.status,
+              targetPopulation: study.targetPopulation,
+              estimatedMinutes: study.estimatedMinutes,
+              participantTarget: study.participantTarget,
+              rewardCredits: study.rewardCredits,
+              studyType: study.studyType,
+              responsesCount: totalResponses,
+            }}
+          />
+        </div>
+      )}
           </div>
         </main>
+      )}
       </div>
     </div>
   );
