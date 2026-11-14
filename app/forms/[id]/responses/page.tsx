@@ -2,6 +2,7 @@
 
 import { useEffect, useState, use } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import {
   ArrowLeft,
   FileSpreadsheet,
@@ -37,8 +38,10 @@ type Question = {
 type FormResponse = {
   id: string;
   submittedAt: string;
-  participantName: string;
-  isGuest: boolean;
+  respondentCode?: string;
+  participantName?: string;
+  isGuest?: boolean;
+  collectionMethod?: string;
   answers: Record<string, { textValue: string | null; numberValue: number | null }>;
 };
 
@@ -55,8 +58,9 @@ export default function FormResponsesPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const routeParams = useParams();
   const resolvedParams = use(params);
-  const formId = resolvedParams.id;
+  const formId = (routeParams?.id as string) || (resolvedParams as any)?.id || "";
 
   const [form, setForm] = useState<FormData | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -140,13 +144,18 @@ export default function FormResponsesPage({
 
   const isActive = form.status === "ACTIVE";
 
-  const filteredResponses = responses.filter(
-    (r) =>
-      r.participantName.toLowerCase().includes(search.toLowerCase()) ||
-      Object.values(r.answers).some((a) =>
-        a.textValue?.toLowerCase().includes(search.toLowerCase())
-      )
-  );
+  const filteredResponses = responses.filter((r) => {
+    if (!search.trim()) return true;
+    const searchLower = search.toLowerCase();
+    const nameMatch = (r.participantName || "").toLowerCase().includes(searchLower);
+    const codeMatch = (r.respondentCode || "").toLowerCase().includes(searchLower);
+    const answerMatch = Object.values(r.answers || {}).some((a) => {
+      const text = a?.textValue ? String(a.textValue).toLowerCase() : "";
+      const num = a?.numberValue !== null && a?.numberValue !== undefined ? String(a.numberValue) : "";
+      return text.includes(searchLower) || num.includes(searchLower);
+    });
+    return nameMatch || codeMatch || answerMatch;
+  });
 
   return (
     <div className="w-full px-4 py-6 md:px-7 md:py-8 space-y-6">
@@ -305,13 +314,14 @@ export default function FormResponsesPage({
             const textAnswers: string[] = [];
 
             responses.forEach((resp) => {
-              const ans = resp.answers[question.id];
+              const ans = resp?.answers?.[question.id];
               if (!ans) return;
 
               if (hasOptions) {
                 if (ans.textValue) {
                   // Multiple choice checkboxes may be comma separated
-                  const parts = ans.textValue.split(",").map((s) => s.trim());
+                  const str = String(ans.textValue);
+                  const parts = str.split(",").map((s) => s.trim());
                   parts.forEach((p) => {
                     counts[p] = (counts[p] || 0) + 1;
                   });
@@ -322,10 +332,18 @@ export default function FormResponsesPage({
                   counts[val] = (counts[val] || 0) + 1;
                   scaleSum += ans.numberValue;
                   scaleCount += 1;
+                } else if (ans.textValue && !isNaN(Number(ans.textValue))) {
+                  const num = Number(ans.textValue);
+                  const val = String(num);
+                  counts[val] = (counts[val] || 0) + 1;
+                  scaleSum += num;
+                  scaleCount += 1;
                 }
               } else {
-                if (ans.textValue && ans.textValue.trim()) {
-                  textAnswers.push(ans.textValue.trim());
+                if (ans.textValue && String(ans.textValue).trim()) {
+                  textAnswers.push(String(ans.textValue).trim());
+                } else if (ans.numberValue !== null && ans.numberValue !== undefined) {
+                  textAnswers.push(String(ans.numberValue));
                 }
               }
             });
@@ -466,7 +484,7 @@ export default function FormResponsesPage({
                     <th className="p-3 w-12 text-center">#</th>
                     <th className="p-3 whitespace-nowrap">Submitted</th>
                     <th className="p-3 whitespace-nowrap">Respondent</th>
-                    <th className="p-3 whitespace-nowrap">Status</th>
+                    <th className="p-3 whitespace-nowrap">Method</th>
                     {questions.map((q) => (
                       <th
                         key={q.id}
@@ -479,46 +497,59 @@ export default function FormResponsesPage({
                   </tr>
                 </thead>
                 <tbody className="divide-y">
-                  {filteredResponses.map((resp, rIdx) => (
-                    <tr key={resp.id} className="hover:bg-muted/20 transition-colors">
-                      <td className="p-3 text-center text-muted-foreground">{rIdx + 1}</td>
-                      <td className="p-3 whitespace-nowrap text-muted-foreground">
-                        {new Date(resp.submittedAt).toLocaleDateString()}{" "}
-                        {new Date(resp.submittedAt).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </td>
-                      <td className="p-3 whitespace-nowrap font-medium text-foreground">
-                        {resp.participantName}
-                      </td>
-                      <td className="p-3 whitespace-nowrap">
-                        <Badge
-                          variant="secondary"
-                          className="text-[10px] font-normal"
-                        >
-                          {resp.isGuest ? "Guest" : "Registered"}
-                        </Badge>
-                      </td>
-                      {questions.map((q) => {
-                        const ans = resp.answers[q.id];
-                        const displayVal =
-                          ans?.textValue ||
-                          (ans?.numberValue !== null && ans?.numberValue !== undefined
-                            ? String(ans.numberValue)
-                            : "-");
-                        return (
-                          <td
-                            key={q.id}
-                            className="p-3 max-w-[240px] truncate text-foreground"
-                            title={displayVal}
+                  {filteredResponses.map((resp, rIdx) => {
+                    const displayName =
+                      resp.participantName ||
+                      (resp.respondentCode
+                        ? `Resp ${resp.respondentCode.replace("resp_", "").slice(0, 8).toUpperCase()}`
+                        : `Response #${rIdx + 1}`);
+
+                    const isField = resp.collectionMethod === "FIELD_COLLECTED";
+
+                    return (
+                      <tr key={resp.id || rIdx} className="hover:bg-muted/20 transition-colors">
+                        <td className="p-3 text-center text-muted-foreground">{rIdx + 1}</td>
+                        <td className="p-3 whitespace-nowrap text-muted-foreground">
+                          {resp.submittedAt
+                            ? `${new Date(resp.submittedAt).toLocaleDateString()} ${new Date(resp.submittedAt).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}`
+                            : "-"}
+                        </td>
+                        <td className="p-3 whitespace-nowrap font-medium text-foreground">
+                          <span title={resp.respondentCode || displayName} className="font-mono text-xs">
+                            {displayName}
+                          </span>
+                        </td>
+                        <td className="p-3 whitespace-nowrap">
+                          <Badge
+                            variant={isField ? "default" : "secondary"}
+                            className="text-[10px] font-normal"
                           >
-                            {displayVal}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  ))}
+                            {isField ? "Field Collection" : resp.isGuest ? "Guest" : "Online"}
+                          </Badge>
+                        </td>
+                        {questions.map((q) => {
+                          const ans = resp?.answers?.[q.id];
+                          const displayVal =
+                            ans?.textValue ||
+                            (ans?.numberValue !== null && ans?.numberValue !== undefined
+                              ? String(ans.numberValue)
+                              : "-");
+                          return (
+                            <td
+                              key={q.id}
+                              className="p-3 max-w-[240px] truncate text-foreground"
+                              title={String(displayVal)}
+                            >
+                              {String(displayVal)}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

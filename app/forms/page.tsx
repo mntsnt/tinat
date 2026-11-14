@@ -17,8 +17,9 @@ import {
   Search,
   ArrowRight,
 } from "lucide-react";
-import { Button } from "../components/ui/Button";
+import { Button, buttonVariants } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
+import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -294,22 +295,21 @@ export default function FormsDashboardPage() {
 
                 <CardFooter className="pt-3 border-t flex flex-col gap-2">
                   <div className="grid grid-cols-2 gap-2 w-full">
-                    <Link href={`/forms/${form.id}/responses`} className="w-full">
-                      <Button variant="outline" size="sm" className="w-full text-xs">
-                        <Users className="h-3.5 w-3.5 mr-1" />
-                        View Data
-                      </Button>
+                    <Link
+                      href={`/forms/${form.id}/responses`}
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "w-full text-xs flex items-center justify-center")}
+                    >
+                      <Users className="h-3.5 w-3.5 mr-1" />
+                      View Data
                     </Link>
 
                     <a
                       href={`/api/forms/${form.id}/export?format=xlsx`}
                       download
-                      className="w-full"
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "w-full text-xs flex items-center justify-center")}
                     >
-                      <Button variant="outline" size="sm" className="w-full text-xs">
-                        <FileSpreadsheet className="h-3.5 w-3.5 mr-1 text-emerald-600" />
-                        Export
-                      </Button>
+                      <FileSpreadsheet className="h-3.5 w-3.5 mr-1 text-emerald-600" />
+                      Export
                     </a>
                   </div>
 

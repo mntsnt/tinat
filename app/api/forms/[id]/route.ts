@@ -31,7 +31,8 @@ export async function GET(
       },
     });
 
-    if (!form || form.category !== "Tinat Form") {
+    const isTinatForm = form && (form.category === "Tinat Form" || (Array.isArray(form.tags) && form.tags.includes("Tinat Form")));
+    if (!form || !isTinatForm) {
       return NextResponse.json({ error: "Form not found" }, { status: 404 });
     }
 
@@ -67,7 +68,8 @@ export async function PATCH(
       where: { id },
     });
 
-    if (!existingForm || existingForm.category !== "Tinat Form") {
+    const isTinatForm = existingForm && (existingForm.category === "Tinat Form" || (Array.isArray(existingForm.tags) && existingForm.tags.includes("Tinat Form")));
+    if (!existingForm || !isTinatForm) {
       return NextResponse.json({ error: "Form not found" }, { status: 404 });
     }
 
@@ -117,7 +119,8 @@ export async function DELETE(
       where: { id },
     });
 
-    if (!existingForm || existingForm.category !== "Tinat Form") {
+    const isTinatForm = existingForm && (existingForm.category === "Tinat Form" || (Array.isArray(existingForm.tags) && existingForm.tags.includes("Tinat Form")));
+    if (!existingForm || !isTinatForm) {
       return NextResponse.json({ error: "Form not found" }, { status: 404 });
     }
 

@@ -32,7 +32,8 @@ export async function GET(
       },
     });
 
-    if (!form || form.category !== "Tinat Form") {
+    const isTinatForm = form && (form.category === "Tinat Form" || (Array.isArray(form.tags) && form.tags.includes("Tinat Form")));
+    if (!form || !isTinatForm) {
       return NextResponse.json({ error: "Form not found" }, { status: 404 });
     }
 
@@ -52,9 +53,13 @@ export async function GET(
         createdAt: form.createdAt,
       },
       questions: form.questions,
-      responses: form.responses.map((resp) => ({
+      responses: form.responses.map((resp, idx) => ({
         id: resp.id,
         respondentCode: resp.respondentCode,
+        participantName: resp.respondentCode
+          ? `Resp ${resp.respondentCode.replace("resp_", "").slice(0, 8).toUpperCase()}`
+          : `Respondent #${idx + 1}`,
+        isGuest: resp.collectionMethod === "SELF",
         collectionMethod: resp.collectionMethod,
         submittedAt: resp.submittedAt,
         answers: resp.answers.reduce((acc, ans) => {
