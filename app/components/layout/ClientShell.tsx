@@ -4,9 +4,24 @@ import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 import { IntroAnimation } from "../ui/IntroAnimation";
 
-// Routes that use their own full shell (sidebar + internal nav).
+// Routes that use their own shell, or auth screens that should not show the dashboard navbar.
 // The global Navbar and Footer must NOT render inside these.
-const DASHBOARD_PREFIXES = ["/dashboard", "/admin", "/participant", "/researcher", "/collector", "/projects", "/ask", "/ai", "/forms", "/f", "/profile", "/register"];
+const DASHBOARD_PREFIXES = [
+  "/dashboard",
+  "/admin",
+  "/participant",
+  "/researcher",
+  "/collector",
+  "/projects",
+  "/ask",
+  "/ai",
+  "/forms",
+  "/f",
+  "/profile",
+  "/register",
+  "/login",
+  "/verify-email",
+];
 const FOOTER_PATHS = new Set([
   "/",
   "/privacy",

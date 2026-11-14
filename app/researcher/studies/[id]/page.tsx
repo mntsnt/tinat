@@ -155,9 +155,9 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
           </div>
         </header>
 
-        {/* ── Scrollable Main Study Content ── */}
-        <main className="flex-1 min-h-0 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 px-4 sm:px-6 lg:px-8 py-6 pb-20">
-          <div className="max-w-6xl mx-auto space-y-6">
+        {/* ── Scrollable Main Study Content (Fluidly expands to fill extra space when sidebar collapses) ── */}
+        <main className="flex-1 min-h-0 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 px-4 sm:px-6 lg:px-8 xl:px-10 py-6 pb-20">
+          <div className="w-full max-w-[1600px] mx-auto space-y-6 transition-all duration-200">
         {/* Study Info Header on Overview */}
         {activeView === "overview" && (
           <div className="mb-6 space-y-2">

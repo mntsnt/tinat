@@ -82,6 +82,21 @@ export function StudyDetailSidebar({
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const accountContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!accountMenuOpen) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        accountContainerRef.current &&
+        !accountContainerRef.current.contains(event.target as Node)
+      ) {
+        setAccountMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [accountMenuOpen]);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -97,7 +112,7 @@ export function StudyDetailSidebar({
     setLoggingOut(true);
     try {
       await fetch("/api/auth/logout", { method: "POST" });
-      router.replace("/login");
+      window.location.href = "/login";
     } catch {
       setLoggingOut(false);
     }
@@ -220,28 +235,37 @@ export function StudyDetailSidebar({
     const collapsed = !mobile && isCollapsed;
 
     return (
-      <div className="relative border-t border-border p-2.5 bg-card/40">
+      <div ref={accountContainerRef} className="relative border-t border-border p-2.5 bg-card/40 shrink-0">
         {accountMenuOpen && (
           <div
             role="menu"
             aria-label="Account options"
-            className="absolute bottom-full left-2 right-2 mb-2 rounded-lg border border-border bg-popover p-1 shadow-lg z-50 animate-in fade-in slide-in-from-bottom-2 duration-150"
+            className={cn(
+              "absolute z-50 rounded-xl border border-border bg-card p-1.5 shadow-2xl animate-in fade-in slide-in-from-bottom-2 duration-150",
+              collapsed
+                ? "left-full bottom-1 ml-2.5 w-52"
+                : "bottom-full left-2 right-2 mb-2"
+            )}
           >
+            <div className="border-b border-border/60 px-3 py-2 mb-1">
+              <p className="truncate text-xs font-bold text-foreground">{userName}</p>
+              {userEmail && <p className="truncate text-[11px] text-muted-foreground">{userEmail}</p>}
+            </div>
             <Link
               href="/researcher/settings"
               role="menuitem"
               onClick={() => setAccountMenuOpen(false)}
-              className="flex min-h-9 items-center gap-2.5 rounded-md px-3 py-2 text-xs text-foreground transition-colors hover:bg-muted"
+              className="flex min-h-9 items-center gap-2.5 rounded-lg px-2.5 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
             >
               <Settings className="h-4 w-4 text-muted-foreground" />
               Settings
             </Link>
-            <div className="my-1 border-t border-border" />
+            <div className="my-1 border-t border-border/60" />
             <button
               role="menuitem"
               onClick={handleLogout}
               disabled={loggingOut}
-              className="flex min-h-9 w-full items-center gap-2.5 rounded-md px-3 py-2 text-left text-xs text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:opacity-60"
+              className="flex min-h-9 w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-xs font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:opacity-60"
             >
               <LogOut className="h-4 w-4" />
               {loggingOut ? "Logging out..." : "Log out"}
@@ -312,8 +336,7 @@ export function StudyDetailSidebar({
       {/* ── DESKTOP STUDY SIDEBAR ── */}
       <aside
         className={cn(
-          "sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex z-30 select-none",
-          isAnimating && "transition-[width] duration-200 ease-out",
+          "sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex z-30 select-none transition-[width] duration-200 ease-in-out",
           isCollapsed ? "w-16" : "w-60 xl:w-64"
         )}
       >

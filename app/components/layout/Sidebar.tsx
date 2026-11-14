@@ -136,7 +136,7 @@ export function Sidebar({
     setLoggingOut(true);
     try {
       await fetch("/api/auth/logout", { method: "POST" });
-      router.replace("/login");
+      window.location.href = "/login";
     } catch {
       setLoggingOut(false);
     }
