@@ -312,7 +312,7 @@ export function Sidebar({
     return (
     <div className={cn("border-b border-border py-3 flex items-center shrink-0", collapsed ? "px-0 justify-center h-16" : "px-3.5 h-16")}>
       <Link href={dashboardHref} className={cn("flex items-center transition-opacity hover:opacity-80", collapsed ? "justify-center" : "gap-2.5")}>
-        <TinatLogo size={28} variant="color" />
+        <TinatLogo size={22} variant="color" />
         {!collapsed && (
           <div>
             <p className="text-sm font-bold text-foreground leading-tight">Tinat</p>
@@ -351,7 +351,7 @@ export function Sidebar({
       {/* Mobile Top Bar */}
       <div className="md:hidden flex shrink-0 items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
         <Link href={dashboardHref} className="flex items-center gap-2">
-          <TinatLogo size={26} variant="color" />
+          <TinatLogo size={22} variant="color" />
           <span className="font-semibold text-sm text-foreground">
             Tinat <span className={cn("font-medium text-xs px-1.5 py-0.5 rounded", colors.badge)}>{roleTitle}</span>
           </span>
@@ -385,8 +385,8 @@ export function Sidebar({
             className="relative flex h-full w-64 max-w-[85vw] flex-col border-r border-border bg-card shadow-2xl"
           >
             <div className="flex items-center justify-between border-b border-border p-3.5">
-              <Link href={dashboardHref} className="flex items-center gap-2.5">
-                <TinatLogo size={28} variant="color" />
+              <Link href={dashboardHref} className="flex items-center gap-2">
+                <TinatLogo size={22} variant="color" />
                 <span className="font-bold text-foreground text-sm">Tinat</span>
               </Link>
               <button

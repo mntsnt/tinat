@@ -13,7 +13,7 @@ export interface TinatLogoProps {
  * Automatically adapts between light and dark mode with zero layout shift.
  */
 export function TinatLogo({
-  size = 28,
+  size = 22,
   className,
   variant = "color",
   showText = false,
@@ -34,7 +34,7 @@ export function TinatLogo({
   }
 
   return (
-    <div className={cn("inline-flex items-center gap-2.5", className)}>
+    <div className={cn("inline-flex items-center gap-2", className)}>
       <div
         className="relative flex shrink-0 items-center justify-center"
         style={{ width: size, height: size }}

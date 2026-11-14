@@ -132,14 +132,6 @@ export default async function ProfilePage({
                     <p className="text-sm text-muted-foreground">
                       {ROLE_LABELS[user.role] || "Tinat member"}
                     </p>
-                    {user.username && (
-                      <Link
-                        href={`/ask/${user.username}`}
-                        className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:underline"
-                      >
-                        Ask me anonymously on Tinat Ask →
-                      </Link>
-                    )}
                   </div>
                 </div>
               </div>

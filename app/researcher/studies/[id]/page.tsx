@@ -118,7 +118,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <Link href="/researcher/studies" className="flex items-center gap-2 shrink-0 hover:opacity-90 transition-opacity">
-              <TinatLogo size={28} showText variant="color" />
+              <TinatLogo size={22} showText variant="color" />
             </Link>
             <div className="h-4 w-px bg-border hidden sm:block" />
             <Link

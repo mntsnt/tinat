@@ -173,7 +173,7 @@ function RegisterContent() {
         {/* Top Header Logo */}
         <header className="flex justify-center pt-2 sm:pt-4">
           <Link href="/" className="hover:opacity-90 transition-opacity">
-            <TinatLogo size={36} showText variant="color" />
+            <TinatLogo size={24} showText variant="color" />
           </Link>
         </header>
 
@@ -276,7 +276,7 @@ function RegisterContent() {
           {/* Header & Logo */}
           <div className="flex items-center justify-between mb-8">
             <Link href="/" className="hover:opacity-90 transition-opacity">
-              <TinatLogo size={32} showText variant="color" />
+              <TinatLogo size={24} showText variant="color" />
             </Link>
             <button
               type="button"

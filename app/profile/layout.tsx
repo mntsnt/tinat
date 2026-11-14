@@ -26,7 +26,7 @@ export default async function ProfileLayout({ children }: { children: ReactNode 
       <header className="sticky top-0 z-40 w-full border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href={homeHref} className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-            <TinatLogo size={28} showText variant="color" />
+            <TinatLogo size={22} showText variant="color" />
           </Link>
           {session && (
             <Link

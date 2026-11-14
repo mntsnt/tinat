@@ -77,9 +77,9 @@ export default function NavContent({ user, links }: NavContentProps) {
               window.history.pushState(null, "", homeHref);
             }
           }}
-          className="flex items-center gap-2.5 mr-6 transition-transform hover:scale-105"
+          className="flex items-center gap-2 mr-6 transition-transform hover:scale-105"
         >
-          <TinatLogo size={28} showText variant="color" />
+          <TinatLogo size={22} showText variant="color" />
         </Link>
 
         {/* Desktop Nav Links */}
