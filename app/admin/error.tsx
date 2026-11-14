@@ -16,17 +16,13 @@ export default function ErrorBoundary({
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
-      <h2 className="text-2xl font-bold text-red-600">Something went wrong!</h2>
-      <div className="p-4 bg-red-50 text-red-800 rounded-md max-w-2xl overflow-auto text-sm font-mono border border-red-200">
-        <p className="font-bold">Error Message:</p>
-        <p>{error.message}</p>
-        {error.stack && (
-          <>
-            <p className="font-bold mt-2">Stack Trace:</p>
-            <pre className="mt-1 whitespace-pre-wrap">{error.stack}</pre>
-          </>
-        )}
-      </div>
+      <h2 className="text-2xl font-bold text-foreground">Admin console temporarily unavailable</h2>
+      <p className="max-w-lg text-center text-sm text-muted-foreground">
+        This section could not be loaded. Please try again; if the issue persists, contact support.
+      </p>
+      {error.digest && (
+        <p className="text-xs text-muted-foreground">Error reference: {error.digest}</p>
+      )}
       <Button onClick={() => reset()}>Try again</Button>
     </div>
   );

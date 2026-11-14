@@ -13,7 +13,7 @@ import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
 import { StudyShareLink } from "./StudyShareLink";
 import { StudySettingsTab } from "./StudySettingsTab";
-import { Star, Paperclip, ShieldAlert, ArrowLeft } from "lucide-react";
+import { Star, Paperclip, ShieldAlert, ArrowLeft, BarChart3 } from "lucide-react";
 import { TinatLogo } from "../../../components/ui/TinatLogo";
 import { ThemeToggle } from "../../../components/ThemeToggle";
 import { DashboardNotificationBell } from "../../../components/layout/DashboardNotificationBell";
@@ -441,9 +441,18 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                 Raw response tallies, linear scale averages, and frequency distributions.
               </p>
             </div>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-muted text-muted-foreground">
-              {totalResponses} responses
-            </span>
+            <div className="flex items-center gap-2">
+              <Link
+                href={`/researcher/studies/${study.id}?view=visualizations`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card hover:bg-muted text-xs font-semibold text-emerald-600 dark:text-emerald-400 transition-colors shadow-2xs"
+              >
+                <BarChart3 className="w-3.5 h-3.5" />
+                <span>Visual Figures &amp; Charts</span>
+              </Link>
+              <span className="text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-muted text-muted-foreground">
+                {totalResponses} responses
+              </span>
+            </div>
           </div>
 
       {totalResponses === 0 ? (
@@ -468,7 +477,19 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                       <span className="text-muted-foreground mr-2">{idx + 1}.</span>
                       {question.text}
                     </CardTitle>
-                    <Badge variant="secondary" className="ml-4 flex-shrink-0">{answers.length} Responses</Badge>
+                    <div className="flex items-center gap-2 ml-4 flex-shrink-0">
+                      {(question.type === "SINGLE_CHOICE" || question.type === "DROPDOWN" || question.type === "MULTIPLE_CHOICE" || question.type === "YES_NO") && (
+                        <Link
+                          href={`/researcher/studies/${study.id}?view=visualizations`}
+                          className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20"
+                          title="View and export this question's bar graph or pie chart as an image"
+                        >
+                          <BarChart3 className="w-3.5 h-3.5" />
+                          <span>Figure &amp; Export</span>
+                        </Link>
+                      )}
+                      <Badge variant="secondary">{answers.length} Responses</Badge>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="pt-4">

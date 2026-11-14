@@ -16,6 +16,7 @@ import {
 import { Badge } from "../../../components/ui/Badge";
 import { Button } from "../../../components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/Card";
+import { QuestionChartCard } from "./QuestionChartCard";
 
 export interface QuestionData {
   id: string;
@@ -197,11 +198,26 @@ export function DataVisualizationStudio({
     return responses.filter((resp) => {
       const ans = resp.answers.find((a) => a.questionId === filterQuestionId);
       if (!ans) return false;
-      if (ans.textValue === filterValue) return true;
-      if (Array.isArray(ans.selectedOptions) && ans.selectedOptions.includes(filterValue)) return true;
+      const targetQ = questions.find((q) => q.id === filterQuestionId);
+      const matchedOpt = targetQ?.options?.find((o: any) => o.text === filterValue || (o as any).value === filterValue);
+      const targetVal = matchedOpt ? matchedOpt.text : filterValue;
+
+      if (ans.textValue === targetVal || (matchedOpt && ans.textValue === (matchedOpt as any).value)) return true;
+      if (Array.isArray(ans.selectedOptions) && ans.selectedOptions.includes(targetVal)) return true;
+      if (ans.textValue) {
+        try {
+          const parsed = JSON.parse(ans.textValue);
+          if (Array.isArray(parsed) && (parsed.includes(targetVal) || (matchedOpt && parsed.includes((matchedOpt as any).value)))) {
+            return true;
+          }
+        } catch {
+          const parts = ans.textValue.split(",").map((s) => s.trim());
+          if (parts.includes(targetVal) || (matchedOpt && parts.includes((matchedOpt as any).value))) return true;
+        }
+      }
       return false;
     });
-  }, [responses, filterQuestionId, filterValue]);
+  }, [responses, filterQuestionId, filterValue, questions]);
 
   const totalN = filteredResponses.length;
   const rawN = responses.length;
@@ -223,10 +239,11 @@ export function DataVisualizationStudio({
       }
 
       rawAnswers.forEach((ans) => {
-        const val = ans?.textValue;
-        if (val) {
-          counts[val] = (counts[val] || 0) + 1;
-        }
+        const val = ans?.textValue?.trim();
+        if (!val) return;
+        const matched = q.options?.find((o: any) => o.text === val || (o as any).value === val);
+        const key = matched ? matched.text : val;
+        counts[key] = (counts[key] || 0) + 1;
       });
 
       const items = Object.entries(counts).map(([label, count], idx) => ({
@@ -247,11 +264,25 @@ export function DataVisualizationStudio({
       }
 
       rawAnswers.forEach((ans) => {
-        if (Array.isArray(ans?.selectedOptions)) {
-          ans.selectedOptions.forEach((opt) => {
-            counts[opt] = (counts[opt] || 0) + 1;
-          });
+        if (!ans) return;
+        let selectedList: string[] = [];
+        if (Array.isArray(ans.selectedOptions)) {
+          selectedList = ans.selectedOptions;
+        } else if (ans.textValue) {
+          try {
+            const parsed = JSON.parse(ans.textValue);
+            if (Array.isArray(parsed)) selectedList = parsed;
+            else selectedList = [ans.textValue];
+          } catch {
+            selectedList = ans.textValue.split(",").map((s) => s.trim());
+          }
         }
+
+        selectedList.forEach((itemVal) => {
+          const matched = q.options?.find((o: any) => o.text === itemVal || (o as any).value === itemVal);
+          const key = matched ? matched.text : itemVal;
+          counts[key] = (counts[key] || 0) + 1;
+        });
       });
 
       const items = Object.entries(counts).map(([label, count], idx) => ({
@@ -640,88 +671,31 @@ export function DataVisualizationStudio({
           {questions.map((q, idx) => {
             const stats = getQuestionStats(q);
 
-            // Categorical Donut & Bar chart
+            // Categorical & Multi-Choice Charts (Bar Graph & Donut/Pie with Image Export)
             if (stats.type === "categorical" || stats.type === "multichoice") {
-              const maxVal = Math.max(...stats.items.map((i) => (metricDisplay === "percent" ? i.percent : i.count)), 1);
-
               return (
-                <Card key={q.id} className="border-border hover:border-primary/40 transition-colors shadow-xs">
-                  <CardHeader className="pb-3 border-b border-border/50">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                          Figure {idx + 1} &bull; {stats.type === "categorical" ? "Single Choice" : "Multi-Choice"}
-                        </span>
-                        <CardTitle className="text-base font-semibold text-foreground line-clamp-2 mt-0.5">
-                          {q.text}
-                        </CardTitle>
-                      </div>
-                      <Badge variant="secondary" className="shrink-0 text-[11px] font-medium">
-                        N = {stats.totalAnswers}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-
-                  <CardContent className="pt-4 space-y-4">
-                    {/* Horizontal Bar Visualizer */}
-                    <div className="space-y-2.5">
-                      {stats.items.map((item) => {
-                        const isThisFilter = filterQuestionId === q.id && filterValue === item.label;
-                        const barWidth = Math.max(4, Math.round(((metricDisplay === "percent" ? item.percent : item.count) / maxVal) * 100));
-
-                        return (
-                          <div
-                            key={item.label}
-                            onClick={() => {
-                              if (isThisFilter) {
-                                setFilterQuestionId(null);
-                                setFilterValue(null);
-                              } else {
-                                setFilterQuestionId(q.id);
-                                setFilterValue(item.label);
-                              }
-                            }}
-                            className={`group p-2 rounded-lg cursor-pointer transition-all ${
-                              isThisFilter
-                                ? "bg-primary/10 border border-primary/30"
-                                : "hover:bg-muted/40"
-                            }`}
-                          >
-                            <div className="flex items-center justify-between text-xs mb-1.5">
-                              <span className="font-medium text-foreground truncate max-w-[70%] flex items-center gap-1.5">
-                                <span
-                                  className="h-2.5 w-2.5 rounded-full shrink-0"
-                                  style={{ backgroundColor: item.color }}
-                                />
-                                {item.label}
-                              </span>
-                              <span className="font-mono text-muted-foreground">
-                                {metricDisplay === "percent" ? `${item.percent}%` : item.count}{" "}
-                                <span className="opacity-60 font-sans text-[11px]">
-                                  ({metricDisplay === "percent" ? `${item.count} responses` : `${item.percent}%`})
-                                </span>
-                              </span>
-                            </div>
-
-                            <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                              <div
-                                className="h-full rounded-full transition-all duration-500 ease-out"
-                                style={{
-                                  width: `${barWidth}%`,
-                                  backgroundColor: item.color,
-                                }}
-                              />
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <p className="text-[11px] text-muted-foreground italic text-right pt-2 border-t border-border/40">
-                      Click any bar above to stratify entire dataset by this cohort.
-                    </p>
-                  </CardContent>
-                </Card>
+                <QuestionChartCard
+                  key={q.id}
+                  questionId={q.id}
+                  questionText={q.text}
+                  questionType={q.type}
+                  figureIndex={idx + 1}
+                  studyTitle={studyTitle}
+                  items={stats.items}
+                  totalAnswers={stats.totalAnswers}
+                  totalStudyN={totalN}
+                  filterQuestionId={filterQuestionId}
+                  filterValue={filterValue}
+                  onStratify={(questionId, label) => {
+                    if (filterQuestionId === questionId && filterValue === label) {
+                      setFilterQuestionId(null);
+                      setFilterValue(null);
+                    } else {
+                      setFilterQuestionId(questionId);
+                      setFilterValue(label);
+                    }
+                  }}
+                />
               );
             }
 

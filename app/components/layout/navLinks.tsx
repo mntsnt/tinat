@@ -11,7 +11,10 @@ import {
   Radar,
   ScanSearch,
   ScrollText,
+  Settings2,
+  ShieldCheck,
   ShieldUser,
+  AlertTriangle,
   WalletCards,
   Workflow,
   Layers,
@@ -44,12 +47,18 @@ export const researcherLinks: SidebarLink[] = [
 
 export const adminLinks: SidebarLink[] = [
   { title: "Overview", href: "/admin", icon: <Radar /> },
-  { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
-  { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },
   { title: "Manage Studies", href: "/admin/studies", icon: <ScanSearch /> },
   { title: "User Management", href: "/admin/users", icon: <ShieldUser /> },
+  { title: "Verifications", href: "/admin/verifications", icon: <ShieldCheck /> },
+  { title: "Ethics Board", href: "/admin/ethics-board", icon: <BookOpenCheck /> },
+  { title: "Moderation", href: "/admin/moderation", icon: <BrainCircuit /> },
+  { title: "Withdrawals", href: "/admin/withdrawals", icon: <WalletCards /> },
+  { title: "Incidents", href: "/admin/incidents", icon: <AlertTriangle /> },
   { title: "Admin Community", href: "/admin/community", icon: <MessageCircleMore /> },
   { title: "Activity Logs", href: "/admin/logs", icon: <ScrollText /> },
+  { title: "Settings", href: "/admin/settings", icon: <Settings2 /> },
+  { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
+  { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },
 ];
 
 export function getLinksForUser(user: { role?: string; isCollector?: boolean } | null): SidebarLink[] {

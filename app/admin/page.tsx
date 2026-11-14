@@ -7,7 +7,6 @@ import {
   BookOpen,
   CheckCircle2,
   Database,
-  HeartPulse,
   Mail,
   Settings2,
   ShieldCheck,
@@ -115,7 +114,7 @@ export default async function AdminDashboard() {
     const key = dayKey(date);
 
     return {
-      date: key.slice(5),
+      date: key,
       users: userMap.get(key) ?? 0,
       studies: studyMap.get(key) ?? 0,
       responses: responseMap.get(key) ?? 0,
