@@ -95,6 +95,446 @@ function describeDonutSlice(
   ].join(" ");
 }
 
+// XML entity escaping for clean, strict SVG compliance
+function escapeXml(str: string): string {
+  if (!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+// Safe Canvas 2D rounded rectangle painter with fallback
+function drawCanvasRoundRect(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number
+) {
+  if (w <= 0 || h <= 0) return;
+  const radius = Math.max(0, Math.min(r, w / 2, h / 2));
+  if (typeof ctx.roundRect === "function") {
+    ctx.roundRect(x, y, w, h, radius);
+  } else {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.arcTo(x + w, y, x + w, y + h, radius);
+    ctx.arcTo(x + w, y + h, x, y + h, radius);
+    ctx.arcTo(x, y + h, x, y, radius);
+    ctx.arcTo(x, y, x + w, y, radius);
+    ctx.closePath();
+  }
+}
+
+// Pure Canvas 2D Renderer for instant, bulletproof PNG figure export
+function renderChartToCanvas(
+  canvas: HTMLCanvasElement,
+  options: {
+    width: number;
+    height: number;
+    scale: number;
+    chartType: "bar" | "pie";
+    metricMode: "count" | "percent";
+    items: QuestionChartItem[];
+    maxVal: number;
+    totalAnswers: number;
+    totalItemCount: number;
+    figureIndex: number;
+    questionText: string;
+    studyTitle: string;
+    typeLabel: string;
+  }
+) {
+  const {
+    width,
+    height,
+    scale,
+    chartType,
+    metricMode,
+    items,
+    maxVal,
+    totalAnswers,
+    totalItemCount,
+    figureIndex,
+    questionText,
+    studyTitle,
+    typeLabel,
+  } = options;
+
+  canvas.width = width * scale;
+  canvas.height = height * scale;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  ctx.scale(scale, scale);
+
+  // 1. Crisp White Background
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, width, height);
+
+  // Outer Border & subtle frame
+  ctx.strokeStyle = "#e2e8f0";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(0.5, 0.5, width - 1, height - 1);
+
+  const padX = 40;
+  let curY = 36;
+
+  // 2. Publication Header
+  ctx.font = "bold 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.fillStyle = "#059669";
+  ctx.textAlign = "start";
+  ctx.fillText("TINAT RESEARCH PLATFORM • EMPIRICAL FIGURE", padX, curY);
+
+  curY += 22;
+  // Study Title
+  ctx.font = "600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.fillStyle = "#475569";
+  ctx.fillText(studyTitle.slice(0, 85), padX, curY);
+
+  curY += 26;
+  // Figure Number & Question Title (multi-line word wrap)
+  ctx.font = "bold 17px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.fillStyle = "#0f172a";
+  const fullTitle = `Figure ${figureIndex}: ${questionText}`;
+  const maxTitleWidth = width - padX * 2;
+  const words = fullTitle.split(" ");
+  let line = "";
+  for (let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + " ";
+    const metrics = ctx.measureText(testLine);
+    if (metrics.width > maxTitleWidth && n > 0) {
+      ctx.fillText(line.trim(), padX, curY);
+      line = words[n] + " ";
+      curY += 24;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line.trim(), padX, curY);
+
+  curY += 22;
+  // Metadata row
+  ctx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.fillStyle = "#64748b";
+  const metaStr = `Sample Size: N = ${totalAnswers} • Type: ${typeLabel} • Visual Model: ${
+    chartType === "bar" ? "Horizontal Frequency Bars" : "Proportional Donut Chart"
+  } • Metric: ${metricMode === "count" ? "Raw Response Count" : "Cohort Percentage"}`;
+  ctx.fillText(metaStr, padX, curY);
+
+  curY += 18;
+  // Divider line
+  ctx.strokeStyle = "#e2e8f0";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padX, curY);
+  ctx.lineTo(width - padX, curY);
+  ctx.stroke();
+
+  curY += 26;
+
+  // 3. Body Chart Rendering
+  if (items.length === 0 || totalAnswers === 0) {
+    ctx.font = "13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+    ctx.fillStyle = "#94a3b8";
+    ctx.textAlign = "center";
+    ctx.fillText("No participant responses recorded for this question yet.", width / 2, curY + 60);
+    ctx.textAlign = "start";
+  } else if (chartType === "bar") {
+    // Horizontal Bars for maximum label readability
+    const availableH = height - curY - 50;
+    const rowH = Math.min(54, Math.max(38, availableH / items.length));
+    const barAreaW = width - padX * 2;
+
+    items.forEach((item, idx) => {
+      const rowY = curY + idx * rowH;
+      const val = metricMode === "count" ? item.count : item.percent;
+      const ratio = maxVal > 0 ? Math.min(1, Math.max(0, val / maxVal)) : 0;
+
+      // Color swatch pill
+      ctx.fillStyle = item.color;
+      ctx.beginPath();
+      drawCanvasRoundRect(ctx, padX, rowY + 2, 11, 11, 3);
+      ctx.fill();
+
+      // Category label
+      ctx.font = "600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillStyle = "#1e293b";
+      ctx.textAlign = "start";
+      ctx.fillText(item.label.slice(0, 50), padX + 18, rowY + 12);
+
+      // Value badge on right: e.g. "45 (37.5%)"
+      const badgeStr = `${item.count} (${item.percent}%)`;
+      ctx.font = "bold 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillStyle = "#0f172a";
+      ctx.textAlign = "end";
+      ctx.fillText(badgeStr, width - padX, rowY + 12);
+      ctx.textAlign = "start";
+
+      // Track background
+      const trackY = rowY + 18;
+      const trackH = Math.max(8, Math.min(12, rowH - 26));
+      ctx.fillStyle = "#f1f5f9";
+      ctx.beginPath();
+      drawCanvasRoundRect(ctx, padX, trackY, barAreaW, trackH, trackH / 2);
+      ctx.fill();
+
+      // Value fill bar
+      const fillW = Math.max(6, barAreaW * ratio);
+      ctx.fillStyle = item.color;
+      ctx.beginPath();
+      drawCanvasRoundRect(ctx, padX, trackY, fillW, trackH, trackH / 2);
+      ctx.fill();
+    });
+  } else {
+    // Donut / Pie Chart Mode
+    const chartCenterY = curY + (height - curY - 50) / 2;
+    const centerX = padX + 130;
+    const centerY = chartCenterY;
+    const outerR = 95;
+    const innerR = 54;
+
+    if (totalItemCount > 0) {
+      let currentAngle = -Math.PI / 2;
+      items.forEach((item) => {
+        if (item.count <= 0) return;
+        const sliceAngle = (item.count / totalItemCount) * (2 * Math.PI);
+        const nextAngle = currentAngle + sliceAngle;
+
+        ctx.fillStyle = item.color;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, outerR, currentAngle, nextAngle);
+        ctx.arc(centerX, centerY, innerR, nextAngle, currentAngle, true);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        currentAngle = nextAngle;
+      });
+    } else {
+      ctx.fillStyle = "#e2e8f0";
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, outerR, 0, 2 * Math.PI);
+      ctx.arc(centerX, centerY, innerR, 2 * Math.PI, 0, true);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Donut Center Text
+    ctx.font = "bold 26px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+    ctx.fillStyle = "#0f172a";
+    ctx.textAlign = "center";
+    ctx.fillText(`${totalAnswers}`, centerX, centerY + 3);
+
+    ctx.font = "600 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+    ctx.fillStyle = "#64748b";
+    ctx.fillText("RESPONSES", centerX, centerY + 18);
+    ctx.textAlign = "start";
+
+    // Legend on Right
+    const legendX = padX + 270;
+    const legendStartY = Math.max(curY + 10, chartCenterY - (items.length * 28) / 2);
+    items.slice(0, 10).forEach((item, idx) => {
+      const itemY = legendStartY + idx * 28;
+
+      // Color Box
+      ctx.fillStyle = item.color;
+      ctx.beginPath();
+      drawCanvasRoundRect(ctx, legendX, itemY + 2, 12, 12, 3);
+      ctx.fill();
+
+      // Label
+      ctx.font = "500 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillStyle = "#334155";
+      ctx.textAlign = "start";
+      ctx.fillText(item.label.slice(0, 36), legendX + 20, itemY + 12);
+
+      // Metric Badge
+      const valStr = `${item.count} (${item.percent}%)`;
+      ctx.font = "bold 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillStyle = "#0f172a";
+      ctx.textAlign = "end";
+      ctx.fillText(valStr, width - padX, itemY + 12);
+      ctx.textAlign = "start";
+    });
+  }
+
+  // 4. Publication Footer
+  ctx.font = "10px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.fillStyle = "#94a3b8";
+  ctx.textAlign = "start";
+  const dateStr = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  ctx.fillText(
+    `Exported from Tinat Platform • Validated Medical Study Data • Generated: ${dateStr}`,
+    padX,
+    height - 18
+  );
+}
+
+// Generate fully valid, standalone, standards-compliant Vector SVG
+function generateFigureSvg(options: {
+  width: number;
+  height: number;
+  chartType: "bar" | "pie";
+  metricMode: "count" | "percent";
+  items: QuestionChartItem[];
+  maxVal: number;
+  totalAnswers: number;
+  totalItemCount: number;
+  figureIndex: number;
+  questionText: string;
+  studyTitle: string;
+  typeLabel: string;
+}): string {
+  const {
+    width,
+    height,
+    chartType,
+    metricMode,
+    items,
+    maxVal,
+    totalAnswers,
+    totalItemCount,
+    figureIndex,
+    questionText,
+    studyTitle,
+    typeLabel,
+  } = options;
+
+  const padX = 40;
+  const safeStudyTitle = escapeXml(studyTitle.slice(0, 85));
+  const safeQuestionText = escapeXml(questionText.slice(0, 85));
+  const safeTypeLabel = escapeXml(typeLabel);
+  const dateStr = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+  let bodySvg = "";
+
+  if (items.length === 0 || totalAnswers === 0) {
+    bodySvg = `
+      <text x="${width / 2}" y="240" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">
+        No participant responses recorded for this question yet.
+      </text>
+    `;
+  } else if (chartType === "bar") {
+    // Horizontal Bars
+    const curY = 140;
+    const availableH = height - curY - 50;
+    const rowH = Math.min(54, Math.max(38, availableH / items.length));
+    const barAreaW = width - padX * 2;
+
+    let barsContent = "";
+    items.forEach((item, idx) => {
+      const rowY = curY + idx * rowH;
+      const val = metricMode === "count" ? item.count : item.percent;
+      const ratio = maxVal > 0 ? Math.min(1, Math.max(0, val / maxVal)) : 0;
+      const fillW = Math.max(6, Math.round(barAreaW * ratio));
+      const trackY = rowY + 18;
+      const trackH = Math.max(8, Math.min(12, rowH - 26));
+
+      barsContent += `
+        <g>
+          <!-- Color Swatch -->
+          <rect x="${padX}" y="${rowY + 2}" width="11" height="11" rx="3" fill="${item.color}" />
+          <!-- Label -->
+          <text x="${padX + 18}" y="${rowY + 12}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#1e293b">${escapeXml(item.label.slice(0, 50))}</text>
+          <!-- Value Badge -->
+          <text x="${width - padX}" y="${rowY + 12}" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0f172a">${item.count} (${item.percent}%)</text>
+          <!-- Track -->
+          <rect x="${padX}" y="${trackY}" width="${barAreaW}" height="${trackH}" rx="${trackH / 2}" fill="#f1f5f9" />
+          <!-- Fill Bar -->
+          <rect x="${padX}" y="${trackY}" width="${fillW}" height="${trackH}" rx="${trackH / 2}" fill="${item.color}" />
+        </g>
+      `;
+    });
+    bodySvg = barsContent;
+  } else {
+    // Donut / Pie Chart Mode
+    const curY = 140;
+    const chartCenterY = curY + (height - curY - 50) / 2;
+    const centerX = padX + 130;
+    const centerY = chartCenterY;
+    const outerR = 95;
+    const innerR = 54;
+
+    let slicesSvg = "";
+    if (totalItemCount > 0) {
+      let currentDeg = 0;
+      items.forEach((item) => {
+        if (item.count <= 0) return;
+        const sliceDeg = (item.count / totalItemCount) * 360;
+        const pathD = describeDonutSlice(centerX, centerY, outerR, innerR, currentDeg, currentDeg + sliceDeg);
+        currentDeg += sliceDeg;
+        slicesSvg += `<path d="${pathD}" fill="${item.color}" stroke="#ffffff" stroke-width="2.5" />\n`;
+      });
+    } else {
+      slicesSvg = `<circle cx="${centerX}" cy="${centerY}" r="${outerR}" fill="#e2e8f0" stroke="#ffffff" stroke-width="2.5" />\n`;
+    }
+
+    // Legend on Right
+    const legendX = padX + 270;
+    const legendStartY = Math.max(curY + 10, chartCenterY - (items.length * 28) / 2);
+    let legendSvg = "";
+    items.slice(0, 10).forEach((item, idx) => {
+      const itemY = legendStartY + idx * 28;
+      legendSvg += `
+        <g>
+          <rect x="${legendX}" y="${itemY + 2}" width="12" height="12" rx="3" fill="${item.color}" />
+          <text x="${legendX + 20}" y="${itemY + 12}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" fill="#334155">${escapeXml(item.label.slice(0, 36))}</text>
+          <text x="${width - padX}" y="${itemY + 12}" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0f172a">${item.count} (${item.percent}%)</text>
+        </g>
+      `;
+    });
+
+    bodySvg = `
+      <g>
+        ${slicesSvg}
+        <!-- Center Hole -->
+        <circle cx="${centerX}" cy="${centerY}" r="${innerR}" fill="#ffffff" />
+        <text x="${centerX}" y="${centerY + 4}" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" fill="#0f172a">${totalAnswers}</text>
+        <text x="${centerX}" y="${centerY + 18}" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" fill="#64748b" letter-spacing="0.5">RESPONSES</text>
+      </g>
+      <g>
+        ${legendSvg}
+      </g>
+    `;
+  }
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+  <!-- Card Background -->
+  <rect width="${width}" height="${height}" fill="#ffffff" rx="12" stroke="#e2e8f0" stroke-width="1" />
+
+  <!-- Header Banner -->
+  <g transform="translate(${padX}, 36)">
+    <text x="0" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#059669" letter-spacing="0.5">TINAT RESEARCH PLATFORM &#8226; EMPIRICAL FIGURE</text>
+    <text x="0" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#475569">${safeStudyTitle}</text>
+    <text x="0" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="700" fill="#0f172a">Figure ${figureIndex}: ${safeQuestionText}</text>
+    <text x="0" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#64748b">Sample Size: N = ${totalAnswers} &#8226; Type: ${safeTypeLabel} &#8226; Visual Model: ${chartType === "bar" ? "Horizontal Frequency Bars" : "Proportional Donut Chart"} &#8226; Metric: ${metricMode === "count" ? "Raw Response Count" : "Cohort Percentage"}</text>
+    <line x1="0" y1="84" x2="${width - padX * 2}" y2="84" stroke="#e2e8f0" stroke-width="1" />
+  </g>
+
+  <!-- Chart Body -->
+  ${bodySvg}
+
+  <!-- Footer -->
+  <text x="${padX}" y="${height - 18}" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#94a3b8">Exported from Tinat Platform &#8226; Validated Medical Study Data &#8226; Generated: ${escapeXml(dateStr)}</text>
+</svg>`;
+}
+
 export function QuestionChartCard({
   questionId,
   questionText,
@@ -155,140 +595,36 @@ export function QuestionChartCard({
       setShowExportMenu(false);
 
       try {
-        const width = 800;
-        const height = 540;
-        const filename = `Figure_${figureIndex}_${questionText.slice(0, 24).replace(/[^a-zA-Z0-9]/g, "_")}_${chartType}.${format}`;
+        const sanitizedQuestion = questionText
+          .trim()
+          .slice(0, 30)
+          .replace(/[^a-zA-Z0-9_-]/g, "_")
+          .replace(/_+/g, "_");
+        const filename = `Figure_${figureIndex}_${sanitizedQuestion || "Chart"}_${chartType}.${format}`;
 
-        // Construct high-resolution standalone SVG document with baked-in styles & publication typography
-        const svgHeader = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-            <style>
-              .bg { fill: #ffffff; }
-              .pub-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #059669; text-transform: uppercase; letter-spacing: 0.5px; }
-              .study-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; fill: #475569; }
-              .fig-heading { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #0f172a; }
-              .meta-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; fill: #64748b; }
-              .axis-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; fill: #64748b; text-anchor: middle; }
-              .bar-val { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
-              .legend-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 500; fill: #334155; }
-              .legend-sub { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #64748b; }
-              .grid-line { stroke: #e2e8f0; stroke-width: 1; stroke-dasharray: 3 3; }
-              .axis-line { stroke: #cbd5e1; stroke-width: 1.5; }
-              .footer { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 10px; fill: #94a3b8; }
-            </style>
-            <rect width="${width}" height="${height}" class="bg" rx="12" />
-            
-            <!-- Header Banner -->
-            <g transform="translate(36, 32)">
-              <text y="0" class="pub-title">Tinat Research Platform &bull; Empirical Figure</text>
-              <text y="18" class="study-title">${studyTitle.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").slice(0, 80)}</text>
-              <text y="40" class="fig-heading">Figure ${figureIndex}: ${questionText.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").slice(0, 75)}</text>
-              <text y="58" class="meta-text">Sample Size: N = ${totalAnswers} &bull; Type: ${typeLabel} &bull; Visual Model: ${chartType === "bar" ? "Frequency Bar Graph" : "Proportional Donut Chart"}</text>
-            </g>
-        `;
-
-        let svgBody = "";
-
-        if (chartType === "bar") {
-          // Render SVG Vertical Bars
-          const plotLeft = 60;
-          const plotTop = 130;
-          const plotWidth = width - 120;
-          const plotHeight = 310;
-          const barCount = items.length;
-          const slotWidth = plotWidth / Math.max(1, barCount);
-          const barWidth = Math.min(68, Math.max(24, slotWidth * 0.65));
-
-          // 4 Gridlines
-          let gridSvg = "";
-          for (let step = 0; step <= 4; step++) {
-            const stepVal = Math.round((maxVal / 4) * step);
-            const yPos = plotTop + plotHeight - (plotHeight / 4) * step;
-            gridSvg += `
-              <line x1="${plotLeft}" y1="${yPos}" x2="${plotLeft + plotWidth}" y2="${yPos}" class="grid-line" />
-              <text x="${plotLeft - 10}" y="${yPos + 4}" class="meta-text" style="text-anchor: end; font-size: 10px;">${metricMode === "count" ? stepVal : `${stepVal}%`}</text>
-            `;
-          }
-
-          // Bars
-          let barsSvg = "";
-          items.forEach((item, idx) => {
-            const val = metricMode === "count" ? item.count : item.percent;
-            const barH = maxVal > 0 ? (val / maxVal) * plotHeight : 0;
-            const barX = plotLeft + idx * slotWidth + (slotWidth - barWidth) / 2;
-            const barY = plotTop + plotHeight - barH;
-            const labelX = barX + barWidth / 2;
-            const cleanLabel = item.label.slice(0, 18).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-            barsSvg += `
-              <rect x="${barX}" y="${barY}" width="${barWidth}" height="${barH}" rx="5" fill="${item.color}" />
-              <text x="${labelX}" y="${Math.max(plotTop + 14, barY - 8)}" class="bar-val">${item.count} (${item.percent}%)</text>
-              <text x="${labelX}" y="${plotTop + plotHeight + 20}" class="axis-label">${cleanLabel}</text>
-            `;
-          });
-
-          svgBody = `
-            ${gridSvg}
-            <line x1="${plotLeft}" y1="${plotTop + plotHeight}" x2="${plotLeft + plotWidth}" y2="${plotTop + plotHeight}" class="axis-line" />
-            ${barsSvg}
-          `;
-        } else {
-          // Render SVG Pie / Donut Chart with Legend on Right
-          const centerX = 230;
-          const centerY = 290;
-          const outerR = 140;
-          const innerR = 78;
-
-          let slicesSvg = "";
-          let currentDeg = 0;
-          items.forEach((item) => {
-            if (totalItemCount === 0) return;
-            const sliceDeg = (item.count / totalItemCount) * 360;
-            const pathD = describeDonutSlice(centerX, centerY, outerR, innerR, currentDeg, currentDeg + sliceDeg);
-            currentDeg += sliceDeg;
-            slicesSvg += `<path d="${pathD}" fill="${item.color}" stroke="#ffffff" stroke-width="2" />`;
-          });
-
-          // Center Text
-          const centerText = `
-            <text x="${centerX}" y="${centerY - 4}" text-anchor="middle" style="font-family: -apple-system, sans-serif; font-size: 24px; font-weight: 800; fill: #0f172a;">${totalAnswers}</text>
-            <text x="${centerX}" y="${centerY + 16}" text-anchor="middle" style="font-family: -apple-system, sans-serif; font-size: 11px; font-weight: 600; fill: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Responses</text>
-          `;
-
-          // Legend on Right
-          const legendX = 430;
-          const legendStartY = 160;
-          let legendSvg = "";
-          items.slice(0, 10).forEach((item, idx) => {
-            const itemY = legendStartY + idx * 30;
-            const cleanLabel = item.label.slice(0, 24).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            legendSvg += `
-              <g transform="translate(${legendX}, ${itemY})">
-                <rect x="0" y="2" width="12" height="12" rx="3" fill="${item.color}" />
-                <text x="20" y="12" class="legend-text">${cleanLabel}</text>
-                <text x="290" y="12" class="legend-sub" text-anchor="end">${item.count} (${item.percent}%)</text>
-              </g>
-            `;
-          });
-
-          svgBody = `
-            ${slicesSvg}
-            ${centerText}
-            ${legendSvg}
-          `;
-        }
-
-        const svgFooter = `
-            <!-- Footer -->
-            <text x="36" y="${height - 24}" class="footer">Exported from Tinat Platform &bull; Validated Medical Study Data &bull; Date: ${new Date().toLocaleDateString()}</text>
-          </svg>
-        `;
-
-        const fullSvgString = `${svgHeader}\n${svgBody}\n${svgFooter}`;
+        const width = 840;
+        const height = Math.max(
+          540,
+          180 + items.length * (chartType === "bar" ? 46 : 32)
+        );
 
         if (format === "svg") {
-          // Vector SVG Download
-          const blob = new Blob([fullSvgString], { type: "image/svg+xml;charset=utf-8" });
+          const svgContent = generateFigureSvg({
+            width,
+            height,
+            chartType,
+            metricMode,
+            items,
+            maxVal,
+            totalAnswers,
+            totalItemCount,
+            figureIndex,
+            questionText,
+            studyTitle,
+            typeLabel,
+          });
+
+          const blob = new Blob([svgContent], { type: "image/svg+xml;charset=utf-8" });
           const url = URL.createObjectURL(blob);
           const link = document.createElement("a");
           link.href = url;
@@ -297,45 +633,43 @@ export function QuestionChartCard({
           link.click();
           document.body.removeChild(link);
           URL.revokeObjectURL(url);
+
           setExportedFormat("svg");
           setTimeout(() => setExportedFormat(null), 3000);
         } else {
-          // High-Res 2x PNG Rasterizer Download
-          const svgBlob = new Blob([fullSvgString], { type: "image/svg+xml;charset=utf-8" });
-          const svgUrl = URL.createObjectURL(svgBlob);
-          const img = new Image();
+          // Direct HTML5 Canvas 2D PNG Export (instant & 100% reliable)
+          const canvas = document.createElement("canvas");
+          renderChartToCanvas(canvas, {
+            width,
+            height,
+            scale: 2, // 2x high-DPI retina sharpness
+            chartType,
+            metricMode,
+            items,
+            maxVal,
+            totalAnswers,
+            totalItemCount,
+            figureIndex,
+            questionText,
+            studyTitle,
+            typeLabel,
+          });
 
-          img.onload = () => {
-            const scale = 2; // 2x retina crispness
-            const canvas = document.createElement("canvas");
-            canvas.width = width * scale;
-            canvas.height = height * scale;
-            const ctx = canvas.getContext("2d");
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const url = URL.createObjectURL(blob);
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = filename;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              URL.revokeObjectURL(url);
 
-            if (ctx) {
-              ctx.scale(scale, scale);
-              ctx.drawImage(img, 0, 0, width, height);
-
-              canvas.toBlob((blob) => {
-                if (blob) {
-                  const pngUrl = URL.createObjectURL(blob);
-                  const link = document.createElement("a");
-                  link.href = pngUrl;
-                  link.download = filename;
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                  URL.revokeObjectURL(pngUrl);
-                  setExportedFormat("png");
-                  setTimeout(() => setExportedFormat(null), 3000);
-                }
-              }, "image/png");
+              setExportedFormat("png");
+              setTimeout(() => setExportedFormat(null), 3000);
             }
-
-            URL.revokeObjectURL(svgUrl);
-          };
-
-          img.src = svgUrl;
+          }, "image/png");
         }
       } catch (err) {
         console.error("Export error:", err);
@@ -354,7 +688,7 @@ export function QuestionChartCard({
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 mb-1 flex-wrap">
               <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                Figure {figureIndex} &bull; {typeLabel}
+                Figure {figureIndex} • {typeLabel}
               </span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
                 N = {totalAnswers}
@@ -613,10 +947,23 @@ export function QuestionChartCard({
           <button
             type="button"
             onClick={() => handleExportImage("png")}
-            className="font-medium text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
+            disabled={isExporting}
+            className="font-medium text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1.5 disabled:opacity-50 transition-colors"
           >
-            <Download className="w-3 h-3" />
-            <span>Download Image</span>
+            {isExporting ? (
+              <span className="w-3 h-3 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+            ) : exportedFormat === "png" ? (
+              <Check className="w-3.5 h-3.5 text-emerald-500" />
+            ) : (
+              <Download className="w-3 h-3" />
+            )}
+            <span>
+              {exportedFormat === "png"
+                ? "Downloaded!"
+                : isExporting
+                ? "Exporting..."
+                : "Download Image"}
+            </span>
           </button>
         </div>
       </CardContent>
