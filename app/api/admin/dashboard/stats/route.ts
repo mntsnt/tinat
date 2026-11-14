@@ -26,7 +26,6 @@ export async function GET(req: Request) {
       totalResponses,
       responsesToday,
       pendingVerifications,
-      pendingWithdrawals,
       failedPayments,
       recentLogs,
     ] = await Promise.all([
@@ -55,7 +54,6 @@ export async function GET(req: Request) {
       prisma.response.count(),
       prisma.response.count({ where: { submittedAt: { gte: startOfToday } } }),
       prisma.verification.count({ where: { status: "PENDING" } }),
-      prisma.withdrawal.count({ where: { status: "PENDING" } }),
       prisma.studyPayment.count({ where: { status: "FAILED" } }),
       prisma.activityLog.findMany({
         take: 10,
@@ -94,7 +92,6 @@ export async function GET(req: Request) {
       },
       pending: {
         verifications: pendingVerifications,
-        withdrawals: pendingWithdrawals,
         failedPayments: failedPayments,
       },
       recentLogs,

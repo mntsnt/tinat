@@ -72,7 +72,13 @@ export function AdminCharts({ growthData, data }: Props) {
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-                  tickFormatter={(date: string) => format(parseISO(date), "MMM d")}
+                  tickFormatter={(date: string) => {
+                    try {
+                      return date ? format(parseISO(date), "MMM d") : "";
+                    } catch {
+                      return date || "";
+                    }
+                  }}
                   minTickGap={24}
                 />
                 <YAxis
@@ -84,7 +90,13 @@ export function AdminCharts({ growthData, data }: Props) {
                 />
                 <Tooltip
                   contentStyle={tooltipStyle}
-                  labelFormatter={(date) => format(parseISO(String(date)), "MMM d, yyyy")}
+                  labelFormatter={(date) => {
+                    try {
+                      return date ? format(parseISO(String(date)), "MMM d, yyyy") : "";
+                    } catch {
+                      return String(date || "");
+                    }
+                  }}
                 />
                 <Legend iconType="circle" wrapperStyle={{ fontSize: 11, paddingTop: 12 }} />
                 <Area

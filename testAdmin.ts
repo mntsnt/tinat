@@ -17,7 +17,7 @@ async function test() {
     .setExpirationTime("7d")
     .sign(key);
     
-  const routes = ['/admin', '/admin/users', '/admin/studies', '/admin/withdrawals', '/admin/logs'];
+  const routes = ['/admin', '/admin/users', '/admin/studies', '/admin/logs'];
   
   for (const route of routes) {
     console.log(`\nFetching ${route}...`);

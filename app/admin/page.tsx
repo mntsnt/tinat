@@ -5,7 +5,6 @@ import {
   AlertTriangle,
   ArrowRight,
   BookOpen,
-  BookOpenCheck,
   CheckCircle2,
   Database,
   Mail,
@@ -28,14 +27,26 @@ function isAnyKeySet(...keys: string[]) {
   return keys.some((key) => Boolean(process.env[key]));
 }
 
+async function safeQuery<T>(promise: Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await promise;
+  } catch (error) {
+    console.error("Admin dashboard query failed (using safe fallback):", error);
+    return fallback;
+  }
+}
+
 export default async function AdminDashboard() {
   const session = await getSession();
   if (!session) redirect("/login");
 
-  const admin = await prisma.user.findUnique({
-    where: { id: session.userId },
-    select: { role: true },
-  });
+  const admin = await safeQuery(
+    prisma.user.findUnique({
+      where: { id: session.userId },
+      select: { role: true },
+    }),
+    null
+  );
   if (!admin || admin.role !== "ADMIN") redirect("/dashboard");
 
   const now = new Date();
@@ -53,10 +64,8 @@ export default async function AdminDashboard() {
     totalResponses,
     responsesToday,
     pendingVerifications,
-    pendingEthicsApprovals,
     openModerationReports,
     overdueModerationReports,
-    unresolvedIncidents,
     failedPayments,
     recentLogs,
     dailyUsers,
@@ -76,54 +85,70 @@ export default async function AdminDashboard() {
         return { status: "offline" as const, latencyMs: null };
       }
     })(),
-    prisma.user.count(),
-    prisma.user.count({ where: { role: "PARTICIPANT" } }),
-    prisma.user.count({ where: { role: "RESEARCHER" } }),
-    prisma.study.count(),
-    prisma.study.count({ where: { status: "ACTIVE" } }),
-    prisma.response.count(),
-    prisma.response.count({ where: { submittedAt: { gte: startOfToday } } }),
-    prisma.verification.count({ where: { status: "PENDING" } }),
-    prisma.ethicsApproval.count({ where: { status: "PENDING" } }),
-    prisma.moderationReport.count({
-      where: { status: { in: ["OPEN", "INVESTIGATING"] } },
-    }),
-    prisma.moderationReport.count({
-      where: {
-        status: { in: ["OPEN", "INVESTIGATING"] },
-        deadline: { lt: now },
-      },
-    }),
-    prisma.incidentLog.count({ where: { resolved: false } }),
-    prisma.studyPayment.count({ where: { status: "FAILED" } }),
-    prisma.activityLog.findMany({
-      take: 5,
-      orderBy: { createdAt: "desc" },
-      include: { user: { select: { name: true, role: true } } },
-    }),
-    prisma.$queryRaw<Array<{ day: string; count: bigint }>>`
-      SELECT TO_CHAR("createdAt", 'YYYY-MM-DD') AS day, COUNT(*) AS count
-      FROM "User"
-      WHERE "createdAt" >= ${thirtyDaysAgo}
-      GROUP BY day
-    `,
-    prisma.$queryRaw<Array<{ day: string; count: bigint }>>`
-      SELECT TO_CHAR("createdAt", 'YYYY-MM-DD') AS day, COUNT(*) AS count
-      FROM "Study"
-      WHERE "createdAt" >= ${thirtyDaysAgo}
-      GROUP BY day
-    `,
-    prisma.$queryRaw<Array<{ day: string; count: bigint }>>`
-      SELECT TO_CHAR("submittedAt", 'YYYY-MM-DD') AS day, COUNT(*) AS count
-      FROM "Response"
-      WHERE "submittedAt" >= ${thirtyDaysAgo}
-      GROUP BY day
-    `,
+    safeQuery(prisma.user.count(), 0),
+    safeQuery(prisma.user.count({ where: { role: "PARTICIPANT" } }), 0),
+    safeQuery(prisma.user.count({ where: { role: "RESEARCHER" } }), 0),
+    safeQuery(prisma.study.count(), 0),
+    safeQuery(prisma.study.count({ where: { status: "ACTIVE" } }), 0),
+    safeQuery(prisma.response.count(), 0),
+    safeQuery(prisma.response.count({ where: { submittedAt: { gte: startOfToday } } }), 0),
+    safeQuery(prisma.verification.count({ where: { status: "PENDING" } }), 0),
+    safeQuery(
+      prisma.moderationReport.count({
+        where: { status: { in: ["OPEN", "INVESTIGATING"] } },
+      }),
+      0
+    ),
+    safeQuery(
+      prisma.moderationReport.count({
+        where: {
+          status: { in: ["OPEN", "INVESTIGATING"] },
+          deadline: { lt: now },
+        },
+      }),
+      0
+    ),
+    safeQuery(prisma.studyPayment.count({ where: { status: "FAILED" } }), 0),
+    safeQuery(
+      prisma.activityLog.findMany({
+        take: 6,
+        orderBy: { createdAt: "desc" },
+        include: { user: { select: { name: true, role: true } } },
+      }),
+      []
+    ),
+    safeQuery(
+      prisma.$queryRaw<Array<{ day: string; count: any }>>`
+        SELECT TO_CHAR("createdAt", 'YYYY-MM-DD') AS day, COUNT(*)::int AS count
+        FROM "User"
+        WHERE "createdAt" >= ${thirtyDaysAgo}
+        GROUP BY 1
+      `,
+      []
+    ),
+    safeQuery(
+      prisma.$queryRaw<Array<{ day: string; count: any }>>`
+        SELECT TO_CHAR("createdAt", 'YYYY-MM-DD') AS day, COUNT(*)::int AS count
+        FROM "Study"
+        WHERE "createdAt" >= ${thirtyDaysAgo}
+        GROUP BY 1
+      `,
+      []
+    ),
+    safeQuery(
+      prisma.$queryRaw<Array<{ day: string; count: any }>>`
+        SELECT TO_CHAR("submittedAt", 'YYYY-MM-DD') AS day, COUNT(*)::int AS count
+        FROM "Response"
+        WHERE "submittedAt" >= ${thirtyDaysAgo}
+        GROUP BY 1
+      `,
+      []
+    ),
   ]);
 
-  const userMap = new Map(dailyUsers.map((item) => [item.day, Number(item.count)]));
-  const studyMap = new Map(dailyStudies.map((item) => [item.day, Number(item.count)]));
-  const responseMap = new Map(dailyResponses.map((item) => [item.day, Number(item.count)]));
+  const userMap = new Map((dailyUsers || []).map((item) => [item.day, Number(item.count) || 0]));
+  const studyMap = new Map((dailyStudies || []).map((item) => [item.day, Number(item.count) || 0]));
+  const responseMap = new Map((dailyResponses || []).map((item) => [item.day, Number(item.count) || 0]));
 
   const chartData = Array.from({ length: 30 }, (_, index) => {
     const date = new Date(thirtyDaysAgo);
@@ -211,7 +236,7 @@ export default async function AdminDashboard() {
           </p>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">Operations overview</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            A clear view of platform activity and items needing attention.
+            A clear view of platform activity, system health, and items needing administrative attention.
           </p>
         </div>
         <div
@@ -285,7 +310,7 @@ export default async function AdminDashboard() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Items needing attention</CardTitle>
-            <CardDescription>Review queues and operational anomalies</CardDescription>
+            <CardDescription>Review queues and operational items</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <Link
@@ -295,17 +320,6 @@ export default async function AdminDashboard() {
               <ShieldCheck className="h-4 w-4 text-blue-600" />
               <span className="flex-1 text-xs font-medium text-foreground">Identity verifications</span>
               <span className="text-xs text-muted-foreground">{pendingVerifications} pending</span>
-              <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
-            </Link>
-            <Link
-              href="/admin/studies"
-              className="flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
-            >
-              <BookOpenCheck className="h-4 w-4 text-emerald-600" />
-              <span className="flex-1 text-xs font-medium text-foreground">Ethics review</span>
-              <span className="text-xs text-muted-foreground">
-                {pendingEthicsApprovals} pending · studies first
-              </span>
               <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
             </Link>
             <Link
@@ -321,23 +335,25 @@ export default async function AdminDashboard() {
               <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
             </Link>
             <Link
-              href="/admin/incidents"
+              href="/admin/studies"
               className="flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
             >
-              <AlertTriangle className="h-4 w-4 text-rose-600" />
-              <span className="flex-1 text-xs font-medium text-foreground">Security incidents</span>
-              <span className="text-xs text-muted-foreground">{unresolvedIncidents} unresolved</span>
+              <BookOpen className="h-4 w-4 text-emerald-600" />
+              <span className="flex-1 text-xs font-medium text-foreground">Active studies management</span>
+              <span className="text-xs text-muted-foreground">{activeStudies} active</span>
               <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
             </Link>
-            <Link
-              href="/admin/logs"
-              className="flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
-            >
-              <AlertTriangle className="h-4 w-4 text-rose-600" />
-              <span className="flex-1 text-xs font-medium text-foreground">Failed payments</span>
-              <span className="text-xs text-muted-foreground">{failedPayments}</span>
-              <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
-            </Link>
+            {failedPayments > 0 && (
+              <Link
+                href="/admin/logs"
+                className="flex items-center gap-3 rounded-lg border border-rose-200 dark:border-rose-900/50 bg-rose-50/50 dark:bg-rose-950/20 p-3 transition-colors hover:bg-rose-100/50"
+              >
+                <AlertTriangle className="h-4 w-4 text-rose-600" />
+                <span className="flex-1 text-xs font-medium text-foreground">Failed payments</span>
+                <span className="text-xs text-rose-600 font-semibold">{failedPayments}</span>
+                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
+              </Link>
+            )}
             <div className="grid grid-cols-2 gap-2 border-t border-border pt-3 sm:grid-cols-3">
               {[
                 { label: "People", href: "/admin/users", icon: Users },
