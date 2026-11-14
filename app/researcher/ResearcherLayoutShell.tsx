@@ -31,6 +31,8 @@ export function ResearcherLayoutShell({
     pathname !== "/researcher/studies" &&
     pathname !== "/researcher/studies/new";
 
+  const isSettings = pathname === "/researcher/settings";
+
   if (isStudyDetailPage) {
     return (
       <div className="fixed inset-0 overflow-hidden bg-background">
@@ -50,9 +52,9 @@ export function ResearcherLayoutShell({
         avatarUrl={avatarUrl}
         roleColor="researcher"
       />
-      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 flex flex-col">
+      <main className={`min-h-0 min-w-0 flex-1 bg-muted/10 ${isSettings ? "overflow-hidden" : "overflow-y-auto [scrollbar-gutter:stable]"} flex flex-col`}>
         <DashboardTopNav />
-        <div className="flex-1 min-h-0">
+        <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
           {children}
         </div>
       </main>

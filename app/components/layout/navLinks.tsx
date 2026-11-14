@@ -11,7 +11,6 @@ import {
   Radar,
   ScanSearch,
   ScrollText,
-  Settings2,
   ShieldCheck,
   ShieldUser,
   AlertTriangle,
@@ -53,7 +52,6 @@ export const adminLinks: SidebarLink[] = [
   { title: "Moderation", href: "/admin/moderation", icon: <BrainCircuit /> },
   { title: "Admin Community", href: "/admin/community", icon: <MessageCircleMore /> },
   { title: "Activity Logs", href: "/admin/logs", icon: <ScrollText /> },
-  { title: "Settings", href: "/admin/settings", icon: <Settings2 /> },
   { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },
 ];

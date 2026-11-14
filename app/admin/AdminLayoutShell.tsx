@@ -20,6 +20,8 @@ type AdminLayoutShellProps = {
 export function AdminLayoutShell({ children, links, user }: AdminLayoutShellProps) {
   const pathname = usePathname();
   const isCommunityChat = pathname === "/admin/community";
+  const isSettings = pathname === "/admin/settings";
+  const isFixedLayout = isCommunityChat || isSettings;
 
   return (
     <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
@@ -32,9 +34,9 @@ export function AdminLayoutShell({ children, links, user }: AdminLayoutShellProp
         avatarUrl={user.avatarUrl}
         roleColor="admin"
       />
-      <main className={`min-h-0 min-w-0 flex-1 bg-muted/10 ${isCommunityChat ? "overflow-hidden" : "overflow-y-auto [scrollbar-gutter:stable]"}`}>
+      <main className={`min-h-0 min-w-0 flex-1 bg-muted/10 ${isFixedLayout ? "overflow-hidden" : "overflow-y-auto [scrollbar-gutter:stable]"} flex flex-col`}>
         <DashboardTopNav />
-        <div className="flex-1 min-h-0">
+        <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
           {children}
         </div>
       </main>

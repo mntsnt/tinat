@@ -253,25 +253,30 @@ export default function SettingsPage({ user }: { user: UserData }) {
   }
 
   return (
-    <div className="flex h-full min-h-0 w-full max-w-7xl flex-col overflow-hidden px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+    <div className="flex h-full min-h-0 w-full max-w-7xl flex-col overflow-hidden px-4 py-4 sm:px-6 sm:py-6 lg:px-8 mx-auto">
       <header className="mb-4 flex shrink-0 items-start justify-between gap-4 sm:mb-6">
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
             Account
           </p>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
             Settings
           </h1>
-          <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">
+          <p className="mt-1 max-w-2xl text-xs sm:text-sm text-muted-foreground">
             Manage your profile, account details, and appearance in one place.
           </p>
         </div>
       </header>
 
-      <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[220px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-6">
+      <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[240px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-8 items-start">
         <nav
           aria-label="Settings sections"
-          className="flex gap-1 overflow-x-auto rounded-xl border border-border bg-card p-1.5 lg:flex-col lg:h-fit shrink-0"
+          onWheel={(e) => {
+            if (contentScrollRef.current) {
+              contentScrollRef.current.scrollTop += e.deltaY;
+            }
+          }}
+          className="flex gap-1 overflow-x-auto rounded-xl border border-border bg-card p-1.5 lg:flex-col lg:h-fit shrink-0 shadow-2xs select-none"
         >
           {[
             { id: "account", label: "Account overview", icon: CircleUserRound },
@@ -291,7 +296,7 @@ export default function SettingsPage({ user }: { user: UserData }) {
                 onClick={(e) => handleNavClick(e, item.id)}
                 className={`flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition font-medium ${
                   isActive
-                    ? "bg-primary/10 text-primary font-semibold"
+                    ? "bg-primary/10 text-primary font-semibold shadow-2xs"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`}
               >
@@ -309,7 +314,7 @@ export default function SettingsPage({ user }: { user: UserData }) {
 
         <div
           ref={contentScrollRef}
-          className="min-h-0 min-w-0 space-y-5 overflow-y-auto overscroll-contain pr-1 scroll-smooth"
+          className="min-h-0 min-w-0 flex-1 h-full space-y-5 overflow-y-auto overscroll-contain pr-2 scroll-smooth [scrollbar-gutter:stable]"
         >
           <section
             id="account"
