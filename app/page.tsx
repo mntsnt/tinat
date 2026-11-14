@@ -114,64 +114,6 @@ export default async function Home() {
               </div>
             </div>
 
-            {/* Doctors Duo Hero Visual */}
-            <div className="doctors-duo">
-              <style>{`
-                .doctors-duo {
-                  display: flex;
-                  align-items: flex-end;
-                  justify-content: center;
-                  position: relative;
-                  width: 100%;
-                  height: 380px;
-                  margin-left: auto;
-                  margin-right: auto;
-                  overflow: hidden;
-                }
-                @media (min-width: 768px) {
-                  .doctors-duo {
-                    height: 480px;
-                  }
-                }
-                @media (min-width: 1024px) {
-                  .doctors-duo {
-                    height: 620px;
-                  }
-                }
-                .doctors-duo img {
-                  height: auto;
-                  max-width: 100%;
-                  object-fit: contain;
-                  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.25));
-                }
-                .doctors-duo img:first-of-type {
-                  height: 92%;
-                  width: auto;
-                  position: relative;
-                  z-index: 1;
-                }
-                .doctors-duo img:last-of-type {
-                  height: 96%;
-                  width: auto;
-                  margin-left: -7%;
-                  position: relative;
-                  z-index: 2;
-                }
-              `}</style>
-              <img
-                src="/man.png"
-                alt="Ethiopian male doctor"
-                width={832}
-                height={1248}
-              />
-              <img
-                src="/woman.png"
-                alt="Ethiopian female doctor"
-                width={832}
-                height={1248}
-              />
-            </div>
-
             {/* Interactive Hero Study Preview - Live from DB */}
             <div className="relative hidden lg:block perspective-1000">
               <div className="relative animate-float rounded-2xl border border-border bg-card p-6 shadow-2xl">
