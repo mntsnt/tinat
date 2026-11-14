@@ -1,46 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# [Tinat](https://tinat.org/)
 
-## Getting Started
+A modern, AI-powered health research and clinical data ecosystem that connects researchers with verified participants, coordinates field data collection, and streamlines ethical medical research in Africa.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Smart Study Builder** – Create structured multi-format health questionnaires, clinical surveys, and IRB-compliant protocols.
+- **Verified Participant Network** – Recruit pre-screened and Fayda ID-verified contributors for clinical and epidemiological research.
+- **Field Data Collection** – Deploy and monitor authorized enumerators with offline session storage, draft saving, and audit trails.
+- **Context-Aware AI Analysis** – Synthesize responses, detect anomalies, analyze qualitative feedback, and interact with an AI research assistant powered by Google Gemini.
+- **Data Visualization Studio** – Generate real-time statistical distributions, cross-tabulations, and demographic charts.
+- **Save & Bookmark Studies** – Like, bookmark, and follow active health studies for quick reference.
+- **Discussions & Feedback** – Comment and participate in threaded academic discussions on study findings and methodologies.
+- **Public Profile Viewing** – View detailed profiles of researchers, investigators, and community participants across all studies.
+- **Tinat Credits (TC) & Wallet** – Automated and transparent participant compensation integrated with Chapa payments.
+- **Export Options** – Download datasets in CSV, Excel, and structured formats for SPSS, Stata, R, and Python.
+- **Ethics & Consent Governance** – Built-in digital informed consent gates, participant withdrawal management, and institutional ethics oversight.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js 16 (App Router), React, TypeScript, Tailwind CSS
+- **Backend**: Next.js Route Handlers, PostgreSQL, Prisma ORM
+- **AI**: Google Gemini API
+- **Authentication**: JWT (Jose), Fayda National Digital ID, Google OAuth
+- **Payments**: Chapa Payment Gateway
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Self Hosting Guide
 
-## Google Sign-In
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mntsnt/tinat.git
+   cd tinat/app
+   ```
 
-Set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `AUTH_SECRET` in your local environment. In Google Cloud Console, register this authorized redirect URI:
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-```text
-http://localhost:3000/api/auth/callback/google
-```
+3. **Set up environment variables**
+   Refer to `.env.example`:
+   ```bash
+   cp .env.example .env
+   ```
+   Fill in your PostgreSQL `DATABASE_URL`, `AUTH_SECRET`, and `GEMINI_API_KEY`.
 
-For deployed environments, register `https://<your-app-domain>/api/auth/callback/google` and configure the matching app URL or proxy host. Google sign-up creates a verified account; new accounts default to Participant unless Researcher is selected on the sign-up page.
+4. **Initialize database schema**
+   ```bash
+   npx prisma db push
+   ```
 
-## Learn More
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How to Contribute
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+We welcome contributions from the community! Follow these steps to contribute:
 
-## Deploy on Vercel
+1. **Fork the Repository**: Fork the Tinat repository to your GitHub account.
+2. **Make Changes**: Create a new branch, make your changes, and commit them to your branch.
+3. **Create a Pull Request**: Once your changes are ready, create a detailed pull request (PR) explaining the changes you've made.
+4. **Review and Iterate**: Collaborate with the maintainers to review and iterate on your changes until they are ready to be merged.
+5. **That's it!**: Can't wait to see the wonders you'll be doing.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For more detailed guidelines on contributing, please refer to our contribution guidelines.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Contact
+
+Have questions or suggestions? Feel free to open an issue or reach out to our team.

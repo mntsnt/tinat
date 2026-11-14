@@ -53,16 +53,16 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
       comments: {
         where: { parentId: null },
         include: {
-          user: { select: { name: true, avatarUrl: true, role: true } },
+          user: { select: { id: true, name: true, avatarUrl: true, role: true } },
           replies: {
-            include: { user: { select: { name: true, avatarUrl: true, role: true } } },
+            include: { user: { select: { id: true, name: true, avatarUrl: true, role: true } } },
             orderBy: { createdAt: "asc" }
           }
         },
         orderBy: { createdAt: "desc" }
       },
       ratings: {
-        include: { user: { select: { name: true, avatarUrl: true } } },
+        include: { user: { select: { id: true, name: true, avatarUrl: true } } },
         orderBy: { createdAt: "desc" }
       },
       dataCollectors: { select: { id: true } },
@@ -753,20 +753,34 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
             study.comments.map((comment) => (
               <div key={comment.id} className="space-y-3">
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                  <Link
+                    href={`/profile/${comment.user.id}`}
+                    title={`View ${comment.user.name}'s profile`}
+                    className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 hover:opacity-85 transition-opacity overflow-hidden"
+                  >
                     {comment.user.avatarUrl ? (
                       <img src={comment.user.avatarUrl} alt={comment.user.name} className="w-full h-full rounded-full object-cover" />
                     ) : (
                       <span className="font-semibold text-primary">{comment.user.name.charAt(0).toUpperCase()}</span>
                     )}
-                  </div>
+                  </Link>
                   <div className="flex-1 bg-muted/30 rounded-2xl rounded-tl-none p-4 border border-border">
                     <div className="flex items-baseline justify-between gap-4 mb-2">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-sm">{comment.user.name}</span>
-                        {comment.user.role === "RESEARCHER" && (
+                        <Link
+                          href={`/profile/${comment.user.id}`}
+                          title={`View ${comment.user.name}'s profile`}
+                          className="font-semibold text-sm hover:text-emerald-600 hover:underline transition-colors"
+                        >
+                          {comment.user.name}
+                        </Link>
+                        {comment.user.role === "RESEARCHER" ? (
                           <span className="text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20">
                             Researcher
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-semibold bg-teal-500/10 text-teal-600 dark:text-teal-400 px-2 py-0.5 rounded-full border border-teal-500/20">
+                            Participant
                           </span>
                         )}
                       </div>
@@ -781,20 +795,34 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                   <div className="pl-10 sm:pl-14 space-y-3">
                     {comment.replies.map(reply => (
                       <div key={reply.id} className="flex gap-3">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 text-xs font-semibold text-primary">
+                        <Link
+                          href={`/profile/${reply.user.id}`}
+                          title={`View ${reply.user.name}'s profile`}
+                          className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 text-xs font-semibold text-primary hover:opacity-85 transition-opacity overflow-hidden"
+                        >
                           {reply.user.avatarUrl ? (
                             <img src={reply.user.avatarUrl} alt={reply.user.name} className="w-full h-full rounded-full object-cover" />
                           ) : (
                             reply.user.name.charAt(0).toUpperCase()
                           )}
-                        </div>
+                        </Link>
                         <div className="flex-1 bg-card rounded-2xl rounded-tl-none p-3.5 border border-border shadow-xs">
                           <div className="flex items-baseline justify-between gap-3 mb-1.5">
                             <div className="flex items-center gap-1.5">
-                              <span className="font-semibold text-xs text-foreground">{reply.user.name}</span>
-                              {reply.user.role === "RESEARCHER" && (
+                              <Link
+                                href={`/profile/${reply.user.id}`}
+                                title={`View ${reply.user.name}'s profile`}
+                                className="font-semibold text-xs text-foreground hover:text-emerald-600 hover:underline transition-colors"
+                              >
+                                {reply.user.name}
+                              </Link>
+                              {reply.user.role === "RESEARCHER" ? (
                                 <span className="text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.2 rounded-full border border-emerald-500/20">
                                   Researcher
+                                </span>
+                              ) : (
+                                <span className="text-[10px] font-semibold bg-teal-500/10 text-teal-600 dark:text-teal-400 px-2 py-0.2 rounded-full border border-teal-500/20">
+                                  Participant
                                 </span>
                               )}
                             </div>

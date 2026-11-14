@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/Card";
 import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
@@ -72,7 +73,7 @@ type Study = {
   rewardCredits: number;
   containsSensitiveTopics?: boolean;
   safetyProtocolText?: string | null;
-  researcher: { name: string };
+  researcher: { id?: string; name: string };
   questions: Question[];
   likes: { userId: string }[];
   comments: StudyComment[];
@@ -672,7 +673,18 @@ export default function StudyQuestionnaire({
 
           <div className="flex items-center justify-between pb-4 border-b border-border mb-6">
             <div className="text-xs text-muted-foreground">
-              Conducted by <strong className="text-foreground">{study.researcher.name}</strong>
+              Conducted by{" "}
+              {study.researcher.id ? (
+                <Link
+                  href={`/profile/${study.researcher.id}`}
+                  title={`View ${study.researcher.name}'s profile`}
+                  className="font-semibold text-foreground hover:text-emerald-600 hover:underline transition-colors"
+                >
+                  {study.researcher.name}
+                </Link>
+              ) : (
+                <strong className="text-foreground">{study.researcher.name}</strong>
+              )}
             </div>
 
             <div className="flex items-center gap-2">

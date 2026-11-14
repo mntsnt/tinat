@@ -29,6 +29,7 @@ export default async function StudyPage(props: Props) {
     include: {
       researcher: {
         select: {
+          id: true,
           name: true,
         },
       },

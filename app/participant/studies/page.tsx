@@ -69,7 +69,7 @@ export default async function StudyDiscoveryPage({
   const studies = await prisma.study.findMany({
     where: whereClause,
     include: {
-      researcher: { select: { name: true, isVerified: true, institution: true } },
+      researcher: { select: { id: true, name: true, isVerified: true, institution: true } },
       _count: { select: { questions: true, responses: true } },
     },
     orderBy: { createdAt: "desc" },
@@ -281,7 +281,17 @@ export default async function StudyDiscoveryPage({
                     {study.title}
                   </CardTitle>
                   <CardDescription className="flex items-center gap-1.5 text-xs">
-                    <span>By {study.researcher.name}</span>
+                    <span>
+                      By{" "}
+                      <Link
+                        href={`/profile/${study.researcher.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        title={`View ${study.researcher.name}'s profile`}
+                        className="font-medium text-foreground hover:text-emerald-600 hover:underline transition-colors"
+                      >
+                        {study.researcher.name}
+                      </Link>
+                    </span>
                     {study.researcher.institution && (
                       <span className="text-muted-foreground truncate">
                         &bull; {study.researcher.institution}

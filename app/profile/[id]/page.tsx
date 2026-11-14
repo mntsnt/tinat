@@ -10,6 +10,7 @@ import {
   GraduationCap,
   MapPin,
   UserRound,
+  ShieldCheck,
 } from "lucide-react";
 import { getSession } from "../../../lib/auth";
 import { prisma } from "../../../lib/prisma";
@@ -43,8 +44,15 @@ export default async function ProfilePage({
         institution: true,
         fieldOfStudy: true,
         isVerified: true,
+        faydaVerified: true,
         createdAt: true,
-        _count: { select: { participantLinks: true } },
+        _count: {
+          select: {
+            participantLinks: true,
+            assignedStudies: true,
+            collectedResponses: true,
+          },
+        },
         studies: {
           where: { status: "ACTIVE" },
           orderBy: { createdAt: "desc" },
@@ -127,21 +135,38 @@ export default async function ProfilePage({
                         Verified
                       </Badge>
                     )}
+                    {user.faydaVerified && (
+                      <Badge variant="outline" className="border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1">
+                        <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                        Fayda ID
+                      </Badge>
+                    )}
+                    {user._count.assignedStudies > 0 && (
+                      <Badge variant="outline" className="border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300 inline-flex items-center gap-1">
+                        Field Collector
+                      </Badge>
+                    )}
                   </div>
                   <div className="mt-1 flex flex-wrap items-center gap-3">
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm font-medium text-muted-foreground">
                       {ROLE_LABELS[user.role] || "Tinat member"}
                     </p>
                   </div>
                 </div>
               </div>
-              {isOwnProfile && (
+              {isOwnProfile ? (
                 <Link href={settingsHref} className="shrink-0">
                   <Button variant="outline" size="sm" className="w-full sm:w-auto">
                     Edit profile
                   </Button>
                 </Link>
-              )}
+              ) : user.role === "RESEARCHER" && user.studies.length > 0 ? (
+                <a href="#active-studies" className="shrink-0">
+                  <Button variant="outline" size="sm" className="w-full sm:w-auto border-emerald-600/30 text-emerald-700 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-950/20">
+                    View Studies ({user.studies.length})
+                  </Button>
+                </a>
+              ) : null}
             </div>
 
             <div className="mt-6 grid gap-6 border-t border-border pt-5 sm:grid-cols-[1fr_auto] sm:items-start">
@@ -182,10 +207,18 @@ export default async function ProfilePage({
                     </div>
                   </>
                 ) : (
-                  <div>
-                    <p className="text-lg font-semibold text-foreground">{user._count.participantLinks}</p>
-                    <p className="text-xs text-muted-foreground">Research contributions</p>
-                  </div>
+                  <>
+                    <div>
+                      <p className="text-lg font-semibold text-foreground">{user._count.participantLinks}</p>
+                      <p className="text-xs text-muted-foreground">Contributions</p>
+                    </div>
+                    {user._count.collectedResponses > 0 && (
+                      <div>
+                        <p className="text-lg font-semibold text-foreground">{user._count.collectedResponses}</p>
+                        <p className="text-xs text-muted-foreground">Field Surveys</p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -193,7 +226,7 @@ export default async function ProfilePage({
         </Card>
 
         {user.role === "RESEARCHER" && (
-          <section className="mt-8 space-y-4">
+          <section id="active-studies" className="mt-8 space-y-4 scroll-mt-20">
             <div className="flex items-end justify-between gap-4">
               <div>
                 <h2 className="text-lg font-semibold text-foreground">Active studies</h2>

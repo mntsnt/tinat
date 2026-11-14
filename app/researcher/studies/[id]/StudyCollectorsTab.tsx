@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   Users,
   UserPlus,
@@ -304,7 +305,13 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
                 <div key={app.id} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-muted/30 transition-colors">
                   <div className="space-y-1.5 min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-semibold text-sm text-foreground">{app.applicant.name}</span>
+                      <Link
+                        href={`/profile/${app.applicant.id}`}
+                        title={`View ${app.applicant.name}'s profile`}
+                        className="font-semibold text-sm text-foreground hover:text-emerald-600 hover:underline transition-colors"
+                      >
+                        {app.applicant.name}
+                      </Link>
                       {app.applicant.username && (
                         <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                           @{app.applicant.username}
@@ -404,7 +411,13 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
                     <tr key={c.id} className="hover:bg-muted/40 transition-colors">
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-2">
-                          <span className="font-semibold text-foreground text-sm">{c.user.name}</span>
+                          <Link
+                            href={`/profile/${c.user.id}`}
+                            title={`View ${c.user.name}'s profile`}
+                            className="font-semibold text-foreground text-sm hover:text-emerald-600 hover:underline transition-colors"
+                          >
+                            {c.user.name}
+                          </Link>
                           {c.user.username && (
                             <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                               @{c.user.username}
