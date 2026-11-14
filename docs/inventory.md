@@ -1,8 +1,8 @@
 # System Inventory & Architecture Index
 
-**Auto-generated via:** `scripts/generate-inventory.ts`  
-**Generated At:** 2026-11-05T08:45:44.810Z  
-**Platform:** Tinat Health Research Ecosystem (Ethiopia)  
+**Auto-generated via:** `scripts/generate-inventory.ts`<br />
+**Generated At:** 2026-11-14T11:15:16.066Z<br />
+**Platform:** Tinat Health Research Ecosystem (Ethiopia)<br />
 **Regulatory Standard:** Ethiopian Personal Data Protection Proclamation No. 1321/2024
 
 ---
@@ -21,16 +21,17 @@
 
 ## 2. Database Schema Summary
 
-- **Total Models:** 60
-- **Total Enums:** 32
+- **Total Models:** 61
+- **Total Enums:** 33
 
-### 2.1 Enums (32 Enums)
+### 2.1 Enums (33 Enums)
 
 | Enum Name | Allowed Values Count | Values |
 | :--- | :--- | :--- |
 | `AIArtifactType` | 4 | `TABLE`, `FIGURE`, `MARKDOWN`, `CODE` |
 | `AIMessageRole` | 4 | `USER`, `ASSISTANT`, `SYSTEM`, `TOOL` |
 | `AIProvider` | 3 | `GEMINI`, `OPENROUTER`, `GROQ` |
+| `ApplicationStatus` | 3 | `PENDING`, `APPROVED`, `DECLINED` |
 | `AskQuestionStatus` | 4 | `UNANSWERED`, `ANSWERED`, `ARCHIVED`, `DELETED` |
 | `CollectionMethod` | 2 | `SELF`, `FIELD_COLLECTED` |
 | `DataSubjectRequestStatus` | 4 | `PENDING`, `IN_REVIEW`, `COMPLETED`, `REJECTED` |
@@ -61,7 +62,7 @@
 | `VerificationType` | 2 | `RESEARCHER`, `DATA_COLLECTOR` |
 | `WithdrawalStatus` | 4 | `PENDING`, `APPROVED`, `REJECTED`, `COMPLETED` |
 
-### 2.2 Models (60 Models)
+### 2.2 Models (61 Models)
 
 | Model Name | Field Count | Primary Key / Index Summary |
 | :--- | :--- | :--- |
@@ -75,6 +76,7 @@
 | `AskProfile` | 13 | `id: String` |
 | `AskQuestion` | 13 | `id: String` |
 | `CollectionSession` | 9 | `id: String` |
+| `CollectorApplication` | 9 | `id: String` |
 | `CollectorInvitation` | 10 | `id: String` |
 | `ConsentForm` | 10 | `id: String` |
 | `ConsentRecord` | 9 | `id: String` |
@@ -112,7 +114,7 @@
 | `QuestionTranslation` | 8 | `id: String` |
 | `ResearchProject` | 35 | `id: String` |
 | `Response` | 14 | `id: String` |
-| `Study` | 53 | `id: String` |
+| `Study` | 54 | `id: String` |
 | `StudyBookmark` | 6 | `id: String` |
 | `StudyComment` | 11 | `id: String` |
 | `StudyDataCollector` | 6 | `id: String` |
@@ -121,14 +123,14 @@
 | `StudyRating` | 8 | `id: String` |
 | `StudyTranslation` | 10 | `id: String` |
 | `TinatCreditTransaction` | 9 | `id: String` |
-| `User` | 72 | `id: String` |
+| `User` | 74 | `id: String` |
 | `Verification` | 13 | `id: String` |
 | `Wallet` | 10 | `id: String` |
 | `Withdrawal` | 9 | `id: String` |
 
 ---
 
-## 3. Web Application Page Routes (50 Pages)
+## 3. Web Application Page Routes (51 Pages)
 
 | Page Route | Relative Path |
 | :--- | :--- |
@@ -168,6 +170,7 @@
 | `/participant/wallet` | `app/participant/wallet/page.tsx` |
 | `/participant/wallet/withdraw` | `app/participant/wallet/withdraw/page.tsx` |
 | `/privacy` | `app/privacy/page.tsx` |
+| `/profile` | `app/profile/page.tsx` |
 | `/profile/[id]` | `app/profile/[id]/page.tsx` |
 | `/projects` | `app/projects/page.tsx` |
 | `/projects/[id]` | `app/projects/[id]/page.tsx` |
@@ -185,7 +188,7 @@
 
 ---
 
-## 4. API Route Handlers (112 Handlers)
+## 4. API Route Handlers (117 Handlers)
 
 | Endpoint Path | HTTP Methods | Required Authorization / Role Gate | Source File |
 | :--- | :--- | :--- | :--- |
@@ -226,6 +229,7 @@
 | `/api/auth/google` | `GET` | `PUBLIC / UNGUARDED` | `app/api/auth/google/route.ts` |
 | `/api/auth/login` | `POST` | `PUBLIC / UNGUARDED` | `app/api/auth/login/route.ts` |
 | `/api/auth/logout` | `POST` | `SESSION_CHECKED` | `app/api/auth/logout/route.ts` |
+| `/api/auth/me` | `GET` | `SESSION_CHECKED` | `app/api/auth/me/route.ts` |
 | `/api/auth/payments/chapa/callback` | `GET` | `PUBLIC / UNGUARDED` | `app/api/auth/payments/chapa/callback/route.ts` |
 | `/api/auth/register` | `POST` | `PUBLIC / UNGUARDED` | `app/api/auth/register/route.ts` |
 | `/api/auth/resend-verification` | `POST` | `PUBLIC / UNGUARDED` | `app/api/auth/resend-verification/route.ts` |
@@ -251,6 +255,7 @@
 | `/api/forms/[id]` | `GET` `PATCH` `DELETE` | `SESSION_CHECKED` | `app/api/forms/[id]/route.ts` |
 | `/api/forms/[id]/export` | `GET` | `SESSION_CHECKED` | `app/api/forms/[id]/export/route.ts` |
 | `/api/forms/[id]/responses` | `GET` | `SESSION_CHECKED` | `app/api/forms/[id]/responses/route.ts` |
+| `/api/notifications` | `GET` `PATCH` | `SESSION_CHECKED` | `app/api/notifications/route.ts` |
 | `/api/projects` | `GET` `POST` | `SESSION_CHECKED` | `app/api/projects/route.ts` |
 | `/api/projects/[id]` | `GET` `PATCH` `DELETE` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/route.ts` |
 | `/api/projects/[id]/ai` | `POST` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/ai/route.ts` |
@@ -278,7 +283,10 @@
 | `/api/reports` | `POST` | `SESSION_CHECKED` | `app/api/reports/route.ts` |
 | `/api/studies` | `GET` `POST` | `[RESEARCHER, ADMIN]` | `app/api/studies/route.ts` |
 | `/api/studies/[id]` | `GET` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/route.ts` |
-| `/api/studies/[id]/collectors` | `GET` `POST` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/collectors/route.ts` |
+| `/api/studies/[id]/applications` | `GET` | `SESSION_CHECKED` | `app/api/studies/[id]/applications/route.ts` |
+| `/api/studies/[id]/applications/[applicationId]` | `PATCH` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/applications/[applicationId]/route.ts` |
+| `/api/studies/[id]/apply-collector` | `POST` | `SESSION_CHECKED` | `app/api/studies/[id]/apply-collector/route.ts` |
+| `/api/studies/[id]/collectors` | `GET` `POST` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/collectors/route.ts` |
 | `/api/studies/[id]/comment` | `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/comment/route.ts` |
 | `/api/studies/[id]/consent` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/consent/route.ts` |
 | `/api/studies/[id]/ethics` | `GET` `POST` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/ethics/route.ts` |

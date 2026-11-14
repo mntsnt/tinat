@@ -86,6 +86,23 @@ export async function POST(
       notes,
     } = body;
 
+    if (
+      isSensitiveHealthData !== undefined &&
+      typeof isSensitiveHealthData !== "boolean"
+    ) {
+      return NextResponse.json(
+        { error: "Sensitive health data status must be a boolean." },
+        { status: 400 }
+      );
+    }
+
+    if (isSensitiveHealthData === true && !auth.canManageProject) {
+      return NextResponse.json(
+        { error: "Only project managers can classify files as sensitive health data." },
+        { status: 403 }
+      );
+    }
+
     if (!name || typeof name !== "string" || name.trim().length === 0) {
       return NextResponse.json({ error: "File name is required." }, { status: 400 });
     }
@@ -99,7 +116,7 @@ export async function POST(
         ? folder
         : ProjectFileFolder.PROTOCOL;
 
-    const isSensitive = Boolean(isSensitiveHealthData);
+    const isSensitive = isSensitiveHealthData === true;
 
     // Create file
     const file = await prisma.projectFile.create({

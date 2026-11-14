@@ -170,7 +170,7 @@ export async function GET(request: NextRequest) {
         data: {
           userId: user.id,
           title: "Welcome to Tinat! 🎉",
-          message: "Welcome to Tinat! Explore active research studies, share anonymous questions on Tinat Ask, or contribute as a field data collector.",
+          message: "Welcome to Tinat! Explore active research studies, ask questions on Tinat Ask, or contribute as a field data collector.",
           linkUrl: requestedRole === "RESEARCHER" ? "/researcher" : "/participant",
         },
       });

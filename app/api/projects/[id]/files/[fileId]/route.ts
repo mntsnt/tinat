@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { authorizeProjectAccess, logProjectActivity } from "@/lib/projects/auth";
+import {
+  authorizeProjectAccess,
+  canUpdateProjectFile,
+  logProjectActivity,
+} from "@/lib/projects/auth";
 import { ProjectFileFolder } from "@/generated/prisma/enums";
 
 export async function PATCH(
@@ -40,6 +44,23 @@ export async function PATCH(
       newVersionSize,
       changeSummary,
     } = body;
+
+    if (
+      isSensitiveHealthData !== undefined &&
+      typeof isSensitiveHealthData !== "boolean"
+    ) {
+      return NextResponse.json(
+        { error: "Sensitive health data status must be a boolean." },
+        { status: 400 }
+      );
+    }
+
+    if (!canUpdateProjectFile(auth, file.isSensitiveHealthData, isSensitiveHealthData)) {
+      return NextResponse.json(
+        { error: "You do not have permission to update this file or its sensitivity status." },
+        { status: 403 }
+      );
+    }
 
     const updateData: any = {};
     if (name) updateData.name = name.trim();
@@ -85,7 +106,19 @@ export async function PATCH(
       },
     });
 
-    return NextResponse.json({ success: true, file: updated });
+    const isRestricted =
+      updated.isSensitiveHealthData && !auth.canAccessHealthData;
+    return NextResponse.json({
+      success: true,
+      file: {
+        ...updated,
+        fileUrl: isRestricted ? null : updated.fileUrl,
+        versions: updated.versions.map((version) => ({
+          ...version,
+          fileUrl: isRestricted ? null : version.fileUrl,
+        })),
+      },
+    });
   } catch (error) {
     console.error("Error updating file:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

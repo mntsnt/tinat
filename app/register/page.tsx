@@ -14,7 +14,6 @@ import {
   ArrowRight,
   Loader2,
   ShieldCheck,
-  Activity,
   Coins,
   Clock,
   Building2,
@@ -264,7 +263,7 @@ function RegisterContent() {
                   </div>
                   <div className="flex items-center gap-2 text-xs text-foreground/90">
                     <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0" />
-                    <span>100% confidential & privacy protected</span>
+                    <span>Privacy controls help protect participant information</span>
                   </div>
                 </div>
               </div>
@@ -668,16 +667,16 @@ function RegisterContent() {
         {/* Bottom Trust & Compliance Bar */}
         <div className="relative z-10 border-t border-white/10 pt-4 grid grid-cols-3 gap-3 text-center">
           <div>
-            <div className="text-base font-bold text-white tracking-tight">15,400+</div>
-            <div className="text-[10px] text-white/60 font-medium uppercase tracking-wider">Responses Logged</div>
+            <div className="text-base font-bold text-white tracking-tight">Research</div>
+            <div className="text-[10px] text-white/60 font-medium uppercase tracking-wider">Built for participation</div>
           </div>
           <div className="border-x border-white/10">
-            <div className="text-base font-bold text-emerald-400 tracking-tight">100%</div>
-            <div className="text-[10px] text-white/60 font-medium uppercase tracking-wider">Ethics Compliant</div>
+            <div className="text-base font-bold text-emerald-400 tracking-tight">Ethics-first</div>
+            <div className="text-[10px] text-white/60 font-medium uppercase tracking-wider">Study review built in</div>
           </div>
           <div>
-            <div className="text-base font-bold text-teal-300 tracking-tight">0%</div>
-            <div className="text-[10px] text-white/60 font-medium uppercase tracking-wider">Third-Party Data Sale</div>
+            <div className="text-base font-bold text-teal-300 tracking-tight">Privacy</div>
+            <div className="text-[10px] text-white/60 font-medium uppercase tracking-wider">De-identified exports</div>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@
     "inventory:generate": "tsx scripts/generate-inventory.ts",
     "inventory:check": "tsx scripts/generate-inventory.ts --check",
     "check:claims": "tsx scripts/check-claims.ts",
-    "test": "tsx --test tests/*.test.ts",
+    "test": "tsx --test --test-concurrency=1 tests/*.test.ts",
     "check:page-weight": "tsx scripts/check-page-weight.ts"
   },
   "dependencies": {

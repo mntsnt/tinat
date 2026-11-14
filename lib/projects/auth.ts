@@ -1,4 +1,3 @@
-import { getSession } from "@/lib/auth";
 import { requireUser } from "@/lib/authGuard";
 import { prisma } from "@/lib/prisma";
 import { ProjectRole, ProjectVisibility } from "@/generated/prisma/enums";
@@ -16,6 +15,17 @@ export interface ProjectAuthContext {
   canAccessHealthData: boolean;
   canMakeDecisions: boolean;
   canManageStudies: boolean;
+}
+
+export function canUpdateProjectFile(
+  auth: Pick<ProjectAuthContext, "canAccessHealthData" | "canManageProject">,
+  fileIsSensitive: boolean,
+  requestedSensitiveValue: unknown
+): boolean {
+  return (
+    (!fileIsSensitive || auth.canAccessHealthData) &&
+    (typeof requestedSensitiveValue !== "boolean" || auth.canManageProject)
+  );
 }
 
 export async function authorizeProjectAccess(

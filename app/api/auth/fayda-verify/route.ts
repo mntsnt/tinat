@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getSession } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
 import { decodePayload } from "fayda-decoder";
-import { verifySignature } from "fayda-decoder/verify";
+import { verifyFaydaSignature } from "../../../../lib/identity/verifyFaydaSignature";
 import crypto from "crypto";
 
 export const runtime = "nodejs";
@@ -31,12 +31,13 @@ export async function POST(req: Request) {
     }
 
     try {
-      const verification = await verifySignature(result);
-      if (!verification.verified && verification.reason === "MALFORMED_JWS") {
-        return NextResponse.json({ error: "Fayda card authenticity verification failed. The signature is malformed or corrupted." }, { status: 403 });
-      }
+      await verifyFaydaSignature(result);
     } catch (sigErr) {
-      console.warn("Fayda signature verification warning:", sigErr);
+      console.error("Fayda signature verification failed:", sigErr);
+      return NextResponse.json(
+        { error: "Fayda card authenticity verification failed." },
+        { status: 403 }
+      );
     }
 
     // 3. Extract the FAN securely and hash it to prevent duplicates

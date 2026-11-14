@@ -2,6 +2,7 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert';
 import { decodePayload } from 'fayda-decoder';
 import { verifySignature } from 'fayda-decoder/verify';
+import { verifyFaydaSignature } from '../lib/identity/verifyFaydaSignature';
 
 // We use the library's recommended synthetic payloads instead of real user data.
 // Since we don't have a generated synthetic card image, we will test the payload parsing and signature verification directly.
@@ -41,6 +42,10 @@ describe("Fayda Decoder & Verification", () => {
       const verification = await verifySignature(result);
       assert.strictEqual(verification.verified, false);
       assert.strictEqual(verification.reason, "MALFORMED_JWS");
+      await assert.rejects(
+        verifyFaydaSignature(result),
+        /Fayda signature verification failed/
+      );
     }
   });
 

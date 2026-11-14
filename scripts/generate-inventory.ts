@@ -210,9 +210,9 @@ export function generateInventoryMarkdown(): string {
 
   let md = `# System Inventory & Architecture Index
 
-**Auto-generated via:** \`scripts/generate-inventory.ts\`  
-**Generated At:** ${timestamp}  
-**Platform:** Tinat Health Research Ecosystem (Ethiopia)  
+**Auto-generated via:** \`scripts/generate-inventory.ts\`<br />
+**Generated At:** ${timestamp}<br />
+**Platform:** Tinat Health Research Ecosystem (Ethiopia)<br />
 **Regulatory Standard:** Ethiopian Personal Data Protection Proclamation No. 1321/2024
 
 ---
