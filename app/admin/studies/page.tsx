@@ -1,11 +1,9 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { getSession } from "../../../lib/auth";
 import { prisma } from "../../../lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
 import { ButtonLink } from "../../components/ui/Button";
-import { Search } from "lucide-react";
 
 export default async function AdminStudiesPage() {
   const session = await getSession();
@@ -31,11 +29,17 @@ export default async function AdminStudiesPage() {
           email: true,
         },
       },
+      ethicsApproval: {
+        select: { status: true },
+      },
       _count: {
         select: { responses: true }
       }
     },
   });
+  const orderedStudies = [...studies].sort(
+    (a, b) => Number(b.ethicsApproval?.status === "PENDING") - Number(a.ethicsApproval?.status === "PENDING")
+  );
 
   return (
     <div className="w-full px-4 py-6 md:px-7 md:py-8">
@@ -70,8 +74,19 @@ export default async function AdminStudiesPage() {
                     </td>
                   </tr>
                 ) : (
-                  studies.map((study) => {
+                  orderedStudies.map((study) => {
                     const remaining = study.budgetCredits - study.creditsPaid;
+                    const ethicsStatus = study.ethicsExempt
+                      ? "EXEMPT"
+                      : study.ethicsApproval?.status ?? "NOT SUBMITTED";
+                    const ethicsVariant =
+                      ethicsStatus === "PENDING"
+                        ? "warning"
+                        : ethicsStatus === "VERIFIED"
+                          ? "success"
+                          : ethicsStatus === "REJECTED" || ethicsStatus === "EXPIRED"
+                            ? "danger"
+                            : "outline";
                     
                     return (
                       <tr key={study.id} className="hover:bg-muted/50 transition-colors">
@@ -87,6 +102,9 @@ export default async function AdminStudiesPage() {
                             className="mt-1"
                           >
                             {study.status}
+                          </Badge>
+                          <Badge variant={ethicsVariant} className="mt-1 ml-1">
+                            Ethics: {ethicsStatus}
                           </Badge>
                         </td>
                         <td className="py-3 px-4">

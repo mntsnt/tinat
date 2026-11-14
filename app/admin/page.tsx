@@ -5,10 +5,12 @@ import {
   AlertTriangle,
   ArrowRight,
   BookOpen,
+  BookOpenCheck,
   CheckCircle2,
   Database,
   Mail,
   Settings2,
+  ShieldAlert,
   ShieldCheck,
   Sparkles,
   Users,
@@ -51,6 +53,10 @@ export default async function AdminDashboard() {
     totalResponses,
     responsesToday,
     pendingVerifications,
+    pendingEthicsApprovals,
+    openModerationReports,
+    overdueModerationReports,
+    unresolvedIncidents,
     failedPayments,
     recentLogs,
     dailyUsers,
@@ -78,6 +84,17 @@ export default async function AdminDashboard() {
     prisma.response.count(),
     prisma.response.count({ where: { submittedAt: { gte: startOfToday } } }),
     prisma.verification.count({ where: { status: "PENDING" } }),
+    prisma.ethicsApproval.count({ where: { status: "PENDING" } }),
+    prisma.moderationReport.count({
+      where: { status: { in: ["OPEN", "INVESTIGATING"] } },
+    }),
+    prisma.moderationReport.count({
+      where: {
+        status: { in: ["OPEN", "INVESTIGATING"] },
+        deadline: { lt: now },
+      },
+    }),
+    prisma.incidentLog.count({ where: { resolved: false } }),
     prisma.studyPayment.count({ where: { status: "FAILED" } }),
     prisma.activityLog.findMany({
       take: 5,
@@ -268,7 +285,7 @@ export default async function AdminDashboard() {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Items needing attention</CardTitle>
-            <CardDescription>Approvals and operational anomalies</CardDescription>
+            <CardDescription>Review queues and operational anomalies</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <Link
@@ -278,6 +295,38 @@ export default async function AdminDashboard() {
               <ShieldCheck className="h-4 w-4 text-blue-600" />
               <span className="flex-1 text-xs font-medium text-foreground">Identity verifications</span>
               <span className="text-xs text-muted-foreground">{pendingVerifications} pending</span>
+              <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
+            </Link>
+            <Link
+              href="/admin/studies"
+              className="flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
+            >
+              <BookOpenCheck className="h-4 w-4 text-emerald-600" />
+              <span className="flex-1 text-xs font-medium text-foreground">Ethics review</span>
+              <span className="text-xs text-muted-foreground">
+                {pendingEthicsApprovals} pending · studies first
+              </span>
+              <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
+            </Link>
+            <Link
+              href="/admin/moderation"
+              className="flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
+            >
+              <ShieldAlert className="h-4 w-4 text-amber-600" />
+              <span className="flex-1 text-xs font-medium text-foreground">Moderation reports</span>
+              <span className="text-xs text-muted-foreground">
+                {openModerationReports} open
+                {overdueModerationReports > 0 && ` · ${overdueModerationReports} overdue`}
+              </span>
+              <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
+            </Link>
+            <Link
+              href="/admin/incidents"
+              className="flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/50"
+            >
+              <AlertTriangle className="h-4 w-4 text-rose-600" />
+              <span className="flex-1 text-xs font-medium text-foreground">Security incidents</span>
+              <span className="text-xs text-muted-foreground">{unresolvedIncidents} unresolved</span>
               <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
             </Link>
             <Link
