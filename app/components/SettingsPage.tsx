@@ -273,21 +273,15 @@ export default function SettingsPage({ user }: { user: UserData }) {
         </div>
       </header>
 
-      <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[240px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-8 items-start">
+      <div className="flex flex-col lg:flex-row flex-1 min-h-0 gap-6 lg:gap-8 overflow-hidden items-stretch">
         <nav
           aria-label="Settings sections"
-          onWheel={
-            user.role === "ADMIN"
-              ? undefined
-              : (e) => {
-                  if (contentScrollRef.current) {
-                    contentScrollRef.current.scrollTop += e.deltaY;
-                  }
-                }
-          }
-          className={`flex gap-1 overflow-x-auto rounded-xl border border-border bg-card p-1.5 lg:flex-col lg:h-fit shrink-0 shadow-2xs select-none ${
-            user.role === "ADMIN" ? "lg:sticky lg:top-4 lg:self-start" : ""
-          }`}
+          onWheel={(e) => {
+            if (contentScrollRef.current) {
+              contentScrollRef.current.scrollTop += e.deltaY;
+            }
+          }}
+          className="w-full lg:w-60 shrink-0 flex flex-row lg:flex-col gap-1 overflow-x-auto lg:overflow-visible rounded-xl border border-border bg-card p-1.5 shadow-xs select-none self-start"
         >
           {[
             { id: "account", label: "Account overview", icon: CircleUserRound },

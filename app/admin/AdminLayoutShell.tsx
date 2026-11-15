@@ -20,7 +20,7 @@ type AdminLayoutShellProps = {
 export function AdminLayoutShell({ children, links, user }: AdminLayoutShellProps) {
   const pathname = usePathname();
   const isCommunityChat = pathname === "/admin/community";
-  const isSettings = pathname === "/admin/settings";
+  const isSettings = pathname?.startsWith("/admin/settings") ?? false;
   const isFixedLayout = isCommunityChat || isSettings;
 
   return (

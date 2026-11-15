@@ -260,18 +260,20 @@ export function Sidebar({
             <UserRound className="h-4 w-4 text-muted-foreground" />
             View profile
           </Link>
-          <Link
-            href={settingsHref}
-            role="menuitem"
-            onClick={() => {
-              setAccountMenuOpen(false);
-              if (mobile) closeMobileMenu();
-            }}
-            className="flex min-h-9 items-center gap-2.5 rounded-md px-3 py-2 text-[13px] text-foreground transition-colors hover:bg-muted"
-          >
-            <Settings className="h-4 w-4 text-muted-foreground" />
-            Settings
-          </Link>
+          {roleColor !== "admin" && (
+            <Link
+              href={settingsHref}
+              role="menuitem"
+              onClick={() => {
+                setAccountMenuOpen(false);
+                if (mobile) closeMobileMenu();
+              }}
+              className="flex min-h-9 items-center gap-2.5 rounded-md px-3 py-2 text-[13px] text-foreground transition-colors hover:bg-muted"
+            >
+              <Settings className="h-4 w-4 text-muted-foreground" />
+              Settings
+            </Link>
+          )}
           <div className="my-1 border-t border-border" />
           <button
             role="menuitem"
