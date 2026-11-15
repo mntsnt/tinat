@@ -22,6 +22,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../..
 import { Button } from "../../../components/ui/Button";
 import { Badge } from "../../../components/ui/Badge";
 import { Input } from "../../../components/ui/Input";
+import { useConfirm } from "../../../components/ui/ConfirmDialog";
 
 interface CollectorUser {
   id: string;
@@ -59,15 +60,23 @@ interface Props {
 }
 
 export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
+  const { confirm, alert } = useConfirm();
   const [collectors, setCollectors] = useState<AssignedCollector[]>([]);
   const [applications, setApplications] = useState<CollectorApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [applicationMessage, setApplicationMessage] = useState<{
+    type: "success" | "warning" | "error";
+    text: string;
+  } | null>(null);
 
   // Direct assign form state
   const [assignIdentifier, setAssignIdentifier] = useState("");
   const [assigning, setAssigning] = useState(false);
-  const [assignMessage, setAssignMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [assignMessage, setAssignMessage] = useState<{
+    type: "success" | "warning" | "error";
+    text: string;
+  } | null>(null);
 
   const fetchCollectorData = async () => {
     try {
@@ -92,16 +101,24 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
   const handleApplicationDecision = async (applicationId: string, status: "APPROVED" | "DECLINED") => {
     try {
       setActionLoading(applicationId);
+      setApplicationMessage(null);
       const res = await fetch(`/api/studies/${studyId}/applications/${applicationId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       });
-      if (res.ok) {
-        await fetchCollectorData();
-      }
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Could not update this application.");
+      setApplicationMessage({
+        type: data.emailSent === false ? "warning" : "success",
+        text: data.message || "Application decision saved.",
+      });
+      await fetchCollectorData();
     } catch (err) {
-      console.error("Decision failed:", err);
+      setApplicationMessage({
+        type: "error",
+        text: err instanceof Error ? err.message : "Could not update this application.",
+      });
     } finally {
       setActionLoading(null);
     }
@@ -127,7 +144,10 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
         throw new Error(data.error || "Failed to assign collector");
       }
 
-      setAssignMessage({ type: "success", text: data.message || "Collector assigned successfully!" });
+      setAssignMessage({
+        type: data.emailSent === false ? "warning" : "success",
+        text: data.message || "Collector assigned successfully!",
+      });
       setAssignIdentifier("");
       await fetchCollectorData();
     } catch (err: any) {
@@ -138,19 +158,37 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
   };
 
   const handleRemoveCollector = async (userId: string, userName: string) => {
-    if (!confirm(`Are you sure you want to remove ${userName} from data collection for this study?`)) {
-      return;
-    }
+    const ok = await confirm({
+      title: "Remove Field Collector",
+      message: `Are you sure you want to remove ${userName} from data collection for this study?`,
+      confirmText: "Remove Collector",
+      variant: "danger",
+    });
+    if (!ok) return;
+
     try {
       setActionLoading(`remove_${userId}`);
       const res = await fetch(`/api/studies/${studyId}/collectors?userId=${userId}`, {
         method: "DELETE",
       });
-      if (res.ok) {
-        await fetchCollectorData();
+      if (!res.ok) {
+        const data = await res.json();
+        await alert({
+          title: "Remove Failed",
+          message: data.error || "Could not remove the collector. Please try again.",
+          variant: "danger",
+        });
+        return;
       }
+
+      await fetchCollectorData();
     } catch (err) {
       console.error("Remove failed:", err);
+      await alert({
+        title: "Remove Failed",
+        message: "Could not remove the collector. Please try again.",
+        variant: "danger",
+      });
     } finally {
       setActionLoading(null);
     }
@@ -256,11 +294,16 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
               className={`mt-3 p-3 rounded-lg text-xs flex items-center gap-2 ${
                 assignMessage.type === "success"
                   ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30"
-                  : "bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/30"
+                  : assignMessage.type === "warning"
+                    ? "bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-500/30"
+                    : "bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/30"
               }`}
+              role={assignMessage.type === "error" ? "alert" : "status"}
             >
               {assignMessage.type === "success" ? (
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
+              ) : assignMessage.type === "warning" ? (
+                <AlertCircle className="w-4 h-4 shrink-0" />
               ) : (
                 <AlertCircle className="w-4 h-4 shrink-0" />
               )}
@@ -291,6 +334,25 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {applicationMessage && (
+            <div
+              role={applicationMessage.type === "error" ? "alert" : "status"}
+              className={`mb-4 flex items-start gap-2 rounded-lg border p-3 text-xs ${
+                applicationMessage.type === "success"
+                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300"
+                  : applicationMessage.type === "warning"
+                    ? "border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-300"
+                    : "border-destructive/20 bg-destructive/5 text-destructive"
+              }`}
+            >
+              {applicationMessage.type === "success" ? (
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+              ) : (
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              )}
+              <span>{applicationMessage.text}</span>
+            </div>
+          )}
           {pendingApps.length === 0 ? (
             <div className="py-8 text-center text-sm text-muted-foreground border border-dashed border-border rounded-xl">
               <Check className="w-8 h-8 text-emerald-500/40 mx-auto mb-1.5" />

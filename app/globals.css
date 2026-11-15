@@ -18,8 +18,8 @@ html {
   --popover: #ffffff;
   --popover-foreground: #09090b;
 
-  --primary: #18181b;
-  --primary-foreground: #fafafa;
+  --primary: #047857;
+  --primary-foreground: #ffffff;
 
   --secondary: #f4f4f5;
   --secondary-foreground: #18181b;
@@ -38,9 +38,9 @@ html {
 
   --border: #e4e4e7;
   --input: #e4e4e7;
-  --ring: #18181b;
+  --ring: #059669;
 
-  --radius: 0.375rem;
+  --radius: 0.625rem;
 }
 
 :root[class~="dark"], .dark {
@@ -53,8 +53,8 @@ html {
   --popover: #18181b;
   --popover-foreground: #fafafa;
 
-  --primary: #fafafa;
-  --primary-foreground: #18181b;
+  --primary: #34d399;
+  --primary-foreground: #052e22;
 
   --secondary: #27272a;
   --secondary-foreground: #fafafa;
@@ -73,7 +73,7 @@ html {
 
   --border: #27272a;
   --input: #27272a;
-  --ring: #d4d4d8;
+  --ring: #34d399;
 }
 
 @theme inline {

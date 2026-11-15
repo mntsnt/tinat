@@ -52,9 +52,8 @@ export function LandingFaq() {
   return (
     <section id="faq" className="relative z-10 py-20 lg:py-28 bg-muted/20 text-foreground border-b border-border scroll-mt-16 transition-colors duration-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* ScholarXIV-style Header */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground uppercase">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
             FAQ
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
@@ -62,7 +61,6 @@ export function LandingFaq() {
           </p>
         </div>
 
-        {/* ScholarXIV-style Minimalist Accordion List: Only Questions and Answers */}
         <div className="divide-y divide-border border-t border-b border-border pt-2">
           {FAQ_ITEMS.map((faq) => {
             const isOpen = openId === faq.id;
@@ -91,14 +89,13 @@ export function LandingFaq() {
                   />
                 </button>
 
-                {isOpen && (
-                  <div
-                    id={`faq-answer-${faq.id}`}
-                    className="pt-3 pb-2 text-xs sm:text-sm text-muted-foreground leading-relaxed pr-8"
-                  >
-                    {faq.answer}
-                  </div>
-                )}
+                <div
+                  id={`faq-answer-${faq.id}`}
+                  hidden={!isOpen}
+                  className="pt-3 pb-2 text-xs sm:text-sm text-muted-foreground leading-relaxed pr-8"
+                >
+                  {faq.answer}
+                </div>
               </div>
             );
           })}

@@ -23,8 +23,16 @@ interface Feature {
   highlights: string[];
   link: string;
   linkLabel: string;
-  architectureTag: string;
 }
+
+const FEATURE_TABS: Array<{ id: Feature["category"]; label: string }> = [
+  { id: "all", label: "All Features" },
+  { id: "forms", label: "Tinat Forms" },
+  { id: "studies", label: "Studies" },
+  { id: "projects", label: "Research Projects" },
+  { id: "ask", label: "Tinat Ask" },
+  { id: "ai", label: "Tinat AI" },
+];
 
 const FEATURES: Feature[] = [
   {
@@ -42,7 +50,6 @@ const FEATURES: Feature[] = [
     ],
     link: "/forms/new",
     linkLabel: "Build a Form",
-    architectureTag: "Form Studio Engine",
   },
   {
     id: "studies",
@@ -59,7 +66,6 @@ const FEATURES: Feature[] = [
     ],
     link: "/participant/studies",
     linkLabel: "Discover Studies",
-    architectureTag: "Study & Cohort Framework",
   },
   {
     id: "research-projects",
@@ -76,7 +82,6 @@ const FEATURES: Feature[] = [
     ],
     link: "/projects",
     linkLabel: "Open Workspaces",
-    architectureTag: "ResearchProject Hub",
   },
   {
     id: "tinat-ask",
@@ -93,7 +98,6 @@ const FEATURES: Feature[] = [
     ],
     link: "/ask",
     linkLabel: "Explore Tinat Ask",
-    architectureTag: "Social Q&A Engine",
   },
   {
     id: "tinat-ai",
@@ -110,14 +114,11 @@ const FEATURES: Feature[] = [
     ],
     link: "/ai",
     linkLabel: "Launch Tinat AI",
-    architectureTag: "Gemini Intelligence Engine",
   },
 ];
 
 export function FeatureSnapshot() {
-  const [activeCategory, setActiveCategory] = useState<
-    "all" | "forms" | "studies" | "projects" | "ask" | "ai"
-  >("all");
+  const [activeCategory, setActiveCategory] = useState<Feature["category"]>("all");
 
   const filteredFeatures =
     activeCategory === "all"
@@ -142,21 +143,13 @@ export function FeatureSnapshot() {
         </div>
 
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2" role="tablist">
-          {[
-            { id: "all", label: "All Features" },
-            { id: "forms", label: "Tinat Forms" },
-            { id: "studies", label: "Studies" },
-            { id: "projects", label: "Research Projects" },
-            { id: "ask", label: "Tinat Ask" },
-            { id: "ai", label: "Tinat AI" },
-          ].map((tab) => (
+        <div className="flex flex-wrap items-center justify-center gap-2" role="group" aria-label="Filter platform features">
+          {FEATURE_TABS.map((tab) => (
             <button
               key={tab.id}
               type="button"
-              role="tab"
-              aria-selected={activeCategory === tab.id}
-              onClick={() => setActiveCategory(tab.id as any)}
+              aria-pressed={activeCategory === tab.id}
+              onClick={() => setActiveCategory(tab.id)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
                 activeCategory === tab.id
                   ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
@@ -205,10 +198,7 @@ export function FeatureSnapshot() {
                   </ul>
                 </div>
 
-                <div className="pt-4 border-t border-border flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-muted-foreground">
-                    {feat.architectureTag}
-                  </span>
+                <div className="pt-4 border-t border-border flex items-center justify-end">
                   <Link
                     href={feat.link}
                     className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"

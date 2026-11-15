@@ -2,12 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Stethoscope,
-  Mail,
-  Send,
-  ShieldCheck,
-} from "lucide-react";
+import { Mail, Send, ShieldCheck } from "lucide-react";
 import { TinatLogo } from "../ui/TinatLogo";
 
 export function Footer() {
@@ -127,7 +122,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Massive ScholarXIV-style Giant Typography Wordmark */}
         <div className="py-8 sm:py-14 select-none overflow-hidden text-center">
           <Link
             href="/"

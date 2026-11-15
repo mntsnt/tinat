@@ -105,6 +105,17 @@ export async function DELETE(
     const auth = await requireStudyOwnerOrAdmin(id, req);
     if (!auth.ok) return auth.response;
 
+    const retainedConsentCount = await prisma.consentRecord.count({
+      where: { consentForm: { studyId: id } },
+    });
+    if (retainedConsentCount > 0) {
+      return jsonError(
+        "This study has consent records that must be retained, so it cannot be permanently deleted.",
+        409,
+        "CONSENT_RECORDS_RETAINED"
+      );
+    }
+
     await prisma.study.delete({
       where: { id },
     });

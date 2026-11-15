@@ -197,7 +197,12 @@ export default function SettingsPage({ user }: { user: UserData }) {
     const target = document.getElementById(id);
     if (target && container) {
       setActiveSection(id);
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      const top =
+        target.getBoundingClientRect().top -
+        container.getBoundingClientRect().top +
+        container.scrollTop -
+        24;
+      container.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
     }
   }
 
@@ -271,12 +276,18 @@ export default function SettingsPage({ user }: { user: UserData }) {
       <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[240px_minmax(0,1fr)] lg:grid-rows-1 lg:gap-8 items-start">
         <nav
           aria-label="Settings sections"
-          onWheel={(e) => {
-            if (contentScrollRef.current) {
-              contentScrollRef.current.scrollTop += e.deltaY;
-            }
-          }}
-          className="flex gap-1 overflow-x-auto rounded-xl border border-border bg-card p-1.5 lg:flex-col lg:h-fit shrink-0 shadow-2xs select-none"
+          onWheel={
+            user.role === "ADMIN"
+              ? undefined
+              : (e) => {
+                  if (contentScrollRef.current) {
+                    contentScrollRef.current.scrollTop += e.deltaY;
+                  }
+                }
+          }
+          className={`flex gap-1 overflow-x-auto rounded-xl border border-border bg-card p-1.5 lg:flex-col lg:h-fit shrink-0 shadow-2xs select-none ${
+            user.role === "ADMIN" ? "lg:sticky lg:top-4 lg:self-start" : ""
+          }`}
         >
           {[
             { id: "account", label: "Account overview", icon: CircleUserRound },

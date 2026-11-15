@@ -88,24 +88,32 @@ export async function PATCH(
     });
 
     // 4. Send email notification to applicant
+    let emailSent = false;
     try {
       const baseUrl = getBaseUrl(req);
       const dashboardLink = `${baseUrl}/collector/dashboard`;
-      await sendCollectorApplicationStatusEmail({
+      const emailResult = await sendCollectorApplicationStatusEmail({
         to: application.applicant.email,
         applicantName: application.applicant.name,
         studyTitle: application.study.title,
         status,
         dashboardLink,
       });
+      emailSent = emailResult.success;
     } catch (emailErr) {
       console.error("[Collector Application] Decision email error:", emailErr);
     }
 
+    const decisionMessage = status === "APPROVED"
+      ? "Collector application approved."
+      : "Collector application declined.";
     return NextResponse.json({
       success: true,
       status,
-      message: status === "APPROVED" ? "Collector application approved." : "Collector application declined.",
+      message: emailSent
+        ? decisionMessage
+        : `${decisionMessage} The applicant can see the update in Tinat, but the email notification could not be sent.`,
+      emailSent,
     });
   } catch (error) {
     console.error("PATCH application error:", error);

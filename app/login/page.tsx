@@ -217,7 +217,7 @@ export default function LoginPage({
                           setResendStatus(data.error || "Failed to resend code.");
                         }
                       } catch {
-                        setResendStatus("Network error resending code.");
+                        setResendStatus("We couldn’t reach Tinat just now. Check your connection and try again.");
                       } finally {
                         setResendingCode(false);
                       }

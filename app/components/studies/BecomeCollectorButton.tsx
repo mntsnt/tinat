@@ -5,6 +5,7 @@ import {
   ClipboardList,
   Clock,
   CheckCircle2,
+  AlertCircle,
   X,
   Send,
   Loader2,
@@ -76,7 +77,7 @@ export function BecomeCollectorButton({
       }
 
       setStatus("PENDING");
-      setSuccessMessage("Application submitted! The researcher has been notified.");
+      setSuccessMessage(data.message || "Application submitted.");
       setTimeout(() => {
         setModalOpen(false);
         setSuccessMessage(null);
@@ -198,7 +199,10 @@ export function BecomeCollectorButton({
                 </div>
 
                 {errorMessage && (
-                  <p className="text-xs text-rose-600 dark:text-rose-400">{errorMessage}</p>
+                  <div role="alert" className="flex items-start gap-2 rounded-lg border border-destructive/20 bg-destructive/5 p-3 text-xs text-destructive">
+                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                    <span><span className="font-semibold">We couldn’t submit that yet.</span> {errorMessage}</span>
+                  </div>
                 )}
 
                 <div className="flex items-center justify-end gap-2 pt-2">

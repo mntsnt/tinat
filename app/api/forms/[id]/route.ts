@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
+import { requireUser } from "@/lib/authGuard";
 import { prisma } from "@/lib/prisma";
 
 export async function GET(
@@ -108,10 +109,8 @@ export async function DELETE(
   props: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getSession();
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const auth = await requireUser(req);
+    if (!auth.ok) return auth.response;
 
     const { id } = await props.params;
 
@@ -124,11 +123,23 @@ export async function DELETE(
       return NextResponse.json({ error: "Form not found" }, { status: 404 });
     }
 
-    if (existingForm.researcherId !== session.userId) {
-      const user = await prisma.user.findUnique({ where: { id: session.userId } });
-      if (user?.role !== "ADMIN") {
+    if (existingForm.researcherId !== auth.user.id) {
+      if (auth.user.role !== "ADMIN") {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
       }
+    }
+
+    const retainedConsentCount = await prisma.consentRecord.count({
+      where: { consentForm: { studyId: id } },
+    });
+    if (retainedConsentCount > 0) {
+      return NextResponse.json(
+        {
+          error: "This form has consent records that must be retained, so it cannot be permanently deleted.",
+          code: "CONSENT_RECORDS_RETAINED",
+        },
+        { status: 409 }
+      );
     }
 
     await prisma.study.delete({

@@ -180,6 +180,7 @@ export async function POST(
     });
 
     // Query project and inviter details to send invitation email
+    let emailSent = false;
     try {
       const [project, inviter] = await Promise.all([
         prisma.researchProject.findUnique({
@@ -195,7 +196,7 @@ export async function POST(
       const baseUrl = getBaseUrl(req);
       const fullInviteLink = `${baseUrl}/projects/invite/${token}`;
 
-      await sendProjectInvitationEmail({
+      const emailResult = await sendProjectInvitationEmail({
         to: normalizedEmail,
         inviterName: inviter?.name || "A project collaborator",
         projectTitle: project?.title || "Research Project",
@@ -203,6 +204,7 @@ export async function POST(
         inviteLink: fullInviteLink,
         customMessage: invitation.message,
       });
+      emailSent = emailResult.success;
     } catch (emailErr) {
       console.error("[Project Invitation] Failed to dispatch invitation email:", emailErr);
     }
@@ -211,6 +213,10 @@ export async function POST(
       success: true,
       invitation,
       inviteLink: `/projects/invite/${token}`,
+      emailSent,
+      emailMessage: emailSent
+        ? "The invitation was created and emailed."
+        : "The invitation was created, but its email could not be sent. You can copy and share the invitation link below.",
     });
   } catch (error) {
     console.error("Error inviting member:", error);

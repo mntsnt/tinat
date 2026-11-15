@@ -1,5 +1,14 @@
 import nodemailer from "nodemailer";
 
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 interface SendVerificationEmailParams {
   to: string;
   name: string;
@@ -26,7 +35,6 @@ export interface SendCollectorInvitationEmailParams {
 
 /**
  * Creates a configured Nodemailer transporter.
- * Forces IPv4 (family: 4) to eliminate IPv6 network route timeouts on cloud hosting (VPS / aletcloud).
  */
 function createSmtpTransporter(port: number, secure: boolean) {
   const host = (process.env.SMTP_HOST || "smtp.gmail.com").trim();
@@ -38,16 +46,14 @@ function createSmtpTransporter(port: number, secure: boolean) {
     port,
     secure,
     auth: { user, pass },
-    family: 4, // Critical for fast direct IPv4 routing and preventing IPv6 timeouts
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
     requireTLS: !secure,
     tls: {
-      rejectUnauthorized: false,
       minVersion: "TLSv1.2",
     },
-  } as any);
+  });
 }
 
 /**
@@ -62,6 +68,7 @@ async function deliverEmail(mailOptions: {
   const primaryPort = Number(process.env.SMTP_PORT) || 465;
   const user = (process.env.SMTP_USER || "contact.tinatapp@gmail.com").trim();
   const pass = (process.env.SMTP_PASS || "").trim();
+  const sender = process.env.SMTP_FROM?.trim() || user;
   const supportEmail = (process.env.SUPPORT_EMAIL || "contact.tinatapp@gmail.com").trim();
 
   if (!user || !pass) {
@@ -71,7 +78,7 @@ async function deliverEmail(mailOptions: {
 
   const senderObject = {
     name: "Tinat Research Platform",
-    address: user,
+    address: sender,
   };
 
   const fullOptions = {
@@ -116,24 +123,27 @@ export async function sendVerificationEmail({
 }: SendVerificationEmailParams): Promise<{ success: boolean; simulated: boolean }> {
   const recipientEmail = to.trim().toLowerCase();
   const recipientName = name.trim() || "Researcher";
+  const safeRecipientName = escapeHtml(recipientName);
+  const safeCode = escapeHtml(code);
+  const safeVerificationLink = escapeHtml(verificationLink);
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
       <div style="text-align: center; margin-bottom: 28px;">
         <div style="display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 10px; background-color: #059669; color: #ffffff; font-weight: 800; font-size: 22px; margin-bottom: 16px;">T</div>
-        <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">Welcome to Tinat, ${recipientName}!</h1>
+        <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">Welcome to Tinat, ${safeRecipientName}!</h1>
         <p style="color: #64748b; margin-top: 8px; font-size: 14px;">Please verify your email address to activate your research account.</p>
       </div>
 
       <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 24px; text-align: center; margin: 24px 0;">
         <p style="color: #475569; margin: 0 0 8px 0; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Your 6-digit verification code</p>
-        <div style="font-size: 38px; font-weight: 800; letter-spacing: 10px; color: #059669; font-family: monospace; margin: 12px 0;">${code}</div>
+        <div style="font-size: 38px; font-weight: 800; letter-spacing: 10px; color: #059669; font-family: monospace; margin: 12px 0;">${safeCode}</div>
         <p style="color: #94a3b8; font-size: 12px; margin: 0;">This code is valid for 24 hours.</p>
       </div>
 
       <div style="text-align: center; margin: 28px 0;">
         <p style="color: #475569; font-size: 13px; margin-bottom: 14px;">Or click the button below to verify your account instantly:</p>
-        <a href="${verificationLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Verify My Email</a>
+        <a href="${safeVerificationLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Verify My Email</a>
       </div>
 
       <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 24px 0;" />
@@ -165,6 +175,11 @@ export async function sendProjectInvitationEmail({
 }: SendProjectInvitationEmailParams): Promise<{ success: boolean; simulated: boolean }> {
   const recipientEmail = to.trim().toLowerCase();
   const readableRole = role.replace(/_/g, " ");
+  const safeInviterName = escapeHtml(inviterName);
+  const safeProjectTitle = escapeHtml(projectTitle);
+  const safeRole = escapeHtml(readableRole);
+  const safeInviteLink = escapeHtml(inviteLink);
+  const safeCustomMessage = customMessage ? escapeHtml(customMessage) : null;
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
@@ -172,25 +187,25 @@ export async function sendProjectInvitationEmail({
         <div style="display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 10px; background-color: #059669; color: #ffffff; font-weight: 800; font-size: 22px; margin-bottom: 16px;">T</div>
         <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">Collaboration Invitation</h1>
         <p style="color: #64748b; margin-top: 8px; font-size: 15px;">
-          <strong>${inviterName}</strong> has invited you to collaborate on <strong>${projectTitle}</strong>.
+          <strong>${safeInviterName}</strong> has invited you to collaborate on <strong>${safeProjectTitle}</strong>.
         </p>
       </div>
 
       <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin: 24px 0;">
         <div style="margin-bottom: 12px;">
           <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Project</span>
-          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${projectTitle}</div>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${safeProjectTitle}</div>
         </div>
         <div style="margin-bottom: 12px;">
           <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Assigned Role</span>
-          <div style="font-size: 14px; font-weight: 600; color: #059669; margin-top: 2px;">${readableRole}</div>
+          <div style="font-size: 14px; font-weight: 600; color: #059669; margin-top: 2px;">${safeRole}</div>
         </div>
         ${
-          customMessage
+          safeCustomMessage
             ? `
           <div style="border-top: 1px dashed #cbd5e1; padding-top: 12px; margin-top: 12px;">
-            <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Message from ${inviterName}</span>
-            <p style="color: #334155; font-size: 13px; font-style: italic; margin: 4px 0 0 0;">&ldquo;${customMessage}&rdquo;</p>
+            <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Message from ${safeInviterName}</span>
+            <p style="color: #334155; font-size: 13px; font-style: italic; margin: 4px 0 0 0;">&ldquo;${safeCustomMessage}&rdquo;</p>
           </div>
         `
             : ""
@@ -201,7 +216,7 @@ export async function sendProjectInvitationEmail({
         <p style="color: #475569; font-size: 13px; margin-bottom: 16px;">
           Join the research workspace to access milestone boards, shared files, team discussions, and study protocols:
         </p>
-        <a href="${inviteLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Accept Invitation & Join Project</a>
+        <a href="${safeInviteLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Accept Invitation & Join Project</a>
       </div>
 
       <p style="color: #94a3b8; font-size: 12px; text-align: center; margin: 0 0 16px 0;">
@@ -235,28 +250,32 @@ export async function sendCollectorInvitationEmail({
 }: SendCollectorInvitationEmailParams): Promise<{ success: boolean; simulated: boolean }> {
   const recipientEmail = to.trim().toLowerCase();
   const name = collectorName || "Data Collector";
+  const safeName = escapeHtml(name);
+  const safeInviterName = escapeHtml(inviterName);
+  const safeStudyTitle = escapeHtml(studyTitle);
+  const safeDashboardLink = escapeHtml(dashboardLink);
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
       <div style="text-align: center; margin-bottom: 24px;">
         <div style="display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 10px; background-color: #059669; color: #ffffff; font-weight: 800; font-size: 22px; margin-bottom: 16px;">T</div>
         <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">Field Data Collection Assignment</h1>
-        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">Hello ${name}, you have been assigned to a research study on Tinat.</p>
+        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">Hello ${safeName}, you have been assigned to a research study on Tinat.</p>
       </div>
 
       <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin: 24px 0;">
         <div style="margin-bottom: 12px;">
           <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Study</span>
-          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${studyTitle}</div>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${safeStudyTitle}</div>
         </div>
         <div>
           <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Principal Investigator / Inviter</span>
-          <div style="font-size: 14px; font-weight: 600; color: #334155; margin-top: 2px;">${inviterName}</div>
+          <div style="font-size: 14px; font-weight: 600; color: #334155; margin-top: 2px;">${safeInviterName}</div>
         </div>
       </div>
 
       <div style="text-align: center; margin: 28px 0;">
-        <a href="${dashboardLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Open Field Enumerator Dashboard</a>
+        <a href="${safeDashboardLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Open Field Enumerator Dashboard</a>
       </div>
 
       <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 24px 0;" />
@@ -295,34 +314,40 @@ export async function sendCollectorApplicationSubmittedEmail({
   reviewLink: string;
 }): Promise<{ success: boolean; simulated: boolean }> {
   const recipientEmail = to.trim().toLowerCase();
+  const safeResearcherName = escapeHtml(researcherName);
+  const safeApplicantName = escapeHtml(applicantName);
+  const safeApplicantEmail = escapeHtml(applicantEmail);
+  const safeStudyTitle = escapeHtml(studyTitle);
+  const safeNotes = notes ? escapeHtml(notes) : null;
+  const safeReviewLink = escapeHtml(reviewLink);
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
       <div style="text-align: center; margin-bottom: 24px;">
         <div style="display: inline-block; width: 44px; height: 44px; line-height: 44px; border-radius: 10px; background-color: #059669; color: #ffffff; font-weight: 800; font-size: 22px; margin-bottom: 16px;">T</div>
         <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">New Field Collector Application</h1>
-        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">Hello ${researcherName}, a participant has applied to collect data for your study.</p>
+        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">Hello ${safeResearcherName}, a participant has applied to collect data for your study.</p>
       </div>
 
       <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin: 24px 0;">
         <div style="margin-bottom: 12px;">
           <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Study</span>
-          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${studyTitle}</div>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${safeStudyTitle}</div>
         </div>
         <div style="margin-bottom: 12px;">
           <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Applicant</span>
-          <div style="font-size: 14px; font-weight: 600; color: #334155; margin-top: 2px;">${applicantName} (${applicantEmail})</div>
+          <div style="font-size: 14px; font-weight: 600; color: #334155; margin-top: 2px;">${safeApplicantName} (${safeApplicantEmail})</div>
         </div>
-        ${notes ? `
+        ${safeNotes ? `
         <div>
           <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Applicant Pitch / Experience</span>
-          <div style="font-size: 13px; color: #475569; margin-top: 4px; font-style: italic;">"${notes}"</div>
+          <div style="font-size: 13px; color: #475569; margin-top: 4px; font-style: italic;">"${safeNotes}"</div>
         </div>
         ` : ''}
       </div>
 
       <div style="text-align: center; margin: 28px 0;">
-        <a href="${reviewLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Review & Approve Collector</a>
+        <a href="${safeReviewLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Review & Approve Collector</a>
       </div>
 
       <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 24px 0;" />
@@ -358,6 +383,9 @@ export async function sendCollectorApplicationStatusEmail({
 }): Promise<{ success: boolean; simulated: boolean }> {
   const recipientEmail = to.trim().toLowerCase();
   const isApproved = status === 'APPROVED';
+  const safeApplicantName = escapeHtml(applicantName);
+  const safeStudyTitle = escapeHtml(studyTitle);
+  const safeDashboardLink = escapeHtml(dashboardLink);
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
@@ -366,13 +394,13 @@ export async function sendCollectorApplicationStatusEmail({
         <h1 style="color: #0f172a; margin: 0; font-size: 22px; font-weight: 700;">
           ${isApproved ? 'Collector Application Approved! 🎉' : 'Collector Application Update'}
         </h1>
-        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">Hello ${applicantName},</p>
+        <p style="color: #64748b; margin-top: 8px; font-size: 15px;">Hello ${safeApplicantName},</p>
       </div>
 
       <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin: 24px 0;">
         <div style="margin-bottom: 8px;">
           <span style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Study</span>
-          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${studyTitle}</div>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 2px;">${safeStudyTitle}</div>
         </div>
         <p style="font-size: 14px; color: #334155; margin: 12px 0 0 0; line-height: 1.5;">
           ${isApproved 
@@ -383,7 +411,7 @@ export async function sendCollectorApplicationStatusEmail({
 
       ${isApproved ? `
       <div style="text-align: center; margin: 28px 0;">
-        <a href="${dashboardLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Open Field Collection Dashboard</a>
+        <a href="${safeDashboardLink}" style="display: inline-block; background-color: #059669; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);">Open Field Collection Dashboard</a>
       </div>
       ` : ''}
 

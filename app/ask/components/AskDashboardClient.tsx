@@ -295,11 +295,19 @@ export function AskDashboardClient({
       const res = await fetch(`/api/ask/questions/${questionId}`, {
         method: "DELETE",
       });
-      if (res.ok) {
-        fetchQuestions(tab);
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete the question.");
       }
+
+      await fetchQuestions(tab);
     } catch (err) {
       console.error("Delete error:", err);
+      await alert({
+        title: "Delete Failed",
+        message: err instanceof Error ? err.message : "Failed to delete the question.",
+        variant: "danger",
+      });
     }
   }
 
@@ -316,13 +324,16 @@ export function AskDashboardClient({
       const res = await fetch("/api/ask/profile", {
         method: "DELETE",
       });
-      if (res.ok) {
-        window.location.reload();
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete Ask profile.");
       }
-    } catch {
+
+      window.location.reload();
+    } catch (err) {
       await alert({
-        title: "Error",
-        message: "Failed to delete Ask profile.",
+        title: "Delete Failed",
+        message: err instanceof Error ? err.message : "Failed to delete Ask profile.",
         variant: "danger",
       });
     }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, ButtonLink } from "./components/ui/Button";
+import { ButtonLink } from "./components/ui/Button";
 import {
   ArrowRight,
   Stethoscope,
@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import type { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
+import { HEALTH_CATEGORIES } from "@/lib/healthCategories";
 import { FeatureSnapshot } from "./components/landing/FeatureSnapshot";
 import { LandingFaq } from "./components/landing/LandingFaq";
 
@@ -23,20 +24,14 @@ type FeaturedStudy = Prisma.StudyGetPayload<{
 }>;
 
 export default async function Home() {
-  let stats = {
-    totalUsers: 13,
-    activeStudies: 3,
-    totalResponses: 8,
-    totalStudies: 3,
-  };
+  let stats: { totalUsers: number; activeStudies: number; totalResponses: number } | null = null;
   let featuredStudy: FeaturedStudy | null = null;
 
   try {
-    const [users, active, responses, total, study] = await Promise.all([
+    const [users, active, responses, study] = await Promise.all([
       prisma.user.count(),
       prisma.study.count({ where: { status: "ACTIVE" } }),
       prisma.response.count(),
-      prisma.study.count(),
       prisma.study.findFirst({
         where: { status: "ACTIVE" },
         orderBy: { responses: { _count: "desc" } },
@@ -49,7 +44,6 @@ export default async function Home() {
       totalUsers: users,
       activeStudies: active,
       totalResponses: responses,
-      totalStudies: total,
     };
     featuredStudy = study;
   } catch (err) {
@@ -58,79 +52,74 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col flex-1 bg-background text-foreground overflow-x-hidden">
-      {/* Background Glow Effects */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[140px] animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[120px] animate-pulse" />
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative z-10 pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pb-32 border-b border-border bg-background/80 backdrop-blur-sm">
+      <section className="relative isolate overflow-hidden border-b border-border bg-gradient-to-b from-emerald-50/70 via-background to-background pt-12 pb-14 dark:from-emerald-950/25 sm:pt-16 sm:pb-18 lg:pt-20 lg:pb-20">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-36 -top-40 h-[28rem] w-[28rem] rounded-full border border-emerald-900/[0.06] dark:border-emerald-100/[0.06]" />
+        <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-24 h-[20rem] w-[20rem] rounded-full border border-emerald-900/[0.06] dark:border-emerald-100/[0.06]" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
-                <Stethoscope className="w-4 h-4" />
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <div className="relative z-10 space-y-6 sm:space-y-7">
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-700/15 bg-white/70 px-3.5 py-1.5 text-xs font-semibold text-emerald-800 shadow-sm dark:border-emerald-300/20 dark:bg-emerald-950/50 dark:text-emerald-300">
+                <Stethoscope className="h-4 w-4" />
                 Medical & Health Research Ecosystem
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15]">
-                Advance health research.<br />
-                <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 bg-clip-text text-transparent">
+              <h1 className="max-w-2xl text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
+                Advance health research.
+                <br />
+                <span className="text-emerald-700 dark:text-emerald-400">
                   Collect verified data.
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
-                Tinat is the specialized platform built for health researchers, universities, clinicians, and NGOs. Conduct formal funded observational health studies with participant incentives or publish open health questionnaires completely free.
+              <p className="max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+                Have a health question to explore, or want to take part in a study? Tinat makes it easier for researchers and participants to connect.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <ButtonLink href="/researcher/studies/new" size="lg" className="w-full sm:w-auto group rounded-xl px-6 h-12 text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20">
+              <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
+                <ButtonLink href="/researcher/studies/new" size="lg" className="group h-12 w-full rounded-xl px-6 text-sm font-semibold shadow-md shadow-emerald-900/10 sm:w-auto">
                   Create Health Study
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </ButtonLink>
-                <ButtonLink href="/participant/studies" variant="outline" size="lg" className="w-full sm:w-auto rounded-xl px-6 h-12 text-sm font-semibold border-border hover:bg-muted">
+                <ButtonLink href="/participant/studies" variant="outline" size="lg" className="h-12 w-full rounded-xl border-emerald-900/15 bg-background/70 px-6 text-sm font-semibold hover:bg-emerald-50 dark:border-emerald-100/20 dark:hover:bg-emerald-950/50 sm:w-auto">
                   Discover Studies
                 </ButtonLink>
               </div>
 
-              <div className="flex flex-wrap gap-x-6 gap-y-2.5 pt-2">
+              <div className="flex flex-wrap gap-x-5 gap-y-2.5 pt-1">
                 {[
                   "Funded Research & Free Forms",
                   "Verified Participant Cohorts",
                   "Confidential & Coded Data",
                   "Tinat Credits (TC) Rewards",
                 ].map((feature) => (
-                  <span key={feature} className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span key={feature} className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
                     {feature}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Interactive Hero Study Preview - Live from DB */}
-            <div className="relative hidden lg:block perspective-1000">
-              <div className="relative animate-float rounded-2xl border border-border bg-card p-6 shadow-2xl">
+            <div className="relative z-10">
+              <div className="rounded-2xl border border-emerald-900/10 bg-card/95 p-4 shadow-xl shadow-emerald-950/[0.06] sm:p-6 dark:border-emerald-100/10">
                 <div className="flex items-center justify-between mb-6 pb-3 border-b border-border">
                   <div className="flex items-center gap-2">
-                    <div className="p-1.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                      <Activity className="w-4 h-4" />
+                    <div className="rounded-md bg-emerald-500/10 p-1.5 text-emerald-700 dark:text-emerald-400">
+                      <Activity className="h-4 w-4" />
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                       Live Platform Study
                     </span>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-800 dark:text-emerald-300">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
                     Active &bull; Accepting Responses
                   </span>
                 </div>
 
                 {featuredStudy ? (
                   <div className="space-y-4">
-                    <div className="rounded-xl bg-emerald-500/5 border border-emerald-500/20 p-5">
+                    <div className="rounded-xl border border-emerald-700/15 bg-emerald-50/60 p-4 dark:bg-emerald-950/30 sm:p-5">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
                           {featuredStudy.category || "Public Health & Clinical Research"}
@@ -191,58 +180,51 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Live Platform Real-time Metrics Banner */}
-      <section className="relative z-10 -mt-8 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-border bg-card/95 backdrop-blur shadow-xl p-6 sm:p-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-border">
-            <div className="flex items-center gap-2.5">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-              </span>
-              <span className="text-sm font-bold text-foreground">
-                Platform Activity & Scope
-              </span>
-              <span className="text-xs text-muted-foreground hidden sm:inline">
+      <section className="relative z-10 mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <div className="rounded-2xl border border-border bg-card p-5 shadow-lg shadow-emerald-950/[0.04] sm:p-8">
+          <div className="flex flex-col justify-between gap-4 border-b border-border pb-5 sm:flex-row sm:items-center">
+            <div>
+              <h2 className="text-sm font-bold text-foreground">Platform Activity & Scope</h2>
+              <p className="mt-1 hidden text-xs text-muted-foreground sm:block">
                 &mdash; Real figures directly from Tinat&apos;s health research database
-              </span>
+              </p>
             </div>
-            <Link href="/participant/studies" className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1">
-              Browse Active Studies <ArrowRight className="w-3 h-3" />
+            <Link href="/participant/studies" className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300">
+              Browse Active Studies <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6">
+          <div className="grid grid-cols-2 gap-5 pt-5 md:grid-cols-4 md:gap-6">
             <div>
-              <p className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                {stats.activeStudies.toLocaleString()}
+              <p className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                {stats?.activeStudies.toLocaleString() ?? "—"}
               </p>
-              <p className="text-xs font-semibold text-foreground mt-1">Active Studies</p>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Currently collecting data</p>
+              <p className="mt-1 text-xs font-semibold text-foreground">Active Studies</p>
+              <p className="mt-0.5 text-[11px] text-muted-foreground">Currently collecting data</p>
             </div>
 
             <div>
-              <p className="text-2xl sm:text-3xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">
-                {stats.totalResponses.toLocaleString()}
+              <p className="text-2xl font-bold tracking-tight text-emerald-700 dark:text-emerald-400 sm:text-3xl">
+                {stats?.totalResponses.toLocaleString() ?? "—"}
               </p>
-              <p className="text-xs font-semibold text-foreground mt-1">Verified Responses</p>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Health data points submitted</p>
+              <p className="mt-1 text-xs font-semibold text-foreground">Responses</p>
+              <p className="mt-0.5 text-[11px] text-muted-foreground">Submitted across studies</p>
             </div>
 
             <div>
-              <p className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                {stats.totalUsers.toLocaleString()}
+              <p className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                {stats?.totalUsers.toLocaleString() ?? "—"}
               </p>
-              <p className="text-xs font-semibold text-foreground mt-1">Platform Members</p>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Researchers & participants</p>
+              <p className="mt-1 text-xs font-semibold text-foreground">Platform Members</p>
+              <p className="mt-0.5 text-[11px] text-muted-foreground">Researchers & participants</p>
             </div>
 
             <div>
-              <p className="text-2xl sm:text-3xl font-bold tracking-tight text-teal-600 dark:text-teal-400">
-                14
+              <p className="text-2xl font-bold tracking-tight text-emerald-700 dark:text-emerald-400 sm:text-3xl">
+                {HEALTH_CATEGORIES.length}
               </p>
-              <p className="text-xs font-semibold text-foreground mt-1">Health Domains</p>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Epidemiology, clinical & public health</p>
+              <p className="mt-1 text-xs font-semibold text-foreground">Health Domains</p>
+              <p className="mt-0.5 text-[11px] text-muted-foreground">Epidemiology, clinical & public health</p>
             </div>
           </div>
         </div>
@@ -357,25 +339,25 @@ export default async function Home() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {[
-              { name: "Public Health", icon: Activity, desc: "Population-level disease prevention and health outcomes." },
-              { name: "Observational Health", icon: Stethoscope, desc: "Patient-reported outcomes, lifestyle factors, and community surveys." },
-              { name: "Epidemiology", icon: HeartPulse, desc: "Disease incidence, determinants, and biostatistics." },
-              { name: "Mental Health", icon: Brain, desc: "Psychological well-being, burnout, and behavioral studies." },
-              { name: "Nutrition & Dietetics", icon: Apple, desc: "Dietary habits, micronutrient deficiencies, and lifestyle." },
-              { name: "Maternal & Child Health", icon: Baby, desc: "Neonatal, pediatric, and reproductive health studies." },
-              { name: "Infectious Diseases", icon: Dna, desc: "Viral, bacterial, and parasitic infection surveillance." },
-              { name: "Medical Education", icon: GraduationCap, desc: "Trainee assessments, clinical curricula, and exams." },
+              { category: "Public Health", icon: Activity, desc: "Population-level disease prevention and health outcomes." },
+              { category: "Clinical Research", icon: Stethoscope, desc: "Patient-reported outcomes, lifestyle factors, and community surveys." },
+              { category: "Epidemiology & Biostatistics", icon: HeartPulse, desc: "Disease incidence, determinants, and biostatistics." },
+              { category: "Mental & Behavioral Health", icon: Brain, desc: "Psychological well-being, burnout, and behavioral studies." },
+              { category: "Nutrition & Dietetics", icon: Apple, desc: "Dietary habits, micronutrient deficiencies, and lifestyle." },
+              { category: "Maternal & Child Health", icon: Baby, desc: "Neonatal, pediatric, and reproductive health studies." },
+              { category: "Infectious Diseases", icon: Dna, desc: "Viral, bacterial, and parasitic infection surveillance." },
+              { category: "Medical Education & Training", icon: GraduationCap, desc: "Trainee assessments, clinical curricula, and exams." },
             ].map((domain) => (
               <Link
-                key={domain.name}
-                href={`/participant/studies?category=${encodeURIComponent(domain.name)}`}
+                key={domain.category}
+                href={`/participant/studies?category=${encodeURIComponent(domain.category)}`}
                 className="group rounded-xl border border-border bg-card p-5 transition-all hover:border-emerald-500/50 hover:-translate-y-0.5 shadow-sm"
               >
                 <div className="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 w-fit mb-3 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                   <domain.icon className="w-5 h-5" />
                 </div>
                 <h3 className="font-bold text-sm text-foreground mb-1 group-hover:text-emerald-600 transition-colors">
-                  {domain.name}
+                  {domain.category}
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   {domain.desc}
@@ -386,7 +368,7 @@ export default async function Home() {
 
           <div className="text-center pt-4">
             <ButtonLink href="/participant/studies" variant="outline" className="rounded-xl px-6">
-              Explore All 14 Health Categories &rarr;
+              Explore All {HEALTH_CATEGORIES.length} Health Categories &rarr;
             </ButtonLink>
           </div>
         </div>

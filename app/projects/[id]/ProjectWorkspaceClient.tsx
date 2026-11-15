@@ -26,6 +26,7 @@ import {
   Globe2,
   MoreVertical,
   Download,
+  Copy,
   Trash2,
   Send,
   ExternalLink,
@@ -249,10 +250,39 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const [aiLoading, setAiLoading] = useState(false);
   const [aiModel, setAiModel] = useState("gemini");
   const [actionError, setActionError] = useState<string | null>(null);
+  const [actionNotice, setActionNotice] = useState<{
+    message: string;
+    inviteLink?: string;
+  } | null>(null);
+  const [copiedInviteLink, setCopiedInviteLink] = useState(false);
 
   useEffect(() => {
     fetchProject();
   }, [projectId]);
+
+  useEffect(() => {
+    const failedInvitations = Number(
+      new URLSearchParams(window.location.search).get("inviteEmailsFailed")
+    );
+    if (failedInvitations > 0) {
+      setActionNotice(
+        {
+          message: `${failedInvitations} project invitation${failedInvitations === 1 ? "" : "s"} could not be emailed. The invitations are saved; try inviting those collaborators again when email delivery is available.`,
+        }
+      );
+    }
+  }, []);
+
+  async function copyInvitationLink(inviteLink: string) {
+    try {
+      await navigator.clipboard.writeText(
+        new URL(inviteLink, window.location.origin).toString()
+      );
+      setCopiedInviteLink(true);
+    } catch {
+      setActionError("We couldn’t copy the invitation link. Please select and copy it instead.");
+    }
+  }
 
   async function fetchProject(showLoading = true) {
     if (showLoading) {
@@ -288,6 +318,8 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     fallbackMessage = "The project could not be updated."
   ) {
     setActionError(null);
+    setActionNotice(null);
+    setCopiedInviteLink(false);
     try {
       const response = await fetch(path, {
         method,
@@ -298,6 +330,18 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.error || fallbackMessage);
+      if (result.emailSent === false) {
+        setActionNotice(
+          {
+            message:
+              result.emailMessage ||
+              "The invitation was saved, but its email could not be sent.",
+            ...(typeof result.inviteLink === "string"
+              ? { inviteLink: result.inviteLink }
+              : {}),
+          }
+        );
+      }
       await fetchProject(false);
       return true;
     } catch (err) {
@@ -2331,10 +2375,45 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         </div>
       </div>
 
-      {actionError && (
-        <div role="alert" className="fixed bottom-4 right-4 z-[60] flex max-w-md items-start gap-4 rounded-lg border border-rose-300 bg-white p-4 text-sm text-rose-800 shadow-lg dark:border-rose-900 dark:bg-slate-900 dark:text-rose-200">
-          <span className="flex-1">{actionError}</span>
-          <button type="button" onClick={() => setActionError(null)} className="shrink-0 font-semibold underline underline-offset-2">Dismiss</button>
+      {(actionError || actionNotice) && (
+        <div className="fixed bottom-4 right-4 z-[60] flex max-w-md flex-col gap-2">
+          {actionError && (
+            <div role="alert" className="flex items-start gap-4 rounded-xl border border-destructive/20 bg-card p-4 text-sm text-foreground shadow-lg">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+              <span className="flex-1 leading-5">{actionError}</span>
+              <button type="button" onClick={() => setActionError(null)} className="shrink-0 font-semibold text-muted-foreground underline underline-offset-2">Dismiss</button>
+            </div>
+          )}
+          {actionNotice && (
+            <div role="status" className="flex items-start gap-3 rounded-xl border border-amber-500/25 bg-card p-4 text-sm text-foreground shadow-lg">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+              <span className="flex-1 leading-5">
+                {actionNotice.message}
+                {actionNotice.inviteLink && (
+                  <span className="mt-2 flex items-center gap-2 rounded-md bg-muted p-2">
+                    <code className="min-w-0 flex-1 break-all font-mono text-[11px]">
+                      {typeof window === "undefined"
+                        ? actionNotice.inviteLink
+                        : `${window.location.origin}${actionNotice.inviteLink}`}
+                    </code>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (actionNotice.inviteLink) {
+                          void copyInvitationLink(actionNotice.inviteLink);
+                        }
+                      }}
+                      className="inline-flex shrink-0 items-center gap-1 font-semibold text-primary"
+                    >
+                      {copiedInviteLink ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                      {copiedInviteLink ? "Copied" : "Copy"}
+                    </button>
+                  </span>
+                )}
+              </span>
+              <button type="button" onClick={() => setActionNotice(null)} className="shrink-0 font-semibold text-muted-foreground underline underline-offset-2">Dismiss</button>
+            </div>
+          )}
         </div>
       )}
 

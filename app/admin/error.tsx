@@ -1,29 +1,30 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "../components/ui/Button";
+import { Button, ButtonLink } from "../components/ui/Button";
+import { StatusPanel } from "../components/ui/StatusPanel";
 
 export default function ErrorBoundary({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
+  retry: () => void;
 }) {
   useEffect(() => {
     console.error("Admin Error:", error);
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
-      <h2 className="text-2xl font-bold text-foreground">Admin console temporarily unavailable</h2>
-      <p className="max-w-lg text-center text-sm text-muted-foreground">
-        This section could not be loaded. Please try again; if the issue persists, contact support.
-      </p>
-      {error.digest && (
-        <p className="text-xs text-muted-foreground">Error reference: {error.digest}</p>
-      )}
-      <Button onClick={() => reset()}>Try again</Button>
-    </div>
+    <StatusPanel
+      tone="error"
+      eyebrow="Admin workspace"
+      title="This section is temporarily unavailable"
+      description="Try again in a moment. If the problem continues, contact Tinat support and include the reference below."
+      reference={error.digest}
+    >
+      <Button onClick={retry}>Try again</Button>
+      <ButtonLink href="/admin" variant="outline">Return to overview</ButtonLink>
+    </StatusPanel>
   );
 }

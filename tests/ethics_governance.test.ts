@@ -1,6 +1,7 @@
 import { test, describe, before, after } from "node:test";
 import assert from "node:assert";
 import "dotenv/config";
+import { SignJWT } from "jose";
 
 process.env.AUTH_SECRET = process.env.AUTH_SECRET || "tinat-auth-secret-for-matrix-tests-min-32-chars!";
 (process.env as Record<string, string>).NODE_ENV = "test";
@@ -19,6 +20,14 @@ import {
   withdrawConsent,
 } from "../lib/consent/service";
 import { getOrCreateParticipantLink } from "../lib/identity/linkService";
+import { DELETE as deleteStudy } from "../app/api/studies/[id]/route";
+import { DELETE as deleteForm } from "../app/api/forms/[id]/route";
+
+function getTestSecretKey() {
+  const secret = process.env.AUTH_SECRET;
+  if (!secret) throw new Error("AUTH_SECRET is not configured");
+  return new TextEncoder().encode(secret);
+}
 
 describe("Tinat Ethics Approval Gate, Consent & Research Governance", () => {
   let researcherId: string;
@@ -266,6 +275,72 @@ describe("Tinat Ethics Approval Gate, Consent & Research Governance", () => {
     // Version 1 still exists in database intact
     const originalV1 = await prisma.consentForm.findUnique({ where: { id: formV1.id } });
     assert.strictEqual(originalV1?.version, 1);
+  });
+
+  test("Consent records prevent study and form deletion without removing retained evidence", async () => {
+    let studyId: string | undefined;
+
+    try {
+      const study = await prisma.study.create({
+        data: {
+          title: "Consent retention deletion test",
+          researcherId,
+          category: "Tinat Form",
+          fundingType: "FREE",
+          status: "DRAFT",
+        },
+      });
+      studyId = study.id;
+
+      const consentForm = await getOrCreateConsentForm(study.id, "en");
+      const { respondentCode } = await getOrCreateParticipantLink({
+        userId: participantId,
+        studyId: study.id,
+      });
+      const consentRecord = await prisma.consentRecord.create({
+        data: {
+          respondentCode,
+          consentFormId: consentForm.id,
+          comprehensionAnswers: {},
+          language: "en",
+        },
+      });
+      const token = await new SignJWT({ userId: researcherId })
+        .setProtectedHeader({ alg: "HS256" })
+        .setIssuedAt()
+        .setExpirationTime("2h")
+        .sign(getTestSecretKey());
+      const request = (path: string) =>
+        new Request(`http://localhost:3000${path}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+      const studyResponse = await deleteStudy(request(`/api/studies/${study.id}`), {
+        params: Promise.resolve({ id: study.id }),
+      });
+      assert.strictEqual(studyResponse.status, 409);
+      assert.match((await studyResponse.json()).error, /consent records.*retained/i);
+
+      const formResponse = await deleteForm(request(`/api/forms/${study.id}`), {
+        params: Promise.resolve({ id: study.id }),
+      });
+      assert.strictEqual(formResponse.status, 409);
+      assert.match((await formResponse.json()).error, /consent records.*retained/i);
+
+      assert.ok(await prisma.study.findUnique({ where: { id: study.id } }));
+      assert.ok(await prisma.consentForm.findUnique({ where: { id: consentForm.id } }));
+      assert.ok(await prisma.consentRecord.findUnique({ where: { id: consentRecord.id } }));
+    } finally {
+      if (studyId) {
+        await prisma.consentRecord.deleteMany({
+          where: { consentForm: { studyId } },
+        });
+        await prisma.consentForm.deleteMany({ where: { studyId } });
+        await prisma.participantLink.deleteMany({ where: { studyId } });
+        await prisma.study.deleteMany({ where: { id: studyId } });
+      }
+    }
   });
 
   test("Part 2: Comprehension Questions gate consent recording", async () => {

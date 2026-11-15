@@ -45,7 +45,7 @@ type TinatForm = {
 };
 
 export default function FormsDashboardPage() {
-  const { confirm } = useConfirm();
+  const { confirm, alert } = useConfirm();
   const [forms, setForms] = useState<TinatForm[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -112,11 +112,24 @@ export default function FormsDashboardPage() {
     try {
       setDeletingId(formId);
       const res = await fetch(`/api/forms/${formId}`, { method: "DELETE" });
-      if (res.ok) {
-        setForms((prev) => prev.filter((f) => f.id !== formId));
+      if (!res.ok) {
+        const data = await res.json();
+        await alert({
+          title: "Delete Failed",
+          message: data.error || "Could not delete the form. Please try again.",
+          variant: "danger",
+        });
+        return;
       }
+
+      setForms((prev) => prev.filter((f) => f.id !== formId));
     } catch (error) {
       console.error("Failed to delete form:", error);
+      await alert({
+        title: "Delete Failed",
+        message: "Could not delete the form. Please try again.",
+        variant: "danger",
+      });
     } finally {
       setDeletingId(null);
     }

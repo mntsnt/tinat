@@ -62,8 +62,8 @@ export async function POST(request: Request) {
 
     if (!emailResult.success) {
       return NextResponse.json(
-        { error: "Could not deliver verification email. Please check your email configuration." },
-        { status: 500 }
+        { error: "Tinat couldn’t send your verification email. Please try again shortly or contact support." },
+        { status: 503 }
       );
     }
 
@@ -73,8 +73,8 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("[Resend Verification] Error:", error);
     return NextResponse.json(
-      { error: "Failed to resend verification email." },
-      { status: 500 }
+      { error: "We couldn’t resend your verification email just now. Please try again shortly." },
+      { status: 503 }
     );
   }
 }

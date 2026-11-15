@@ -135,7 +135,6 @@ export async function POST(request: Request) {
     });
 
     let emailDeliveryFailed = false;
-    let emailErrorMessage = "";
 
     // Generate verification code and dispatch email
     try {
@@ -158,14 +157,10 @@ export async function POST(request: Request) {
 
       if (!emailResult.success) {
         emailDeliveryFailed = true;
-        emailErrorMessage = emailResult.simulated
-          ? "SMTP delivery was simulated because credentials were not found."
-          : "Delivery encountered a transport issue.";
       }
     } catch (emailErr) {
       console.error("Failed to send initial verification email:", emailErr);
       emailDeliveryFailed = true;
-      emailErrorMessage = emailErr instanceof Error ? emailErr.message : "Failed to deliver email";
     }
 
     return NextResponse.json(
@@ -176,7 +171,6 @@ export async function POST(request: Request) {
         user,
         email: user.email,
         emailSent: !emailDeliveryFailed,
-        emailError: emailDeliveryFailed ? emailErrorMessage : undefined,
       },
       { status: 201 }
     );

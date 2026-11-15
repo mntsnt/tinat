@@ -85,9 +85,12 @@ export default function AdminCommunityPage() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isDirectoryOpen, setDirectoryOpen] = useState(false);
   const [error, setError] = useState("");
+  const [sendError, setSendError] = useState("");
+  const [directoryError, setDirectoryError] = useState("");
+  const [directoryReload, setDirectoryReload] = useState(0);
   const messagesViewportRef = useRef<HTMLDivElement>(null);
   const shouldFollowMessagesRef = useRef(true);
-  const channelsEndRef = useRef<HTMLDivElement>(null);
+  const messageRequestIdRef = useRef(0);
 
   const selectedChannel = useMemo(
     () => channels.find((channel) => channel.id === activeChannel) || channels[0],
@@ -95,6 +98,7 @@ export default function AdminCommunityPage() {
   );
 
   const loadMessages = useCallback(async (isInitialLoad = false) => {
+    const requestId = ++messageRequestIdRef.current;
     if (isInitialLoad) setIsLoadingMessages(true);
     else setIsRefreshing(true);
 
@@ -110,6 +114,7 @@ export default function AdminCommunityPage() {
       if (!response.ok) {
         throw new Error(data.error || "Could not load this conversation.");
       }
+      if (requestId !== messageRequestIdRef.current) return;
 
       setMessages((current) => {
         const next = data.messages || [];
@@ -121,20 +126,20 @@ export default function AdminCommunityPage() {
       if (data.currentAdminId) setCurrentAdminId(data.currentAdminId);
       setError("");
     } catch (loadError) {
+      if (requestId !== messageRequestIdRef.current) return;
       setError(loadError instanceof Error ? loadError.message : "Could not load this conversation.");
     } finally {
-      setIsLoadingMessages(false);
-      setIsRefreshing(false);
+      if (requestId === messageRequestIdRef.current) {
+        setIsLoadingMessages(false);
+        setIsRefreshing(false);
+      }
     }
   }, [activeChannel]);
 
   useEffect(() => {
-    const initialLoadTimer = window.setTimeout(() => void loadMessages(true), 0);
+    void loadMessages(true);
     const refreshTimer = window.setInterval(() => void loadMessages(), 5000);
-    return () => {
-      window.clearTimeout(initialLoadTimer);
-      window.clearInterval(refreshTimer);
-    };
+    return () => window.clearInterval(refreshTimer);
   }, [loadMessages]);
 
   useEffect(() => {
@@ -143,6 +148,7 @@ export default function AdminCommunityPage() {
     const search = memberSearch.trim();
     const timer = window.setTimeout(async () => {
       setIsLoadingMembers(true);
+      setDirectoryError("");
       try {
         const response = await fetch(`/api/admin/chat/members?q=${encodeURIComponent(search)}`, {
           cache: "no-store",
@@ -163,7 +169,7 @@ export default function AdminCommunityPage() {
         if (data.currentAdminId) setCurrentAdminId(data.currentAdminId);
       } catch (loadError) {
         if (isCurrent && !(loadError instanceof DOMException && loadError.name === "AbortError")) {
-          setError(loadError instanceof Error ? loadError.message : "Could not load the admin directory.");
+          setDirectoryError(loadError instanceof Error ? loadError.message : "Could not load the admin directory.");
         }
       } finally {
         if (isCurrent) setIsLoadingMembers(false);
@@ -175,11 +181,12 @@ export default function AdminCommunityPage() {
       window.clearTimeout(timer);
       controller.abort();
     };
-  }, [memberSearch]);
+  }, [memberSearch, directoryReload]);
 
   useEffect(() => {
     if (shouldFollowMessagesRef.current) {
-      channelsEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      const viewport = messagesViewportRef.current;
+      viewport?.scrollTo({ top: viewport.scrollHeight, behavior: "smooth" });
     }
   }, [messages]);
 
@@ -189,7 +196,7 @@ export default function AdminCommunityPage() {
     if (!content || isSending) return;
 
     setIsSending(true);
-    setError("");
+    setSendError("");
     try {
       const response = await fetch("/api/admin/chat/messages", {
         method: "POST",
@@ -202,14 +209,15 @@ export default function AdminCommunityPage() {
       }
 
       setDraft("");
+      setSendError("");
       shouldFollowMessagesRef.current = true;
       setMessages((current) =>
         current.some((message) => message.id === data.message!.id)
           ? current
           : [...current, data.message!].slice(-100),
       );
-    } catch (sendError) {
-      setError(sendError instanceof Error ? sendError.message : "Could not send this message.");
+    } catch (sendFailure) {
+      setSendError(sendFailure instanceof Error ? sendFailure.message : "Could not send this message.");
     } finally {
       setIsSending(false);
     }
@@ -225,7 +233,7 @@ export default function AdminCommunityPage() {
   const visibleMessages = messages.filter((message) => message.channel === activeChannel);
 
   return (
-    <div className="mx-auto flex h-full min-h-0 max-w-[1500px] flex-col overflow-hidden px-3 py-3 sm:px-5 sm:py-4">
+    <div className="mx-auto flex h-full min-h-0 w-full max-w-[1500px] flex-col overflow-hidden px-3 py-3 sm:px-5 sm:py-4">
       <header className="mb-3 flex shrink-0 flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
@@ -274,7 +282,11 @@ export default function AdminCommunityPage() {
               key={channel.id}
               type="button"
               onClick={() => {
+                if (channel.id === activeChannel) return;
                 setActiveChannel(channel.id);
+                setIsLoadingMessages(true);
+                setError("");
+                setSendError("");
                 shouldFollowMessagesRef.current = true;
               }}
               aria-pressed={isActive}
@@ -383,10 +395,14 @@ export default function AdminCommunityPage() {
                 })}
               </div>
             )}
-            <div ref={channelsEndRef} />
           </div>
 
           <form onSubmit={sendMessage} className="shrink-0 border-t border-border p-3 sm:px-4 sm:py-3.5">
+            {sendError && (
+              <p role="alert" className="mb-2 rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-200">
+                {sendError}
+              </p>
+            )}
             <label htmlFor="admin-chat-message" className="sr-only">Message #{selectedChannel.label}</label>
             <div className="flex items-end gap-2 rounded-lg border border-input bg-muted/30 p-2 transition focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/10">
               <textarea
@@ -449,7 +465,18 @@ export default function AdminCommunityPage() {
           </div>
 
           <div className="min-h-0 flex-1 overflow-y-auto p-2">
-            {isLoadingMembers ? (
+            {directoryError ? (
+              <div role="alert" className="m-2 rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-200">
+                <p>{directoryError}</p>
+                <button
+                  type="button"
+                  onClick={() => setDirectoryReload((reload) => reload + 1)}
+                  className="mt-2 rounded-md border border-rose-300/70 px-2.5 py-1 font-semibold hover:bg-rose-500/10 dark:border-rose-800"
+                >
+                  Retry
+                </button>
+              </div>
+            ) : isLoadingMembers ? (
               <div className="flex h-24 items-center justify-center text-xs text-muted-foreground"><LoaderCircle className="mr-2 h-4 w-4 animate-spin" />Loading administrators...</div>
             ) : members.length === 0 ? (
               <div className="flex h-36 flex-col items-center justify-center px-4 text-center">

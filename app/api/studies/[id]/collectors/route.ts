@@ -178,23 +178,28 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       });
 
       // Email notification
+      let emailSent = false;
       try {
         const baseUrl = getBaseUrl(req);
         const dashboardLink = `${baseUrl}/collector/dashboard`;
-        await sendCollectorInvitationEmail({
+        const emailResult = await sendCollectorInvitationEmail({
           to: collectorUser.email,
           collectorName: collectorUser.name || "Data Collector",
           inviterName: auth.user.name || "Principal Investigator",
           studyTitle: auth.study.title,
           dashboardLink,
         });
+        emailSent = emailResult.success;
       } catch (emailErr) {
         console.error("[Collector Assignment] Email error:", emailErr);
       }
 
       return NextResponse.json({
         success: true,
-        message: `${collectorUser.name} has been assigned as a data collector.`,
+        message: emailSent
+          ? `${collectorUser.name} has been assigned as a data collector and notified by email.`
+          : `${collectorUser.name} has been assigned as a data collector. Their Tinat notification is available, but the email could not be sent.`,
+        emailSent,
       });
     }
 
@@ -226,21 +231,30 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       },
     });
 
+    let emailSent = false;
     try {
       const baseUrl = getBaseUrl(req);
       const dashboardLink = `${baseUrl}/collector/dashboard`;
-      await sendCollectorInvitationEmail({
+      const emailResult = await sendCollectorInvitationEmail({
         to: collectorUser.email,
         collectorName: collectorUser.name || "Data Collector",
         inviterName: auth.user.name || "Principal Investigator",
         studyTitle: auth.study.title,
         dashboardLink,
       });
+      emailSent = emailResult.success;
     } catch (emailErr) {
       console.error("[Collector Invitation] Failed to send email:", emailErr);
     }
 
-    return NextResponse.json({ success: true, invitation });
+    return NextResponse.json({
+      success: true,
+      invitation,
+      emailSent,
+      message: emailSent
+        ? "The collector invitation was created and emailed."
+        : "The collector invitation was created. Their Tinat notification is available, but the email could not be sent.",
+    });
   } catch (error) {
     console.error("POST study collectors error:", error);
     return jsonError("Internal error", 500);

@@ -506,7 +506,20 @@ export default function AIChatPage() {
                       {message.role === "user" ? (
                         <p className="whitespace-pre-wrap">{message.content}</p>
                       ) : (
-                        <ArtifactRenderer content={message.content} />
+                        <article className="overflow-hidden rounded-2xl border border-border/80 bg-card/70 shadow-sm">
+                          <header className="flex items-center gap-2.5 border-b border-border/70 bg-muted/30 px-4 py-3">
+                            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
+                              <Sparkles className="h-3.5 w-3.5" />
+                            </span>
+                            <div className="min-w-0">
+                              <p className="text-xs font-semibold text-foreground">Tinat AI</p>
+                              <p className="text-[10px] text-muted-foreground">Research assistant</p>
+                            </div>
+                          </header>
+                          <div className="px-4 py-4 sm:px-5 sm:py-5">
+                            <ArtifactRenderer content={message.content} />
+                          </div>
+                        </article>
                       )}
                     </div>
                   </div>

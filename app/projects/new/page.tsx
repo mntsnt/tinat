@@ -178,7 +178,12 @@ export default function NewProjectPage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to create project");
-      router.push(`/projects/${data.project.id}`);
+      const failedInvitations = Number(data.emailDelivery?.failed) || 0;
+      router.push(
+        failedInvitations > 0
+          ? `/projects/${data.project.id}?inviteEmailsFailed=${failedInvitations}`
+          : `/projects/${data.project.id}`
+      );
     } catch (err: unknown) {
       setError(err instanceof Error && err.message ? err.message : "An unexpected error occurred");
       setSubmitting(false);

@@ -8,7 +8,6 @@ import {
   CheckCircle2,
   Database,
   Mail,
-  Settings2,
   ShieldAlert,
   ShieldCheck,
   Sparkles,
@@ -358,7 +357,6 @@ export default async function AdminDashboard() {
               {[
                 { label: "People", href: "/admin/users", icon: Users },
                 { label: "Studies", href: "/admin/studies", icon: BookOpen },
-                { label: "Settings", href: "/admin/settings", icon: Settings2 },
               ].map((item) => (
                 <Link
                   key={item.href}

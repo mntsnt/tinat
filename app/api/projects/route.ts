@@ -300,6 +300,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 5. Create Invitations if provided
+    const emailDelivery = { sent: 0, failed: 0 };
     if (Array.isArray(initialMembers) && initialMembers.length > 0) {
       const baseUrl = getBaseUrl(req);
       for (const m of initialMembers) {
@@ -325,7 +326,7 @@ export async function POST(req: NextRequest) {
 
           const inviteLink = `${baseUrl}/projects/invite/${token}`;
           try {
-            await sendProjectInvitationEmail({
+            const emailResult = await sendProjectInvitationEmail({
               to: normalizedEmail,
               inviterName: user.name || "A project collaborator",
               projectTitle: project.title,
@@ -333,8 +334,14 @@ export async function POST(req: NextRequest) {
               inviteLink,
               customMessage: invitation.message,
             });
+            if (emailResult.success) {
+              emailDelivery.sent += 1;
+            } else {
+              emailDelivery.failed += 1;
+            }
           } catch (emailErr) {
             console.error("[Project Creation] Failed to send invitation email:", emailErr);
+            emailDelivery.failed += 1;
           }
         }
       }
@@ -348,7 +355,7 @@ export async function POST(req: NextRequest) {
       description: `Created research project "${project.title}" using template "${template.name}"`,
     });
 
-    return NextResponse.json({ success: true, project });
+    return NextResponse.json({ success: true, project, emailDelivery });
   } catch (error) {
     console.error("Error creating project:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

@@ -103,10 +103,11 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     });
 
     // Email notification to the researcher
+    let emailSent = false;
     try {
       const baseUrl = getBaseUrl(req);
       const reviewLink = `${baseUrl}/researcher/studies/${study.id}?view=collectors`;
-      await sendCollectorApplicationSubmittedEmail({
+      const emailResult = await sendCollectorApplicationSubmittedEmail({
         to: study.researcher.email,
         researcherName: study.researcher.name,
         applicantName: user.name,
@@ -115,13 +116,17 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         notes: application.notes,
         reviewLink,
       });
+      emailSent = emailResult.success;
     } catch (emailErr) {
       console.error("[Collector Application] Email notification error:", emailErr);
     }
 
     return NextResponse.json({
       success: true,
-      message: "Application submitted successfully! The researcher has been notified.",
+      message: emailSent
+        ? "Application submitted. The researcher has been notified."
+        : "Application submitted. The researcher can review it in Tinat, but the email notification could not be sent.",
+      emailSent,
       application,
     });
   } catch (error) {
