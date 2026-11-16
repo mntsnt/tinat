@@ -722,6 +722,30 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     collector: [403],
     admin: [403]
   },
+  "POST /api/studies/[id]/collector-funding": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [403, 400, 404, 409, 503],
+    researcher_other: [403],
+    collector: [403],
+    admin: [403, 400, 404, 409, 503]
+  },
+  "POST /api/studies/[id]/collector-payouts": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [403, 400, 404, 409, 500],
+    researcher_other: [403],
+    collector: [403],
+    admin: [403, 400, 404, 409, 500]
+  },
+  "POST /api/webhooks/verify-et": {
+    anonymous: [204, 400, 401, 413, 503, 500],
+    participant: [204, 400, 401, 413, 503, 500],
+    researcher_owner: [204, 400, 401, 413, 503, 500],
+    researcher_other: [204, 400, 401, 413, 503, 500],
+    collector: [204, 400, 401, 413, 503, 500],
+    admin: [204, 400, 401, 413, 503, 500]
+  },
   "POST /api/studies/[id]/like": {
     anonymous: [401],
     participant: [200],
