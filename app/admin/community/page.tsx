@@ -91,6 +91,7 @@ export default function AdminCommunityPage() {
   const messagesViewportRef = useRef<HTMLDivElement>(null);
   const shouldFollowMessagesRef = useRef(true);
   const messageRequestIdRef = useRef(0);
+  const draftInputRef = useRef<HTMLTextAreaElement>(null);
 
   const selectedChannel = useMemo(
     () => channels.find((channel) => channel.id === activeChannel) || channels[0],
@@ -209,6 +210,7 @@ export default function AdminCommunityPage() {
       }
 
       setDraft("");
+      if (draftInputRef.current) draftInputRef.current.style.height = "auto";
       setSendError("");
       shouldFollowMessagesRef.current = true;
       setMessages((current) =>
@@ -310,7 +312,7 @@ export default function AdminCommunityPage() {
         })}
       </nav>
 
-      <div className="relative grid min-h-0 flex-1 gap-4 overflow-hidden lg:grid-cols-[minmax(0,1fr)_310px]">
+      <div className="relative grid min-h-0 flex-1 gap-4 overflow-hidden lg:grid-cols-[minmax(0,1fr)_340px]">
         <section className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-emerald-700/15 bg-card shadow-sm">
           <div className="flex shrink-0 items-center gap-3 border-b border-border px-4 py-3 sm:px-5">
             <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-700 text-white dark:bg-emerald-600">
@@ -330,7 +332,7 @@ export default function AdminCommunityPage() {
           <div
             ref={messagesViewportRef}
             onScroll={handleMessageScroll}
-            className="min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-6"
+            className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-7 sm:py-6"
             aria-live="polite"
             aria-label={`${selectedChannel.label} channel messages`}
           >
@@ -341,16 +343,16 @@ export default function AdminCommunityPage() {
               </div>
             ) : visibleMessages.length === 0 ? (
               <div className="flex h-full min-h-60 flex-col items-center justify-center px-4 text-center">
-                <span className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                  <MessagesSquare className="h-5 w-5" />
+                <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                  <MessagesSquare className="h-6 w-6" />
                 </span>
-                <h3 className="text-sm font-semibold text-foreground">Welcome to #{selectedChannel.label}</h3>
-                <p className="mt-1 max-w-sm text-xs leading-5 text-muted-foreground">
+                <h3 className="text-base font-semibold text-foreground">Welcome to #{selectedChannel.label}</h3>
+                <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
                   {selectedChannel.description} Start the conversation with your admin team.
                 </p>
               </div>
             ) : (
-              <div className="space-y-5">
+              <div className="mx-auto w-full max-w-7xl space-y-5">
                 {visibleMessages.map((message, index) => {
                   const previous = visibleMessages[index - 1];
                   const showDate =
@@ -381,7 +383,7 @@ export default function AdminCommunityPage() {
                             {!isOwnMessage && <span className="text-[10px] text-muted-foreground">{message.sender.institution || "Tinat Admin"}</span>}
                             <time className="ml-auto text-[10px] tabular-nums text-muted-foreground">{formatMessageTime(message.createdAt)}</time>
                           </div>
-                          <div className={`whitespace-pre-wrap break-words rounded-r-lg border-l-2 px-3.5 py-2.5 text-sm leading-6 ${
+                          <div className={`w-fit max-w-full whitespace-pre-wrap break-words rounded-r-lg border-l-2 px-4 py-3 text-sm leading-6 ${
                             isOwnMessage
                               ? "border-emerald-700 bg-emerald-500/5 text-foreground dark:border-emerald-400"
                               : "border-border bg-muted/35 text-foreground"
@@ -406,9 +408,14 @@ export default function AdminCommunityPage() {
             <label htmlFor="admin-chat-message" className="sr-only">Message #{selectedChannel.label}</label>
             <div className="flex items-end gap-2 rounded-lg border border-input bg-muted/30 p-2 transition focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/10">
               <textarea
+                ref={draftInputRef}
                 id="admin-chat-message"
                 value={draft}
-                onChange={(event) => setDraft(event.target.value)}
+                onChange={(event) => {
+                  setDraft(event.target.value);
+                  event.currentTarget.style.height = "auto";
+                  event.currentTarget.style.height = `${Math.min(event.currentTarget.scrollHeight, 144)}px`;
+                }}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" && !event.shiftKey) {
                     event.preventDefault();
@@ -418,7 +425,7 @@ export default function AdminCommunityPage() {
                 maxLength={1500}
                 rows={1}
                 placeholder={`Message #${selectedChannel.label}`}
-                className="max-h-32 min-h-9 flex-1 resize-y bg-transparent px-2 py-1.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+                className="max-h-36 min-h-[48px] flex-1 resize-none bg-transparent px-3 py-3 text-sm leading-5 text-foreground outline-none placeholder:text-muted-foreground"
                 disabled={isSending}
               />
               <button

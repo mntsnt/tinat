@@ -2254,7 +2254,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
         {/* TAB 11: ASK PROJECT AI */}
         {activeTab === "ai" && (
-          <div className="flex-1 min-h-0 h-full flex flex-col space-y-3">
+          <div className="flex h-full min-h-0 flex-1 flex-col space-y-4">
             <div className="flex shrink-0 flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <h3 className="font-bold text-base text-foreground flex items-center gap-2">
@@ -2275,22 +2275,24 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   onClick={() => handleAskAI(undefined, act.id)}
                   title={act.desc}
                   aria-label={`${act.label}: ${act.desc}`}
-                  className="rounded-md border border-border bg-card px-3 py-1.5 text-left text-xs text-foreground transition-colors hover:bg-muted disabled:opacity-50"
+                  className="rounded-xl border border-border bg-card px-4 py-2.5 text-left text-xs text-foreground transition-colors hover:border-primary/30 hover:bg-muted disabled:opacity-50"
                 >
                   <span className="font-medium">{act.label}</span>
                 </button>
               ))}
             </div>
 
-            <div className="flex-1 min-h-0 flex flex-col overflow-hidden rounded-lg border border-border bg-card">
-              <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4 sm:p-5">
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+              <div className="min-h-0 flex-1 space-y-5 overflow-y-auto p-4 sm:p-6 lg:p-8">
                 {aiHistory.length === 0 ? (
-                  <div className="flex h-full flex-col items-center justify-center p-6 text-center text-muted-foreground">
-                    <Sparkles className="mb-2 h-7 w-7 text-primary" />
-                    <h4 className="font-semibold text-sm text-foreground">
+                  <div className="flex min-h-[min(48vh,480px)] flex-col items-center justify-center p-6 text-center text-muted-foreground">
+                    <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10">
+                      <Sparkles className="h-6 w-6 text-primary" />
+                    </span>
+                    <h4 className="text-base font-semibold text-foreground sm:text-lg">
                       Research, with your project in context
                     </h4>
-                    <p className="mt-1 max-w-md text-sm">
+                    <p className="mt-2 max-w-lg text-sm leading-6">
                       Ask about project progress, methodology, sample size, or your next steps.
                     </p>
                   </div>
@@ -2298,13 +2300,13 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   aiHistory.map((item, idx) => (
                     <div
                       key={idx}
-                      className={`rounded-lg border p-4 text-sm leading-relaxed ${
+                      className={`mx-auto w-full max-w-5xl rounded-2xl border p-4 text-sm leading-7 sm:p-5 ${
                         item.role === "assistant"
                           ? "border-border bg-muted/50 text-foreground"
-                          : "ml-8 border-primary/20 bg-primary/5 text-foreground"
+                          : "ml-8 max-w-[88%] border-primary/20 bg-primary/5 text-foreground sm:max-w-[80%]"
                       }`}
                     >
-                      <div className="mb-1.5 flex items-center gap-1 text-xs font-semibold text-muted-foreground">
+                      <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
                         {item.role === "assistant" ? (
                           <>
                             <Sparkles className="w-3.5 h-3.5 text-primary" />
@@ -2327,7 +2329,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   ))
                 )}
                 {aiLoading && (
-                  <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50 p-4 text-sm text-muted-foreground" role="status">
+                  <div className="mx-auto flex w-full max-w-5xl items-center gap-2 rounded-xl border border-border bg-muted/50 p-4 text-sm text-muted-foreground" role="status">
                     <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
                     <span>Reviewing project context...</span>
                   </div>
@@ -2339,7 +2341,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   event.preventDefault();
                   handleAskAI();
                 }}
-                className="shrink-0 space-y-2 border-t border-border bg-background p-3"
+                className="shrink-0 space-y-2 border-t border-border bg-background p-4 sm:p-5"
               >
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <div className="flex items-center gap-1.5">
@@ -2356,12 +2358,12 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     onChange={(e) => setAiPrompt(e.target.value)}
                     disabled={aiLoading}
                     aria-label="Ask a question about this project"
-                    className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                    className="min-h-12 min-w-0 flex-1 rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
                   />
                   <button
                     type="submit"
                     disabled={aiLoading || !aiPrompt.trim()}
-                    className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+                    className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
                   >
                     <Send className="h-4 w-4" />
                     Send

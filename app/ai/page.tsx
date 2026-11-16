@@ -295,7 +295,7 @@ export default function AIChatPage() {
   const isBusy = isGenerating || isLoadingConversation || isSavingSettings;
 
   return (
-    <main className="flex h-svh min-h-[520px] overflow-hidden bg-background font-sans text-foreground">
+    <main className="flex h-dvh min-h-[480px] overflow-hidden bg-background font-sans text-foreground">
       {isSidebarOpen && (
         <button
           aria-label="Close chat history"
@@ -445,8 +445,8 @@ export default function AIChatPage() {
         </header>
 
         <div className="flex min-h-0 flex-1 flex-col">
-          <div className="flex-1 overflow-y-auto px-4 pb-8 pt-6 sm:px-8">
-            <div className="mx-auto w-full max-w-3xl space-y-7">
+          <div className="flex-1 overflow-y-auto px-4 pb-10 pt-5 sm:px-8 lg:px-12">
+            <div className="mx-auto w-full max-w-5xl space-y-8">
               {isLoadingConversation ? (
                 <div className="flex items-center justify-center py-24 text-sm text-muted-foreground">
                   <span className="mr-3 h-4 w-4 animate-spin rounded-full border-2 border-emerald-600 border-t-transparent" />
@@ -463,7 +463,7 @@ export default function AIChatPage() {
                   <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
                     Ask a question, explore your study data, or get help shaping your next analysis.
                   </p>
-                  <div className="mt-7 grid w-full max-w-2xl gap-2 sm:grid-cols-2">
+                  <div className="mt-7 grid w-full max-w-4xl gap-3 sm:grid-cols-2">
                     {[
                       "Summarize the key findings in my study",
                       "What patterns stand out in the responses?",
@@ -476,7 +476,7 @@ export default function AIChatPage() {
                           setInput(suggestion);
                           inputRef.current?.focus();
                         }}
-                        className="rounded-lg border border-border bg-card px-3.5 py-3 text-left text-xs leading-5 text-muted-foreground transition-colors hover:border-emerald-600/40 hover:bg-muted hover:text-foreground"
+                        className="rounded-xl border border-border bg-card px-4 py-3.5 text-left text-sm leading-6 text-muted-foreground transition-colors hover:border-emerald-600/40 hover:bg-muted hover:text-foreground"
                       >
                         {suggestion}
                       </button>
@@ -499,7 +499,7 @@ export default function AIChatPage() {
                     <div
                       className={`min-w-0 ${
                         message.role === "user"
-                          ? "max-w-[88%] rounded-2xl rounded-tr-md border border-border bg-muted px-4 py-3 text-sm leading-6 text-foreground sm:max-w-[78%]"
+                          ? "max-w-[92%] rounded-2xl rounded-tr-md border border-border bg-muted px-4 py-3 text-sm leading-6 text-foreground sm:max-w-[82%] lg:max-w-[75%]"
                           : "max-w-full flex-1 pt-1 text-sm leading-7 text-foreground"
                       }`}
                     >
@@ -538,7 +538,7 @@ export default function AIChatPage() {
           </div>
 
           <div className="shrink-0 border-t border-border bg-background px-3 pb-3 pt-3 sm:px-6 sm:pb-5">
-            <div className="mx-auto max-w-3xl">
+            <div className="mx-auto w-full max-w-5xl">
               {error && (
                 <div
                   role="alert"
@@ -559,7 +559,7 @@ export default function AIChatPage() {
                 <textarea
                   ref={inputRef}
                   aria-label="Message Tinat AI"
-                  className="max-h-48 min-h-[54px] w-full resize-none bg-transparent px-4 pb-2 pt-4 text-sm leading-6 text-foreground outline-none placeholder:text-muted-foreground"
+                  className="max-h-56 min-h-[68px] w-full resize-none bg-transparent px-4 pb-2 pt-4 text-sm leading-6 text-foreground outline-none placeholder:text-muted-foreground"
                   rows={1}
                   placeholder={`Message Tinat AI${selectedStudyId ? ` about ${selectedStudyTitle}` : ""}...`}
                   value={input}

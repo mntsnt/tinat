@@ -141,6 +141,7 @@ export function ProjectTeamChat({
   const messagesViewportRef = useRef<HTMLDivElement>(null);
   const shouldFollowMessagesRef = useRef(true);
   const channelsEndRef = useRef<HTMLDivElement>(null);
+  const draftInputRef = useRef<HTMLTextAreaElement>(null);
   const isRequestInFlightRef = useRef(false);
 
   // Exit fullscreen on Escape key
@@ -253,6 +254,7 @@ export function ProjectTeamChat({
       }
 
       setDraft("");
+      if (draftInputRef.current) draftInputRef.current.style.height = "auto";
       shouldFollowMessagesRef.current = true;
       setMessages((current) =>
         current.some((message) => message.id === data.message!.id)
@@ -287,40 +289,25 @@ export function ProjectTeamChat({
       }
     >
       {/* Sleek Unified Channel Bar & Controls */}
-      <div className="shrink-0 rounded-xl border border-border bg-card p-2 sm:p-2.5 mb-2.5 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-2.5">
-          {/* Channel Selector Pills */}
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 min-w-0 flex-1">
-            {channels.map((channel) => {
-              const Icon = channel.icon;
-              const isActive = activeChannel === channel.id;
-              return (
-                <button
-                  key={channel.id}
-                  type="button"
-                  onClick={() => {
-                    setActiveChannel(channel.id);
-                    shouldFollowMessagesRef.current = true;
-                  }}
-                  aria-pressed={isActive}
-                  className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
-                    isActive
-                      ? "bg-emerald-600 text-white shadow-sm"
-                      : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent"
-                  }`}
-                >
-                  <Icon className="h-3.5 w-3.5 shrink-0" />
-                  <span className="capitalize">#{channel.label}</span>
-                </button>
-              );
-            })}
+      <div className="mb-2.5 shrink-0 rounded-2xl border border-border bg-card p-3 shadow-sm sm:p-4">
+        <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
+              <MessagesSquare className="h-5 w-5" />
+            </span>
+            <div className="min-w-0">
+              <h2 className="truncate text-sm font-semibold text-foreground">Research team chat</h2>
+              <p className="truncate text-xs text-muted-foreground">
+                Stay in sync with the {projectTitle} team
+              </p>
+            </div>
           </div>
 
           {/* Quick Actions (Directory, Maximize, Auto-refresh) */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center justify-end gap-2">
             <span
               title="Refreshes automatically every 5s"
-              className="hidden sm:flex items-center gap-1.5 text-[11px] text-muted-foreground pr-1"
+              className="hidden items-center gap-1.5 pr-1 text-[11px] text-muted-foreground sm:flex"
             >
               <span
                 className={`h-2 w-2 rounded-full ${
@@ -330,7 +317,6 @@ export function ProjectTeamChat({
               <span className="text-[10px]">Live</span>
             </span>
 
-            {/* Toggle Team Directory */}
             <button
               type="button"
               onClick={() => setDirectoryOpen((open) => !open)}
@@ -345,11 +331,10 @@ export function ProjectTeamChat({
               <span>Team ({projectMembers.length})</span>
             </button>
 
-            {/* Maximize / Fullscreen Toggle */}
             <button
               type="button"
               onClick={() => setIsMaximized((prev) => !prev)}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted"
               title={isMaximized ? "Exit Fullscreen (Esc)" : "Expand Chat to Fullscreen"}
             >
               {isMaximized ? (
@@ -365,6 +350,32 @@ export function ProjectTeamChat({
               )}
             </button>
           </div>
+        </div>
+
+        <div className="flex min-w-0 items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+          {channels.map((channel) => {
+            const Icon = channel.icon;
+            const isActive = activeChannel === channel.id;
+            return (
+              <button
+                key={channel.id}
+                type="button"
+                onClick={() => {
+                  setActiveChannel(channel.id);
+                  shouldFollowMessagesRef.current = true;
+                }}
+                aria-pressed={isActive}
+                className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+                  isActive
+                    ? "bg-emerald-600 text-white shadow-sm"
+                    : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent"
+                }`}
+              >
+                <Icon className="h-3.5 w-3.5 shrink-0" />
+                <span className="capitalize">#{channel.label}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -397,7 +408,7 @@ export function ProjectTeamChat({
       {/* Main Grid: Chat Workspace + Collapsible Team Directory */}
       <div
         className={`relative grid min-h-0 flex-1 gap-3 overflow-hidden ${
-          isDirectoryOpen ? "lg:grid-cols-[1fr_290px]" : "grid-cols-1"
+          isDirectoryOpen ? "lg:grid-cols-[minmax(0,1fr)_320px]" : "grid-cols-1"
         }`}
       >
         {/* Chat Box (Messages + Typing Bar) */}
@@ -426,7 +437,7 @@ export function ProjectTeamChat({
           <div
             ref={messagesViewportRef}
             onScroll={handleMessageScroll}
-            className="min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-6"
+            className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-7 sm:py-6"
             aria-live="polite"
             aria-label={`${selectedChannel.label} channel messages`}
           >
@@ -446,7 +457,7 @@ export function ProjectTeamChat({
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="mx-auto w-full max-w-6xl space-y-5">
                 {visibleMessages.map((message, index) => {
                   const previous = visibleMessages[index - 1];
                   const showDate =
@@ -496,7 +507,7 @@ export function ProjectTeamChat({
                             </time>
                           </div>
                           <div
-                            className={`whitespace-pre-wrap break-words rounded-xl border px-3.5 py-2.5 text-sm leading-6 max-w-3xl ${
+                            className={`w-fit max-w-full whitespace-pre-wrap break-words rounded-xl border px-4 py-3 text-sm leading-6 ${
                               isOwnMessage
                                 ? "border-emerald-600/20 bg-emerald-50/60 text-foreground dark:bg-emerald-950/20 dark:border-emerald-800/40"
                                 : "border-border bg-muted/40 text-foreground"
@@ -524,9 +535,14 @@ export function ProjectTeamChat({
             </label>
             <div className="flex items-end gap-2 rounded-xl border border-input bg-muted/20 p-2 shadow-sm transition focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/15">
               <textarea
+                ref={draftInputRef}
                 id="project-chat-message"
                 value={draft}
-                onChange={(event) => setDraft(event.target.value)}
+                onChange={(event) => {
+                  setDraft(event.target.value);
+                  event.currentTarget.style.height = "auto";
+                  event.currentTarget.style.height = `${Math.min(event.currentTarget.scrollHeight, 144)}px`;
+                }}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" && !event.shiftKey) {
                     event.preventDefault();
@@ -536,7 +552,7 @@ export function ProjectTeamChat({
                 maxLength={1500}
                 rows={1}
                 placeholder={`Message #${selectedChannel.label}...`}
-                className="max-h-36 min-h-[38px] flex-1 resize-none bg-transparent px-2.5 py-1.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+                className="max-h-36 min-h-[48px] flex-1 resize-none bg-transparent px-3 py-3 text-sm leading-5 text-foreground outline-none placeholder:text-muted-foreground"
                 disabled={isSending}
               />
               <button
@@ -557,7 +573,7 @@ export function ProjectTeamChat({
 
         {/* Right Sidebar: Team Directory (Collapsible) */}
         {isDirectoryOpen && (
-          <aside className="min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm hidden lg:flex">
+          <aside className="absolute inset-x-0 bottom-0 z-30 flex h-[min(60%,32rem)] min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-xl lg:static lg:h-auto lg:shadow-sm">
             <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
               <div className="flex items-center gap-2">
                 <Users className="h-4 w-4 text-emerald-600" />
