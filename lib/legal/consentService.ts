@@ -51,6 +51,33 @@ export async function checkPlatformConsent(userId: string): Promise<PlatformCons
   });
 
   if (!latestRecord) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, termsAcceptedAt: true, termsAcceptedVersion: true },
+    });
+
+    if (user && user.termsAcceptedAt) {
+      const backfilled = await prisma.platformConsentRecord.create({
+        data: {
+          userId,
+          termsVersion: user.termsAcceptedVersion || PLATFORM_DOCUMENT_VERSIONS.TERMS,
+          privacyVersion: PLATFORM_DOCUMENT_VERSIONS.PRIVACY,
+          summaryVersion: PLATFORM_DOCUMENT_VERSIONS.SUMMARY,
+          documentHash: currentDocumentHash,
+          optionalContactConsent: true,
+          acceptedAt: user.termsAcceptedAt,
+        },
+      });
+
+      return {
+        hasValidConsent: true,
+        needsReacceptance: false,
+        latestRecord: backfilled,
+        currentVersions: PLATFORM_DOCUMENT_VERSIONS,
+        currentDocumentHash,
+      };
+    }
+
     return {
       hasValidConsent: false,
       needsReacceptance: false,

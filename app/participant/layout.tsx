@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 import { Sidebar } from "../components/layout/Sidebar";
 import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
-import { checkPlatformConsent } from "@/lib/legal/consentService";
 import { checkIsUserCollector } from "@/lib/collector/status";
 
 import { ParticipantLayoutShell } from "./ParticipantLayoutShell";
@@ -21,11 +20,6 @@ export default async function ParticipantLayout({ children }: { children: ReactN
 
   if (!session) {
     redirect("/login");
-  }
-
-  const consent = await checkPlatformConsent(session.userId);
-  if (!consent.hasValidConsent) {
-    redirect("/agreement?redirect=/participant");
   }
 
   const user = await prisma.user.findUnique({

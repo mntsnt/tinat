@@ -4,7 +4,6 @@ import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "../../lib/prisma";
 import { getLinksForUser } from "../components/layout/navLinks";
-import { checkPlatformConsent } from "@/lib/legal/consentService";
 import { ResearcherLayoutShell } from "./ResearcherLayoutShell";
 
 export const metadata: Metadata = {
@@ -17,11 +16,6 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
 
   if (!session) {
     redirect("/login");
-  }
-
-  const consent = await checkPlatformConsent(session.userId);
-  if (!consent.hasValidConsent) {
-    redirect("/agreement?redirect=/researcher");
   }
 
   const user = await prisma.user.findUnique({

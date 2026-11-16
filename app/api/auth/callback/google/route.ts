@@ -5,7 +5,11 @@ import bcrypt from "bcryptjs";
 import { createSession } from "@/lib/auth";
 import { getBaseUrl, getGoogleRedirectUri } from "@/lib/getRedirectUri";
 import { prisma } from "@/lib/prisma";
-import { checkPlatformConsent } from "@/lib/legal/consentService";
+import {
+  PLATFORM_DOCUMENT_VERSIONS,
+  getCombinedDocumentText,
+  computeDocumentHash,
+} from "@/lib/legal/platformDocuments";
 import { getSafeInternalRedirectPath } from "@/lib/safeRedirect";
 
 const OAUTH_NONCE_COOKIE = "tinat_google_oauth_nonce";
@@ -164,6 +168,8 @@ export async function GET(request: NextRequest) {
     if (!user) {
       const randomPassword = randomBytes(32).toString("base64url");
       const passwordHash = await bcrypt.hash(randomPassword, 10);
+      const currentCombinedText = getCombinedDocumentText();
+      const currentHash = computeDocumentHash(currentCombinedText);
 
       user = await prisma.user.create({
         data: {
@@ -173,8 +179,21 @@ export async function GET(request: NextRequest) {
           avatarUrl: userData.picture,
           isVerified: true,
           role: requestedRole,
+          termsAcceptedVersion: PLATFORM_DOCUMENT_VERSIONS.TERMS,
+          termsAcceptedAt: new Date(),
+          privacyNoticeVersion: PLATFORM_DOCUMENT_VERSIONS.PRIVACY,
+          privacyAcceptedAt: new Date(),
           wallet: {
             create: { balance: 0 },
+          },
+          platformConsentRecords: {
+            create: {
+              termsVersion: PLATFORM_DOCUMENT_VERSIONS.TERMS,
+              privacyVersion: PLATFORM_DOCUMENT_VERSIONS.PRIVACY,
+              summaryVersion: PLATFORM_DOCUMENT_VERSIONS.SUMMARY,
+              documentHash: currentHash,
+              optionalContactConsent: true,
+            },
           },
         },
       });
@@ -232,14 +251,6 @@ export async function GET(request: NextRequest) {
       request.cookies.get(OAUTH_REDIRECT_COOKIE)?.value
     );
     const destination = requestedDestination || defaultTarget;
-    const consentCheck = await checkPlatformConsent(user.id);
-    if (!consentCheck.hasValidConsent) {
-      return redirectToDestination(
-        request,
-        `/agreement?redirect=${encodeURIComponent(destination)}`
-      );
-    }
-
     return redirectToDestination(request, destination);
   } catch (error) {
     console.error("Google Callback Error:", error);
