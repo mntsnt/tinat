@@ -59,6 +59,33 @@ interface ProjectWorkspaceClientProps {
   currentUserId: string;
 }
 
+const PROJECT_AI_ACTIONS = [
+  {
+    id: "SUMMARIZE_STATUS",
+    label: "Executive Summary",
+    desc: "Current progress & blockers",
+    requestText: "Generate an executive summary of this project.",
+  },
+  {
+    id: "CHECK_ETHICS_GAPS",
+    label: "Ethics & Compliance Audit",
+    desc: "IRB & STROBE/CONSORT checks",
+    requestText: "Review this project's ethics and compliance readiness.",
+  },
+  {
+    id: "GENERATE_MANUSCRIPT_OUTLINE",
+    label: "IMRAD Manuscript Outline",
+    desc: "Publication draft scaffolding",
+    requestText: "Prepare an IMRAD manuscript outline for this project.",
+  },
+  {
+    id: "DRAFT_TASK_BREAKDOWN",
+    label: "Suggest Next Phase Tasks",
+    desc: "Concrete actionable tasks",
+    requestText: "Suggest actionable tasks for the project's next phase.",
+  },
+] as const;
+
 interface ProjectMilestoneView {
   id: string;
   title: string;
@@ -830,7 +857,11 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     if (!query.trim() && !actionType) return;
 
     setAiLoading(true);
-    const newHistory = [...aiHistory, { role: "user", content: query || `Execute: ${actionType}` }];
+    const requestText = PROJECT_AI_ACTIONS.find((action) => action.id === actionType)?.requestText;
+    const newHistory = [
+      ...aiHistory,
+      { role: "user", content: query || requestText || "Run a project research task." },
+    ];
     setAiHistory(newHistory);
     setAiPrompt("");
 
@@ -2237,28 +2268,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
             </div>
 
             <div className="flex shrink-0 flex-wrap gap-2">
-              {[
-                {
-                  id: "SUMMARIZE_STATUS",
-                  label: "Executive Summary",
-                  desc: "Current progress & blockers",
-                },
-                {
-                  id: "CHECK_ETHICS_GAPS",
-                  label: "Ethics & Compliance Audit",
-                  desc: "IRB & STROBE/CONSORT checks",
-                },
-                {
-                  id: "GENERATE_MANUSCRIPT_OUTLINE",
-                  label: "IMRAD Manuscript Outline",
-                  desc: "Publication draft scaffolding",
-                },
-                {
-                  id: "DRAFT_TASK_BREAKDOWN",
-                  label: "Suggest Next Phase Tasks",
-                  desc: "Concrete actionable tasks",
-                },
-              ].map((act) => (
+              {PROJECT_AI_ACTIONS.map((act) => (
                 <button
                   key={act.id}
                   disabled={aiLoading}

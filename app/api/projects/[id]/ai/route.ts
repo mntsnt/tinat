@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authorizeProjectAccess } from "@/lib/projects/auth";
 import { executeAIChat } from "@/lib/ai/execution";
+import { getGeminiApiKey } from "@/lib/ai/gemini";
+import { FEATURES } from "@/lib/config/features";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +16,25 @@ export async function POST(
     const { auth, error, status } = await authorizeProjectAccess(projectId, request);
     if (!auth) {
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
+    }
+
+    if (!getGeminiApiKey()) {
+      return NextResponse.json(
+        {
+          error: "Project AI is not configured. Add GEMINI_API_KEY to the server environment, then redeploy.",
+          code: "AI_NOT_CONFIGURED",
+        },
+        { status: 503 }
+      );
+    }
+    if (!FEATURES.AI_EXTERNAL_ENABLED) {
+      return NextResponse.json(
+        {
+          error: "Project AI is disabled. Enable AI_EXTERNAL_ENABLED only after approving the use of Google's Gemini service for project data.",
+          code: "AI_EXTERNAL_DISABLED",
+        },
+        { status: 403 }
+      );
     }
 
     const body = await request.json().catch(() => ({}));
@@ -160,8 +181,18 @@ GUIDELINES:
     });
   } catch (error: any) {
     console.error("POST /api/projects/[id]/ai error:", error);
+    const safeAiErrors = new Set([
+      "AI service authentication failed. Please verify the Gemini API configuration.",
+      "AI request limit reached. Please wait a moment before requesting further analysis.",
+      "The AI service timed out while analyzing data. Please try again with a narrower question.",
+      "AI Research Analysis is currently unavailable. Your study data has not been modified.",
+    ]);
+    const publicMessage =
+      error instanceof Error && safeAiErrors.has(error.message)
+        ? error.message
+        : "Project AI could not complete the request. Check the server configuration and try again.";
     return NextResponse.json(
-      { error: "Failed to process AI request", details: error.message },
+      { error: publicMessage },
       { status: 500 }
     );
   }
