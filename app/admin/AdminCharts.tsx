@@ -27,7 +27,7 @@ type Props = {
 };
 
 const tooltipStyle = {
-  borderRadius: "8px",
+  borderRadius: "6px",
   border: "1px solid var(--border)",
   backgroundColor: "var(--card)",
   color: "var(--foreground)",

@@ -34,9 +34,13 @@ export function AdminLayoutShell({ children, links, user }: AdminLayoutShellProp
         avatarUrl={user.avatarUrl}
         roleColor="admin"
       />
-      <main className={`min-h-0 min-w-0 flex-1 bg-muted/10 ${isFixedLayout ? "overflow-hidden" : "overflow-y-auto [scrollbar-gutter:stable]"} flex flex-col`}>
+      <main
+        className={`min-h-0 min-w-0 flex-1 bg-muted/10 ${
+          isFixedLayout ? "overflow-hidden" : "overflow-y-auto [scrollbar-gutter:stable]"
+        } flex flex-col`}
+      >
         <DashboardTopNav />
-        <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+        <div className={`flex-1 min-w-0 flex flex-col ${isFixedLayout ? "min-h-0 overflow-hidden" : ""}`}>
           {children}
         </div>
       </main>

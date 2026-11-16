@@ -287,15 +287,14 @@ export default async function StudyDiscoveryPage({
                     <span>
                       By{" "}
                       <Link
-                        href={`/profile/${study.researcher.id}`}
-                        onClick={(e) => e.stopPropagation()}
-                        title={`View ${study.researcher.name}'s profile`}
+                        href={`/profile/${study.researcher?.id || ""}`}
+                        title={`View ${study.researcher?.name || "Researcher"}'s profile`}
                         className="font-medium text-foreground hover:text-emerald-600 hover:underline transition-colors"
                       >
-                        {study.researcher.name}
+                        {study.researcher?.name || "Researcher"}
                       </Link>
                     </span>
-                    {study.researcher.institution && (
+                    {study.researcher?.institution && (
                       <span className="text-muted-foreground truncate">
                         &bull; {study.researcher.institution}
                       </span>
@@ -366,10 +365,7 @@ export default async function StudyDiscoveryPage({
 
                   <div className="flex gap-2 w-full">
                     <form
-                      action={async () => {
-                        "use server";
-                        await toggleBookmark(study.id);
-                      }}
+                      action={toggleBookmark.bind(null, study.id)}
                       className="shrink-0"
                     >
                       <Button
@@ -394,7 +390,7 @@ export default async function StudyDiscoveryPage({
                     <BecomeCollectorButton
                       studyId={study.id}
                       studyTitle={study.title}
-                      researcherName={study.researcher.name}
+                      researcherName={study.researcher?.name || "Researcher"}
                       category={study.category || undefined}
                       initialStatus={userCollectorApplications.get(study.id) || null}
                       isAssigned={assignedStudyIds.has(study.id)}

@@ -525,7 +525,7 @@ export function DataVisualizationStudio({
             h1 { font-size: 20px; margin-bottom: 4px; }
             p { font-size: 13px; color: #666; margin-top: 0; }
             .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
-            .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; page-break-inside: avoid; }
+            .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; page-break-inside: avoid; }
             .title { font-weight: 600; font-size: 14px; margin-bottom: 12px; }
             svg { max-width: 100%; height: auto; }
           </style>

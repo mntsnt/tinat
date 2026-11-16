@@ -9,6 +9,8 @@ import { getLinksForUser } from "../components/layout/navLinks";
 import { checkPlatformConsent } from "@/lib/legal/consentService";
 import { checkIsUserCollector } from "@/lib/collector/status";
 
+import { ParticipantLayoutShell } from "./ParticipantLayoutShell";
+
 export const metadata: Metadata = {
   title: "Participant Dashboard | Tinat",
   description: "Discover health research studies and manage your participant account.",
@@ -43,22 +45,11 @@ export default async function ParticipantLayout({ children }: { children: ReactN
   const links = getLinksForUser({ ...user, isCollector });
 
   return (
-    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
-      <Sidebar
-        links={links}
-        roleTitle="Participant"
-        userId={user.id}
-        userName={user.name}
-        userEmail={user.email}
-        avatarUrl={user.avatarUrl}
-        roleColor="participant"
-      />
-      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 flex flex-col">
-        <DashboardTopNav />
-        <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
-          {children}
-        </div>
-      </main>
-    </div>
+    <ParticipantLayoutShell
+      links={links}
+      user={{ id: user.id, name: user.name, email: user.email, avatarUrl: user.avatarUrl }}
+    >
+      {children}
+    </ParticipantLayoutShell>
   );
 }
