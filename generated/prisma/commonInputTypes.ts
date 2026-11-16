@@ -217,6 +217,13 @@ export type IntFilter<$PrismaModel = never> = {
   not?: Prisma.NestedIntFilter<$PrismaModel> | number
 }
 
+export type EnumCollectorPayTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.CollectorPayType | Prisma.EnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CollectorPayType[] | Prisma.ListEnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.CollectorPayType[] | Prisma.ListEnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumCollectorPayTypeNullableFilter<$PrismaModel> | $Enums.CollectorPayType | null
+}
+
 export type EnumStudyTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.StudyType | Prisma.EnumStudyTypeFieldRefInput<$PrismaModel>
   in?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
@@ -258,6 +265,16 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedIntFilter<$PrismaModel>
   _max?: Prisma.NestedIntFilter<$PrismaModel>
+}
+
+export type EnumCollectorPayTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CollectorPayType | Prisma.EnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CollectorPayType[] | Prisma.ListEnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.CollectorPayType[] | Prisma.ListEnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumCollectorPayTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.CollectorPayType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCollectorPayTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCollectorPayTypeNullableFilter<$PrismaModel>
 }
 
 export type EnumStudyTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -492,6 +509,36 @@ export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
+}
+
+export type EnumCollectorFundingStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CollectorFundingStatus | Prisma.EnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CollectorFundingStatus[] | Prisma.ListEnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CollectorFundingStatus[] | Prisma.ListEnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCollectorFundingStatusFilter<$PrismaModel> | $Enums.CollectorFundingStatus
+}
+
+export type BoolNullableFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedBoolNullableFilter<$PrismaModel> | boolean | null
+}
+
+export type EnumCollectorFundingStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CollectorFundingStatus | Prisma.EnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CollectorFundingStatus[] | Prisma.ListEnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CollectorFundingStatus[] | Prisma.ListEnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCollectorFundingStatusWithAggregatesFilter<$PrismaModel> | $Enums.CollectorFundingStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCollectorFundingStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCollectorFundingStatusFilter<$PrismaModel>
+}
+
+export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolNullableFilter<$PrismaModel>
 }
 
 export type EnumWithdrawalStatusFilter<$PrismaModel = never> = {
@@ -1124,6 +1171,13 @@ export type NestedEnumStudyFundingTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumStudyFundingTypeFilter<$PrismaModel> | $Enums.StudyFundingType
 }
 
+export type NestedEnumCollectorPayTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.CollectorPayType | Prisma.EnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CollectorPayType[] | Prisma.ListEnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.CollectorPayType[] | Prisma.ListEnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumCollectorPayTypeNullableFilter<$PrismaModel> | $Enums.CollectorPayType | null
+}
+
 export type NestedEnumStudyTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.StudyType | Prisma.EnumStudyTypeFieldRefInput<$PrismaModel>
   in?: $Enums.StudyType[] | Prisma.ListEnumStudyTypeFieldRefInput<$PrismaModel>
@@ -1176,6 +1230,16 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumCollectorPayTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CollectorPayType | Prisma.EnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CollectorPayType[] | Prisma.ListEnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.CollectorPayType[] | Prisma.ListEnumCollectorPayTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumCollectorPayTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.CollectorPayType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCollectorPayTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCollectorPayTypeNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumStudyTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -1361,6 +1425,36 @@ export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumCollectorFundingStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CollectorFundingStatus | Prisma.EnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CollectorFundingStatus[] | Prisma.ListEnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CollectorFundingStatus[] | Prisma.ListEnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCollectorFundingStatusFilter<$PrismaModel> | $Enums.CollectorFundingStatus
+}
+
+export type NestedBoolNullableFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedBoolNullableFilter<$PrismaModel> | boolean | null
+}
+
+export type NestedEnumCollectorFundingStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CollectorFundingStatus | Prisma.EnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CollectorFundingStatus[] | Prisma.ListEnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CollectorFundingStatus[] | Prisma.ListEnumCollectorFundingStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCollectorFundingStatusWithAggregatesFilter<$PrismaModel> | $Enums.CollectorFundingStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCollectorFundingStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCollectorFundingStatusFilter<$PrismaModel>
+}
+
+export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumWithdrawalStatusFilter<$PrismaModel = never> = {

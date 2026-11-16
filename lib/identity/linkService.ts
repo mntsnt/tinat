@@ -68,8 +68,8 @@ export async function getOrCreateParticipantLink(params: {
 }
 
 /**
- * Checks if a user has already participated in a study.
- * Used for duplicate prevention and rating eligibility without querying research answers.
+ * Checks if a user has already submitted a response to a study.
+ * Participant links may be created during consent, before a response exists.
  */
 export async function hasUserParticipated(params: {
   userId: string;
@@ -86,10 +86,20 @@ export async function hasUserParticipated(params: {
         userId,
       },
     },
+    select: { respondentCode: true },
+  });
+
+  if (!link) return false;
+
+  const response = await db.response.findFirst({
+    where: {
+      studyId,
+      respondentCode: link.respondentCode,
+    },
     select: { id: true },
   });
 
-  return Boolean(link);
+  return Boolean(response);
 }
 
 /**

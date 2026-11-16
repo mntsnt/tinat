@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import { requireUser, requireRole } from "@/lib/authGuard";
 import { jsonError } from "@/lib/validation";
 import { prisma } from "@/lib/prisma";
-import { QuestionType } from "@/generated/prisma/client";
+import { CollectorPayType, QuestionType } from "@/generated/prisma/client";
 import { logActivity } from "@/lib/activityLog";
 import { isStudyBannerTheme } from "@/lib/studyBanners";
 import { FEATURES, CREDITS_DISCLAIMER } from "@/lib/config/features";
 import { checkResearcherAgreements } from "@/lib/governance/policies";
+import { calculateCollectorBudgetCents } from "@/lib/payments/collectorCompensation";
 
 /*
 |--------------------------------------------------------------------------
@@ -190,6 +191,9 @@ export async function POST(request: Request) {
       estimatedMinutes,
       rewardCredits = 0,
       participantTarget,
+      collectorsNeeded = 0,
+      collectorPayType,
+      collectorPayRateCents = 0,
       budgetCredits,
       questions,
       publishImmediately = false,
@@ -288,6 +292,55 @@ export async function POST(request: Request) {
           error:
             "Participant target must be a valid non-negative integer.",
         },
+        { status: 400 }
+      );
+    }
+
+    const parsedCollectorsNeeded = Number(collectorsNeeded);
+    const parsedCollectorPayRateCents = Number(collectorPayRateCents);
+    if (
+      !Number.isSafeInteger(parsedCollectorsNeeded) ||
+      parsedCollectorsNeeded < 0 ||
+      parsedCollectorsNeeded > 2_147_483_647 ||
+      !Number.isSafeInteger(parsedCollectorPayRateCents) ||
+      parsedCollectorPayRateCents < 0 ||
+      parsedCollectorPayRateCents > 2_147_483_647
+    ) {
+      return NextResponse.json(
+        { error: "Collector count and ETB compensation must be valid non-negative amounts." },
+        { status: 400 }
+      );
+    }
+
+    const validCollectorPayType =
+      collectorPayType === CollectorPayType.FIXED
+        ? CollectorPayType.FIXED
+        : collectorPayType === CollectorPayType.PER_RESPONSE
+          ? CollectorPayType.PER_RESPONSE
+          : null;
+    if (parsedCollectorsNeeded > 0 && (!validCollectorPayType || parsedCollectorPayRateCents <= 0)) {
+      return NextResponse.json(
+        { error: "Choose a collector payment model and a positive ETB rate." },
+        { status: 400 }
+      );
+    }
+    if (parsedCollectorsNeeded === 0 && parsedCollectorPayRateCents > 0) {
+      return NextResponse.json(
+        { error: "Set a number of collectors to use an ETB collector rate." },
+        { status: 400 }
+      );
+    }
+
+    try {
+      calculateCollectorBudgetCents({
+        collectorPayType: validCollectorPayType,
+        collectorPayRateCents: parsedCollectorPayRateCents,
+        collectorsNeeded: parsedCollectorsNeeded,
+        participantTarget: parsedParticipantTarget,
+      });
+    } catch {
+      return NextResponse.json(
+        { error: "The ETB collector budget is too large." },
         { status: 400 }
       );
     }
@@ -520,6 +573,9 @@ export async function POST(request: Request) {
         tags: [healthCategory, isFree ? "Open Data Collection" : "Funded Research"],
         rewardCredits: finalCreditPerResponse,
         participantTarget: parsedParticipantTarget,
+        collectorsNeeded: parsedCollectorsNeeded,
+        collectorPayType: validCollectorPayType,
+        collectorPayRateCents: parsedCollectorPayRateCents,
         budgetCredits: finalCreditBudget,
         creditsPaid: 0,
         researcherId: user.id,

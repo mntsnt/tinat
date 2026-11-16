@@ -451,6 +451,9 @@ export type UserWhereInput = {
   comments?: Prisma.StudyCommentListRelationFilter
   assignedStudies?: Prisma.StudyDataCollectorListRelationFilter
   collectorApplications?: Prisma.CollectorApplicationListRelationFilter
+  collectorPayouts?: Prisma.CollectorPayoutListRelationFilter
+  recordedCollectorPayouts?: Prisma.CollectorPayoutListRelationFilter
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationListRelationFilter
   likes?: Prisma.StudyLikeListRelationFilter
   studyPayments?: Prisma.StudyPaymentListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
@@ -528,6 +531,9 @@ export type UserOrderByWithRelationInput = {
   comments?: Prisma.StudyCommentOrderByRelationAggregateInput
   assignedStudies?: Prisma.StudyDataCollectorOrderByRelationAggregateInput
   collectorApplications?: Prisma.CollectorApplicationOrderByRelationAggregateInput
+  collectorPayouts?: Prisma.CollectorPayoutOrderByRelationAggregateInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutOrderByRelationAggregateInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationOrderByRelationAggregateInput
   likes?: Prisma.StudyLikeOrderByRelationAggregateInput
   studyPayments?: Prisma.StudyPaymentOrderByRelationAggregateInput
   ratings?: Prisma.StudyRatingOrderByRelationAggregateInput
@@ -608,6 +614,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   comments?: Prisma.StudyCommentListRelationFilter
   assignedStudies?: Prisma.StudyDataCollectorListRelationFilter
   collectorApplications?: Prisma.CollectorApplicationListRelationFilter
+  collectorPayouts?: Prisma.CollectorPayoutListRelationFilter
+  recordedCollectorPayouts?: Prisma.CollectorPayoutListRelationFilter
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationListRelationFilter
   likes?: Prisma.StudyLikeListRelationFilter
   studyPayments?: Prisma.StudyPaymentListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
@@ -759,6 +768,9 @@ export type UserCreateInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -836,6 +848,9 @@ export type UserUncheckedCreateInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -913,6 +928,9 @@ export type UserUpdateInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -990,6 +1008,9 @@ export type UserUncheckedUpdateInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -1447,6 +1468,48 @@ export type UserUpdateOneRequiredWithoutStudyPaymentsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutStudyPaymentsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStudyPaymentsInput, Prisma.UserUpdateWithoutStudyPaymentsInput>, Prisma.UserUncheckedUpdateWithoutStudyPaymentsInput>
+}
+
+export type UserCreateNestedOneWithoutCollectorFundingVerificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectorFundingVerificationsInput, Prisma.UserUncheckedCreateWithoutCollectorFundingVerificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectorFundingVerificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCollectorFundingVerificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectorFundingVerificationsInput, Prisma.UserUncheckedCreateWithoutCollectorFundingVerificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectorFundingVerificationsInput
+  upsert?: Prisma.UserUpsertWithoutCollectorFundingVerificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCollectorFundingVerificationsInput, Prisma.UserUpdateWithoutCollectorFundingVerificationsInput>, Prisma.UserUncheckedUpdateWithoutCollectorFundingVerificationsInput>
+}
+
+export type UserCreateNestedOneWithoutCollectorPayoutsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectorPayoutsInput, Prisma.UserUncheckedCreateWithoutCollectorPayoutsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectorPayoutsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutRecordedCollectorPayoutsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecordedCollectorPayoutsInput, Prisma.UserUncheckedCreateWithoutRecordedCollectorPayoutsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecordedCollectorPayoutsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCollectorPayoutsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectorPayoutsInput, Prisma.UserUncheckedCreateWithoutCollectorPayoutsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectorPayoutsInput
+  upsert?: Prisma.UserUpsertWithoutCollectorPayoutsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCollectorPayoutsInput, Prisma.UserUpdateWithoutCollectorPayoutsInput>, Prisma.UserUncheckedUpdateWithoutCollectorPayoutsInput>
+}
+
+export type UserUpdateOneRequiredWithoutRecordedCollectorPayoutsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRecordedCollectorPayoutsInput, Prisma.UserUncheckedCreateWithoutRecordedCollectorPayoutsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRecordedCollectorPayoutsInput
+  upsert?: Prisma.UserUpsertWithoutRecordedCollectorPayoutsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRecordedCollectorPayoutsInput, Prisma.UserUpdateWithoutRecordedCollectorPayoutsInput>, Prisma.UserUncheckedUpdateWithoutRecordedCollectorPayoutsInput>
 }
 
 export type UserCreateNestedOneWithoutWithdrawalsInput = {
@@ -1942,6 +2005,9 @@ export type UserCreateWithoutStudiesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -2018,6 +2084,9 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -2110,6 +2179,9 @@ export type UserUpdateWithoutStudiesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -2186,6 +2258,9 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -2262,6 +2337,9 @@ export type UserCreateWithoutBookmarksInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -2338,6 +2416,9 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -2430,6 +2511,9 @@ export type UserUpdateWithoutBookmarksInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -2506,6 +2590,9 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -2583,6 +2670,9 @@ export type UserCreateWithoutRatingsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
@@ -2659,6 +2749,9 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
@@ -2751,6 +2844,9 @@ export type UserUpdateWithoutRatingsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
@@ -2827,6 +2923,9 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -2903,6 +3002,9 @@ export type UserCreateWithoutLikesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
@@ -2979,6 +3081,9 @@ export type UserUncheckedCreateWithoutLikesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
@@ -3071,6 +3176,9 @@ export type UserUpdateWithoutLikesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
@@ -3147,6 +3255,9 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -3222,6 +3333,9 @@ export type UserCreateWithoutCommentsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -3298,6 +3412,9 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -3390,6 +3507,9 @@ export type UserUpdateWithoutCommentsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -3466,6 +3586,9 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -3542,6 +3665,9 @@ export type UserCreateWithoutNotificationsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -3618,6 +3744,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -3710,6 +3839,9 @@ export type UserUpdateWithoutNotificationsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -3786,6 +3918,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -3862,6 +3997,9 @@ export type UserCreateWithoutActivityLogsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -3938,6 +4076,9 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -4030,6 +4171,9 @@ export type UserUpdateWithoutActivityLogsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -4106,6 +4250,9 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -4182,6 +4329,9 @@ export type UserCreateWithoutAdminChatMessagesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -4258,6 +4408,9 @@ export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -4350,6 +4503,9 @@ export type UserUpdateWithoutAdminChatMessagesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -4426,6 +4582,9 @@ export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -4502,6 +4661,9 @@ export type UserCreateWithoutParticipantLinksInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -4578,6 +4740,9 @@ export type UserUncheckedCreateWithoutParticipantLinksInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -4670,6 +4835,9 @@ export type UserUpdateWithoutParticipantLinksInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -4746,6 +4914,9 @@ export type UserUncheckedUpdateWithoutParticipantLinksInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -4822,6 +4993,9 @@ export type UserCreateWithoutDataSubjectRequestsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -4898,6 +5072,9 @@ export type UserUncheckedCreateWithoutDataSubjectRequestsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -4990,6 +5167,9 @@ export type UserUpdateWithoutDataSubjectRequestsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -5066,6 +5246,9 @@ export type UserUncheckedUpdateWithoutDataSubjectRequestsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -5142,6 +5325,9 @@ export type UserCreateWithoutCollectedResponsesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -5218,6 +5404,9 @@ export type UserUncheckedCreateWithoutCollectedResponsesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -5310,6 +5499,9 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -5386,6 +5578,9 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -5463,6 +5658,9 @@ export type UserCreateWithoutWalletInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -5539,6 +5737,9 @@ export type UserUncheckedCreateWithoutWalletInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -5631,6 +5832,9 @@ export type UserUpdateWithoutWalletInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -5707,6 +5911,9 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -5783,6 +5990,9 @@ export type UserCreateWithoutLedgerAccountInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -5859,6 +6069,9 @@ export type UserUncheckedCreateWithoutLedgerAccountInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -5951,6 +6164,9 @@ export type UserUpdateWithoutLedgerAccountInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -6027,6 +6243,9 @@ export type UserUncheckedUpdateWithoutLedgerAccountInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -6103,6 +6322,9 @@ export type UserCreateWithoutStudyPaymentsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
@@ -6179,6 +6401,9 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
   reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
@@ -6271,6 +6496,9 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
@@ -6347,7 +6575,1006 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCollectorFundingVerificationsInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCollectorFundingVerificationsInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCollectorFundingVerificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCollectorFundingVerificationsInput, Prisma.UserUncheckedCreateWithoutCollectorFundingVerificationsInput>
+}
+
+export type UserUpsertWithoutCollectorFundingVerificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCollectorFundingVerificationsInput, Prisma.UserUncheckedUpdateWithoutCollectorFundingVerificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCollectorFundingVerificationsInput, Prisma.UserUncheckedCreateWithoutCollectorFundingVerificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCollectorFundingVerificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCollectorFundingVerificationsInput, Prisma.UserUncheckedUpdateWithoutCollectorFundingVerificationsInput>
+}
+
+export type UserUpdateWithoutCollectorFundingVerificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCollectorFundingVerificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCollectorPayoutsInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCollectorPayoutsInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCollectorPayoutsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCollectorPayoutsInput, Prisma.UserUncheckedCreateWithoutCollectorPayoutsInput>
+}
+
+export type UserCreateWithoutRecordedCollectorPayoutsInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRecordedCollectorPayoutsInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRecordedCollectorPayoutsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecordedCollectorPayoutsInput, Prisma.UserUncheckedCreateWithoutRecordedCollectorPayoutsInput>
+}
+
+export type UserUpsertWithoutCollectorPayoutsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCollectorPayoutsInput, Prisma.UserUncheckedUpdateWithoutCollectorPayoutsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCollectorPayoutsInput, Prisma.UserUncheckedCreateWithoutCollectorPayoutsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCollectorPayoutsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCollectorPayoutsInput, Prisma.UserUncheckedUpdateWithoutCollectorPayoutsInput>
+}
+
+export type UserUpdateWithoutCollectorPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCollectorPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutRecordedCollectorPayoutsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRecordedCollectorPayoutsInput, Prisma.UserUncheckedUpdateWithoutRecordedCollectorPayoutsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRecordedCollectorPayoutsInput, Prisma.UserUncheckedCreateWithoutRecordedCollectorPayoutsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRecordedCollectorPayoutsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRecordedCollectorPayoutsInput, Prisma.UserUncheckedUpdateWithoutRecordedCollectorPayoutsInput>
+}
+
+export type UserUpdateWithoutRecordedCollectorPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRecordedCollectorPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
   reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
   verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
@@ -6423,6 +7650,9 @@ export type UserCreateWithoutWithdrawalsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -6499,6 +7729,9 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -6591,6 +7824,9 @@ export type UserUpdateWithoutWithdrawalsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -6667,6 +7903,9 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -6742,6 +7981,9 @@ export type UserCreateWithoutAskProfileInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -6818,6 +8060,9 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -6910,6 +8155,9 @@ export type UserUpdateWithoutAskProfileInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -6986,6 +8234,9 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -7062,6 +8313,9 @@ export type UserCreateWithoutLeadProjectsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -7138,6 +8392,9 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -7230,6 +8487,9 @@ export type UserUpdateWithoutLeadProjectsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -7306,6 +8566,9 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -7382,6 +8645,9 @@ export type UserCreateWithoutProjectMembershipsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -7458,6 +8724,9 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -7550,6 +8819,9 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -7626,6 +8898,9 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -7702,6 +8977,9 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -7778,6 +9056,9 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -7870,6 +9151,9 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -7946,6 +9230,9 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -8022,6 +9309,9 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -8098,6 +9388,9 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -8179,6 +9472,9 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -8255,6 +9551,9 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -8347,6 +9646,9 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -8423,6 +9725,9 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -8510,6 +9815,9 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -8586,6 +9894,9 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -8662,6 +9973,9 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -8738,6 +10052,9 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -8830,6 +10147,9 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -8906,6 +10226,9 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -8982,6 +10305,9 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -9058,6 +10384,9 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -9150,6 +10479,9 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -9226,6 +10558,9 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -9302,6 +10637,9 @@ export type UserCreateWithoutProjectNotesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -9378,6 +10716,9 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -9470,6 +10811,9 @@ export type UserUpdateWithoutProjectNotesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -9546,6 +10890,9 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -9622,6 +10969,9 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -9698,6 +11048,9 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -9790,6 +11143,9 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -9866,6 +11222,9 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -9942,6 +11301,9 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -10018,6 +11380,9 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -10110,6 +11475,9 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -10186,6 +11554,9 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -10262,6 +11633,9 @@ export type UserCreateWithoutProjectDiscussionReactionsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -10338,6 +11712,9 @@ export type UserUncheckedCreateWithoutProjectDiscussionReactionsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -10430,6 +11807,9 @@ export type UserUpdateWithoutProjectDiscussionReactionsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -10506,6 +11886,9 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReactionsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -10582,6 +11965,9 @@ export type UserCreateWithoutProjectDiscussionReplyReactionsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -10658,6 +12044,9 @@ export type UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -10750,6 +12139,9 @@ export type UserUpdateWithoutProjectDiscussionReplyReactionsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -10826,6 +12218,9 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -10902,6 +12297,9 @@ export type UserCreateWithoutProjectDecisionsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -10978,6 +12376,9 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -11070,6 +12471,9 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -11146,6 +12550,9 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -11222,6 +12629,9 @@ export type UserCreateWithoutProjectActivitiesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -11298,6 +12708,9 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -11390,6 +12803,9 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -11466,6 +12882,9 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -11542,6 +12961,9 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -11618,6 +13040,9 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -11710,6 +13135,9 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -11786,6 +13214,9 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -11862,6 +13293,9 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -11938,6 +13372,9 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -12030,6 +13467,9 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -12106,6 +13546,9 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -12182,6 +13625,9 @@ export type UserCreateWithoutAiConversationsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -12258,6 +13704,9 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -12350,6 +13799,9 @@ export type UserUpdateWithoutAiConversationsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -12426,6 +13878,9 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -12502,6 +13957,9 @@ export type UserCreateWithoutAiUsagesInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -12578,6 +14036,9 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -12670,6 +14131,9 @@ export type UserUpdateWithoutAiUsagesInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -12746,6 +14210,9 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -12823,6 +14290,9 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -12899,6 +14369,9 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -12980,6 +14453,9 @@ export type UserCreateWithoutVerificationsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -13056,6 +14532,9 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -13148,6 +14627,9 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -13224,6 +14706,9 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -13311,6 +14796,9 @@ export type UserUpdateWithoutVerificationsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -13387,6 +14875,9 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -13462,6 +14953,9 @@ export type UserCreateWithoutAssignedStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -13538,6 +15032,9 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -13630,6 +15127,9 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -13706,6 +15206,9 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -13782,6 +15285,9 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -13858,6 +15364,9 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -13939,6 +15448,9 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -14015,6 +15527,9 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -14107,6 +15622,9 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -14183,6 +15701,9 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -14270,6 +15791,9 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -14346,6 +15870,9 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -14422,6 +15949,9 @@ export type UserCreateWithoutCollectorApplicationsInput = {
   bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -14498,6 +16028,9 @@ export type UserUncheckedCreateWithoutCollectorApplicationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -14590,6 +16123,9 @@ export type UserUpdateWithoutCollectorApplicationsInput = {
   bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -14666,6 +16202,9 @@ export type UserUncheckedUpdateWithoutCollectorApplicationsInput = {
   bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -14742,6 +16281,9 @@ export type UserCreateWithoutCollectionSessionsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -14818,6 +16360,9 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -14910,6 +16455,9 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -14986,6 +16534,9 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -15062,6 +16613,9 @@ export type UserCreateWithoutVerifiedEthicsApprovalsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -15138,6 +16692,9 @@ export type UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -15230,6 +16787,9 @@ export type UserUpdateWithoutVerifiedEthicsApprovalsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -15306,6 +16866,9 @@ export type UserUncheckedUpdateWithoutVerifiedEthicsApprovalsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -15382,6 +16945,9 @@ export type UserCreateWithoutModerationReportsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -15458,6 +17024,9 @@ export type UserUncheckedCreateWithoutModerationReportsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -15550,6 +17119,9 @@ export type UserUpdateWithoutModerationReportsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -15626,6 +17198,9 @@ export type UserUncheckedUpdateWithoutModerationReportsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -15703,6 +17278,9 @@ export type UserCreateWithoutPlatformConsentRecordsInput = {
   comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
@@ -15779,6 +17357,9 @@ export type UserUncheckedCreateWithoutPlatformConsentRecordsInput = {
   comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
   studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
@@ -15871,6 +17452,9 @@ export type UserUpdateWithoutPlatformConsentRecordsInput = {
   comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
@@ -15947,6 +17531,9 @@ export type UserUncheckedUpdateWithoutPlatformConsentRecordsInput = {
   comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
   assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
   studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
@@ -15997,6 +17584,9 @@ export type UserCountOutputType = {
   comments: number
   assignedStudies: number
   collectorApplications: number
+  collectorPayouts: number
+  recordedCollectorPayouts: number
+  collectorFundingVerifications: number
   likes: number
   studyPayments: number
   ratings: number
@@ -16041,6 +17631,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   comments?: boolean | UserCountOutputTypeCountCommentsArgs
   assignedStudies?: boolean | UserCountOutputTypeCountAssignedStudiesArgs
   collectorApplications?: boolean | UserCountOutputTypeCountCollectorApplicationsArgs
+  collectorPayouts?: boolean | UserCountOutputTypeCountCollectorPayoutsArgs
+  recordedCollectorPayouts?: boolean | UserCountOutputTypeCountRecordedCollectorPayoutsArgs
+  collectorFundingVerifications?: boolean | UserCountOutputTypeCountCollectorFundingVerificationsArgs
   likes?: boolean | UserCountOutputTypeCountLikesArgs
   studyPayments?: boolean | UserCountOutputTypeCountStudyPaymentsArgs
   ratings?: boolean | UserCountOutputTypeCountRatingsArgs
@@ -16301,6 +17894,27 @@ export type UserCountOutputTypeCountCollectorApplicationsArgs<ExtArgs extends ru
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountCollectorPayoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CollectorPayoutWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRecordedCollectorPayoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CollectorPayoutWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCollectorFundingVerificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CollectorFundingVerificationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StudyLikeWhereInput
 }
@@ -16414,6 +18028,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   assignedStudies?: boolean | Prisma.User$assignedStudiesArgs<ExtArgs>
   collectorApplications?: boolean | Prisma.User$collectorApplicationsArgs<ExtArgs>
+  collectorPayouts?: boolean | Prisma.User$collectorPayoutsArgs<ExtArgs>
+  recordedCollectorPayouts?: boolean | Prisma.User$recordedCollectorPayoutsArgs<ExtArgs>
+  collectorFundingVerifications?: boolean | Prisma.User$collectorFundingVerificationsArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
   studyPayments?: boolean | Prisma.User$studyPaymentsArgs<ExtArgs>
   ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
@@ -16562,6 +18179,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   assignedStudies?: boolean | Prisma.User$assignedStudiesArgs<ExtArgs>
   collectorApplications?: boolean | Prisma.User$collectorApplicationsArgs<ExtArgs>
+  collectorPayouts?: boolean | Prisma.User$collectorPayoutsArgs<ExtArgs>
+  recordedCollectorPayouts?: boolean | Prisma.User$recordedCollectorPayoutsArgs<ExtArgs>
+  collectorFundingVerifications?: boolean | Prisma.User$collectorFundingVerificationsArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
   studyPayments?: boolean | Prisma.User$studyPaymentsArgs<ExtArgs>
   ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
@@ -16614,6 +18234,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     comments: Prisma.$StudyCommentPayload<ExtArgs>[]
     assignedStudies: Prisma.$StudyDataCollectorPayload<ExtArgs>[]
     collectorApplications: Prisma.$CollectorApplicationPayload<ExtArgs>[]
+    collectorPayouts: Prisma.$CollectorPayoutPayload<ExtArgs>[]
+    recordedCollectorPayouts: Prisma.$CollectorPayoutPayload<ExtArgs>[]
+    collectorFundingVerifications: Prisma.$CollectorFundingVerificationPayload<ExtArgs>[]
     likes: Prisma.$StudyLikePayload<ExtArgs>[]
     studyPayments: Prisma.$StudyPaymentPayload<ExtArgs>[]
     ratings: Prisma.$StudyRatingPayload<ExtArgs>[]
@@ -17084,6 +18707,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedStudies<T extends Prisma.User$assignedStudiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedStudiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyDataCollectorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   collectorApplications<T extends Prisma.User$collectorApplicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectorApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  collectorPayouts<T extends Prisma.User$collectorPayoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectorPayoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorPayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recordedCollectorPayouts<T extends Prisma.User$recordedCollectorPayoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recordedCollectorPayoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorPayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  collectorFundingVerifications<T extends Prisma.User$collectorFundingVerificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectorFundingVerificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorFundingVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   likes<T extends Prisma.User$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   studyPayments<T extends Prisma.User$studyPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$studyPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ratings<T extends Prisma.User$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -18377,6 +20003,78 @@ export type User$collectorApplicationsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.CollectorApplicationScalarFieldEnum | Prisma.CollectorApplicationScalarFieldEnum[]
+}
+
+/**
+ * User.collectorPayouts
+ */
+export type User$collectorPayoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CollectorPayout
+   */
+  select?: Prisma.CollectorPayoutSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CollectorPayout
+   */
+  omit?: Prisma.CollectorPayoutOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CollectorPayoutInclude<ExtArgs> | null
+  where?: Prisma.CollectorPayoutWhereInput
+  orderBy?: Prisma.CollectorPayoutOrderByWithRelationInput | Prisma.CollectorPayoutOrderByWithRelationInput[]
+  cursor?: Prisma.CollectorPayoutWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CollectorPayoutScalarFieldEnum | Prisma.CollectorPayoutScalarFieldEnum[]
+}
+
+/**
+ * User.recordedCollectorPayouts
+ */
+export type User$recordedCollectorPayoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CollectorPayout
+   */
+  select?: Prisma.CollectorPayoutSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CollectorPayout
+   */
+  omit?: Prisma.CollectorPayoutOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CollectorPayoutInclude<ExtArgs> | null
+  where?: Prisma.CollectorPayoutWhereInput
+  orderBy?: Prisma.CollectorPayoutOrderByWithRelationInput | Prisma.CollectorPayoutOrderByWithRelationInput[]
+  cursor?: Prisma.CollectorPayoutWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CollectorPayoutScalarFieldEnum | Prisma.CollectorPayoutScalarFieldEnum[]
+}
+
+/**
+ * User.collectorFundingVerifications
+ */
+export type User$collectorFundingVerificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CollectorFundingVerification
+   */
+  select?: Prisma.CollectorFundingVerificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CollectorFundingVerification
+   */
+  omit?: Prisma.CollectorFundingVerificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CollectorFundingVerificationInclude<ExtArgs> | null
+  where?: Prisma.CollectorFundingVerificationWhereInput
+  orderBy?: Prisma.CollectorFundingVerificationOrderByWithRelationInput | Prisma.CollectorFundingVerificationOrderByWithRelationInput[]
+  cursor?: Prisma.CollectorFundingVerificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CollectorFundingVerificationScalarFieldEnum | Prisma.CollectorFundingVerificationScalarFieldEnum[]
 }
 
 /**

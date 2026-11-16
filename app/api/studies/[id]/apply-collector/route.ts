@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getBaseUrl } from "@/lib/getRedirectUri";
 import { sendCollectorApplicationSubmittedEmail } from "@/lib/emailService";
+import { calculateCollectorBudgetCents } from "@/lib/payments/collectorCompensation";
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -37,6 +38,42 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
     if (study.status !== "ACTIVE") {
       return NextResponse.json({ error: "You can only apply to active studies." }, { status: 400 });
+    }
+
+    if (study.collectorsNeeded > 0) {
+      const collectorBudgetCents = calculateCollectorBudgetCents({
+        collectorPayType: study.collectorPayType,
+        collectorPayRateCents: study.collectorPayRateCents,
+        collectorsNeeded: study.collectorsNeeded,
+        participantTarget: study.participantTarget,
+      });
+      const [verifiedFunding, assignedCount] = await Promise.all([
+        prisma.collectorFundingVerification.findFirst({
+          where: {
+            studyId,
+            status: "VERIFIED",
+            expectedAmountCents: collectorBudgetCents,
+            verifiedAmountCents: collectorBudgetCents,
+            settlementMatched: true,
+            currency: "ETB",
+          },
+          select: { id: true },
+        }),
+        prisma.studyDataCollector.count({ where: { studyId } }),
+      ]);
+
+      if (!verifiedFunding) {
+        return NextResponse.json(
+          { error: "This study is not accepting collector applications until its ETB collector budget is verified." },
+          { status: 400 }
+        );
+      }
+      if (assignedCount >= study.collectorsNeeded) {
+        return NextResponse.json(
+          { error: "This study has already filled its collector positions." },
+          { status: 409 }
+        );
+      }
     }
 
     if (study.researcherId === user.id) {

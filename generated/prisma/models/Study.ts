@@ -34,6 +34,8 @@ export type StudyAvgAggregateOutputType = {
   budgetCredits: number | null
   creditsPaid: number | null
   participantTarget: number | null
+  collectorsNeeded: number | null
+  collectorPayRateCents: number | null
   estimatedMinutes: number | null
 }
 
@@ -45,6 +47,8 @@ export type StudySumAggregateOutputType = {
   budgetCredits: number | null
   creditsPaid: number | null
   participantTarget: number | null
+  collectorsNeeded: number | null
+  collectorPayRateCents: number | null
   estimatedMinutes: number | null
 }
 
@@ -66,6 +70,9 @@ export type StudyMinAggregateOutputType = {
   budgetCredits: number | null
   creditsPaid: number | null
   participantTarget: number | null
+  collectorsNeeded: number | null
+  collectorPayType: $Enums.CollectorPayType | null
+  collectorPayRateCents: number | null
   eligibilityCriteria: string | null
   category: string | null
   estimatedMinutes: number | null
@@ -103,6 +110,9 @@ export type StudyMaxAggregateOutputType = {
   budgetCredits: number | null
   creditsPaid: number | null
   participantTarget: number | null
+  collectorsNeeded: number | null
+  collectorPayType: $Enums.CollectorPayType | null
+  collectorPayRateCents: number | null
   eligibilityCriteria: string | null
   category: string | null
   estimatedMinutes: number | null
@@ -140,6 +150,9 @@ export type StudyCountAggregateOutputType = {
   budgetCredits: number
   creditsPaid: number
   participantTarget: number
+  collectorsNeeded: number
+  collectorPayType: number
+  collectorPayRateCents: number
   eligibilityCriteria: number
   tags: number
   category: number
@@ -170,6 +183,8 @@ export type StudyAvgAggregateInputType = {
   budgetCredits?: true
   creditsPaid?: true
   participantTarget?: true
+  collectorsNeeded?: true
+  collectorPayRateCents?: true
   estimatedMinutes?: true
 }
 
@@ -181,6 +196,8 @@ export type StudySumAggregateInputType = {
   budgetCredits?: true
   creditsPaid?: true
   participantTarget?: true
+  collectorsNeeded?: true
+  collectorPayRateCents?: true
   estimatedMinutes?: true
 }
 
@@ -202,6 +219,9 @@ export type StudyMinAggregateInputType = {
   budgetCredits?: true
   creditsPaid?: true
   participantTarget?: true
+  collectorsNeeded?: true
+  collectorPayType?: true
+  collectorPayRateCents?: true
   eligibilityCriteria?: true
   category?: true
   estimatedMinutes?: true
@@ -239,6 +259,9 @@ export type StudyMaxAggregateInputType = {
   budgetCredits?: true
   creditsPaid?: true
   participantTarget?: true
+  collectorsNeeded?: true
+  collectorPayType?: true
+  collectorPayRateCents?: true
   eligibilityCriteria?: true
   category?: true
   estimatedMinutes?: true
@@ -276,6 +299,9 @@ export type StudyCountAggregateInputType = {
   budgetCredits?: true
   creditsPaid?: true
   participantTarget?: true
+  collectorsNeeded?: true
+  collectorPayType?: true
+  collectorPayRateCents?: true
   eligibilityCriteria?: true
   tags?: true
   category?: true
@@ -401,6 +427,9 @@ export type StudyGroupByOutputType = {
   budgetCredits: number
   creditsPaid: number
   participantTarget: number
+  collectorsNeeded: number
+  collectorPayType: $Enums.CollectorPayType | null
+  collectorPayRateCents: number
   eligibilityCriteria: string | null
   tags: string[]
   category: string | null
@@ -462,6 +491,9 @@ export type StudyWhereInput = {
   budgetCredits?: Prisma.IntFilter<"Study"> | number
   creditsPaid?: Prisma.IntFilter<"Study"> | number
   participantTarget?: Prisma.IntFilter<"Study"> | number
+  collectorsNeeded?: Prisma.IntFilter<"Study"> | number
+  collectorPayType?: Prisma.EnumCollectorPayTypeNullableFilter<"Study"> | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFilter<"Study"> | number
   eligibilityCriteria?: Prisma.StringNullableFilter<"Study"> | string | null
   tags?: Prisma.StringNullableListFilter<"Study">
   category?: Prisma.StringNullableFilter<"Study"> | string | null
@@ -497,6 +529,8 @@ export type StudyWhereInput = {
   collectorApplications?: Prisma.CollectorApplicationListRelationFilter
   likes?: Prisma.StudyLikeListRelationFilter
   payments?: Prisma.StudyPaymentListRelationFilter
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationListRelationFilter
+  collectorPayouts?: Prisma.CollectorPayoutListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
   translations?: Prisma.StudyTranslationListRelationFilter
 }
@@ -519,6 +553,9 @@ export type StudyOrderByWithRelationInput = {
   budgetCredits?: Prisma.SortOrder
   creditsPaid?: Prisma.SortOrder
   participantTarget?: Prisma.SortOrder
+  collectorsNeeded?: Prisma.SortOrder
+  collectorPayType?: Prisma.SortOrderInput | Prisma.SortOrder
+  collectorPayRateCents?: Prisma.SortOrder
   eligibilityCriteria?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -554,6 +591,8 @@ export type StudyOrderByWithRelationInput = {
   collectorApplications?: Prisma.CollectorApplicationOrderByRelationAggregateInput
   likes?: Prisma.StudyLikeOrderByRelationAggregateInput
   payments?: Prisma.StudyPaymentOrderByRelationAggregateInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationOrderByRelationAggregateInput
+  collectorPayouts?: Prisma.CollectorPayoutOrderByRelationAggregateInput
   ratings?: Prisma.StudyRatingOrderByRelationAggregateInput
   translations?: Prisma.StudyTranslationOrderByRelationAggregateInput
 }
@@ -579,6 +618,9 @@ export type StudyWhereUniqueInput = Prisma.AtLeast<{
   budgetCredits?: Prisma.IntFilter<"Study"> | number
   creditsPaid?: Prisma.IntFilter<"Study"> | number
   participantTarget?: Prisma.IntFilter<"Study"> | number
+  collectorsNeeded?: Prisma.IntFilter<"Study"> | number
+  collectorPayType?: Prisma.EnumCollectorPayTypeNullableFilter<"Study"> | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFilter<"Study"> | number
   eligibilityCriteria?: Prisma.StringNullableFilter<"Study"> | string | null
   tags?: Prisma.StringNullableListFilter<"Study">
   category?: Prisma.StringNullableFilter<"Study"> | string | null
@@ -614,6 +656,8 @@ export type StudyWhereUniqueInput = Prisma.AtLeast<{
   collectorApplications?: Prisma.CollectorApplicationListRelationFilter
   likes?: Prisma.StudyLikeListRelationFilter
   payments?: Prisma.StudyPaymentListRelationFilter
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationListRelationFilter
+  collectorPayouts?: Prisma.CollectorPayoutListRelationFilter
   ratings?: Prisma.StudyRatingListRelationFilter
   translations?: Prisma.StudyTranslationListRelationFilter
 }, "id">
@@ -636,6 +680,9 @@ export type StudyOrderByWithAggregationInput = {
   budgetCredits?: Prisma.SortOrder
   creditsPaid?: Prisma.SortOrder
   participantTarget?: Prisma.SortOrder
+  collectorsNeeded?: Prisma.SortOrder
+  collectorPayType?: Prisma.SortOrderInput | Prisma.SortOrder
+  collectorPayRateCents?: Prisma.SortOrder
   eligibilityCriteria?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -682,6 +729,9 @@ export type StudyScalarWhereWithAggregatesInput = {
   budgetCredits?: Prisma.IntWithAggregatesFilter<"Study"> | number
   creditsPaid?: Prisma.IntWithAggregatesFilter<"Study"> | number
   participantTarget?: Prisma.IntWithAggregatesFilter<"Study"> | number
+  collectorsNeeded?: Prisma.IntWithAggregatesFilter<"Study"> | number
+  collectorPayType?: Prisma.EnumCollectorPayTypeNullableWithAggregatesFilter<"Study"> | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntWithAggregatesFilter<"Study"> | number
   eligibilityCriteria?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
   tags?: Prisma.StringNullableListFilter<"Study">
   category?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
@@ -719,6 +769,9 @@ export type StudyCreateInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -754,6 +807,8 @@ export type StudyCreateInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -776,6 +831,9 @@ export type StudyUncheckedCreateInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -810,6 +868,8 @@ export type StudyUncheckedCreateInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -831,6 +891,9 @@ export type StudyUpdateInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -866,6 +929,8 @@ export type StudyUpdateInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -888,6 +953,9 @@ export type StudyUncheckedUpdateInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -922,6 +990,8 @@ export type StudyUncheckedUpdateInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -944,6 +1014,9 @@ export type StudyCreateManyInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -981,6 +1054,9 @@ export type StudyUpdateManyMutationInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1019,6 +1095,9 @@ export type StudyUncheckedUpdateManyInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1075,6 +1154,9 @@ export type StudyCountOrderByAggregateInput = {
   budgetCredits?: Prisma.SortOrder
   creditsPaid?: Prisma.SortOrder
   participantTarget?: Prisma.SortOrder
+  collectorsNeeded?: Prisma.SortOrder
+  collectorPayType?: Prisma.SortOrder
+  collectorPayRateCents?: Prisma.SortOrder
   eligibilityCriteria?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -1103,6 +1185,8 @@ export type StudyAvgOrderByAggregateInput = {
   budgetCredits?: Prisma.SortOrder
   creditsPaid?: Prisma.SortOrder
   participantTarget?: Prisma.SortOrder
+  collectorsNeeded?: Prisma.SortOrder
+  collectorPayRateCents?: Prisma.SortOrder
   estimatedMinutes?: Prisma.SortOrder
 }
 
@@ -1124,6 +1208,9 @@ export type StudyMaxOrderByAggregateInput = {
   budgetCredits?: Prisma.SortOrder
   creditsPaid?: Prisma.SortOrder
   participantTarget?: Prisma.SortOrder
+  collectorsNeeded?: Prisma.SortOrder
+  collectorPayType?: Prisma.SortOrder
+  collectorPayRateCents?: Prisma.SortOrder
   eligibilityCriteria?: Prisma.SortOrder
   category?: Prisma.SortOrder
   estimatedMinutes?: Prisma.SortOrder
@@ -1161,6 +1248,9 @@ export type StudyMinOrderByAggregateInput = {
   budgetCredits?: Prisma.SortOrder
   creditsPaid?: Prisma.SortOrder
   participantTarget?: Prisma.SortOrder
+  collectorsNeeded?: Prisma.SortOrder
+  collectorPayType?: Prisma.SortOrder
+  collectorPayRateCents?: Prisma.SortOrder
   eligibilityCriteria?: Prisma.SortOrder
   category?: Prisma.SortOrder
   estimatedMinutes?: Prisma.SortOrder
@@ -1188,6 +1278,8 @@ export type StudySumOrderByAggregateInput = {
   budgetCredits?: Prisma.SortOrder
   creditsPaid?: Prisma.SortOrder
   participantTarget?: Prisma.SortOrder
+  collectorsNeeded?: Prisma.SortOrder
+  collectorPayRateCents?: Prisma.SortOrder
   estimatedMinutes?: Prisma.SortOrder
 }
 
@@ -1261,6 +1353,10 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type NullableEnumCollectorPayTypeFieldUpdateOperationsInput = {
+  set?: $Enums.CollectorPayType | null
 }
 
 export type StudyUpdatetagsInput = {
@@ -1382,6 +1478,34 @@ export type StudyUpdateOneRequiredWithoutPaymentsNestedInput = {
   upsert?: Prisma.StudyUpsertWithoutPaymentsInput
   connect?: Prisma.StudyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutPaymentsInput, Prisma.StudyUpdateWithoutPaymentsInput>, Prisma.StudyUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type StudyCreateNestedOneWithoutCollectorFundingVerificationsInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutCollectorFundingVerificationsInput, Prisma.StudyUncheckedCreateWithoutCollectorFundingVerificationsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutCollectorFundingVerificationsInput
+  connect?: Prisma.StudyWhereUniqueInput
+}
+
+export type StudyUpdateOneRequiredWithoutCollectorFundingVerificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutCollectorFundingVerificationsInput, Prisma.StudyUncheckedCreateWithoutCollectorFundingVerificationsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutCollectorFundingVerificationsInput
+  upsert?: Prisma.StudyUpsertWithoutCollectorFundingVerificationsInput
+  connect?: Prisma.StudyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutCollectorFundingVerificationsInput, Prisma.StudyUpdateWithoutCollectorFundingVerificationsInput>, Prisma.StudyUncheckedUpdateWithoutCollectorFundingVerificationsInput>
+}
+
+export type StudyCreateNestedOneWithoutCollectorPayoutsInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutCollectorPayoutsInput, Prisma.StudyUncheckedCreateWithoutCollectorPayoutsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutCollectorPayoutsInput
+  connect?: Prisma.StudyWhereUniqueInput
+}
+
+export type StudyUpdateOneRequiredWithoutCollectorPayoutsNestedInput = {
+  create?: Prisma.XOR<Prisma.StudyCreateWithoutCollectorPayoutsInput, Prisma.StudyUncheckedCreateWithoutCollectorPayoutsInput>
+  connectOrCreate?: Prisma.StudyCreateOrConnectWithoutCollectorPayoutsInput
+  upsert?: Prisma.StudyUpsertWithoutCollectorPayoutsInput
+  connect?: Prisma.StudyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StudyUpdateToOneWithWhereWithoutCollectorPayoutsInput, Prisma.StudyUpdateWithoutCollectorPayoutsInput>, Prisma.StudyUncheckedUpdateWithoutCollectorPayoutsInput>
 }
 
 export type StudyCreateNestedOneWithoutLinkedProjectsInput = {
@@ -1545,6 +1669,9 @@ export type StudyCreateWithoutResearcherInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -1579,6 +1706,8 @@ export type StudyCreateWithoutResearcherInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -1600,6 +1729,9 @@ export type StudyUncheckedCreateWithoutResearcherInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -1634,6 +1766,8 @@ export type StudyUncheckedCreateWithoutResearcherInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -1685,6 +1819,9 @@ export type StudyScalarWhereInput = {
   budgetCredits?: Prisma.IntFilter<"Study"> | number
   creditsPaid?: Prisma.IntFilter<"Study"> | number
   participantTarget?: Prisma.IntFilter<"Study"> | number
+  collectorsNeeded?: Prisma.IntFilter<"Study"> | number
+  collectorPayType?: Prisma.EnumCollectorPayTypeNullableFilter<"Study"> | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFilter<"Study"> | number
   eligibilityCriteria?: Prisma.StringNullableFilter<"Study"> | string | null
   tags?: Prisma.StringNullableListFilter<"Study">
   category?: Prisma.StringNullableFilter<"Study"> | string | null
@@ -1722,6 +1859,9 @@ export type StudyCreateWithoutBookmarksInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -1756,6 +1896,8 @@ export type StudyCreateWithoutBookmarksInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -1778,6 +1920,9 @@ export type StudyUncheckedCreateWithoutBookmarksInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -1811,6 +1956,8 @@ export type StudyUncheckedCreateWithoutBookmarksInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -1848,6 +1995,9 @@ export type StudyUpdateWithoutBookmarksInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1882,6 +2032,8 @@ export type StudyUpdateWithoutBookmarksInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -1904,6 +2056,9 @@ export type StudyUncheckedUpdateWithoutBookmarksInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1937,6 +2092,8 @@ export type StudyUncheckedUpdateWithoutBookmarksInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -1958,6 +2115,9 @@ export type StudyCreateWithoutRatingsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -1993,6 +2153,8 @@ export type StudyCreateWithoutRatingsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
 
@@ -2014,6 +2176,9 @@ export type StudyUncheckedCreateWithoutRatingsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -2048,6 +2213,8 @@ export type StudyUncheckedCreateWithoutRatingsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
 
@@ -2084,6 +2251,9 @@ export type StudyUpdateWithoutRatingsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2119,6 +2289,8 @@ export type StudyUpdateWithoutRatingsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
 
@@ -2140,6 +2312,9 @@ export type StudyUncheckedUpdateWithoutRatingsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2174,6 +2349,8 @@ export type StudyUncheckedUpdateWithoutRatingsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
 
@@ -2194,6 +2371,9 @@ export type StudyCreateWithoutLikesInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -2228,6 +2408,8 @@ export type StudyCreateWithoutLikesInput = {
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -2250,6 +2432,9 @@ export type StudyUncheckedCreateWithoutLikesInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -2283,6 +2468,8 @@ export type StudyUncheckedCreateWithoutLikesInput = {
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -2320,6 +2507,9 @@ export type StudyUpdateWithoutLikesInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2354,6 +2544,8 @@ export type StudyUpdateWithoutLikesInput = {
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -2376,6 +2568,9 @@ export type StudyUncheckedUpdateWithoutLikesInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2409,6 +2604,8 @@ export type StudyUncheckedUpdateWithoutLikesInput = {
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -2430,6 +2627,9 @@ export type StudyCreateWithoutCommentsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -2464,6 +2664,8 @@ export type StudyCreateWithoutCommentsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -2486,6 +2688,9 @@ export type StudyUncheckedCreateWithoutCommentsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -2519,6 +2724,8 @@ export type StudyUncheckedCreateWithoutCommentsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -2556,6 +2763,9 @@ export type StudyUpdateWithoutCommentsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2590,6 +2800,8 @@ export type StudyUpdateWithoutCommentsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -2612,6 +2824,9 @@ export type StudyUncheckedUpdateWithoutCommentsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2645,6 +2860,8 @@ export type StudyUncheckedUpdateWithoutCommentsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -2666,6 +2883,9 @@ export type StudyCreateWithoutQuestionsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -2700,6 +2920,8 @@ export type StudyCreateWithoutQuestionsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -2722,6 +2944,9 @@ export type StudyUncheckedCreateWithoutQuestionsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -2755,6 +2980,8 @@ export type StudyUncheckedCreateWithoutQuestionsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -2792,6 +3019,9 @@ export type StudyUpdateWithoutQuestionsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2826,6 +3056,8 @@ export type StudyUpdateWithoutQuestionsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -2848,6 +3080,9 @@ export type StudyUncheckedUpdateWithoutQuestionsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2881,6 +3116,8 @@ export type StudyUncheckedUpdateWithoutQuestionsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -2902,6 +3139,9 @@ export type StudyCreateWithoutParticipantLinksInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -2936,6 +3176,8 @@ export type StudyCreateWithoutParticipantLinksInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -2958,6 +3200,9 @@ export type StudyUncheckedCreateWithoutParticipantLinksInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -2991,6 +3236,8 @@ export type StudyUncheckedCreateWithoutParticipantLinksInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -3028,6 +3275,9 @@ export type StudyUpdateWithoutParticipantLinksInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3062,6 +3312,8 @@ export type StudyUpdateWithoutParticipantLinksInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -3084,6 +3336,9 @@ export type StudyUncheckedUpdateWithoutParticipantLinksInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3117,6 +3372,8 @@ export type StudyUncheckedUpdateWithoutParticipantLinksInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -3138,6 +3395,9 @@ export type StudyCreateWithoutResponsesInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -3172,6 +3432,8 @@ export type StudyCreateWithoutResponsesInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -3194,6 +3456,9 @@ export type StudyUncheckedCreateWithoutResponsesInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -3227,6 +3492,8 @@ export type StudyUncheckedCreateWithoutResponsesInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -3264,6 +3531,9 @@ export type StudyUpdateWithoutResponsesInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3298,6 +3568,8 @@ export type StudyUpdateWithoutResponsesInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -3320,6 +3592,9 @@ export type StudyUncheckedUpdateWithoutResponsesInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3353,6 +3628,8 @@ export type StudyUncheckedUpdateWithoutResponsesInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -3374,6 +3651,9 @@ export type StudyCreateWithoutPaymentsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -3408,6 +3688,8 @@ export type StudyCreateWithoutPaymentsInput = {
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -3430,6 +3712,9 @@ export type StudyUncheckedCreateWithoutPaymentsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -3463,6 +3748,8 @@ export type StudyUncheckedCreateWithoutPaymentsInput = {
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -3500,6 +3787,9 @@ export type StudyUpdateWithoutPaymentsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3534,6 +3824,8 @@ export type StudyUpdateWithoutPaymentsInput = {
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -3556,6 +3848,9 @@ export type StudyUncheckedUpdateWithoutPaymentsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3589,6 +3884,520 @@ export type StudyUncheckedUpdateWithoutPaymentsInput = {
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyCreateWithoutCollectorFundingVerificationsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
+  researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
+}
+
+export type StudyUncheckedCreateWithoutCollectorFundingVerificationsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  researcherId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
+}
+
+export type StudyCreateOrConnectWithoutCollectorFundingVerificationsInput = {
+  where: Prisma.StudyWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCreateWithoutCollectorFundingVerificationsInput, Prisma.StudyUncheckedCreateWithoutCollectorFundingVerificationsInput>
+}
+
+export type StudyUpsertWithoutCollectorFundingVerificationsInput = {
+  update: Prisma.XOR<Prisma.StudyUpdateWithoutCollectorFundingVerificationsInput, Prisma.StudyUncheckedUpdateWithoutCollectorFundingVerificationsInput>
+  create: Prisma.XOR<Prisma.StudyCreateWithoutCollectorFundingVerificationsInput, Prisma.StudyUncheckedCreateWithoutCollectorFundingVerificationsInput>
+  where?: Prisma.StudyWhereInput
+}
+
+export type StudyUpdateToOneWithWhereWithoutCollectorFundingVerificationsInput = {
+  where?: Prisma.StudyWhereInput
+  data: Prisma.XOR<Prisma.StudyUpdateWithoutCollectorFundingVerificationsInput, Prisma.StudyUncheckedUpdateWithoutCollectorFundingVerificationsInput>
+}
+
+export type StudyUpdateWithoutCollectorFundingVerificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
+  researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyUncheckedUpdateWithoutCollectorFundingVerificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  researcherId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyCreateWithoutCollectorPayoutsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutStudyInput
+  researcher: Prisma.UserCreateNestedOneWithoutStudiesInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
+}
+
+export type StudyUncheckedCreateWithoutCollectorPayoutsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  bannerTheme?: string
+  status?: $Enums.StudyStatus
+  fundingType?: $Enums.StudyFundingType
+  creditPerResponse?: number
+  creditBudget?: number
+  creditsSpent?: number
+  requiresReapproval?: boolean
+  rewardCredits?: number
+  researcherId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetCredits?: number
+  creditsPaid?: number
+  participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
+  eligibilityCriteria?: string | null
+  tags?: Prisma.StudyCreatetagsInput | string[]
+  category?: string | null
+  estimatedMinutes?: number | null
+  objective?: string | null
+  studyType?: $Enums.StudyType
+  targetPopulation?: string | null
+  ethicsExempt?: boolean
+  ethicsExemptionReason?: string | null
+  ethicsExemptedByAdminId?: string | null
+  ethicsExemptedAt?: Date | string | null
+  populationDescription?: string | null
+  recruitmentMethod?: string | null
+  containsSensitiveTopics?: boolean
+  involvesMinors?: boolean
+  safetyProtocolText?: string | null
+  firstApprovedByAdminId?: string | null
+  secondApprovedByAdminId?: string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedCreateNestedOneWithoutStudyInput
+  consentForms?: Prisma.ConsentFormUncheckedCreateNestedManyWithoutStudyInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutStudyInput
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutStudyInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutStudyInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutStudyInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutStudyInput
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutStudyInput
+  responses?: Prisma.ResponseUncheckedCreateNestedManyWithoutStudyInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutStudyInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutStudyInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutStudyInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
+  payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
+  translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
+}
+
+export type StudyCreateOrConnectWithoutCollectorPayoutsInput = {
+  where: Prisma.StudyWhereUniqueInput
+  create: Prisma.XOR<Prisma.StudyCreateWithoutCollectorPayoutsInput, Prisma.StudyUncheckedCreateWithoutCollectorPayoutsInput>
+}
+
+export type StudyUpsertWithoutCollectorPayoutsInput = {
+  update: Prisma.XOR<Prisma.StudyUpdateWithoutCollectorPayoutsInput, Prisma.StudyUncheckedUpdateWithoutCollectorPayoutsInput>
+  create: Prisma.XOR<Prisma.StudyCreateWithoutCollectorPayoutsInput, Prisma.StudyUncheckedCreateWithoutCollectorPayoutsInput>
+  where?: Prisma.StudyWhereInput
+}
+
+export type StudyUpdateToOneWithWhereWithoutCollectorPayoutsInput = {
+  where?: Prisma.StudyWhereInput
+  data: Prisma.XOR<Prisma.StudyUpdateWithoutCollectorPayoutsInput, Prisma.StudyUncheckedUpdateWithoutCollectorPayoutsInput>
+}
+
+export type StudyUpdateWithoutCollectorPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutStudyNestedInput
+  researcher?: Prisma.UserUpdateOneRequiredWithoutStudiesNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
+  translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
+}
+
+export type StudyUncheckedUpdateWithoutCollectorPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
+  fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
+  creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
+  creditBudget?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsSpent?: Prisma.IntFieldUpdateOperationsInput | number
+  requiresReapproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rewardCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  researcherId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
+  eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.StudyUpdatetagsInput | string[]
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objective?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studyType?: Prisma.EnumStudyTypeFieldUpdateOperationsInput | $Enums.StudyType
+  targetPopulation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExempt?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ethicsExemptionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsExemptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  populationDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  containsSensitiveTopics?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  involvesMinors?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  safetyProtocolText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondApprovedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ethicsApproval?: Prisma.EthicsApprovalUncheckedUpdateOneWithoutStudyNestedInput
+  consentForms?: Prisma.ConsentFormUncheckedUpdateManyWithoutStudyNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutStudyNestedInput
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutStudyNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutStudyNestedInput
+  collectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutStudyNestedInput
+  linkedProjects?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutStudyNestedInput
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutStudyNestedInput
+  responses?: Prisma.ResponseUncheckedUpdateManyWithoutStudyNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutStudyNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutStudyNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutStudyNestedInput
+  dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
+  payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -3610,6 +4419,9 @@ export type StudyCreateWithoutLinkedProjectsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -3644,6 +4456,8 @@ export type StudyCreateWithoutLinkedProjectsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -3666,6 +4480,9 @@ export type StudyUncheckedCreateWithoutLinkedProjectsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -3699,6 +4516,8 @@ export type StudyUncheckedCreateWithoutLinkedProjectsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -3736,6 +4555,9 @@ export type StudyUpdateWithoutLinkedProjectsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3770,6 +4592,8 @@ export type StudyUpdateWithoutLinkedProjectsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -3792,6 +4616,9 @@ export type StudyUncheckedUpdateWithoutLinkedProjectsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3825,6 +4652,8 @@ export type StudyUncheckedUpdateWithoutLinkedProjectsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -3846,6 +4675,9 @@ export type StudyCreateWithoutAiConversationsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -3880,6 +4712,8 @@ export type StudyCreateWithoutAiConversationsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -3902,6 +4736,9 @@ export type StudyUncheckedCreateWithoutAiConversationsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -3935,6 +4772,8 @@ export type StudyUncheckedCreateWithoutAiConversationsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -3972,6 +4811,9 @@ export type StudyUpdateWithoutAiConversationsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4006,6 +4848,8 @@ export type StudyUpdateWithoutAiConversationsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -4028,6 +4872,9 @@ export type StudyUncheckedUpdateWithoutAiConversationsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4061,6 +4908,8 @@ export type StudyUncheckedUpdateWithoutAiConversationsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -4082,6 +4931,9 @@ export type StudyCreateWithoutDataCollectorsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -4116,6 +4968,8 @@ export type StudyCreateWithoutDataCollectorsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -4138,6 +4992,9 @@ export type StudyUncheckedCreateWithoutDataCollectorsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -4171,6 +5028,8 @@ export type StudyUncheckedCreateWithoutDataCollectorsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -4208,6 +5067,9 @@ export type StudyUpdateWithoutDataCollectorsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4242,6 +5104,8 @@ export type StudyUpdateWithoutDataCollectorsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -4264,6 +5128,9 @@ export type StudyUncheckedUpdateWithoutDataCollectorsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4297,6 +5164,8 @@ export type StudyUncheckedUpdateWithoutDataCollectorsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -4318,6 +5187,9 @@ export type StudyCreateWithoutCollectorInvitationsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -4352,6 +5224,8 @@ export type StudyCreateWithoutCollectorInvitationsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -4374,6 +5248,9 @@ export type StudyUncheckedCreateWithoutCollectorInvitationsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -4407,6 +5284,8 @@ export type StudyUncheckedCreateWithoutCollectorInvitationsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -4444,6 +5323,9 @@ export type StudyUpdateWithoutCollectorInvitationsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4478,6 +5360,8 @@ export type StudyUpdateWithoutCollectorInvitationsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -4500,6 +5384,9 @@ export type StudyUncheckedUpdateWithoutCollectorInvitationsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4533,6 +5420,8 @@ export type StudyUncheckedUpdateWithoutCollectorInvitationsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -4554,6 +5443,9 @@ export type StudyCreateWithoutCollectorApplicationsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -4588,6 +5480,8 @@ export type StudyCreateWithoutCollectorApplicationsInput = {
   dataCollectors?: Prisma.StudyDataCollectorCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -4610,6 +5504,9 @@ export type StudyUncheckedCreateWithoutCollectorApplicationsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -4643,6 +5540,8 @@ export type StudyUncheckedCreateWithoutCollectorApplicationsInput = {
   dataCollectors?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -4680,6 +5579,9 @@ export type StudyUpdateWithoutCollectorApplicationsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4714,6 +5616,8 @@ export type StudyUpdateWithoutCollectorApplicationsInput = {
   dataCollectors?: Prisma.StudyDataCollectorUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -4736,6 +5640,9 @@ export type StudyUncheckedUpdateWithoutCollectorApplicationsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4769,6 +5676,8 @@ export type StudyUncheckedUpdateWithoutCollectorApplicationsInput = {
   dataCollectors?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -4790,6 +5699,9 @@ export type StudyCreateWithoutCollectionSessionsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -4824,6 +5736,8 @@ export type StudyCreateWithoutCollectionSessionsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -4846,6 +5760,9 @@ export type StudyUncheckedCreateWithoutCollectionSessionsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -4879,6 +5796,8 @@ export type StudyUncheckedCreateWithoutCollectionSessionsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -4916,6 +5835,9 @@ export type StudyUpdateWithoutCollectionSessionsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4950,6 +5872,8 @@ export type StudyUpdateWithoutCollectionSessionsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -4972,6 +5896,9 @@ export type StudyUncheckedUpdateWithoutCollectionSessionsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5005,6 +5932,8 @@ export type StudyUncheckedUpdateWithoutCollectionSessionsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -5026,6 +5955,9 @@ export type StudyCreateWithoutEthicsApprovalInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -5060,6 +5992,8 @@ export type StudyCreateWithoutEthicsApprovalInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -5082,6 +6016,9 @@ export type StudyUncheckedCreateWithoutEthicsApprovalInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -5115,6 +6052,8 @@ export type StudyUncheckedCreateWithoutEthicsApprovalInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -5152,6 +6091,9 @@ export type StudyUpdateWithoutEthicsApprovalInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5186,6 +6128,8 @@ export type StudyUpdateWithoutEthicsApprovalInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -5208,6 +6152,9 @@ export type StudyUncheckedUpdateWithoutEthicsApprovalInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5241,6 +6188,8 @@ export type StudyUncheckedUpdateWithoutEthicsApprovalInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -5262,6 +6211,9 @@ export type StudyCreateWithoutConsentFormsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -5296,6 +6248,8 @@ export type StudyCreateWithoutConsentFormsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -5318,6 +6272,9 @@ export type StudyUncheckedCreateWithoutConsentFormsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -5351,6 +6308,8 @@ export type StudyUncheckedCreateWithoutConsentFormsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -5388,6 +6347,9 @@ export type StudyUpdateWithoutConsentFormsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5422,6 +6384,8 @@ export type StudyUpdateWithoutConsentFormsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -5444,6 +6408,9 @@ export type StudyUncheckedUpdateWithoutConsentFormsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5477,6 +6444,8 @@ export type StudyUncheckedUpdateWithoutConsentFormsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -5498,6 +6467,9 @@ export type StudyCreateWithoutModerationReportsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -5532,6 +6504,8 @@ export type StudyCreateWithoutModerationReportsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationCreateNestedManyWithoutStudyInput
 }
@@ -5554,6 +6528,9 @@ export type StudyUncheckedCreateWithoutModerationReportsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -5587,6 +6564,8 @@ export type StudyUncheckedCreateWithoutModerationReportsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
   translations?: Prisma.StudyTranslationUncheckedCreateNestedManyWithoutStudyInput
 }
@@ -5624,6 +6603,9 @@ export type StudyUpdateWithoutModerationReportsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5658,6 +6640,8 @@ export type StudyUpdateWithoutModerationReportsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -5680,6 +6664,9 @@ export type StudyUncheckedUpdateWithoutModerationReportsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5713,6 +6700,8 @@ export type StudyUncheckedUpdateWithoutModerationReportsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -5734,6 +6723,9 @@ export type StudyCreateWithoutTranslationsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -5769,6 +6761,8 @@ export type StudyCreateWithoutTranslationsInput = {
   collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingCreateNestedManyWithoutStudyInput
 }
 
@@ -5790,6 +6784,9 @@ export type StudyUncheckedCreateWithoutTranslationsInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -5824,6 +6821,8 @@ export type StudyUncheckedCreateWithoutTranslationsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutStudyInput
   likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutStudyInput
   payments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutStudyInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutStudyInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutStudyInput
   ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutStudyInput
 }
 
@@ -5860,6 +6859,9 @@ export type StudyUpdateWithoutTranslationsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5895,6 +6897,8 @@ export type StudyUpdateWithoutTranslationsInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
 }
 
@@ -5916,6 +6920,9 @@ export type StudyUncheckedUpdateWithoutTranslationsInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5950,6 +6957,8 @@ export type StudyUncheckedUpdateWithoutTranslationsInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
 }
 
@@ -5970,6 +6979,9 @@ export type StudyCreateManyResearcherInput = {
   budgetCredits?: number
   creditsPaid?: number
   participantTarget?: number
+  collectorsNeeded?: number
+  collectorPayType?: $Enums.CollectorPayType | null
+  collectorPayRateCents?: number
   eligibilityCriteria?: string | null
   tags?: Prisma.StudyCreatetagsInput | string[]
   category?: string | null
@@ -6007,6 +7019,9 @@ export type StudyUpdateWithoutResearcherInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6041,6 +7056,8 @@ export type StudyUpdateWithoutResearcherInput = {
   collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUpdateManyWithoutStudyNestedInput
 }
@@ -6062,6 +7079,9 @@ export type StudyUncheckedUpdateWithoutResearcherInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6096,6 +7116,8 @@ export type StudyUncheckedUpdateWithoutResearcherInput = {
   collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutStudyNestedInput
   likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutStudyNestedInput
   payments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutStudyNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutStudyNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutStudyNestedInput
   ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutStudyNestedInput
   translations?: Prisma.StudyTranslationUncheckedUpdateManyWithoutStudyNestedInput
 }
@@ -6117,6 +7139,9 @@ export type StudyUncheckedUpdateManyWithoutResearcherInput = {
   budgetCredits?: Prisma.IntFieldUpdateOperationsInput | number
   creditsPaid?: Prisma.IntFieldUpdateOperationsInput | number
   participantTarget?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorsNeeded?: Prisma.IntFieldUpdateOperationsInput | number
+  collectorPayType?: Prisma.NullableEnumCollectorPayTypeFieldUpdateOperationsInput | $Enums.CollectorPayType | null
+  collectorPayRateCents?: Prisma.IntFieldUpdateOperationsInput | number
   eligibilityCriteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StudyUpdatetagsInput | string[]
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6158,6 +7183,8 @@ export type StudyCountOutputType = {
   collectorApplications: number
   likes: number
   payments: number
+  collectorFundingVerifications: number
+  collectorPayouts: number
   ratings: number
   translations: number
 }
@@ -6178,6 +7205,8 @@ export type StudyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   collectorApplications?: boolean | StudyCountOutputTypeCountCollectorApplicationsArgs
   likes?: boolean | StudyCountOutputTypeCountLikesArgs
   payments?: boolean | StudyCountOutputTypeCountPaymentsArgs
+  collectorFundingVerifications?: boolean | StudyCountOutputTypeCountCollectorFundingVerificationsArgs
+  collectorPayouts?: boolean | StudyCountOutputTypeCountCollectorPayoutsArgs
   ratings?: boolean | StudyCountOutputTypeCountRatingsArgs
   translations?: boolean | StudyCountOutputTypeCountTranslationsArgs
 }
@@ -6300,6 +7329,20 @@ export type StudyCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.
 /**
  * StudyCountOutputType without action
  */
+export type StudyCountOutputTypeCountCollectorFundingVerificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CollectorFundingVerificationWhereInput
+}
+
+/**
+ * StudyCountOutputType without action
+ */
+export type StudyCountOutputTypeCountCollectorPayoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CollectorPayoutWhereInput
+}
+
+/**
+ * StudyCountOutputType without action
+ */
 export type StudyCountOutputTypeCountRatingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StudyRatingWhereInput
 }
@@ -6330,6 +7373,9 @@ export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   budgetCredits?: boolean
   creditsPaid?: boolean
   participantTarget?: boolean
+  collectorsNeeded?: boolean
+  collectorPayType?: boolean
+  collectorPayRateCents?: boolean
   eligibilityCriteria?: boolean
   tags?: boolean
   category?: boolean
@@ -6365,6 +7411,8 @@ export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   collectorApplications?: boolean | Prisma.Study$collectorApplicationsArgs<ExtArgs>
   likes?: boolean | Prisma.Study$likesArgs<ExtArgs>
   payments?: boolean | Prisma.Study$paymentsArgs<ExtArgs>
+  collectorFundingVerifications?: boolean | Prisma.Study$collectorFundingVerificationsArgs<ExtArgs>
+  collectorPayouts?: boolean | Prisma.Study$collectorPayoutsArgs<ExtArgs>
   ratings?: boolean | Prisma.Study$ratingsArgs<ExtArgs>
   translations?: boolean | Prisma.Study$translationsArgs<ExtArgs>
   _count?: boolean | Prisma.StudyCountOutputTypeDefaultArgs<ExtArgs>
@@ -6388,6 +7436,9 @@ export type StudySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   budgetCredits?: boolean
   creditsPaid?: boolean
   participantTarget?: boolean
+  collectorsNeeded?: boolean
+  collectorPayType?: boolean
+  collectorPayRateCents?: boolean
   eligibilityCriteria?: boolean
   tags?: boolean
   category?: boolean
@@ -6427,6 +7478,9 @@ export type StudySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   budgetCredits?: boolean
   creditsPaid?: boolean
   participantTarget?: boolean
+  collectorsNeeded?: boolean
+  collectorPayType?: boolean
+  collectorPayRateCents?: boolean
   eligibilityCriteria?: boolean
   tags?: boolean
   category?: boolean
@@ -6466,6 +7520,9 @@ export type StudySelectScalar = {
   budgetCredits?: boolean
   creditsPaid?: boolean
   participantTarget?: boolean
+  collectorsNeeded?: boolean
+  collectorPayType?: boolean
+  collectorPayRateCents?: boolean
   eligibilityCriteria?: boolean
   tags?: boolean
   category?: boolean
@@ -6486,7 +7543,7 @@ export type StudySelectScalar = {
   secondApprovedByAdminId?: boolean
 }
 
-export type StudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "bannerTheme" | "status" | "fundingType" | "creditPerResponse" | "creditBudget" | "creditsSpent" | "requiresReapproval" | "rewardCredits" | "researcherId" | "createdAt" | "updatedAt" | "budgetCredits" | "creditsPaid" | "participantTarget" | "eligibilityCriteria" | "tags" | "category" | "estimatedMinutes" | "objective" | "studyType" | "targetPopulation" | "ethicsExempt" | "ethicsExemptionReason" | "ethicsExemptedByAdminId" | "ethicsExemptedAt" | "populationDescription" | "recruitmentMethod" | "containsSensitiveTopics" | "involvesMinors" | "safetyProtocolText" | "firstApprovedByAdminId" | "secondApprovedByAdminId", ExtArgs["result"]["study"]>
+export type StudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "bannerTheme" | "status" | "fundingType" | "creditPerResponse" | "creditBudget" | "creditsSpent" | "requiresReapproval" | "rewardCredits" | "researcherId" | "createdAt" | "updatedAt" | "budgetCredits" | "creditsPaid" | "participantTarget" | "collectorsNeeded" | "collectorPayType" | "collectorPayRateCents" | "eligibilityCriteria" | "tags" | "category" | "estimatedMinutes" | "objective" | "studyType" | "targetPopulation" | "ethicsExempt" | "ethicsExemptionReason" | "ethicsExemptedByAdminId" | "ethicsExemptedAt" | "populationDescription" | "recruitmentMethod" | "containsSensitiveTopics" | "involvesMinors" | "safetyProtocolText" | "firstApprovedByAdminId" | "secondApprovedByAdminId", ExtArgs["result"]["study"]>
 export type StudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ethicsApproval?: boolean | Prisma.Study$ethicsApprovalArgs<ExtArgs>
   consentForms?: boolean | Prisma.Study$consentFormsArgs<ExtArgs>
@@ -6505,6 +7562,8 @@ export type StudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   collectorApplications?: boolean | Prisma.Study$collectorApplicationsArgs<ExtArgs>
   likes?: boolean | Prisma.Study$likesArgs<ExtArgs>
   payments?: boolean | Prisma.Study$paymentsArgs<ExtArgs>
+  collectorFundingVerifications?: boolean | Prisma.Study$collectorFundingVerificationsArgs<ExtArgs>
+  collectorPayouts?: boolean | Prisma.Study$collectorPayoutsArgs<ExtArgs>
   ratings?: boolean | Prisma.Study$ratingsArgs<ExtArgs>
   translations?: boolean | Prisma.Study$translationsArgs<ExtArgs>
   _count?: boolean | Prisma.StudyCountOutputTypeDefaultArgs<ExtArgs>
@@ -6536,6 +7595,8 @@ export type $StudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     collectorApplications: Prisma.$CollectorApplicationPayload<ExtArgs>[]
     likes: Prisma.$StudyLikePayload<ExtArgs>[]
     payments: Prisma.$StudyPaymentPayload<ExtArgs>[]
+    collectorFundingVerifications: Prisma.$CollectorFundingVerificationPayload<ExtArgs>[]
+    collectorPayouts: Prisma.$CollectorPayoutPayload<ExtArgs>[]
     ratings: Prisma.$StudyRatingPayload<ExtArgs>[]
     translations: Prisma.$StudyTranslationPayload<ExtArgs>[]
   }
@@ -6557,6 +7618,9 @@ export type $StudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     budgetCredits: number
     creditsPaid: number
     participantTarget: number
+    collectorsNeeded: number
+    collectorPayType: $Enums.CollectorPayType | null
+    collectorPayRateCents: number
     eligibilityCriteria: string | null
     tags: string[]
     category: string | null
@@ -6986,6 +8050,8 @@ export interface Prisma__StudyClient<T, Null = never, ExtArgs extends runtime.Ty
   collectorApplications<T extends Prisma.Study$collectorApplicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$collectorApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   likes<T extends Prisma.Study$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.Study$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  collectorFundingVerifications<T extends Prisma.Study$collectorFundingVerificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$collectorFundingVerificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorFundingVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  collectorPayouts<T extends Prisma.Study$collectorPayoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$collectorPayoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectorPayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ratings<T extends Prisma.Study$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   translations<T extends Prisma.Study$translationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Study$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudyTranslationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -7034,6 +8100,9 @@ export interface StudyFieldRefs {
   readonly budgetCredits: Prisma.FieldRef<"Study", 'Int'>
   readonly creditsPaid: Prisma.FieldRef<"Study", 'Int'>
   readonly participantTarget: Prisma.FieldRef<"Study", 'Int'>
+  readonly collectorsNeeded: Prisma.FieldRef<"Study", 'Int'>
+  readonly collectorPayType: Prisma.FieldRef<"Study", 'CollectorPayType'>
+  readonly collectorPayRateCents: Prisma.FieldRef<"Study", 'Int'>
   readonly eligibilityCriteria: Prisma.FieldRef<"Study", 'String'>
   readonly tags: Prisma.FieldRef<"Study", 'String[]'>
   readonly category: Prisma.FieldRef<"Study", 'String'>
@@ -7829,6 +8898,54 @@ export type Study$paymentsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.StudyPaymentScalarFieldEnum | Prisma.StudyPaymentScalarFieldEnum[]
+}
+
+/**
+ * Study.collectorFundingVerifications
+ */
+export type Study$collectorFundingVerificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CollectorFundingVerification
+   */
+  select?: Prisma.CollectorFundingVerificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CollectorFundingVerification
+   */
+  omit?: Prisma.CollectorFundingVerificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CollectorFundingVerificationInclude<ExtArgs> | null
+  where?: Prisma.CollectorFundingVerificationWhereInput
+  orderBy?: Prisma.CollectorFundingVerificationOrderByWithRelationInput | Prisma.CollectorFundingVerificationOrderByWithRelationInput[]
+  cursor?: Prisma.CollectorFundingVerificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CollectorFundingVerificationScalarFieldEnum | Prisma.CollectorFundingVerificationScalarFieldEnum[]
+}
+
+/**
+ * Study.collectorPayouts
+ */
+export type Study$collectorPayoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CollectorPayout
+   */
+  select?: Prisma.CollectorPayoutSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CollectorPayout
+   */
+  omit?: Prisma.CollectorPayoutOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CollectorPayoutInclude<ExtArgs> | null
+  where?: Prisma.CollectorPayoutWhereInput
+  orderBy?: Prisma.CollectorPayoutOrderByWithRelationInput | Prisma.CollectorPayoutOrderByWithRelationInput[]
+  cursor?: Prisma.CollectorPayoutWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CollectorPayoutScalarFieldEnum | Prisma.CollectorPayoutScalarFieldEnum[]
 }
 
 /**

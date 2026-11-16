@@ -60,6 +60,9 @@ export default function CreateStudyPage() {
 
   const [rewardCredits, setRewardCredits] = useState(5);
   const [participantTarget, setParticipantTarget] = useState(25);
+  const [collectorsNeeded, setCollectorsNeeded] = useState(0);
+  const [collectorPayType, setCollectorPayType] = useState<"FIXED" | "PER_RESPONSE">("FIXED");
+  const [collectorPayRate, setCollectorPayRate] = useState("0.00");
   const [publishImmediately, setPublishImmediately] = useState(false);
 
   const [questions, setQuestions] = useState<Question[]>([
@@ -78,6 +81,14 @@ export default function CreateStudyPage() {
   }, []);
 
   const budgetCredits = studyType === "FREE_DATA_COLLECTION" ? 0 : rewardCredits * participantTarget;
+  const validCollectorPayRate = /^\d{1,9}(?:\.\d{1,2})?$/.test(collectorPayRate);
+  const collectorPayRateCents = validCollectorPayRate
+    ? Math.round(Number(collectorPayRate) * 100)
+    : 0;
+  const collectorBudgetCents =
+    collectorsNeeded <= 0 || collectorPayRateCents <= 0
+      ? 0
+      : (collectorPayType === "FIXED" ? collectorsNeeded : participantTarget) * collectorPayRateCents;
 
   function addQuestion() {
     setQuestions([...questions, { text: "", type: "SHORT_TEXT", required: true, options: [] }]);
@@ -146,6 +157,15 @@ export default function CreateStudyPage() {
     if (participantTarget <= 0) {
       return setError("Participant target must be at least 1.");
     }
+    if (
+      collectorsNeeded > 0 &&
+      (!validCollectorPayRate ||
+        !Number.isSafeInteger(collectorPayRateCents) ||
+        collectorPayRateCents <= 0 ||
+        collectorPayRateCents > 2_147_483_647)
+    ) {
+      return setError("Set a valid ETB payment rate for the requested collectors.");
+    }
     if (questions.some((q) => !q.text.trim())) {
       return setError("Every question must contain question text.");
     }
@@ -197,6 +217,9 @@ export default function CreateStudyPage() {
           estimatedMinutes,
           rewardCredits: studyType === "FREE_DATA_COLLECTION" ? 0 : rewardCredits,
           participantTarget,
+          collectorsNeeded,
+          collectorPayType: collectorsNeeded > 0 ? collectorPayType : null,
+          collectorPayRateCents: collectorsNeeded > 0 ? collectorPayRateCents : 0,
           budgetCredits,
           questions,
           publishImmediately: studyType === "FREE_DATA_COLLECTION" ? publishImmediately : false,
@@ -615,6 +638,77 @@ export default function CreateStudyPage() {
                 </div>
               </div>
             )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Users className="w-5 h-5 text-emerald-600" />
+              Field Collector ETB Budget
+            </CardTitle>
+            <CardDescription>
+              This real-money collector budget is separate from participant Tinat Credits.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Collectors needed</label>
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  value={collectorsNeeded}
+                  onChange={(e) => setCollectorsNeeded(Math.max(0, Math.floor(Number(e.target.value) || 0)))}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Payment model</label>
+                <select
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  value={collectorPayType}
+                  onChange={(e) => setCollectorPayType(e.target.value as "FIXED" | "PER_RESPONSE")}
+                  disabled={collectorsNeeded === 0}
+                >
+                  <option value="FIXED">Fixed amount per collector</option>
+                  <option value="PER_RESPONSE">Amount per collected response</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">
+                  {collectorPayType === "FIXED" ? "ETB per collector" : "ETB per response"}
+                </label>
+                <input
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  value={collectorPayRate}
+                  onChange={(e) => setCollectorPayRate(e.target.value)}
+                  disabled={collectorsNeeded === 0}
+                />
+              </div>
+            </div>
+            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 flex items-center justify-between gap-4">
+              <div>
+                <p className="font-semibold text-foreground text-sm">Maximum collector budget</p>
+                <p className="text-xs text-muted-foreground">
+                  {collectorsNeeded === 0
+                    ? "No paid field collectors requested."
+                    : collectorPayType === "FIXED"
+                      ? `${collectorsNeeded} collectors × ${Number(collectorPayRate || 0).toFixed(2)} ETB`
+                      : `${participantTarget} target responses × ${Number(collectorPayRate || 0).toFixed(2)} ETB`}
+                </p>
+              </div>
+              <p className="text-xl font-bold text-emerald-700 dark:text-emerald-300">
+                {(collectorBudgetCents / 100).toFixed(2)} ETB
+              </p>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Researchers will submit a bank or mobile-money transaction reference. Verify.et must confirm the full amount reached Tinat before the study can be activated. Collector payouts are sent manually and recorded separately.
+            </p>
           </CardContent>
         </Card>
 

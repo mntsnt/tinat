@@ -74,6 +74,9 @@ export const ModelName = {
   LedgerJournal: 'LedgerJournal',
   LedgerEntry: 'LedgerEntry',
   StudyPayment: 'StudyPayment',
+  CollectorFundingVerification: 'CollectorFundingVerification',
+  VerifyEtWebhookEvent: 'VerifyEtWebhookEvent',
+  CollectorPayout: 'CollectorPayout',
   Withdrawal: 'Withdrawal',
   AskProfile: 'AskProfile',
   AskQuestion: 'AskQuestion',
@@ -184,6 +187,9 @@ export const StudyScalarFieldEnum = {
   budgetCredits: 'budgetCredits',
   creditsPaid: 'creditsPaid',
   participantTarget: 'participantTarget',
+  collectorsNeeded: 'collectorsNeeded',
+  collectorPayType: 'collectorPayType',
+  collectorPayRateCents: 'collectorPayRateCents',
   eligibilityCriteria: 'eligibilityCriteria',
   tags: 'tags',
   category: 'category',
@@ -482,6 +488,50 @@ export const StudyPaymentScalarFieldEnum = {
 } as const
 
 export type StudyPaymentScalarFieldEnum = (typeof StudyPaymentScalarFieldEnum)[keyof typeof StudyPaymentScalarFieldEnum]
+
+
+export const CollectorFundingVerificationScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  researcherId: 'researcherId',
+  bank: 'bank',
+  transactionReference: 'transactionReference',
+  verificationRequestId: 'verificationRequestId',
+  expectedAmountCents: 'expectedAmountCents',
+  verifiedAmountCents: 'verifiedAmountCents',
+  currency: 'currency',
+  status: 'status',
+  settlementMatched: 'settlementMatched',
+  failureReason: 'failureReason',
+  verifiedAt: 'verifiedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CollectorFundingVerificationScalarFieldEnum = (typeof CollectorFundingVerificationScalarFieldEnum)[keyof typeof CollectorFundingVerificationScalarFieldEnum]
+
+
+export const VerifyEtWebhookEventScalarFieldEnum = {
+  eventId: 'eventId',
+  requestId: 'requestId',
+  event: 'event',
+  receivedAt: 'receivedAt'
+} as const
+
+export type VerifyEtWebhookEventScalarFieldEnum = (typeof VerifyEtWebhookEventScalarFieldEnum)[keyof typeof VerifyEtWebhookEventScalarFieldEnum]
+
+
+export const CollectorPayoutScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  collectorUserId: 'collectorUserId',
+  recordedByUserId: 'recordedByUserId',
+  amountCents: 'amountCents',
+  paymentReference: 'paymentReference',
+  createdAt: 'createdAt'
+} as const
+
+export type CollectorPayoutScalarFieldEnum = (typeof CollectorPayoutScalarFieldEnum)[keyof typeof CollectorPayoutScalarFieldEnum]
 
 
 export const WithdrawalScalarFieldEnum = {

@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { logActivity } from "@/lib/activityLog";
 import { FEATURES } from "@/lib/config/features";
 import { canStudyBecomeActive } from "@/lib/ethics/service";
+import { calculateCollectorBudgetCents } from "@/lib/payments/collectorCompensation";
 
 const allowedStatuses = ["ACTIVE", "PAUSED", "COMPLETED"] as const;
 type AllowedStatus = (typeof allowedStatuses)[number];
@@ -104,6 +105,32 @@ if (study.status === "COMPLETED") {
           },
           { status: 403 }
         );
+      }
+
+      const collectorBudgetCents = calculateCollectorBudgetCents({
+        collectorPayType: updateData.collectorPayType ?? study.collectorPayType,
+        collectorPayRateCents: updateData.collectorPayRateCents ?? study.collectorPayRateCents,
+        collectorsNeeded: updateData.collectorsNeeded ?? study.collectorsNeeded,
+        participantTarget: updateData.participantTarget ?? study.participantTarget,
+      });
+      if (collectorBudgetCents > 0) {
+        const verifiedFunding = await prisma.collectorFundingVerification.findFirst({
+          where: {
+            studyId: id,
+            status: "VERIFIED",
+            expectedAmountCents: collectorBudgetCents,
+            verifiedAmountCents: collectorBudgetCents,
+            settlementMatched: true,
+            currency: "ETB",
+          },
+          select: { id: true },
+        });
+        if (!verifiedFunding) {
+          return NextResponse.json(
+            { error: "Verify the full ETB collector budget before activating this study." },
+            { status: 400 }
+          );
+        }
       }
 
       // Mandatory Ethics Approval Gate

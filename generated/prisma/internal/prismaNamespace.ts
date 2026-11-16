@@ -420,6 +420,9 @@ export const ModelName = {
   LedgerJournal: 'LedgerJournal',
   LedgerEntry: 'LedgerEntry',
   StudyPayment: 'StudyPayment',
+  CollectorFundingVerification: 'CollectorFundingVerification',
+  VerifyEtWebhookEvent: 'VerifyEtWebhookEvent',
+  CollectorPayout: 'CollectorPayout',
   Withdrawal: 'Withdrawal',
   AskProfile: 'AskProfile',
   AskQuestion: 'AskQuestion',
@@ -473,7 +476,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "incidentLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "participantLink" | "dataSubjectRequest" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "ledgerAccount" | "ledgerJournal" | "ledgerEntry" | "studyPayment" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDiscussionReaction" | "projectDiscussionReplyReaction" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectorApplication" | "collectionSession" | "ethicsApproval" | "consentForm" | "consentRecord" | "moderationReport" | "ethicsBoardMember" | "ethicsBoardDecision" | "studyTranslation" | "questionTranslation" | "platformConsentRecord"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "incidentLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "participantLink" | "dataSubjectRequest" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "ledgerAccount" | "ledgerJournal" | "ledgerEntry" | "studyPayment" | "collectorFundingVerification" | "verifyEtWebhookEvent" | "collectorPayout" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectDiscussion" | "projectDiscussionReply" | "projectDiscussionReaction" | "projectDiscussionReplyReaction" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "collectorInvitation" | "collectorApplication" | "collectionSession" | "ethicsApproval" | "consentForm" | "consentRecord" | "moderationReport" | "ethicsBoardMember" | "ethicsBoardDecision" | "studyTranslation" | "questionTranslation" | "platformConsentRecord"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2176,6 +2179,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.StudyPaymentCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.StudyPaymentCountAggregateOutputType> | number
+        }
+      }
+    }
+    CollectorFundingVerification: {
+      payload: Prisma.$CollectorFundingVerificationPayload<ExtArgs>
+      fields: Prisma.CollectorFundingVerificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CollectorFundingVerificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CollectorFundingVerificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload>
+        }
+        findFirst: {
+          args: Prisma.CollectorFundingVerificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CollectorFundingVerificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload>
+        }
+        findMany: {
+          args: Prisma.CollectorFundingVerificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload>[]
+        }
+        create: {
+          args: Prisma.CollectorFundingVerificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload>
+        }
+        createMany: {
+          args: Prisma.CollectorFundingVerificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CollectorFundingVerificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload>[]
+        }
+        delete: {
+          args: Prisma.CollectorFundingVerificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload>
+        }
+        update: {
+          args: Prisma.CollectorFundingVerificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CollectorFundingVerificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CollectorFundingVerificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CollectorFundingVerificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.CollectorFundingVerificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorFundingVerificationPayload>
+        }
+        aggregate: {
+          args: Prisma.CollectorFundingVerificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCollectorFundingVerification>
+        }
+        groupBy: {
+          args: Prisma.CollectorFundingVerificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectorFundingVerificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CollectorFundingVerificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectorFundingVerificationCountAggregateOutputType> | number
+        }
+      }
+    }
+    VerifyEtWebhookEvent: {
+      payload: Prisma.$VerifyEtWebhookEventPayload<ExtArgs>
+      fields: Prisma.VerifyEtWebhookEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VerifyEtWebhookEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VerifyEtWebhookEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload>
+        }
+        findFirst: {
+          args: Prisma.VerifyEtWebhookEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VerifyEtWebhookEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload>
+        }
+        findMany: {
+          args: Prisma.VerifyEtWebhookEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload>[]
+        }
+        create: {
+          args: Prisma.VerifyEtWebhookEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload>
+        }
+        createMany: {
+          args: Prisma.VerifyEtWebhookEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VerifyEtWebhookEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload>[]
+        }
+        delete: {
+          args: Prisma.VerifyEtWebhookEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload>
+        }
+        update: {
+          args: Prisma.VerifyEtWebhookEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.VerifyEtWebhookEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VerifyEtWebhookEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VerifyEtWebhookEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.VerifyEtWebhookEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerifyEtWebhookEventPayload>
+        }
+        aggregate: {
+          args: Prisma.VerifyEtWebhookEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVerifyEtWebhookEvent>
+        }
+        groupBy: {
+          args: Prisma.VerifyEtWebhookEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VerifyEtWebhookEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VerifyEtWebhookEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VerifyEtWebhookEventCountAggregateOutputType> | number
+        }
+      }
+    }
+    CollectorPayout: {
+      payload: Prisma.$CollectorPayoutPayload<ExtArgs>
+      fields: Prisma.CollectorPayoutFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CollectorPayoutFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CollectorPayoutFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload>
+        }
+        findFirst: {
+          args: Prisma.CollectorPayoutFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CollectorPayoutFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload>
+        }
+        findMany: {
+          args: Prisma.CollectorPayoutFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload>[]
+        }
+        create: {
+          args: Prisma.CollectorPayoutCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload>
+        }
+        createMany: {
+          args: Prisma.CollectorPayoutCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CollectorPayoutCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload>[]
+        }
+        delete: {
+          args: Prisma.CollectorPayoutDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload>
+        }
+        update: {
+          args: Prisma.CollectorPayoutUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload>
+        }
+        deleteMany: {
+          args: Prisma.CollectorPayoutDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CollectorPayoutUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CollectorPayoutUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload>[]
+        }
+        upsert: {
+          args: Prisma.CollectorPayoutUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollectorPayoutPayload>
+        }
+        aggregate: {
+          args: Prisma.CollectorPayoutAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCollectorPayout>
+        }
+        groupBy: {
+          args: Prisma.CollectorPayoutGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectorPayoutGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CollectorPayoutCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollectorPayoutCountAggregateOutputType> | number
         }
       }
     }
@@ -5084,6 +5309,9 @@ export const StudyScalarFieldEnum = {
   budgetCredits: 'budgetCredits',
   creditsPaid: 'creditsPaid',
   participantTarget: 'participantTarget',
+  collectorsNeeded: 'collectorsNeeded',
+  collectorPayType: 'collectorPayType',
+  collectorPayRateCents: 'collectorPayRateCents',
   eligibilityCriteria: 'eligibilityCriteria',
   tags: 'tags',
   category: 'category',
@@ -5382,6 +5610,50 @@ export const StudyPaymentScalarFieldEnum = {
 } as const
 
 export type StudyPaymentScalarFieldEnum = (typeof StudyPaymentScalarFieldEnum)[keyof typeof StudyPaymentScalarFieldEnum]
+
+
+export const CollectorFundingVerificationScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  researcherId: 'researcherId',
+  bank: 'bank',
+  transactionReference: 'transactionReference',
+  verificationRequestId: 'verificationRequestId',
+  expectedAmountCents: 'expectedAmountCents',
+  verifiedAmountCents: 'verifiedAmountCents',
+  currency: 'currency',
+  status: 'status',
+  settlementMatched: 'settlementMatched',
+  failureReason: 'failureReason',
+  verifiedAt: 'verifiedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CollectorFundingVerificationScalarFieldEnum = (typeof CollectorFundingVerificationScalarFieldEnum)[keyof typeof CollectorFundingVerificationScalarFieldEnum]
+
+
+export const VerifyEtWebhookEventScalarFieldEnum = {
+  eventId: 'eventId',
+  requestId: 'requestId',
+  event: 'event',
+  receivedAt: 'receivedAt'
+} as const
+
+export type VerifyEtWebhookEventScalarFieldEnum = (typeof VerifyEtWebhookEventScalarFieldEnum)[keyof typeof VerifyEtWebhookEventScalarFieldEnum]
+
+
+export const CollectorPayoutScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  collectorUserId: 'collectorUserId',
+  recordedByUserId: 'recordedByUserId',
+  amountCents: 'amountCents',
+  paymentReference: 'paymentReference',
+  createdAt: 'createdAt'
+} as const
+
+export type CollectorPayoutScalarFieldEnum = (typeof CollectorPayoutScalarFieldEnum)[keyof typeof CollectorPayoutScalarFieldEnum]
 
 
 export const WithdrawalScalarFieldEnum = {
@@ -6104,14 +6376,28 @@ export type EnumStudyFundingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'StudyFundingType[]'
  */
 export type ListEnumStudyFundingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyFundingType[]'>
-    
+
+
+
+/**
+ * Reference to a field of type 'CollectorPayType'
+ */
+export type EnumCollectorPayTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CollectorPayType'>
+
+
+
+/**
+ * Reference to a field of type 'CollectorPayType[]'
+ */
+export type ListEnumCollectorPayTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CollectorPayType[]'>
+
 
 
 /**
  * Reference to a field of type 'StudyType'
  */
 export type EnumStudyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StudyType'>
-    
+
 
 
 /**
@@ -6245,6 +6531,20 @@ export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  */
 export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
     
+
+
+/**
+ * Reference to a field of type 'CollectorFundingStatus'
+ */
+export type EnumCollectorFundingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CollectorFundingStatus'>
+
+
+
+/**
+ * Reference to a field of type 'CollectorFundingStatus[]'
+ */
+export type ListEnumCollectorFundingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CollectorFundingStatus[]'>
+
 
 
 /**
@@ -6728,6 +7028,9 @@ export type GlobalOmitConfig = {
   ledgerJournal?: Prisma.LedgerJournalOmit
   ledgerEntry?: Prisma.LedgerEntryOmit
   studyPayment?: Prisma.StudyPaymentOmit
+  collectorFundingVerification?: Prisma.CollectorFundingVerificationOmit
+  verifyEtWebhookEvent?: Prisma.VerifyEtWebhookEventOmit
+  collectorPayout?: Prisma.CollectorPayoutOmit
   withdrawal?: Prisma.WithdrawalOmit
   askProfile?: Prisma.AskProfileOmit
   askQuestion?: Prisma.AskQuestionOmit

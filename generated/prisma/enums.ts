@@ -145,6 +145,23 @@ export const PaymentStatus = {
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
 
+export const CollectorPayType = {
+  FIXED: 'FIXED',
+  PER_RESPONSE: 'PER_RESPONSE'
+} as const
+
+export type CollectorPayType = (typeof CollectorPayType)[keyof typeof CollectorPayType]
+
+
+export const CollectorFundingStatus = {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  FAILED: 'FAILED'
+} as const
+
+export type CollectorFundingStatus = (typeof CollectorFundingStatus)[keyof typeof CollectorFundingStatus]
+
+
 export const WithdrawalStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',

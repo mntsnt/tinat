@@ -153,9 +153,24 @@ export type LedgerJournal = Prisma.LedgerJournalModel
 export type LedgerEntry = Prisma.LedgerEntryModel
 /**
  * Model StudyPayment
- * 
+ *
  */
 export type StudyPayment = Prisma.StudyPaymentModel
+/**
+ * Model CollectorFundingVerification
+ *
+ */
+export type CollectorFundingVerification = Prisma.CollectorFundingVerificationModel
+/**
+ * Model VerifyEtWebhookEvent
+ *
+ */
+export type VerifyEtWebhookEvent = Prisma.VerifyEtWebhookEventModel
+/**
+ * Model CollectorPayout
+ *
+ */
+export type CollectorPayout = Prisma.CollectorPayoutModel
 /**
  * Model Withdrawal
  * 

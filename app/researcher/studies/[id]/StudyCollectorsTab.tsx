@@ -42,6 +42,9 @@ interface AssignedCollector {
   assignedAt: string;
   user: CollectorUser;
   responsesGathered: number;
+  amountDueCents: number;
+  paidAmountCents: number;
+  outstandingAmountCents: number;
 }
 
 interface CollectorApplication {
@@ -54,6 +57,31 @@ interface CollectorApplication {
   applicant: CollectorUser;
 }
 
+interface CollectorFunding {
+  collectorsNeeded: number;
+  payType: "FIXED" | "PER_RESPONSE" | null;
+  payRateCents: number;
+  budgetCents: number;
+  paymentsEnabled: boolean;
+  payments: Array<{
+    id: string;
+    bank: string;
+    transactionReference: string;
+    expectedAmountCents: number;
+    verifiedAmountCents: number | null;
+    status: "PENDING" | "VERIFIED" | "FAILED";
+    failureReason: string | null;
+    createdAt: string;
+  }>;
+  payouts: Array<{
+    id: string;
+    collectorUserId: string;
+    amountCents: number;
+    paymentReference: string;
+    createdAt: string;
+  }>;
+}
+
 interface Props {
   studyId: string;
   studyTitle: string;
@@ -63,8 +91,16 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
   const { confirm, alert } = useConfirm();
   const [collectors, setCollectors] = useState<AssignedCollector[]>([]);
   const [applications, setApplications] = useState<CollectorApplication[]>([]);
+  const [collectorFunding, setCollectorFunding] = useState<CollectorFunding | null>(null);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [fundingBank, setFundingBank] = useState("cbe");
+  const [fundingReference, setFundingReference] = useState("");
+  const [fundingAccountSuffix, setFundingAccountSuffix] = useState("");
+  const [fundingPhone, setFundingPhone] = useState("");
+  const [fundingLoading, setFundingLoading] = useState(false);
+  const [fundingMessage, setFundingMessage] = useState<string | null>(null);
+  const [payoutInputs, setPayoutInputs] = useState<Record<string, { amount: string; reference: string }>>({});
   const [applicationMessage, setApplicationMessage] = useState<{
     type: "success" | "warning" | "error";
     text: string;
@@ -86,11 +122,69 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
         const data = await res.json();
         setCollectors(data.collectors || []);
         setApplications(data.applications || []);
+        setCollectorFunding(data.collectorFunding || null);
       }
     } catch (err) {
       console.error("Failed to load collectors:", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleVerifyFunding = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!fundingReference.trim()) return;
+
+    try {
+      setFundingLoading(true);
+      setFundingMessage(null);
+      const res = await fetch(`/api/studies/${studyId}/collector-funding`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          bank: fundingBank,
+          reference: fundingReference.trim(),
+          accountSuffix: fundingAccountSuffix.trim(),
+          phone: fundingPhone.trim(),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Could not verify this transfer.");
+      setFundingMessage(data.message || "Payment verification started.");
+      await fetchCollectorData();
+    } catch (err) {
+      setFundingMessage(err instanceof Error ? err.message : "Could not verify this transfer.");
+    } finally {
+      setFundingLoading(false);
+    }
+  };
+
+  const handleRecordPayout = async (collectorUserId: string) => {
+    const payoutInput = payoutInputs[collectorUserId];
+    if (!payoutInput?.amount || !payoutInput.reference?.trim()) return;
+
+    try {
+      setActionLoading(`payout_${collectorUserId}`);
+      const res = await fetch(`/api/studies/${studyId}/collector-payouts`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          collectorUserId,
+          amount: payoutInput.amount,
+          paymentReference: payoutInput.reference.trim(),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Could not record this payout.");
+      setPayoutInputs((current) => ({ ...current, [collectorUserId]: { amount: "", reference: "" } }));
+      await fetchCollectorData();
+    } catch (err) {
+      setApplicationMessage({
+        type: "error",
+        text: err instanceof Error ? err.message : "Could not record this payout.",
+      });
+    } finally {
+      setActionLoading(null);
     }
   };
 
@@ -248,6 +342,128 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
           </CardContent>
         </Card>
       </div>
+
+      {collectorFunding && collectorFunding.budgetCents > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Collector ETB funding</CardTitle>
+            <CardDescription>
+              Required for {collectorFunding.collectorsNeeded} collector position{collectorFunding.collectorsNeeded === 1 ? "" : "s"}.
+              This amount is separate from participant TC rewards.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-muted/50 p-4">
+              <span className="text-sm text-muted-foreground">
+                {collectorFunding.payType === "FIXED"
+                  ? `${(collectorFunding.payRateCents / 100).toFixed(2)} ETB per collector`
+                  : `${(collectorFunding.payRateCents / 100).toFixed(2)} ETB per response`}
+              </span>
+              <strong className="text-lg text-foreground">
+                Required: {(collectorFunding.budgetCents / 100).toFixed(2)} ETB
+              </strong>
+            </div>
+
+            {collectorFunding.payments.some((payment) =>
+              payment.status === "VERIFIED" &&
+              payment.verifiedAmountCents === collectorFunding.budgetCents
+            ) ? (
+              <p role="status" className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                Collector budget payment verified. Collectors can be approved up to the requested limit.
+              </p>
+            ) : collectorFunding.paymentsEnabled ? (
+              <form onSubmit={handleVerifyFunding} className="space-y-3">
+                <p className="text-sm text-muted-foreground">
+                  Transfer the exact amount to Tinat’s registered settlement account, then enter the transaction details for verification.
+                </p>
+                <div className="grid gap-3 sm:grid-cols-[1fr_2fr_auto]">
+                  <select
+                    className="h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={fundingBank}
+                    onChange={(e) => setFundingBank(e.target.value)}
+                    aria-label="Payment bank or wallet"
+                  >
+                    <option value="cbe">CBE</option>
+                    <option value="boa">Bank of Abyssinia</option>
+                    <option value="telebirr">Telebirr</option>
+                    <option value="mpesa">M-Pesa</option>
+                    <option value="cbebirr">CBE Birr</option>
+                    <option value="dashen">Dashen</option>
+                    <option value="awash">Awash</option>
+                    <option value="siinqee">Siinqee</option>
+                    <option value="kaafiebirr">Kaafi E-Birr</option>
+                    <option value="coopayebirr">Coopay E-Birr</option>
+                  </select>
+                  <Input
+                    value={fundingReference}
+                    onChange={(e) => setFundingReference(e.target.value)}
+                    placeholder="Transaction / receipt reference"
+                    maxLength={255}
+                    required
+                  />
+                  <Button type="submit" disabled={fundingLoading || !fundingReference.trim()}>
+                    {fundingLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Verify transfer"}
+                  </Button>
+                </div>
+                {fundingBank === "boa" && (
+                  <Input
+                    inputMode="numeric"
+                    value={fundingAccountSuffix}
+                    onChange={(e) => setFundingAccountSuffix(e.target.value)}
+                    placeholder="Bank of Abyssinia 5-digit account suffix"
+                    maxLength={5}
+                    required
+                  />
+                )}
+                {fundingBank === "cbe" && (
+                  <Input
+                    inputMode="numeric"
+                    value={fundingAccountSuffix}
+                    onChange={(e) => setFundingAccountSuffix(e.target.value)}
+                    placeholder="Optional 8-digit suffix for legacy CBE FT references"
+                    maxLength={8}
+                  />
+                )}
+                {fundingBank === "cbebirr" && (
+                  <Input
+                    inputMode="tel"
+                    value={fundingPhone}
+                    onChange={(e) => setFundingPhone(e.target.value)}
+                    placeholder="CBE Birr phone number"
+                    required
+                  />
+                )}
+                {fundingMessage && <p role="status" className="text-sm text-muted-foreground">{fundingMessage}</p>}
+                {collectorFunding.payments.some((payment) => payment.status === "PENDING") && (
+                  <Button type="button" variant="outline" size="sm" onClick={fetchCollectorData}>
+                    Refresh verification status
+                  </Button>
+                )}
+              </form>
+            ) : (
+              <p role="status" className="text-sm text-amber-700 dark:text-amber-300">
+                Verify.et cash funding is not enabled or configured on this server yet.
+              </p>
+            )}
+
+            {collectorFunding.payments.length > 0 && (
+              <div className="space-y-2 border-t border-border pt-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Verification history</p>
+                {collectorFunding.payments.map((payment) => (
+                  <div key={payment.id} className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <span className="text-muted-foreground">
+                      {payment.bank.toUpperCase()} · {payment.transactionReference} · {(payment.expectedAmountCents / 100).toFixed(2)} ETB
+                    </span>
+                    <span className={payment.status === "VERIFIED" ? "text-emerald-600" : payment.status === "FAILED" ? "text-destructive" : "text-amber-600"}>
+                      {payment.status === "VERIFIED" ? "Verified" : payment.status === "FAILED" ? payment.failureReason || "Not verified" : "Pending"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Direct Assignment Card */}
       <Card>
@@ -458,13 +674,14 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
               </p>
             </div>
           ) : (
-            <div className="rounded-xl border border-border overflow-hidden">
+            <div className="rounded-xl border border-border overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead className="bg-muted/50 text-muted-foreground uppercase tracking-wider font-semibold border-b border-border">
                   <tr>
                     <th className="py-3 px-4">Collector</th>
                     <th className="py-3 px-4">Assigned On</th>
                     <th className="py-3 px-4 text-center">Responses Gathered</th>
+                    <th className="py-3 px-4">ETB Payout</th>
                     <th className="py-3 px-4 text-right">Actions</th>
                   </tr>
                 </thead>
@@ -502,6 +719,67 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
                         <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
                           {c.responsesGathered} responses
                         </span>
+                      </td>
+                      <td className="py-3.5 px-4 min-w-64">
+                        <div className="space-y-1 text-xs">
+                          <p>Due: {(c.amountDueCents / 100).toFixed(2)} ETB</p>
+                          <p className="text-muted-foreground">Paid: {(c.paidAmountCents / 100).toFixed(2)} ETB</p>
+                          <p className="font-semibold text-emerald-700 dark:text-emerald-300">
+                            Outstanding: {(c.outstandingAmountCents / 100).toFixed(2)} ETB
+                          </p>
+                          {collectorFunding?.payouts
+                            .filter((payout) => payout.collectorUserId === c.userId)
+                            .map((payout) => (
+                              <p key={payout.id} className="break-all text-[11px] text-muted-foreground">
+                                Paid {(payout.amountCents / 100).toFixed(2)} ETB · {payout.paymentReference}
+                              </p>
+                            ))}
+                        </div>
+                        {c.outstandingAmountCents > 0 && collectorFunding?.paymentsEnabled && (
+                          <div className="mt-2 flex min-w-56 flex-col gap-2">
+                            <Input
+                              type="number"
+                              min="0.01"
+                              step="0.01"
+                              placeholder="Amount in ETB"
+                              value={payoutInputs[c.userId]?.amount ?? ""}
+                              onChange={(e) => setPayoutInputs((current) => ({
+                                ...current,
+                                [c.userId]: {
+                                  amount: e.target.value,
+                                  reference: current[c.userId]?.reference ?? "",
+                                },
+                              }))}
+                            />
+                            <Input
+                              placeholder="External transfer reference"
+                              maxLength={255}
+                              value={payoutInputs[c.userId]?.reference ?? ""}
+                              onChange={(e) => setPayoutInputs((current) => ({
+                                ...current,
+                                [c.userId]: {
+                                  amount: current[c.userId]?.amount ?? "",
+                                  reference: e.target.value,
+                                },
+                              }))}
+                            />
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              disabled={
+                                actionLoading === `payout_${c.userId}` ||
+                                !payoutInputs[c.userId]?.amount ||
+                                !payoutInputs[c.userId]?.reference?.trim()
+                              }
+                              onClick={() => handleRecordPayout(c.userId)}
+                            >
+                              {actionLoading === `payout_${c.userId}` ? "Recording..." : "Record payout"}
+                            </Button>
+                            <span className="text-[11px] text-muted-foreground">
+                              Record only after the external ETB transfer has been sent.
+                            </span>
+                          </div>
+                        )}
                       </td>
                       <td className="py-3.5 px-4 text-right">
                         <Button

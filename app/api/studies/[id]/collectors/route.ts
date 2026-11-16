@@ -5,6 +5,8 @@ import { jsonError, validateBody } from "@/lib/validation";
 import { z } from "zod";
 import { sendCollectorInvitationEmail } from "@/lib/emailService";
 import { getBaseUrl } from "@/lib/getRedirectUri";
+import { calculateCollectorBudgetCents } from "@/lib/payments/collectorCompensation";
+import { FEATURES } from "@/lib/config/features";
 
 const inviteCollectorSchema = z.object({
   collectorEmail: z.string().optional(),
@@ -17,6 +19,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     const { id: studyId } = await params;
     const auth = await requireStudyOwnerOrAdmin(studyId, req);
     if (!auth.ok) return auth.response;
+    const study = auth.study;
 
     const [collectors, applications, invitations] = await Promise.all([
       prisma.studyDataCollector.findMany({
@@ -76,15 +79,84 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       if (rc.collectorId) countsMap.set(rc.collectorId, rc._count.id);
     });
 
-    const collectorsWithStats = collectors.map((c) => ({
-      ...c,
-      responsesGathered: countsMap.get(c.userId) || 0,
-    }));
+    const [payoutTotals, fundingPayments, payoutRecords] = await Promise.all([
+      prisma.collectorPayout.groupBy({
+        by: ["collectorUserId"],
+        where: { studyId },
+        _sum: { amountCents: true },
+      }),
+      prisma.collectorFundingVerification.findMany({
+        where: { studyId },
+        select: {
+          id: true,
+          bank: true,
+          transactionReference: true,
+          expectedAmountCents: true,
+          verifiedAmountCents: true,
+          status: true,
+          failureReason: true,
+          createdAt: true,
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.collectorPayout.findMany({
+        where: { studyId },
+        select: {
+          id: true,
+          collectorUserId: true,
+          amountCents: true,
+          paymentReference: true,
+          createdAt: true,
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+    ]);
+
+    const paidMap = new Map<string, number>();
+    payoutTotals.forEach((payout) => {
+      paidMap.set(payout.collectorUserId, payout._sum.amountCents ?? 0);
+    });
+
+    const collectorsWithStats = collectors.map((collector) => {
+      const responsesGathered = countsMap.get(collector.userId) || 0;
+      const amountDueCents = study.collectorPayType === "FIXED"
+        ? study.collectorPayRateCents
+        : study.collectorPayType === "PER_RESPONSE"
+          ? responsesGathered * study.collectorPayRateCents
+          : 0;
+      const paidAmountCents = paidMap.get(collector.userId) || 0;
+
+      return {
+        ...collector,
+        responsesGathered,
+        amountDueCents,
+        paidAmountCents,
+        outstandingAmountCents: Math.max(0, amountDueCents - paidAmountCents),
+      };
+    });
+
+    const collectorBudgetCents = calculateCollectorBudgetCents({
+      collectorPayType: study.collectorPayType,
+      collectorPayRateCents: study.collectorPayRateCents,
+      collectorsNeeded: study.collectorsNeeded,
+      participantTarget: study.participantTarget,
+    });
 
     return NextResponse.json({
       collectors: collectorsWithStats,
       applications,
       invitations,
+      collectorFunding: {
+        collectorsNeeded: study.collectorsNeeded,
+        payType: study.collectorPayType,
+        payRateCents: study.collectorPayRateCents,
+        budgetCents: collectorBudgetCents,
+        paymentsEnabled: FEATURES.CASH_PAYMENTS_ENABLED &&
+          Boolean(process.env.VERIFY_ET_API_KEY) &&
+          Boolean(process.env.VERIFY_ET_WEBHOOK_SECRET),
+        payments: fundingPayments,
+        payouts: payoutRecords,
+      },
     });
   } catch (error) {
     console.error("GET study collectors error:", error);
@@ -129,42 +201,65 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
     // Direct assignment
     if (directAssign) {
-      await prisma.studyDataCollector.upsert({
-        where: {
-          studyId_userId: {
-            studyId,
-            userId: collectorUser.id,
-          },
-        },
-        create: {
-          studyId,
-          userId: collectorUser.id,
-        },
-        update: {},
-      });
+      await prisma.$transaction(async (tx) => {
+        await tx.$queryRaw<Array<{ id: string }>>`
+          SELECT "id" FROM "Study" WHERE "id" = ${studyId} FOR UPDATE;
+        `;
 
-      // Ensure user is marked verified for DATA_COLLECTOR
-      await prisma.verification.upsert({
-        where: {
-          userId_verificationType: {
+        const study = await tx.study.findUnique({ where: { id: studyId } });
+        if (!study) throw new Error("STUDY_NOT_FOUND");
+
+        const existingAssignment = await tx.studyDataCollector.findUnique({
+          where: { studyId_userId: { studyId, userId: collectorUser.id } },
+          select: { id: true },
+        });
+        if (existingAssignment) throw new Error("COLLECTOR_ALREADY_ASSIGNED");
+
+        if (study.collectorsNeeded > 0) {
+          const budgetCents = calculateCollectorBudgetCents({
+            collectorPayType: study.collectorPayType,
+            collectorPayRateCents: study.collectorPayRateCents,
+            collectorsNeeded: study.collectorsNeeded,
+            participantTarget: study.participantTarget,
+          });
+          const [verifiedFunding, assignedCount] = await Promise.all([
+            tx.collectorFundingVerification.findFirst({
+              where: {
+                studyId,
+                status: "VERIFIED",
+                expectedAmountCents: budgetCents,
+                verifiedAmountCents: budgetCents,
+                settlementMatched: true,
+                currency: "ETB",
+              },
+              select: { id: true },
+            }),
+            tx.studyDataCollector.count({ where: { studyId } }),
+          ]);
+
+          if (!verifiedFunding) throw new Error("COLLECTOR_FUNDING_NOT_VERIFIED");
+          if (assignedCount >= study.collectorsNeeded) throw new Error("COLLECTOR_LIMIT_REACHED");
+        }
+
+        await tx.studyDataCollector.create({ data: { studyId, userId: collectorUser.id } });
+        await tx.verification.upsert({
+          where: {
+            userId_verificationType: {
+              userId: collectorUser.id,
+              verificationType: "DATA_COLLECTOR",
+            },
+          },
+          create: {
             userId: collectorUser.id,
             verificationType: "DATA_COLLECTOR",
+            status: "VERIFIED",
           },
-        },
-        create: {
-          userId: collectorUser.id,
-          verificationType: "DATA_COLLECTOR",
-          status: "VERIFIED",
-        },
-        update: {
-          status: "VERIFIED",
-        },
-      });
-
-      // Update any pending application
-      await prisma.collectorApplication.updateMany({
-        where: { studyId, applicantId: collectorUser.id, status: "PENDING" },
-        data: { status: "APPROVED" },
+          update: { status: "VERIFIED" },
+        });
+        await tx.collectorApplication.updateMany({
+          where: { studyId, applicantId: collectorUser.id, status: "PENDING" },
+          data: { status: "APPROVED" },
+        });
       });
 
       // In-platform notification
@@ -256,6 +351,15 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         : "The collector invitation was created. Their Tinat notification is available, but the email could not be sent.",
     });
   } catch (error) {
+    if (error instanceof Error && error.message === "COLLECTOR_FUNDING_NOT_VERIFIED") {
+      return jsonError("Verify the full ETB collector budget before assigning collectors.", 400);
+    }
+    if (error instanceof Error && error.message === "COLLECTOR_LIMIT_REACHED") {
+      return jsonError("The study has already filled its collector positions.", 409);
+    }
+    if (error instanceof Error && error.message === "COLLECTOR_ALREADY_ASSIGNED") {
+      return jsonError("This participant is already assigned as a collector.", 409);
+    }
     console.error("POST study collectors error:", error);
     return jsonError("Internal error", 500);
   }

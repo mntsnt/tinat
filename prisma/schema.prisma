@@ -8,137 +8,145 @@ datasource db {
 }
 
 model User {
-  id                           String                   @id @default(cuid())
-  name                         String
-  username                     String?                  @unique
-  email                        String                   @unique
-  passwordHash                 String
-  role                         UserRole                 @default(PARTICIPANT)
-  phone                        String?
-  institution                  String?
-  fieldOfStudy                 String?
-  yearOfStudy                  Int?
-  createdAt                    DateTime                 @default(now())
-  updatedAt                    DateTime                 @updatedAt
-  avatarUrl                    String?
-  bio                          String?
-  isVerified                   Boolean                  @default(false)
-  faydaVerified                Boolean                  @default(false)
-  faydaFanHash                 String?                  @unique
-  faydaVerifiedAt              DateTime?
-  verificationCode             String?
-  verificationCodeExpiresAt    DateTime?
-  aiConversations              AIConversation[]
-  aiUsages                     AIUsage[]
-  activityLogs                 ActivityLog[]
-  adminChatMessages             AdminChatMessage[]
-  askProfile                   AskProfile?
-  collectionSessions           CollectionSession[]      @relation("CollectorSessions")
-  receivedCollectorInvitations CollectorInvitation[]    @relation("CollectorInvitee")
-  sentCollectorInvitations     CollectorInvitation[]    @relation("CollectorInviter")
-  notifications                Notification[]
-  projectActivities            ProjectActivity[]
-  projectChatMessages          ProjectChatMessage[]
-  projectDecisions             ProjectDecision[]        @relation("DecisionMadeBy")
-  projectDiscussions           ProjectDiscussion[]
-  projectDiscussionReplies     ProjectDiscussionReply[]
-  projectDiscussionReactions   ProjectDiscussionReaction[]
+  id                              String                           @id @default(cuid())
+  name                            String
+  username                        String?                          @unique
+  email                           String                           @unique
+  passwordHash                    String
+  role                            UserRole                         @default(PARTICIPANT)
+  phone                           String?
+  institution                     String?
+  fieldOfStudy                    String?
+  yearOfStudy                     Int?
+  createdAt                       DateTime                         @default(now())
+  updatedAt                       DateTime                         @updatedAt
+  avatarUrl                       String?
+  bio                             String?
+  isVerified                      Boolean                          @default(false)
+  faydaVerified                   Boolean                          @default(false)
+  faydaFanHash                    String?                          @unique
+  faydaVerifiedAt                 DateTime?
+  verificationCode                String?
+  verificationCodeExpiresAt       DateTime?
+  aiConversations                 AIConversation[]
+  aiUsages                        AIUsage[]
+  activityLogs                    ActivityLog[]
+  adminChatMessages               AdminChatMessage[]
+  askProfile                      AskProfile?
+  collectionSessions              CollectionSession[]              @relation("CollectorSessions")
+  receivedCollectorInvitations    CollectorInvitation[]            @relation("CollectorInvitee")
+  sentCollectorInvitations        CollectorInvitation[]            @relation("CollectorInviter")
+  notifications                   Notification[]
+  projectActivities               ProjectActivity[]
+  projectChatMessages             ProjectChatMessage[]
+  projectDecisions                ProjectDecision[]                @relation("DecisionMadeBy")
+  projectDiscussions              ProjectDiscussion[]
+  projectDiscussionReplies        ProjectDiscussionReply[]
+  projectDiscussionReactions      ProjectDiscussionReaction[]
   projectDiscussionReplyReactions ProjectDiscussionReplyReaction[]
-  uploadedProjectFiles         ProjectFile[]
-  uploadedProjectFileVersions  ProjectFileVersion[]
-  sentProjectInvitations       ProjectInvitation[]      @relation("ProjectInviter")
-  linkedProjectStudies         ProjectLinkedStudy[]
-  projectMemberships           ProjectMember[]
-  projectNotes                 ProjectNote[]
-  assignedProjectTasks         ProjectTask[]            @relation("TaskAssignee")
-  createdProjectTasks          ProjectTask[]            @relation("TaskCreator")
-  leadProjects                 ResearchProject[]        @relation("ProjectLead")
-  collectedResponses           Response[]               @relation("CollectedResponses")
-  participantLinks             ParticipantLink[]
-  dataSubjectRequests          DataSubjectRequest[]
-  termsAcceptedVersion         String?
-  termsAcceptedAt              DateTime?
-  charterAcceptedVersion       String?
-  charterAcceptedAt            DateTime?
-  codeOfConductAcceptedVersion String?
-  codeOfConductAcceptedAt      DateTime?
-  dpaAcceptedVersion           String?
-  dpaAcceptedAt                DateTime?
-  moderationReports            ModerationReport[]
-  verifiedEthicsApprovals      EthicsApproval[]         @relation("EthicsVerifier")
-  privacyNoticeVersion         String                   @default("1.0")
-  privacyAcceptedAt            DateTime?
-  studies                      Study[]
-  bookmarks                    StudyBookmark[]
-  comments                     StudyComment[]
-  assignedStudies              StudyDataCollector[]     @relation("AssignedCollector")
-  collectorApplications        CollectorApplication[]   @relation("CollectorApplications")
-  likes                        StudyLike[]
-  studyPayments                StudyPayment[]
-  ratings                      StudyRating[]
-  reviewedVerifications        Verification[]           @relation("AdminReviews")
-  verifications                Verification[]           @relation("UserVerifications")
-  wallet                       Wallet?
-  ledgerAccount                LedgerAccount?
-  withdrawals                  Withdrawal[]
-  platformConsentRecords       PlatformConsentRecord[]
+  uploadedProjectFiles            ProjectFile[]
+  uploadedProjectFileVersions     ProjectFileVersion[]
+  sentProjectInvitations          ProjectInvitation[]              @relation("ProjectInviter")
+  linkedProjectStudies            ProjectLinkedStudy[]
+  projectMemberships              ProjectMember[]
+  projectNotes                    ProjectNote[]
+  assignedProjectTasks            ProjectTask[]                    @relation("TaskAssignee")
+  createdProjectTasks             ProjectTask[]                    @relation("TaskCreator")
+  leadProjects                    ResearchProject[]                @relation("ProjectLead")
+  collectedResponses              Response[]                       @relation("CollectedResponses")
+  participantLinks                ParticipantLink[]
+  dataSubjectRequests             DataSubjectRequest[]
+  termsAcceptedVersion            String?
+  termsAcceptedAt                 DateTime?
+  charterAcceptedVersion          String?
+  charterAcceptedAt               DateTime?
+  codeOfConductAcceptedVersion    String?
+  codeOfConductAcceptedAt         DateTime?
+  dpaAcceptedVersion              String?
+  dpaAcceptedAt                   DateTime?
+  moderationReports               ModerationReport[]
+  verifiedEthicsApprovals         EthicsApproval[]                 @relation("EthicsVerifier")
+  privacyNoticeVersion            String                           @default("1.0")
+  privacyAcceptedAt               DateTime?
+  studies                         Study[]
+  bookmarks                       StudyBookmark[]
+  comments                        StudyComment[]
+  assignedStudies                 StudyDataCollector[]             @relation("AssignedCollector")
+  collectorApplications           CollectorApplication[]           @relation("CollectorApplications")
+  collectorPayouts                CollectorPayout[]                @relation("CollectorPayoutRecipient")
+  recordedCollectorPayouts        CollectorPayout[]                @relation("CollectorPayoutRecorder")
+  collectorFundingVerifications   CollectorFundingVerification[]
+  likes                           StudyLike[]
+  studyPayments                   StudyPayment[]
+  ratings                         StudyRating[]
+  reviewedVerifications           Verification[]                   @relation("AdminReviews")
+  verifications                   Verification[]                   @relation("UserVerifications")
+  wallet                          Wallet?
+  ledgerAccount                   LedgerAccount?
+  withdrawals                     Withdrawal[]
+  platformConsentRecords          PlatformConsentRecord[]
 }
 
 model Study {
-  id                   String                @id @default(cuid())
-  title                String
-  description          String?
-  bannerTheme          String                @default("canopy")
-  status               StudyStatus           @default(DRAFT)
-  fundingType          StudyFundingType      @default(FREE)
-  creditPerResponse    Int                   @default(0)
-  creditBudget         Int                   @default(0)
-  creditsSpent         Int                   @default(0)
-  requiresReapproval   Boolean               @default(false)
-  rewardCredits        Int                   @default(0)
-  researcherId         String
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @updatedAt
-  budgetCredits        Int                   @default(0)
-  creditsPaid          Int                   @default(0)
-  participantTarget    Int                   @default(0)
-  eligibilityCriteria  String?
-  tags                 String[]
-  category             String?
-  estimatedMinutes     Int?                  @default(5)
-  objective            String?
-  studyType            StudyType             @default(FUNDED)
-  targetPopulation     String?
-  ethicsApproval           EthicsApproval?
-  ethicsExempt             Boolean               @default(false)
-  ethicsExemptionReason     String?
-  ethicsExemptedByAdminId  String?
-  ethicsExemptedAt         DateTime?
-  populationDescription    String?
-  recruitmentMethod        String?
-  containsSensitiveTopics  Boolean               @default(false)
-  involvesMinors           Boolean               @default(false)
-  safetyProtocolText       String?
-  firstApprovedByAdminId   String?
-  secondApprovedByAdminId  String?
-  consentForms             ConsentForm[]
-  moderationReports        ModerationReport[]
-  aiConversations      AIConversation[]
-  collectionSessions   CollectionSession[]   @relation("StudyCollectionSessions")
-  collectorInvitations CollectorInvitation[] @relation("StudyCollectorInvitations")
-  linkedProjects       ProjectLinkedStudy[]
-  questions            Question[]
-  responses            Response[]
-  participantLinks     ParticipantLink[]
-  researcher           User                  @relation(fields: [researcherId], references: [id], onDelete: Cascade)
-  bookmarks            StudyBookmark[]
-  comments             StudyComment[]
-  dataCollectors       StudyDataCollector[]  @relation("StudyDataCollectors")
-  collectorApplications CollectorApplication[] @relation("StudyCollectorApplications")
-  likes                StudyLike[]
-  payments             StudyPayment[]
-  ratings              StudyRating[]
-  translations         StudyTranslation[]
+  id                            String                         @id @default(cuid())
+  title                         String
+  description                   String?
+  bannerTheme                   String                         @default("canopy")
+  status                        StudyStatus                    @default(DRAFT)
+  fundingType                   StudyFundingType               @default(FREE)
+  creditPerResponse             Int                            @default(0)
+  creditBudget                  Int                            @default(0)
+  creditsSpent                  Int                            @default(0)
+  requiresReapproval            Boolean                        @default(false)
+  rewardCredits                 Int                            @default(0)
+  researcherId                  String
+  createdAt                     DateTime                       @default(now())
+  updatedAt                     DateTime                       @updatedAt
+  budgetCredits                 Int                            @default(0)
+  creditsPaid                   Int                            @default(0)
+  participantTarget             Int                            @default(0)
+  collectorsNeeded              Int                            @default(0)
+  collectorPayType              CollectorPayType?
+  collectorPayRateCents         Int                            @default(0)
+  eligibilityCriteria           String?
+  tags                          String[]
+  category                      String?
+  estimatedMinutes              Int?                           @default(5)
+  objective                     String?
+  studyType                     StudyType                      @default(FUNDED)
+  targetPopulation              String?
+  ethicsApproval                EthicsApproval?
+  ethicsExempt                  Boolean                        @default(false)
+  ethicsExemptionReason         String?
+  ethicsExemptedByAdminId       String?
+  ethicsExemptedAt              DateTime?
+  populationDescription         String?
+  recruitmentMethod             String?
+  containsSensitiveTopics       Boolean                        @default(false)
+  involvesMinors                Boolean                        @default(false)
+  safetyProtocolText            String?
+  firstApprovedByAdminId        String?
+  secondApprovedByAdminId       String?
+  consentForms                  ConsentForm[]
+  moderationReports             ModerationReport[]
+  aiConversations               AIConversation[]
+  collectionSessions            CollectionSession[]            @relation("StudyCollectionSessions")
+  collectorInvitations          CollectorInvitation[]          @relation("StudyCollectorInvitations")
+  linkedProjects                ProjectLinkedStudy[]
+  questions                     Question[]
+  responses                     Response[]
+  participantLinks              ParticipantLink[]
+  researcher                    User                           @relation(fields: [researcherId], references: [id], onDelete: Cascade)
+  bookmarks                     StudyBookmark[]
+  comments                      StudyComment[]
+  dataCollectors                StudyDataCollector[]           @relation("StudyDataCollectors")
+  collectorApplications         CollectorApplication[]         @relation("StudyCollectorApplications")
+  likes                         StudyLike[]
+  payments                      StudyPayment[]
+  collectorFundingVerifications CollectorFundingVerification[]
+  collectorPayouts              CollectorPayout[]
+  ratings                       StudyRating[]
+  translations                  StudyTranslation[]
 }
 
 model StudyBookmark {
@@ -253,24 +261,24 @@ model AdminChatMessage {
 }
 
 model Question {
-  id            String           @id @default(cuid())
-  studyId       String
-  text          String
-  type          QuestionType
-  required      Boolean          @default(true)
-  isSkippable   Boolean          @default(false)
-  preferNotToAnswerEnabled Boolean @default(true)
-  order         Int
-  createdAt     DateTime         @default(now())
-  scaleMax      Int?
-  scaleMaxLabel String?
-  scaleMin      Int?
-  scaleMinLabel String?
-  answers       Answer[]
-  study         Study            @relation(fields: [studyId], references: [id], onDelete: Cascade)
-  options       QuestionOption[]
-  rows          QuestionRow[]
-  translations  QuestionTranslation[]
+  id                       String                @id @default(cuid())
+  studyId                  String
+  text                     String
+  type                     QuestionType
+  required                 Boolean               @default(true)
+  isSkippable              Boolean               @default(false)
+  preferNotToAnswerEnabled Boolean               @default(true)
+  order                    Int
+  createdAt                DateTime              @default(now())
+  scaleMax                 Int?
+  scaleMaxLabel            String?
+  scaleMin                 Int?
+  scaleMinLabel            String?
+  answers                  Answer[]
+  study                    Study                 @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  options                  QuestionOption[]
+  rows                     QuestionRow[]
+  translations             QuestionTranslation[]
 }
 
 model QuestionRow {
@@ -460,6 +468,53 @@ model StudyPayment {
 
   @@index([studyId])
   @@index([researcherId])
+}
+
+model CollectorFundingVerification {
+  id                    String                 @id @default(cuid())
+  studyId               String
+  researcherId          String
+  bank                  String
+  transactionReference  String
+  verificationRequestId String?                @unique
+  expectedAmountCents   Int
+  verifiedAmountCents   Int?
+  currency              String                 @default("ETB")
+  status                CollectorFundingStatus @default(PENDING)
+  settlementMatched     Boolean?
+  failureReason         String?
+  verifiedAt            DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  study                 Study                  @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  researcher            User                   @relation(fields: [researcherId], references: [id], onDelete: Cascade)
+
+  @@unique([bank, transactionReference])
+  @@index([studyId, status])
+  @@index([researcherId])
+}
+
+model VerifyEtWebhookEvent {
+  eventId    String   @id
+  requestId  String
+  event      String
+  receivedAt DateTime @default(now())
+}
+
+model CollectorPayout {
+  id               String   @id @default(cuid())
+  studyId          String
+  collectorUserId  String
+  recordedByUserId String
+  amountCents      Int
+  paymentReference String   @unique
+  createdAt        DateTime @default(now())
+  study            Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  collector        User     @relation("CollectorPayoutRecipient", fields: [collectorUserId], references: [id], onDelete: Cascade)
+  recordedBy       User     @relation("CollectorPayoutRecorder", fields: [recordedByUserId], references: [id], onDelete: Restrict)
+
+  @@index([studyId, collectorUserId])
+  @@index([recordedByUserId])
 }
 
 model Withdrawal {
@@ -690,31 +745,31 @@ model ProjectNote {
 }
 
 model ProjectDiscussion {
-  id         String                   @id @default(cuid())
+  id         String                      @id @default(cuid())
   projectId  String
   authorId   String
   title      String
   content    String
-  category   String                   @default("General")
-  isResolved Boolean                  @default(false)
-  createdAt  DateTime                 @default(now())
-  updatedAt  DateTime                 @updatedAt
-  author     User                     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  project    ResearchProject          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  category   String                      @default("General")
+  isResolved Boolean                     @default(false)
+  createdAt  DateTime                    @default(now())
+  updatedAt  DateTime                    @updatedAt
+  author     User                        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  project    ResearchProject             @relation(fields: [projectId], references: [id], onDelete: Cascade)
   replies    ProjectDiscussionReply[]
-  reactions ProjectDiscussionReaction[]
+  reactions  ProjectDiscussionReaction[]
 
   @@index([projectId])
 }
 
 model ProjectDiscussionReply {
-  id           String            @id @default(cuid())
+  id           String                           @id @default(cuid())
   discussionId String
   authorId     String
   content      String
-  createdAt    DateTime          @default(now())
-  author       User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  discussion   ProjectDiscussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  createdAt    DateTime                         @default(now())
+  author       User                             @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  discussion   ProjectDiscussion                @relation(fields: [discussionId], references: [id], onDelete: Cascade)
   reactions    ProjectDiscussionReplyReaction[]
 
   @@index([discussionId])
@@ -1047,6 +1102,17 @@ enum PaymentStatus {
   FAILED
 }
 
+enum CollectorPayType {
+  FIXED
+  PER_RESPONSE
+}
+
+enum CollectorFundingStatus {
+  PENDING
+  VERIFIED
+  FAILED
+}
+
 enum WithdrawalStatus {
   PENDING
   APPROVED
@@ -1199,24 +1265,23 @@ enum SessionStatus {
   COMPLETED
 }
 
-
 model EthicsApproval {
-  id                 String               @id @default(cuid())
-  studyId            String               @unique
-  study              Study                @relation(fields: [studyId], references: [id], onDelete: Cascade)
-  committeeName      String
-  approvalNumber     String
-  approvalDate       DateTime
-  expiryDate         DateTime
-  documentPath       String
-  verifiedByAdminId  String?
-  verifiedByAdmin    User?                @relation("EthicsVerifier", fields: [verifiedByAdminId], references: [id], onDelete: SetNull)
-  verifiedAt         DateTime?
-  status             EthicsApprovalStatus @default(PENDING)
-  adminNotes         String?
-  checklist          Json?
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
+  id                String               @id @default(cuid())
+  studyId           String               @unique
+  study             Study                @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  committeeName     String
+  approvalNumber    String
+  approvalDate      DateTime
+  expiryDate        DateTime
+  documentPath      String
+  verifiedByAdminId String?
+  verifiedByAdmin   User?                @relation("EthicsVerifier", fields: [verifiedByAdminId], references: [id], onDelete: SetNull)
+  verifiedAt        DateTime?
+  status            EthicsApprovalStatus @default(PENDING)
+  adminNotes        String?
+  checklist         Json?
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
 
   @@index([status])
   @@index([expiryDate])
@@ -1299,7 +1364,6 @@ model EthicsBoardDecision {
   updatedAt   DateTime @updatedAt
 }
 
-
 model StudyTranslation {
   id                 String   @id @default(cuid())
   studyId            String
@@ -1317,14 +1381,14 @@ model StudyTranslation {
 }
 
 model QuestionTranslation {
-  id           String   @id @default(cuid())
-  questionId   String
-  question     Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  language     String
-  text         String
-  options      Json?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id         String   @id @default(cuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  language   String
+  text       String
+  options    Json?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@unique([questionId, language])
   @@index([questionId])

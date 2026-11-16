@@ -4,7 +4,7 @@ import assert from 'node:assert';
 import { prisma } from '../lib/prisma';
 import { executeBalancedReward } from '../lib/ledger';
 import { reconcileLedger } from '../lib/reconciliation';
-import { getOrCreateParticipantLink } from '../lib/identity/linkService';
+import { getOrCreateParticipantLink, hasUserParticipated } from '../lib/identity/linkService';
 
 describe("Part 2: Double-Entry Ledger Concurrency, Invariants & Immutability", () => {
   const testRunId = `test_${Date.now()}`;
@@ -163,6 +163,55 @@ describe("Part 2: Double-Entry Ledger Concurrency, Invariants & Immutability", (
       /Ledger records are immutable and append-only/i,
       "Expected trg_immutable_ledger_journal to block DELETE"
     );
+  });
+
+  test("Consent participant link is not treated as a completed submission", async () => {
+    const participant = await prisma.user.create({
+      data: {
+        name: `Consent Participant ${testRunId}`,
+        email: `consent_participant_${testRunId}@tinat.test`,
+        passwordHash: "TEST_HASH",
+        role: "PARTICIPANT",
+        isVerified: true,
+        faydaVerified: true,
+      },
+    });
+
+    let respondentCode: string | undefined;
+
+    try {
+      const link = await getOrCreateParticipantLink({
+        userId: participant.id,
+        studyId: testStudyId,
+      });
+      respondentCode = link.respondentCode;
+
+      assert.strictEqual(
+        await hasUserParticipated({ userId: participant.id, studyId: testStudyId }),
+        false,
+        "A participant link created during consent must not block submission."
+      );
+
+      await prisma.response.create({
+        data: {
+          studyId: testStudyId,
+          respondentCode: link.respondentCode,
+          collectionMethod: "SELF",
+        },
+      });
+
+      assert.strictEqual(
+        await hasUserParticipated({ userId: participant.id, studyId: testStudyId }),
+        true,
+        "A saved response must still prevent duplicate submissions."
+      );
+    } finally {
+      if (respondentCode) {
+        await prisma.response.deleteMany({ where: { studyId: testStudyId, respondentCode } });
+      }
+      await prisma.participantLink.deleteMany({ where: { userId: participant.id, studyId: testStudyId } });
+      await prisma.user.delete({ where: { id: participant.id } });
+    }
   });
 
   test("Concurrent Submissions Near Budget Limit: Exactly budget limit accepted, zero overdraft", async () => {

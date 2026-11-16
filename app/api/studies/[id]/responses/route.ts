@@ -42,7 +42,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       let result;
       try {
         result = await prisma.$transaction(async (tx) => {
-          // Lock/fetch study to check status and budget
+          await tx.$queryRaw<Array<{ id: string }>>`
+            SELECT "id" FROM "Study" WHERE "id" = ${id} FOR UPDATE;
+          `;
+
           const currentStudy = await tx.study.findUnique({
             where: { id },
             include: { _count: { select: { responses: true } } }
@@ -50,6 +53,12 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
           if (!currentStudy) throw new Error("Study not found");
           if (currentStudy.status !== "ACTIVE") throw new Error("STUDY_NOT_ACTIVE");
+          if (
+            currentStudy.participantTarget > 0 &&
+            currentStudy._count.responses >= currentStudy.participantTarget
+          ) {
+            throw new Error("PARTICIPANT_LIMIT");
+          }
 
           const isFunded = currentStudy.fundingType === "FUNDED" ||
             (currentStudy.rewardCredits > 0 && currentStudy.fundingType !== "FREE");
@@ -122,6 +131,14 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
                 status: targetReached ? "COMPLETED" : budgetReached ? "PAUSED" : "ACTIVE"
               }
             });
+          } else if (
+            currentStudy.participantTarget > 0 &&
+            currentStudy._count.responses + 1 >= currentStudy.participantTarget
+          ) {
+            await tx.study.update({
+              where: { id },
+              data: { status: "COMPLETED" },
+            });
           }
 
           return response;
@@ -134,6 +151,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         }
         if (err.message === "STUDY_NOT_ACTIVE") {
           return NextResponse.json({ error: "This research study is not currently active." }, { status: 400 });
+        }
+        if (err.message === "PARTICIPANT_LIMIT") {
+          return NextResponse.json({ error: "This study has already reached its participant limit." }, { status: 400 });
         }
         if (err.message === "Study not found") {
           return NextResponse.json({ error: "Study not found." }, { status: 404 });
