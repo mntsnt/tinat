@@ -18,6 +18,7 @@ import {
   Workflow,
   Layers,
   HelpCircle,
+  Sparkles,
 } from "lucide-react";
 import { SidebarLink } from "./Sidebar";
 
@@ -38,6 +39,7 @@ export const participantLinks: SidebarLink[] = [
 
 export const researcherLinks: SidebarLink[] = [
   { title: "Dashboard", href: "/researcher", icon: <ChartNoAxesCombined /> },
+  { title: "Tinat AI", href: "/ai", icon: <Sparkles /> },
   { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },
   { title: "My Studies", href: "/researcher/studies", icon: <BookOpenCheck /> },
@@ -46,6 +48,7 @@ export const researcherLinks: SidebarLink[] = [
 
 export const adminLinks: SidebarLink[] = [
   { title: "Overview", href: "/admin", icon: <Radar /> },
+  { title: "Tinat AI", href: "/ai", icon: <Sparkles /> },
   { title: "Manage Studies", href: "/admin/studies", icon: <ScanSearch /> },
   { title: "User Management", href: "/admin/users", icon: <ShieldUser /> },
   { title: "Verifications", href: "/admin/verifications", icon: <ShieldCheck /> },

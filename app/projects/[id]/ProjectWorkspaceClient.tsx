@@ -288,7 +288,18 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
   // AI state
   const [aiPrompt, setAiPrompt] = useState("");
-  const [aiHistory, setAiHistory] = useState<Array<{ role: string; content: string }>>([]);
+  const [aiHistory, setAiHistory] = useState<Array<{ role: string; content: string }>>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem(`tinat_project_ai_history_${projectId}`);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) return parsed;
+        }
+      } catch {}
+    }
+    return [];
+  });
   const [aiLoading, setAiLoading] = useState(false);
   const [aiModel, setAiModel] = useState("gemini");
   const [actionError, setActionError] = useState<string | null>(null);
@@ -297,6 +308,14 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     inviteLink?: string;
   } | null>(null);
   const [copiedInviteLink, setCopiedInviteLink] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && projectId && aiHistory.length > 0) {
+      try {
+        localStorage.setItem(`tinat_project_ai_history_${projectId}`, JSON.stringify(aiHistory));
+      } catch {}
+    }
+  }, [aiHistory, projectId]);
 
   useEffect(() => {
     fetchProject();
@@ -901,13 +920,13 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       } else {
         setAiHistory([
           ...newHistory,
-          { role: "assistant", content: `Error: ${data.error || "Failed to generate AI response"}` },
+          { role: "assistant", content: `Error: ${data.error || "Project AI was unable to generate a response at this time. Please try again with a different query."}` },
         ]);
       }
     } catch (err: any) {
       setAiHistory([
         ...newHistory,
-        { role: "assistant", content: `Error connecting to Project AI: ${err.message}` },
+        { role: "assistant", content: `Error: Unable to connect to Project AI. Please check your internet connection and try again.` },
       ]);
     } finally {
       setAiLoading(false);
@@ -2156,7 +2175,12 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                             </div>
                             <p className="mt-3 font-medium text-slate-900 dark:text-white">{decision.decision}</p>
                             {decision.reason && <p className="mt-2 whitespace-pre-wrap text-sm text-slate-600 dark:text-slate-300">{decision.reason}</p>}
-                            {decision.relatedDoc && <p className="mt-2 text-xs text-slate-500">Reference: {decision.relatedDoc}</p>}
+                            {decision.relatedDoc && (
+                              <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-md border border-border/70 bg-muted/50 px-2.5 py-1 text-xs text-muted-foreground">
+                                <span className="font-medium text-foreground">Document:</span>
+                                <span>{decision.relatedDoc}</span>
+                              </div>
+                            )}
                           </li>
                         ))}
                       </ol>
@@ -2322,7 +2346,14 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   {aiHistory.length > 0 && (
                     <button
                       type="button"
-                      onClick={() => setAiHistory([])}
+                      onClick={() => {
+                        setAiHistory([]);
+                        if (typeof window !== "undefined") {
+                          try {
+                            localStorage.removeItem(`tinat_project_ai_history_${projectId}`);
+                          } catch {}
+                        }
+                      }}
                       disabled={aiLoading}
                       title="Clear chat history"
                       className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition-colors disabled:opacity-50"
@@ -2399,32 +2430,54 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     </div>
                   </div>
                 ) : (
-                  aiHistory.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className={`mx-auto w-full max-w-5xl rounded-2xl border p-4 text-sm leading-7 sm:p-5 ${
-                        item.role === "assistant"
-                          ? "border-border bg-card text-foreground shadow-2xs"
-                          : "ml-8 max-w-[88%] border-primary/20 bg-primary/5 text-foreground sm:max-w-[80%]"
-                      }`}
-                    >
-                      <div className="mb-2.5 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
-                        {item.role === "assistant" ? (
-                          <>
-                            <Sparkles className="w-3.5 h-3.5 text-primary" />
-                            <span>Project AI</span>
-                          </>
+                  aiHistory.map((item, idx) => {
+                    const isError = item.role === "assistant" && item.content.startsWith("Error:");
+                    const errorText = isError ? item.content.replace(/^Error:\s*/, "") : "";
+                    return (
+                      <div
+                        key={idx}
+                        className={`mx-auto w-full max-w-5xl rounded-2xl border p-4 text-sm leading-7 sm:p-5 ${
+                          isError
+                            ? "border-destructive/30 bg-destructive/5 text-foreground shadow-2xs dark:bg-destructive/10"
+                            : item.role === "assistant"
+                              ? "border-border bg-card text-foreground shadow-2xs"
+                              : "ml-8 max-w-[88%] border-primary/20 bg-primary/5 text-foreground sm:max-w-[80%]"
+                        }`}
+                      >
+                        <div className="mb-2.5 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                          {item.role === "assistant" ? (
+                            isError ? (
+                              <>
+                                <AlertCircle className="w-3.5 h-3.5 text-destructive" />
+                                <span className="text-destructive font-semibold">Project AI Notice</span>
+                              </>
+                            ) : (
+                              <>
+                                <Sparkles className="w-3.5 h-3.5 text-primary" />
+                                <span>Project AI</span>
+                              </>
+                            )
+                          ) : (
+                            <span>You</span>
+                          )}
+                        </div>
+                        {isError ? (
+                          <div className="flex items-start gap-3 text-xs leading-relaxed text-muted-foreground">
+                            <div className="flex-1">
+                              <p className="font-medium text-foreground">{errorText}</p>
+                              <p className="mt-1 text-[11px] text-muted-foreground">
+                                You can try asking a narrower question, or re-running the analysis with different project context.
+                              </p>
+                            </div>
+                          </div>
+                        ) : item.role === "assistant" ? (
+                          <ArtifactRenderer content={item.content} />
                         ) : (
-                          <span>You</span>
+                          <div className="whitespace-pre-wrap">{item.content}</div>
                         )}
                       </div>
-                      {item.role === "assistant" ? (
-                        <ArtifactRenderer content={item.content} />
-                      ) : (
-                        <div className="whitespace-pre-wrap">{item.content}</div>
-                      )}
-                    </div>
-                  ))
+                    );
+                  })
                 )}
                 {aiLoading && (
                   <div className="mx-auto flex w-full max-w-5xl items-center gap-2 rounded-xl border border-border bg-muted/50 p-4 text-sm text-muted-foreground" role="status">

@@ -79,9 +79,11 @@ export function StatusPanel({
             {description}
           </p>
           {reference && (
-            <p className="mt-4 text-xs text-muted-foreground">
-              Reference: <span className="font-mono">{reference}</span>
-            </p>
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-border/80 bg-muted/60 px-3.5 py-1 text-xs text-muted-foreground shadow-2xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[11px] font-medium">Tracking Code:</span>
+              <code className="font-mono font-semibold text-foreground">{reference}</code>
+            </div>
           )}
           {children && (
             <div className="mt-6 flex flex-col justify-center gap-2 sm:flex-row">

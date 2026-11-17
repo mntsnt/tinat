@@ -275,6 +275,21 @@ export function ProjectTeamChat({
       viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight < 72;
   }
 
+  const channelCounts = useMemo(() => {
+    const counts: Record<ChannelId, number> = {
+      general: 0,
+      protocol: 0,
+      data: 0,
+      manuscript: 0,
+      logistics: 0,
+    };
+    messages.forEach((msg) => {
+      const { channelId } = parseChannelAndContent(msg.content);
+      if (counts[channelId] !== undefined) counts[channelId]++;
+    });
+    return counts;
+  }, [messages]);
+
   const visibleMessages = messages.filter((message) => {
     const { channelId } = parseChannelAndContent(message.content);
     return channelId === activeChannel;
@@ -356,6 +371,7 @@ export function ProjectTeamChat({
           {channels.map((channel) => {
             const Icon = channel.icon;
             const isActive = activeChannel === channel.id;
+            const msgCount = channelCounts[channel.id] || 0;
             return (
               <button
                 key={channel.id}
@@ -367,12 +383,23 @@ export function ProjectTeamChat({
                 aria-pressed={isActive}
                 className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
                   isActive
-                    ? "bg-emerald-600 text-white shadow-sm"
-                    : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent"
+                    ? "border-emerald-600/40 bg-emerald-500/10 text-foreground ring-1 ring-emerald-500/20 shadow-sm dark:border-emerald-500/50 dark:bg-emerald-500/15 dark:ring-emerald-500/30"
+                    : "border border-transparent bg-muted/40 text-muted-foreground hover:border-border hover:bg-muted hover:text-foreground"
                 }`}
               >
-                <Icon className="h-3.5 w-3.5 shrink-0" />
+                <Icon className={`h-3.5 w-3.5 shrink-0 ${isActive ? "text-emerald-600 dark:text-emerald-400" : ""}`} />
                 <span className="capitalize">#{channel.label}</span>
+                {msgCount > 0 && (
+                  <span
+                    className={`ml-1 rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
+                      isActive
+                        ? "bg-emerald-600 text-white dark:bg-emerald-500 dark:text-zinc-950"
+                        : "bg-muted-foreground/15 text-muted-foreground"
+                    }`}
+                  >
+                    {msgCount}
+                  </span>
+                )}
               </button>
             );
           })}
