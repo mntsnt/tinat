@@ -343,7 +343,6 @@ export default function FieldCollectionPage() {
     return (
       <div className="min-h-screen bg-background flex flex-col p-5 max-w-lg mx-auto relative">
         <div className="flex-1 flex flex-col justify-center">
-          <div className="mb-6">{renderLanguageSelect()}</div>
           {languageWarning && (
             <p role="status" className="mb-4 text-xs text-amber-700 dark:text-amber-300">
               {languageWarning}
@@ -454,7 +453,6 @@ export default function FieldCollectionPage() {
 
       {/* Question Content */}
       <div className="flex-1 p-5 overflow-y-auto">
-        <div className="mb-4">{renderLanguageSelect()}</div>
         {languageWarning && (
           <p role="status" className="mb-4 text-xs text-amber-700 dark:text-amber-300">
             {languageWarning}

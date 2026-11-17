@@ -203,18 +203,23 @@ export default function NewFormPage() {
       const payload = {
         title: title.trim(),
         description: description.trim() || null,
-        questions: questions.map((q) => ({
-          text: q.text.trim(),
-          type: q.type,
-          required: q.required,
-          options: ["SINGLE_CHOICE", "MULTIPLE_CHOICE", "DROPDOWN"].includes(q.type)
-            ? q.options.map((opt) => opt.trim()).filter(Boolean)
-            : [],
-          scaleMin: q.type === "LINEAR_SCALE" ? q.scaleMin || 1 : undefined,
-          scaleMax: q.type === "LINEAR_SCALE" ? q.scaleMax || 5 : undefined,
-          scaleMinLabel: q.type === "LINEAR_SCALE" ? q.scaleMinLabel || "Poor" : undefined,
-          scaleMaxLabel: q.type === "LINEAR_SCALE" ? q.scaleMaxLabel || "Excellent" : undefined,
-        })),
+        questions: questions.map((q) => {
+          const isChoice = ["SINGLE_CHOICE", "MULTIPLE_CHOICE", "DROPDOWN"].includes(q.type);
+          let options = isChoice ? q.options.map((opt) => opt.trim()).filter(Boolean) : [];
+          if (isChoice && options.length === 0) {
+            options = ["Option 1", "Option 2"];
+          }
+          return {
+            text: q.text.trim(),
+            type: q.type,
+            required: q.required,
+            options,
+            scaleMin: q.type === "LINEAR_SCALE" ? Number(q.scaleMin) || 1 : undefined,
+            scaleMax: q.type === "LINEAR_SCALE" ? Number(q.scaleMax) || 5 : undefined,
+            scaleMinLabel: q.type === "LINEAR_SCALE" ? q.scaleMinLabel || "Poor" : undefined,
+            scaleMaxLabel: q.type === "LINEAR_SCALE" ? q.scaleMaxLabel || "Excellent" : undefined,
+          };
+        }),
       };
 
       const res = await fetch("/api/forms", {
@@ -232,6 +237,9 @@ export default function NewFormPage() {
       setCreatedFormId(data.form.id);
     } catch (err: any) {
       setError(err.message || "Failed to publish form.");
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } finally {
       setSaving(false);
     }

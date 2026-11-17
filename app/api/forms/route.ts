@@ -1,19 +1,22 @@
 import { NextResponse } from "next/server";
-import { getSession } from "@/lib/auth";
+import { requireUser } from "@/lib/authGuard";
 import { prisma } from "@/lib/prisma";
+import { logActivity } from "@/lib/activityLog";
 import type { QuestionType } from "@/generated/prisma/client";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const session = await getSession();
-    if (!session) {
-      return NextResponse.json({ error: "You must be logged in to view your forms." }, { status: 401 });
-    }
+    const auth = await requireUser(req);
+    if (!auth.ok) return auth.response;
+    const user = auth.user;
 
     const forms = await prisma.study.findMany({
       where: {
-        researcherId: session.userId,
-        category: "Tinat Form",
+        researcherId: user.id,
+        OR: [
+          { category: "Tinat Form" },
+          { tags: { has: "Tinat Form" } },
+        ],
       },
       include: {
         _count: {
@@ -35,16 +38,11 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const session = await getSession();
-    if (!session) {
-      return NextResponse.json({ error: "You must be logged in to create a Tinat Form." }, { status: 401 });
-    }
+    const auth = await requireUser(req);
+    if (!auth.ok) return auth.response;
+    const user = auth.user;
 
-    const user = await prisma.user.findUnique({
-      where: { id: session.userId },
-      select: { role: true },
-    });
-    if (!user || (user.role !== "RESEARCHER" && user.role !== "ADMIN")) {
+    if (user.role !== "RESEARCHER" && user.role !== "ADMIN") {
       return NextResponse.json(
         { error: "Participants cannot create research forms. Only researchers and administrators have permission." },
         { status: 403 }
@@ -74,25 +72,29 @@ export async function POST(req: Request) {
         description: typeof description === "string" && description.trim() ? description.trim() : null,
         bannerTheme: "canopy",
         status: "ACTIVE", // Forms are immediately active & ready to receive responses
-        studyType: "FREE_DATA_COLLECTION",
+        studyType: "SURVEY",
+        fundingType: "FREE",
         category: "Tinat Form",
         tags: ["Tinat Form", "Public Survey"],
+        creditPerResponse: 0,
+        creditBudget: 0,
+        creditsSpent: 0,
         rewardCredits: 0,
         budgetCredits: 0,
         creditsPaid: 0,
         participantTarget: 0,
         estimatedMinutes: 3,
-        researcherId: session.userId,
+        researcherId: user.id,
         questions: {
           create: questions.map((q: any, idx: number) => ({
             text: q.text.trim(),
             type: (q.type || "SHORT_TEXT") as QuestionType,
-            required: q.required ?? false,
+            required: Boolean(q.required),
             order: idx,
-            scaleMin: q.scaleMin,
-            scaleMax: q.scaleMax,
-            scaleMinLabel: q.scaleMinLabel,
-            scaleMaxLabel: q.scaleMaxLabel,
+            scaleMin: q.scaleMin !== undefined && q.scaleMin !== null ? Number(q.scaleMin) : null,
+            scaleMax: q.scaleMax !== undefined && q.scaleMax !== null ? Number(q.scaleMax) : null,
+            scaleMinLabel: typeof q.scaleMinLabel === "string" && q.scaleMinLabel.trim() ? q.scaleMinLabel.trim() : null,
+            scaleMaxLabel: typeof q.scaleMaxLabel === "string" && q.scaleMaxLabel.trim() ? q.scaleMaxLabel.trim() : null,
             options: {
               create: Array.isArray(q.options)
                 ? q.options
@@ -112,6 +114,14 @@ export async function POST(req: Request) {
           include: { options: true },
         },
       },
+    });
+
+    await logActivity({
+      userId: user.id,
+      action: "STUDY_CREATED",
+      description: `Created Tinat Form "${form.title}"`,
+      resourceId: form.id,
+      resourceType: "Study",
     });
 
     return NextResponse.json({ success: true, form });

@@ -292,18 +292,30 @@ export default function AdminCommunityPage() {
                 shouldFollowMessagesRef.current = true;
               }}
               aria-pressed={isActive}
-              className={`flex min-h-12 items-center gap-2.5 rounded-lg border px-3 text-left transition-colors ${
+              className={`flex min-h-12 items-center gap-2.5 rounded-lg border px-3 text-left transition-all ${
                 isActive
-                  ? "border-emerald-700/20 bg-emerald-700 text-white shadow-sm dark:border-emerald-500/30 dark:bg-emerald-600"
-                  : "border-transparent text-muted-foreground hover:border-border hover:bg-muted/60 hover:text-foreground"
+                  ? "border-emerald-600/40 bg-emerald-500/10 text-foreground ring-1 ring-emerald-500/20 shadow-sm dark:border-emerald-500/50 dark:bg-emerald-500/15 dark:ring-emerald-500/30"
+                  : "border-transparent bg-transparent text-muted-foreground hover:border-border hover:bg-muted/60 hover:text-foreground"
               }`}
             >
-              <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md ${isActive ? "bg-white/15" : "bg-muted"}`}>
+              <span
+                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md transition-colors ${
+                  isActive
+                    ? "bg-emerald-600 text-white dark:bg-emerald-500 dark:text-zinc-950 shadow-sm"
+                    : "bg-muted text-muted-foreground"
+                }`}
+              >
                 <Icon className="h-4 w-4" />
               </span>
               <span className="min-w-0">
-                <span className="block text-xs font-semibold capitalize">{channel.label}</span>
-                <span className={`block text-[10px] ${isActive ? "text-white/75" : "text-muted-foreground"}`}>
+                <span className={`block text-xs font-semibold capitalize ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
+                  {channel.label}
+                </span>
+                <span
+                  className={`block text-[10px] font-medium ${
+                    isActive ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground/80"
+                  }`}
+                >
                   {String(index + 1).padStart(2, "0")} / room
                 </span>
               </span>

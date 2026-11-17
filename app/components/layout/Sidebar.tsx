@@ -234,7 +234,7 @@ export function Sidebar({
     const collapsed = !mobile && isCollapsed;
     
     return (
-    <div className="relative border-t border-border p-2.5 shrink-0">
+    <div className="relative z-40 border-t border-border p-2.5 shrink-0">
       {accountMenuOpen && (
         <div
           role="menu"
@@ -260,20 +260,18 @@ export function Sidebar({
             <UserRound className="h-4 w-4 text-muted-foreground" />
             View profile
           </Link>
-          {roleColor !== "admin" && (
-            <Link
-              href={settingsHref}
-              role="menuitem"
-              onClick={() => {
-                setAccountMenuOpen(false);
-                if (mobile) closeMobileMenu();
-              }}
-              className="flex min-h-9 items-center gap-2.5 rounded-md px-3 py-2 text-[13px] text-foreground transition-colors hover:bg-muted"
-            >
-              <Settings className="h-4 w-4 text-muted-foreground" />
-              Settings
-            </Link>
-          )}
+          <Link
+            href={settingsHref}
+            role="menuitem"
+            onClick={() => {
+              setAccountMenuOpen(false);
+              if (mobile) closeMobileMenu();
+            }}
+            className="flex min-h-9 items-center gap-2.5 rounded-md px-3 py-2 text-[13px] text-foreground transition-colors hover:bg-muted"
+          >
+            <Settings className="h-4 w-4 text-muted-foreground" />
+            Settings
+          </Link>
           <div className="my-1 border-t border-border" />
           <button
             role="menuitem"
@@ -378,7 +376,7 @@ export function Sidebar({
         suppressHydrationWarning
         onTransitionEnd={() => setIsAnimating(false)}
         className={cn(
-          "sticky top-0 hidden h-full shrink-0 flex-col border-r border-border bg-card/70 md:flex",
+          "sticky top-0 z-40 hidden h-full shrink-0 flex-col border-r border-border bg-card/70 md:flex",
           isAnimating && "transition-[width] duration-200 ease-out",
           isCollapsed ? "w-16" : "w-56"
         )}
