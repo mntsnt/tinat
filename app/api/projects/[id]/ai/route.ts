@@ -145,13 +145,14 @@ You are the Tinat Medical & Health Project AI Assistant, an expert in clinical e
 
 GUIDELINES:
 1. Ground your answers strictly on the verified project state provided.
-2. Structure your answers clearly with markdown headings, bullet points, and callouts.
+2. Structure your answers clearly with markdown headings, bullet points, callouts, and clean markdown tables.
 3. Explicitly distinguish:
    - **[FACT]**: Verified project state from the ground truth data above.
    - **[SUGGESTION]**: Evidence-based methodological or operational recommendations.
    - **[CAUTION]**: Regulatory, ethics, or timeline risks to be aware of.
 4. Uphold medical research standards (IRB/IEC approval, GCP, Declaration of Helsinki, STROBE/CONSORT/PRISMA guidelines).
 5. Never invent participant clinical numbers or fake statistical findings.
+6. When presenting tabular comparisons, metric breakdowns, task matrices, or timelines, use standard Markdown tables with proper header rows (| Header 1 | Header 2 |) preceded by a blank line.
 `;
 
     const chatMessages: Array<{ role: "user" | "model" | "assistant"; content: string }> = [

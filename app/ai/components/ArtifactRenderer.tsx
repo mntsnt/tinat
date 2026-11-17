@@ -3,7 +3,36 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 const AI_MARKDOWN_CLASS =
-  "prose prose-sm dark:prose-invert max-w-none break-words [&>h1]:mb-3 [&>h1]:text-xl [&>h1]:font-semibold [&>h1]:tracking-tight [&>h2]:mt-7 [&>h2]:border-b [&>h2]:border-border [&>h2]:pb-2 [&>h2]:text-lg [&>h2]:font-semibold [&>h3]:mt-5 [&>h3]:text-base [&>h3]:font-semibold [&>p]:my-3 [&>p]:leading-7 [&>ul]:my-3 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:my-3 [&>ol]:list-decimal [&>ol]:pl-5 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-muted [&_pre]:p-3 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_blockquote]:border-primary/40 [&_blockquote]:text-muted-foreground [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-border [&_th]:bg-muted/50 [&_th]:p-2 [&_th]:text-left [&_td]:border [&_td]:border-border [&_td]:p-2";
+  "prose prose-sm dark:prose-invert max-w-none break-words [&>h1]:mb-3 [&>h1]:text-xl [&>h1]:font-semibold [&>h1]:tracking-tight [&>h2]:mt-7 [&>h2]:border-b [&>h2]:border-border [&>h2]:pb-2 [&>h2]:text-lg [&>h2]:font-semibold [&>h3]:mt-5 [&>h3]:text-base [&>h3]:font-semibold [&>p]:my-3 [&>p]:leading-7 [&>ul]:my-3 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:my-3 [&>ol]:list-decimal [&>ol]:pl-5 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-muted [&_pre]:p-3 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_blockquote]:border-primary/40 [&_blockquote]:text-muted-foreground";
+
+const markdownTableComponents = {
+  table: ({ node, ...props }: any) => (
+    <div className="my-4 w-full overflow-x-auto rounded-xl border border-border bg-card shadow-xs">
+      <table className="w-full min-w-full divide-y divide-border border-collapse text-left text-sm" {...props} />
+    </div>
+  ),
+  thead: ({ node, ...props }: any) => (
+    <thead className="border-b border-border bg-muted/70 text-xs font-semibold uppercase tracking-wider text-muted-foreground" {...props} />
+  ),
+  tbody: ({ node, ...props }: any) => (
+    <tbody className="divide-y divide-border/60 bg-card/40" {...props} />
+  ),
+  tr: ({ node, ...props }: any) => (
+    <tr className="transition-colors hover:bg-muted/40" {...props} />
+  ),
+  th: ({ node, ...props }: any) => (
+    <th className="px-4 py-3 font-semibold text-foreground border-r border-border/40 last:border-r-0 text-left align-middle" {...props} />
+  ),
+  td: ({ node, ...props }: any) => (
+    <td className="px-4 py-3 text-foreground/90 border-r border-border/30 last:border-r-0 align-top text-sm leading-relaxed" {...props} />
+  ),
+};
+
+function normalizeMarkdownTables(raw: string): string {
+  if (!raw) return "";
+  // Ensure a blank line before any markdown table row if preceded by text without a blank line
+  return raw.replace(/([^\n])\n(\|[^\n]+\|\n\|[-: |]+\|)/g, "$1\n\n$2");
+}
 
 type ArtifactRow = Record<string, unknown>;
 
@@ -69,7 +98,9 @@ export function ArtifactRenderer({ content }: { content: string }) {
   if (parts.length === 0) {
     return (
       <div className={AI_MARKDOWN_CLASS}>
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownTableComponents}>
+          {normalizeMarkdownTables(content)}
+        </ReactMarkdown>
       </div>
     );
   }
@@ -80,7 +111,9 @@ export function ArtifactRenderer({ content }: { content: string }) {
         if (part.type === "text") {
           return (
             <div key={index} className={AI_MARKDOWN_CLASS}>
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{part.content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownTableComponents}>
+                {normalizeMarkdownTables(part.content)}
+              </ReactMarkdown>
             </div>
           );
         }

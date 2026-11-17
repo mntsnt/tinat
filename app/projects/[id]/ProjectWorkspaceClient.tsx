@@ -45,10 +45,14 @@ import {
   Menu,
   X,
   Settings,
+  Maximize2,
+  Minimize2,
+  RotateCcw,
 } from "lucide-react";
 import { Upload } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { ArtifactRenderer } from "@/app/ai/components/ArtifactRenderer";
 import { ProjectTeamChat } from "./ProjectTeamChat";
 import { ProjectSettingsTab } from "./ProjectSettingsTab";
 import { useConfirm } from "@/app/components/ui/ConfirmDialog";
@@ -64,25 +68,25 @@ const PROJECT_AI_ACTIONS = [
     id: "SUMMARIZE_STATUS",
     label: "Executive Summary",
     desc: "Current progress & blockers",
-    requestText: "Generate an executive summary of this project.",
+    requestText: "Generate a structured executive summary of this project's status, progress, milestones, and blockers.",
   },
   {
     id: "CHECK_ETHICS_GAPS",
     label: "Ethics & Compliance Audit",
     desc: "IRB & STROBE/CONSORT checks",
-    requestText: "Review this project's ethics and compliance readiness.",
+    requestText: "Audit this project's ethical, regulatory, and methodological readiness (IRB, sensitive data, STROBE/CONSORT).",
   },
   {
     id: "GENERATE_MANUSCRIPT_OUTLINE",
     label: "IMRAD Manuscript Outline",
     desc: "Publication draft scaffolding",
-    requestText: "Prepare an IMRAD manuscript outline for this project.",
+    requestText: "Generate a publication-grade IMRAD manuscript outline and drafting scaffold for this project.",
   },
   {
     id: "DRAFT_TASK_BREAKDOWN",
     label: "Suggest Next Phase Tasks",
     desc: "Concrete actionable tasks",
-    requestText: "Suggest actionable tasks for the project's next phase.",
+    requestText: "Propose actionable, prioritized research tasks and next steps to advance this project.",
   },
 ] as const;
 
@@ -228,6 +232,17 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   const [isUploadingFile, setIsUploadingFile] = useState(false);
   const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
   const [isChatHeaderExpanded, setIsChatHeaderExpanded] = useState(false);
+  const [isAiMaximized, setIsAiMaximized] = useState(false);
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape" && isAiMaximized) {
+        setIsAiMaximized(false);
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isAiMaximized]);
 
   // Form states
   const [taskTitle, setTaskTitle] = useState("");
@@ -853,14 +868,14 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
   // AI Prompt execution
   async function handleAskAI(customQuery?: string, actionType?: string) {
-    const query = customQuery || aiPrompt;
-    if (!query.trim() && !actionType) return;
+    const actionObj = PROJECT_AI_ACTIONS.find((action) => action.id === actionType);
+    const query = (customQuery || (actionObj ? actionObj.requestText : aiPrompt)).trim();
+    if (!query && !actionType) return;
 
     setAiLoading(true);
-    const requestText = PROJECT_AI_ACTIONS.find((action) => action.id === actionType)?.requestText;
     const newHistory = [
       ...aiHistory,
-      { role: "user", content: query || requestText || "Run a project research task." },
+      { role: "user", content: query || "Run a project research task." },
     ];
     setAiHistory(newHistory);
     setAiPrompt("");
@@ -1164,99 +1179,120 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         {/* MAIN WORKSPACE CONTENT */}
         <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden bg-background">
           {/* Row: Hero Project Title, Study Badges & Lifecycle Progress */}
-          <div className="shrink-0 border-b border-border/60 bg-card/60 backdrop-blur-xs px-4 py-3 sm:px-6 lg:px-8 space-y-3">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div className="space-y-1 min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  {/* Study Design Badge */}
-                  <span className="rounded-md border border-border/80 bg-muted/60 px-2 py-0.5 text-[11px] font-semibold text-foreground uppercase tracking-wider">
-                    {project.studyDesign || project.category || "Observational Study"}
-                  </span>
+          {activeTab !== "ai" && activeTab !== "chat" ? (
+            <div className="shrink-0 border-b border-border/60 bg-card/60 backdrop-blur-xs px-4 py-3 sm:px-6 lg:px-8 space-y-3">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div className="space-y-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {/* Study Design Badge */}
+                    <span className="rounded-md border border-border/80 bg-muted/60 px-2 py-0.5 text-[11px] font-semibold text-foreground uppercase tracking-wider">
+                      {project.studyDesign || project.category || "Observational Study"}
+                    </span>
 
-                  {/* Visibility Badge */}
-                  {project.visibility === "PUBLIC" ? (
-                    <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-                      <Globe2 className="h-3 w-3" />
-                      Public Study
+                    {/* Visibility Badge */}
+                    {project.visibility === "PUBLIC" ? (
+                      <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                        <Globe2 className="h-3 w-3" />
+                        Public Study
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                        <Lock className="h-3 w-3" />
+                        Team Workspace
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Project Title */}
+                  <h1 className="text-lg font-bold tracking-tight text-foreground sm:text-xl lg:text-2xl leading-snug truncate">
+                    {project.title}
+                  </h1>
+
+                  {/* Lead Investigator & Institution */}
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+                    <span>
+                      Led by <strong className="font-semibold text-foreground">{project.lead?.name || "Research team"}</strong>
                     </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 rounded-md border border-border/80 bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-                      <Lock className="h-3 w-3" />
-                      Team Workspace
-                    </span>
-                  )}
+                    {project.institution && (
+                      <>
+                        <span className="text-muted-foreground/40">·</span>
+                        <span>{project.institution}</span>
+                      </>
+                    )}
+                    {project.category && (
+                      <>
+                        <span className="text-muted-foreground/40">·</span>
+                        <span>{project.category}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Research Phase Stepper Card */}
+              <div className="flex flex-col gap-2.5 rounded-lg border border-border/80 bg-muted/20 p-2.5 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                  <label htmlFor="project-phase" className="text-xs font-semibold text-muted-foreground">
+                    Research Phase:
+                  </label>
+                  <select
+                    id="project-phase"
+                    value={currentPhase}
+                    disabled={!auth?.canManageProject}
+                    onChange={(event) => handlePhaseChange(event.target.value)}
+                    className="rounded-md border border-input bg-background px-2.5 py-1 text-xs font-semibold text-foreground focus:border-primary focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 cursor-pointer"
+                  >
+                    {LIFECYCLE_PHASES.map((phase) => (
+                      <option key={phase} value={phase}>
+                        {phase.replace(/_/g, " ")}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="text-xs text-muted-foreground">
+                    Step <strong className="text-foreground">{currentPhaseIndex + 1}</strong> of {LIFECYCLE_PHASES.length}
+                  </span>
                 </div>
 
-                {/* Project Title */}
-                <h1 className="text-lg font-bold tracking-tight text-foreground sm:text-xl lg:text-2xl leading-snug truncate">
-                  {project.title}
-                </h1>
-
-                {/* Lead Investigator & Institution */}
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
-                  <span>
-                    Led by <strong className="font-semibold text-foreground">{project.lead?.name || "Research team"}</strong>
+                <div className="flex items-center gap-3 sm:w-1/3">
+                  <div
+                    className="h-2 flex-1 overflow-hidden rounded-full bg-muted border border-border/40"
+                    role="progressbar"
+                    aria-label="Research lifecycle progress"
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={Math.round(phaseProgress)}
+                  >
+                    <div
+                      className="h-full rounded-full bg-primary transition-[width] duration-300"
+                      style={{ width: `${phaseProgress}%` }}
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-foreground tabular-nums">
+                    {Math.round(phaseProgress)}%
                   </span>
-                  {project.institution && (
-                    <>
-                      <span className="text-muted-foreground/40">·</span>
-                      <span>{project.institution}</span>
-                    </>
-                  )}
-                  {project.category && (
-                    <>
-                      <span className="text-muted-foreground/40">·</span>
-                      <span>{project.category}</span>
-                    </>
-                  )}
                 </div>
               </div>
             </div>
-
-            {/* Research Phase Stepper Card */}
-            <div className="flex flex-col gap-2.5 rounded-lg border border-border/80 bg-muted/20 p-2.5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                <label htmlFor="project-phase" className="text-xs font-semibold text-muted-foreground">
-                  Research Phase:
-                </label>
-                <select
-                  id="project-phase"
-                  value={currentPhase}
-                  disabled={!auth?.canManageProject}
-                  onChange={(event) => handlePhaseChange(event.target.value)}
-                  className="rounded-md border border-input bg-background px-2.5 py-1 text-xs font-semibold text-foreground focus:border-primary focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 cursor-pointer"
-                >
-                  {LIFECYCLE_PHASES.map((phase) => (
-                    <option key={phase} value={phase}>
-                      {phase.replace(/_/g, " ")}
-                    </option>
-                  ))}
-                </select>
-                <span className="text-xs text-muted-foreground">
-                  Step <strong className="text-foreground">{currentPhaseIndex + 1}</strong> of {LIFECYCLE_PHASES.length}
+          ) : (
+            <div className="shrink-0 border-b border-border/60 bg-card/60 backdrop-blur-xs px-4 py-2 sm:px-6 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <span className="rounded-md border border-border/80 bg-muted/60 px-2 py-0.5 text-[11px] font-semibold text-foreground uppercase tracking-wider shrink-0">
+                  {project.studyDesign || project.category || "Observational Study"}
+                </span>
+                <span className="text-sm font-semibold text-foreground truncate">
+                  {project.title}
                 </span>
               </div>
-
-              <div className="flex items-center gap-3 sm:w-1/3">
-                <div
-                  className="h-2 flex-1 overflow-hidden rounded-full bg-muted border border-border/40"
-                  role="progressbar"
-                  aria-label="Research lifecycle progress"
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-valuenow={Math.round(phaseProgress)}
-                >
-                  <div
-                    className="h-full rounded-full bg-primary transition-[width] duration-300"
-                    style={{ width: `${phaseProgress}%` }}
-                  />
-                </div>
-                <span className="text-xs font-bold text-foreground tabular-nums">
+              <div className="flex items-center gap-2.5 shrink-0 text-xs text-muted-foreground">
+                <span className="hidden sm:inline">
+                  Phase: <strong className="text-foreground">{currentPhase.replace(/_/g, " ")}</strong>
+                </span>
+                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-bold text-primary">
                   {Math.round(phaseProgress)}%
                 </span>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Main Tab Content View */}
           <main
@@ -1999,8 +2035,8 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                                 {(auth?.canManageProject || auth?.canMakeDecisions) && <button type="button" onClick={() => handleDeleteNote(note.id, note.title)} aria-label={`Delete note ${note.title}`} className="rounded p-2 text-slate-500 hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-950/30"><Trash2 className="h-4 w-4" /></button>}
                               </div>
                             </div>
-                            <div className={`mt-4 border-t border-border/70 pt-3 ${PROJECT_MARKDOWN_CLASS}`}>
-                              <ReactMarkdown remarkPlugins={[remarkGfm]}>{note.content}</ReactMarkdown>
+                            <div className="mt-4 border-t border-border/70 pt-3">
+                              <ArtifactRenderer content={note.content} />
                             </div>
                           </article>
                         ))}
@@ -2055,17 +2091,15 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                                   {(auth?.canManageProject || discussion.author?.id === currentUserId) && <button type="button" onClick={() => handleDeleteDiscussion(discussion.id, discussion.title)} aria-label={`Delete discussion ${discussion.title}`} className="rounded p-2 text-slate-500 hover:bg-rose-50 hover:text-rose-700 dark:hover:bg-rose-950/30"><Trash2 className="h-4 w-4" /></button>}
                                 </div>
                               </div>
-                              <div className={`mt-4 border-t border-border/70 pt-3 ${PROJECT_MARKDOWN_CLASS}`}>
-                                <ReactMarkdown remarkPlugins={[remarkGfm]}>{discussion.content}</ReactMarkdown>
+                              <div className="mt-4 border-t border-border/70 pt-3">
+                                <ArtifactRenderer content={discussion.content} />
                               </div>
                             </div>
                             {activeDiscussion === discussion.id && (
                               <div className="space-y-3 border-t border-slate-200 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-950/30">
                                 {discussion.replies?.map((reply: ProjectDiscussionReplyView) => (
                                   <div key={reply.id} className="rounded-xl border border-border/60 bg-card p-3.5">
-                                    <div className={PROJECT_MARKDOWN_CLASS}>
-                                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{reply.content}</ReactMarkdown>
-                                    </div>
+                                    <ArtifactRenderer content={reply.content} />
                                     <div className="mt-3 flex items-center justify-between gap-3 border-t border-border/60 pt-2.5">
                                       <p className="text-xs text-slate-500">{reply.author?.name || "Team member"} · {new Date(reply.createdAt).toLocaleString()}</p>
                                       <button
@@ -2254,47 +2288,115 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
         {/* TAB 11: ASK PROJECT AI */}
         {activeTab === "ai" && (
-          <div className="flex h-full min-h-0 flex-1 flex-col space-y-4">
-            <div className="flex shrink-0 flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <h3 className="font-bold text-base text-foreground flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-primary" />
-                  Project assistant
-                </h3>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Ask about this project or choose a research task to get started.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex shrink-0 flex-wrap gap-2">
-              {PROJECT_AI_ACTIONS.map((act) => (
-                <button
-                  key={act.id}
-                  disabled={aiLoading}
-                  onClick={() => handleAskAI(undefined, act.id)}
-                  title={act.desc}
-                  aria-label={`${act.label}: ${act.desc}`}
-                  className="rounded-xl border border-border bg-card px-4 py-2.5 text-left text-xs text-foreground transition-colors hover:border-primary/30 hover:bg-muted disabled:opacity-50"
-                >
-                  <span className="font-medium">{act.label}</span>
-                </button>
-              ))}
-            </div>
-
+          <div
+            className={
+              isAiMaximized
+                ? "fixed inset-0 z-50 flex flex-col bg-background p-3 sm:p-5 shadow-2xl animate-in fade-in duration-150"
+                : "flex h-full min-h-0 flex-1 flex-col"
+            }
+          >
             <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+              {/* Header Bar */}
+              <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-border bg-muted/20 px-4 py-2.5 sm:px-6">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Sparkles className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-sm text-foreground flex items-center gap-2">
+                      Project AI Assistant
+                    </h3>
+                    <p className="text-xs text-muted-foreground hidden sm:block">
+                      Research intelligence grounded on this project's protocols, tasks, and data.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <div className="hidden md:flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1 text-xs text-muted-foreground">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="font-medium text-foreground">Google Gemini Flash</span>
+                    <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">Clinical AI</span>
+                  </div>
+
+                  {aiHistory.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setAiHistory([])}
+                      disabled={aiLoading}
+                      title="Clear chat history"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition-colors disabled:opacity-50"
+                    >
+                      <RotateCcw className="h-3.5 w-3.5 text-muted-foreground" />
+                      <span className="hidden sm:inline">Clear Chat</span>
+                    </button>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => setIsAiMaximized((prev) => !prev)}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition-colors shadow-2xs"
+                    title={isAiMaximized ? "Exit Fullscreen (Esc)" : "Expand AI Workspace to Fullscreen"}
+                  >
+                    {isAiMaximized ? (
+                      <>
+                        <Minimize2 className="h-3.5 w-3.5 text-primary" />
+                        <span className="hidden sm:inline">Exit Fullscreen</span>
+                      </>
+                    ) : (
+                      <>
+                        <Maximize2 className="h-3.5 w-3.5 text-primary" />
+                        <span className="hidden sm:inline">Expand View</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Quick Action Suggestion Chips */}
+              <div className="shrink-0 flex items-center gap-2 overflow-x-auto border-b border-border/60 bg-muted/10 px-4 py-2 sm:px-6">
+                <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider shrink-0 mr-1">
+                  Quick Tasks:
+                </span>
+                {PROJECT_AI_ACTIONS.map((act) => (
+                  <button
+                    key={act.id}
+                    disabled={aiLoading}
+                    onClick={() => handleAskAI(undefined, act.id)}
+                    title={act.desc}
+                    className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-border/80 bg-background px-3 py-1.5 text-xs font-medium text-foreground transition hover:border-primary/40 hover:bg-muted disabled:opacity-50"
+                  >
+                    <span>{act.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Chat Message Stream */}
               <div className="min-h-0 flex-1 space-y-5 overflow-y-auto p-4 sm:p-6 lg:p-8">
                 {aiHistory.length === 0 ? (
-                  <div className="flex min-h-[min(48vh,480px)] flex-col items-center justify-center p-6 text-center text-muted-foreground">
-                    <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10">
-                      <Sparkles className="h-6 w-6 text-primary" />
+                  <div className="flex h-full min-h-[300px] flex-col items-center justify-center p-6 text-center text-muted-foreground">
+                    <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10">
+                      <Sparkles className="h-7 w-7 text-primary" />
                     </span>
                     <h4 className="text-base font-semibold text-foreground sm:text-lg">
                       Research, with your project in context
                     </h4>
                     <p className="mt-2 max-w-lg text-sm leading-6">
-                      Ask about project progress, methodology, sample size, or your next steps.
+                      Ask about methodology, sample size, manuscript drafting, ethical review, or choose a quick research task below.
                     </p>
+                    <div className="mt-6 grid w-full max-w-2xl gap-2.5 sm:grid-cols-2 text-left">
+                      {PROJECT_AI_ACTIONS.map((act) => (
+                        <button
+                          key={act.id}
+                          disabled={aiLoading}
+                          onClick={() => handleAskAI(undefined, act.id)}
+                          className="rounded-xl border border-border bg-card p-3.5 text-left transition hover:border-primary/40 hover:bg-muted/60 disabled:opacity-50"
+                        >
+                          <div className="text-xs font-semibold text-foreground">{act.label}</div>
+                          <div className="mt-0.5 text-[11px] text-muted-foreground">{act.desc}</div>
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 ) : (
                   aiHistory.map((item, idx) => (
@@ -2302,11 +2404,11 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                       key={idx}
                       className={`mx-auto w-full max-w-5xl rounded-2xl border p-4 text-sm leading-7 sm:p-5 ${
                         item.role === "assistant"
-                          ? "border-border bg-muted/50 text-foreground"
+                          ? "border-border bg-card text-foreground shadow-2xs"
                           : "ml-8 max-w-[88%] border-primary/20 bg-primary/5 text-foreground sm:max-w-[80%]"
                       }`}
                     >
-                      <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                      <div className="mb-2.5 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
                         {item.role === "assistant" ? (
                           <>
                             <Sparkles className="w-3.5 h-3.5 text-primary" />
@@ -2317,11 +2419,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         )}
                       </div>
                       {item.role === "assistant" ? (
-                        <div className={PROJECT_MARKDOWN_CLASS}>
-                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                            {item.content}
-                          </ReactMarkdown>
-                        </div>
+                        <ArtifactRenderer content={item.content} />
                       ) : (
                         <div className="whitespace-pre-wrap">{item.content}</div>
                       )}
@@ -2331,42 +2429,44 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 {aiLoading && (
                   <div className="mx-auto flex w-full max-w-5xl items-center gap-2 rounded-xl border border-border bg-muted/50 p-4 text-sm text-muted-foreground" role="status">
                     <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                    <span>Reviewing project context...</span>
+                    <span>Analyzing project data and formulating research response...</span>
                   </div>
                 )}
               </div>
 
+              {/* Roomy Textarea Form */}
               <form
                 onSubmit={(event) => {
                   event.preventDefault();
                   handleAskAI();
                 }}
-                className="shrink-0 space-y-2 border-t border-border bg-background p-4 sm:p-5"
+                className="shrink-0 border-t border-border bg-background p-3 sm:p-4"
               >
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <div className="flex items-center gap-1.5">
-                    <Sparkles className="h-3.5 w-3.5 text-primary" />
-                    <span className="font-medium text-foreground">Google Gemini Flash</span>
-                    <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">Clinical AI</span>
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Ask a question about this project..."
+                <div className="flex gap-2.5 items-end">
+                  <textarea
+                    rows={2}
+                    placeholder="Ask a question about this project, request analysis, or press Shift+Enter for newline..."
                     value={aiPrompt}
                     onChange={(e) => setAiPrompt(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        if (aiPrompt.trim() && !aiLoading) {
+                          handleAskAI();
+                        }
+                      }
+                    }}
                     disabled={aiLoading}
                     aria-label="Ask a question about this project"
-                    className="min-h-12 min-w-0 flex-1 rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                    className="min-h-[56px] max-h-36 min-w-0 flex-1 resize-y rounded-xl border border-input bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
                   />
                   <button
                     type="submit"
                     disabled={aiLoading || !aiPrompt.trim()}
-                    className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+                    className="inline-flex h-[56px] shrink-0 items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
                   >
                     <Send className="h-4 w-4" />
-                    Send
+                    <span>Send</span>
                   </button>
                 </div>
               </form>
