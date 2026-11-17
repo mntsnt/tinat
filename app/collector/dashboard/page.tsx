@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ClipboardList, CheckCircle, XCircle, ChevronRight, Bell, ShieldCheck } from "lucide-react";
+import { ClipboardList, CheckCircle, XCircle, ChevronRight, Bell, ShieldCheck, Banknote, Wallet, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -9,6 +9,7 @@ export default function CollectorDashboardPage() {
   const router = useRouter();
   const [studies, setStudies] = useState<any[]>([]);
   const [invitations, setInvitations] = useState<any[]>([]);
+  const [totalPaidCents, setTotalPaidCents] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function CollectorDashboardPage() {
       if (studiesRes.ok) {
         const sData = await studiesRes.json();
         setStudies(sData.studies || []);
+        setTotalPaidCents(sData.totalPaidCents || 0);
       } else {
         // If 403, maybe not verified. Redirect?
         if (studiesRes.status === 403) router.push("/verify-email");
@@ -54,11 +56,31 @@ export default function CollectorDashboardPage() {
     }
   };
 
+  const totalResponses = studies.reduce(
+    (sum, s) => sum + (s.study?._count?.responses || 0),
+    0
+  );
+
+  const totalEarnedCents = studies.reduce((sum, s) => {
+    const responsesCount = s.study?._count?.responses || 0;
+    const payRateCents = s.study?.collectorPayRateCents || 0;
+    const payType = s.study?.collectorPayType;
+    if (payType === "FIXED") {
+      return sum + (responsesCount > 0 ? payRateCents : 0);
+    }
+    if (payType === "PER_RESPONSE") {
+      return sum + (responsesCount * payRateCents);
+    }
+    return sum;
+  }, 0);
+
+  const pendingCents = Math.max(0, totalEarnedCents - totalPaidCents);
+
   if (isLoading) return <div className="p-6 text-center text-muted-foreground">Loading Data Collection Dashboard...</div>;
 
   return (
     <div className="w-full px-4 py-6 md:px-7 md:py-8">
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
           <ClipboardList className="w-6 h-6 text-emerald-600" />
           Field Data Collection
@@ -66,6 +88,78 @@ export default function CollectorDashboardPage() {
         <p className="text-sm text-muted-foreground mt-1">
           Manage your field collection assignments and submit responses on behalf of participants.
         </p>
+      </div>
+
+      {/* Field Collector ETB Wallet Deck */}
+      <div className="mb-8 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 via-card to-card p-5 md:p-6 shadow-sm">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-border">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-emerald-600 text-white shadow-sm">
+              <Banknote className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-bold text-foreground">Field Collector ETB Wallet</h2>
+                <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                  Real Money ETB
+                </span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Compensation accrued after starting field data collection across assigned studies.
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/participant/wallet"
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition"
+          >
+            <Wallet className="w-4 h-4" />
+            <span>Open Wallet &amp; Payouts</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5">
+          <div className="p-4 rounded-xl bg-muted/40 border border-border">
+            <span className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold block mb-1">
+              Accrued / Payable
+            </span>
+            <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400">
+              {(pendingCents / 100).toFixed(2)} <span className="text-xs font-medium text-muted-foreground">ETB</span>
+            </span>
+            <p className="text-[11px] text-muted-foreground mt-1">Pending disbursement</p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-muted/40 border border-border">
+            <span className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold block mb-1">
+              Lifetime Earned
+            </span>
+            <span className="text-2xl font-black text-foreground">
+              {(totalEarnedCents / 100).toFixed(2)} <span className="text-xs font-medium text-muted-foreground">ETB</span>
+            </span>
+            <p className="text-[11px] text-muted-foreground mt-1">Total field earnings</p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-muted/40 border border-border">
+            <span className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold block mb-1">
+              Total Paid Out
+            </span>
+            <span className="text-2xl font-black text-foreground">
+              {(totalPaidCents / 100).toFixed(2)} <span className="text-xs font-medium text-muted-foreground">ETB</span>
+            </span>
+            <p className="text-[11px] text-muted-foreground mt-1">Settled direct payouts</p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-muted/40 border border-border">
+            <span className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold block mb-1">
+              Surveys Collected
+            </span>
+            <span className="text-2xl font-black text-foreground">
+              {totalResponses}
+            </span>
+            <p className="text-[11px] text-muted-foreground mt-1">Across {studies.length} active studies</p>
+          </div>
+        </div>
       </div>
 
       <div className="grid gap-6">

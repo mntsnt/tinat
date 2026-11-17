@@ -31,6 +31,8 @@ export async function GET(req: Request) {
             status: true,
             studyType: true,
             rewardCredits: true,
+            collectorPayType: true,
+            collectorPayRateCents: true,
             researcher: { select: { name: true } },
             _count: {
               select: {
@@ -48,7 +50,13 @@ export async function GET(req: Request) {
       orderBy: { assignedAt: "desc" },
     });
 
-    return NextResponse.json({ studies: assignedStudies });
+    const payouts = await prisma.collectorPayout.findMany({
+      where: { collectorUserId: user.id },
+      select: { amountCents: true },
+    });
+    const totalPaidCents = payouts.reduce((sum, p) => sum + p.amountCents, 0);
+
+    return NextResponse.json({ studies: assignedStudies, totalPaidCents });
   } catch (error) {
     return NextResponse.json({ error: "Internal error" }, { status: 500 });
   }

@@ -61,9 +61,9 @@ export function getLinksForUser(user: { role?: string; isCollector?: boolean } |
   
   const role = user.role?.toUpperCase();
   
-  if (role === "PARTICIPANT") {
+  if (role === "PARTICIPANT" || role === "DATA_COLLECTOR") {
     const links = [...participantLinks];
-    if (user.isCollector) {
+    if (user.isCollector || role === "DATA_COLLECTOR") {
       links.splice(links.length - 2, 0, { title: "Field Collection", href: "/collector/dashboard", icon: <ClipboardList /> });
     }
     return links;

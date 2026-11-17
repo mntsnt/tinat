@@ -8,6 +8,7 @@ import { isStudyBannerTheme } from "@/lib/studyBanners";
 import { FEATURES, CREDITS_DISCLAIMER } from "@/lib/config/features";
 import { checkResearcherAgreements } from "@/lib/governance/policies";
 import { calculateCollectorBudgetCents } from "@/lib/payments/collectorCompensation";
+import { calculateStudyRewardCredits } from "@/lib/credits/studyRewards";
 
 /*
 |--------------------------------------------------------------------------
@@ -233,7 +234,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const isFreeDataCollection = studyType === "FREE_DATA_COLLECTION" || rewardCredits === 0;
+    const isFreeDataCollection = studyType === "FREE_DATA_COLLECTION" || fundingType === "FREE";
 
     /*
     |--------------------------------------------------------------------------
@@ -352,50 +353,20 @@ export async function POST(request: Request) {
     let finalCreditBudget = 0;
 
     if (!isFree) {
-      const perResp = Number(creditPerResponse || rewardCredits || 0);
-      if (!Number.isInteger(perResp) || perResp <= 0) {
+      // Platform automatically calculates TC reward based on estimated completion time and question depth.
+      // Researchers do not manually specify credit amounts, ensuring standardized, fair participant compensation.
+      const questionCount = Array.isArray(questions) && questions.length > 0 ? questions.length : 1;
+      finalCreditPerResponse = calculateStudyRewardCredits(estimatedMinutes, questionCount);
+      finalCreditBudget = finalCreditPerResponse * parsedParticipantTarget;
+
+      if (finalCreditBudget > FEATURES.MAX_CREDIT_BUDGET_PER_STUDY) {
         return NextResponse.json(
           {
-            error: "Funded research requires a reward of at least 1 TC per participant.",
+            error: `Total credit budget cannot exceed the maximum platform limit of ${FEATURES.MAX_CREDIT_BUDGET_PER_STUDY} TC. Please adjust your participant target limit.`,
           },
           { status: 400 }
         );
       }
-
-      if (perResp > FEATURES.MAX_CREDITS_PER_RESPONSE) {
-        return NextResponse.json(
-          {
-            error: `Reward cannot exceed the maximum limit of ${FEATURES.MAX_CREDITS_PER_RESPONSE} TC per participant.`,
-          },
-          { status: 400 }
-        );
-      }
-
-      finalCreditPerResponse = perResp;
-      const calculatedBudget = finalCreditPerResponse * parsedParticipantTarget;
-      const reqBudget = creditBudget !== undefined && creditBudget !== null && creditBudget !== ""
-        ? Number(creditBudget)
-        : (budgetCredits !== undefined && budgetCredits !== null && budgetCredits !== "" ? Number(budgetCredits) : calculatedBudget);
-
-      if (!Number.isInteger(reqBudget) || reqBudget < finalCreditPerResponse) {
-        return NextResponse.json(
-          {
-            error: "Credit budget must be greater than or equal to credit per response.",
-          },
-          { status: 400 }
-        );
-      }
-
-      if (reqBudget > FEATURES.MAX_CREDIT_BUDGET_PER_STUDY) {
-        return NextResponse.json(
-          {
-            error: `Credit budget cannot exceed the maximum platform limit of ${FEATURES.MAX_CREDIT_BUDGET_PER_STUDY} TC.`,
-          },
-          { status: 400 }
-        );
-      }
-
-      finalCreditBudget = reqBudget;
     }
 
     /*

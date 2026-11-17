@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { STUDY_BANNERS, type StudyBannerTheme } from "@/lib/studyBanners";
 import { StudyBanner as StudyBannerPreview } from "../../../components/studies/StudyBanner";
+import { calculateStudyRewardCredits } from "@/lib/credits/studyRewards";
 
 type Question = {
   text: string;
@@ -58,7 +59,6 @@ export default function CreateStudyPage() {
   const [estimatedMinutes, setEstimatedMinutes] = useState(5);
   const [bannerTheme, setBannerTheme] = useState<StudyBannerTheme>("canopy");
 
-  const [rewardCredits, setRewardCredits] = useState(5);
   const [participantTarget, setParticipantTarget] = useState(25);
   const [collectorsNeeded, setCollectorsNeeded] = useState(0);
   const [collectorPayType, setCollectorPayType] = useState<"FIXED" | "PER_RESPONSE">("FIXED");
@@ -68,6 +68,12 @@ export default function CreateStudyPage() {
   const [questions, setQuestions] = useState<Question[]>([
     { text: "", type: "SHORT_TEXT", required: true, options: [] },
   ]);
+
+  // Platform-determined participant TC reward (calculated from duration and question depth)
+  const rewardCredits =
+    studyType === "FREE_DATA_COLLECTION"
+      ? 0
+      : calculateStudyRewardCredits(estimatedMinutes, questions.length);
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -532,7 +538,7 @@ export default function CreateStudyPage() {
             </CardTitle>
             <CardDescription>
               {studyType === "FUNDED"
-                ? "Allocate Tinat Credits to reward each verified participant."
+                ? "Participant rewards are standardized by the platform based on required study time and question depth."
                 : "Free data collection requires no financial deposit or participant incentives."}
             </CardDescription>
           </CardHeader>
@@ -540,24 +546,28 @@ export default function CreateStudyPage() {
             {studyType === "FUNDED" ? (
               <div>
                 <div className="grid gap-6 md:grid-cols-2">
-                  <div className="space-y-1.5">
-                    <label className="block text-sm font-medium text-foreground">
-                      Reward per participant (TC) <span className="text-destructive">*</span>
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="number"
-                        min="1"
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors"
-                        value={rewardCredits}
-                        onChange={(e) => setRewardCredits(Math.max(1, Number(e.target.value)))}
-                      />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span className="text-xs font-bold text-muted-foreground">TC</span>
-                      </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="block text-sm font-medium text-foreground">
+                        Platform-Determined Reward
+                      </label>
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                        <Sparkles className="w-3 h-3" /> Auto-Standardized
+                      </span>
                     </div>
-                    <p className="text-xs text-muted-foreground">
-                      Minimum 1 TC. Higher rewards increase participant engagement.
+                    <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3.5 flex items-center justify-between">
+                      <div>
+                        <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                          {rewardCredits} <span className="text-xs font-semibold text-muted-foreground uppercase">TC / response</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Calculated for {estimatedMinutes} min &bull; {questions.length} {questions.length === 1 ? "question" : "questions"}
+                        </p>
+                      </div>
+                      <Coins className="w-6 h-6 text-emerald-600/40" />
+                    </div>
+                    <p className="text-[11px] text-muted-foreground leading-relaxed">
+                      The platform automatically determines participant TC to ensure fair compensation across all research studies.
                     </p>
                   </div>
 
