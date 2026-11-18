@@ -7,8 +7,14 @@ import {
   LoaderCircle,
   Search,
   Trash2,
+  Quote,
+  Check,
 } from "lucide-react";
-import type { ScholarXivPaper } from "@/lib/scholarxiv";
+import {
+  type ScholarXivPaper,
+  generateApaCitation,
+  generateBibtex,
+} from "@/lib/scholarxiv";
 
 interface SavedReference extends ScholarXivPaper {
   id: string;
@@ -22,6 +28,15 @@ interface ProjectLiteratureTabProps {
 }
 
 function PaperDetails({ paper }: { paper: ScholarXivPaper }) {
+  const [copiedCite, setCopiedCite] = useState(false);
+
+  function copyCitation() {
+    const text = generateApaCitation(paper);
+    void navigator.clipboard.writeText(text);
+    setCopiedCite(true);
+    setTimeout(() => setCopiedCite(false), 2000);
+  }
+
   return (
     <>
       <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
@@ -41,7 +56,7 @@ function PaperDetails({ paper }: { paper: ScholarXivPaper }) {
       <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-foreground/90">
         {paper.abstract}
       </p>
-      <div className="mt-3 flex flex-wrap gap-3 text-sm">
+      <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
         <a
           href={paper.paperUrl}
           target="_blank"
@@ -68,6 +83,24 @@ function PaperDetails({ paper }: { paper: ScholarXivPaper }) {
             DOI <ExternalLink className="h-3.5 w-3.5" />
           </a>
         )}
+        <button
+          type="button"
+          onClick={copyCitation}
+          className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground transition ml-auto"
+          title="Copy APA Citation"
+        >
+          {copiedCite ? (
+            <>
+              <Check className="h-3.5 w-3.5 text-emerald-600" />
+              <span className="text-emerald-600 font-semibold">Copied APA!</span>
+            </>
+          ) : (
+            <>
+              <Quote className="h-3.5 w-3.5" />
+              <span>Copy APA Citation</span>
+            </>
+          )}
+        </button>
       </div>
     </>
   );

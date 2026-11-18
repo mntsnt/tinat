@@ -23,7 +23,7 @@ export default async function ResearcherLayout({ children }: { children: ReactNo
     select: { id: true, role: true, name: true, email: true, avatarUrl: true, isVerified: true },
   });
 
-  if (!user || user.role !== "RESEARCHER") {
+  if (!user || (user.role !== "RESEARCHER" && user.role !== "ADMIN")) {
     redirect("/dashboard");
   }
 

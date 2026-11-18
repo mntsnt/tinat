@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/Card";
 import { Input } from "../../../components/ui/Input";
@@ -25,6 +25,8 @@ import {
   ShieldAlert,
   ChevronUp,
   ChevronDown,
+  BookOpen,
+  ExternalLink,
 } from "lucide-react";
 import { STUDY_BANNERS, type StudyBannerTheme } from "@/lib/studyBanners";
 import { StudyBanner as StudyBannerPreview } from "../../../components/studies/StudyBanner";
@@ -43,7 +45,27 @@ type Question = {
 };
 
 export default function CreateStudyPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-64 items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
+        </div>
+      }
+    >
+      <CreateStudyForm />
+    </Suspense>
+  );
+}
+
+function CreateStudyForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const literatureTitle = searchParams.get("literatureTitle");
+  const literatureArxiv = searchParams.get("literatureArxiv");
+  const literatureAuthors = searchParams.get("literatureAuthors");
+  const literatureAbstract = searchParams.get("literatureAbstract");
 
   const [category, setCategory] = useState<HealthCategory>("Public Health");
   const [title, setTitle] = useState("");
@@ -81,6 +103,23 @@ export default function CreateStudyPage() {
       .then((data) => setFaydaVerified(Boolean(data.faydaVerified)))
       .catch(() => {});
   }, []);
+
+  // Pre-fill study information if researcher navigated from ScholarXIV Literature
+  useEffect(() => {
+    if (literatureTitle) {
+      setTitle((prev) => prev || `Study on ${literatureTitle.slice(0, 90)}`);
+    }
+    if (literatureArxiv) {
+      setObjective((prev) =>
+        prev ||
+        `Grounded by prior research on "${literatureTitle || "literature"}" (arXiv:${literatureArxiv}), this study measures localized community response patterns and health outcomes.`
+      );
+      setDescription((prev) =>
+        prev ||
+        `Theoretical rationale & literature grounding (arXiv:${literatureArxiv}):\n${literatureAbstract ? `${literatureAbstract.slice(0, 450)}...\n\n` : ""}Investigate field response trends and assess quantitative outcomes across targeted Ethiopian cohorts.`
+      );
+    }
+  }, [literatureTitle, literatureArxiv, literatureAbstract]);
 
   const validCollectorPayRate = /^\d{1,9}(?:\.\d{1,2})?$/.test(collectorPayRate);
   const collectorPayRateCents = validCollectorPayRate
@@ -255,11 +294,58 @@ export default function CreateStudyPage() {
             Medical & Health Research
           </span>
         </div>
-        <h1 className="text-xl font-bold tracking-tight text-foreground">Create Health Study</h1>
-        <p className="text-muted-foreground mt-1">
-          Design your clinical questionnaire or health survey and define participant criteria.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-xl font-bold tracking-tight text-foreground">Create Health Study</h1>
+            <p className="text-muted-foreground mt-1">
+              Design your clinical questionnaire or health survey and define participant criteria.
+            </p>
+          </div>
+          <Link
+            href="/researcher/literature"
+            className="inline-flex items-center gap-2 self-start rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3.5 py-2 text-xs font-semibold text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 transition shadow-xs"
+          >
+            <BookOpen className="w-4 h-4 text-emerald-600" />
+            <span>ScholarXIV Literature</span>
+          </Link>
+        </div>
       </div>
+
+      {literatureArxiv ? (
+        <div className="mb-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4 flex items-start justify-between gap-3 shadow-xs">
+          <div className="flex items-start gap-3">
+            <span className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 shrink-0 mt-0.5">
+              <BookOpen className="w-5 h-5" />
+            </span>
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                Grounded by ScholarXIV Research
+              </span>
+              <h2 className="text-sm font-bold text-foreground mt-0.5">{literatureTitle}</h2>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                arXiv:{literatureArxiv} &bull; {literatureAuthors || "Authors listed in preprint"}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <a
+              href={`https://arxiv.org/abs/${literatureArxiv}`}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 hover:underline"
+            >
+              <span>arXiv</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+            <Link
+              href="/researcher/literature"
+              className="text-xs font-semibold text-muted-foreground hover:text-foreground"
+            >
+              Change
+            </Link>
+          </div>
+        </div>
+      ) : null}
 
       {faydaVerified === false && (
         <div className="rounded-xl p-4 bg-amber-500/10 border border-amber-500/30 text-xs text-amber-900 dark:text-amber-200 leading-relaxed flex items-start justify-between gap-4 mb-6">
