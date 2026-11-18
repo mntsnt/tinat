@@ -11,11 +11,14 @@ import {
   ArrowRight,
   CheckCircle2,
   Layers,
+  BookOpen,
+  MapPin,
+  Coins,
 } from "lucide-react";
 
 interface Feature {
   id: string;
-  category: "all" | "forms" | "studies" | "projects" | "ask" | "ai";
+  category: "all" | "literature" | "studies" | "field" | "projects" | "forms" | "ask" | "ai";
   badge: string;
   title: string;
   summary: string;
@@ -26,75 +29,109 @@ interface Feature {
 }
 
 const FEATURE_TABS: Array<{ id: Feature["category"]; label: string }> = [
-  { id: "all", label: "All Features" },
-  { id: "forms", label: "Tinat Forms" },
-  { id: "studies", label: "Studies" },
+  { id: "all", label: "All Capabilities" },
+  { id: "literature", label: "ScholarXIV Literature" },
+  { id: "studies", label: "Studies & TC Rewards" },
+  { id: "field", label: "Field Collection (ETB)" },
   { id: "projects", label: "Research Projects" },
+  { id: "forms", label: "Tinat Forms" },
   { id: "ask", label: "Tinat Ask" },
   { id: "ai", label: "Tinat AI" },
 ];
 
 const FEATURES: Feature[] = [
   {
-    id: "tinat-forms",
-    category: "forms",
-    badge: "Form Studio",
-    title: "Tinat Forms & Questionnaires",
+    id: "scholarxiv-literature",
+    category: "literature",
+    badge: "Preprint Search & Citations",
+    title: "ScholarXIV Literature Discovery",
     summary:
-      "Design and publish dynamic questionnaires, feedback surveys, and observational checklists with single-choice, Likert scales, and skip logic.",
-    icon: ClipboardCheck,
+      "Explore millions of arXiv open-access papers directly on Tinat. Ground your study proposals in empirical science, generate 1-click BibTeX/APA citations, and extract AI methodology suggestions.",
+    icon: BookOpen,
     highlights: [
-      "Intuitive form builder with versatile question types",
-      "Instant shareable links and mobile-ready response collection",
-      "Real-time answer aggregations and clean Excel/CSV exports",
+      "Full-text search across arXiv preprints, medicine, AI, and biostatistics",
+      "Instant 1-click citation export in BibTeX, APA 7th, MLA 9th, and Chicago formats",
+      "Direct paper bookmarking to research projects and 1-click study prefill",
     ],
-    link: "/forms/new",
-    linkLabel: "Build a Form",
+    link: "/researcher/literature",
+    linkLabel: "Search ScholarXIV",
   },
   {
     id: "studies",
     category: "studies",
-    badge: "Research Cohorts",
-    title: "Studies & Participant Recruitment",
+    badge: "Digital Cohorts & TC",
+    title: "Digital Data Collection & TC Rewards",
     summary:
-      "Launch observational surveys and academic investigations with targeted participant cohorts, optional non-cash credit incentives (TC), or free participation.",
+      "Publish health studies, observational cohorts, and pilot surveys at zero cost. Tinat automatically issues standardized Tinat Credits (TC) to participants based on survey duration and question count.",
     icon: Stethoscope,
     highlights: [
-      "Targeted demographic filters and participant capacity quotas",
-      "Optional credit rewards (Tinat Credits) for higher response rates",
-      "Real-time progress analytics and verified response verification",
+      "Zero cost for researchers & students to publish data collection studies",
+      "Platform-calculated Tinat Credits (TC) rewarding participant time and effort",
+      "Standardized participant demographics and instant coded Excel/CSV dataset exports",
     ],
     link: "/participant/studies",
-    linkLabel: "Discover Studies",
+    linkLabel: "Explore Studies",
+  },
+  {
+    id: "ground-field-collection",
+    category: "field",
+    badge: "Rural & In-Person Surveys",
+    title: "Ground Field Collection & ETB Payouts",
+    summary:
+      "Overcome the digital divide by deploying trained field enumerators who conduct in-person verbal interviews in rural and low-smartphone communities, earning real compensation in Ethiopian Birr (ETB).",
+    icon: MapPin,
+    highlights: [
+      "Offline-friendly mobile collection in Amharic, Afaan Oromo, Tigrinya, and Somali",
+      "Direct compensation in Ethiopian Birr (ETB) with dedicated enumerator wallet tracking",
+      "Verbal informed consent protocols adhering to Ethiopian research ethics",
+    ],
+    link: "/collector/dashboard",
+    linkLabel: "Field Collection Hub",
   },
   {
     id: "research-projects",
     category: "projects",
-    badge: "Team Science",
-    title: "Collaborative Research Projects",
+    badge: "Team Science & Tasks",
+    title: "Collaborative Research Workspaces",
     summary:
-      "Full-lifecycle collaborative workspaces for university faculties, hospitals, and NGO research teams to manage studies from proposal to publication.",
+      "End-to-end project management for university departments, clinical teams, and cross-institutional investigators with role-based access, milestone tracking, and task Kanban boards.",
     icon: Users,
     highlights: [
-      "6 granular team role tiers (PI, Co-Investigator, Analyst, Assistant)",
-      "Milestone Kanban task tracking and real-time team chat",
-      "Categorized file repository with version control and audited logs",
+      "Granular team role tiers (Lead, Co-Investigator, Analyst, Assistant, Viewer)",
+      "Interactive Kanban task boards with status filtering and team assignment",
+      "Centralized project literature reference binder and audited team chat rooms",
     ],
     link: "/projects",
     linkLabel: "Open Workspaces",
   },
   {
+    id: "tinat-forms",
+    category: "forms",
+    badge: "Independent Form Studio",
+    title: "Tinat Forms & Questionnaires",
+    summary:
+      "Build standalone dynamic surveys, event registrations, and clinical checklists with rating scales, matrix grids, date pickers, and instant public sharing links.",
+    icon: ClipboardCheck,
+    highlights: [
+      "Versatile question types including single-choice, rating scales, and matrix grids",
+      "Public response collection without mandatory participant registration",
+      "Real-time answer aggregations, response analytics, and clean data exports",
+    ],
+    link: "/forms/new",
+    linkLabel: "Build a Form",
+  },
+  {
     id: "tinat-ask",
     category: "ask",
-    badge: "Confidential Q&A",
-    title: "Tinat Ask & Visual Question Decks",
+    badge: "Public & Peer Q&A",
+    title: "Tinat Ask & Visual Question Cards",
     summary:
-      "Create your public or confidential Q&A page, receive honest questions from students or peers, and export sleek branded visual question cards for social sharing.",
+      "Host your personal research Q&A portal, receive thoughtful questions from students or peers, and export sleek branded visual cards optimized for academic social sharing.",
     icon: MessageCircleQuestion,
     highlights: [
-      "Personal public handle for honest inquiry and community questions",
-      "One-click visual deck card exporter formatted for social media",
-      "Audited responses with public and private answer workflows",
+      "Custom public handle for academic inquiries, student guidance, and peer feedback",
+      "Instant visual question deck exporter formatted for social and presentation sharing",
+      "Controlled workflow supporting public answers or private direct correspondence",
     ],
     link: "/ask",
     linkLabel: "Explore Tinat Ask",
@@ -102,15 +139,15 @@ const FEATURES: Feature[] = [
   {
     id: "tinat-ai",
     category: "ai",
-    badge: "Research Co-Pilot",
-    title: "Tinat AI for Researchers",
+    badge: "Ethical Research Co-Pilot",
+    title: "Tinat AI Scientific Assistant",
     summary:
-      "Accelerate scientific investigations with an intelligent research assistant that helps synthesize literature, formulate hypotheses, and draft questionnaires.",
+      "Accelerate scientific workflows with multi-model AI (Google Gemini & NVIDIA) designed to draft questionnaire schemas, synthesize literature, and advise on Ethiopian field methodologies.",
     icon: Sparkles,
     highlights: [
-      "Grounded querying on authorized study datasets without data exposure",
-      "Automated drafting of questionnaire schemas and research protocols",
-      "Context-aware scientific assistant powered by Google Gemini",
+      "Strict data protection under Ethiopian Proclamation 1321/2024 compliance",
+      "Automated drafting of structured survey questions and research objectives",
+      "Multi-model provider support with seamless contextual assistance",
     ],
     link: "/ai",
     linkLabel: "Launch Tinat AI",

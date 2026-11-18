@@ -45,7 +45,7 @@ export const researcherLinks: SidebarLink[] = [
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },
   { title: "My Studies", href: "/researcher/studies", icon: <BookOpenCheck /> },
   { title: "Research Projects", href: "/projects", icon: <Workflow /> },
-  { title: "ScholarXIV Literature", href: "/researcher/literature", icon: <BookOpen /> },
+  { title: "Literature", href: "/researcher/literature", icon: <BookOpen /> },
 ];
 
 export const adminLinks: SidebarLink[] = [
@@ -56,7 +56,7 @@ export const adminLinks: SidebarLink[] = [
   { title: "Verifications", href: "/admin/verifications", icon: <ShieldCheck /> },
   { title: "Moderation", href: "/admin/moderation", icon: <BrainCircuit /> },
   { title: "Admin Community", href: "/admin/community", icon: <MessageCircleMore /> },
-  { title: "ScholarXIV Literature", href: "/researcher/literature", icon: <BookOpen /> },
+  { title: "Literature", href: "/researcher/literature", icon: <BookOpen /> },
   { title: "Activity Logs", href: "/admin/logs", icon: <ScrollText /> },
   { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },

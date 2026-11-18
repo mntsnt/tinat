@@ -13,6 +13,12 @@ import {
   Apple,
   Dna,
   GraduationCap,
+  BookOpen,
+  MapPin,
+  Workflow,
+  ShieldCheck,
+  FileSpreadsheet,
+  Quote,
 } from "lucide-react";
 import type { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
@@ -53,6 +59,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col flex-1 bg-background text-foreground overflow-x-hidden">
+      {/* Hero Section */}
       <section className="relative isolate overflow-hidden border-b border-border bg-gradient-to-b from-emerald-50/70 via-background to-background pt-12 pb-14 dark:from-emerald-950/25 sm:pt-16 sm:pb-18 lg:pt-20 lg:pb-20">
         <div aria-hidden="true" className="pointer-events-none absolute -right-36 -top-40 h-[28rem] w-[28rem] rounded-full border border-emerald-900/[0.06] dark:border-emerald-100/[0.06]" />
         <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-24 h-[20rem] w-[20rem] rounded-full border border-emerald-900/[0.06] dark:border-emerald-100/[0.06]" />
@@ -61,19 +68,19 @@ export default async function Home() {
             <div className="relative z-10 space-y-6 sm:space-y-7">
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-700/15 bg-white/70 px-3.5 py-1.5 text-xs font-semibold text-emerald-800 shadow-sm dark:border-emerald-300/20 dark:bg-emerald-950/50 dark:text-emerald-300">
                 <Stethoscope className="h-4 w-4" />
-                Medical & Health Research Ecosystem
+                Scientific Research & Verified Data Ecosystem
               </div>
 
               <h1 className="max-w-2xl text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
-                Advance health research.
+                Advance scientific discovery.
                 <br />
                 <span className="text-emerald-700 dark:text-emerald-400">
-                  Collect verified data.
+                  Collect verified field & digital data.
                 </span>
               </h1>
 
               <p className="max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-                Have a health question to explore, or want to take part in a study? Tinat makes it easier for researchers and participants to connect.
+                From ScholarXIV literature discovery and clinical questionnaire design, to online cohorts rewarded in Tinat Credits (TC) and rural field enumerators compensated in ETB—Tinat powers every phase of scientific investigation.
               </p>
 
               <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
@@ -82,16 +89,25 @@ export default async function Home() {
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </ButtonLink>
                 <ButtonLink href="/participant/studies" variant="outline" size="lg" className="h-12 w-full rounded-xl border-emerald-900/15 bg-background/70 px-6 text-sm font-semibold hover:bg-emerald-50 dark:border-emerald-100/20 dark:hover:bg-emerald-950/50 sm:w-auto">
-                  Discover Studies
+                  Discover Studies & Earn TC
                 </ButtonLink>
+                <Link
+                  href="/researcher/literature"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 text-sm font-semibold text-foreground hover:bg-muted transition"
+                >
+                  <BookOpen className="h-4 w-4 text-emerald-600" />
+                  <span>ScholarXIV Literature</span>
+                </Link>
               </div>
 
               <div className="flex flex-wrap gap-x-5 gap-y-2.5 pt-1">
                 {[
-                  "Digital & Field Data Collection",
-                  "Verified Participant Cohorts",
-                  "Confidential & Coded Data",
-                  "Tinat Credits (TC) Rewards",
+                  "ScholarXIV Literature & arXiv Discovery",
+                  "Platform-Determined TC Rewards",
+                  "Ground Field Enumerators (ETB)",
+                  "Collaborative Workspaces & Kanban",
+                  "Independent Tinat Forms",
+                  "Coded & Confidential Data",
                 ].map((feature) => (
                   <span key={feature} className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
@@ -181,6 +197,7 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Platform Activity & Scope */}
       <section className="relative z-10 mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="rounded-2xl border border-border bg-card p-5 shadow-lg shadow-emerald-950/[0.04] sm:p-8">
           <div className="flex flex-col justify-between gap-4 border-b border-border pb-5 sm:flex-row sm:items-center">
@@ -231,6 +248,92 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* End-to-End Scientific Research Lifecycle Flow */}
+      <section className="relative z-10 py-16 lg:py-20 bg-background border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="text-center space-y-3 max-w-3xl mx-auto">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+              End-to-End Scientific Workflow
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
+              From literature discovery to publication
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+              Tinat connects preprint discovery, clinical questionnaire drafting, hybrid data collection, and academic citations into one seamless platform.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              {
+                step: "01",
+                icon: BookOpen,
+                title: "Literature & arXiv Discovery",
+                description:
+                  "Search millions of ScholarXIV preprints, inspect prior methodology, extract study hypotheses, and generate 1-click BibTeX/APA citations.",
+                link: "/researcher/literature",
+                linkLabel: "Discover Literature",
+              },
+              {
+                step: "02",
+                icon: ClipboardCheck,
+                title: "Survey & Form Design",
+                description:
+                  "Design structured questionnaires with Likert scales, matrix grids, and multi-language support (Amharic, Afaan Oromo, Tigrinya, Somali), or build standalone Tinat Forms.",
+                link: "/researcher/studies/new",
+                linkLabel: "Design Study",
+              },
+              {
+                step: "03",
+                icon: Coins,
+                title: "Hybrid Data Collection",
+                description:
+                  "Collect digital responses with platform-issued TC incentives, or deploy trained field enumerators for verbal interviews earning real compensation in ETB.",
+                link: "/#pathways",
+                linkLabel: "Explore Pathways",
+              },
+              {
+                step: "04",
+                icon: Workflow,
+                title: "Team Workspaces & Publishing",
+                description:
+                  "Track milestones on Kanban task boards, export clean coded Excel/CSV datasets, cite literature references, and publish peer-reviewed research.",
+                link: "/projects",
+                linkLabel: "View Workspaces",
+              },
+            ].map((card) => (
+              <div
+                key={card.step}
+                className="relative rounded-2xl border border-border bg-card p-6 shadow-xs flex flex-col justify-between transition hover:border-emerald-500/40 hover:shadow-md"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg">
+                      Phase {card.step}
+                    </span>
+                    <card.icon className="w-5 h-5 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-base font-bold text-foreground mb-2">
+                    {card.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {card.description}
+                  </p>
+                </div>
+                <div className="pt-4 mt-4 border-t border-border">
+                  <Link
+                    href={card.link}
+                    className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                  >
+                    {card.linkLabel} <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Feature Capabilities Snapshot */}
       <FeatureSnapshot />
 
@@ -263,20 +366,20 @@ export default async function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-3">Digital Data Collection</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  Ideal for academic dissertations, observational surveys, epidemiological cohorts, and pilot health questionnaires. Publish freely with zero credit deposits. Tinat automatically issues standardized Tinat Credits (TC) to participants based on survey duration and question depth.
+                  Ideal for academic dissertations, observational surveys, epidemiological cohorts, and clinical health questionnaires. Publish freely with zero credit deposits. Tinat automatically issues standardized Tinat Credits (TC) to participants based on survey duration and question depth.
                 </p>
                 <ul className="space-y-2.5 text-xs text-foreground/90 mb-8">
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Zero cost to publish &mdash; no credit deposits required
+                    Zero cost to publish &mdash; no credit deposits or platform fees required
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Automated platform-issued Tinat Credits (TC) for participants
+                    Automated platform-issued Tinat Credits (TC) rewarding participant time
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Targeted cohort demographics, capacity caps, and instant export
+                    Targeted cohort demographics, capacity caps, and instant coded Excel export
                   </li>
                 </ul>
               </div>
@@ -290,28 +393,28 @@ export default async function Home() {
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="p-3 rounded-xl bg-primary/10 text-primary dark:text-teal-400">
-                    <Users className="w-6 h-6" />
+                    <MapPin className="w-6 h-6" />
                   </div>
                   <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-teal-400 bg-primary/10 px-3 py-1 rounded-full">
-                    Field Collectors &bull; ETB Compensation
+                    Field Enumerators &bull; ETB Compensation
                   </span>
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-3">Ground Field Collection</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  Designed for on-the-ground rural and urban health assessments. Recruit and deploy trained field enumerators who conduct in-person verbal interviews and record responses directly. Compensate field collectors in real Ethiopian Birr (ETB).
+                  Designed for on-the-ground rural and urban health assessments. Recruit and deploy trained field enumerators who conduct in-person verbal interviews and record responses directly in local languages. Compensate field collectors in real Ethiopian Birr (ETB).
                 </p>
                 <ul className="space-y-2.5 text-xs text-foreground/90 mb-8">
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    Dedicated field collector recruitment and assignment workflow
+                    Dedicated field collector recruitment, assignment, and progress tracking
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    Real-money compensation in ETB (Fixed or Per-Response rates)
+                    Real-money compensation in ETB with dedicated enumerator wallet deck
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    Inclusive rural data collection without requiring participant smartphones
+                    Inclusive rural data collection in local languages without requiring participant smartphones
                   </li>
                 </ul>
               </div>
@@ -380,3 +483,4 @@ export default async function Home() {
     </div>
   );
 }
+
