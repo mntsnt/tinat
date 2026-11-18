@@ -438,6 +438,7 @@ export type UserWhereInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyListRelationFilter
   projectMemberships?: Prisma.ProjectMemberListRelationFilter
   projectNotes?: Prisma.ProjectNoteListRelationFilter
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceListRelationFilter
   assignedProjectTasks?: Prisma.ProjectTaskListRelationFilter
   createdProjectTasks?: Prisma.ProjectTaskListRelationFilter
   leadProjects?: Prisma.ResearchProjectListRelationFilter
@@ -518,6 +519,7 @@ export type UserOrderByWithRelationInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyOrderByRelationAggregateInput
   projectMemberships?: Prisma.ProjectMemberOrderByRelationAggregateInput
   projectNotes?: Prisma.ProjectNoteOrderByRelationAggregateInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceOrderByRelationAggregateInput
   assignedProjectTasks?: Prisma.ProjectTaskOrderByRelationAggregateInput
   createdProjectTasks?: Prisma.ProjectTaskOrderByRelationAggregateInput
   leadProjects?: Prisma.ResearchProjectOrderByRelationAggregateInput
@@ -601,6 +603,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   linkedProjectStudies?: Prisma.ProjectLinkedStudyListRelationFilter
   projectMemberships?: Prisma.ProjectMemberListRelationFilter
   projectNotes?: Prisma.ProjectNoteListRelationFilter
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceListRelationFilter
   assignedProjectTasks?: Prisma.ProjectTaskListRelationFilter
   createdProjectTasks?: Prisma.ProjectTaskListRelationFilter
   leadProjects?: Prisma.ResearchProjectListRelationFilter
@@ -755,6 +758,7 @@ export type UserCreateInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -835,6 +839,7 @@ export type UserUncheckedCreateInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -915,6 +920,7 @@ export type UserUpdateInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -995,6 +1001,7 @@ export type UserUncheckedUpdateInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -1654,6 +1661,20 @@ export type UserUpdateOneRequiredWithoutProjectNotesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectNotesInput, Prisma.UserUpdateWithoutProjectNotesInput>, Prisma.UserUncheckedUpdateWithoutProjectNotesInput>
 }
 
+export type UserCreateNestedOneWithoutProjectLiteratureReferencesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectLiteratureReferencesInput, Prisma.UserUncheckedCreateWithoutProjectLiteratureReferencesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectLiteratureReferencesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectLiteratureReferencesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectLiteratureReferencesInput, Prisma.UserUncheckedCreateWithoutProjectLiteratureReferencesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectLiteratureReferencesInput
+  upsert?: Prisma.UserUpsertWithoutProjectLiteratureReferencesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectLiteratureReferencesInput, Prisma.UserUpdateWithoutProjectLiteratureReferencesInput>, Prisma.UserUncheckedUpdateWithoutProjectLiteratureReferencesInput>
+}
+
 export type UserCreateNestedOneWithoutProjectDiscussionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProjectDiscussionsInput, Prisma.UserUncheckedCreateWithoutProjectDiscussionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectDiscussionsInput
@@ -1993,6 +2014,7 @@ export type UserCreateWithoutStudiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -2072,6 +2094,7 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -2167,6 +2190,7 @@ export type UserUpdateWithoutStudiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -2246,6 +2270,7 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -2325,6 +2350,7 @@ export type UserCreateWithoutBookmarksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -2404,6 +2430,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -2499,6 +2526,7 @@ export type UserUpdateWithoutBookmarksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -2578,6 +2606,7 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -2657,6 +2686,7 @@ export type UserCreateWithoutRatingsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -2736,6 +2766,7 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -2831,6 +2862,7 @@ export type UserUpdateWithoutRatingsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -2910,6 +2942,7 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -2989,6 +3022,7 @@ export type UserCreateWithoutLikesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -3068,6 +3102,7 @@ export type UserUncheckedCreateWithoutLikesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -3163,6 +3198,7 @@ export type UserUpdateWithoutLikesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -3242,6 +3278,7 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -3321,6 +3358,7 @@ export type UserCreateWithoutCommentsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -3400,6 +3438,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -3495,6 +3534,7 @@ export type UserUpdateWithoutCommentsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -3574,6 +3614,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -3652,6 +3693,7 @@ export type UserCreateWithoutNotificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -3731,6 +3773,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -3826,6 +3869,7 @@ export type UserUpdateWithoutNotificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -3905,6 +3949,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -3984,6 +4029,7 @@ export type UserCreateWithoutActivityLogsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -4063,6 +4109,7 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -4158,6 +4205,7 @@ export type UserUpdateWithoutActivityLogsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -4237,6 +4285,7 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -4316,6 +4365,7 @@ export type UserCreateWithoutAdminChatMessagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -4395,6 +4445,7 @@ export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -4490,6 +4541,7 @@ export type UserUpdateWithoutAdminChatMessagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -4569,6 +4621,7 @@ export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -4649,6 +4702,7 @@ export type UserCreateWithoutParticipantLinksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -4728,6 +4782,7 @@ export type UserUncheckedCreateWithoutParticipantLinksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -4823,6 +4878,7 @@ export type UserUpdateWithoutParticipantLinksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -4902,6 +4958,7 @@ export type UserUncheckedUpdateWithoutParticipantLinksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -4981,6 +5038,7 @@ export type UserCreateWithoutDataSubjectRequestsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -5060,6 +5118,7 @@ export type UserUncheckedCreateWithoutDataSubjectRequestsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -5155,6 +5214,7 @@ export type UserUpdateWithoutDataSubjectRequestsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -5234,6 +5294,7 @@ export type UserUncheckedUpdateWithoutDataSubjectRequestsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -5313,6 +5374,7 @@ export type UserCreateWithoutCollectedResponsesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -5392,6 +5454,7 @@ export type UserUncheckedCreateWithoutCollectedResponsesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -5487,6 +5550,7 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -5566,6 +5630,7 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -5645,6 +5710,7 @@ export type UserCreateWithoutWalletInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -5724,6 +5790,7 @@ export type UserUncheckedCreateWithoutWalletInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -5819,6 +5886,7 @@ export type UserUpdateWithoutWalletInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -5898,6 +5966,7 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -5977,6 +6046,7 @@ export type UserCreateWithoutLedgerAccountInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -6056,6 +6126,7 @@ export type UserUncheckedCreateWithoutLedgerAccountInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -6151,6 +6222,7 @@ export type UserUpdateWithoutLedgerAccountInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -6230,6 +6302,7 @@ export type UserUncheckedUpdateWithoutLedgerAccountInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -6309,6 +6382,7 @@ export type UserCreateWithoutStudyPaymentsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -6388,6 +6462,7 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -6483,6 +6558,7 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -6562,6 +6638,7 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -6641,6 +6718,7 @@ export type UserCreateWithoutCollectorFundingVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -6720,6 +6798,7 @@ export type UserUncheckedCreateWithoutCollectorFundingVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -6815,6 +6894,7 @@ export type UserUpdateWithoutCollectorFundingVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -6894,6 +6974,7 @@ export type UserUncheckedUpdateWithoutCollectorFundingVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -6973,6 +7054,7 @@ export type UserCreateWithoutCollectorPayoutsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -7052,6 +7134,7 @@ export type UserUncheckedCreateWithoutCollectorPayoutsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -7136,6 +7219,7 @@ export type UserCreateWithoutRecordedCollectorPayoutsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -7215,6 +7299,7 @@ export type UserUncheckedCreateWithoutRecordedCollectorPayoutsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -7310,6 +7395,7 @@ export type UserUpdateWithoutCollectorPayoutsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -7389,6 +7475,7 @@ export type UserUncheckedUpdateWithoutCollectorPayoutsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -7479,6 +7566,7 @@ export type UserUpdateWithoutRecordedCollectorPayoutsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -7558,6 +7646,7 @@ export type UserUncheckedUpdateWithoutRecordedCollectorPayoutsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -7637,6 +7726,7 @@ export type UserCreateWithoutWithdrawalsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -7716,6 +7806,7 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -7811,6 +7902,7 @@ export type UserUpdateWithoutWithdrawalsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -7890,6 +7982,7 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -7968,6 +8061,7 @@ export type UserCreateWithoutAskProfileInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -8047,6 +8141,7 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -8142,6 +8237,7 @@ export type UserUpdateWithoutAskProfileInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -8221,6 +8317,7 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -8301,6 +8398,7 @@ export type UserCreateWithoutLeadProjectsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
@@ -8380,6 +8478,7 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
@@ -8475,6 +8574,7 @@ export type UserUpdateWithoutLeadProjectsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
@@ -8554,6 +8654,7 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
@@ -8632,6 +8733,7 @@ export type UserCreateWithoutProjectMembershipsInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -8711,6 +8813,7 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -8806,6 +8909,7 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -8885,6 +8989,7 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -8964,6 +9069,7 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -9043,6 +9149,7 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -9138,6 +9245,7 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -9217,6 +9325,7 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -9297,6 +9406,7 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
@@ -9376,6 +9486,7 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
@@ -9460,6 +9571,7 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
@@ -9539,6 +9651,7 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
   collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
@@ -9634,6 +9747,7 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
@@ -9713,6 +9827,7 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
@@ -9803,6 +9918,7 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
@@ -9882,6 +9998,7 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
   collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
@@ -9960,6 +10077,7 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -10039,6 +10157,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -10134,6 +10253,7 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -10213,6 +10333,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -10292,6 +10413,7 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -10371,6 +10493,7 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -10466,6 +10589,7 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -10545,6 +10669,7 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -10624,6 +10749,7 @@ export type UserCreateWithoutProjectNotesInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -10703,6 +10829,7 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -10798,6 +10925,7 @@ export type UserUpdateWithoutProjectNotesInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -10877,6 +11005,343 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutProjectLiteratureReferencesInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutProjectLiteratureReferencesInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutProjectLiteratureReferencesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectLiteratureReferencesInput, Prisma.UserUncheckedCreateWithoutProjectLiteratureReferencesInput>
+}
+
+export type UserUpsertWithoutProjectLiteratureReferencesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectLiteratureReferencesInput, Prisma.UserUncheckedUpdateWithoutProjectLiteratureReferencesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectLiteratureReferencesInput, Prisma.UserUncheckedCreateWithoutProjectLiteratureReferencesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectLiteratureReferencesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectLiteratureReferencesInput, Prisma.UserUncheckedUpdateWithoutProjectLiteratureReferencesInput>
+}
+
+export type UserUpdateWithoutProjectLiteratureReferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectLiteratureReferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -10956,6 +11421,7 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -11035,6 +11501,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -11130,6 +11597,7 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -11209,6 +11677,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -11288,6 +11757,7 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -11367,6 +11837,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -11462,6 +11933,7 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -11541,6 +12013,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -11620,6 +12093,7 @@ export type UserCreateWithoutProjectDiscussionReactionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -11699,6 +12173,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionReactionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -11794,6 +12269,7 @@ export type UserUpdateWithoutProjectDiscussionReactionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -11873,6 +12349,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReactionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -11952,6 +12429,7 @@ export type UserCreateWithoutProjectDiscussionReplyReactionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -12031,6 +12509,7 @@ export type UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -12126,6 +12605,7 @@ export type UserUpdateWithoutProjectDiscussionReplyReactionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -12205,6 +12685,7 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -12284,6 +12765,7 @@ export type UserCreateWithoutProjectDecisionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -12363,6 +12845,7 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -12458,6 +12941,7 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -12537,6 +13021,7 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -12616,6 +13101,7 @@ export type UserCreateWithoutProjectActivitiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -12695,6 +13181,7 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -12790,6 +13277,7 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -12869,6 +13357,7 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -12948,6 +13437,7 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -13027,6 +13517,7 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -13122,6 +13613,7 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -13201,6 +13693,7 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -13280,6 +13773,7 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -13359,6 +13853,7 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -13454,6 +13949,7 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -13533,6 +14029,7 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -13612,6 +14109,7 @@ export type UserCreateWithoutAiConversationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -13691,6 +14189,7 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -13786,6 +14285,7 @@ export type UserUpdateWithoutAiConversationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -13865,6 +14365,7 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -13944,6 +14445,7 @@ export type UserCreateWithoutAiUsagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -14023,6 +14525,7 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -14118,6 +14621,7 @@ export type UserUpdateWithoutAiUsagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -14197,6 +14701,7 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -14277,6 +14782,7 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -14356,6 +14862,7 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -14440,6 +14947,7 @@ export type UserCreateWithoutVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -14519,6 +15027,7 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -14614,6 +15123,7 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -14693,6 +15203,7 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -14783,6 +15294,7 @@ export type UserUpdateWithoutVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -14862,6 +15374,7 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -14941,6 +15454,7 @@ export type UserCreateWithoutAssignedStudiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -15020,6 +15534,7 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -15115,6 +15630,7 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -15194,6 +15710,7 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -15272,6 +15789,7 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -15351,6 +15869,7 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -15435,6 +15954,7 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -15514,6 +16034,7 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -15609,6 +16130,7 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -15688,6 +16210,7 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -15778,6 +16301,7 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -15857,6 +16381,7 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -15937,6 +16462,7 @@ export type UserCreateWithoutCollectorApplicationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -16016,6 +16542,7 @@ export type UserUncheckedCreateWithoutCollectorApplicationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -16111,6 +16638,7 @@ export type UserUpdateWithoutCollectorApplicationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -16190,6 +16718,7 @@ export type UserUncheckedUpdateWithoutCollectorApplicationsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -16268,6 +16797,7 @@ export type UserCreateWithoutCollectionSessionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -16347,6 +16877,7 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -16442,6 +16973,7 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -16521,6 +17053,7 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -16601,6 +17134,7 @@ export type UserCreateWithoutVerifiedEthicsApprovalsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -16680,6 +17214,7 @@ export type UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -16775,6 +17310,7 @@ export type UserUpdateWithoutVerifiedEthicsApprovalsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -16854,6 +17390,7 @@ export type UserUncheckedUpdateWithoutVerifiedEthicsApprovalsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -16933,6 +17470,7 @@ export type UserCreateWithoutModerationReportsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -17012,6 +17550,7 @@ export type UserUncheckedCreateWithoutModerationReportsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -17107,6 +17646,7 @@ export type UserUpdateWithoutModerationReportsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -17186,6 +17726,7 @@ export type UserUncheckedUpdateWithoutModerationReportsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -17265,6 +17806,7 @@ export type UserCreateWithoutPlatformConsentRecordsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
@@ -17344,6 +17886,7 @@ export type UserUncheckedCreateWithoutPlatformConsentRecordsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
   projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
   projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
   leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
@@ -17439,6 +17982,7 @@ export type UserUpdateWithoutPlatformConsentRecordsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
@@ -17518,6 +18062,7 @@ export type UserUncheckedUpdateWithoutPlatformConsentRecordsInput = {
   linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
   projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
   assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
   createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
   leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
@@ -17571,6 +18116,7 @@ export type UserCountOutputType = {
   linkedProjectStudies: number
   projectMemberships: number
   projectNotes: number
+  projectLiteratureReferences: number
   assignedProjectTasks: number
   createdProjectTasks: number
   leadProjects: number
@@ -17618,6 +18164,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   linkedProjectStudies?: boolean | UserCountOutputTypeCountLinkedProjectStudiesArgs
   projectMemberships?: boolean | UserCountOutputTypeCountProjectMembershipsArgs
   projectNotes?: boolean | UserCountOutputTypeCountProjectNotesArgs
+  projectLiteratureReferences?: boolean | UserCountOutputTypeCountProjectLiteratureReferencesArgs
   assignedProjectTasks?: boolean | UserCountOutputTypeCountAssignedProjectTasksArgs
   createdProjectTasks?: boolean | UserCountOutputTypeCountCreatedProjectTasksArgs
   leadProjects?: boolean | UserCountOutputTypeCountLeadProjectsArgs
@@ -17798,6 +18345,13 @@ export type UserCountOutputTypeCountProjectMembershipsArgs<ExtArgs extends runti
  */
 export type UserCountOutputTypeCountProjectNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProjectNoteWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectLiteratureReferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectLiteratureReferenceWhereInput
 }
 
 /**
@@ -18015,6 +18569,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   linkedProjectStudies?: boolean | Prisma.User$linkedProjectStudiesArgs<ExtArgs>
   projectMemberships?: boolean | Prisma.User$projectMembershipsArgs<ExtArgs>
   projectNotes?: boolean | Prisma.User$projectNotesArgs<ExtArgs>
+  projectLiteratureReferences?: boolean | Prisma.User$projectLiteratureReferencesArgs<ExtArgs>
   assignedProjectTasks?: boolean | Prisma.User$assignedProjectTasksArgs<ExtArgs>
   createdProjectTasks?: boolean | Prisma.User$createdProjectTasksArgs<ExtArgs>
   leadProjects?: boolean | Prisma.User$leadProjectsArgs<ExtArgs>
@@ -18166,6 +18721,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   linkedProjectStudies?: boolean | Prisma.User$linkedProjectStudiesArgs<ExtArgs>
   projectMemberships?: boolean | Prisma.User$projectMembershipsArgs<ExtArgs>
   projectNotes?: boolean | Prisma.User$projectNotesArgs<ExtArgs>
+  projectLiteratureReferences?: boolean | Prisma.User$projectLiteratureReferencesArgs<ExtArgs>
   assignedProjectTasks?: boolean | Prisma.User$assignedProjectTasksArgs<ExtArgs>
   createdProjectTasks?: boolean | Prisma.User$createdProjectTasksArgs<ExtArgs>
   leadProjects?: boolean | Prisma.User$leadProjectsArgs<ExtArgs>
@@ -18221,6 +18777,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     linkedProjectStudies: Prisma.$ProjectLinkedStudyPayload<ExtArgs>[]
     projectMemberships: Prisma.$ProjectMemberPayload<ExtArgs>[]
     projectNotes: Prisma.$ProjectNotePayload<ExtArgs>[]
+    projectLiteratureReferences: Prisma.$ProjectLiteratureReferencePayload<ExtArgs>[]
     assignedProjectTasks: Prisma.$ProjectTaskPayload<ExtArgs>[]
     createdProjectTasks: Prisma.$ProjectTaskPayload<ExtArgs>[]
     leadProjects: Prisma.$ResearchProjectPayload<ExtArgs>[]
@@ -18694,6 +19251,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   linkedProjectStudies<T extends Prisma.User$linkedProjectStudiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$linkedProjectStudiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectLinkedStudyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projectMemberships<T extends Prisma.User$projectMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projectNotes<T extends Prisma.User$projectNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectLiteratureReferences<T extends Prisma.User$projectLiteratureReferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectLiteratureReferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectLiteratureReferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedProjectTasks<T extends Prisma.User$assignedProjectTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedProjectTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdProjectTasks<T extends Prisma.User$createdProjectTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdProjectTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   leadProjects<T extends Prisma.User$leadProjectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$leadProjectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResearchProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -19691,6 +20249,30 @@ export type User$projectNotesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ProjectNoteScalarFieldEnum | Prisma.ProjectNoteScalarFieldEnum[]
+}
+
+/**
+ * User.projectLiteratureReferences
+ */
+export type User$projectLiteratureReferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectLiteratureReference
+   */
+  select?: Prisma.ProjectLiteratureReferenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectLiteratureReference
+   */
+  omit?: Prisma.ProjectLiteratureReferenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectLiteratureReferenceInclude<ExtArgs> | null
+  where?: Prisma.ProjectLiteratureReferenceWhereInput
+  orderBy?: Prisma.ProjectLiteratureReferenceOrderByWithRelationInput | Prisma.ProjectLiteratureReferenceOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectLiteratureReferenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectLiteratureReferenceScalarFieldEnum | Prisma.ProjectLiteratureReferenceScalarFieldEnum[]
 }
 
 /**

@@ -50,6 +50,7 @@ model User {
   linkedProjectStudies            ProjectLinkedStudy[]
   projectMemberships              ProjectMember[]
   projectNotes                    ProjectNote[]
+  projectLiteratureReferences     ProjectLiteratureReference[]     @relation("LiteratureReferenceAdder")
   assignedProjectTasks            ProjectTask[]                    @relation("TaskAssignee")
   createdProjectTasks             ProjectTask[]                    @relation("TaskCreator")
   leadProjects                    ResearchProject[]                @relation("ProjectLead")
@@ -603,6 +604,7 @@ model ResearchProject {
   members          ProjectMember[]
   milestones       ProjectMilestone[]
   notes            ProjectNote[]
+  literatureReferences ProjectLiteratureReference[]
   outputs          ProjectOutput[]
   tasks            ProjectTask[]
   lead             User                 @relation("ProjectLead", fields: [projectLeadId], references: [id], onDelete: Cascade)
@@ -742,6 +744,26 @@ model ProjectNote {
   project   ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([projectId, category])
+}
+
+model ProjectLiteratureReference {
+  id              String          @id @default(cuid())
+  projectId       String
+  addedById       String
+  arxivId         String
+  title           String
+  abstract        String
+  authors         String[]        @default([])
+  publishedAt     DateTime?
+  primaryCategory String?
+  categories      String[]        @default([])
+  doi             String?
+  savedAt         DateTime        @default(now())
+  addedBy         User            @relation("LiteratureReferenceAdder", fields: [addedById], references: [id], onDelete: Cascade)
+  project         ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, arxivId])
+  @@index([projectId, savedAt])
 }
 
 model ProjectDiscussion {

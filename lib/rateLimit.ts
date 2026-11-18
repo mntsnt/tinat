@@ -12,7 +12,8 @@ export type RateLimitPreset =
   | "EMAIL_VERIFICATION"
   | "PASSWORD_RESET"
   | "SUBMISSION"
-  | "CHAT";
+  | "CHAT"
+  | "SCHOLARXIV";
 
 const PRESET_CONFIGS: Record<RateLimitPreset, { max: number; windowMs: number }> = {
   LOGIN: { max: 25, windowMs: 15 * 60 * 1000 }, // 25 attempts / 15m
@@ -21,6 +22,7 @@ const PRESET_CONFIGS: Record<RateLimitPreset, { max: number; windowMs: number }>
   PASSWORD_RESET: { max: 15, windowMs: 15 * 60 * 1000 }, // 15 / 15m
   SUBMISSION: { max: 60, windowMs: 60 * 1000 }, // 60 / 1m
   CHAT: { max: 60, windowMs: 60 * 1000 }, // 60 / 1m
+  SCHOLARXIV: { max: 15, windowMs: 60 * 1000 },
 };
 
 const store = new Map<string, RateLimitRecord>();

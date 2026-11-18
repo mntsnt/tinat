@@ -11,6 +11,7 @@ A modern, AI-powered health research and clinical data ecosystem that connects r
 - **Data Visualization Studio** – Generate real-time statistical distributions, cross-tabulations, and demographic charts.
 - **Save & Bookmark Studies** – Like, bookmark, and follow active health studies for quick reference.
 - **Discussions & Feedback** – Comment and participate in threaded academic discussions on study findings and methodologies.
+- **Literature Discovery** – Search ScholarXIV research papers and save references to project bibliographies.
 - **Public Profile Viewing** – View detailed profiles of researchers, investigators, and community participants across all studies.
 - **Tinat Credits (TC) & Wallet** – Automated and transparent participant compensation integrated with Chapa payments.
 - **Export Options** – Download datasets in CSV, Excel, and structured formats for SPSS, Stata, R, and Python.
@@ -42,7 +43,7 @@ A modern, AI-powered health research and clinical data ecosystem that connects r
    ```bash
    cp .env.example .env
    ```
-   Fill in your PostgreSQL `DATABASE_URL`, `AUTH_SECRET`, and `GEMINI_API_KEY`.
+   Fill in your PostgreSQL `DATABASE_URL`, `AUTH_SECRET`, and `GEMINI_API_KEY`. Set `SCHOLARXIV_API_KEY` to enable project literature search; keep this key server-side and never prefix it with `NEXT_PUBLIC_`.
 
 4. **Initialize database schema**
    ```bash

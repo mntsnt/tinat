@@ -88,6 +88,7 @@ export const ModelName = {
   ProjectFile: 'ProjectFile',
   ProjectFileVersion: 'ProjectFileVersion',
   ProjectNote: 'ProjectNote',
+  ProjectLiteratureReference: 'ProjectLiteratureReference',
   ProjectDiscussion: 'ProjectDiscussion',
   ProjectDiscussionReply: 'ProjectDiscussionReply',
   ProjectDiscussionReaction: 'ProjectDiscussionReaction',
@@ -724,6 +725,24 @@ export const ProjectNoteScalarFieldEnum = {
 } as const
 
 export type ProjectNoteScalarFieldEnum = (typeof ProjectNoteScalarFieldEnum)[keyof typeof ProjectNoteScalarFieldEnum]
+
+
+export const ProjectLiteratureReferenceScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  addedById: 'addedById',
+  arxivId: 'arxivId',
+  title: 'title',
+  abstract: 'abstract',
+  authors: 'authors',
+  publishedAt: 'publishedAt',
+  primaryCategory: 'primaryCategory',
+  categories: 'categories',
+  doi: 'doi',
+  savedAt: 'savedAt'
+} as const
+
+export type ProjectLiteratureReferenceScalarFieldEnum = (typeof ProjectLiteratureReferenceScalarFieldEnum)[keyof typeof ProjectLiteratureReferenceScalarFieldEnum]
 
 
 export const ProjectDiscussionScalarFieldEnum = {

@@ -54,6 +54,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ArtifactRenderer } from "@/app/ai/components/ArtifactRenderer";
 import { ProjectTeamChat } from "./ProjectTeamChat";
+import { ProjectLiteratureTab } from "./ProjectLiteratureTab";
 import { ProjectSettingsTab } from "./ProjectSettingsTab";
 import { useConfirm } from "@/app/components/ui/ConfirmDialog";
 import { TinatLogo } from "@/app/components/ui/TinatLogo";
@@ -203,7 +204,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     | "ai"
     | "settings"
   >("overview");
-  const [recordTab, setRecordTab] = useState<"milestones" | "notes" | "discussions" | "decisions" | "outputs">("milestones");
+  const [recordTab, setRecordTab] = useState<"milestones" | "notes" | "discussions" | "decisions" | "outputs" | "bibliography">("milestones");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Tab sub-states
@@ -1942,7 +1943,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 <div>
                   <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Research log</h2>
                   <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                    Keep project milestones, working notes, team discussion, decisions, and deliverables together.
+                    Keep milestones, notes, discussions, decisions, deliverables, and literature references together.
                   </p>
                 </div>
 
@@ -1953,6 +1954,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     ["discussions", "Discussions", project.discussions?.length || 0],
                     ["decisions", "Decision log", project.decisions?.length || 0],
                     ["outputs", "Deliverables", project.outputs?.length || 0],
+                    ["bibliography", "Bibliography", null],
                   ] as const).map(([id, label, count]) => (
                     <button
                       key={id}
@@ -1968,10 +1970,17 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                           : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white"
                       }`}
                     >
-                      {label} <span className="ml-1 text-xs text-slate-400">{count}</span>
+                      {label} {count !== null && <span className="ml-1 text-xs text-slate-400">{count}</span>}
                     </button>
                   ))}
                 </div>
+
+                {recordTab === "bibliography" && (
+                  <ProjectLiteratureTab
+                    projectId={projectId}
+                    canEdit={Boolean(auth?.canEditTasks || auth?.canMakeDecisions)}
+                  />
+                )}
 
                 {recordTab === "milestones" && (
                   <section className="space-y-4">
