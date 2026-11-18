@@ -3,11 +3,12 @@ import { requireUser } from "@/lib/authGuard";
 import { prisma } from "@/lib/prisma";
 import { jsonError, validateBody } from "@/lib/validation";
 import { checkRateLimit } from "@/lib/rateLimit";
-import { getProviderForModel } from "@/lib/ai/providers";
+import { getProviderForModel, isAIModelConfigured } from "@/lib/ai/providers";
 import { MEDICAL_RESEARCH_SYSTEM_PROMPT } from "@/lib/ai/prompts";
 import { computeStudyStatistics } from "@/lib/ai/data-analysis";
 import { formatStudyContext } from "@/lib/ai/context";
-import { AVAILABLE_MODELS } from "@/lib/ai/models";
+import { getAIModel } from "@/lib/ai/models";
+import { FEATURES } from "@/lib/config/features";
 import { z } from "zod";
 
 const postMessageSchema = z.object({
@@ -52,6 +53,13 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     const auth = await requireUser(request);
     if (!auth.ok) return auth.response;
 
+    if (!FEATURES.AI_EXTERNAL_ENABLED) {
+      return jsonError(
+        "External AI is disabled to protect research data. Enable AI_EXTERNAL_ENABLED only after approving external processing.",
+        403
+      );
+    }
+
     const rateCheck = checkRateLimit(request, "CHAT", auth.user.id);
     if (!rateCheck.allowed) return rateCheck.response;
 
@@ -81,13 +89,18 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     if (!validation.ok) return validation.response;
     const { content } = validation.data;
 
-    // Save user message
+    const modelInfo = getAIModel(conversation.model);
+    if (!modelInfo) {
+      return jsonError("This conversation's AI model is no longer available. Start a new chat.", 409);
+    }
+    if (!isAIModelConfigured(modelInfo.id)) {
+      const keyName = modelInfo.providerId === "NVIDIA" ? "NVIDIA_API_KEY" : "GEMINI_API_KEY";
+      return jsonError(`${modelInfo.provider} is not configured. Add ${keyName} to the server environment.`, 503);
+    }
+
+    // Save user message only after AI access and provider configuration are validated.
     await prisma.aIMessage.create({
-      data: {
-        conversationId,
-        role: "USER",
-        content,
-      },
+      data: { conversationId, role: "USER", content },
     });
 
     // Build system prompt
@@ -112,10 +125,6 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     }));
 
     // Generate AI response
-    const modelInfo =
-      AVAILABLE_MODELS.find(
-        (model) => model.id === conversation.model || model.modelCode === conversation.model
-      ) || AVAILABLE_MODELS[0];
     const provider = getProviderForModel(modelInfo.id);
     const aiResponse = await provider.chat(aiMessages, {
       model: modelInfo.modelCode,
@@ -136,7 +145,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       data: {
         conversationId,
         userId: auth.user.id,
-        provider: "GEMINI",
+        provider: modelInfo.providerId,
         model: aiResponse.modelUsed,
         totalTokens: aiResponse.tokensUsed || 0,
       },
@@ -145,6 +154,17 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     return NextResponse.json({ message: assistantMessage });
   } catch (err: any) {
     console.error("Error creating message:", err);
+    if (
+      typeof err?.statusCode === "number" &&
+      typeof err?.code === "string" &&
+      err.code.startsWith("NVIDIA_") &&
+      typeof err?.message === "string"
+    ) {
+      return NextResponse.json(
+        { error: err.message, code: err.code },
+        { status: err.statusCode }
+      );
+    }
     return jsonError("Failed to generate response", 500);
   }
 }

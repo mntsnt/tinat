@@ -58,6 +58,7 @@ import { ProjectLiteratureTab } from "./ProjectLiteratureTab";
 import { ProjectSettingsTab } from "./ProjectSettingsTab";
 import { useConfirm } from "@/app/components/ui/ConfirmDialog";
 import { TinatLogo } from "@/app/components/ui/TinatLogo";
+import { AVAILABLE_MODELS, getAIModel, type AIModelId } from "@/lib/ai/models";
 
 interface ProjectWorkspaceClientProps {
   projectId: string;
@@ -328,7 +329,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
     return [];
   });
   const [aiLoading, setAiLoading] = useState(false);
-  const [aiModel, setAiModel] = useState("gemini");
+  const [aiModel, setAiModel] = useState<AIModelId>("gemini");
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionNotice, setActionNotice] = useState<{
     message: string;
@@ -2372,11 +2373,27 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <div className="hidden md:flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1 text-xs text-muted-foreground">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="font-medium text-foreground">Google Gemini Flash</span>
-                    <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">Clinical AI</span>
-                  </div>
+                  <label className="relative flex max-w-[190px] items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1 text-xs text-foreground">
+                    <Sparkles className="h-3.5 w-3.5 shrink-0 text-primary" />
+                    <span className="sr-only">Project AI model</span>
+                    <select
+                      aria-label="Project AI model"
+                      value={aiModel}
+                      disabled={aiLoading}
+                      onChange={(event) => {
+                        const model = getAIModel(event.target.value);
+                        if (model) setAiModel(model.id);
+                      }}
+                      className="w-full min-w-0 appearance-none truncate bg-transparent pr-4 text-xs outline-none disabled:opacity-60"
+                    >
+                      {AVAILABLE_MODELS.map((model) => (
+                        <option key={model.id} value={model.id}>
+                          {model.name}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
+                  </label>
 
                   {aiHistory.length > 0 && (
                     <button

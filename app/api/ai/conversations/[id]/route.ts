@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { requireUser } from "@/lib/authGuard";
 import { prisma } from "@/lib/prisma";
 import { jsonError, validateBody } from "@/lib/validation";
+import { getAIModel } from "@/lib/ai/models";
 import { z } from "zod";
 
 const updateConversationSchema = z.object({
@@ -62,6 +63,10 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     const validation = await validateBody(updateConversationSchema, request);
     if (!validation.ok) return validation.response;
     const body = validation.data;
+    const modelInfo = body.model === undefined ? null : getAIModel(body.model);
+    if (body.model !== undefined && !modelInfo) {
+      return jsonError("The selected AI model is not available", 400);
+    }
 
     const updatedConversation = await prisma.aIConversation.update({
       where: { id: conversationId },
@@ -69,7 +74,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
         title: body.title,
         studyId: body.studyId,
         projectId: body.projectId,
-        model: body.model,
+        ...(modelInfo
+          ? { model: modelInfo.id, provider: modelInfo.providerId }
+          : {}),
       },
     });
 

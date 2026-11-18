@@ -1247,6 +1247,7 @@ enum AIProvider {
   GEMINI
   OPENROUTER
   GROQ
+  NVIDIA
 }
 
 enum AIMessageRole {

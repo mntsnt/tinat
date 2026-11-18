@@ -16,7 +16,7 @@ import {
   X,
 } from "lucide-react";
 import type { AIChatMessage } from "@/lib/ai/providers";
-import { AVAILABLE_MODELS } from "@/lib/ai/models";
+import { AVAILABLE_MODELS, getAIModel, type AIModelId } from "@/lib/ai/models";
 import { ArtifactRenderer } from "./components/ArtifactRenderer";
 
 type ConversationSummary = {
@@ -60,7 +60,7 @@ export default function AIChatPage() {
   const [studies, setStudies] = useState<StudyOption[]>([]);
   const [activeConversationId, setActiveConversationId] = useState("");
   const [input, setInput] = useState("");
-  const [selectedModel, setSelectedModel] = useState<string>(DEFAULT_MODEL);
+  const [selectedModel, setSelectedModel] = useState<AIModelId>(DEFAULT_MODEL);
   const [selectedStudyId, setSelectedStudyId] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -188,11 +188,7 @@ export default function AIChatPage() {
           })),
       );
       setSelectedStudyId(conversation.studyId || "");
-      setSelectedModel(
-        AVAILABLE_MODELS.some((model) => model.id === conversation.model)
-          ? conversation.model || DEFAULT_MODEL
-          : DEFAULT_MODEL,
-      );
+      setSelectedModel(getAIModel(conversation.model)?.id || DEFAULT_MODEL);
       setSidebarOpen(false);
     } catch (loadError) {
       setError(loadError instanceof Error ? loadError.message : "Could not open this chat.");
@@ -201,7 +197,7 @@ export default function AIChatPage() {
     }
   };
 
-  const saveChatSettings = async (studyId: string, model: string) => {
+  const saveChatSettings = async (studyId: string, model: AIModelId) => {
     if (activeConversationId) {
       setIsSavingSettings(true);
       setError("");
@@ -437,10 +433,27 @@ export default function AIChatPage() {
               </select>
               <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
             </label>
-            <div className="flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-2 text-xs font-medium text-foreground">
+            <label className="relative hidden max-w-[200px] items-center gap-2 rounded-md border border-border bg-card px-2.5 py-2 sm:flex">
               <BrainCircuit className="h-3.5 w-3.5 shrink-0 text-primary" />
-              <span>Google Gemini</span>
-            </div>
+              <span className="sr-only">AI model</span>
+              <select
+                aria-label="AI model"
+                value={selectedModel}
+                disabled={isBusy}
+                onChange={(event) => {
+                  const model = getAIModel(event.target.value);
+                  if (model) void saveChatSettings(selectedStudyId, model.id);
+                }}
+                className="w-full min-w-0 appearance-none bg-transparent pr-4 text-xs text-foreground outline-none disabled:opacity-60"
+              >
+                {AVAILABLE_MODELS.map((model) => (
+                  <option key={model.id} value={model.id}>
+                    {model.name}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
+            </label>
           </div>
         </header>
 
@@ -578,6 +591,27 @@ export default function AIChatPage() {
                 />
                 <div className="flex items-center justify-between px-2.5 pb-2.5">
                   <div className="flex min-w-0 items-center gap-1.5 text-[11px] text-muted-foreground">
+                    <label className="relative flex max-w-[140px] items-center gap-1.5 rounded-md px-2 py-1 sm:hidden">
+                      <BrainCircuit className="h-3 w-3 shrink-0 text-primary" />
+                      <span className="sr-only">AI model</span>
+                      <select
+                        aria-label="AI model"
+                        value={selectedModel}
+                        disabled={isBusy}
+                        onChange={(event) => {
+                          const model = getAIModel(event.target.value);
+                          if (model) void saveChatSettings(selectedStudyId, model.id);
+                        }}
+                        className="w-full min-w-0 appearance-none truncate bg-transparent pr-3 text-[11px] text-foreground outline-none disabled:opacity-60"
+                      >
+                        {AVAILABLE_MODELS.map((model) => (
+                          <option key={model.id} value={model.id}>
+                            {model.name}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-0.5 h-3 w-3 text-muted-foreground" />
+                    </label>
                     <label className="relative flex max-w-[150px] items-center gap-1.5 rounded-md px-2 py-1 sm:hidden">
                       <Database className="h-3 w-3 shrink-0 text-muted-foreground" />
                       <select

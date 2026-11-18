@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getAIModel } from "@/lib/ai/models";
 
 export async function GET() {
   try {
@@ -35,17 +36,25 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { title, studyId, projectId, provider, model } = body;
+    const body: unknown = await request.json().catch(() => null);
+    if (typeof body !== "object" || body === null || Array.isArray(body)) {
+      return NextResponse.json({ error: "Invalid chat settings." }, { status: 400 });
+    }
+
+    const modelId = "model" in body && typeof body.model === "string" ? body.model : undefined;
+    const modelInfo = getAIModel(modelId);
+    if (!modelInfo) {
+      return NextResponse.json({ error: "The selected AI model is not available." }, { status: 400 });
+    }
 
     const newConversation = await prisma.aIConversation.create({
       data: {
         userId: session.userId,
-        title: title || "New Research Chat",
-        studyId: studyId || null,
-        projectId: projectId || null,
-        provider: "GEMINI",
-        model: "gemini-3.6-flash",
+        title: "title" in body && typeof body.title === "string" ? body.title : "New Research Chat",
+        studyId: "studyId" in body && typeof body.studyId === "string" ? body.studyId : null,
+        projectId: "projectId" in body && typeof body.projectId === "string" ? body.projectId : null,
+        provider: modelInfo.providerId,
+        model: modelInfo.id,
       }
     });
 

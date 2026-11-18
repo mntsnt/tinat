@@ -30,3 +30,14 @@ export interface AIProvider {
    */
   generateText(prompt: string, config: AIProviderConfig): Promise<AIProviderResponse>;
 }
+
+export class AIProviderError extends Error {
+  constructor(
+    message: string,
+    readonly code: string,
+    readonly statusCode: number
+  ) {
+    super(message);
+    this.name = "AIProviderError";
+  }
+}

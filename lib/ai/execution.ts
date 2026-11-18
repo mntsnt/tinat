@@ -1,6 +1,7 @@
 import type { AIResponse } from "./gemini";
 import { FEATURES } from "@/lib/config/features";
-import { UnifiedAnalysisParams, UnifiedChatParams } from "./models";
+import { getAIModel, UnifiedAnalysisParams, UnifiedChatParams } from "./models";
+import { getProviderForModel } from "./providers";
 
 export async function executeAIAnalysis(
   params: UnifiedAnalysisParams
@@ -29,11 +30,21 @@ export async function executeAIChat(
     );
   }
 
-  const { generateGeminiChatResponse } = await import("./gemini");
-  return generateGeminiChatResponse({
-    systemPrompt: params.systemPrompt,
-    messages: params.messages,
-    temperature: params.temperature,
-    model: "gemini-3.6-flash",
-  });
+  const model = getAIModel(params.modelId);
+  if (!model) {
+    throw new Error("The selected AI model is not available.");
+  }
+
+  const provider = getProviderForModel(model.id);
+  return provider.chat(
+    params.messages.map((message) => ({
+      role: message.role === "model" ? "assistant" : message.role,
+      content: message.content,
+    })),
+    {
+      model: model.modelCode,
+      systemPrompt: params.systemPrompt,
+      temperature: params.temperature,
+    }
+  );
 }

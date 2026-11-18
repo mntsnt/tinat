@@ -8,6 +8,8 @@ import { MEDICAL_RESEARCH_SYSTEM_PROMPT } from "@/lib/ai/prompts";
 import { ChatMessage } from "@/lib/ai/gemini";
 import { executeAIChat } from "@/lib/ai/execution";
 import { FEATURES } from "@/lib/config/features";
+import { getAIModel } from "@/lib/ai/models";
+import { isAIModelConfigured } from "@/lib/ai/providers";
 
 export const dynamic = "force-dynamic";
 
@@ -50,6 +52,18 @@ export async function POST(request: Request) {
 
     if (!message || typeof message !== "string" || !message.trim()) {
       return NextResponse.json({ error: "A message is required." }, { status: 400 });
+    }
+
+    const modelInfo = getAIModel(model);
+    if (!modelInfo) {
+      return NextResponse.json({ error: "The selected AI model is not available." }, { status: 400 });
+    }
+    if (!isAIModelConfigured(modelInfo.id)) {
+      const keyName = modelInfo.providerId === "NVIDIA" ? "NVIDIA_API_KEY" : "GEMINI_API_KEY";
+      return NextResponse.json(
+        { error: `${modelInfo.provider} is not configured. Add ${keyName} to the server environment.` },
+        { status: 503 }
+      );
     }
 
     // 3. Fetch study with questions and responses
@@ -121,9 +135,9 @@ Always ground your answers in the numbers and distributions above. If the user a
       content: message.trim().slice(0, 2000),
     });
 
-    // 7. Invoke Google Gemini engine
+    // 7. Invoke the selected AI provider
     const aiResult = await executeAIChat({
-      modelId: "gemini",
+      modelId: modelInfo.id,
       systemPrompt: studySystemPrompt,
       messages: sanitizedHistory,
       temperature: 0.25,
@@ -137,6 +151,17 @@ Always ground your answers in the numbers and distributions above. If the user a
     });
   } catch (err: any) {
     console.error("AI Chat API Error:", err);
+    if (
+      typeof err?.statusCode === "number" &&
+      typeof err?.code === "string" &&
+      err.code.startsWith("NVIDIA_") &&
+      typeof err?.message === "string"
+    ) {
+      return NextResponse.json(
+        { error: err.message, code: err.code },
+        { status: err.statusCode }
+      );
+    }
     const status = err?.statusCode || 500;
     const message = err?.message || "An error occurred in the AI Research Assistant.";
 

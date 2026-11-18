@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { AVAILABLE_MODELS, AIModelId } from "@/lib/ai/models";
+import { AVAILABLE_MODELS, getAIModel, type AIModelId } from "@/lib/ai/models";
 import { ResearchReportRenderer } from "./ResearchReportRenderer";
 import {
   Sparkles,
@@ -403,11 +403,27 @@ export function AIAnalysisTab({
               <span>Study Info</span>
             </button>
 
-            {/* AI Model Indicator */}
-            <div className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted/40 px-2.5 py-1 text-xs font-medium text-foreground">
+            <label className="relative inline-flex max-w-[190px] items-center gap-1.5 rounded-md border border-border bg-muted/40 px-2.5 py-1 text-xs font-medium text-foreground">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              <span>Google Gemini</span>
-            </div>
+              <span className="sr-only">AI model</span>
+              <select
+                aria-label="AI model"
+                value={selectedModel}
+                disabled={chatLoading}
+                onChange={(event) => {
+                  const model = getAIModel(event.target.value);
+                  if (model) setSelectedModel(model.id);
+                }}
+                className="w-full min-w-0 appearance-none bg-transparent pr-4 text-xs text-foreground outline-none disabled:opacity-60"
+              >
+                {AVAILABLE_MODELS.map((model) => (
+                  <option key={model.id} value={model.id}>
+                    {model.name}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
+            </label>
 
             {/* Clear Chat Button */}
             {chatMessages.length > 0 && (

@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authorizeProjectAccess } from "@/lib/projects/auth";
 import { executeAIChat } from "@/lib/ai/execution";
-import { getGeminiApiKey } from "@/lib/ai/gemini";
+import { getAIModel } from "@/lib/ai/models";
+import { isAIModelConfigured } from "@/lib/ai/providers";
+import { AIProviderError } from "@/lib/ai/providers/provider";
 import { FEATURES } from "@/lib/config/features";
 
 export const dynamic = "force-dynamic";
@@ -18,15 +20,6 @@ export async function POST(
       return NextResponse.json({ error: error || "Access denied" }, { status: status || 403 });
     }
 
-    if (!getGeminiApiKey()) {
-      return NextResponse.json(
-        {
-          error: "Project AI is not configured. Add GEMINI_API_KEY to the server environment, then redeploy.",
-          code: "AI_NOT_CONFIGURED",
-        },
-        { status: 503 }
-      );
-    }
     if (!FEATURES.AI_EXTERNAL_ENABLED) {
       return NextResponse.json(
         {
@@ -39,6 +32,20 @@ export async function POST(
 
     const body = await request.json().catch(() => ({}));
     const { message, action, history = [], model } = body;
+    const modelInfo = getAIModel(typeof model === "string" ? model : undefined);
+    if (!modelInfo) {
+      return NextResponse.json({ error: "The selected AI model is not available." }, { status: 400 });
+    }
+    if (!isAIModelConfigured(modelInfo.id)) {
+      const keyName = modelInfo.providerId === "NVIDIA" ? "NVIDIA_API_KEY" : "GEMINI_API_KEY";
+      return NextResponse.json(
+        {
+          error: `${modelInfo.provider} is not configured. Add ${keyName} to the server environment.`,
+          code: "AI_NOT_CONFIGURED",
+        },
+        { status: 503 }
+      );
+    }
 
     // Fetch comprehensive project context
     const project = await prisma.researchProject.findUnique({
@@ -164,7 +171,7 @@ GUIDELINES:
     ];
 
     const aiResult = await executeAIChat({
-      modelId: "gemini",
+      modelId: modelInfo.id,
       systemPrompt: systemInstruction,
       messages: chatMessages,
     });
@@ -182,6 +189,12 @@ GUIDELINES:
     });
   } catch (error: any) {
     console.error("POST /api/projects/[id]/ai error:", error);
+    if (error instanceof AIProviderError && error.code.startsWith("NVIDIA_")) {
+      return NextResponse.json(
+        { error: error.message, code: error.code },
+        { status: error.statusCode }
+      );
+    }
     const safeAiErrors = new Set([
       "AI service authentication failed. Please verify the Gemini API configuration.",
       "AI request limit reached. Please wait a moment before requesting further analysis.",
@@ -194,7 +207,7 @@ GUIDELINES:
         : "Project AI could not complete the request. Check the server configuration and try again.";
     return NextResponse.json(
       { error: publicMessage },
-      { status: 500 }
+      { status: error instanceof Error && safeAiErrors.has(error.message) ? 503 : 500 }
     );
   }
 }
