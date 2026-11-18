@@ -11,69 +11,57 @@ interface FaqItem {
 
 const FAQ_ITEMS: FaqItem[] = [
   {
-    id: "what-is-tinat",
-    question: "What is Tinat and who is it designed for?",
+    id: "who-can-publish",
+    question: "Who can publish studies on Tinat?",
     answer:
-      "Tinat is an academic research platform purpose-built for Ethiopian universities, health researchers, clinicians, students, and NGOs. It provides end-to-end digital infrastructure to search ScholarXIV preprints, design multi-format questionnaires, recruit verified participant cohorts, deploy ground field enumerators, and manage collaborative research investigations under standardized ethical protocols.",
+      "Health researchers, university lecturers, medical doctors, and students can all publish studies. Creating an account and launching a questionnaire is free.",
   },
   {
-    id: "scholarxiv-integration",
-    question: "How does ScholarXIV literature search help before making a study and during publication?",
+    id: "publishing-cost",
+    question: "How much does it cost to publish a study?",
     answer:
-      "Tinat integrates directly with ScholarXIV to give researchers immediate access to millions of open-access arXiv preprints across medicine, machine learning, public health, and quantitative statistics. Before designing a study, researchers can explore prior findings, formulate evidence-grounded hypotheses, and pre-fill study rationale. When writing manuscripts for publication, researchers can generate 1-click citations in BibTeX, APA 7th, MLA 9th, and Chicago formats, and bookmark references directly to their collaborative project binders.",
+      "Publishing online studies is completely free. There are no fees or deposit requirements. Participants receive platform credits for their time, covered by Tinat.",
   },
   {
-    id: "credits-rewards-tc",
-    question: "What are Tinat Credits (TC) and how are participant rewards determined?",
+    id: "field-collection",
+    question: "How does in-person field collection work?",
     answer:
-      "Tinat Credits (TC) are internal platform tokens awarded to participants for their valuable time and research contribution. Researchers do not need to buy credits or set reward amounts—the platform automatically calculates and issues standardized TC upon study completion based algorithmically on survey duration (estimated minutes) and question depth. Participants can view their accumulated TC balance and contribution history in their personal Wallet.",
+      "If you need responses from rural areas, clinics, or people without smartphones, you can assign field enumerators. Enumerators interview participants in person using local languages (Amharic, Afaan Oromo, Tigrinya, Somali) and enter the responses. Enumerators are paid directly in Birr (ETB).",
   },
   {
-    id: "field-enumerators-rural",
-    question: "How does Ground Field Collection work and how are enumerators paid in ETB?",
+    id: "download-data",
+    question: "In what format can I download my data?",
     answer:
-      "In rural and low-connectivity communities where participants do not have smartphones, researchers can deploy trained Field Enumerators. Enumerators conduct in-person verbal interviews in local languages (Amharic, Afaan Oromo, Tigrinya, and Somali) and log responses using the platform's mobile-optimized interface. Unlike online participant TC rewards, field enumerators earn real compensation in Ethiopian Birr (ETB) based on agreed fixed or per-response rates, tracked in their dedicated Collector Wallet deck.",
-  },
-  {
-    id: "free-to-publish",
-    question: "Is it free for researchers to publish studies on Tinat?",
-    answer:
-      "Yes. Any verified researcher, faculty member, or university student can publish data collection studies at zero cost without any upfront credit deposits or platform hosting fees. Tinat provides the questionnaire builder, demographic filtering, automated TC reward distribution, and instant Excel/CSV data exports free of charge.",
-  },
-  {
-    id: "collaboration-projects",
-    question: "How can research teams collaborate on Tinat?",
-    answer:
-      "Tinat provides Collaborative Research Workspaces where multidisciplinary teams manage studies from proposal to publication. Workspaces support role-based permissions (Project Lead, Co-Investigator, Researcher, Data Analyst, Research Assistant, Advisor), milestone Kanban task boards with drag-and-drop workflows, categorized project literature binders, file repositories, and private team chat rooms.",
+      "You can export your dataset anytime as an Excel (.xlsx) or CSV file. Responses are coded cleanly, ready to open in SPSS, Stata, R, or Excel.",
   },
   {
     id: "privacy-protection",
-    question: "How is participant privacy and identity protected?",
+    question: "How is participant privacy protected?",
     answer:
-      "Research responses on Tinat are strictly confidential and coded (pseudonymized), adhering to Ethiopian Proclamation 1321/2024 data protection standards. When participants submit answers, responses are indexed exclusively by an unguessable Respondent Code. Researchers only receive coded datasets and never see personal identifiers such as names, phone numbers, or national ID details.",
+      "Responses are anonymous and linked only to a random respondent code. Researchers receive coded datasets and never see participant names, phone numbers, or personal identifying information.",
   },
 ];
 
 export function LandingFaq() {
-  const [openId, setOpenId] = useState<string | null>("what-is-tinat");
+  const [openId, setOpenId] = useState<string | null>("who-can-publish");
 
   const toggleItem = (id: string) => {
     setOpenId(openId === id ? null : id);
   };
 
   return (
-    <section id="faq" className="relative z-10 py-20 lg:py-28 bg-muted/20 text-foreground border-b border-border scroll-mt-16 transition-colors duration-200">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
-            FAQ
+    <section id="faq" className="relative z-10 py-16 lg:py-20 bg-muted/20 text-foreground border-b border-border scroll-mt-16 transition-colors duration-200">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="text-center space-y-2 max-w-xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+            Frequently Asked Questions
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Everything you need to know about the platform, credits, and research ethics
+          <p className="text-muted-foreground text-sm">
+            Quick answers about publishing studies, collecting data, and privacy.
           </p>
         </div>
 
-        <div className="divide-y divide-border border-t border-b border-border pt-2">
+        <div className="divide-y divide-border border-t border-b border-border">
           {FAQ_ITEMS.map((faq) => {
             const isOpen = openId === faq.id;
             return (
@@ -83,20 +71,20 @@ export function LandingFaq() {
                   onClick={() => toggleItem(faq.id)}
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${faq.id}`}
-                  className="w-full text-left flex items-start sm:items-center justify-between gap-4 py-2 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg transition-colors"
+                  className="w-full text-left flex items-start sm:items-center justify-between gap-4 py-1 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg transition-colors"
                 >
                   <span
                     className={`text-sm sm:text-base font-medium transition-colors ${
                       isOpen
-                        ? "text-emerald-600 dark:text-emerald-400 underline underline-offset-4 decoration-emerald-500 font-semibold"
-                        : "text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
+                        ? "text-emerald-700 dark:text-emerald-400 font-semibold"
+                        : "text-foreground group-hover:text-emerald-700 dark:group-hover:text-emerald-400"
                     }`}
                   >
                     {faq.question}
                   </span>
                   <ChevronDown
                     className={`w-4 h-4 text-muted-foreground shrink-0 mt-1 sm:mt-0 transition-transform duration-200 ${
-                      isOpen ? "rotate-180 text-emerald-600 dark:text-emerald-400" : "group-hover:text-foreground"
+                      isOpen ? "rotate-180 text-emerald-700 dark:text-emerald-400" : "group-hover:text-foreground"
                     }`}
                   />
                 </button>
@@ -104,7 +92,7 @@ export function LandingFaq() {
                 <div
                   id={`faq-answer-${faq.id}`}
                   hidden={!isOpen}
-                  className="pt-3 pb-2 text-xs sm:text-sm text-muted-foreground leading-relaxed pr-8"
+                  className="pt-2 pb-1 text-sm text-muted-foreground leading-relaxed pr-6"
                 >
                   {faq.answer}
                 </div>
