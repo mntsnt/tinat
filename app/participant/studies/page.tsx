@@ -51,13 +51,9 @@ export default async function StudyDiscoveryPage({
       ],
     });
   }
-  if (selectedType === "FUNDED") {
+  if (selectedType === "FIELD_COLLECTION") {
     filters.push({
-      OR: [{ studyType: "FUNDED" }, { rewardCredits: { gt: 0 } }],
-    });
-  } else if (selectedType === "FREE_DATA_COLLECTION") {
-    filters.push({
-      OR: [{ studyType: "FREE_DATA_COLLECTION" }, { rewardCredits: 0 }],
+      collectorsNeeded: { gt: 0 },
     });
   }
 
@@ -94,8 +90,7 @@ export default async function StudyDiscoveryPage({
   const availableStudies = studies.filter(
     (study) =>
       !completedStudyIds.has(study.id) &&
-      (study.participantTarget === 0 || study._count.responses < study.participantTarget) &&
-      (study.rewardCredits <= 0 || study.budgetCredits - study.creditsPaid >= study.rewardCredits)
+      (study.participantTarget === 0 || study._count.responses < study.participantTarget)
   );
 
   return (
@@ -137,33 +132,18 @@ export default async function StudyDiscoveryPage({
         </Link>
         <Link
           href={`/participant/studies?${new URLSearchParams({
-            type: "FUNDED",
+            type: "FIELD_COLLECTION",
             ...(query ? { q: query } : {}),
             ...(selectedCategory ? { category: selectedCategory } : {}),
           }).toString()}`}
           className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap ${
-            selectedType === "FUNDED"
+            selectedType === "FIELD_COLLECTION"
               ? "bg-emerald-600 text-white font-semibold shadow-sm"
               : "text-muted-foreground hover:text-foreground hover:bg-muted"
           }`}
         >
-          <Coins className="w-4 h-4" />
-          Funded Studies (Earn TC)
-        </Link>
-        <Link
-          href={`/participant/studies?${new URLSearchParams({
-            type: "FREE_DATA_COLLECTION",
-            ...(query ? { q: query } : {}),
-            ...(selectedCategory ? { category: selectedCategory } : {}),
-          }).toString()}`}
-          className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap ${
-            selectedType === "FREE_DATA_COLLECTION"
-              ? "bg-primary text-primary-foreground font-semibold shadow-sm"
-              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-          }`}
-        >
-          <ClipboardCheck className="w-4 h-4" />
-          Open Data Collection (Volunteer)
+          <Users className="w-4 h-4" />
+          Field Collection (ETB)
         </Link>
       </div>
 
@@ -268,15 +248,16 @@ export default async function StudyDiscoveryPage({
                     {study.category || "Health Research"}
                   </span>
 
-                  {isFunded ? (
+                  <div className="flex items-center gap-1.5 shrink-0">
                     <Badge className="bg-emerald-600 text-white font-bold border-0 text-xs px-2.5">
-                      {study.rewardCredits} TC
+                      +{study.rewardCredits > 0 ? study.rewardCredits : 5} TC
                     </Badge>
-                  ) : (
-                    <span className="text-[11px] font-medium text-teal-700 dark:text-teal-300 bg-teal-500/10 px-2 py-0.5 rounded-full">
-                      Volunteer
-                    </span>
-                  )}
+                    {study.collectorsNeeded > 0 && (
+                      <span className="text-[10px] font-semibold text-blue-700 dark:text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <Users className="w-3 h-3" /> Field
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <CardHeader className="pt-3 pb-2">

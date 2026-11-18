@@ -38,7 +38,7 @@ const FAQ_ITEMS: FaqItem[] = [
     id: "free-vs-funded",
     question: "Is it free to publish research studies on Tinat?",
     answer:
-      "Yes. Researchers, university students, and non-profits can publish Free Academic Forms at zero cost without any fees or credit requirements. For studies where researchers wish to provide incentives to voluntary participants, they can configure a Funded Study with non-cash Tinat Credits (TC) approved by platform administrators.",
+      "Yes. Researchers, university students, and non-profits publish data collection studies at zero cost without any upfront credit deposits or platform fees. Tinat automatically issues standardized Tinat Credits (TC) to participants upon study completion. In addition, researchers can recruit and compensate on-the-ground field collectors in Ethiopian Birr (ETB) for in-person community interviews.",
   },
 ];
 

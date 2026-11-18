@@ -346,28 +346,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const isFree = isFreeDataCollection || fundingType === "FREE";
-    const finalFundingType = isFree ? "FREE" : "FUNDED";
-    const finalStudyType = isFree ? "FREE_DATA_COLLECTION" : "FUNDED";
-    let finalCreditPerResponse = 0;
-    let finalCreditBudget = 0;
-
-    if (!isFree) {
-      // Platform automatically calculates TC reward based on estimated completion time and question depth.
-      // Researchers do not manually specify credit amounts, ensuring standardized, fair participant compensation.
-      const questionCount = Array.isArray(questions) && questions.length > 0 ? questions.length : 1;
-      finalCreditPerResponse = calculateStudyRewardCredits(estimatedMinutes, questionCount);
-      finalCreditBudget = finalCreditPerResponse * parsedParticipantTarget;
-
-      if (finalCreditBudget > FEATURES.MAX_CREDIT_BUDGET_PER_STUDY) {
-        return NextResponse.json(
-          {
-            error: `Total credit budget cannot exceed the maximum platform limit of ${FEATURES.MAX_CREDIT_BUDGET_PER_STUDY} TC. Please adjust your participant target limit.`,
-          },
-          { status: 400 }
-        );
-      }
-    }
+    // Platform automatically calculates participant TC reward based on estimated time and question depth.
+    // All research studies are Data Collection studies; researchers do not deposit TC budgets.
+    const questionCount = Array.isArray(questions) && questions.length > 0 ? questions.length : 1;
+    const finalRewardCredits = calculateStudyRewardCredits(estimatedMinutes, questionCount);
+    const finalFundingType = "FREE";
+    const finalStudyType = "SURVEY";
+    const finalCreditPerResponse = 0;
+    const finalCreditBudget = 0;
 
     /*
     |--------------------------------------------------------------------------
@@ -541,8 +527,8 @@ export async function POST(request: Request) {
         involvesMinors: false,
         safetyProtocolText: typeof safetyProtocolText === "string" && safetyProtocolText.trim() ? safetyProtocolText.trim() : null,
         estimatedMinutes: Number(estimatedMinutes) > 0 ? Number(estimatedMinutes) : 5,
-        tags: [healthCategory, isFree ? "Open Data Collection" : "Funded Research"],
-        rewardCredits: finalCreditPerResponse,
+        tags: [healthCategory, "Data Collection"],
+        rewardCredits: finalRewardCredits,
         participantTarget: parsedParticipantTarget,
         collectorsNeeded: parsedCollectorsNeeded,
         collectorPayType: validCollectorPayType,

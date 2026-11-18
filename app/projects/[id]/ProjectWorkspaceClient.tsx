@@ -91,6 +91,24 @@ const PROJECT_AI_ACTIONS = [
   },
 ] as const;
 
+function formatProjectAiUserPrompt(content: string): { title?: string; text: string } {
+  if (typeof content !== "string") return { text: "" };
+  const trimmed = content.trim();
+  const match = trimmed.match(/^Execute:\s*([A-Z0-9_]+)/i);
+  if (match) {
+    const actionKey = match[1].toUpperCase();
+    const actionObj = PROJECT_AI_ACTIONS.find((a) => a.id === actionKey);
+    if (actionObj) {
+      return { title: actionObj.label, text: actionObj.requestText };
+    }
+    return {
+      title: actionKey.replace(/_/g, " "),
+      text: `Review and analyze ${actionKey.replace(/_/g, " ").toLowerCase()} for this project.`,
+    };
+  }
+  return { text: trimmed };
+}
+
 interface ProjectMilestoneView {
   id: string;
   title: string;
@@ -295,7 +313,15 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
         const stored = localStorage.getItem(`tinat_project_ai_history_${projectId}`);
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) return parsed;
+          if (Array.isArray(parsed)) {
+            return parsed.map((item: any) => {
+              if (item?.role === "user" && typeof item?.content === "string") {
+                const formatted = formatProjectAiUserPrompt(item.content);
+                return { ...item, content: formatted.text };
+              }
+              return item;
+            });
+          }
         }
       } catch {}
     }
@@ -2482,7 +2508,22 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                         ) : item.role === "assistant" ? (
                           <ArtifactRenderer content={item.content} />
                         ) : (
-                          <div className="whitespace-pre-wrap">{item.content}</div>
+                          <div className="space-y-1.5">
+                            {(() => {
+                              const formatted = formatProjectAiUserPrompt(item.content);
+                              return (
+                                <>
+                                  {formatted.title && (
+                                    <div className="inline-flex items-center gap-1.5 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
+                                      <Sparkles className="h-3 w-3" />
+                                      <span>{formatted.title}</span>
+                                    </div>
+                                  )}
+                                  <div className="whitespace-pre-wrap text-foreground leading-relaxed">{formatted.text}</div>
+                                </>
+                              );
+                            })()}
+                          </div>
                         )}
                       </div>
                     );

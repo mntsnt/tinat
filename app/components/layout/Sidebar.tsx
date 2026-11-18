@@ -234,13 +234,13 @@ export function Sidebar({
     const collapsed = !mobile && isCollapsed;
     
     return (
-    <div className="relative z-40 border-t border-border p-2.5 shrink-0">
+    <div className="relative z-50 border-t border-border p-2.5 shrink-0">
       {accountMenuOpen && (
         <div
           role="menu"
           aria-label="Account menu"
           className={cn(
-            "absolute bottom-full z-50 mb-2 min-w-52 rounded-lg border border-border bg-card p-1.5 shadow-xl",
+            "absolute bottom-full z-[100] mb-2 min-w-52 rounded-lg border border-border bg-card p-1.5 shadow-2xl",
             collapsed ? "left-full ml-2" : "inset-x-2"
           )}
         >
@@ -376,7 +376,7 @@ export function Sidebar({
         suppressHydrationWarning
         onTransitionEnd={() => setIsAnimating(false)}
         className={cn(
-          "sticky top-0 z-40 hidden h-full shrink-0 flex-col border-r border-border bg-card/70 md:flex",
+          "sticky top-0 z-50 hidden h-full shrink-0 flex-col border-r border-border bg-card/70 md:flex",
           isAnimating && "transition-[width] duration-200 ease-out",
           isCollapsed ? "w-16" : "w-56"
         )}

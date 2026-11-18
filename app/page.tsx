@@ -5,6 +5,7 @@ import {
   Stethoscope,
   Coins,
   ClipboardCheck,
+  Users,
   Activity,
   HeartPulse,
   Brain,
@@ -87,7 +88,7 @@ export default async function Home() {
 
               <div className="flex flex-wrap gap-x-5 gap-y-2.5 pt-1">
                 {[
-                  "Funded Research & Free Forms",
+                  "Digital & Field Data Collection",
                   "Verified Participant Cohorts",
                   "Confidential & Coded Data",
                   "Tinat Credits (TC) Rewards",
@@ -244,12 +245,12 @@ export default async function Home() {
               Designed for every health investigation
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg">
-              Whether you have grant funding or need zero-cost data collection for class or community work, Tinat provides the infrastructure.
+              Whether conducting nationwide online cohorts or door-to-door community interviews, Tinat provides the end-to-end data collection infrastructure.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Pathway 1: Funded Research */}
+            {/* Pathway 1: Digital Data Collection */}
             <div className="rounded-2xl border-2 border-emerald-500/30 bg-card p-8 shadow-lg relative flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-6">
@@ -257,65 +258,65 @@ export default async function Home() {
                     <Coins className="w-6 h-6" />
                   </div>
                   <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full">
-                    Participant Rewards
+                    Platform TC Rewards
                   </span>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-3">Funded Health Research</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-3">Digital Data Collection</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  Ideal for academic dissertations, observational health surveys, epidemiologic cohorts, and institutional studies with grant budgets. Reward participants with Tinat Credits (TC) to achieve rapid sample sizes and high completion rates.
+                  Ideal for academic dissertations, observational surveys, epidemiological cohorts, and pilot health questionnaires. Publish freely with zero credit deposits. Tinat automatically issues standardized Tinat Credits (TC) to participants based on survey duration and question depth.
                 </p>
                 <ul className="space-y-2.5 text-xs text-foreground/90 mb-8">
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Custom reward per participant in Tinat Credits (TC)
+                    Zero cost to publish &mdash; no credit deposits required
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Targeted cohort demographics and participant capacity cap
+                    Automated platform-issued Tinat Credits (TC) for participants
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Instant automated credit reward upon verified response
+                    Targeted cohort demographics, capacity caps, and instant export
                   </li>
                 </ul>
               </div>
               <ButtonLink href="/researcher/studies/new" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
-                Launch Funded Study
+                Launch Data Collection Study
               </ButtonLink>
             </div>
 
-            {/* Pathway 2: Free Data Collection */}
+            {/* Pathway 2: Ground Field Collection */}
             <div className="rounded-2xl border-2 border-primary/30 bg-card p-8 shadow-lg relative flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="p-3 rounded-xl bg-primary/10 text-primary dark:text-teal-400">
-                    <ClipboardCheck className="w-6 h-6" />
+                    <Users className="w-6 h-6" />
                   </div>
                   <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-teal-400 bg-primary/10 px-3 py-1 rounded-full">
-                    Zero Cost &bull; Direct Publish
+                    Field Collectors &bull; ETB Compensation
                   </span>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-3">Free Data Collection</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-3">Ground Field Collection</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  Created for medical students, NGO field workers, healthcare organizations, and pilot questionnaire validation. Collect data freely from voluntary participants without requiring any funding or wallet balance.
+                  Designed for on-the-ground rural and urban health assessments. Recruit and deploy trained field enumerators who conduct in-person verbal interviews and record responses directly. Compensate field collectors in real Ethiopian Birr (ETB).
                 </p>
                 <ul className="space-y-2.5 text-xs text-foreground/90 mb-8">
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    Zero cost to publish &mdash; no credit deposit required
+                    Dedicated field collector recruitment and assignment workflow
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    Full analytics, answer breakdowns, and Excel/CSV export
+                    Real-money compensation in ETB (Fixed or Per-Response rates)
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    Ideal for pilot testing, class assignments, and feedback
+                    Inclusive rural data collection without requiring participant smartphones
                   </li>
                 </ul>
               </div>
               <ButtonLink href="/researcher/studies/new" variant="outline" className="w-full border-primary/40 text-foreground hover:bg-primary/10">
-                Publish Free Health Form
+                Create Field Collection Study
               </ButtonLink>
             </div>
           </div>

@@ -64,43 +64,6 @@ export async function PATCH(
     }
 
     if (status === "ACTIVE") {
-      const isFunded = study.fundingType === "FUNDED" || (study.rewardCredits > 0 && study.fundingType !== "FREE");
-
-      if (isFunded) {
-        const creditPerResponse = study.creditPerResponse || study.rewardCredits;
-        const creditBudget = study.creditBudget || study.budgetCredits;
-        const creditsSpent = study.creditsSpent || study.creditsPaid;
-
-        if (creditBudget <= 0 || creditPerResponse <= 0) {
-          return NextResponse.json(
-            { error: "Cannot activate a funded study with zero budget or zero reward." },
-            { status: 400 }
-          );
-        }
-
-        if (creditPerResponse > FEATURES.MAX_CREDITS_PER_RESPONSE) {
-          return NextResponse.json(
-            { error: `Credit per response exceeds maximum limit of ${FEATURES.MAX_CREDITS_PER_RESPONSE} TC.` },
-            { status: 400 }
-          );
-        }
-
-        if (creditBudget > FEATURES.MAX_CREDIT_BUDGET_PER_STUDY) {
-          return NextResponse.json(
-            { error: `Credit budget exceeds maximum limit of ${FEATURES.MAX_CREDIT_BUDGET_PER_STUDY} TC.` },
-            { status: 400 }
-          );
-        }
-
-        const remaining = creditBudget - creditsSpent;
-        if (remaining < creditPerResponse) {
-          return NextResponse.json(
-            { error: "Cannot activate a study without sufficient remaining budget." },
-            { status: 400 }
-          );
-        }
-      }
-
       if (study._count.questions === 0) {
         return NextResponse.json(
           { error: "Cannot activate a study with no questions." },

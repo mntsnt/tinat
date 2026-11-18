@@ -152,25 +152,6 @@ if (study.status === "COMPLETED") {
         );
       }
 
-      const isFunded = (updateData.fundingType ?? study.fundingType) === "FUNDED" ||
-                       ((updateData.rewardCredits ?? study.rewardCredits) > 0 && (updateData.fundingType ?? study.fundingType) !== "FREE");
-
-      if (isFunded) {
-        const creditPerResponse = updateData.creditPerResponse ?? study.creditPerResponse ?? study.rewardCredits;
-        const creditBudget = updateData.creditBudget ?? study.creditBudget ?? study.budgetCredits;
-        const creditsSpent = study.creditsSpent || study.creditsPaid;
-
-        const remaining = creditBudget - creditsSpent;
-        if (remaining < creditPerResponse) {
-          return NextResponse.json(
-            {
-              error: "This research study has exhausted its credit budget. You can switch to voluntary participation (Free) to continue collecting responses.",
-            },
-            { status: 400 }
-          );
-        }
-      }
-
       updateData.status = "ACTIVE";
     } else if (status) {
       updateData.status = status as AllowedStatus;

@@ -5,6 +5,7 @@ import { jsonError } from "@/lib/validation";
 import { prisma } from "@/lib/prisma";
 import { logActivity } from "@/lib/activityLog";
 import { executeBalancedReward } from "@/lib/ledger";
+import { calculateStudyRewardCredits } from "@/lib/credits/studyRewards";
 import { CREDITS_DISCLAIMER } from "@/lib/config/features";
 import { getOrCreateParticipantLink, hasUserParticipated } from "@/lib/identity/linkService";
 import { checkPlatformConsent } from "@/lib/legal/consentService";
@@ -122,27 +123,12 @@ export async function POST(
     }
 
     // ---------------------------------------------
-    // 7. Check remaining budget (FREE vs FUNDED)
-    const isFundedStudy = study.fundingType === "FUNDED" || (study.rewardCredits > 0 && study.fundingType !== "FREE");
-    const rewardPerResponse = isFundedStudy ? (study.creditPerResponse || study.rewardCredits) : 0;
-    const currentBudget = isFundedStudy ? (study.creditBudget || study.budgetCredits) : 0;
-    const currentSpent = isFundedStudy ? (study.creditsSpent || study.creditsPaid) : 0;
-    const remainingCredits = currentBudget - currentSpent;
-
-    if (isFundedStudy && rewardPerResponse > 0 && remainingCredits < rewardPerResponse) {
-      // Pause study automatically per business rules
-      await prisma.study.update({
-        where: { id: study.id },
-        data: { status: "PAUSED" },
-      });
-
-      return NextResponse.json(
-        {
-          error: "This research study has reached its credit budget and is paused. You can switch to voluntary participation (Free) to continue collecting responses.",
-        },
-        { status: 400 }
-      );
-    }
+    // 7. Platform-Determined TC Reward
+    // ---------------------------------------------
+    const rewardPerResponse =
+      study.rewardCredits > 0
+        ? study.rewardCredits
+        : calculateStudyRewardCredits(study.estimatedMinutes, study.questions?.length || 1);
 
     // ---------------------------------------------
     // 8. Read answers
@@ -321,6 +307,7 @@ export async function POST(
               _count: {
                 select: {
                   responses: true,
+                  questions: true,
                 },
               },
             },
@@ -343,20 +330,11 @@ export async function POST(
           throw new Error("PARTICIPANT_LIMIT");
         }
 
-        // Check funding inside transaction
-        const isFundedInTx = currentStudy.fundingType === "FUNDED" || (currentStudy.rewardCredits > 0 && currentStudy.fundingType !== "FREE");
-        const rewardAmount = isFundedInTx ? (currentStudy.creditPerResponse || currentStudy.rewardCredits) : 0;
-        const budgetTotal = isFundedInTx ? (currentStudy.creditBudget || currentStudy.budgetCredits) : 0;
-        const spentTotal = isFundedInTx ? (currentStudy.creditsSpent || currentStudy.creditsPaid) : 0;
-        const remainingInTx = budgetTotal - spentTotal;
-
-        if (isFundedInTx && rewardAmount > 0 && remainingInTx < rewardAmount) {
-          await tx.study.update({
-            where: { id: currentStudy.id },
-            data: { status: "PAUSED" },
-          });
-          throw new Error("BUDGET_EXCEEDED");
-        }
+        // Determine platform participant TC reward
+        const rewardAmount =
+          currentStudy.rewardCredits > 0
+            ? currentStudy.rewardCredits
+            : calculateStudyRewardCredits(currentStudy.estimatedMinutes, currentStudy._count.questions || 1);
 
         // -----------------------------------------
         // Create response
@@ -433,7 +411,7 @@ export async function POST(
 
         let finalBalance = 0;
 
-        if (isFundedInTx && rewardAmount > 0) {
+        if (rewardAmount > 0) {
           const rewardResult = await executeBalancedReward({
             studyId,
             participantId: user.id,
@@ -445,7 +423,7 @@ export async function POST(
 
           finalBalance = rewardResult?.newBalance ?? 0;
         } else {
-          // If free study, fetch current balance without modifying
+          // Fetch current balance without modifying
           const userWallet = await tx.wallet.findUnique({
             where: { userId: user.id }
           });
@@ -453,24 +431,19 @@ export async function POST(
         }
 
         // -----------------------------------------
-        // Update study funding and completion
+        // Update study completion and response count
         // -----------------------------------------
 
-        const newCreditsSpent = spentTotal + rewardAmount;
+        const newCreditsSpent = (currentStudy.creditsSpent || 0) + rewardAmount;
         const newResponseCount = currentStudy._count.responses + 1;
         const targetReached = currentStudy.participantTarget > 0 && newResponseCount >= currentStudy.participantTarget;
-        const budgetReached = isFundedInTx && budgetTotal > 0 && newCreditsSpent >= budgetTotal;
 
         await tx.study.update({
           where: { id: studyId },
           data: {
             creditsSpent: newCreditsSpent,
             creditsPaid: newCreditsSpent,
-            status: targetReached
-              ? "COMPLETED"
-              : budgetReached
-              ? "PAUSED"
-              : "ACTIVE",
+            status: targetReached ? "COMPLETED" : "ACTIVE",
           },
         });
 
@@ -478,7 +451,6 @@ export async function POST(
           balance: finalBalance,
           creditsEarned: rewardAmount,
           studyCompleted: targetReached,
-          budgetReached,
         };
       }
     );

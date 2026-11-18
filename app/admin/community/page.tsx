@@ -294,8 +294,8 @@ export default function AdminCommunityPage() {
               aria-pressed={isActive}
               className={`flex min-h-12 items-center gap-2.5 rounded-lg border px-3 text-left transition-all ${
                 isActive
-                  ? "border-emerald-600/40 bg-emerald-500/10 text-foreground ring-1 ring-emerald-500/20 shadow-sm dark:border-emerald-500/50 dark:bg-emerald-500/15 dark:ring-emerald-500/30"
-                  : "border-transparent bg-transparent text-muted-foreground hover:border-border hover:bg-muted/60 hover:text-foreground"
+                  ? "border-emerald-600/50 bg-emerald-500/15 text-foreground ring-1 ring-emerald-500/30 shadow-xs dark:border-emerald-400/50 dark:bg-emerald-500/20"
+                  : "border-border/50 bg-card/70 text-muted-foreground hover:border-border hover:bg-muted/70 hover:text-foreground"
               }`}
             >
               <span
@@ -308,15 +308,15 @@ export default function AdminCommunityPage() {
                 <Icon className="h-4 w-4" />
               </span>
               <span className="min-w-0">
-                <span className={`block text-xs font-semibold capitalize ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
+                <span className={`block text-xs font-bold capitalize ${isActive ? "text-emerald-950 dark:text-emerald-200" : "text-foreground font-semibold"}`}>
                   {channel.label}
                 </span>
                 <span
-                  className={`block text-[10px] font-medium ${
-                    isActive ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground/80"
+                  className={`block text-[10px] font-semibold tracking-wide ${
+                    isActive ? "text-emerald-700 dark:text-emerald-400" : "text-slate-500 dark:text-slate-400"
                   }`}
                 >
-                  {String(index + 1).padStart(2, "0")} / room
+                  Room {String(index + 1).padStart(2, "0")}
                 </span>
               </span>
             </button>

@@ -45,7 +45,6 @@ type Question = {
 export default function CreateStudyPage() {
   const router = useRouter();
 
-  const [studyType, setStudyType] = useState<"FUNDED" | "FREE_DATA_COLLECTION">("FUNDED");
   const [category, setCategory] = useState<HealthCategory>("Public Health");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -70,10 +69,7 @@ export default function CreateStudyPage() {
   ]);
 
   // Platform-determined participant TC reward (calculated from duration and question depth)
-  const rewardCredits =
-    studyType === "FREE_DATA_COLLECTION"
-      ? 0
-      : calculateStudyRewardCredits(estimatedMinutes, questions.length);
+  const rewardCredits = calculateStudyRewardCredits(estimatedMinutes, questions.length);
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -86,7 +82,6 @@ export default function CreateStudyPage() {
       .catch(() => {});
   }, []);
 
-  const budgetCredits = studyType === "FREE_DATA_COLLECTION" ? 0 : rewardCredits * participantTarget;
   const validCollectorPayRate = /^\d{1,9}(?:\.\d{1,2})?$/.test(collectorPayRate);
   const collectorPayRateCents = validCollectorPayRate
     ? Math.round(Number(collectorPayRate) * 100)
@@ -157,9 +152,6 @@ export default function CreateStudyPage() {
 
     if (!title.trim()) return setError("Please enter a study title.");
     if (!category) return setError("Please select a health research category.");
-    if (studyType === "FUNDED" && rewardCredits < 1) {
-      return setError("Funded studies require a reward of at least 1 TC per participant.");
-    }
     if (participantTarget <= 0) {
       return setError("Participant target must be at least 1.");
     }
@@ -211,7 +203,8 @@ export default function CreateStudyPage() {
           title,
           description,
           bannerTheme,
-          studyType,
+          studyType: "SURVEY",
+          fundingType: "FREE",
           category,
           objective,
           targetPopulation,
@@ -221,14 +214,14 @@ export default function CreateStudyPage() {
           involvesMinors,
           safetyProtocolText,
           estimatedMinutes,
-          rewardCredits: studyType === "FREE_DATA_COLLECTION" ? 0 : rewardCredits,
+          rewardCredits,
           participantTarget,
           collectorsNeeded,
           collectorPayType: collectorsNeeded > 0 ? collectorPayType : null,
           collectorPayRateCents: collectorsNeeded > 0 ? collectorPayRateCents : 0,
-          budgetCredits,
+          budgetCredits: 0,
           questions,
-          publishImmediately: studyType === "FREE_DATA_COLLECTION" ? publishImmediately : false,
+          publishImmediately,
         }),
       });
 
@@ -293,90 +286,6 @@ export default function CreateStudyPage() {
       )}
 
       <div className="space-y-8">
-        {/* Study Type Selection */}
-        <div>
-          <label className="block text-sm font-semibold text-foreground mb-3">
-            Choose Study Type <span className="text-destructive">*</span>
-          </label>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Funded Research Card */}
-            <button
-              type="button"
-              aria-pressed={studyType === "FUNDED"}
-              onClick={() => setStudyType("FUNDED")}
-              className={`relative w-full cursor-pointer rounded-xl border-2 p-5 text-left transition-all ${
-                studyType === "FUNDED"
-                  ? "border-emerald-600 bg-emerald-500/5 shadow-md"
-                  : "border-border bg-card hover:border-emerald-500/40"
-              }`}
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`p-2.5 rounded-lg ${
-                      studyType === "FUNDED"
-                        ? "bg-emerald-600 text-white"
-                        : "bg-muted text-muted-foreground"
-                    }`}
-                  >
-                    <Coins className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-foreground text-base">Funded Research</h3>
-                    <span className="inline-block text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full mt-0.5">
-                      Participant Reward Enabled
-                    </span>
-                  </div>
-                </div>
-                {studyType === "FUNDED" && (
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
-                )}
-              </div>
-              <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-                Formal academic, clinical, or grant-backed health research. Participants earn Tinat Credits (TC) upon completion.
-              </p>
-            </button>
-
-            {/* Free Data Collection Card */}
-            <button
-              type="button"
-              aria-pressed={studyType === "FREE_DATA_COLLECTION"}
-              onClick={() => setStudyType("FREE_DATA_COLLECTION")}
-              className={`relative w-full cursor-pointer rounded-xl border-2 p-5 text-left transition-all ${
-                studyType === "FREE_DATA_COLLECTION"
-                  ? "border-emerald-600 bg-emerald-500/5 shadow-md"
-                  : "border-border bg-card hover:border-emerald-500/40"
-              }`}
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`p-2.5 rounded-lg ${
-                      studyType === "FREE_DATA_COLLECTION"
-                        ? "bg-emerald-600 text-white"
-                        : "bg-muted text-muted-foreground"
-                    }`}
-                  >
-                    <ClipboardCheck className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-foreground text-base">Free Data Collection</h3>
-                    <span className="inline-block text-[11px] font-semibold text-teal-700 dark:text-teal-300 bg-teal-500/10 px-2 py-0.5 rounded-full mt-0.5">
-                      No Funding Needed • Free to Publish
-                    </span>
-                  </div>
-                </div>
-                {studyType === "FREE_DATA_COLLECTION" && (
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
-                )}
-              </div>
-              <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-                Ideal for medical student assignments, NGO health assessments, pilot questionnaires, and general community health surveys.
-              </p>
-            </button>
-          </div>
-        </div>
-
         {/* Study Details Card */}
         <Card>
           <CardHeader>
@@ -525,129 +434,79 @@ export default function CreateStudyPage() {
           </CardContent>
         </Card>
 
-        {/* Study Funding & Capacity Card */}
+        {/* Participant Target & Platform Rewards */}
         <Card>
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              {studyType === "FUNDED" ? (
-                <Coins className="w-5 h-5 text-emerald-600" />
-              ) : (
-                <ClipboardCheck className="w-5 h-5 text-emerald-600" />
-              )}
-              {studyType === "FUNDED" ? "Study Funding & Capacity" : "Participant Target & Publishing"}
+              <Coins className="w-5 h-5 text-emerald-600" />
+              Participant Capacity & Platform Rewards
             </CardTitle>
             <CardDescription>
-              {studyType === "FUNDED"
-                ? "Participant rewards are standardized by the platform based on required study time and question depth."
-                : "Free data collection requires no financial deposit or participant incentives."}
+              Participants receive platform-standardized Tinat Credits (TC) upon completing your study. No funding deposit is required from researchers.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-5">
-            {studyType === "FUNDED" ? (
-              <div>
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <label className="block text-sm font-medium text-foreground">
-                        Platform-Determined Reward
-                      </label>
-                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
-                        <Sparkles className="w-3 h-3" /> Auto-Standardized
-                      </span>
-                    </div>
-                    <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3.5 flex items-center justify-between">
-                      <div>
-                        <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-                          {rewardCredits} <span className="text-xs font-semibold text-muted-foreground uppercase">TC / response</span>
-                        </div>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          Calculated for {estimatedMinutes} min &bull; {questions.length} {questions.length === 1 ? "question" : "questions"}
-                        </p>
-                      </div>
-                      <Coins className="w-6 h-6 text-emerald-600/40" />
-                    </div>
-                    <p className="text-[11px] text-muted-foreground leading-relaxed">
-                      The platform automatically determines participant TC to ensure fair compensation across all research studies.
-                    </p>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="block text-sm font-medium text-foreground">
-                      Participant Target Cap <span className="text-destructive">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      min="1"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors"
-                      value={participantTarget}
-                      onChange={(e) => setParticipantTarget(Math.max(1, Number(e.target.value)))}
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Maximum number of participant responses to accept.
-                    </p>
-                  </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium text-foreground">
+                    Platform-Determined Participant Reward
+                  </label>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                    <Sparkles className="w-3 h-3" /> Auto-Standardized
+                  </span>
                 </div>
-
-                <div className="mt-6 bg-muted/50 rounded-xl p-4 border border-border flex justify-between items-center">
+                <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 flex items-center justify-between">
                   <div>
-                    <p className="font-semibold text-foreground text-sm">Total Required Budget</p>
-                    <p className="text-xs text-muted-foreground">
-                      {participantTarget} participants × {rewardCredits} TC reward
+                    <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                      +{rewardCredits} <span className="text-xs font-semibold text-muted-foreground uppercase">TC / response</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Calculated for {estimatedMinutes} min &bull; {questions.length} {questions.length === 1 ? "question" : "questions"}
                     </p>
                   </div>
-                  <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
-                    {budgetCredits} <span className="text-sm font-normal text-muted-foreground">TC</span>
-                  </div>
+                  <Coins className="w-7 h-7 text-emerald-600/40" />
                 </div>
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  Tinat automatically issues these credits to participants when they submit valid responses at zero cost to you.
+                </p>
               </div>
-            ) : (
+
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-900 dark:text-teal-200">
-                  <div className="flex items-center gap-2 font-semibold text-sm">
-                    <Sparkles className="w-4 h-4 text-teal-600 dark:text-teal-400" />
-                    Zero-Cost Publishing
-                  </div>
-                  <p className="text-xs mt-1 text-muted-foreground leading-relaxed">
-                    This study will be published as an open volunteer health study. Participants will not receive Tinat Credits, and you do not need to fund a wallet balance.
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-medium text-foreground">
+                    Participant Target Cap <span className="text-destructive">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors"
+                    value={participantTarget}
+                    onChange={(e) => setParticipantTarget(Math.max(1, Number(e.target.value)))}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Maximum number of participant responses. The study automatically closes when reached.
                   </p>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div className="space-y-1.5">
-                    <label className="block text-sm font-medium text-foreground">
-                      Desired Participant Target
-                    </label>
+                <div className="rounded-xl border border-border bg-muted/20 p-3.5 space-y-2">
+                  <label className="flex items-center gap-2.5 cursor-pointer">
                     <input
-                      type="number"
-                      min="1"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors"
-                      value={participantTarget}
-                      onChange={(e) => setParticipantTarget(Math.max(1, Number(e.target.value)))}
+                      type="checkbox"
+                      checked={publishImmediately}
+                      onChange={(e) => setPublishImmediately(e.target.checked)}
+                      className="rounded border-input text-emerald-600 focus:ring-emerald-500 h-4 w-4"
                     />
-                    <p className="text-xs text-muted-foreground">
-                      The study automatically closes once this target is reached.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col justify-center space-y-2 pt-2">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={publishImmediately}
-                        onChange={(e) => setPublishImmediately(e.target.checked)}
-                        className="rounded border-input text-emerald-600 focus:ring-emerald-500 h-4 w-4"
-                      />
-                      <span className="text-sm font-medium text-foreground">
-                        Publish Immediately as Active
-                      </span>
-                    </label>
-                    <p className="text-xs text-muted-foreground pl-6">
-                      If unchecked, the study is saved as a Draft so you can review before activating.
-                    </p>
-                  </div>
+                    <span className="text-sm font-semibold text-foreground">
+                      Publish Immediately as Active
+                    </span>
+                  </label>
+                  <p className="text-xs text-muted-foreground pl-6.5">
+                    If unchecked, the study is saved as a Draft so you can review before activating.
+                  </p>
                 </div>
               </div>
-            )}
+            </div>
           </CardContent>
         </Card>
 
@@ -910,7 +769,7 @@ export default function CreateStudyPage() {
 
         <div className="flex justify-end pt-6 border-t border-border">
           <Button size="lg" onClick={handleSubmit} isLoading={loading} disabled={involvesMinors || loading} className="px-8">
-            {studyType === "FREE_DATA_COLLECTION" && publishImmediately
+            {publishImmediately
               ? "Publish Health Study"
               : "Create Study"}
           </Button>

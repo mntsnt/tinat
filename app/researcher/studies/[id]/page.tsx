@@ -186,13 +186,12 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                   {study.category}
                 </span>
               )}
-              {study.studyType === "FREE_DATA_COLLECTION" || study.rewardCredits === 0 ? (
-                <span className="text-xs font-medium text-teal-700 dark:text-teal-300 bg-teal-500/10 px-2.5 py-0.5 rounded-full">
-                  Open Data Collection (Free)
-                </span>
-              ) : (
-                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
-                  Funded Research &bull; {study.rewardCredits} TC / response
+              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
+                Data Collection Study &bull; Participant Reward: {study.rewardCredits} TC
+              </span>
+              {study.collectorsNeeded > 0 && (
+                <span className="text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-500/10 px-2.5 py-0.5 rounded-full">
+                  Field Collection: {study.collectorsNeeded} collectors (ETB)
                 </span>
               )}
               {study.estimatedMinutes && (
@@ -255,19 +254,12 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
                       Verify with Fayda in Settings
                     </ButtonLink>
                   </div>
-                ) : study.studyType === "FREE_DATA_COLLECTION" || study.budgetCredits <= 0 ? (
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-4">
-                      This is an Open Data Collection study. No payment or deposit is required. You can publish it immediately to make it accessible to participants.
-                    </p>
-                    <PublishUnfundedButton studyId={study.id} label="Publish Health Study Now" />
-                  </div>
                 ) : (
                   <div>
                     <p className="text-xs text-muted-foreground mb-4">
-                      This is a Funded Study. Fund the participant reward pool ({study.budgetCredits} TC) to make it active and visible to verified participants.
+                      Publish this study now to make it active and open for participant data collection. Participants automatically receive {study.rewardCredits} TC upon verified completion.
                     </p>
-                    <FundStudyButton studyId={study.id} amount={study.budgetCredits} />
+                    <PublishUnfundedButton studyId={study.id} label="Publish Health Study Now" />
                   </div>
                 )}
               </div>
@@ -370,34 +362,38 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
 
         <Card>
           <CardHeader>
-            <CardTitle>Funding</CardTitle>
+            <CardTitle>Participation & Rewards</CardTitle>
           </CardHeader>
           <CardContent>
             <dl className="space-y-4">
               <div className="flex justify-between items-center pb-4 border-b border-border">
-                <dt className="text-sm text-muted-foreground">Total Budget</dt>
-                <dd className="font-semibold text-foreground">{study.budgetCredits} TC</dd>
+                <dt className="text-sm text-muted-foreground">Participant Reward</dt>
+                <dd className="font-semibold text-emerald-600 dark:text-emerald-400">+{study.rewardCredits} TC / response</dd>
               </div>
               <div className="flex justify-between items-center pb-4 border-b border-border">
-                <dt className="text-sm text-muted-foreground">Credits Paid</dt>
-                <dd className="font-semibold text-foreground">{study.creditsPaid} TC</dd>
+                <dt className="text-sm text-muted-foreground">Target Responses</dt>
+                <dd className="font-semibold text-foreground">{study.participantTarget > 0 ? study.participantTarget : "No limit"}</dd>
               </div>
               <div className="flex justify-between items-center pb-4 border-b border-border">
-                <dt className="text-sm text-muted-foreground">Remaining</dt>
-                <dd className="font-semibold text-foreground">{remainingCredits} TC</dd>
+                <dt className="text-sm text-muted-foreground">Responses Collected</dt>
+                <dd className="font-semibold text-foreground">{totalResponses}</dd>
+              </div>
+              <div className="flex justify-between items-center pb-4 border-b border-border">
+                <dt className="text-sm text-muted-foreground">Platform Credits Issued</dt>
+                <dd className="font-semibold text-foreground">{totalResponses * study.rewardCredits} TC</dd>
               </div>
             </dl>
 
-            {study.budgetCredits > 0 && (
+            {study.participantTarget > 0 && (
               <div className="mt-6 pt-2">
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-muted-foreground">Funding Used</span>
-                  <span className="font-medium text-foreground">{Math.min(100, Math.round((study.creditsPaid / study.budgetCredits) * 100))}%</span>
+                  <span className="text-muted-foreground">Target Progress</span>
+                  <span className="font-medium text-foreground">{Math.min(100, Math.round((totalResponses / study.participantTarget) * 100))}%</span>
                 </div>
                 <div className="w-full bg-muted rounded-full h-2.5">
                   <div 
-                    className="bg-primary h-2.5 rounded-full" 
-                    style={{ width: `${Math.min(100, Math.round((study.creditsPaid / study.budgetCredits) * 100))}%` }}
+                    className="bg-emerald-600 h-2.5 rounded-full transition-all duration-300" 
+                    style={{ width: `${Math.min(100, Math.round((totalResponses / study.participantTarget) * 100))}%` }}
                   ></div>
                 </div>
               </div>

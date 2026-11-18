@@ -75,13 +75,8 @@ export default async function StudyPage(props: Props) {
   }
 
   const isCompletedOrPaused = study.status === "COMPLETED" || study.status === "PAUSED";
-  
-  const remaining = study.budgetCredits - study.creditsPaid;
-  const budgetExhausted = study.rewardCredits > 0 && study.rewardCredits > remaining;
-  
   const targetReached = study.participantTarget > 0 && study._count.responses >= study.participantTarget;
-
-  const cannotParticipate = isCompletedOrPaused || budgetExhausted || targetReached;
+  const cannotParticipate = isCompletedOrPaused || targetReached;
 
   if (cannotParticipate) {
     return (
@@ -91,7 +86,7 @@ export default async function StudyPage(props: Props) {
           <p className="text-muted-foreground mb-6">
             {isCompletedOrPaused 
               ? "This study is currently paused or has already been completed." 
-              : "This study has reached its participant limit or budget capacity and is no longer accepting responses."}
+              : "This study has reached its participant target and is no longer accepting responses."}
           </p>
           <ButtonLink href="/participant/studies" className="w-full">
             Back to Discover

@@ -146,15 +146,16 @@ export default async function ResearcherDashboard() {
                     <Badge variant={statusVariant(study.status) as "success" | "secondary" | "warning"}>
                       {study.status}
                     </Badge>
-                    {study.rewardCredits > 0 ? (
-                      <span className="rounded px-2 py-1 text-xs font-semibold bg-cyan-50 text-cyan-900 dark:bg-cyan-950/50 dark:text-cyan-300">
-                        {study.rewardCredits} TC / response
+                    <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                      <span className="rounded px-2 py-0.5 text-xs font-semibold bg-emerald-50 text-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-300">
+                        +{study.rewardCredits > 0 ? study.rewardCredits : 5} TC
                       </span>
-                    ) : (
-                      <span className="text-xs font-semibold px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
-                        Free Data Collection
-                      </span>
-                    )}
+                      {study.collectorsNeeded > 0 && (
+                        <span className="rounded px-2 py-0.5 text-xs font-semibold bg-blue-50 text-blue-900 dark:bg-blue-950/50 dark:text-blue-300">
+                          {study.collectorsNeeded} collectors (ETB)
+                        </span>
+                      )}
+                    </div>
                   </div>
                   {study.category && (
                     <div className="mb-1">

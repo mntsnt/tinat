@@ -203,40 +203,6 @@ export default function FieldCollectionPage() {
     }
   }
 
-  function renderLanguageSelect() {
-    return (
-      <label className="block text-left">
-        <span className="mb-1.5 block text-xs font-medium text-muted-foreground">
-          {t.language}
-        </span>
-        <select
-          value={language}
-          onChange={(event) => {
-            const nextLanguage = SUPPORTED_LOCALES.find(
-              ({ code }) => code === event.target.value
-            )?.code;
-            if (nextLanguage) void handleLanguageChange(nextLanguage);
-          }}
-          disabled={loadingTranslation || availableLanguages.length < 2}
-          className="h-10 w-full rounded-lg border border-border bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
-        >
-          {SUPPORTED_LOCALES.filter(({ code }) =>
-            availableLanguages.includes(code)
-          ).map(({ code, name, nativeName }) => (
-            <option key={code} value={code}>
-              {nativeName === name ? name : `${nativeName} (${name})`}
-            </option>
-          ))}
-        </select>
-        {loadingTranslation && (
-          <span role="status" className="mt-1 block text-xs text-muted-foreground">
-            Loading translated questions...
-          </span>
-        )}
-      </label>
-    );
-  }
-
   const handleSubmit = async () => {
     setIsSubmitting(true);
     setErrorMessage(null);
@@ -343,11 +309,6 @@ export default function FieldCollectionPage() {
     return (
       <div className="min-h-screen bg-background flex flex-col p-5 max-w-lg mx-auto relative">
         <div className="flex-1 flex flex-col justify-center">
-          {languageWarning && (
-            <p role="status" className="mb-4 text-xs text-amber-700 dark:text-amber-300">
-              {languageWarning}
-            </p>
-          )}
           <div className="w-16 h-16 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-6 mx-auto">
             <ShieldCheck className="w-8 h-8" />
           </div>
@@ -453,11 +414,6 @@ export default function FieldCollectionPage() {
 
       {/* Question Content */}
       <div className="flex-1 p-5 overflow-y-auto">
-        {languageWarning && (
-          <p role="status" className="mb-4 text-xs text-amber-700 dark:text-amber-300">
-            {languageWarning}
-          </p>
-        )}
         {errorMessage && (
           <p role="alert" className="mb-4 rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
             {errorMessage}
