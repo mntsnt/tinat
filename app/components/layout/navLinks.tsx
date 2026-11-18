@@ -56,7 +56,6 @@ export const adminLinks: SidebarLink[] = [
   { title: "Verifications", href: "/admin/verifications", icon: <ShieldCheck /> },
   { title: "Moderation", href: "/admin/moderation", icon: <BrainCircuit /> },
   { title: "Admin Community", href: "/admin/community", icon: <MessageCircleMore /> },
-  { title: "Literature", href: "/researcher/literature", icon: <BookOpen /> },
   { title: "Activity Logs", href: "/admin/logs", icon: <ScrollText /> },
   { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },

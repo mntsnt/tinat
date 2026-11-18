@@ -27,6 +27,8 @@ import {
   ChevronDown,
   BookOpen,
   ExternalLink,
+  Search,
+  Trash2,
 } from "lucide-react";
 import { STUDY_BANNERS, type StudyBannerTheme } from "@/lib/studyBanners";
 import { StudyBanner as StudyBannerPreview } from "../../../components/studies/StudyBanner";
@@ -97,6 +99,48 @@ function CreateStudyForm() {
   const [loading, setLoading] = useState(false);
   const [faydaVerified, setFaydaVerified] = useState<boolean | null>(null);
 
+  interface AttachedLiterature {
+    arxivId: string;
+    title: string;
+    authors: string;
+    abstract?: string;
+    paperUrl?: string;
+    pdfUrl?: string;
+  }
+
+  const [attachedLiterature, setAttachedLiterature] = useState<AttachedLiterature | null>(() => {
+    if (literatureArxiv && literatureTitle) {
+      return {
+        arxivId: literatureArxiv,
+        title: literatureTitle,
+        authors: literatureAuthors || "",
+        abstract: literatureAbstract || "",
+        paperUrl: `https://arxiv.org/abs/${literatureArxiv}`,
+        pdfUrl: `https://arxiv.org/pdf/${literatureArxiv}.pdf`,
+      };
+    }
+    return null;
+  });
+
+  const [showLiteratureSearch, setShowLiteratureSearch] = useState(false);
+  const [literatureSearchQuery, setLiteratureSearchQuery] = useState("");
+  const [literatureSearching, setLiteratureSearching] = useState(false);
+  const [literatureResults, setLiteratureResults] = useState<any[]>([]);
+  const [literatureSearchError, setLiteratureSearchError] = useState("");
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.user?.role === "ADMIN") {
+          router.replace("/admin/studies");
+        } else if (data?.user?.role === "PARTICIPANT") {
+          router.replace("/participant");
+        }
+      })
+      .catch(() => {});
+  }, [router]);
+
   useEffect(() => {
     fetch("/api/auth/fayda-verify")
       .then((res) => res.json())
@@ -104,22 +148,48 @@ function CreateStudyForm() {
       .catch(() => {});
   }, []);
 
-  // Pre-fill study information if researcher navigated from ScholarXIV Literature
-  useEffect(() => {
-    if (literatureTitle) {
-      setTitle((prev) => prev || `Study on ${literatureTitle.slice(0, 90)}`);
+  async function handleSearchLiterature(e?: React.FormEvent) {
+    if (e) e.preventDefault();
+    const q = literatureSearchQuery.trim();
+    if (!q) return;
+
+    setLiteratureSearching(true);
+    setLiteratureSearchError("");
+    try {
+      const res = await fetch(`/api/literature?q=${encodeURIComponent(q)}&limit=6`);
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to search ScholarXIV database");
+      }
+      const papers = Array.isArray(data.papers) ? data.papers : [];
+      setLiteratureResults(papers);
+      if (papers.length === 0) {
+        setLiteratureSearchError("No preprint papers found matching your query.");
+      }
+    } catch (err: any) {
+      setLiteratureSearchError(err.message || "Could not connect to ScholarXIV");
+    } finally {
+      setLiteratureSearching(false);
     }
-    if (literatureArxiv) {
-      setObjective((prev) =>
-        prev ||
-        `Grounded by prior research on "${literatureTitle || "literature"}" (arXiv:${literatureArxiv}), this study measures localized community response patterns and health outcomes.`
-      );
-      setDescription((prev) =>
-        prev ||
-        `Theoretical rationale & literature grounding (arXiv:${literatureArxiv}):\n${literatureAbstract ? `${literatureAbstract.slice(0, 450)}...\n\n` : ""}Investigate field response trends and assess quantitative outcomes across targeted Ethiopian cohorts.`
-      );
-    }
-  }, [literatureTitle, literatureArxiv, literatureAbstract]);
+  }
+
+  function selectPaper(paper: any) {
+    setAttachedLiterature({
+      arxivId: paper.arxivId,
+      title: paper.title,
+      authors: Array.isArray(paper.authors) ? paper.authors.join(", ") : (paper.authors || ""),
+      abstract: paper.abstract || "",
+      paperUrl: paper.paperUrl || `https://arxiv.org/abs/${paper.arxivId}`,
+      pdfUrl: paper.pdfUrl || `https://arxiv.org/pdf/${paper.arxivId}.pdf`,
+    });
+    setShowLiteratureSearch(false);
+    setLiteratureResults([]);
+    setLiteratureSearchQuery("");
+  }
+
+  function removePaper() {
+    setAttachedLiterature(null);
+  }
 
   const validCollectorPayRate = /^\d{1,9}(?:\.\d{1,2})?$/.test(collectorPayRate);
   const collectorPayRateCents = validCollectorPayRate
@@ -235,12 +305,23 @@ function CreateStudyForm() {
     setLoading(true);
 
     try {
+      let finalDescription = description;
+      const finalTags: string[] = [];
+
+      if (attachedLiterature) {
+        finalTags.push(`arxiv:${attachedLiterature.arxivId}`);
+        if (!description.includes(attachedLiterature.arxivId)) {
+          const groundingText = `\n\n---\n**Grounded in Scientific Literature:**\n"${attachedLiterature.title}" (arXiv:${attachedLiterature.arxivId}) by ${attachedLiterature.authors || "preprinted authors"}.\nhttps://arxiv.org/abs/${attachedLiterature.arxivId}`;
+          finalDescription = description.trim() ? `${description.trim()}${groundingText}` : groundingText.trim();
+        }
+      }
+
       const response = await fetch("/api/studies", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title,
-          description,
+          description: finalDescription,
           bannerTheme,
           studyType: "SURVEY",
           fundingType: "FREE",
@@ -260,6 +341,7 @@ function CreateStudyForm() {
           collectorPayRateCents: collectorsNeeded > 0 ? collectorPayRateCents : 0,
           budgetCredits: 0,
           questions,
+          tags: finalTags,
           publishImmediately,
         }),
       });
@@ -306,46 +388,10 @@ function CreateStudyForm() {
             className="inline-flex items-center gap-2 self-start rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3.5 py-2 text-xs font-semibold text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 transition shadow-xs"
           >
             <BookOpen className="w-4 h-4 text-emerald-600" />
-            <span>ScholarXIV Literature</span>
+            <span>Literature</span>
           </Link>
         </div>
       </div>
-
-      {literatureArxiv ? (
-        <div className="mb-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4 flex items-start justify-between gap-3 shadow-xs">
-          <div className="flex items-start gap-3">
-            <span className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 shrink-0 mt-0.5">
-              <BookOpen className="w-5 h-5" />
-            </span>
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-                Grounded by ScholarXIV Research
-              </span>
-              <h2 className="text-sm font-bold text-foreground mt-0.5">{literatureTitle}</h2>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                arXiv:{literatureArxiv} &bull; {literatureAuthors || "Authors listed in preprint"}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <a
-              href={`https://arxiv.org/abs/${literatureArxiv}`}
-              target="_blank"
-              rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 hover:underline"
-            >
-              <span>arXiv</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-            <Link
-              href="/researcher/literature"
-              className="text-xs font-semibold text-muted-foreground hover:text-foreground"
-            >
-              Change
-            </Link>
-          </div>
-        </div>
-      ) : null}
 
       {faydaVerified === false && (
         <div className="rounded-xl p-4 bg-amber-500/10 border border-amber-500/30 text-xs text-amber-900 dark:text-amber-200 leading-relaxed flex items-start justify-between gap-4 mb-6">
@@ -468,6 +514,182 @@ function CreateStudyForm() {
                 placeholder="Provide details about the study background, ethical compliance, and what participants will experience."
               />
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Optional Literature Grounding Card */}
+        <Card>
+          <CardHeader className="pb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                  <BookOpen className="w-4 h-4" />
+                </div>
+                <div>
+                  <CardTitle className="text-base font-semibold">
+                    Literature Grounding <span className="text-xs font-normal text-muted-foreground">(Optional)</span>
+                  </CardTitle>
+                </div>
+              </div>
+              {!attachedLiterature && !showLiteratureSearch && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowLiteratureSearch(true)}
+                  className="text-xs self-start sm:self-auto border-emerald-500/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10"
+                >
+                  <Search className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
+                  Select from ScholarXIV Database
+                </Button>
+              )}
+            </div>
+            <CardDescription className="text-xs mt-1">
+              If you wish to ground your study with prior empirical research, you can optionally select a preprint from the ScholarXIV arXiv database.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 pt-1">
+            {attachedLiterature ? (
+              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      Attached ScholarXIV Literature
+                    </span>
+                    <h4 className="text-sm font-semibold text-foreground">{attachedLiterature.title}</h4>
+                    <p className="text-xs text-muted-foreground">
+                      arXiv:{attachedLiterature.arxivId} &bull; {attachedLiterature.authors || "Preprinted authors"}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <a
+                      href={attachedLiterature.paperUrl || `https://arxiv.org/abs/${attachedLiterature.arxivId}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 hover:underline"
+                    >
+                      <span>arXiv</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={removePaper}
+                      className="text-xs text-destructive hover:bg-destructive/10 h-7 px-2"
+                      title="Remove attached literature"
+                    >
+                      <Trash2 className="w-3.5 h-3.5 mr-1" />
+                      Remove
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-emerald-500/15">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const citation = `\n\n**Theoretical Literature Grounding (arXiv:${attachedLiterature.arxivId}):**\n"${attachedLiterature.title}" by ${attachedLiterature.authors || "preprinted authors"}.\nhttps://arxiv.org/abs/${attachedLiterature.arxivId}`;
+                      if (!description.includes(attachedLiterature.arxivId)) {
+                        setDescription((prev) => (prev ? `${prev.trim()}${citation}` : citation.trim()));
+                      }
+                    }}
+                    className="text-xs font-medium text-emerald-700 dark:text-emerald-300 hover:underline inline-flex items-center gap-1"
+                  >
+                    <span>Insert citation into study description</span>
+                  </button>
+                  <span className="text-muted-foreground text-xs">&bull;</span>
+                  <button
+                    type="button"
+                    onClick={() => setShowLiteratureSearch(true)}
+                    className="text-xs font-medium text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                  >
+                    <span>Change paper</span>
+                  </button>
+                </div>
+              </div>
+            ) : showLiteratureSearch ? (
+              <div className="rounded-xl border border-border bg-muted/20 p-4 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                    Search ScholarXIV Database
+                  </h4>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setShowLiteratureSearch(false);
+                      setLiteratureResults([]);
+                      setLiteratureSearchError("");
+                    }}
+                    className="h-7 text-xs"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+
+                <form onSubmit={handleSearchLiterature} className="flex gap-2">
+                  <Input
+                    placeholder="Search preprints by keyword, disease, intervention (e.g., malaria, hypertension, vaccine)..."
+                    value={literatureSearchQuery}
+                    onChange={(e) => setLiteratureSearchQuery(e.target.value)}
+                    className="text-xs"
+                    autoFocus
+                  />
+                  <Button type="submit" size="sm" disabled={literatureSearching || !literatureSearchQuery.trim()}>
+                    {literatureSearching ? "Searching..." : "Search"}
+                  </Button>
+                </form>
+
+                {literatureSearchError && (
+                  <p className="text-xs text-destructive">{literatureSearchError}</p>
+                )}
+
+                {literatureResults.length > 0 && (
+                  <div className="space-y-2.5 max-h-72 overflow-y-auto pr-1">
+                    {literatureResults.map((paper) => (
+                      <div
+                        key={paper.arxivId}
+                        className="rounded-lg border border-border bg-card p-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 text-xs"
+                      >
+                        <div className="space-y-1 min-w-0 flex-1">
+                          <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                            <span className="font-semibold text-emerald-600">arXiv:{paper.arxivId}</span>
+                            {paper.primaryCategory && <span>&bull; {paper.primaryCategory}</span>}
+                          </div>
+                          <h5 className="font-semibold text-foreground text-xs leading-snug line-clamp-2">
+                            {paper.title}
+                          </h5>
+                          <p className="text-[11px] text-muted-foreground line-clamp-1">
+                            {Array.isArray(paper.authors) ? paper.authors.join(", ") : paper.authors}
+                          </p>
+                          {paper.abstract && (
+                            <p className="text-[11px] text-muted-foreground/80 line-clamp-2 pt-0.5">
+                              {paper.abstract}
+                            </p>
+                          )}
+                        </div>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="secondary"
+                          onClick={() => selectPaper(paper)}
+                          className="text-xs shrink-0 self-end sm:self-start"
+                        >
+                          Select Paper
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p className="text-xs text-muted-foreground italic">
+                No literature selected. Your study will be created as an independent clinical or health questionnaire.
+              </p>
+            )}
           </CardContent>
         </Card>
 

@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       select: { id: true, role: true },
     });
 
-    if (!user || (user.role !== "RESEARCHER" && user.role !== "ADMIN")) {
+    if (!user || user.role !== "RESEARCHER") {
       return NextResponse.json(
         { error: "Access denied. Only researchers can generate literature insights." },
         { status: 403 }

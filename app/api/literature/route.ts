@@ -23,9 +23,9 @@ export async function GET(request: Request) {
       select: { id: true, role: true },
     });
 
-    if (!user || (user.role !== "RESEARCHER" && user.role !== "ADMIN")) {
+    if (!user || user.role !== "RESEARCHER") {
       return NextResponse.json(
-        { error: "Access denied. Only researchers and administrators can access ScholarXIV literature." },
+        { error: "Access denied. Only researchers can access ScholarXIV literature." },
         { status: 403 }
       );
     }

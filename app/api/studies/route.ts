@@ -152,7 +152,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const auth = await requireRole(["RESEARCHER", "ADMIN"], request);
+    const auth = await requireRole(["RESEARCHER"], request);
     if (!auth.ok) return auth.response;
     const user = auth.user;
 

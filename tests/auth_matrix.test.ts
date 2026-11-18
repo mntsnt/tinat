@@ -616,7 +616,7 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     researcher_owner: [200, 400, 403],
     researcher_other: [200, 400],
     collector: [403],
-    admin: [200, 400]
+    admin: [403]
   },
   "GET /api/studies/[id]": {
     anonymous: [200, 404],
