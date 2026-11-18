@@ -24,12 +24,13 @@ export async function POST(request: Request) {
 
   const timestamp = request.headers.get("X-Webhook-Timestamp") || "";
   const signature = request.headers.get("X-Webhook-Signature") || "";
+  const webhookSecret = process.env.VERIFY_ET_WEBHOOK_SECRET || process.env.VERIFY_ET_API_KEY || "";
   if (
     !isValidVerifyEtSignature({
       rawBody,
       timestamp,
       signature,
-      secret: process.env.VERIFY_ET_WEBHOOK_SECRET || "",
+      secret: webhookSecret,
     })
   ) {
     return NextResponse.json({ error: "Invalid webhook signature." }, { status: 401 });

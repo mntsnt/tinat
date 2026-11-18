@@ -152,8 +152,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
         payRateCents: study.collectorPayRateCents,
         budgetCents: collectorBudgetCents,
         paymentsEnabled: FEATURES.CASH_PAYMENTS_ENABLED &&
-          Boolean(process.env.VERIFY_ET_API_KEY) &&
-          Boolean(process.env.VERIFY_ET_WEBHOOK_SECRET),
+          Boolean(process.env.VERIFY_ET_API_KEY),
         payments: fundingPayments,
         payouts: payoutRecords,
       },

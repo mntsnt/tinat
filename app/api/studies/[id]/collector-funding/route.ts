@@ -33,9 +33,9 @@ export async function POST(request: Request, { params }: RouteContext) {
       { status: 403 }
     );
   }
-  if (!process.env.VERIFY_ET_API_KEY || !process.env.VERIFY_ET_WEBHOOK_SECRET) {
+  if (!process.env.VERIFY_ET_API_KEY) {
     return NextResponse.json(
-      { error: "Verify.et is not fully configured on this server." },
+      { error: "Verify.et is not fully configured on this server. VERIFY_ET_API_KEY is required." },
       { status: 503 }
     );
   }
