@@ -86,8 +86,8 @@ export default function NewFormPage() {
     fetch("/api/auth/me")
       .then((res) => res.json())
       .then((data) => {
-        if (data.user && data.user.role === "PARTICIPANT") {
-          router.replace("/forms");
+        if (!data?.user) {
+          router.replace("/login?redirect=/forms/new");
         }
       })
       .catch(() => {});
@@ -208,6 +208,9 @@ export default function NewFormPage() {
           let options = isChoice ? q.options.map((opt) => opt.trim()).filter(Boolean) : [];
           if (isChoice && options.length === 0) {
             options = ["Option 1", "Option 2"];
+          }
+          if (q.type === "YES_NO") {
+            options = ["Yes", "No"];
           }
           return {
             text: q.text.trim(),
@@ -565,15 +568,23 @@ export default function NewFormPage() {
         })}
       </div>
 
-      {/* Add Question Button */}
-      <div className="flex justify-center pt-2">
+      {/* Bottom Action Area */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4 pb-12 border-t">
         <Button
           onClick={addQuestion}
           variant="outline"
-          className="rounded-full border-dashed border-2 hover:border-emerald-500 hover:text-emerald-600 px-6 py-5 flex items-center gap-2"
+          className="rounded-full border-dashed border-2 hover:border-emerald-500 hover:text-emerald-600 px-6 py-5 flex items-center gap-2 w-full sm:w-auto"
         >
           <Plus className="h-4 w-4" />
-          <span>Add Question</span>
+          <span>Add Another Question</span>
+        </Button>
+        <Button
+          onClick={handlePublish}
+          disabled={saving}
+          className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-8 py-5 rounded-full shadow-sm flex items-center gap-2 w-full sm:w-auto"
+        >
+          <Sparkles className="h-4 w-4" />
+          <span>{saving ? "Publishing..." : "Publish & Share Form"}</span>
         </Button>
       </div>
 

@@ -334,6 +334,14 @@ export default function PublicFormFillingPage({
           </div>
         </div>
 
+        {/* Paused Form Notice */}
+        {form.status !== "ACTIVE" && (
+          <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-300 text-sm font-medium flex items-center gap-2">
+            <AlertCircle className="h-5 w-5 shrink-0 text-amber-600" />
+            <span>This form is currently paused by the creator and is not accepting new responses.</span>
+          </div>
+        )}
+
         {/* Global Error Banner */}
         {error && (
           <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium flex items-center gap-2">
@@ -537,10 +545,14 @@ export default function PublicFormFillingPage({
         <div className="flex items-center justify-between pt-2">
           <Button
             type="submit"
-            disabled={submitting}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-8 py-2.5 shadow-sm text-sm"
+            disabled={submitting || form.status !== "ACTIVE"}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-8 py-2.5 shadow-sm text-sm disabled:opacity-50"
           >
-            {submitting ? "Submitting..." : "Submit"}
+            {form.status !== "ACTIVE"
+              ? "Submissions Paused"
+              : submitting
+              ? "Submitting..."
+              : "Submit"}
           </Button>
 
           <button

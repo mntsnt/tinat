@@ -30,7 +30,8 @@ export async function POST(
       },
     });
 
-    if (!form || form.category !== "Tinat Form") {
+    const isTinatForm = form && (form.category === "Tinat Form" || (Array.isArray(form.tags) && form.tags.includes("Tinat Form")));
+    if (!form || !isTinatForm) {
       return NextResponse.json({ error: "Form not found" }, { status: 404 });
     }
 

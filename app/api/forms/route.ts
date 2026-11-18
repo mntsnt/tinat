@@ -42,13 +42,6 @@ export async function POST(req: Request) {
     if (!auth.ok) return auth.response;
     const user = auth.user;
 
-    if (user.role !== "RESEARCHER" && user.role !== "ADMIN") {
-      return NextResponse.json(
-        { error: "Participants cannot create research forms. Only researchers and administrators have permission." },
-        { status: 403 }
-      );
-    }
-
     const body = await req.json();
     const { title, description, questions } = body;
 
@@ -65,6 +58,18 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Every question must have question text." }, { status: 400 });
       }
     }
+
+    const validQuestionTypes = new Set([
+      "SHORT_TEXT",
+      "LONG_TEXT",
+      "SINGLE_CHOICE",
+      "MULTIPLE_CHOICE",
+      "NUMBER",
+      "YES_NO",
+      "DATE",
+      "DROPDOWN",
+      "LINEAR_SCALE",
+    ]);
 
     const form = await prisma.study.create({
       data: {
@@ -85,28 +90,50 @@ export async function POST(req: Request) {
         participantTarget: 0,
         estimatedMinutes: 3,
         researcherId: user.id,
+        ethicsExempt: true,
+        ethicsExemptionReason: "Tinat Form: Public volunteer survey exempt from IRB",
         questions: {
-          create: questions.map((q: any, idx: number) => ({
-            text: q.text.trim(),
-            type: (q.type || "SHORT_TEXT") as QuestionType,
-            required: Boolean(q.required),
-            order: idx,
-            scaleMin: q.scaleMin !== undefined && q.scaleMin !== null ? Number(q.scaleMin) : null,
-            scaleMax: q.scaleMax !== undefined && q.scaleMax !== null ? Number(q.scaleMax) : null,
-            scaleMinLabel: typeof q.scaleMinLabel === "string" && q.scaleMinLabel.trim() ? q.scaleMinLabel.trim() : null,
-            scaleMaxLabel: typeof q.scaleMaxLabel === "string" && q.scaleMaxLabel.trim() ? q.scaleMaxLabel.trim() : null,
-            options: {
-              create: Array.isArray(q.options)
-                ? q.options
-                    .filter((opt: string) => typeof opt === "string" && opt.trim())
-                    .map((opt: string, optIdx: number) => ({
-                      text: opt.trim(),
-                      value: opt.trim(),
-                      order: optIdx,
-                    }))
-                : [],
-            },
-          })),
+          create: questions.map((q: any, idx: number) => {
+            const rawType = typeof q.type === "string" ? q.type.trim() : "SHORT_TEXT";
+            const qType = validQuestionTypes.has(rawType) ? (rawType as QuestionType) : "SHORT_TEXT";
+
+            let optionsList: { text: string; value: string; order: number }[] = [];
+            if (Array.isArray(q.options) && q.options.length > 0) {
+              optionsList = q.options
+                .filter((opt: string) => typeof opt === "string" && opt.trim())
+                .map((opt: string, optIdx: number) => ({
+                  text: opt.trim(),
+                  value: opt.trim(),
+                  order: optIdx,
+                }));
+            } else if (qType === "YES_NO") {
+              optionsList = [
+                { text: "Yes", value: "Yes", order: 0 },
+                { text: "No", value: "No", order: 1 },
+              ];
+            }
+
+            const scaleMinNum = q.scaleMin !== undefined && q.scaleMin !== null && !isNaN(Number(q.scaleMin))
+              ? Math.round(Number(q.scaleMin))
+              : null;
+            const scaleMaxNum = q.scaleMax !== undefined && q.scaleMax !== null && !isNaN(Number(q.scaleMax))
+              ? Math.round(Number(q.scaleMax))
+              : null;
+
+            return {
+              text: q.text.trim(),
+              type: qType,
+              required: Boolean(q.required),
+              order: idx,
+              scaleMin: scaleMinNum,
+              scaleMax: scaleMaxNum,
+              scaleMinLabel: typeof q.scaleMinLabel === "string" && q.scaleMinLabel.trim() ? q.scaleMinLabel.trim() : null,
+              scaleMaxLabel: typeof q.scaleMaxLabel === "string" && q.scaleMaxLabel.trim() ? q.scaleMaxLabel.trim() : null,
+              options: {
+                create: optionsList,
+              },
+            };
+          }),
         },
       },
       include: {
@@ -125,8 +152,11 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true, form });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Create form error:", error);
-    return NextResponse.json({ error: "Failed to create form." }, { status: 500 });
+    return NextResponse.json(
+      { error: error?.message || "Failed to create form." },
+      { status: 500 }
+    );
   }
 }
