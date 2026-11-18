@@ -39,6 +39,7 @@ import {
   Tag,
   Paperclip,
   Check,
+  CheckSquare,
   Heart,
   Info,
   MessagesSquare,
@@ -267,10 +268,19 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
   // Form states
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
+  const [taskStatus, setTaskStatus] = useState("TODO");
   const [taskPriority, setTaskPriority] = useState("MEDIUM");
   const [taskPhase, setTaskPhase] = useState("PLANNING");
   const [taskAssignee, setTaskAssignee] = useState("");
   const [taskDueDate, setTaskDueDate] = useState("");
+
+  const canEditTasks = Boolean(
+    auth?.canEditTasks ||
+    auth?.isLead ||
+    auth?.userRole === "RESEARCHER" ||
+    auth?.userRole === "ADMIN" ||
+    project?.projectLeadId === currentUserId
+  );
 
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRole, setInviteRole] = useState("RESEARCHER");
@@ -487,6 +497,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       {
           title: taskTitle.trim(),
           description: taskDesc.trim() || null,
+          status: taskStatus || "TODO",
           priority: taskPriority,
           phase: taskPhase,
           assigneeId: taskAssignee || null,
@@ -498,6 +509,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
       setShowTaskModal(false);
       setTaskTitle("");
       setTaskDesc("");
+      setTaskStatus("TODO");
     }
   }
 
@@ -1117,11 +1129,14 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
           )}
 
           {/* New Task */}
-          {auth?.canEditTasks && (
+          {canEditTasks && (
             <button
               type="button"
-              onClick={() => setShowTaskModal(true)}
-              className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90 shadow-2xs transition-colors"
+              onClick={() => {
+                setTaskStatus("TODO");
+                setShowTaskModal(true);
+              }}
+              className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90 shadow-2xs transition-colors cursor-pointer"
               title="Create New Project Task"
             >
               <Plus className="h-3.5 w-3.5" />
@@ -1540,13 +1555,17 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 </div>
               </div>
 
-              {auth?.canEditTasks && (
+              {canEditTasks && (
                 <button
-                  onClick={() => setShowTaskModal(true)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold shadow-xs"
+                  type="button"
+                  onClick={() => {
+                    setTaskStatus("TODO");
+                    setShowTaskModal(true);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold shadow-xs cursor-pointer transition-all active:scale-98"
                 >
-                  <Plus className="w-3.5 h-3.5" />
-                  Add Research Task
+                  <Plus className="w-4 h-4" />
+                  <span>Add Research Task</span>
                 </button>
               )}
             </div>
@@ -1566,7 +1585,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     <div
                       key={col.id}
                       onDragOver={(event) => {
-                        if (!auth?.canEditTasks) return;
+                        if (!canEditTasks) return;
                         event.preventDefault();
                         event.dataTransfer.dropEffect = "move";
                         setDragOverStatus(col.id);
@@ -1584,20 +1603,34 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                       } flex flex-col`}
                     >
                       <div className="flex items-center justify-between mb-3 px-1">
-                        <span className="font-semibold text-xs text-foreground">
-                          {col.label}
-                        </span>
-                        <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">
-                          {tasksInCol.length}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-xs text-foreground">
+                            {col.label}
+                          </span>
+                          <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">
+                            {tasksInCol.length}
+                          </span>
+                        </div>
+                        {canEditTasks && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setTaskStatus(col.id);
+                              setShowTaskModal(true);
+                            }}
+                            className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
+                            title={`Add task to ${col.label}`}
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                       </div>
-
 
                       <div className="space-y-2.5 flex-1">
                         {tasksInCol.map((task: any) => (
                           <div
                             key={task.id}
-                            draggable={Boolean(auth?.canEditTasks)}
+                            draggable={Boolean(canEditTasks)}
                             onDragStart={(event) => {
                               event.dataTransfer.effectAllowed = "move";
                               event.dataTransfer.setData("text/plain", task.id);
@@ -1608,7 +1641,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                               setDragOverStatus(null);
                             }}
                             className={`p-3.5 rounded-md border border-border bg-card hover:border-primary/40 transition-colors text-xs ${
-                              auth?.canEditTasks ? "cursor-grab active:cursor-grabbing" : ""
+                              canEditTasks ? "cursor-grab active:cursor-grabbing" : ""
                             } ${draggedTaskId === task.id ? "opacity-50" : ""}`}
                           >
                             <div className="flex items-center justify-between gap-1 mb-1.5">
@@ -1639,7 +1672,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                             {/* Footer */}
                             <div className="mt-3 pt-2.5 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
                               <span>{task.assignee?.name || "Unassigned"}</span>
-                              {auth?.canEditTasks && (
+                              {canEditTasks && (
                                 <select
                                   value={task.status}
                                   onChange={(e) => handleTaskStatusChange(task.id, e.target.value)}
@@ -1655,73 +1688,120 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                             </div>
                           </div>
                         ))}
+
+                        {tasksInCol.length === 0 && (
+                          <div className="h-20 rounded-md border border-dashed border-border/60 flex items-center justify-center text-muted-foreground/60 text-xs italic">
+                            No {col.label.toLowerCase()} tasks
+                          </div>
+                        )}
                       </div>
+
+                      {canEditTasks && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setTaskStatus(col.id);
+                            setShowTaskModal(true);
+                          }}
+                          className="mt-2.5 w-full py-2 px-3 rounded-lg border border-dashed border-border/80 hover:border-primary/50 hover:bg-background/80 text-muted-foreground hover:text-primary text-xs font-medium flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Add task</span>
+                        </button>
+                      )}
                     </div>
                   );
                 })}
               </div>
             ) : (
               /* List View */
-              <div className="divide-y divide-border rounded-lg border border-border bg-card overflow-hidden text-xs">
-                {project.tasks?.map((task: any) => (
-                  <div key={task.id} className="p-4 flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() =>
-                          handleTaskStatusChange(
-                            task.id,
-                            task.status === "COMPLETED" ? "TODO" : "COMPLETED"
-                          )
-                        }
-                        className={`w-4 h-4 rounded border flex items-center justify-center ${
-                          task.status === "COMPLETED"
-                            ? "bg-emerald-600 border-emerald-600 text-white"
-                            : "border-border bg-background"
-                        }`}
-                      >
-                        {task.status === "COMPLETED" && <Check className="w-3 h-3" />}
-                      </button>
-                      <div>
-                        <h4
-                          className={`font-semibold ${
+              project.tasks?.length ? (
+                <div className="divide-y divide-border rounded-lg border border-border bg-card overflow-hidden text-xs">
+                  {project.tasks.map((task: any) => (
+                    <div key={task.id} className="p-4 flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() =>
+                            canEditTasks &&
+                            handleTaskStatusChange(
+                              task.id,
+                              task.status === "COMPLETED" ? "TODO" : "COMPLETED"
+                            )
+                          }
+                          disabled={!canEditTasks}
+                          className={`w-4 h-4 rounded border flex items-center justify-center ${
                             task.status === "COMPLETED"
-                              ? "line-through text-slate-400"
-                              : "text-slate-900 dark:text-white"
-                          }`}
+                              ? "bg-emerald-600 border-emerald-600 text-white"
+                              : "border-border bg-background"
+                          } ${canEditTasks ? "cursor-pointer" : "cursor-default"}`}
                         >
-                          {task.title}
-                        </h4>
-                        <div className="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
-                          <span>Phase: {task.phase}</span>
-                          <span>•</span>
-                          <span>Priority: {task.priority}</span>
-                          {task.dueDate && (
-                            <>
-                              <span>•</span>
-                              <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>
-                            </>
-                          )}
+                          {task.status === "COMPLETED" && <Check className="w-3 h-3" />}
+                        </button>
+                        <div>
+                          <h4
+                            className={`font-semibold ${
+                              task.status === "COMPLETED"
+                                ? "line-through text-slate-400"
+                                : "text-slate-900 dark:text-white"
+                            }`}
+                          >
+                            {task.title}
+                          </h4>
+                          <div className="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
+                            <span>Phase: {task.phase}</span>
+                            <span>•</span>
+                            <span>Priority: {task.priority}</span>
+                            {task.dueDate && (
+                              <>
+                                <span>•</span>
+                                <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>
+                              </>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-medium text-slate-600 dark:text-slate-400">
-                        {task.assignee?.name || "Unassigned"}
-                      </span>
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                          task.status === "COMPLETED"
-                            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
-                            : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-                        }`}
-                      >
-                        {task.status}
-                      </span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-[11px] font-medium text-slate-600 dark:text-slate-400">
+                          {task.assignee?.name || "Unassigned"}
+                        </span>
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                            task.status === "COMPLETED"
+                              ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
+                              : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                          }`}
+                        >
+                          {task.status}
+                        </span>
+                      </div>
                     </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-xl border border-dashed border-border p-12 text-center bg-card">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-3">
+                    <CheckSquare className="w-6 h-6" />
                   </div>
-                ))}
-              </div>
+                  <h4 className="text-sm font-semibold text-foreground">No tasks created yet</h4>
+                  <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto mb-4">
+                    Organize research deliverables, allocate assignments to investigators, and manage research milestones.
+                  </p>
+                  {canEditTasks && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setTaskStatus("TODO");
+                        setShowTaskModal(true);
+                      }}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold shadow-xs cursor-pointer transition-all"
+                    >
+                      <Plus className="w-4 h-4" />
+                      <span>Create First Task</span>
+                    </button>
+                  )}
+                </div>
+              )
             )}
           </div>
         )}
@@ -2715,7 +2795,21 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="block font-medium mb-1">Status</label>
+                  <select
+                    value={taskStatus}
+                    onChange={(e) => setTaskStatus(e.target.value)}
+                    className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground text-sm"
+                  >
+                    <option value="TODO">To Do</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="IN_REVIEW">In Review</option>
+                    <option value="BLOCKED">Blocked</option>
+                    <option value="COMPLETED">Done</option>
+                  </select>
+                </div>
                 <div>
                   <label className="block font-medium mb-1">Priority</label>
                   <select

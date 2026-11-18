@@ -241,13 +241,13 @@ export function StudyDetailSidebar({
     const collapsed = !mobile && isCollapsed;
 
     return (
-      <div ref={accountContainerRef} className="relative border-t border-border p-2.5 bg-card/40 shrink-0">
+      <div ref={accountContainerRef} className="relative z-50 border-t border-border p-2.5 bg-card/40 shrink-0">
         {accountMenuOpen && (
           <div
             role="menu"
             aria-label="Account options"
             className={cn(
-              "absolute z-50 rounded-xl border border-border bg-card p-1.5 shadow-2xl animate-in fade-in slide-in-from-bottom-2 duration-150",
+              "absolute z-[100] rounded-xl border border-border bg-card p-1.5 shadow-2xl animate-in fade-in slide-in-from-bottom-2 duration-150",
               collapsed
                 ? "left-full bottom-1 ml-2.5 w-52"
                 : "bottom-full left-2 right-2 mb-2"
@@ -342,7 +342,7 @@ export function StudyDetailSidebar({
       {/* ── DESKTOP STUDY SIDEBAR ── */}
       <aside
         className={cn(
-          "sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex z-30 select-none transition-[width] duration-200 ease-in-out",
+          "sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-card/70 md:flex z-50 select-none transition-[width] duration-200 ease-in-out",
           isCollapsed ? "w-16" : "w-60 xl:w-64"
         )}
       >

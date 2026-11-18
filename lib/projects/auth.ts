@@ -77,6 +77,8 @@ export async function authorizeProjectAccess(
     ? memberRecord.role
     : isGlobalAdmin
     ? ProjectRole.PRINCIPAL_INVESTIGATOR
+    : user.role === "RESEARCHER"
+    ? ProjectRole.RESEARCHER
     : ProjectRole.ADVISOR_VIEWER;
 
   const canManageProject =
@@ -90,6 +92,8 @@ export async function authorizeProjectAccess(
 
   const canEditTasks =
     canManageProject ||
+    user.role === "RESEARCHER" ||
+    user.role === "ADMIN" ||
     projectRole === ProjectRole.DATA_ANALYST ||
     projectRole === ProjectRole.RESEARCH_ASSISTANT;
 
