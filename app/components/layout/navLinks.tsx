@@ -50,7 +50,7 @@ export const researcherLinks: SidebarLink[] = [
 
 export const adminLinks: SidebarLink[] = [
   { title: "Overview", href: "/admin", icon: <Radar /> },
-  { title: "Tinat AI", href: "/ai", icon: <Sparkles /> },
+  { title: "Tinat AI", href: "/admin/ai", icon: <Sparkles /> },
   { title: "Manage Studies", href: "/admin/studies", icon: <ScanSearch /> },
   { title: "User Management", href: "/admin/users", icon: <ShieldUser /> },
   { title: "Verifications", href: "/admin/verifications", icon: <ShieldCheck /> },

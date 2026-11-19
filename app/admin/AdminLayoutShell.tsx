@@ -20,8 +20,9 @@ type AdminLayoutShellProps = {
 export function AdminLayoutShell({ children, links, user }: AdminLayoutShellProps) {
   const pathname = usePathname();
   const isCommunityChat = pathname === "/admin/community";
+  const isAiChat = pathname?.startsWith("/admin/ai") ?? false;
   const isSettings = pathname?.startsWith("/admin/settings") ?? false;
-  const isFixedLayout = isCommunityChat || isSettings;
+  const isFixedLayout = isCommunityChat || isSettings || isAiChat;
 
   return (
     <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">

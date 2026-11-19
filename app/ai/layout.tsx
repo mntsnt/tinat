@@ -21,6 +21,10 @@ export default async function AILayout({ children }: { children: ReactNode }) {
     select: { role: true },
   });
 
+  if (user?.role === "ADMIN") {
+    redirect("/admin/ai");
+  }
+
   if (!user || user.role !== "RESEARCHER") {
     redirect("/dashboard");
   }
