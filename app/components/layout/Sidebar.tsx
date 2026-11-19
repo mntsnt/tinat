@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "../../../lib/utils";
 import { TinatLogo } from "../ui/TinatLogo";
+import { DashboardNotificationBell } from "./DashboardNotificationBell";
 import {
   Menu,
   X,
@@ -387,23 +388,26 @@ export function Sidebar({
       </aside>
 
       {/* Mobile Top Bar */}
-      <div className="md:hidden flex shrink-0 items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
-        <Link href={dashboardHref} className="flex items-center gap-2">
+      <div className="md:hidden flex shrink-0 items-center justify-between px-3.5 py-2.5 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-40">
+        <Link href={dashboardHref} className="flex items-center gap-2 min-w-0">
           <TinatLogo size={22} variant="color" />
-          <span className="font-semibold text-sm text-foreground">
-            Tinat <span className={cn("font-medium text-xs px-1.5 py-0.5 rounded", colors.badge)}>{roleTitle}</span>
+          <span className="font-semibold text-sm text-foreground truncate">
+            Tinat <span className={cn("font-medium text-[11px] px-1.5 py-0.5 rounded", colors.badge)}>{roleTitle}</span>
           </span>
         </Link>
-        <button
-          ref={menuButtonRef}
-          onClick={() => setMobileOpen(true)}
-          aria-expanded={mobileOpen}
-          aria-controls="dashboard-mobile-navigation"
-          className="rounded-md p-2 transition-colors hover:bg-muted active:scale-95"
-          aria-label="Open menu"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <DashboardNotificationBell />
+          <button
+            ref={menuButtonRef}
+            onClick={() => setMobileOpen(true)}
+            aria-expanded={mobileOpen}
+            aria-controls="dashboard-mobile-navigation"
+            className="rounded-md p-1.5 transition-colors hover:bg-muted active:scale-95 text-foreground"
+            aria-label="Open menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer Overlay */}

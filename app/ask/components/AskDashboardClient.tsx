@@ -761,7 +761,7 @@ export function AskDashboardClient({
                         value={answerDraft}
                         onChange={(e) => setAnswerDraft(e.target.value)}
                         placeholder="Write your answer..."
-                        className="w-full rounded-xl border border-input p-3 bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none"
+                        className="w-full rounded-xl border border-input p-3 bg-background text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none"
                         maxLength={1000}
                         autoFocus
                       />
@@ -918,7 +918,7 @@ export function AskDashboardClient({
                   type="text"
                   value={editDisplayName}
                   onChange={(e) => setEditDisplayName(e.target.value)}
-                  className="w-full rounded-xl border border-input px-3.5 py-2.5 bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
+                  className="w-full rounded-xl border border-input px-3.5 py-2.5 bg-background text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
                   required
                   maxLength={50}
                 />
@@ -932,7 +932,7 @@ export function AskDashboardClient({
                   rows={2}
                   value={editBio}
                   onChange={(e) => setEditBio(e.target.value)}
-                  className="w-full rounded-xl border border-input px-3.5 py-2.5 bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none"
+                  className="w-full rounded-xl border border-input px-3.5 py-2.5 bg-background text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none"
                   maxLength={200}
                 />
               </div>

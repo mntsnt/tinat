@@ -275,7 +275,7 @@ export default function AdminCommunityPage() {
         </div>
       )}
 
-      <nav aria-label="Operations channels" className="mb-3 grid shrink-0 grid-cols-2 gap-2 rounded-xl border border-border bg-card p-2 sm:grid-cols-3 lg:grid-cols-5">
+      <nav aria-label="Operations channels" className="mb-3 flex overflow-x-auto no-scrollbar gap-2 rounded-xl border border-border bg-card p-2 sm:grid sm:grid-cols-3 lg:grid-cols-5 shrink-0">
         {channels.map((channel, index) => {
           const Icon = channel.icon;
           const isActive = activeChannel === channel.id;
@@ -292,7 +292,7 @@ export default function AdminCommunityPage() {
                 shouldFollowMessagesRef.current = true;
               }}
               aria-pressed={isActive}
-              className={`flex min-h-12 items-center gap-2.5 rounded-lg border px-3 text-left transition-all ${
+              className={`flex min-h-12 shrink-0 items-center gap-2.5 rounded-lg border px-3 text-left transition-all ${
                 isActive
                   ? "border-emerald-600/50 bg-emerald-500/15 text-foreground ring-1 ring-emerald-500/30 shadow-xs dark:border-emerald-400/50 dark:bg-emerald-500/20"
                   : "border-border/50 bg-card/70 text-muted-foreground hover:border-border hover:bg-muted/70 hover:text-foreground"
@@ -411,7 +411,7 @@ export default function AdminCommunityPage() {
             )}
           </div>
 
-          <form onSubmit={sendMessage} className="shrink-0 border-t border-border p-3 sm:px-4 sm:py-3.5">
+          <form onSubmit={sendMessage} className="shrink-0 border-t border-border p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-4 sm:py-3.5">
             {sendError && (
               <p role="alert" className="mb-2 rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-800 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-200">
                 {sendError}
@@ -437,7 +437,7 @@ export default function AdminCommunityPage() {
                 maxLength={1500}
                 rows={1}
                 placeholder={`Message #${selectedChannel.label}`}
-                className="max-h-36 min-h-[48px] flex-1 resize-none bg-transparent px-3 py-3 text-sm leading-5 text-foreground outline-none placeholder:text-muted-foreground"
+                className="max-h-36 min-h-[48px] flex-1 resize-none bg-transparent px-3 py-3 text-base sm:text-sm leading-5 text-foreground outline-none placeholder:text-muted-foreground"
                 disabled={isSending}
               />
               <button
@@ -450,13 +450,20 @@ export default function AdminCommunityPage() {
               </button>
             </div>
             <div className="mt-1.5 flex items-center justify-between px-1 text-[10px] text-muted-foreground">
-              <span>Enter to send · Shift + Enter for a new line</span>
+              <span className="hidden sm:inline">Enter to send · Shift + Enter for a new line</span>
+              <span className="sm:hidden">Admin Chat</span>
               <span>{draft.length}/1500</span>
             </div>
           </form>
         </section>
 
-        <aside className={`${isDirectoryOpen ? "flex" : "hidden"} absolute inset-0 z-10 min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-xl lg:relative lg:inset-auto lg:z-auto lg:flex lg:shadow-none`}>
+        {isDirectoryOpen && (
+          <div
+            className="fixed inset-0 z-20 bg-black/50 backdrop-blur-xs lg:hidden"
+            onClick={() => setDirectoryOpen(false)}
+          />
+        )}
+        <aside className={`${isDirectoryOpen ? "fixed inset-x-0 bottom-0 z-30 h-[min(70dvh,32rem)] max-h-[82dvh] flex rounded-t-2xl shadow-2xl animate-in slide-in-from-bottom duration-200" : "hidden"} min-h-0 flex-col overflow-hidden border border-border bg-card lg:relative lg:inset-auto lg:z-auto lg:h-auto lg:max-h-none lg:flex lg:rounded-xl lg:shadow-none`}>
           <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3.5">
             <div className="flex items-center gap-2.5">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"><Users className="h-4 w-4" /></span>

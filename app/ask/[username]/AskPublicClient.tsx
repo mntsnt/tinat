@@ -138,7 +138,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                   value={questionText}
                   onChange={(e) => setQuestionText(e.target.value)}
                   placeholder={`Send a question to ${profile.displayName}...\nYour name and account profile aren't attached to the question.`}
-                  className="w-full rounded-xl border border-input bg-background/50 p-4 text-sm sm:text-base placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none transition-all"
+                  className="w-full rounded-xl border border-input bg-background/50 p-4 text-base placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none transition-all"
                   maxLength={maxChars}
                   disabled={isSubmitting}
                 />

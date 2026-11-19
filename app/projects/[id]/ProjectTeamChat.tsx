@@ -555,7 +555,7 @@ export function ProjectTeamChat({
           {/* Typing Bar / Composer (Always Visible & Pinned to Bottom) */}
           <form
             onSubmit={sendMessage}
-            className="shrink-0 sticky bottom-0 z-20 border-t border-border bg-card p-3 sm:px-4 sm:py-3.5"
+            className="shrink-0 sticky bottom-0 z-20 border-t border-border bg-card p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-4 sm:py-3.5"
           >
             <label htmlFor="project-chat-message" className="sr-only">
               Message #{selectedChannel.label}
@@ -579,7 +579,7 @@ export function ProjectTeamChat({
                 maxLength={1500}
                 rows={1}
                 placeholder={`Message #${selectedChannel.label}...`}
-                className="max-h-36 min-h-[48px] flex-1 resize-none bg-transparent px-3 py-3 text-sm leading-5 text-foreground outline-none placeholder:text-muted-foreground"
+                className="max-h-36 min-h-[48px] flex-1 resize-none bg-transparent px-3 py-3 text-base sm:text-sm leading-5 text-foreground outline-none placeholder:text-muted-foreground"
                 disabled={isSending}
               />
               <button
@@ -592,7 +592,8 @@ export function ProjectTeamChat({
               </button>
             </div>
             <div className="mt-1.5 flex items-center justify-between px-1 text-[10px] text-muted-foreground">
-              <span>Enter to send · Shift + Enter for new line</span>
+              <span className="hidden sm:inline">Enter to send · Shift + Enter for new line</span>
+              <span className="sm:hidden">Team Chat</span>
               <span>{draft.length}/1500</span>
             </div>
           </form>
@@ -600,7 +601,12 @@ export function ProjectTeamChat({
 
         {/* Right Sidebar: Team Directory (Collapsible) */}
         {isDirectoryOpen && (
-          <aside className="absolute inset-x-0 bottom-0 z-30 flex h-[min(60%,32rem)] min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-xl lg:static lg:h-auto lg:shadow-sm">
+          <>
+            <div
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs lg:hidden"
+              onClick={() => setDirectoryOpen(false)}
+            />
+            <aside className="fixed inset-x-0 bottom-0 z-50 flex h-[min(70dvh,32rem)] max-h-[82dvh] min-h-0 flex-col overflow-hidden rounded-t-2xl border border-border bg-card shadow-2xl lg:static lg:h-auto lg:max-h-none lg:rounded-xl lg:shadow-sm animate-in slide-in-from-bottom duration-200">
             <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
               <div className="flex items-center gap-2">
                 <Users className="h-4 w-4 text-emerald-600" />
@@ -707,6 +713,7 @@ export function ProjectTeamChat({
               <span className="font-semibold text-foreground">Research Ethics:</span> Maintain protocol compliance and participant privacy.
             </div>
           </aside>
+          </>
         )}
       </div>
     </div>

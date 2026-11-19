@@ -306,9 +306,9 @@ export default function AdminAIPage() {
 
         {/* Live Platform Pulse Cards */}
         {showPulseBar && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 mt-3 border-t border-border/60">
+          <div className="flex sm:grid sm:grid-cols-4 gap-2.5 pt-2.5 mt-2.5 border-t border-border/60 overflow-x-auto pb-1 snap-x no-scrollbar">
             {/* Users Metric */}
-            <div className="rounded-xl border border-border/80 bg-background/50 p-2.5 flex items-center justify-between">
+            <div className="min-w-[170px] sm:min-w-0 snap-start shrink-0 sm:shrink rounded-xl border border-border/80 bg-background/50 p-2.5 flex items-center justify-between">
               <div>
                 <p className="text-[10px] uppercase font-semibold text-muted-foreground tracking-wider">
                   Total Users
@@ -326,7 +326,7 @@ export default function AdminAIPage() {
             </div>
 
             {/* Studies Metric */}
-            <div className="rounded-xl border border-border/80 bg-background/50 p-2.5 flex items-center justify-between">
+            <div className="min-w-[170px] sm:min-w-0 snap-start shrink-0 sm:shrink rounded-xl border border-border/80 bg-background/50 p-2.5 flex items-center justify-between">
               <div>
                 <p className="text-[10px] uppercase font-semibold text-muted-foreground tracking-wider">
                   Active Studies
@@ -344,7 +344,7 @@ export default function AdminAIPage() {
             </div>
 
             {/* Forms Metric */}
-            <div className="rounded-xl border border-border/80 bg-background/50 p-2.5 flex items-center justify-between">
+            <div className="min-w-[170px] sm:min-w-0 snap-start shrink-0 sm:shrink rounded-xl border border-border/80 bg-background/50 p-2.5 flex items-center justify-between">
               <div>
                 <p className="text-[10px] uppercase font-semibold text-muted-foreground tracking-wider">
                   Tinat Forms
@@ -362,7 +362,7 @@ export default function AdminAIPage() {
             </div>
 
             {/* Action Items Metric */}
-            <div className="rounded-xl border border-border/80 bg-background/50 p-2.5 flex items-center justify-between">
+            <div className="min-w-[170px] sm:min-w-0 snap-start shrink-0 sm:shrink rounded-xl border border-border/80 bg-background/50 p-2.5 flex items-center justify-between">
               <div>
                 <p className="text-[10px] uppercase font-semibold text-muted-foreground tracking-wider">
                   Pending Review
@@ -511,11 +511,11 @@ export default function AdminAIPage() {
       </div>
 
       {/* Bottom Sticky Input Dock */}
-      <footer className="border-t border-border bg-card/80 backdrop-blur-md p-3 sm:p-4 shrink-0">
+      <footer className="border-t border-border bg-card/80 backdrop-blur-md p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-4 shrink-0">
         <div className="max-w-3xl mx-auto space-y-2">
           {/* Quick chip suggestions when chat is active */}
           {messages.length > 0 && (
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 text-[11px] scrollbar-none">
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 text-[11px] no-scrollbar">
               <span className="text-muted-foreground whitespace-nowrap font-medium">Ask next:</span>
               {[
                 "Who signed up today?",
@@ -545,7 +545,7 @@ export default function AdminAIPage() {
               disabled={isGenerating}
               placeholder="Ask anything about platform users, studies, forms, or system health..."
               rows={1}
-              className="flex-1 max-h-44 resize-none bg-transparent px-2.5 py-1.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none leading-relaxed"
+              className="flex-1 max-h-44 resize-none bg-transparent px-2.5 py-1.5 text-base sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none leading-relaxed"
             />
             <button
               onClick={() => sendMessage()}
@@ -562,7 +562,8 @@ export default function AdminAIPage() {
           </div>
 
           <div className="flex items-center justify-between text-[11px] text-muted-foreground px-1">
-            <span>Press <kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">Enter</kbd> to send, <kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">Shift+Enter</kbd> for newline</span>
+            <span className="hidden sm:inline">Press <kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">Enter</kbd> to send, <kbd className="rounded border border-border px-1 py-0.5 font-mono text-[10px]">Shift+Enter</kbd> for newline</span>
+            <span className="sm:hidden">Tinat Admin Copilot</span>
             <span>Grounded in live database state</span>
           </div>
         </div>

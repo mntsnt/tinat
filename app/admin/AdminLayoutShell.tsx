@@ -25,7 +25,7 @@ export function AdminLayoutShell({ children, links, user }: AdminLayoutShellProp
   const isFixedLayout = isCommunityChat || isSettings || isAiChat;
 
   return (
-    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
+    <div className="fixed inset-0 h-[100dvh] max-h-[100dvh] flex flex-col md:flex-row overflow-hidden bg-background">
       <Sidebar
         links={links}
         roleTitle="System Admin"

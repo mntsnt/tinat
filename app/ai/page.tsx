@@ -457,6 +457,50 @@ export default function AIChatPage() {
           </div>
         </header>
 
+        {/* Mobile Toolbar for Study Context and Model Selection */}
+        <div className="flex sm:hidden items-center gap-2 border-b border-border bg-card/60 px-3 py-2 overflow-x-auto no-scrollbar">
+          <label className="relative flex max-w-[170px] flex-1 items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs text-foreground shrink-0">
+            <Database className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+            <select
+              aria-label="Study context"
+              value={selectedStudyId}
+              disabled={isBusy}
+              onChange={(event) => void saveChatSettings(event.target.value, selectedModel)}
+              className="w-full min-w-0 appearance-none bg-transparent pr-4 text-xs text-foreground outline-none disabled:opacity-60"
+            >
+              <option value="">No study context</option>
+              {studies.map((study) => (
+                <option key={study.id} value={study.id}>
+                  {study.title}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
+          </label>
+
+          <label className="relative flex max-w-[150px] flex-1 items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs text-foreground shrink-0">
+            <BrainCircuit className="h-3.5 w-3.5 shrink-0 text-primary" />
+            <span className="sr-only">AI model</span>
+            <select
+              aria-label="AI model"
+              value={selectedModel}
+              disabled={isBusy}
+              onChange={(event) => {
+                const model = getAIModel(event.target.value);
+                if (model) void saveChatSettings(selectedStudyId, model.id);
+              }}
+              className="w-full min-w-0 appearance-none bg-transparent pr-4 text-xs text-foreground outline-none disabled:opacity-60"
+            >
+              {AVAILABLE_MODELS.map((model) => (
+                <option key={model.id} value={model.id}>
+                  {model.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
+          </label>
+        </div>
+
         <div className="flex min-h-0 flex-1 flex-col">
           <div className="flex-1 overflow-y-auto px-4 pb-10 pt-5 sm:px-8 lg:px-12">
             <div className="mx-auto w-full max-w-5xl space-y-8">
@@ -550,7 +594,7 @@ export default function AIChatPage() {
             </div>
           </div>
 
-          <div className="shrink-0 border-t border-border bg-background px-3 pb-3 pt-3 sm:px-6 sm:pb-5">
+          <div className="shrink-0 border-t border-border bg-background px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6 sm:pb-5">
             <div className="mx-auto w-full max-w-5xl">
               {error && (
                 <div
@@ -572,7 +616,7 @@ export default function AIChatPage() {
                 <textarea
                   ref={inputRef}
                   aria-label="Message Tinat AI"
-                  className="max-h-56 min-h-[68px] w-full resize-none bg-transparent px-4 pb-2 pt-4 text-sm leading-6 text-foreground outline-none placeholder:text-muted-foreground"
+                  className="max-h-56 min-h-[68px] w-full resize-none bg-transparent px-4 pb-2 pt-4 text-base sm:text-sm leading-6 text-foreground outline-none placeholder:text-muted-foreground"
                   rows={1}
                   placeholder={`Message Tinat AI${selectedStudyId ? ` about ${selectedStudyTitle}` : ""}...`}
                   value={input}
@@ -589,53 +633,14 @@ export default function AIChatPage() {
                     }
                   }}
                 />
-                <div className="flex items-center justify-between px-2.5 pb-2.5">
-                  <div className="flex min-w-0 items-center gap-1.5 text-[11px] text-muted-foreground">
-                    <label className="relative flex max-w-[140px] items-center gap-1.5 rounded-md px-2 py-1 sm:hidden">
-                      <BrainCircuit className="h-3 w-3 shrink-0 text-primary" />
-                      <span className="sr-only">AI model</span>
-                      <select
-                        aria-label="AI model"
-                        value={selectedModel}
-                        disabled={isBusy}
-                        onChange={(event) => {
-                          const model = getAIModel(event.target.value);
-                          if (model) void saveChatSettings(selectedStudyId, model.id);
-                        }}
-                        className="w-full min-w-0 appearance-none truncate bg-transparent pr-3 text-[11px] text-foreground outline-none disabled:opacity-60"
-                      >
-                        {AVAILABLE_MODELS.map((model) => (
-                          <option key={model.id} value={model.id}>
-                            {model.name}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-0.5 h-3 w-3 text-muted-foreground" />
-                    </label>
-                    <label className="relative flex max-w-[150px] items-center gap-1.5 rounded-md px-2 py-1 sm:hidden">
-                      <Database className="h-3 w-3 shrink-0 text-muted-foreground" />
-                      <select
-                        aria-label="Study context"
-                        value={selectedStudyId}
-                        disabled={isBusy}
-                        onChange={(event) => void saveChatSettings(event.target.value, selectedModel)}
-                        className="w-full min-w-0 appearance-none truncate bg-transparent pr-3 text-[11px] text-foreground outline-none disabled:opacity-60"
-                      >
-                        <option value="">No study context</option>
-                        {studies.map((study) => (
-                          <option key={study.id} value={study.id}>
-                            {study.title}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-0.5 h-3 w-3 text-muted-foreground" />
-                    </label>
-                    <span className="hidden max-w-[180px] truncate rounded-md px-2 py-1 sm:inline">
+                <div className="flex items-center justify-between px-3 pb-2.5">
+                  <div className="flex min-w-0 items-center gap-2 text-xs text-muted-foreground">
+                    <span className="truncate max-w-[200px]">
                       {selectedStudyTitle}
                     </span>
-                    {isSavingSettings && <span>Saving...</span>}
+                    {isSavingSettings && <span className="text-[11px]">Saving...</span>}
                     {!isSavingSettings && (
-                      <span className="hidden items-center gap-1 sm:flex">
+                      <span className="hidden items-center gap-1 sm:flex text-[11px]">
                         <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
                         Chat history saves automatically
                       </span>

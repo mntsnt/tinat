@@ -1240,6 +1240,47 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
 
         {/* MAIN WORKSPACE CONTENT */}
         <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden bg-background">
+          {/* Mobile Horizontal Tab Strip (Quick Tab Switcher) */}
+          <div className="flex lg:hidden items-center gap-1.5 overflow-x-auto no-scrollbar border-b border-border bg-card/95 px-3 py-1.5 shrink-0">
+            {[
+              { id: "overview", label: "Overview", icon: Layers },
+              { id: "tasks", label: "Tasks", icon: CheckCircle2, count: project.tasks?.length ?? 0 },
+              { id: "team", label: "Team", icon: Users, count: project.members?.length ?? 0 },
+              { id: "files", label: "Files", icon: FileText, count: project.files?.length ?? 0 },
+              { id: "studies", label: "Studies", icon: Activity, count: project.linkedStudies?.length ?? 0 },
+              { id: "records", label: "Records", icon: BookOpen },
+              { id: "chat", label: "Chat", icon: MessagesSquare },
+              { id: "ai", label: "AI", icon: Sparkles },
+              { id: "settings", label: "Settings", icon: Settings },
+            ].map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold whitespace-nowrap transition-colors ${
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-2xs"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  <span>{tab.label}</span>
+                  {tab.count !== undefined && tab.count > 0 && (
+                    <span
+                      className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
+                        isActive ? "bg-primary-foreground/20 text-primary-foreground" : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      {tab.count}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
           {/* Row: Hero Project Title, Study Badges & Lifecycle Progress */}
           {activeTab !== "ai" && activeTab !== "chat" ? (
             <div className="shrink-0 border-b border-border/60 bg-card/60 backdrop-blur-xs px-4 py-3 sm:px-6 lg:px-8 space-y-3">
@@ -2640,7 +2681,7 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                   event.preventDefault();
                   handleAskAI();
                 }}
-                className="shrink-0 border-t border-border bg-background p-3 sm:p-4"
+                className="shrink-0 border-t border-border bg-background p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-4"
               >
                 <div className="flex gap-2.5 items-end">
                   <textarea
@@ -2658,15 +2699,15 @@ export function ProjectWorkspaceClient({ projectId, currentUserId }: ProjectWork
                     }}
                     disabled={aiLoading}
                     aria-label="Ask a question about this project"
-                    className="min-h-[56px] max-h-36 min-w-0 flex-1 resize-y rounded-xl border border-input bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                    className="min-h-[56px] max-h-36 min-w-0 flex-1 resize-y rounded-xl border border-input bg-card px-4 py-3 text-base sm:text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
                   />
                   <button
                     type="submit"
                     disabled={aiLoading || !aiPrompt.trim()}
-                    className="inline-flex h-[56px] shrink-0 items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+                    className="inline-flex h-[56px] shrink-0 items-center justify-center gap-1.5 rounded-xl bg-primary px-3.5 sm:px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
                   >
                     <Send className="h-4 w-4" />
-                    <span>Send</span>
+                    <span className="hidden sm:inline">Send</span>
                   </button>
                 </div>
               </form>

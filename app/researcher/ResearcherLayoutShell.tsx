@@ -35,14 +35,14 @@ export function ResearcherLayoutShell({
 
   if (isStudyDetailPage) {
     return (
-      <div className="fixed inset-0 overflow-hidden bg-background">
+      <div className="fixed inset-0 h-[100dvh] max-h-[100dvh] overflow-hidden bg-background">
         {children}
       </div>
     );
   }
 
   return (
-    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
+    <div className="fixed inset-0 h-[100dvh] max-h-[100dvh] flex flex-col md:flex-row overflow-hidden bg-background">
       <Sidebar
         links={links}
         roleTitle="Researcher"
