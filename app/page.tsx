@@ -4,8 +4,6 @@ import {
   ArrowRight,
   Stethoscope,
   Coins,
-  ClipboardCheck,
-  Users,
   Activity,
   HeartPulse,
   Brain,
@@ -13,9 +11,9 @@ import {
   Apple,
   Dna,
   GraduationCap,
-  BookOpen,
   MapPin,
   CheckCircle2,
+  FileSpreadsheet,
 } from "lucide-react";
 import type { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
@@ -66,7 +64,7 @@ export default async function Home() {
             <div className="relative z-10 space-y-6">
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-700/15 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-emerald-800 shadow-xs dark:border-emerald-300/20 dark:bg-emerald-950/50 dark:text-emerald-300">
                 <Stethoscope className="h-3.5 w-3.5" />
-                Health Research &amp; Data Collection in Ethiopia
+                Health Research &amp; Data Collection
               </div>
 
               <h1 className="max-w-xl text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl text-foreground">
@@ -78,7 +76,7 @@ export default async function Home() {
               </h1>
 
               <p className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Tinat helps university researchers, clinicians, and students design health questionnaires, gather responses across Ethiopia, and download clean data in Excel or CSV. Free to publish.
+                Create questionnaires, reach participants across Ethiopia, and download clean data in Excel or CSV. Free for researchers, doctors, and students.
               </p>
 
               <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
@@ -100,24 +98,20 @@ export default async function Home() {
                 </ButtonLink>
               </div>
 
-              {/* Quick Trust Highlights */}
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-2 text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                  Free to publish
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                  Online &amp; field interviews
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                  Local Ethiopian languages
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                  Excel &amp; CSV export
-                </span>
+              {/* Feature List (Screenshot list with ScholarXIV removed, simplified to plain English) */}
+              <div className="flex flex-wrap gap-x-5 gap-y-2 pt-2">
+                {[
+                  "Platform-Determined TC Rewards",
+                  "Ground Field Enumerators (ETB)",
+                  "Collaborative Workspaces & Teams",
+                  "Independent Tinat Forms",
+                  "Coded & Confidential Data",
+                ].map((feature) => (
+                  <span key={feature} className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
+                    {feature}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -248,7 +242,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* How It Works for Researchers */}
+      {/* How It Works for Researchers (3 Clean Steps without individual deck links) */}
       <section className="relative z-10 py-14 lg:py-18 bg-background border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
@@ -259,7 +253,7 @@ export default async function Home() {
               How it works
             </h2>
             <p className="text-muted-foreground text-sm sm:text-base">
-              Publish a study, gather data from real participants, and download your dataset in three simple steps.
+              Publish a study, gather responses, and download your data in three steps.
             </p>
           </div>
 
@@ -280,9 +274,9 @@ export default async function Home() {
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold text-sm mb-4">
                 2
               </div>
-              <h3 className="text-base font-bold text-foreground mb-2">Collect data online or in person</h3>
+              <h3 className="text-base font-bold text-foreground mb-2">Collect responses</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Collect responses from online participants who earn credits, or assign local enumerators to interview people in the field for cash (ETB).
+                Reach online participants who earn platform credits, or assign local enumerators to conduct in-person interviews for cash (ETB).
               </p>
             </div>
 
@@ -291,9 +285,9 @@ export default async function Home() {
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold text-sm mb-4">
                 3
               </div>
-              <h3 className="text-base font-bold text-foreground mb-2">Download clean datasets</h3>
+              <h3 className="text-base font-bold text-foreground mb-2">Download clean data</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Export all responses anytime in Excel or CSV format with coded answers, ready to open in SPSS, Stata, R, or Excel.
+                Export your results anytime in Excel or CSV format with coded answers, ready to open in SPSS, Stata, R, or Excel.
               </p>
             </div>
           </div>
@@ -308,10 +302,10 @@ export default async function Home() {
               Data Collection Modes
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-              Choose how you collect your data
+              Two ways to collect data
             </h2>
             <p className="text-muted-foreground text-sm sm:text-base">
-              Collect responses directly through the website or deploy field enumerators for in-person interviews.
+              Choose digital surveys for online participants or field collection for community interviews.
             </p>
           </div>
 
@@ -367,7 +361,7 @@ export default async function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Field Data Collection</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  Best for clinics, hospital wards, and communities where participants don&apos;t have smartphones or internet.
+                  Best for clinics, health posts, and communities where participants don&apos;t have smartphones or internet.
                 </p>
                 <ul className="space-y-3 text-xs text-muted-foreground mb-8">
                   <li className="flex items-start gap-2">
@@ -396,60 +390,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Additional Tools for Researchers (Clean informational decks without extra links) */}
+      {/* Health Categories (Clean visual chips with just 1 link at the bottom) */}
       <section className="relative z-10 py-14 lg:py-18 bg-background border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-              Researcher Tools
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-              Everything else you need for your project
-            </h2>
-            <p className="text-muted-foreground text-sm sm:text-base">
-              Tools to help with literature review, standalone survey forms, and team collaboration.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Tool 1: Literature */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-xs">
-              <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 w-fit mb-4">
-                <BookOpen className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-foreground mb-2">Literature &amp; Citations</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Search open-access papers and preprints on arXiv. Copy formatted citations in BibTeX, APA, or MLA with one click.
-              </p>
-            </div>
-
-            {/* Tool 2: Forms */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-xs">
-              <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 w-fit mb-4">
-                <ClipboardCheck className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-foreground mb-2">Standalone Forms</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Need a quick event registration, feedback form, or intake survey? Build standalone forms with a direct share link.
-              </p>
-            </div>
-
-            {/* Tool 3: Team Workspaces */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-xs">
-              <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 w-fit mb-4">
-                <Users className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-foreground mb-2">Team Workspaces</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Work together with co-investigators, assign roles, share files, and track research milestones on a simple board.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Health Categories */}
-      <section className="relative z-10 py-14 lg:py-18 bg-muted/20 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
@@ -459,7 +401,7 @@ export default async function Home() {
               Health &amp; medical fields
             </h2>
             <p className="text-muted-foreground text-sm">
-              Organized into standard health categories so researchers and participants can find relevant studies quickly.
+              Studies organized by standard health categories.
             </p>
           </div>
 
