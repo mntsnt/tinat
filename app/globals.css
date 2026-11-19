@@ -177,46 +177,6 @@ html {
   .rounded-full[class~="w-full"]:not([class*="h-"]) {
     border-radius: var(--radius-lg);
   }
-
-  button[class~="bg-primary"],
-  a[class~="bg-primary"],
-  button[class~="bg-success"],
-  a[class~="bg-success"],
-  button[class~="bg-emerald-400"],
-  a[class~="bg-emerald-400"],
-  button[class~="bg-emerald-500"],
-  a[class~="bg-emerald-500"],
-  button[class~="bg-emerald-600"],
-  a[class~="bg-emerald-600"],
-  button[class~="bg-emerald-700"],
-  a[class~="bg-emerald-700"],
-  button[class~="bg-emerald-800"],
-  a[class~="bg-emerald-800"],
-  button[class~="bg-emerald-950"],
-  a[class~="bg-emerald-950"] {
-    background-color: var(--foreground) !important;
-    border-color: var(--foreground) !important;
-    color: var(--background) !important;
-  }
-
-  button[class~="bg-primary"]:hover,
-  a[class~="bg-primary"]:hover,
-  button[class~="bg-success"]:hover,
-  a[class~="bg-success"]:hover,
-  button[class~="bg-emerald-400"]:hover,
-  a[class~="bg-emerald-400"]:hover,
-  button[class~="bg-emerald-500"]:hover,
-  a[class~="bg-emerald-500"]:hover,
-  button[class~="bg-emerald-600"]:hover,
-  a[class~="bg-emerald-600"]:hover,
-  button[class~="bg-emerald-700"]:hover,
-  a[class~="bg-emerald-700"]:hover,
-  button[class~="bg-emerald-800"]:hover,
-  a[class~="bg-emerald-800"]:hover,
-  button[class~="bg-emerald-950"]:hover,
-  a[class~="bg-emerald-950"]:hover {
-    background-color: color-mix(in srgb, var(--foreground) 90%, transparent) !important;
-  }
 }
 
 @keyframes tinat-mark-breathe {

@@ -66,11 +66,11 @@ export function Footer() {
             <ul className="space-y-2.5 text-sm text-muted-foreground dark:text-neutral-400">
               <li>
                 <Link
-                  href="/#features"
-                  onClick={(e) => handleAnchorClick(e, "/#features")}
+                  href="/#how-it-works"
+                  onClick={(e) => handleAnchorClick(e, "/#how-it-works")}
                   className="hover:text-foreground dark:hover:text-white transition-colors"
                 >
-                  Features
+                  How It Works
                 </Link>
               </li>
               <li>

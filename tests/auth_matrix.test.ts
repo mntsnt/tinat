@@ -442,6 +442,38 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     collector: [403],
     admin: [400, 401, 404]
   },
+  "GET /api/admin/ai/chat": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [403],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200]
+  },
+  "POST /api/admin/ai/chat": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [403],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200, 400]
+  },
+  "DELETE /api/admin/ai/chat": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [403],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200]
+  },
+  "GET /api/admin/ai/summary": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [403],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200]
+  },
   "GET /api/auth/admin/withdrawals": {
     anonymous: [401],
     participant: [403],
@@ -1081,6 +1113,40 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     admin: [200, 404]
   },
 
+  // Literature (ScholarXIV)
+  "GET /api/literature": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 400, 503],
+    researcher_other: [200, 400, 503],
+    collector: [403],
+    admin: [403]
+  },
+  "POST /api/literature": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 201, 400, 403, 404],
+    researcher_other: [200, 201, 400, 403, 404],
+    collector: [403],
+    admin: [200, 201, 400, 403, 404]
+  },
+  "POST /api/literature/insights": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 400],
+    researcher_other: [200, 400],
+    collector: [403],
+    admin: [403]
+  },
+  "GET /api/literature/projects": {
+    anonymous: [401],
+    participant: [200],
+    researcher_owner: [200],
+    researcher_other: [200],
+    collector: [200],
+    admin: [200]
+  },
+
   // Projects
   "GET /api/projects": {
     anonymous: [401],
@@ -1275,6 +1341,30 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     admin: [200, 400, 404]
   },
   "DELETE /api/projects/[id]/files/[fileId]": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 404],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200, 404]
+  },
+  "GET /api/projects/[id]/literature": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 400, 503],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200, 400, 503]
+  },
+  "POST /api/projects/[id]/literature": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [200, 201, 400],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200, 201, 400]
+  },
+  "DELETE /api/projects/[id]/literature/[referenceId]": {
     anonymous: [401],
     participant: [403],
     researcher_owner: [200, 404],

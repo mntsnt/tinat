@@ -24,7 +24,7 @@ import {
 import { SidebarLink } from "./Sidebar";
 
 export const publicLinks: SidebarLink[] = [
-  { title: "Features", href: "/#features", icon: <Layers /> },
+  { title: "How It Works", href: "/#how-it-works", icon: <Layers /> },
   { title: "Health Studies", href: "/participant/studies", icon: <Microscope /> },
   { title: "FAQ", href: "/#faq", icon: <HelpCircle /> },
 ];

@@ -262,10 +262,10 @@ export default function ResearcherLiteraturePage() {
             </span>
             <div>
               <h1 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-                Literature & arXiv Discovery
+                Literature
               </h1>
               <p className="text-xs text-muted-foreground sm:text-sm">
-                Explore preprints and peer research to ground your studies, cite evidence, and connect literature directly to Tinat projects.
+                Search open-access research papers, copy formatted citations, and save references to your projects.
               </p>
             </div>
           </div>

@@ -243,7 +243,7 @@ export default async function Home() {
       </section>
 
       {/* How It Works for Researchers (3 Clean Steps without individual deck links) */}
-      <section className="relative z-10 py-14 lg:py-18 bg-background border-b border-border">
+      <section id="how-it-works" className="relative z-10 py-14 lg:py-18 bg-background border-b border-border scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
