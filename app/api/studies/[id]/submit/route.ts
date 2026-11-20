@@ -95,6 +95,30 @@ export async function POST(
       );
     }
 
+    // Private study enforcement: only assigned participants, collectors, owner, or admin
+    if (study.isPrivate) {
+      const isOwner = study.researcherId === user.id;
+      const isAdmin = user.role === "ADMIN";
+
+      const [isAssignedParticipant, isAssignedCollector] = await Promise.all([
+        prisma.studyParticipant.findUnique({
+          where: { studyId_userId: { studyId, userId: user.id } },
+          select: { id: true },
+        }),
+        prisma.studyDataCollector.findUnique({
+          where: { studyId_userId: { studyId, userId: user.id } },
+          select: { id: true },
+        }),
+      ]);
+
+      if (!isOwner && !isAdmin && !isAssignedParticipant && !isAssignedCollector) {
+        return NextResponse.json(
+          { error: "This study is private. Only assigned participants and field collectors can submit responses." },
+          { status: 403 }
+        );
+      }
+    }
+
     // ---------------------------------------------
     // 6. Check participant target
     // ---------------------------------------------

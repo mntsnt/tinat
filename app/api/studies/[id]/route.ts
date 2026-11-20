@@ -73,6 +73,9 @@ export async function PATCH(
         updateData.participantTarget = target;
       }
     }
+    if (body.isPrivate !== undefined) {
+      updateData.isPrivate = Boolean(body.isPrivate);
+    }
 
     const updatedStudy = await prisma.study.update({
       where: { id },

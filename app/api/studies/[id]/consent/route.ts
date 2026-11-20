@@ -72,6 +72,31 @@ export async function POST(
     const { consentFormId, language = "en" } = body;
     let answers = body.answers;
 
+    const study = await prisma.study.findUnique({
+      where: { id },
+      select: { isPrivate: true, researcherId: true },
+    });
+    if (study?.isPrivate) {
+      const isOwner = study.researcherId === user.id;
+      const isAdmin = user.role === "ADMIN";
+      const [isAssignedParticipant, isAssignedCollector] = await Promise.all([
+        prisma.studyParticipant.findUnique({
+          where: { studyId_userId: { studyId: id, userId: user.id } },
+          select: { id: true },
+        }),
+        prisma.studyDataCollector.findUnique({
+          where: { studyId_userId: { studyId: id, userId: user.id } },
+          select: { id: true },
+        }),
+      ]);
+      if (!isOwner && !isAdmin && !isAssignedParticipant && !isAssignedCollector) {
+        return NextResponse.json(
+          { error: "This study is private. Only assigned participants and field collectors can access it." },
+          { status: 403 }
+        );
+      }
+    }
+
     if (!consentFormId) {
       return NextResponse.json(
         { error: "Consent form ID is required." },

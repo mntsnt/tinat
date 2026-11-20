@@ -198,6 +198,8 @@ export async function POST(request: Request) {
       budgetCredits,
       questions,
       publishImmediately = false,
+      isPrivate = false,
+      assignedParticipants = [],
     } = body;
 
     // Prohibited Topic: Studies involving minors are blocked
@@ -541,6 +543,7 @@ export async function POST(request: Request) {
         budgetCredits: finalCreditBudget,
         creditsPaid: 0,
         researcherId: user.id,
+        isPrivate: Boolean(isPrivate),
 
     questions: {
       create: questions.map(
@@ -603,6 +606,44 @@ export async function POST(request: Request) {
     },
   },
 });
+
+if (Boolean(isPrivate) && Array.isArray(assignedParticipants) && assignedParticipants.length > 0) {
+  const identifiers = assignedParticipants
+    .filter((p: unknown): p is string => typeof p === "string" && Boolean(p.trim()))
+    .map((p: string) => p.trim().replace(/^@/, ""));
+
+  if (identifiers.length > 0) {
+    const matchedUsers = await prisma.user.findMany({
+      where: {
+        OR: [
+          { email: { in: identifiers, mode: "insensitive" } },
+          { username: { in: identifiers, mode: "insensitive" } },
+        ],
+      },
+      select: { id: true, name: true },
+    });
+
+    if (matchedUsers.length > 0) {
+      await prisma.studyParticipant.createMany({
+        data: matchedUsers.map((u) => ({
+          studyId: study.id,
+          userId: u.id,
+        })),
+        skipDuplicates: true,
+      });
+
+      // Send invitations notifications to assigned participants
+      await prisma.notification.createMany({
+        data: matchedUsers.map((u) => ({
+          userId: u.id,
+          title: "Private Study Invitation",
+          message: `You have been assigned to private research study: "${title.trim()}". You can now access and participate in it.`,
+          linkUrl: `/participant/studies/${study.id}`,
+        })),
+      }).catch(() => {});
+    }
+  }
+}
 
 await logActivity({
   userId: user.id,

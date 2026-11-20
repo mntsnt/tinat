@@ -31,10 +31,10 @@ export default async function Home() {
   try {
     const [users, active, responses, study] = await Promise.all([
       prisma.user.count(),
-      prisma.study.count({ where: { status: "ACTIVE" } }),
+      prisma.study.count({ where: { status: "ACTIVE", isPrivate: false } }),
       prisma.response.count(),
       prisma.study.findFirst({
-        where: { status: "ACTIVE" },
+        where: { status: "ACTIVE", isPrivate: false },
         orderBy: { responses: { _count: "desc" } },
         include: {
           _count: { select: { responses: true, questions: true } },
@@ -103,7 +103,7 @@ export default async function Home() {
                 {[
                   "Platform-Determined TC Rewards",
                   "Ground Field Enumerators (ETB)",
-                  "Collaborative Workspaces & Teams",
+                  "Collaborative Workspaces & Kanban",
                   "Independent Tinat Forms",
                   "Coded & Confidential Data",
                 ].map((feature) => (

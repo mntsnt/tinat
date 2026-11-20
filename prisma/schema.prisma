@@ -73,6 +73,7 @@ model User {
   bookmarks                       StudyBookmark[]
   comments                        StudyComment[]
   assignedStudies                 StudyDataCollector[]             @relation("AssignedCollector")
+  assignedStudyParticipations     StudyParticipant[]               @relation("AssignedStudyParticipant")
   collectorApplications           CollectorApplication[]           @relation("CollectorApplications")
   collectorPayouts                CollectorPayout[]                @relation("CollectorPayoutRecipient")
   recordedCollectorPayouts        CollectorPayout[]                @relation("CollectorPayoutRecorder")
@@ -136,6 +137,7 @@ model Study {
   linkedProjects                ProjectLinkedStudy[]
   questions                     Question[]
   responses                     Response[]
+  isPrivate                     Boolean                        @default(false)
   participantLinks              ParticipantLink[]
   researcher                    User                           @relation(fields: [researcherId], references: [id], onDelete: Cascade)
   bookmarks                     StudyBookmark[]
@@ -148,6 +150,9 @@ model Study {
   collectorPayouts              CollectorPayout[]
   ratings                       StudyRating[]
   translations                  StudyTranslation[]
+  assignedParticipants         StudyParticipant[]             @relation("StudyAssignedParticipants")
+
+  @@index([isPrivate, status])
 }
 
 model StudyBookmark {
@@ -998,6 +1003,19 @@ model StudyDataCollector {
   user       User     @relation("AssignedCollector", fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([studyId, userId])
+}
+
+model StudyParticipant {
+  id         String   @id @default(cuid())
+  studyId    String
+  userId     String
+  assignedAt DateTime @default(now())
+  study      Study    @relation("StudyAssignedParticipants", fields: [studyId], references: [id], onDelete: Cascade)
+  user       User     @relation("AssignedStudyParticipant", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([studyId, userId])
+  @@index([studyId])
+  @@index([userId])
 }
 
 model CollectorInvitation {

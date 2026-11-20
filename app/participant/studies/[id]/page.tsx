@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { getSession } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
 import Link from "next/link";
+import { Lock } from "lucide-react";
 import StudyQuestionnaire from "./StudyQuestionnaire";
 import { ButtonLink } from "../../../components/ui/Button";
 
@@ -67,11 +68,52 @@ export default async function StudyPage(props: Props) {
         },
         orderBy: { createdAt: "desc" },
       },
+      dataCollectors: {
+        where: { userId: session.userId },
+        select: { id: true },
+      },
+      assignedParticipants: {
+        where: { userId: session.userId },
+        select: { id: true },
+      },
     },
   });
 
   if (!study || study.status === "DRAFT") {
     notFound();
+  }
+
+  // Private study access enforcement: only owner, admin, assigned collectors, or assigned participants
+  if (study.isPrivate) {
+    const isOwner = study.researcherId === session.userId;
+    const currentUser = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: { role: true },
+    });
+    const isAdmin = currentUser?.role === "ADMIN";
+    const isAssignedCollector = study.dataCollectors.length > 0;
+    const isAssignedParticipant = study.assignedParticipants.length > 0;
+
+    if (!isOwner && !isAdmin && !isAssignedCollector && !isAssignedParticipant) {
+      return (
+        <div className="container mx-auto px-4 py-16 flex flex-col items-center text-center">
+          <div className="bg-muted/40 border border-border p-8 rounded-2xl max-w-md w-full shadow-sm space-y-4">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">
+              <Lock className="h-6 w-6" />
+            </div>
+            <h2 className="text-xl font-bold text-foreground">Private Study</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              This research is private and restricted. Only participants directly assigned by the researcher or deployed field collectors have permission to access it.
+            </p>
+            <div className="pt-2">
+              <ButtonLink href="/participant/studies" className="w-full">
+                Browse Public Studies
+              </ButtonLink>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 
   const isCompletedOrPaused = study.status === "COMPLETED" || study.status === "PAUSED";

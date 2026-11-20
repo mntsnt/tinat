@@ -32,6 +32,7 @@ import {
   Globe,
   HeartHandshake,
   Banknote,
+  Lock,
 } from "lucide-react";
 import { STUDY_BANNERS, type StudyBannerTheme } from "@/lib/studyBanners";
 import { StudyBanner as StudyBannerPreview } from "../../../components/studies/StudyBanner";
@@ -91,6 +92,22 @@ function CreateStudyForm() {
   const [collectorPayType, setCollectorPayType] = useState<"FIXED" | "PER_RESPONSE">("FIXED");
   const [collectorPayRate, setCollectorPayRate] = useState("0.00");
   const [publishImmediately, setPublishImmediately] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [assignedParticipants, setAssignedParticipants] = useState<string[]>([]);
+  const [participantInput, setParticipantInput] = useState("");
+
+  function handleAddParticipant() {
+    const trimmed = participantInput.trim().replace(/^@/, "");
+    if (!trimmed) return;
+    if (!assignedParticipants.includes(trimmed)) {
+      setAssignedParticipants([...assignedParticipants, trimmed]);
+    }
+    setParticipantInput("");
+  }
+
+  function handleRemoveParticipant(index: number) {
+    setAssignedParticipants(assignedParticipants.filter((_, i) => i !== index));
+  }
 
   const [questions, setQuestions] = useState<Question[]>([
     { text: "", type: "SHORT_TEXT", required: true, options: [] },
@@ -356,6 +373,8 @@ function CreateStudyForm() {
           questions,
           tags: finalTags,
           publishImmediately,
+          isPrivate,
+          assignedParticipants: isPrivate ? assignedParticipants : [],
         }),
       });
 
@@ -828,6 +847,132 @@ function CreateStudyForm() {
                 </div>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Study Visibility: Public vs Private */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Globe className="w-5 h-5 text-emerald-600" />
+              Study Visibility &amp; Access
+            </CardTitle>
+            <CardDescription>
+              Choose whether participants can discover this study publicly or if it is restricted to private invitees.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Option 1: Public Study */}
+              <button
+                type="button"
+                onClick={() => setIsPrivate(false)}
+                className={`flex flex-col text-left p-4 rounded-xl border transition-all ${
+                  !isPrivate
+                    ? "border-emerald-600 bg-emerald-500/10 dark:bg-emerald-950/30 ring-1 ring-emerald-600"
+                    : "border-border bg-card hover:bg-muted/50"
+                }`}
+              >
+                <div className="flex items-center justify-between w-full mb-2">
+                  <span className="font-semibold text-sm text-foreground flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-emerald-600" />
+                    Public Study
+                  </span>
+                  {!isPrivate && <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Visible on the Tinat discovery feed. Any participant can search, discover, and answer this questionnaire.
+                </p>
+                <span className="mt-3 inline-flex items-center text-[10px] font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
+                  Open Discovery
+                </span>
+              </button>
+
+              {/* Option 2: Private Study */}
+              <button
+                type="button"
+                onClick={() => setIsPrivate(true)}
+                className={`flex flex-col text-left p-4 rounded-xl border transition-all ${
+                  isPrivate
+                    ? "border-amber-600 bg-amber-500/10 dark:bg-amber-950/30 ring-1 ring-amber-600"
+                    : "border-border bg-card hover:bg-muted/50"
+                }`}
+              >
+                <div className="flex items-center justify-between w-full mb-2">
+                  <span className="font-semibold text-sm text-foreground flex items-center gap-2">
+                    <Lock className="w-4 h-4 text-amber-600" />
+                    Private Study
+                  </span>
+                  {isPrivate && <CheckCircle2 className="w-4 h-4 text-amber-600" />}
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Hidden from public discovery. Only directly assigned participants or deployed field collectors can access and submit responses.
+                </p>
+                <span className="mt-3 inline-flex items-center text-[10px] font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wider">
+                  Restricted Cohort
+                </span>
+              </button>
+            </div>
+
+            {/* Private Study Assignment Helper */}
+            {isPrivate && (
+              <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 space-y-3 animate-in fade-in duration-200">
+                <div className="flex items-start gap-3">
+                  <Lock className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-semibold text-foreground">Assign Participants to Private Study</h4>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                      Enter usernames or email addresses of participants allowed to access this study. You can also assign more anytime after publishing.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Enter email or username..."
+                    value={participantInput}
+                    onChange={(e) => setParticipantInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleAddParticipant();
+                      }
+                    }}
+                    className="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-1 text-xs"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleAddParticipant}
+                    className="h-9 text-xs"
+                  >
+                    Add
+                  </Button>
+                </div>
+
+                {assignedParticipants.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {assignedParticipants.map((p, idx) => (
+                      <span
+                        key={p}
+                        className="inline-flex items-center gap-1 rounded-md bg-background border border-border px-2 py-1 text-xs text-foreground"
+                      >
+                        {p}
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveParticipant(idx)}
+                          className="text-muted-foreground hover:text-destructive"
+                        >
+                          &times;
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
 

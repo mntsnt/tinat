@@ -5,7 +5,7 @@ import { prisma } from "../../../lib/prisma";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/Card";
 import { Button, ButtonLink } from "../../components/ui/Button";
 import { Badge } from "../../components/ui/Badge";
-import { Search, Bookmark, BookmarkCheck, Stethoscope, Coins, ClipboardCheck, Clock, Users, AlertCircle } from "lucide-react";
+import { Search, Bookmark, BookmarkCheck, Stethoscope, Coins, ClipboardCheck, Clock, Users, AlertCircle, Lock } from "lucide-react";
 import { toggleBookmark } from "./actions";
 import { HEALTH_CATEGORIES, MEDICAL_DISCLAIMER } from "@/lib/healthCategories";
 import { StudyBanner } from "../../components/studies/StudyBanner";
@@ -57,9 +57,21 @@ export default async function StudyDiscoveryPage({
     });
   }
 
+  const accessFilter: Prisma.StudyWhereInput = {
+    OR: [
+      { isPrivate: false },
+      { assignedParticipants: { some: { userId: user.id } } },
+      { dataCollectors: { some: { userId: user.id } } },
+      { researcherId: user.id },
+    ],
+  };
+
   const whereClause: Prisma.StudyWhereInput = {
     status: "ACTIVE",
-    ...(filters.length ? { AND: filters } : {}),
+    AND: [
+      accessFilter,
+      ...(filters.length ? filters : []),
+    ],
   };
 
   const studies = await prisma.study.findMany({
@@ -252,6 +264,11 @@ export default async function StudyDiscoveryPage({
                     <Badge className="bg-emerald-600 text-white font-bold border-0 text-xs px-2.5">
                       +{study.rewardCredits > 0 ? study.rewardCredits : 5} TC
                     </Badge>
+                    {study.isPrivate && (
+                      <span className="text-[10px] font-semibold text-amber-800 dark:text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <Lock className="w-3 h-3" /> Private (Assigned)
+                      </span>
+                    )}
                     {study.collectorsNeeded > 0 && (
                       <span className="text-[10px] font-semibold text-blue-700 dark:text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded-full flex items-center gap-1">
                         <Users className="w-3 h-3" /> Field

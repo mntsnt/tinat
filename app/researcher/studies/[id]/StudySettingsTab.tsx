@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   Settings,
@@ -18,6 +18,10 @@ import {
   Tag,
   Target,
   Sparkles,
+  Globe,
+  Lock,
+  UserPlus,
+  Trash2,
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../../../components/ui/Card";
 import { Button } from "../../../components/ui/Button";
@@ -39,6 +43,7 @@ interface StudySettingsTabProps {
     rewardCredits?: number;
     studyType?: string;
     responsesCount: number;
+    isPrivate?: boolean;
   };
 }
 
@@ -72,6 +77,76 @@ export function StudySettingsTab({ study }: StudySettingsTabProps) {
       ? String(study.participantTarget)
       : "0"
   );
+  const [isPrivate, setIsPrivate] = useState(Boolean(study.isPrivate));
+  const [participants, setParticipants] = useState<any[]>([]);
+  const [loadingParticipants, setLoadingParticipants] = useState(false);
+  const [newParticipantInput, setNewParticipantInput] = useState("");
+  const [participantActionLoading, setParticipantActionLoading] = useState(false);
+  const [participantFeedback, setParticipantFeedback] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  const loadParticipants = async () => {
+    try {
+      setLoadingParticipants(true);
+      const res = await fetch(`/api/studies/${study.id}/participants`);
+      if (res.ok) {
+        const data = await res.json();
+        setParticipants(data.participants || []);
+      }
+    } catch (err) {
+      console.error("Failed to load participants:", err);
+    } finally {
+      setLoadingParticipants(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isPrivate) {
+      loadParticipants();
+    }
+  }, [isPrivate, study.id]);
+
+  const handleAssignParticipant = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = newParticipantInput.trim();
+    if (!clean) return;
+
+    setParticipantActionLoading(true);
+    setParticipantFeedback(null);
+    try {
+      const res = await fetch(`/api/studies/${study.id}/participants`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier: clean }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to assign participant.");
+      setParticipantFeedback({ type: "success", text: data.message || "Participant assigned." });
+      setNewParticipantInput("");
+      loadParticipants();
+    } catch (err: any) {
+      setParticipantFeedback({ type: "error", text: err.message || "Failed to assign participant." });
+    } finally {
+      setParticipantActionLoading(false);
+    }
+  };
+
+  const handleRemoveParticipant = async (userId: string) => {
+    setParticipantActionLoading(true);
+    setParticipantFeedback(null);
+    try {
+      const res = await fetch(`/api/studies/${study.id}/participants?userId=${userId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to remove participant.");
+      setParticipantFeedback({ type: "success", text: "Participant removed." });
+      loadParticipants();
+    } catch (err: any) {
+      setParticipantFeedback({ type: "error", text: err.message || "Failed to remove participant." });
+    } finally {
+      setParticipantActionLoading(false);
+    }
+  };
 
   // Status and submission states
   const [saving, setSaving] = useState(false);
@@ -100,6 +175,7 @@ export function StudySettingsTab({ study }: StudySettingsTabProps) {
           targetPopulation: targetPopulation.trim() || null,
           estimatedMinutes: Number(estimatedMinutes) || 5,
           participantTarget: Number(participantTarget) || 0,
+          isPrivate,
         }),
       });
 
@@ -300,6 +376,51 @@ export function StudySettingsTab({ study }: StudySettingsTabProps) {
                 className="w-full rounded-md border border-input bg-background p-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
+
+            {/* Visibility Settings */}
+            <div className="space-y-2 pt-3 border-t border-border">
+              <label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                {isPrivate ? <Lock className="w-3.5 h-3.5 text-amber-600" /> : <Globe className="w-3.5 h-3.5 text-emerald-600" />}
+                Study Visibility &amp; Access Mode
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsPrivate(false)}
+                  className={`flex items-start gap-3 p-3 rounded-xl border text-left transition-all ${
+                    !isPrivate
+                      ? "border-emerald-600 bg-emerald-500/10 dark:bg-emerald-950/30 ring-1 ring-emerald-600"
+                      : "border-border bg-card hover:bg-muted/50"
+                  }`}
+                >
+                  <Globe className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-semibold text-xs text-foreground block">Public Study</span>
+                    <span className="text-[11px] text-muted-foreground block mt-0.5">
+                      Open to discovery across Tinat. Any participant can participate.
+                    </span>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsPrivate(true)}
+                  className={`flex items-start gap-3 p-3 rounded-xl border text-left transition-all ${
+                    isPrivate
+                      ? "border-amber-600 bg-amber-500/10 dark:bg-amber-950/30 ring-1 ring-amber-600"
+                      : "border-border bg-card hover:bg-muted/50"
+                  }`}
+                >
+                  <Lock className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-semibold text-xs text-foreground block">Private Study</span>
+                    <span className="text-[11px] text-muted-foreground block mt-0.5">
+                      Hidden from discovery. Only assigned participants or field collectors can access.
+                    </span>
+                  </div>
+                </button>
+              </div>
+            </div>
           </CardContent>
 
           <CardFooter className="flex items-center justify-between border-t border-border pt-4">
@@ -331,6 +452,105 @@ export function StudySettingsTab({ study }: StudySettingsTabProps) {
           </CardFooter>
         </form>
       </Card>
+
+      {/* ── CARD 1.5: ASSIGNED PARTICIPANTS (PRIVATE STUDY) ── */}
+      {isPrivate && (
+        <Card className="border-amber-500/20 bg-amber-500/[0.02]">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Lock className="w-4 h-4 text-amber-600" />
+                <CardTitle className="text-base text-foreground">Assigned Participants (Private Study)</CardTitle>
+              </div>
+              <Badge variant="outline" className="text-xs border-amber-500/40 text-amber-700 dark:text-amber-300">
+                {participants.length} assigned
+              </Badge>
+            </div>
+            <CardDescription>
+              Assign participants by username or email. Only assigned users can view and answer this private study.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Add Participant Form */}
+            <form onSubmit={handleAssignParticipant} className="flex gap-2">
+              <Input
+                type="text"
+                placeholder="Enter participant username or email..."
+                value={newParticipantInput}
+                onChange={(e) => setNewParticipantInput(e.target.value)}
+                className="text-xs"
+              />
+              <Button
+                type="submit"
+                disabled={participantActionLoading || !newParticipantInput.trim()}
+                className="bg-emerald-600 hover:bg-emerald-700 text-white shrink-0 text-xs gap-1.5"
+              >
+                {participantActionLoading ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <UserPlus className="w-3.5 h-3.5" />
+                )}
+                <span>Assign</span>
+              </Button>
+            </form>
+
+            {participantFeedback && (
+              <div
+                className={`p-3 rounded-lg text-xs flex items-center gap-2 ${
+                  participantFeedback.type === "success"
+                    ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20"
+                    : "bg-destructive/10 text-destructive border border-destructive/20"
+                }`}
+              >
+                {participantFeedback.type === "success" ? (
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                ) : (
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                )}
+                <span>{participantFeedback.text}</span>
+              </div>
+            )}
+
+            {/* Participants List */}
+            {loadingParticipants ? (
+              <div className="py-6 text-center text-xs text-muted-foreground flex items-center justify-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin text-emerald-600" />
+                <span>Loading assigned participants...</span>
+              </div>
+            ) : participants.length === 0 ? (
+              <div className="py-6 text-center text-xs text-muted-foreground border border-dashed border-border rounded-xl">
+                No participants assigned yet. Use the input above to invite participants to this private study.
+              </div>
+            ) : (
+              <div className="divide-y divide-border border border-border rounded-xl bg-card overflow-hidden">
+                {participants.map((p) => (
+                  <div key={p.id} className="flex items-center justify-between p-3 text-xs hover:bg-muted/30 transition-colors">
+                    <div>
+                      <span className="font-semibold text-foreground block">
+                        {p.user.name || p.user.email}
+                      </span>
+                      <span className="text-[11px] text-muted-foreground">
+                        {p.user.username ? `@${p.user.username} · ` : ""}{p.user.email}
+                      </span>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleRemoveParticipant(p.user.id)}
+                      disabled={participantActionLoading}
+                      className="h-8 text-xs text-destructive hover:text-destructive hover:bg-destructive/10 gap-1"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Remove</span>
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* ── CARD 2: RECRUITMENT & STATUS CONTROLS ── */}
       <Card>

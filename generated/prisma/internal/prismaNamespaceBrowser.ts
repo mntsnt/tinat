@@ -104,6 +104,7 @@ export const ModelName = {
   AIUsage: 'AIUsage',
   Verification: 'Verification',
   StudyDataCollector: 'StudyDataCollector',
+  StudyParticipant: 'StudyParticipant',
   CollectorInvitation: 'CollectorInvitation',
   CollectorApplication: 'CollectorApplication',
   CollectionSession: 'CollectionSession',
@@ -208,7 +209,8 @@ export const StudyScalarFieldEnum = {
   involvesMinors: 'involvesMinors',
   safetyProtocolText: 'safetyProtocolText',
   firstApprovedByAdminId: 'firstApprovedByAdminId',
-  secondApprovedByAdminId: 'secondApprovedByAdminId'
+  secondApprovedByAdminId: 'secondApprovedByAdminId',
+  isPrivate: 'isPrivate'
 } as const
 
 export type StudyScalarFieldEnum = (typeof StudyScalarFieldEnum)[keyof typeof StudyScalarFieldEnum]
@@ -949,6 +951,16 @@ export const StudyDataCollectorScalarFieldEnum = {
 } as const
 
 export type StudyDataCollectorScalarFieldEnum = (typeof StudyDataCollectorScalarFieldEnum)[keyof typeof StudyDataCollectorScalarFieldEnum]
+
+
+export const StudyParticipantScalarFieldEnum = {
+  id: 'id',
+  studyId: 'studyId',
+  userId: 'userId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type StudyParticipantScalarFieldEnum = (typeof StudyParticipantScalarFieldEnum)[keyof typeof StudyParticipantScalarFieldEnum]
 
 
 export const CollectorInvitationScalarFieldEnum = {

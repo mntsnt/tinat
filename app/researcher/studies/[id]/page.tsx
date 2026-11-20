@@ -13,7 +13,7 @@ import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
 import { StudyShareLink } from "./StudyShareLink";
 import { StudySettingsTab } from "./StudySettingsTab";
-import { Star, Paperclip, ShieldAlert, ArrowLeft, BarChart3 } from "lucide-react";
+import { Star, Paperclip, ShieldAlert, ArrowLeft, BarChart3, Globe, Lock } from "lucide-react";
 import { TinatLogo } from "../../../components/ui/TinatLogo";
 import { ThemeToggle } from "../../../components/ThemeToggle";
 import { DashboardNotificationBell } from "../../../components/layout/DashboardNotificationBell";
@@ -188,6 +188,14 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
               )}
               <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
                 Data Collection Study &bull; Participant Reward: {study.rewardCredits} TC
+              </span>
+              <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 ${
+                study.isPrivate
+                  ? "text-amber-800 dark:text-amber-300 bg-amber-500/15"
+                  : "text-emerald-700 dark:text-emerald-300 bg-emerald-500/10"
+              }`}>
+                {study.isPrivate ? <Lock className="w-3 h-3" /> : <Globe className="w-3 h-3" />}
+                {study.isPrivate ? "Private Study" : "Public Study"}
               </span>
               {study.collectorsNeeded > 0 && (
                 <span className="text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-500/10 px-2.5 py-0.5 rounded-full">
@@ -873,6 +881,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
               rewardCredits: study.rewardCredits,
               studyType: study.studyType,
               responsesCount: totalResponses,
+              isPrivate: Boolean(study.isPrivate),
             }}
           />
         </div>
