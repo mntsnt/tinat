@@ -9,15 +9,23 @@ import {
   Check,
   ChevronDown,
   Database,
+  Loader2,
   Menu,
   MessageSquare,
   Plus,
   Sparkles,
+  Trash2,
   X,
 } from "lucide-react";
 import type { AIChatMessage } from "@/lib/ai/providers";
 import { AVAILABLE_MODELS, getAIModel, type AIModelId } from "@/lib/ai/models";
 import { ArtifactRenderer } from "./components/ArtifactRenderer";
+
+type ChatMessageItem = {
+  id?: string;
+  role: AIChatMessage["role"];
+  content: string;
+};
 
 type ConversationSummary = {
   id: string;
@@ -55,7 +63,7 @@ function displayTitle(title: string | null) {
 }
 
 export default function AIChatPage() {
-  const [messages, setMessages] = useState<AIChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessageItem[]>([]);
   const [conversations, setConversations] = useState<ConversationSummary[]>([]);
   const [studies, setStudies] = useState<StudyOption[]>([]);
   const [activeConversationId, setActiveConversationId] = useState("");
@@ -68,6 +76,10 @@ export default function AIChatPage() {
   const [isSavingSettings, setIsSavingSettings] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [error, setError] = useState("");
+  const [deletingConversationId, setDeletingConversationId] = useState<string | null>(null);
+  const [isDeletingConversation, setIsDeletingConversation] = useState(false);
+  const [showDeleteActiveConfirm, setShowDeleteActiveConfirm] = useState(false);
+  const [deletingMessageId, setDeletingMessageId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -139,6 +151,8 @@ export default function AIChatPage() {
     setActiveConversationId("");
     setMessages([]);
     setError("");
+    setDeletingConversationId(null);
+    setShowDeleteActiveConfirm(false);
     setSidebarOpen(false);
     inputRef.current?.focus();
   }, [isGenerating]);
@@ -167,6 +181,8 @@ export default function AIChatPage() {
 
     setIsLoadingConversation(true);
     setError("");
+    setDeletingConversationId(null);
+    setShowDeleteActiveConfirm(false);
     try {
       const response = await fetch(`/api/ai/conversations/${conversationId}`);
       const data = (await response.json()) as {
@@ -183,6 +199,7 @@ export default function AIChatPage() {
         conversation.messages
           .filter((message) => message.role === "USER" || message.role === "ASSISTANT")
           .map((message) => ({
+            id: message.id,
             role: message.role.toLowerCase() as AIChatMessage["role"],
             content: message.content,
           })),
@@ -268,21 +285,95 @@ export default function AIChatPage() {
       });
       const data = (await response.json()) as {
         message?: StoredMessage;
+        userMessage?: StoredMessage;
         error?: string;
       };
       if (!response.ok || !data.message) {
         throw new Error(errorMessage(data, "Tinat AI could not respond. Please try again."));
       }
 
-      setMessages((previous) => [
-        ...previous,
-        { role: "assistant", content: data.message!.content },
-      ]);
+      setMessages((previous) => {
+        const updated = [...previous];
+        if (data.userMessage && updated.length > 0) {
+          const lastIdx = updated.length - 1;
+          if (updated[lastIdx].role === "user" && !updated[lastIdx].id) {
+            updated[lastIdx] = { ...updated[lastIdx], id: data.userMessage.id };
+          }
+        }
+        return [
+          ...updated,
+          { id: data.message!.id, role: "assistant", content: data.message!.content },
+        ];
+      });
       await loadConversations();
     } catch (sendError) {
       setError(sendError instanceof Error ? sendError.message : "Tinat AI could not respond.");
     } finally {
       setIsGenerating(false);
+    }
+  };
+
+  const handleDeleteConversation = async (conversationId: string, event?: React.MouseEvent) => {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    if (isDeletingConversation) return;
+
+    setIsDeletingConversation(true);
+    setError("");
+
+    try {
+      const response = await fetch(`/api/ai/conversations/${conversationId}`, {
+        method: "DELETE",
+      });
+      const data = (await response.json()) as { error?: string; success?: boolean };
+
+      if (!response.ok) {
+        throw new Error(errorMessage(data, "Could not delete conversation."));
+      }
+
+      setConversations((previous) => previous.filter((item) => item.id !== conversationId));
+      setDeletingConversationId(null);
+      setShowDeleteActiveConfirm(false);
+
+      if (activeConversationId === conversationId) {
+        startNewChat();
+      }
+    } catch (deleteError) {
+      setError(deleteError instanceof Error ? deleteError.message : "Could not delete conversation.");
+    } finally {
+      setIsDeletingConversation(false);
+    }
+  };
+
+  const handleDeleteMessage = async (messageId: string | undefined, index: number) => {
+    if (isGenerating || (messageId && deletingMessageId === messageId)) return;
+
+    if (!messageId || !activeConversationId) {
+      setMessages((previous) => previous.filter((_, i) => i !== index));
+      return;
+    }
+
+    setDeletingMessageId(messageId);
+    setError("");
+
+    try {
+      const response = await fetch(
+        `/api/ai/conversations/${activeConversationId}/messages?messageId=${encodeURIComponent(messageId)}`,
+        { method: "DELETE" }
+      );
+      const data = (await response.json()) as { error?: string; success?: boolean };
+
+      if (!response.ok) {
+        throw new Error(errorMessage(data, "Could not delete message."));
+      }
+
+      setMessages((previous) => previous.filter((_, i) => i !== index));
+    } catch (deleteError) {
+      setError(deleteError instanceof Error ? deleteError.message : "Could not delete message.");
+    } finally {
+      setDeletingMessageId(null);
     }
   };
 
@@ -353,34 +444,92 @@ export default function AIChatPage() {
             <div className="space-y-1">
               {conversations.map((conversation) => {
                 const isActive = conversation.id === activeConversationId;
+                const isConfirmingDelete = deletingConversationId === conversation.id;
+
+                if (isConfirmingDelete) {
+                  return (
+                    <div
+                      key={conversation.id}
+                      className="rounded-md border border-destructive/30 bg-destructive/5 p-2 text-xs space-y-2"
+                    >
+                      <p className="text-foreground font-medium truncate">
+                        Delete this chat?
+                      </p>
+                      <div className="flex items-center gap-1.5 justify-end">
+                        <button
+                          type="button"
+                          disabled={isDeletingConversation}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDeletingConversationId(null);
+                          }}
+                          className="rounded px-2 py-1 text-[11px] text-muted-foreground hover:bg-muted font-medium transition-colors"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          disabled={isDeletingConversation}
+                          onClick={(e) => void handleDeleteConversation(conversation.id, e)}
+                          className="flex items-center gap-1 rounded bg-destructive text-destructive-foreground px-2 py-1 text-[11px] font-medium hover:bg-destructive/90 transition-colors disabled:opacity-50"
+                        >
+                          {isDeletingConversation ? (
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                          ) : (
+                            <Trash2 className="h-3 w-3" />
+                          )}
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
-                  <button
+                  <div
                     key={conversation.id}
-                    onClick={() => void openConversation(conversation.id)}
-                    disabled={isBusy}
-                    className={`group flex w-full items-start gap-2.5 rounded-md px-3 py-2.5 text-left transition disabled:opacity-60 ${
+                    className={`group relative flex w-full items-center rounded-md transition ${
                       isActive
                         ? "bg-primary/10 text-foreground"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground"
                     }`}
                   >
-                    <MessageSquare
-                      className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${
-                        isActive ? "text-emerald-700 dark:text-emerald-400" : "text-muted-foreground"
-                      }`}
-                    />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13px]">
-                        {displayTitle(conversation.title)}
+                    <button
+                      onClick={() => void openConversation(conversation.id)}
+                      disabled={isBusy}
+                      className="flex min-w-0 flex-1 items-start gap-2.5 px-3 py-2.5 text-left disabled:opacity-60"
+                    >
+                      <MessageSquare
+                        className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${
+                          isActive ? "text-emerald-700 dark:text-emerald-400" : "text-muted-foreground"
+                        }`}
+                      />
+                      <span className="min-w-0 flex-1 pr-6">
+                        <span className="block truncate text-[13px]">
+                          {displayTitle(conversation.title)}
+                        </span>
+                        <span className="mt-1 block text-[11px] text-muted-foreground">
+                          {new Date(conversation.updatedAt).toLocaleDateString(undefined, {
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </span>
                       </span>
-                      <span className="mt-1 block text-[11px] text-muted-foreground">
-                        {new Date(conversation.updatedAt).toLocaleDateString(undefined, {
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </span>
-                    </span>
-                  </button>
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={`Delete chat: ${displayTitle(conversation.title)}`}
+                      title="Delete chat from history"
+                      disabled={isBusy}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeletingConversationId(conversation.id);
+                      }}
+                      className="absolute right-2 top-2.5 rounded p-1.5 text-muted-foreground opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive transition-opacity"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
                 );
               })}
             </div>
@@ -415,6 +564,19 @@ export default function AIChatPage() {
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
+            {activeConversationId && (
+              <button
+                type="button"
+                onClick={() => setShowDeleteActiveConfirm((prev) => !prev)}
+                aria-label="Delete active chat"
+                title="Delete this chat from history"
+                disabled={isBusy}
+                className="flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1.5 text-xs text-muted-foreground hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive transition-colors shrink-0"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline font-medium">Delete chat</span>
+              </button>
+            )}
             <label className="relative hidden max-w-[220px] items-center gap-2 rounded-md border border-border bg-card px-2.5 py-2 sm:flex">
               <Database className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
               <select
@@ -456,6 +618,41 @@ export default function AIChatPage() {
             </label>
           </div>
         </header>
+
+        {showDeleteActiveConfirm && activeConversationId && (
+          <div
+            role="alert"
+            className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-destructive/20 bg-destructive/10 px-4 py-2.5 text-xs text-foreground animate-in fade-in-50"
+          >
+            <div className="flex items-center gap-2">
+              <AlertCircle className="h-4 w-4 text-destructive shrink-0" />
+              <span>Are you sure you want to delete this chat history? This action cannot be undone.</span>
+            </div>
+            <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+              <button
+                type="button"
+                disabled={isDeletingConversation}
+                onClick={() => setShowDeleteActiveConfirm(false)}
+                className="rounded px-2.5 py-1 text-xs text-muted-foreground hover:bg-muted font-medium transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={isDeletingConversation}
+                onClick={() => void handleDeleteConversation(activeConversationId)}
+                className="flex items-center gap-1.5 rounded bg-destructive text-destructive-foreground px-2.5 py-1 text-xs font-semibold hover:bg-destructive/90 transition-colors disabled:opacity-50"
+              >
+                {isDeletingConversation ? (
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                ) : (
+                  <Trash2 className="h-3 w-3" />
+                )}
+                Delete Chat
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Mobile Toolbar for Study Context and Model Selection */}
         <div className="flex sm:hidden items-center gap-2 border-b border-border bg-card/60 px-3 py-2 overflow-x-auto no-scrollbar">
@@ -561,17 +758,51 @@ export default function AIChatPage() {
                       }`}
                     >
                       {message.role === "user" ? (
-                        <p className="whitespace-pre-wrap">{message.content}</p>
+                        <div className="group relative">
+                          <p className="whitespace-pre-wrap">{message.content}</p>
+                          <div className="mt-1 flex items-center justify-end">
+                            <button
+                              type="button"
+                              onClick={() => void handleDeleteMessage(message.id, index)}
+                              disabled={deletingMessageId === message.id}
+                              aria-label="Delete message from history"
+                              title="Delete message from history"
+                              className="rounded p-1 text-muted-foreground/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:text-destructive hover:bg-background/80 transition-all"
+                            >
+                              {deletingMessageId === message.id ? (
+                                <Loader2 className="h-3 w-3 animate-spin" />
+                              ) : (
+                                <Trash2 className="h-3 w-3" />
+                              )}
+                            </button>
+                          </div>
+                        </div>
                       ) : (
                         <article className="overflow-hidden rounded-2xl border border-border/80 bg-card/70 shadow-sm">
-                          <header className="flex items-center gap-2.5 border-b border-border/70 bg-muted/30 px-4 py-3">
-                            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
-                              <Sparkles className="h-3.5 w-3.5" />
-                            </span>
-                            <div className="min-w-0">
-                              <p className="text-xs font-semibold text-foreground">Tinat AI</p>
-                              <p className="text-[10px] text-muted-foreground">Research assistant</p>
+                          <header className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-4 py-3">
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
+                                <Sparkles className="h-3.5 w-3.5" />
+                              </span>
+                              <div className="min-w-0">
+                                <p className="text-xs font-semibold text-foreground">Tinat AI</p>
+                                <p className="text-[10px] text-muted-foreground">Research assistant</p>
+                              </div>
                             </div>
+                            <button
+                              type="button"
+                              onClick={() => void handleDeleteMessage(message.id, index)}
+                              disabled={deletingMessageId === message.id}
+                              aria-label="Delete response from history"
+                              title="Delete response from history"
+                              className="rounded p-1 text-muted-foreground/60 hover:text-destructive hover:bg-destructive/10 transition-colors"
+                            >
+                              {deletingMessageId === message.id ? (
+                                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                              ) : (
+                                <Trash2 className="h-3.5 w-3.5" />
+                              )}
+                            </button>
                           </header>
                           <div className="px-4 py-4 sm:px-5 sm:py-5">
                             <ArtifactRenderer content={message.content} />

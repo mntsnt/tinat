@@ -1078,6 +1078,14 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     collector: [403],
     admin: [200, 400, 404]
   },
+  "DELETE /api/ai/conversations/[id]/messages": {
+    anonymous: [401],
+    participant: [403, 404],
+    researcher_owner: [200, 404],
+    researcher_other: [403],
+    collector: [403],
+    admin: [200, 404]
+  },
 
   // Forms
   "GET /api/forms": {

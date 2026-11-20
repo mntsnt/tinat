@@ -99,7 +99,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     }
 
     // Save user message only after AI access and provider configuration are validated.
-    await prisma.aIMessage.create({
+    const userMessage = await prisma.aIMessage.create({
       data: { conversationId, role: "USER", content },
     });
 
@@ -151,7 +151,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       },
     });
 
-    return NextResponse.json({ message: assistantMessage });
+    return NextResponse.json({ message: assistantMessage, userMessage });
   } catch (err: any) {
     console.error("Error creating message:", err);
     if (
@@ -166,5 +166,55 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       );
     }
     return jsonError("Failed to generate response", 500);
+  }
+}
+
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const auth = await requireUser(request);
+    if (!auth.ok) return auth.response;
+
+    const { id: conversationId } = await params;
+
+    const conversation = await prisma.aIConversation.findUnique({
+      where: { id: conversationId },
+    });
+
+    if (!conversation) {
+      return jsonError("Conversation not found", 404);
+    }
+
+    if (conversation.userId !== auth.user.id && auth.user.role !== "ADMIN") {
+      return jsonError("Forbidden: you cannot delete messages in another user's conversation", 403);
+    }
+
+    const { searchParams } = new URL(request.url);
+    const messageId = searchParams.get("messageId");
+
+    if (messageId) {
+      const message = await prisma.aIMessage.findFirst({
+        where: { id: messageId, conversationId },
+      });
+
+      if (!message) {
+        return jsonError("Message not found", 404);
+      }
+
+      await prisma.aIMessage.delete({
+        where: { id: messageId },
+      });
+
+      return NextResponse.json({ success: true, messageId });
+    }
+
+    // Delete all messages in this conversation (clear history)
+    await prisma.aIMessage.deleteMany({
+      where: { conversationId },
+    });
+
+    return NextResponse.json({ success: true, cleared: true });
+  } catch (err: any) {
+    console.error("Error deleting message:", err);
+    return jsonError("Failed to delete message", 500);
   }
 }
