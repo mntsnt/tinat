@@ -26,7 +26,14 @@ import {
   Lightbulb,
   X,
   Compass,
+  ListChecks,
+  Globe,
+  ArrowRight,
+  CheckCheck,
+  Layers,
 } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   type ScholarXivPaper,
   SCHOLARXIV_CATEGORIES,
@@ -64,6 +71,77 @@ const QUICK_TOPICS = [
   "Vaccine hesitancy survey",
   "Socioeconomic demographic indicators",
 ];
+
+const markdownComponents = {
+  h1: ({ children, ...props }: any) => (
+    <h2 className="text-base font-bold text-foreground mt-4 mb-2 pb-1.5 border-b border-border flex items-center gap-2" {...props}>
+      {children}
+    </h2>
+  ),
+  h2: ({ children, ...props }: any) => (
+    <h3 className="text-sm font-bold text-purple-700 dark:text-purple-300 mt-4 mb-2 flex items-center gap-1.5" {...props}>
+      {children}
+    </h3>
+  ),
+  h3: ({ children, ...props }: any) => (
+    <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mt-3 mb-1" {...props}>
+      {children}
+    </h4>
+  ),
+  p: ({ children, ...props }: any) => (
+    <p className="text-xs text-foreground/90 leading-relaxed mb-3 last:mb-0" {...props}>
+      {children}
+    </p>
+  ),
+  ul: ({ children, ...props }: any) => (
+    <ul className="space-y-1.5 text-xs text-foreground/90 mb-3 pl-4 list-disc marker:text-purple-500" {...props}>
+      {children}
+    </ul>
+  ),
+  ol: ({ children, ...props }: any) => (
+    <ol className="space-y-1.5 text-xs text-foreground/90 mb-3 pl-4 list-decimal marker:text-purple-500 font-medium" {...props}>
+      {children}
+    </ol>
+  ),
+  li: ({ children, ...props }: any) => (
+    <li className="leading-relaxed font-normal" {...props}>
+      {children}
+    </li>
+  ),
+  blockquote: ({ children, ...props }: any) => (
+    <blockquote className="border-l-4 border-purple-500 bg-purple-500/5 px-3.5 py-2.5 rounded-r-xl italic text-xs text-foreground/90 my-3" {...props}>
+      {children}
+    </blockquote>
+  ),
+  code: ({ children, ...props }: any) => (
+    <code className="px-1.5 py-0.5 rounded-md bg-muted font-mono text-[11px] text-purple-700 dark:text-purple-300 border border-border" {...props}>
+      {children}
+    </code>
+  ),
+  strong: ({ children, ...props }: any) => (
+    <strong className="font-semibold text-foreground" {...props}>
+      {children}
+    </strong>
+  ),
+  table: ({ children, ...props }: any) => (
+    <div className="overflow-x-auto my-3 rounded-xl border border-border">
+      <table className="min-w-full divide-y divide-border text-xs" {...props}>
+        {children}
+      </table>
+    </div>
+  ),
+  th: ({ children, ...props }: any) => (
+    <th className="bg-muted/80 px-3 py-2 text-left text-[11px] font-semibold text-foreground" {...props}>
+      {children}
+    </th>
+  ),
+  td: ({ children, ...props }: any) => (
+    <td className="px-3 py-2 border-t border-border/50 text-foreground/90 text-xs" {...props}>
+      {children}
+    </td>
+  ),
+  hr: () => <hr className="my-3 border-border" />,
+};
 
 export default function ResearcherLiteraturePage() {
   const router = useRouter();
@@ -108,6 +186,8 @@ export default function ResearcherLiteraturePage() {
   const [insightsPaper, setInsightsPaper] = useState<ScholarXivPaper | null>(null);
   const [insightsData, setInsightsData] = useState<any>(null);
   const [isLoadingInsights, setIsLoadingInsights] = useState(false);
+  const [activeInsightsTab, setActiveInsightsTab] = useState<"overview" | "questions" | "rationale" | "field">("overview");
+  const [copiedInsightsKey, setCopiedInsightsKey] = useState<string | null>(null);
 
   // Load user projects
   useEffect(() => {
@@ -198,6 +278,8 @@ export default function ResearcherLiteraturePage() {
   async function openInsights(paper: ScholarXivPaper) {
     setInsightsPaper(paper);
     setInsightsData(null);
+    setActiveInsightsTab("overview");
+    setCopiedInsightsKey(null);
     setIsLoadingInsights(true);
     try {
       const res = await fetch("/api/literature/insights", {
@@ -214,6 +296,31 @@ export default function ResearcherLiteraturePage() {
     } finally {
       setIsLoadingInsights(false);
     }
+  }
+
+  function copyInsightItem(key: string, text: string) {
+    void navigator.clipboard.writeText(text);
+    setCopiedInsightsKey(key);
+    setTimeout(() => {
+      setCopiedInsightsKey((cur) => (cur === key ? null : cur));
+    }, 2000);
+  }
+
+  function copyAllQuestions(questionList: any[]) {
+    if (!questionList || !questionList.length) return;
+    const text = questionList
+      .map((q, idx) => {
+        let qText = `${idx + 1}. ${q.text} [Format: ${q.type}]`;
+        if (q.options?.length) {
+          qText += `\nOptions:\n` + q.options.map((opt: string) => `  - ${opt}`).join("\n");
+        }
+        if (q.scaleMin && q.scaleMax) {
+          qText += `\nScale: ${q.scaleMin} (${q.scaleMinLabel || "Min"}) to ${q.scaleMax} (${q.scaleMaxLabel || "Max"})`;
+        }
+        return qText;
+      })
+      .join("\n\n");
+    copyInsightItem("all-questions", text);
   }
 
   function toggleAbstract(arxivId: string) {
@@ -907,118 +1014,598 @@ export default function ResearcherLiteraturePage() {
 
       {/* AI Study Design Insights Modal */}
       {insightsPaper && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-border pb-3">
-              <div className="flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400">
-                  <Sparkles className="h-4 w-4" />
-                </span>
-                <div>
-                  <h3 className="text-base font-bold text-foreground">AI Study Design Insights</h3>
-                  <p className="text-[11px] text-muted-foreground">
-                    Methodological suggestions & survey indicators derived from arXiv:{insightsPaper.arxivId}
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setInsightsPaper(null)}
-                className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            {isLoadingInsights ? (
-              <div className="flex h-64 flex-col items-center justify-center gap-3 text-center">
-                <LoaderCircle className="h-8 w-8 animate-spin text-purple-600" />
-                <p className="text-sm font-semibold text-foreground">Synthesizing study design notes...</p>
-                <p className="text-xs text-muted-foreground max-w-sm">
-                  Extracting research variables, hypothesis suggestions, and contextual adaptations for Ethiopian field collection.
-                </p>
-              </div>
-            ) : insightsData ? (
-              <div className="space-y-4 text-xs">
-                {/* Paper Summary Pill */}
-                <div className="rounded-xl border border-purple-500/20 bg-purple-500/5 p-3">
-                  <p className="font-semibold text-foreground">{insightsPaper.title}</p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">
-                    {insightsPaper.authors.slice(0, 3).join(", ")} &bull; {insightsPaper.primaryCategory}
-                  </p>
-                </div>
-
-                {/* AI Content if provided */}
-                {insightsData.aiContent && (
-                  <div className="rounded-xl border border-border bg-muted/20 p-4 whitespace-pre-wrap leading-relaxed text-foreground">
-                    {insightsData.aiContent}
-                  </div>
-                )}
-
-                {/* Background Rationale */}
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="font-bold text-foreground uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                      <Lightbulb className="h-3.5 w-3.5 text-amber-500" />
-                      Suggested Study Rationale Paragraph
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => copyCitationText(insightsData.studyRationale)}
-                      className="text-emerald-600 hover:underline font-semibold"
-                    >
-                      Copy Rationale
-                    </button>
-                  </div>
-                  <p className="rounded-xl border border-border bg-card p-3 text-foreground leading-relaxed">
-                    {insightsData.studyRationale}
-                  </p>
-                </div>
-
-                {/* Suggested Survey Questions */}
-                {insightsData.recommendedQuestions?.length > 0 && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="w-full max-w-4xl max-h-[90vh] flex flex-col rounded-3xl border border-border bg-card shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150">
+            {/* Modal Header */}
+            <div className="p-5 sm:p-6 border-b border-border bg-muted/20 space-y-3.5 shrink-0">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start gap-3">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-purple-500 text-white shadow-lg shadow-purple-500/20">
+                    <Sparkles className="h-5 w-5" />
+                  </span>
                   <div>
-                    <span className="font-bold text-foreground uppercase tracking-wider text-[11px] block mb-2">
-                      Suggested Survey Questions for Tinat Study
-                    </span>
-                    <div className="space-y-2">
-                      {insightsData.recommendedQuestions.map((q: any, i: number) => (
-                        <div key={i} className="rounded-xl border border-border bg-muted/30 p-3">
-                          <p className="font-semibold text-foreground">
-                            {i + 1}. {q.text}
-                          </p>
-                          <p className="text-[10px] text-muted-foreground mt-1">
-                            Format: {q.type} {q.options ? `(${q.options.length} options)` : ""}
-                          </p>
-                        </div>
-                      ))}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-base sm:text-lg font-bold text-foreground">
+                        AI Study Design Insights
+                      </h3>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-purple-500/10 px-2 py-0.5 text-[10px] font-semibold text-purple-700 dark:text-purple-300 border border-purple-500/20">
+                        ScholarXIV AI
+                      </span>
                     </div>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Methodological suggestions & survey indicators tailored for Ethiopian field research
+                    </p>
                   </div>
-                )}
-
-                {/* Contextual Field Note */}
-                <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-3 text-emerald-900 dark:text-emerald-200">
-                  <p className="font-bold mb-1">Ethiopian Field Deployment Consideration:</p>
-                  <p className="leading-relaxed">{insightsData.contextualNote}</p>
                 </div>
 
-                {/* Footer action */}
-                <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
+                <div className="flex items-center gap-2 shrink-0">
+                  <a
+                    href={`https://arxiv.org/abs/${insightsPaper.arxivId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hidden sm:inline-flex items-center gap-1 rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition"
+                    title="Open on arXiv"
+                  >
+                    <span>arXiv:{insightsPaper.arxivId}</span>
+                    <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                  </a>
                   <button
                     type="button"
-                    onClick={() => handleStartStudyWithPaper(insightsPaper)}
-                    className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700 transition shadow-xs"
+                    onClick={() => setInsightsPaper(null)}
+                    className="rounded-xl p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                    aria-label="Close modal"
                   >
-                    <Plus className="h-4 w-4" />
-                    <span>Create Study With This Context</span>
+                    <X className="h-5 w-5" />
                   </button>
                 </div>
               </div>
-            ) : (
-              <p className="text-center text-muted-foreground py-8">
-                Could not load insights. Please try again.
-              </p>
+
+              {/* Paper Reference Banner */}
+              <div className="rounded-2xl border border-border/80 bg-background/80 p-3 sm:p-3.5 space-y-1.5">
+                <p className="text-xs sm:text-sm font-semibold text-foreground line-clamp-2">
+                  {insightsPaper.title}
+                </p>
+                <div className="flex items-center gap-2 flex-wrap text-[11px] text-muted-foreground">
+                  <span>
+                    {insightsPaper.authors.slice(0, 3).join(", ")}
+                    {insightsPaper.authors.length > 3 ? " et al." : ""}
+                  </span>
+                  <span>&bull;</span>
+                  <span className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 font-medium text-foreground">
+                    {insightsPaper.primaryCategory}
+                  </span>
+                  {insightsPaper.publishedAt && (
+                    <>
+                      <span>&bull;</span>
+                      <span>Published {new Date(insightsPaper.publishedAt).getFullYear()}</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Segmented Navigation Tabs */}
+            {!isLoadingInsights && insightsData && (
+              <div className="flex items-center gap-1.5 px-5 sm:px-6 pt-3 pb-2 border-b border-border bg-card overflow-x-auto no-scrollbar shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setActiveInsightsTab("overview")}
+                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
+                    activeInsightsTab === "overview"
+                      ? "bg-purple-600 text-white shadow-xs"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>Methodology & Synthesis</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveInsightsTab("questions")}
+                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
+                    activeInsightsTab === "questions"
+                      ? "bg-purple-600 text-white shadow-xs"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  <ListChecks className="h-3.5 w-3.5" />
+                  <span>Survey Questions</span>
+                  {insightsData.recommendedQuestions?.length > 0 && (
+                    <span
+                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                        activeInsightsTab === "questions"
+                          ? "bg-white/20 text-white"
+                          : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      {insightsData.recommendedQuestions.length}
+                    </span>
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveInsightsTab("rationale")}
+                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
+                    activeInsightsTab === "rationale"
+                      ? "bg-purple-600 text-white shadow-xs"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  <Quote className="h-3.5 w-3.5" />
+                  <span>Rationale & Citations</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveInsightsTab("field")}
+                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
+                    activeInsightsTab === "field"
+                      ? "bg-purple-600 text-white shadow-xs"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  <Globe className="h-3.5 w-3.5" />
+                  <span>Field Guidance</span>
+                </button>
+              </div>
             )}
+
+            {/* Modal Body */}
+            <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4">
+              {isLoadingInsights ? (
+                <div className="flex flex-col items-center justify-center py-12 px-4 text-center space-y-6">
+                  <div className="relative">
+                    <div className="absolute -inset-4 rounded-full bg-purple-500/20 blur-xl animate-pulse" />
+                    <div className="relative flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white shadow-xl shadow-purple-500/25">
+                      <LoaderCircle className="h-8 w-8 animate-spin" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5 max-w-md">
+                    <h4 className="text-base font-bold text-foreground">
+                      Synthesizing Study Design Notes...
+                    </h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Analyzing paper methodology, extracting research variables, and formulating localized recommendations for Ethiopian field collection.
+                    </p>
+                  </div>
+
+                  {/* Progress steps animation */}
+                  <div className="w-full max-w-sm rounded-2xl border border-border bg-muted/20 p-4 space-y-3 text-left">
+                    <div className="flex items-center gap-3 text-xs">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
+                        <Check className="h-3.5 w-3.5" />
+                      </span>
+                      <span className="text-foreground font-medium">Extracting arXiv abstract & research variables</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-600 text-white animate-pulse">
+                        <Sparkles className="h-3.5 w-3.5" />
+                      </span>
+                      <span className="text-foreground font-medium">Formulating survey indicators & Likert scales</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted border border-border">
+                        <Globe className="h-3.5 w-3.5" />
+                      </span>
+                      <span>Adapting for low-resource & Ethiopian offline enumerators</span>
+                    </div>
+                  </div>
+                </div>
+              ) : insightsData ? (
+                <div>
+                  {/* Tab 1: Methodology & Synthesis */}
+                  {activeInsightsTab === "overview" && (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-purple-500/10 text-purple-600">
+                            <Sparkles className="h-3.5 w-3.5" />
+                          </span>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                            Scientific Synthesis & Study Design Notes
+                          </h4>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            copyInsightItem(
+                              "synthesis",
+                              insightsData.aiContent ||
+                                `${insightsData.studyRationale}\n\nContextual Note:\n${insightsData.contextualNote}`
+                            )
+                          }
+                          className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition"
+                        >
+                          {copiedInsightsKey === "synthesis" ? (
+                            <>
+                              <Check className="h-3.5 w-3.5 text-emerald-600" />
+                              <span className="text-emerald-600 font-semibold">Copied Synthesis!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="h-3.5 w-3.5 text-muted-foreground" />
+                              <span>Copy Full Synthesis</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+
+                      {insightsData.aiContent ? (
+                        <div className="rounded-2xl border border-border/80 bg-muted/20 p-5 shadow-xs text-foreground">
+                          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                            {insightsData.aiContent}
+                          </ReactMarkdown>
+                        </div>
+                      ) : (
+                        <div className="space-y-3">
+                          <div className="rounded-2xl border border-border bg-card p-4 space-y-2">
+                            <h5 className="text-xs font-bold text-foreground flex items-center gap-2">
+                              <Lightbulb className="h-4 w-4 text-amber-500" />
+                              Theoretical Framework & Empirical Findings
+                            </h5>
+                            <p className="text-xs text-foreground/90 leading-relaxed">
+                              {insightsData.studyRationale}
+                            </p>
+                          </div>
+                          <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4 space-y-2 text-emerald-950 dark:text-emerald-100">
+                            <h5 className="text-xs font-bold flex items-center gap-2">
+                              <Globe className="h-4 w-4 text-emerald-600" />
+                              Field Implementation Notes
+                            </h5>
+                            <p className="text-xs leading-relaxed">{insightsData.contextualNote}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Tab 2: Survey Questions Preview */}
+                  {activeInsightsTab === "questions" && (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                            <ListChecks className="h-4 w-4 text-purple-600" />
+                            Recommended Questionnaire Indicators
+                          </h4>
+                          <p className="text-[11px] text-muted-foreground mt-0.5">
+                            Standardized for participant survey clarity & field enumerator ease.
+                          </p>
+                        </div>
+                        {insightsData.recommendedQuestions?.length > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => copyAllQuestions(insightsData.recommendedQuestions)}
+                            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition"
+                          >
+                            {copiedInsightsKey === "all-questions" ? (
+                              <>
+                                <Check className="h-3.5 w-3.5 text-emerald-600" />
+                                <span className="text-emerald-600 font-semibold">All Copied!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="h-3.5 w-3.5 text-muted-foreground" />
+                                <span>Copy All Questions</span>
+                              </>
+                            )}
+                          </button>
+                        )}
+                      </div>
+
+                      {insightsData.recommendedQuestions?.length > 0 ? (
+                        <div className="space-y-3">
+                          {insightsData.recommendedQuestions.map((q: any, i: number) => {
+                            const isCopied = copiedInsightsKey === `q-${i}`;
+                            return (
+                              <div
+                                key={i}
+                                className="rounded-2xl border border-border bg-card p-4 space-y-3 hover:border-purple-500/30 transition shadow-xs"
+                              >
+                                <div className="flex items-start justify-between gap-3">
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    <span className="inline-flex items-center justify-center h-6 w-6 rounded-lg bg-purple-500/10 text-purple-700 dark:text-purple-300 font-bold text-xs">
+                                      {i + 1}
+                                    </span>
+                                    <span className="inline-flex items-center rounded-lg bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                                      {q.type === "LINEAR_SCALE"
+                                        ? "5-Point Likert Scale"
+                                        : q.type === "MULTIPLE_CHOICE"
+                                        ? "Multiple Choice"
+                                        : "Open Text"}
+                                    </span>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      copyInsightItem(
+                                        `q-${i}`,
+                                        `${q.text}\n${
+                                          q.options?.length
+                                            ? q.options.map((o: string) => `- ${o}`).join("\n")
+                                            : ""
+                                        }`
+                                      )
+                                    }
+                                    className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition"
+                                  >
+                                    {isCopied ? (
+                                      <>
+                                        <Check className="h-3.5 w-3.5 text-emerald-600" />
+                                        <span className="text-emerald-600 font-semibold text-[11px]">
+                                          Copied
+                                        </span>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <Copy className="h-3.5 w-3.5" />
+                                        <span className="text-[11px]">Copy</span>
+                                      </>
+                                    )}
+                                  </button>
+                                </div>
+
+                                <p className="text-sm font-semibold text-foreground leading-snug">
+                                  {q.text}
+                                </p>
+
+                                {/* Visual Preview of Question Controls */}
+                                <div className="rounded-xl border border-border/70 bg-muted/20 p-3 pt-2.5">
+                                  <p className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground mb-2">
+                                    Question Preview:
+                                  </p>
+
+                                  {q.type === "LINEAR_SCALE" ? (
+                                    <div className="space-y-2">
+                                      <div className="flex items-center justify-between text-[11px] text-muted-foreground font-medium">
+                                        <span>{q.scaleMinLabel || "1 - Strongly Disagree"}</span>
+                                        <span>{q.scaleMaxLabel || "5 - Strongly Agree"}</span>
+                                      </div>
+                                      <div className="grid grid-cols-5 gap-2">
+                                        {[1, 2, 3, 4, 5].map((val) => (
+                                          <div
+                                            key={val}
+                                            className="flex h-9 items-center justify-center rounded-xl border border-border bg-card text-xs font-semibold text-foreground/80"
+                                          >
+                                            {val}
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  ) : q.type === "MULTIPLE_CHOICE" && q.options?.length ? (
+                                    <div className="space-y-1.5">
+                                      {q.options.map((opt: string, optIdx: number) => (
+                                        <div
+                                          key={optIdx}
+                                          className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-3 py-2 text-xs text-foreground/90"
+                                        >
+                                          <span className="h-3.5 w-3.5 rounded-full border-2 border-muted-foreground/40 shrink-0" />
+                                          <span>{opt}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  ) : (
+                                    <div className="rounded-xl border border-dashed border-border bg-card px-3 py-3 text-xs text-muted-foreground italic">
+                                      Participant provides descriptive local response here...
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="py-8 text-center text-xs text-muted-foreground">
+                          No specific survey indicators generated for this paper.
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Tab 3: Study Rationale & Citations */}
+                  {activeInsightsTab === "rationale" && (
+                    <div className="space-y-4">
+                      {/* Study Rationale */}
+                      <div className="rounded-2xl border border-border bg-card p-5 space-y-3 shadow-xs">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600">
+                              <Lightbulb className="h-4 w-4" />
+                            </span>
+                            <div>
+                              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                                Background Rationale Paragraph
+                              </h4>
+                              <p className="text-[11px] text-muted-foreground">
+                                Ready to insert into study description, ethical board submission, or methodology section.
+                              </p>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => copyInsightItem("rationale", insightsData.studyRationale)}
+                            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition"
+                          >
+                            {copiedInsightsKey === "rationale" ? (
+                              <>
+                                <Check className="h-3.5 w-3.5 text-emerald-600" />
+                                <span className="text-emerald-600 font-semibold">Copied Rationale!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="h-3.5 w-3.5 text-muted-foreground" />
+                                <span>Copy Rationale</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+
+                        <div className="rounded-xl border-l-4 border-amber-500 bg-amber-500/5 p-4 text-xs leading-relaxed text-foreground italic">
+                          "{insightsData.studyRationale}"
+                        </div>
+                      </div>
+
+                      {/* Formatted Citations */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* APA Citation */}
+                        <div className="rounded-2xl border border-border bg-card p-4 space-y-2.5 shadow-xs">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-foreground">APA Citation (7th Ed.)</span>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                copyInsightItem(
+                                  "apa",
+                                  insightsData.apaCitation || generateApaCitation(insightsPaper)
+                                )
+                              }
+                              className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition"
+                            >
+                              {copiedInsightsKey === "apa" ? (
+                                <>
+                                  <Check className="h-3.5 w-3.5 text-emerald-600" />
+                                  <span className="text-emerald-600 font-semibold text-[11px]">Copied</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-3.5 w-3.5" />
+                                  <span className="text-[11px]">Copy APA</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
+                          <pre className="rounded-xl border border-border bg-muted/30 p-3 text-xs font-mono text-foreground whitespace-pre-wrap leading-relaxed select-all">
+                            {insightsData.apaCitation || generateApaCitation(insightsPaper)}
+                          </pre>
+                        </div>
+
+                        {/* BibTeX Citation */}
+                        <div className="rounded-2xl border border-border bg-card p-4 space-y-2.5 shadow-xs">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-foreground">BibTeX Citation</span>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                copyInsightItem(
+                                  "bibtex",
+                                  insightsData.bibtexCitation || generateBibtex(insightsPaper)
+                                )
+                              }
+                              className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition"
+                            >
+                              {copiedInsightsKey === "bibtex" ? (
+                                <>
+                                  <Check className="h-3.5 w-3.5 text-emerald-600" />
+                                  <span className="text-emerald-600 font-semibold text-[11px]">Copied</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-3.5 w-3.5" />
+                                  <span className="text-[11px]">Copy BibTeX</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
+                          <pre className="rounded-xl border border-border bg-muted/30 p-3 text-xs font-mono text-foreground whitespace-pre-wrap leading-relaxed select-all max-h-36 overflow-y-auto">
+                            {insightsData.bibtexCitation || generateBibtex(insightsPaper)}
+                          </pre>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Tab 4: Field Guidance */}
+                  {activeInsightsTab === "field" && (
+                    <div className="space-y-4">
+                      {/* Contextual Note Card */}
+                      <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 space-y-2 text-emerald-950 dark:text-emerald-100 shadow-xs">
+                        <div className="flex items-center gap-2">
+                          <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-600">
+                            <Globe className="h-4 w-4" />
+                          </span>
+                          <h4 className="text-xs font-bold uppercase tracking-wider">
+                            Ethiopian Field Deployment Consideration
+                          </h4>
+                        </div>
+                        <p className="text-xs leading-relaxed font-medium">
+                          {insightsData.contextualNote}
+                        </p>
+                      </div>
+
+                      {/* Structured Field Protocol Checklist */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div className="rounded-2xl border border-border bg-card p-4 space-y-2 shadow-xs">
+                          <div className="flex items-center gap-2 text-xs font-bold text-foreground">
+                            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600">
+                              1
+                            </span>
+                            Language Localization
+                          </div>
+                          <p className="text-[11px] text-muted-foreground leading-relaxed">
+                            Ensure scale endpoints and options are translated into Amharic, Afaan Oromoo, or Tigrinya with culturally calibrated terminology.
+                          </p>
+                        </div>
+
+                        <div className="rounded-2xl border border-border bg-card p-4 space-y-2 shadow-xs">
+                          <div className="flex items-center gap-2 text-xs font-bold text-foreground">
+                            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-600">
+                              2
+                            </span>
+                            Offline Data Collection
+                          </div>
+                          <p className="text-[11px] text-muted-foreground leading-relaxed">
+                            For rural kebeles or clinics with intermittent connectivity, instruct enumerators to use Tinat's offline cache mode for instant local sync.
+                          </p>
+                        </div>
+
+                        <div className="rounded-2xl border border-border bg-card p-4 space-y-2 shadow-xs">
+                          <div className="flex items-center gap-2 text-xs font-bold text-foreground">
+                            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600">
+                              3
+                            </span>
+                            Community Consent & Trust
+                          </div>
+                          <p className="text-[11px] text-muted-foreground leading-relaxed">
+                            Pair formal written consent with brief verbal walkthroughs to maintain clarity and participant comfort across diverse literacy levels.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="py-12 text-center text-xs text-muted-foreground">
+                  Could not load insights. Please try again.
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex items-center justify-between gap-3 p-4 sm:p-5 border-t border-border bg-muted/20 shrink-0">
+              <div className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground">
+                <Sparkles className="h-3.5 w-3.5 text-purple-600" />
+                <span>Tinat AI Research Synthesis</span>
+              </div>
+
+              <div className="flex items-center gap-2 ml-auto">
+                <button
+                  type="button"
+                  onClick={() => setInsightsPaper(null)}
+                  className="rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted transition"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleStartStudyWithPaper(insightsPaper)}
+                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-2 text-xs font-semibold text-white hover:from-emerald-700 hover:to-teal-700 transition shadow-md shadow-emerald-500/15"
+                >
+                  <Plus className="h-4 w-4" />
+                  <span>Create Study With This Context</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

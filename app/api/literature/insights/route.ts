@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { normalizeScholarXivPaper, type ScholarXivPaper } from "@/lib/scholarxiv";
+import {
+  normalizeScholarXivPaper,
+  generateApaCitation,
+  generateBibtex,
+  type ScholarXivPaper,
+} from "@/lib/scholarxiv";
 import { FEATURES } from "@/lib/config/features";
 
 export const dynamic = "force-dynamic";
@@ -78,6 +83,10 @@ Please provide:
 
     const structuredSummary = {
       aiContent: aiInsights,
+      paperTitle: paper.title,
+      arxivId: paper.arxivId,
+      apaCitation: generateApaCitation(paper),
+      bibtexCitation: generateBibtex(paper),
       studyRationale: `According to ${firstAuthor} et al. (${year}), investigation of "${paper.title}" (arXiv:${paper.arxivId}) established empirical benchmarks in ${primaryCat}. This study integrates these foundational findings into localized questionnaire design and field participant measurement on Tinat.`,
       recommendedQuestions: [
         {
