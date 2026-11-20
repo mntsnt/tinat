@@ -319,12 +319,17 @@ export async function POST(request: Request) {
         : collectorPayType === CollectorPayType.PER_RESPONSE
           ? CollectorPayType.PER_RESPONSE
           : null;
-    if (parsedCollectorsNeeded > 0 && (!validCollectorPayType || parsedCollectorPayRateCents <= 0)) {
-      return NextResponse.json(
-        { error: "Choose a collector payment model and a positive ETB rate." },
-        { status: 400 }
-      );
+
+    // Field collection options: Free (Volunteer, rate = 0) vs Paid (Compensated in ETB, rate > 0)
+    if (parsedCollectorsNeeded > 0) {
+      if (parsedCollectorPayRateCents > 0 && !validCollectorPayType) {
+        return NextResponse.json(
+          { error: "Choose a collector payment model (fixed or per response) for paid field collection." },
+          { status: 400 }
+        );
+      }
     }
+
     if (parsedCollectorsNeeded === 0 && parsedCollectorPayRateCents > 0) {
       return NextResponse.json(
         { error: "Set a number of collectors to use an ETB collector rate." },
@@ -334,7 +339,7 @@ export async function POST(request: Request) {
 
     try {
       calculateCollectorBudgetCents({
-        collectorPayType: validCollectorPayType,
+        collectorPayType: parsedCollectorPayRateCents > 0 ? validCollectorPayType : null,
         collectorPayRateCents: parsedCollectorPayRateCents,
         collectorsNeeded: parsedCollectorsNeeded,
         participantTarget: parsedParticipantTarget,
@@ -531,7 +536,7 @@ export async function POST(request: Request) {
         rewardCredits: finalRewardCredits,
         participantTarget: parsedParticipantTarget,
         collectorsNeeded: parsedCollectorsNeeded,
-        collectorPayType: validCollectorPayType,
+        collectorPayType: parsedCollectorPayRateCents > 0 ? validCollectorPayType : null,
         collectorPayRateCents: parsedCollectorPayRateCents,
         budgetCredits: finalCreditBudget,
         creditsPaid: 0,

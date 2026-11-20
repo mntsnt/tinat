@@ -343,6 +343,27 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
         </Card>
       </div>
 
+      {collectorFunding && collectorFunding.collectorsNeeded > 0 && collectorFunding.budgetCents === 0 && (
+        <Card className="border-emerald-500/20 bg-emerald-500/5">
+          <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+                <Users className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-foreground">Free (Volunteer) Field Collection</p>
+                <p className="text-xs text-muted-foreground">
+                  This study is configured for {collectorFunding.collectorsNeeded} volunteer field enumerator{collectorFunding.collectorsNeeded === 1 ? "" : "s"}. No bank deposit or verification required.
+                </p>
+              </div>
+            </div>
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white self-start sm:self-auto">
+              0.00 ETB · Free
+            </span>
+          </CardContent>
+        </Card>
+      )}
+
       {collectorFunding && collectorFunding.budgetCents > 0 && (
         <Card>
           <CardHeader>
@@ -721,21 +742,30 @@ export function StudyCollectorsTab({ studyId, studyTitle }: Props) {
                         </span>
                       </td>
                       <td className="py-3.5 px-4 min-w-64">
-                        <div className="space-y-1 text-xs">
-                          <p>Due: {(c.amountDueCents / 100).toFixed(2)} ETB</p>
-                          <p className="text-muted-foreground">Paid: {(c.paidAmountCents / 100).toFixed(2)} ETB</p>
-                          <p className="font-semibold text-emerald-700 dark:text-emerald-300">
-                            Outstanding: {(c.outstandingAmountCents / 100).toFixed(2)} ETB
-                          </p>
-                          {collectorFunding?.payouts
-                            .filter((payout) => payout.collectorUserId === c.userId)
-                            .map((payout) => (
-                              <p key={payout.id} className="break-all text-[11px] text-muted-foreground">
-                                Paid {(payout.amountCents / 100).toFixed(2)} ETB · {payout.paymentReference}
-                              </p>
-                            ))}
-                        </div>
-                        {c.outstandingAmountCents > 0 && collectorFunding?.paymentsEnabled && (
+                        {collectorFunding?.budgetCents === 0 ? (
+                          <div className="space-y-1 text-xs">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
+                              Free / Volunteer
+                            </span>
+                            <p className="text-muted-foreground text-[11px]">No cash compensation required</p>
+                          </div>
+                        ) : (
+                          <div className="space-y-1 text-xs">
+                            <p>Due: {(c.amountDueCents / 100).toFixed(2)} ETB</p>
+                            <p className="text-muted-foreground">Paid: {(c.paidAmountCents / 100).toFixed(2)} ETB</p>
+                            <p className="font-semibold text-emerald-700 dark:text-emerald-300">
+                              Outstanding: {(c.outstandingAmountCents / 100).toFixed(2)} ETB
+                            </p>
+                            {collectorFunding?.payouts
+                              .filter((payout) => payout.collectorUserId === c.userId)
+                              .map((payout) => (
+                                <p key={payout.id} className="break-all text-[11px] text-muted-foreground">
+                                  Paid {(payout.amountCents / 100).toFixed(2)} ETB · {payout.paymentReference}
+                                </p>
+                              ))}
+                          </div>
+                        )}
+                        {collectorFunding && collectorFunding.budgetCents > 0 && c.outstandingAmountCents > 0 && collectorFunding?.paymentsEnabled && (
                           <div className="mt-2 flex min-w-56 flex-col gap-2">
                             <Input
                               type="number"

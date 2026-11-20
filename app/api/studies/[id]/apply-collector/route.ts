@@ -48,21 +48,23 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         participantTarget: study.participantTarget,
       });
       const [verifiedFunding, assignedCount] = await Promise.all([
-        prisma.collectorFundingVerification.findFirst({
-          where: {
-            studyId,
-            status: "VERIFIED",
-            expectedAmountCents: collectorBudgetCents,
-            verifiedAmountCents: collectorBudgetCents,
-            settlementMatched: true,
-            currency: "ETB",
-          },
-          select: { id: true },
-        }),
+        collectorBudgetCents > 0
+          ? prisma.collectorFundingVerification.findFirst({
+              where: {
+                studyId,
+                status: "VERIFIED",
+                expectedAmountCents: collectorBudgetCents,
+                verifiedAmountCents: collectorBudgetCents,
+                settlementMatched: true,
+                currency: "ETB",
+              },
+              select: { id: true },
+            })
+          : Promise.resolve({ id: "free-volunteer-cohort" }),
         prisma.studyDataCollector.count({ where: { studyId } }),
       ]);
 
-      if (!verifiedFunding) {
+      if (collectorBudgetCents > 0 && !verifiedFunding) {
         return NextResponse.json(
           { error: "This study is not accepting collector applications until its ETB collector budget is verified." },
           { status: 400 }

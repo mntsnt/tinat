@@ -60,21 +60,23 @@ export async function PATCH(
             participantTarget: study.participantTarget,
           });
           const [verifiedFunding, assignedCount] = await Promise.all([
-            tx.collectorFundingVerification.findFirst({
-              where: {
-                studyId,
-                status: "VERIFIED",
-                expectedAmountCents: budgetCents,
-                verifiedAmountCents: budgetCents,
-                settlementMatched: true,
-                currency: "ETB",
-              },
-              select: { id: true },
-            }),
+            budgetCents > 0
+              ? tx.collectorFundingVerification.findFirst({
+                  where: {
+                    studyId,
+                    status: "VERIFIED",
+                    expectedAmountCents: budgetCents,
+                    verifiedAmountCents: budgetCents,
+                    settlementMatched: true,
+                    currency: "ETB",
+                  },
+                  select: { id: true },
+                })
+              : Promise.resolve({ id: "free-volunteer-cohort" }),
             tx.studyDataCollector.count({ where: { studyId } }),
           ]);
 
-          if (!verifiedFunding) throw new Error("COLLECTOR_FUNDING_NOT_VERIFIED");
+          if (budgetCents > 0 && !verifiedFunding) throw new Error("COLLECTOR_FUNDING_NOT_VERIFIED");
           if (!existingAssignment && assignedCount >= study.collectorsNeeded) {
             throw new Error("COLLECTOR_LIMIT_REACHED");
           }

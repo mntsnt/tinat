@@ -38,6 +38,24 @@ describe("Verify.et collector funding", () => {
       }),
       3000
     );
+    assert.equal(
+      calculateCollectorBudgetCents({
+        collectorPayType: null,
+        collectorPayRateCents: 0,
+        collectorsNeeded: 5,
+        participantTarget: 50,
+      }),
+      0
+    );
+    assert.equal(
+      calculateCollectorBudgetCents({
+        collectorPayType: "FIXED",
+        collectorPayRateCents: 0,
+        collectorsNeeded: 5,
+        participantTarget: 50,
+      }),
+      0
+    );
     assert.throws(
       () =>
         calculateCollectorBudgetCents({

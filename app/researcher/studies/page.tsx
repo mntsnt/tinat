@@ -86,7 +86,7 @@ export default async function ResearcherStudiesPage() {
                     </span>
                     {study.collectorsNeeded > 0 && (
                       <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-800 dark:bg-blue-950/50 dark:text-blue-300">
-                        {study.collectorsNeeded} collectors (ETB)
+                        {study.collectorsNeeded} {study.collectorPayRateCents > 0 ? "collectors (ETB)" : "collectors (Volunteer)"}
                       </span>
                     )}
                   </div>

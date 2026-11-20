@@ -191,7 +191,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
               </span>
               {study.collectorsNeeded > 0 && (
                 <span className="text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-500/10 px-2.5 py-0.5 rounded-full">
-                  Field Collection: {study.collectorsNeeded} collectors (ETB)
+                  Field Collection: {study.collectorsNeeded} {study.collectorPayRateCents > 0 ? "collectors (Paid ETB)" : "collectors (Volunteer)"}
                 </span>
               )}
               {study.estimatedMinutes && (

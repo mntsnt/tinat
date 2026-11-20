@@ -29,6 +29,9 @@ import {
   ExternalLink,
   Search,
   Trash2,
+  Globe,
+  HeartHandshake,
+  Banknote,
 } from "lucide-react";
 import { STUDY_BANNERS, type StudyBannerTheme } from "@/lib/studyBanners";
 import { StudyBanner as StudyBannerPreview } from "../../../components/studies/StudyBanner";
@@ -83,6 +86,7 @@ function CreateStudyForm() {
   const [bannerTheme, setBannerTheme] = useState<StudyBannerTheme>("canopy");
 
   const [participantTarget, setParticipantTarget] = useState(25);
+  const [fieldMode, setFieldMode] = useState<"NONE" | "FREE" | "PAID">("NONE");
   const [collectorsNeeded, setCollectorsNeeded] = useState(0);
   const [collectorPayType, setCollectorPayType] = useState<"FIXED" | "PER_RESPONSE">("FIXED");
   const [collectorPayRate, setCollectorPayRate] = useState("0.00");
@@ -192,11 +196,12 @@ function CreateStudyForm() {
   }
 
   const validCollectorPayRate = /^\d{1,9}(?:\.\d{1,2})?$/.test(collectorPayRate);
-  const collectorPayRateCents = validCollectorPayRate
-    ? Math.round(Number(collectorPayRate) * 100)
-    : 0;
+  const collectorPayRateCents =
+    fieldMode === "PAID" && validCollectorPayRate
+      ? Math.round(Number(collectorPayRate) * 100)
+      : 0;
   const collectorBudgetCents =
-    collectorsNeeded <= 0 || collectorPayRateCents <= 0
+    fieldMode !== "PAID" || collectorsNeeded <= 0 || collectorPayRateCents <= 0
       ? 0
       : (collectorPayType === "FIXED" ? collectorsNeeded : participantTarget) * collectorPayRateCents;
 
@@ -264,14 +269,22 @@ function CreateStudyForm() {
     if (participantTarget <= 0) {
       return setError("Participant target must be at least 1.");
     }
-    if (
-      collectorsNeeded > 0 &&
-      (!validCollectorPayRate ||
+    if (fieldMode === "FREE") {
+      if (collectorsNeeded <= 0) {
+        return setError("Please specify how many volunteer field collectors you need (at least 1).");
+      }
+    } else if (fieldMode === "PAID") {
+      if (collectorsNeeded <= 0) {
+        return setError("Please specify how many paid field collectors you need (at least 1).");
+      }
+      if (
+        !validCollectorPayRate ||
         !Number.isSafeInteger(collectorPayRateCents) ||
         collectorPayRateCents <= 0 ||
-        collectorPayRateCents > 2_147_483_647)
-    ) {
-      return setError("Set a valid ETB payment rate for the requested collectors.");
+        collectorPayRateCents > 2_147_483_647
+      ) {
+        return setError("Set a valid positive ETB payment rate for the requested paid collectors.");
+      }
     }
     if (questions.some((q) => !q.text.trim())) {
       return setError("Every question must contain question text.");
@@ -336,9 +349,9 @@ function CreateStudyForm() {
           estimatedMinutes,
           rewardCredits,
           participantTarget,
-          collectorsNeeded,
-          collectorPayType: collectorsNeeded > 0 ? collectorPayType : null,
-          collectorPayRateCents: collectorsNeeded > 0 ? collectorPayRateCents : 0,
+          collectorsNeeded: fieldMode === "NONE" ? 0 : collectorsNeeded,
+          collectorPayType: fieldMode === "PAID" && collectorsNeeded > 0 ? collectorPayType : null,
+          collectorPayRateCents: fieldMode === "PAID" && collectorsNeeded > 0 ? collectorPayRateCents : 0,
           budgetCredits: 0,
           questions,
           tags: finalTags,
@@ -822,70 +835,193 @@ function CreateStudyForm() {
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <Users className="w-5 h-5 text-emerald-600" />
-              Field Collector ETB Budget
+              Field Data Collection
             </CardTitle>
             <CardDescription>
-              This real-money collector budget is separate from participant Tinat Credits.
+              Choose how on-the-ground enumerators collect survey responses.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-5">
-            <div className="grid gap-6 md:grid-cols-3">
-              <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-foreground">Collectors needed</label>
-                <input
-                  type="number"
-                  min="0"
-                  step="1"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                  value={collectorsNeeded}
-                  onChange={(e) => setCollectorsNeeded(Math.max(0, Math.floor(Number(e.target.value) || 0)))}
-                />
-              </div>
-              <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-foreground">Payment model</label>
-                <select
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                  value={collectorPayType}
-                  onChange={(e) => setCollectorPayType(e.target.value as "FIXED" | "PER_RESPONSE")}
-                  disabled={collectorsNeeded === 0}
-                >
-                  <option value="FIXED">Fixed amount per collector</option>
-                  <option value="PER_RESPONSE">Amount per collected response</option>
-                </select>
-              </div>
-              <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-foreground">
-                  {collectorPayType === "FIXED" ? "ETB per collector" : "ETB per response"}
-                </label>
-                <input
-                  type="number"
-                  min="0.01"
-                  step="0.01"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                  value={collectorPayRate}
-                  onChange={(e) => setCollectorPayRate(e.target.value)}
-                  disabled={collectorsNeeded === 0}
-                />
-              </div>
+          <CardContent className="space-y-6">
+            {/* Field Options: Online Only vs Free (Volunteer) vs Paid (Compensated) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {/* Option 1: Online Only */}
+              <button
+                type="button"
+                onClick={() => {
+                  setFieldMode("NONE");
+                  setCollectorsNeeded(0);
+                }}
+                className={`flex flex-col text-left p-4 rounded-xl border transition-all ${
+                  fieldMode === "NONE"
+                    ? "border-emerald-600 bg-emerald-500/10 dark:bg-emerald-950/30 ring-1 ring-emerald-600"
+                    : "border-border bg-card hover:bg-muted/50"
+                }`}
+              >
+                <div className="flex items-center justify-between w-full mb-2">
+                  <span className="font-semibold text-sm text-foreground flex items-center gap-1.5">
+                    <Globe className="w-4 h-4 text-muted-foreground" />
+                    Online Only
+                  </span>
+                  {fieldMode === "NONE" && <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  No field enumerators. Participants complete the questionnaire directly via web link.
+                </p>
+              </button>
+
+              {/* Option 2: Free (Volunteer) */}
+              <button
+                type="button"
+                onClick={() => {
+                  setFieldMode("FREE");
+                  if (collectorsNeeded <= 0) setCollectorsNeeded(3);
+                  setCollectorPayRate("0.00");
+                }}
+                className={`flex flex-col text-left p-4 rounded-xl border transition-all ${
+                  fieldMode === "FREE"
+                    ? "border-emerald-600 bg-emerald-500/10 dark:bg-emerald-950/30 ring-1 ring-emerald-600"
+                    : "border-border bg-card hover:bg-muted/50"
+                }`}
+              >
+                <div className="flex items-center justify-between w-full mb-2">
+                  <span className="font-semibold text-sm text-foreground flex items-center gap-1.5">
+                    <HeartHandshake className="w-4 h-4 text-emerald-600" />
+                    Free (Volunteer)
+                  </span>
+                  {fieldMode === "FREE" && <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Volunteer or student enumerators collect data for free. Zero ETB budget and no bank deposit.
+                </p>
+                <span className="mt-2 inline-flex items-center text-[10px] font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
+                  0 ETB Cost · Instant Activation
+                </span>
+              </button>
+
+              {/* Option 3: Paid (Compensated) */}
+              <button
+                type="button"
+                onClick={() => {
+                  setFieldMode("PAID");
+                  if (collectorsNeeded <= 0) setCollectorsNeeded(3);
+                  if (Number(collectorPayRate) <= 0) setCollectorPayRate("50.00");
+                }}
+                className={`flex flex-col text-left p-4 rounded-xl border transition-all ${
+                  fieldMode === "PAID"
+                    ? "border-emerald-600 bg-emerald-500/10 dark:bg-emerald-950/30 ring-1 ring-emerald-600"
+                    : "border-border bg-card hover:bg-muted/50"
+                }`}
+              >
+                <div className="flex items-center justify-between w-full mb-2">
+                  <span className="font-semibold text-sm text-foreground flex items-center gap-1.5">
+                    <Banknote className="w-4 h-4 text-emerald-600" />
+                    Paid (Compensated)
+                  </span>
+                  {fieldMode === "PAID" && <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Compensate enumerators in cash (ETB). Set fixed stipends or pay-per-response rates.
+                </p>
+                <span className="mt-2 inline-flex items-center text-[10px] font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider">
+                  ETB Escrow Required
+                </span>
+              </button>
             </div>
-            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 flex items-center justify-between gap-4">
-              <div>
-                <p className="font-semibold text-foreground text-sm">Maximum collector budget</p>
+
+            {/* Sub-form when Free is selected */}
+            {fieldMode === "FREE" && (
+              <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 space-y-4 animate-in fade-in duration-200">
+                <div className="flex items-start gap-3">
+                  <HeartHandshake className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-sm font-semibold text-foreground">Volunteer Field Enumerator Team</h4>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Recruit or assign student researchers, clinical interns, or volunteers. Collectors do not receive monetary compensation from the platform.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="max-w-xs space-y-1.5">
+                  <label className="block text-sm font-medium text-foreground">Volunteer collectors needed</label>
+                  <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    value={collectorsNeeded}
+                    onChange={(e) => setCollectorsNeeded(Math.max(1, Math.floor(Number(e.target.value) || 1)))}
+                  />
+                  <p className="text-[11px] text-muted-foreground">
+                    Number of volunteer positions open for direct assignment or application.
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between rounded-lg bg-background border border-emerald-500/20 p-3">
+                  <span className="text-xs font-medium text-foreground">Total Field Collection Cost</span>
+                  <span className="text-sm font-bold text-emerald-700 dark:text-emerald-300">0.00 ETB (Free)</span>
+                </div>
+              </div>
+            )}
+
+            {/* Sub-form when Paid is selected */}
+            {fieldMode === "PAID" && (
+              <div className="space-y-5 animate-in fade-in duration-200">
+                <div className="grid gap-6 md:grid-cols-3">
+                  <div className="space-y-1.5">
+                    <label className="block text-sm font-medium text-foreground">Collectors needed</label>
+                    <input
+                      type="number"
+                      min="1"
+                      step="1"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      value={collectorsNeeded}
+                      onChange={(e) => setCollectorsNeeded(Math.max(1, Math.floor(Number(e.target.value) || 1)))}
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="block text-sm font-medium text-foreground">Payment model</label>
+                    <select
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      value={collectorPayType}
+                      onChange={(e) => setCollectorPayType(e.target.value as "FIXED" | "PER_RESPONSE")}
+                    >
+                      <option value="FIXED">Fixed amount per collector</option>
+                      <option value="PER_RESPONSE">Amount per collected response</option>
+                    </select>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="block text-sm font-medium text-foreground">
+                      {collectorPayType === "FIXED" ? "ETB per collector" : "ETB per response"}
+                    </label>
+                    <input
+                      type="number"
+                      min="0.01"
+                      step="0.01"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      value={collectorPayRate}
+                      onChange={(e) => setCollectorPayRate(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 flex items-center justify-between gap-4">
+                  <div>
+                    <p className="font-semibold text-foreground text-sm">Maximum collector budget</p>
+                    <p className="text-xs text-muted-foreground">
+                      {collectorPayType === "FIXED"
+                        ? `${collectorsNeeded} collectors × ${Number(collectorPayRate || 0).toFixed(2)} ETB`
+                        : `${participantTarget} target responses × ${Number(collectorPayRate || 0).toFixed(2)} ETB`}
+                    </p>
+                  </div>
+                  <p className="text-xl font-bold text-emerald-700 dark:text-emerald-300">
+                    {(collectorBudgetCents / 100).toFixed(2)} ETB
+                  </p>
+                </div>
                 <p className="text-xs text-muted-foreground">
-                  {collectorsNeeded === 0
-                    ? "No paid field collectors requested."
-                    : collectorPayType === "FIXED"
-                      ? `${collectorsNeeded} collectors × ${Number(collectorPayRate || 0).toFixed(2)} ETB`
-                      : `${participantTarget} target responses × ${Number(collectorPayRate || 0).toFixed(2)} ETB`}
+                  Researchers will submit a bank or mobile-money transaction reference. Verify.et must confirm the full amount reached Tinat before the study can be activated. Collector payouts are sent manually and recorded separately.
                 </p>
               </div>
-              <p className="text-xl font-bold text-emerald-700 dark:text-emerald-300">
-                {(collectorBudgetCents / 100).toFixed(2)} ETB
-              </p>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Researchers will submit a bank or mobile-money transaction reference. Verify.et must confirm the full amount reached Tinat before the study can be activated. Collector payouts are sent manually and recorded separately.
-            </p>
+            )}
           </CardContent>
         </Card>
 
