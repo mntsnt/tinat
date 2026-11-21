@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { DashboardTopNav } from "../components/layout/DashboardTopNav";
 import { ReactNode } from "react";
 import { getSession } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "../../lib/prisma";
-import { Sidebar } from "../components/layout/Sidebar";
 import { getLinksForUser } from "../components/layout/navLinks";
+import { CollectorLayoutShell } from "./CollectorLayoutShell";
 
 export const metadata: Metadata = {
   title: "Field Collection | Tinat",
@@ -52,22 +51,11 @@ export default async function CollectorLayout({ children }: { children: ReactNod
   const links = getLinksForUser({ ...user, isCollector: true });
 
   return (
-    <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
-      <Sidebar
-        links={links}
-        roleTitle="Data Collector"
-        userId={user.id}
-        userName={user.name}
-        userEmail={user.email}
-        avatarUrl={user.avatarUrl}
-        roleColor="participant"
-      />
-      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 flex flex-col">
-        <DashboardTopNav />
-        <div className="flex-1 min-w-0 flex flex-col">
-          {children}
-        </div>
-      </main>
-    </div>
+    <CollectorLayoutShell
+      links={links}
+      user={{ id: user.id, name: user.name, email: user.email, avatarUrl: user.avatarUrl }}
+    >
+      {children}
+    </CollectorLayoutShell>
   );
 }

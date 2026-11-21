@@ -17,11 +17,16 @@ import {
   SkipForward,
   CornerDownLeft,
   LoaderCircle,
-  CheckCheck,
-  ListOrdered,
   X,
+  LogOut,
+  PanelLeftClose,
+  PanelLeftOpen,
+  ListOrdered,
+  Search,
+  Filter,
+  Layers,
+  Edit3,
 } from "lucide-react";
-import { Button } from "@/app/components/ui/Button";
 import {
   formatCollectorAnswers,
   hasRequiredAnswer,
@@ -29,12 +34,48 @@ import {
 } from "@/lib/collectorAnswers";
 import { SUPPORTED_LOCALES, SupportedLocale } from "@/lib/i18n";
 
+interface SectionDef {
+  part: string;
+  title: string;
+  start: number;
+  end: number;
+}
+
+function getSectionsForStudy(questions: any[]): SectionDef[] {
+  if (!questions || questions.length === 0) return [];
+
+  // Dedicated section map for SPHMMC Melka Nono 68-question census
+  if (questions.length === 68) {
+    return [
+      { part: "Part I", title: "Socio-Demographic Characteristics", start: 0, end: 14 },
+      { part: "Part II", title: "Birth, Morbidity & Mortality Registration", start: 15, end: 22 },
+      { part: "Part III", title: "Maternal & Child Health", start: 23, end: 42 },
+      { part: "Part IV", title: "Household & Environmental Health", start: 43, end: 65 },
+      { part: "Part V", title: "Information Channels & Verification", start: 66, end: 67 },
+    ];
+  }
+
+  // Automatic heuristic for other studies: group by ~12 questions or explicit "Part" markers
+  const chunkSize = Math.max(8, Math.ceil(questions.length / Math.ceil(questions.length / 12)));
+  const sections: SectionDef[] = [];
+  for (let s = 0; s < questions.length; s += chunkSize) {
+    const end = Math.min(s + chunkSize - 1, questions.length - 1);
+    sections.push({
+      part: `Section ${sections.length + 1}`,
+      title: `Questions ${s + 1} – ${end + 1}`,
+      start: s,
+      end,
+    });
+  }
+  return sections;
+}
+
 export default function FieldCollectionPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const [study, setStudy] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentStep, setCurrentStep] = useState(-1); // -1 is consent, 0+ is question index, questions.length is review
+  const [currentStep, setCurrentStep] = useState(-1); // -1: consent, 0+: question, questions.length: review
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
@@ -47,13 +88,20 @@ export default function FieldCollectionPage() {
   const [languageWarning, setLanguageWarning] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
+
+  // Desktop navigation sidebar & mobile drawer states
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [filterUnanswered, setFilterUnanswered] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const t = {
     en: {
       consent: "Participant Informed Consent",
-      agree: "Confirm Participant Consent",
-      next: "Next",
-      prev: "Back",
+      agree: "Confirm Participant Consent & Start",
+      next: "Next Question",
+      prev: "Previous",
       submit: "Submit Field Response",
       submitting: "Submitting...",
       required: "Required",
@@ -62,12 +110,18 @@ export default function FieldCollectionPage() {
       yes: "Yes",
       no: "No",
       skip: "Skip",
-      review: "Review & Submit",
+      review: "Review All Answers",
+      exit: "Exit",
+      exitConfirm: "Are you sure you want to exit? In-progress responses will be saved as draft.",
+      allQuestions: "Question Outline",
+      unansweredOnly: "Unanswered Only",
+      answered: "Answered",
+      of: "of",
     },
     am: {
       consent: "የተሳታፊ ስምምነት",
-      agree: "ተሳታፊው መስማማቱን አረጋግጣለሁ",
-      next: "ቀጣይ",
+      agree: "ተሳታፊው መስማማቱን አረጋግጥና ጀምር",
+      next: "ቀጣይ ጥያቄ",
       prev: "ተመለስ",
       submit: "ምላሹን አስገባ",
       submitting: "በማስገባት ላይ...",
@@ -78,11 +132,17 @@ export default function FieldCollectionPage() {
       no: "አይ",
       skip: "ዝለል",
       review: "ከልስና አስገባ",
+      exit: "ውጣ",
+      exitConfirm: "መውጣት ይፈልጋሉ? የተጀመረው ምረጣ በረቂቅነት ይቀመጣል።",
+      allQuestions: "የጥያቄዎች ዝርዝር",
+      unansweredOnly: "ያልተመለሱ ብቻ",
+      answered: "የተመለሱ",
+      of: "ከ",
     },
     om: {
       consent: "Eeyyama Hirmaataa",
       agree: "Hirmaataan walii galuu isaa nan mirkaneessa",
-      next: "Itti aanu",
+      next: "Gaaffii Itti Aanu",
       prev: "Duubatti",
       submit: "Deebii Galchi",
       submitting: "Galchaa jira...",
@@ -93,11 +153,17 @@ export default function FieldCollectionPage() {
       no: "Lakki",
       skip: "Darbi",
       review: "Irra deebi'ii Galchi",
+      exit: "Bahi",
+      exitConfirm: "Bahuu barbaadduu? Deebiin hanga ammaatti guutame akka wixineetti ni olkaa'ama.",
+      allQuestions: "Tarree Gaaffilee",
+      unansweredOnly: "Kan hin deebifamne qofa",
+      answered: "Deebifame",
+      of: "keessaa",
     },
     ti: {
       consent: "ስምምነት ተሳታፊ",
       agree: "እቲ ተሳታፊ ከምዝተሰማምዐ አረጋግፅ",
-      next: "ቀፃሊ",
+      next: "ቀፃሊ ሕቶ",
       prev: "ተመለስ",
       submit: "ምላሽ አእቱ",
       submitting: "እየተልእከ እዩ...",
@@ -108,11 +174,17 @@ export default function FieldCollectionPage() {
       no: "ኣይፋል",
       skip: "ሕለፍ",
       review: "ኣረጋጊፅካ ኣእቱ",
+      exit: "ውፃእ",
+      exitConfirm: "ክትወፅእ ትደሊ ዲኻ? ዝተጀመረ ምላሽ ከም ንድፊ ክዕቀብ እዩ።",
+      allQuestions: "ዝርዝር ሕቶታት",
+      unansweredOnly: "ዘይተመለሱ ጥራይ",
+      answered: "ዝተመለሱ",
+      of: "ካብ",
     },
     so: {
       consent: "Oggolaanshaha ka qaybgalaha",
       agree: "Waxaan xaqiijinayaa in ka qaybgaluhu oggolaaday",
-      next: "Xiga",
+      next: "Su'aasha Xigta",
       prev: "Dib u noqo",
       submit: "Gudbi jawaabta",
       submitting: "Waa la gudbinayaa...",
@@ -123,6 +195,12 @@ export default function FieldCollectionPage() {
       no: "Maya",
       skip: "Dhaaf",
       review: "Dib u eeg & Gudbi",
+      exit: "Ka bax",
+      exitConfirm: "Ma hubtaa inaad rabto inaad baxdo? Jawaabaha qabyada ah waa la kaydin doonaa.",
+      allQuestions: "Liiska Su'aalaha",
+      unansweredOnly: "Keliya kuwa aan laga jawaabin",
+      answered: "La jawaabay",
+      of: "ee",
     },
   }[language];
 
@@ -147,7 +225,7 @@ export default function FieldCollectionPage() {
           const savedDraft = localStorage.getItem(`tinat_collector_draft_${params.id}`);
           if (savedDraft) {
             const parsed = JSON.parse(savedDraft);
-            if (parsed && typeof parsed === "object") {
+            if (parsed && typeof parsed === "object" && Object.keys(parsed).length > 0) {
               setAnswers(parsed);
             }
           }
@@ -294,8 +372,14 @@ export default function FieldCollectionPage() {
     }
   };
 
-  const questions = study?.questions || [];
+  const questions: any[] = study?.questions || [];
+  const sections: SectionDef[] = useMemo(() => getSectionsForStudy(questions), [questions]);
   const q = questions[currentStep];
+
+  const currentSection = useMemo(() => {
+    if (currentStep < 0 || currentStep >= questions.length) return null;
+    return sections.find((s) => currentStep >= s.start && currentStep <= s.end) || null;
+  }, [currentStep, questions.length, sections]);
 
   const hasCurrentAnswer = useMemo(() => {
     if (!q) return false;
@@ -391,7 +475,15 @@ export default function FieldCollectionPage() {
   }
 
   const isDone = currentStep >= questions.length;
-  const progress = Math.round(((currentStep + 1) / (questions.length + 1)) * 100);
+  const answeredCount = questions.filter((item: any) =>
+    hasRequiredAnswer(
+      answers[item.id],
+      item.type === "MULTIPLE_CHOICE_GRID" || item.type === "CHECKBOX_GRID"
+        ? item.rows?.map((row: any) => row.value) || []
+        : undefined
+    )
+  ).length;
+  const progressPercent = Math.round((answeredCount / (questions.length || 1)) * 100);
 
   // Success Screen
   if (isSuccess) {
@@ -444,38 +536,38 @@ export default function FieldCollectionPage() {
   if (currentStep === -1) {
     return (
       <div className="fixed inset-0 h-[100dvh] w-full flex flex-col overflow-hidden bg-background">
-        <div className="mx-auto w-full max-w-2xl h-full flex flex-col bg-card border-x border-border/40 shadow-xl overflow-hidden relative">
+        <div className="mx-auto w-full max-w-4xl h-full flex flex-col bg-card sm:border-x border-border/50 sm:shadow-2xl overflow-hidden relative">
           {/* Top Bar */}
-          <div className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between z-20">
+          <header className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-20">
             <button
               type="button"
               onClick={() => router.push("/collector/dashboard")}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-muted-foreground hover:text-foreground transition"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Dashboard</span>
             </button>
-            <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
-              Field Attachment
+            <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+              Field Collection Mode
             </span>
-          </div>
+          </header>
 
           {/* Scrollable Consent Body */}
-          <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6">
+          <main className="flex-1 overflow-y-auto p-5 sm:p-10 space-y-6 max-w-2xl mx-auto w-full">
             <div className="text-center space-y-3">
               <div className="w-16 h-16 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mx-auto shadow-xs">
                 <ShieldCheck className="w-8 h-8" />
               </div>
-              <h1 className="text-xl sm:text-2xl font-bold text-foreground">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
                 {t.consent}
               </h1>
-              <p className="text-xs text-muted-foreground max-w-md mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 St. Paul’s Hospital Millennium Medical College (SPHMMC) &bull; Department of Public Health
               </p>
             </div>
 
-            <div className="rounded-2xl border border-border bg-muted/20 p-4 sm:p-5 space-y-3 text-xs sm:text-sm text-foreground/90 leading-relaxed">
-              <p className="font-semibold text-foreground">
+            <div className="rounded-2xl border border-border bg-muted/20 p-5 space-y-3 text-xs sm:text-sm text-foreground/90 leading-relaxed">
+              <p className="font-bold text-foreground">
                 Study: {study.title}
               </p>
               <p>
@@ -487,28 +579,45 @@ export default function FieldCollectionPage() {
               </p>
             </div>
 
+            {/* Study Sections Overview */}
+            <div className="rounded-2xl border border-border p-4 bg-background space-y-2.5">
+              <span className="text-xs font-bold text-foreground uppercase tracking-wider block">
+                Questionnaire Sections ({sections.length} Parts &bull; {questions.length} Indicators)
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                {sections.map((s, idx) => (
+                  <div key={idx} className="flex items-center gap-2 p-2 rounded-xl bg-muted/40 border border-border/60">
+                    <span className="font-bold text-emerald-600 shrink-0">{s.part}</span>
+                    <span className="text-muted-foreground truncate">{s.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs text-amber-900 dark:text-amber-200 flex gap-3">
               <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-amber-600" />
               <p className="leading-relaxed">
                 Ensure verbal or written consent is explicitly granted by the household head or authorized representative before recording data.
               </p>
             </div>
-          </div>
+          </main>
 
           {/* Fixed Bottom Action Bar */}
-          <div className="shrink-0 border-t border-border bg-card/95 backdrop-blur-md p-4 sm:p-5 z-20">
-            <button
-              type="button"
-              onClick={() => {
-                setConsentGiven(true);
-                setCurrentStep(0);
-              }}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 py-3.5 text-xs sm:text-sm font-bold text-white hover:from-emerald-700 hover:to-teal-700 transition shadow-md shadow-emerald-500/20 active:scale-[0.99]"
-            >
-              <span>{t.agree}</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
+          <footer className="shrink-0 border-t border-border bg-card/95 backdrop-blur-md p-4 sm:px-8 sm:py-4 z-20">
+            <div className="max-w-2xl mx-auto w-full">
+              <button
+                type="button"
+                onClick={() => {
+                  setConsentGiven(true);
+                  setCurrentStep(0);
+                }}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 py-3.5 text-xs sm:text-sm font-bold text-white hover:from-emerald-700 hover:to-teal-700 transition shadow-md shadow-emerald-500/20 active:scale-[0.99]"
+              >
+                <span>{t.agree}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </footer>
         </div>
       </div>
     );
@@ -516,43 +625,34 @@ export default function FieldCollectionPage() {
 
   // Review & Submit Screen (Step === questions.length)
   if (isDone) {
-    const answeredCount = questions.filter((item: any) =>
-      hasRequiredAnswer(
-        answers[item.id],
-        item.type === "MULTIPLE_CHOICE_GRID" || item.type === "CHECKBOX_GRID"
-          ? item.rows?.map((row: any) => row.value) || []
-          : undefined
-      )
-    ).length;
-
     return (
       <div className="fixed inset-0 h-[100dvh] w-full flex flex-col overflow-hidden bg-background">
-        <div className="mx-auto w-full max-w-3xl xl:max-w-4xl h-full flex flex-col bg-card border-x border-border/40 shadow-xl overflow-hidden relative">
+        <div className="mx-auto w-full max-w-5xl h-full flex flex-col bg-card sm:border-x border-border/50 sm:shadow-2xl overflow-hidden relative">
           {/* Top Bar */}
-          <div className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between z-20">
+          <header className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-20">
             <button
               type="button"
               onClick={() => setCurrentStep(questions.length - 1)}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-muted-foreground hover:text-foreground transition"
             >
               <ChevronLeft className="w-4 h-4" />
-              <span>Edit Answers</span>
+              <span>Back to Edit</span>
             </button>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-emerald-600">
-                {answeredCount} / {questions.length} Answered
+              <span className="text-xs sm:text-sm font-bold text-emerald-600 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+                {answeredCount} / {questions.length} Answered ({progressPercent}%)
               </span>
             </div>
-          </div>
+          </header>
 
-          {/* Scrollable Summary List */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+          {/* Scrollable Summary Grouped by Section */}
+          <main className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6 pb-24">
             <div className="text-center space-y-1.5 pb-2">
-              <h2 className="text-lg sm:text-xl font-bold text-foreground">
+              <h2 className="text-lg sm:text-2xl font-bold text-foreground">
                 Review Household Responses
               </h2>
-              <p className="text-xs text-muted-foreground">
-                Verify collected data before final submission. Tap any question to revise.
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Verify collected data across all survey parts before final submission. Click any question to edit.
               </p>
             </div>
 
@@ -563,62 +663,106 @@ export default function FieldCollectionPage() {
               </div>
             )}
 
-            <div className="space-y-2.5">
-              {questions.map((question: any, idx: number) => {
-                const answer = answers[question.id];
-                const isProvided = hasAnswer(answer);
+            {/* Sections Accordion / Cards */}
+            <div className="space-y-6">
+              {sections.map((section, sIdx) => {
+                const sectionQuestions = questions.slice(section.start, section.end + 1);
+                const sectionAnswered = sectionQuestions.filter((sq) => hasAnswer(answers[sq.id])).length;
+
                 return (
-                  <div
-                    key={question.id}
-                    onClick={() => setCurrentStep(idx)}
-                    className="group cursor-pointer rounded-2xl border border-border/80 bg-background hover:border-emerald-500/50 p-3.5 transition flex items-start justify-between gap-3"
-                  >
-                    <div className="space-y-1 min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold text-muted-foreground">
-                          Q{idx + 1}
+                  <div key={sIdx} className="rounded-2xl border border-border bg-muted/15 p-4 sm:p-5 space-y-3">
+                    <div className="flex items-center justify-between gap-3 border-b border-border/70 pb-3">
+                      <div>
+                        <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                          {section.part}
                         </span>
-                        {question.required && (
-                          <span className="text-[9px] font-bold text-rose-500 uppercase">
-                            Required
-                          </span>
-                        )}
+                        <h3 className="text-sm sm:text-base font-bold text-foreground">
+                          {section.title}
+                        </h3>
                       </div>
-                      <p className="text-xs font-semibold text-foreground line-clamp-1 group-hover:text-emerald-600 transition">
-                        {questionTranslations[question.id]?.text || question.text}
-                      </p>
-                      <p className="text-[11px] text-muted-foreground truncate font-mono">
-                        {isProvided
-                          ? typeof answer === "object"
-                            ? JSON.stringify(answer)
-                            : String(answer)
-                          : "Not answered"}
-                      </p>
+                      <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-muted border border-border text-foreground shrink-0">
+                        {sectionAnswered} / {sectionQuestions.length}
+                      </span>
                     </div>
 
-                    <div className="shrink-0 mt-1">
-                      {isProvided ? (
-                        <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-emerald-500/10 text-emerald-600">
-                          <Check className="w-3 h-3" />
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center justify-center h-5 w-5 rounded-full bg-muted text-muted-foreground text-[10px]">
-                          -
-                        </span>
-                      )}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                      {sectionQuestions.map((question: any, idxOffset: number) => {
+                        const globalIndex = section.start + idxOffset;
+                        const answer = answers[question.id];
+                        const isProvided = hasAnswer(answer);
+
+                        let displayAnswer = "No answer recorded";
+                        if (isProvided) {
+                          if (Array.isArray(answer)) {
+                            displayAnswer = answer.join(", ");
+                          } else if (typeof answer === "object") {
+                            displayAnswer = Object.entries(answer)
+                              .map(([k, v]) => `${k}: ${v}`)
+                              .join(" | ");
+                          } else {
+                            displayAnswer = String(answer);
+                          }
+                        }
+
+                        return (
+                          <div
+                            key={question.id}
+                            onClick={() => setCurrentStep(globalIndex)}
+                            className="group cursor-pointer rounded-xl border border-border/80 bg-card hover:border-emerald-500/50 p-3.5 transition flex flex-col justify-between gap-2 shadow-xs"
+                          >
+                            <div className="space-y-1">
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-muted text-[10px] font-bold text-foreground">
+                                  Q{globalIndex + 1}
+                                </span>
+                                {question.required ? (
+                                  <span className="text-[10px] font-bold text-rose-500 uppercase">
+                                    Required
+                                  </span>
+                                ) : (
+                                  <span className="text-[10px] font-medium text-muted-foreground">
+                                    Optional
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs font-semibold text-foreground group-hover:text-emerald-600 transition break-words line-clamp-2">
+                                {questionTranslations[question.id]?.text || question.text}
+                              </p>
+                            </div>
+
+                            <div className="flex items-center justify-between gap-2 pt-1 border-t border-border/40 text-xs">
+                              <div className="truncate flex-1">
+                                {isProvided ? (
+                                  <span className="text-emerald-700 dark:text-emerald-300 font-medium bg-emerald-500/10 px-2 py-0.5 rounded-md text-[11px] truncate block">
+                                    {displayAnswer}
+                                  </span>
+                                ) : (
+                                  <span className="text-muted-foreground italic text-[11px]">
+                                    Not recorded
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-[10px] font-semibold text-muted-foreground group-hover:text-emerald-600 inline-flex items-center gap-1 shrink-0">
+                                <Edit3 className="w-3 h-3" />
+                                <span>Edit</span>
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 );
               })}
             </div>
-          </div>
+          </main>
 
           {/* Fixed Bottom Submit Action Bar */}
-          <div className="shrink-0 border-t border-border bg-card/95 backdrop-blur-md p-4 sm:p-5 flex items-center justify-between gap-3 z-20">
+          <footer className="shrink-0 border-t border-border bg-card/95 backdrop-blur-md p-4 sm:px-8 sm:py-4 flex items-center justify-between gap-4 z-20">
             <button
               type="button"
               onClick={() => setCurrentStep(questions.length - 1)}
-              className="rounded-xl border border-border bg-background px-4 py-3 text-xs font-semibold text-foreground hover:bg-muted transition"
+              className="rounded-xl border border-border bg-background px-5 py-3 text-xs sm:text-sm font-semibold text-foreground hover:bg-muted transition"
             >
               Back
             </button>
@@ -642,20 +786,154 @@ export default function FieldCollectionPage() {
                 </>
               )}
             </button>
-          </div>
+          </footer>
         </div>
       </div>
     );
   }
 
   // Active Question Screen (0 <= currentStep < questions.length)
+  // Renders a modern Desktop Two-Panel Layout with collapsible Question & Section Navigator
   return (
-    <div className="fixed inset-0 h-[100dvh] w-full flex flex-col overflow-hidden bg-background">
-      <div className="mx-auto w-full max-w-3xl xl:max-w-4xl h-full flex flex-col bg-card border-x border-border/40 shadow-xl overflow-hidden relative">
+    <div className="fixed inset-0 h-[100dvh] w-full flex overflow-hidden bg-background">
+      {/* ============================================================== */}
+      {/* DESKTOP QUESTION & SECTION NAVIGATOR SIDEBAR                   */}
+      {/* ============================================================== */}
+      <aside
+        className={`hidden lg:flex flex-col shrink-0 border-r border-border bg-card transition-all duration-200 z-20 ${
+          sidebarOpen ? "w-80" : "w-0 overflow-hidden border-r-0"
+        }`}
+      >
+        {/* Sidebar Header */}
+        <div className="h-16 shrink-0 border-b border-border px-4 flex items-center justify-between">
+          <div className="min-w-0 flex-1">
+            <h2 className="text-xs font-bold text-foreground truncate">
+              {study.title}
+            </h2>
+            <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground mt-0.5">
+              <span className="font-semibold text-emerald-600">{answeredCount} of {questions.length} answered</span>
+              <span>&bull;</span>
+              <span>{progressPercent}%</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(false)}
+            className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition"
+            title="Collapse Sidebar"
+          >
+            <PanelLeftClose className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Filter Toggle */}
+        <div className="px-3 py-2 border-b border-border bg-muted/20 flex items-center justify-between text-[11px]">
+          <span className="font-semibold text-muted-foreground">Outline</span>
+          <button
+            type="button"
+            onClick={() => setFilterUnanswered(!filterUnanswered)}
+            className={`px-2 py-0.5 rounded-md font-semibold transition ${
+              filterUnanswered
+                ? "bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {filterUnanswered ? "Show All" : "Unanswered Only"}
+          </button>
+        </div>
+
+        {/* Scrollable Questions & Sections List */}
+        <div className="flex-1 overflow-y-auto p-3 space-y-4">
+          {sections.map((section, sIdx) => {
+            const sectionQuestions = questions.slice(section.start, section.end + 1);
+            const isSectionActive = currentStep >= section.start && currentStep <= section.end;
+
+            return (
+              <div key={sIdx} className="space-y-1.5">
+                <div className="flex items-center justify-between px-1.5 text-[11px]">
+                  <span className={`font-bold uppercase tracking-wider ${isSectionActive ? "text-emerald-600" : "text-muted-foreground"}`}>
+                    {section.part}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground truncate max-w-[150px]">
+                    {section.title}
+                  </span>
+                </div>
+
+                {/* Compact Grid of Question Chips */}
+                <div className="grid grid-cols-5 gap-1.5 p-1.5 rounded-xl bg-muted/30 border border-border/50">
+                  {sectionQuestions.map((sq: any, offset: number) => {
+                    const idx = section.start + offset;
+                    const isCurrent = currentStep === idx;
+                    const isAnswered = hasAnswer(answers[sq.id]);
+
+                    if (filterUnanswered && isAnswered) return null;
+
+                    return (
+                      <button
+                        key={sq.id}
+                        type="button"
+                        onClick={() => setCurrentStep(idx)}
+                        title={`Q${idx + 1}: ${sq.text}`}
+                        className={`relative h-8 rounded-lg text-xs font-bold flex items-center justify-center transition ${
+                          isCurrent
+                            ? "bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-500 ring-offset-1 ring-offset-card"
+                            : isAnswered
+                            ? "bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 hover:bg-emerald-500/25"
+                            : "bg-card text-muted-foreground border border-border hover:border-emerald-500/40 hover:text-foreground"
+                        }`}
+                      >
+                        <span>{idx + 1}</span>
+                        {isAnswered && !isCurrent && (
+                          <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-emerald-600 text-[8px] text-white">
+                            ✓
+                          </span>
+                        )}
+                        {sq.required && !isAnswered && !isCurrent && (
+                          <span className="absolute top-0.5 right-1 text-[9px] text-rose-500">
+                            *
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Sidebar Footer */}
+        <div className="p-3 border-t border-border shrink-0 bg-muted/10 space-y-2">
+          <button
+            type="button"
+            onClick={() => setCurrentStep(questions.length)}
+            className="w-full py-2.5 rounded-xl border border-border bg-background text-xs font-bold text-foreground hover:bg-muted transition flex items-center justify-center gap-1.5"
+          >
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <span>Review All Responses ({answeredCount}/{questions.length})</span>
+          </button>
+        </div>
+      </aside>
+
+      {/* ============================================================== */}
+      {/* MAIN QUESTION WORKSPACE AREA                                  */}
+      {/* ============================================================== */}
+      <div className="flex-1 flex flex-col h-full overflow-hidden bg-background relative">
         {/* Fixed Top Header */}
-        <header className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between z-20">
-          {/* Left: Back / Dashboard & Study Title */}
+        <header className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between z-20">
+          {/* Left: Sidebar Toggle, Back, and Section Badge */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            {/* Desktop Sidebar Toggle */}
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="hidden lg:flex p-2 text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted transition"
+              title={sidebarOpen ? "Hide Outline Sidebar" : "Show Outline Sidebar"}
+            >
+              {sidebarOpen ? <PanelLeftClose className="w-5 h-5" /> : <PanelLeftOpen className="w-5 h-5 text-emerald-600" />}
+            </button>
+
+            {/* Previous Question Chevron */}
             <button
               type="button"
               onClick={() => setCurrentStep((c) => Math.max(-1, c - 1))}
@@ -664,22 +942,38 @@ export default function FieldCollectionPage() {
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <div className="min-w-0">
-              <h1 className="text-xs sm:text-sm font-bold text-foreground truncate">
-                {study.title}
-              </h1>
-              <p className="text-[10px] text-muted-foreground hidden sm:block truncate">
-                {study.targetPopulation || "Rural Attachment Census"} &bull; Melka Nono
-              </p>
+
+            {/* Mobile Drawer Trigger Pill */}
+            <button
+              type="button"
+              onClick={() => setMobileDrawerOpen(true)}
+              className="lg:hidden inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border bg-muted/40 text-xs font-bold text-foreground"
+            >
+              <ListOrdered className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Q{currentStep + 1}/{questions.length}</span>
+            </button>
+
+            {/* Title / Section Name */}
+            <div className="min-w-0 hidden sm:block">
+              <div className="flex items-center gap-2">
+                {currentSection && (
+                  <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-[11px] font-bold uppercase tracking-wider shrink-0">
+                    {currentSection.part}
+                  </span>
+                )}
+                <h1 className="text-xs sm:text-sm font-bold text-foreground truncate">
+                  {currentSection?.title || study.title}
+                </h1>
+              </div>
             </div>
           </div>
 
-          {/* Right: Step Counter & Language Switcher */}
+          {/* Right: Step Counter, Language Switcher, Exit */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-500/20">
-              <span>{currentStep + 1}</span>
+            <div className="hidden md:flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-500/20">
+              <span>{answeredCount}</span>
               <span className="text-muted-foreground font-normal">/</span>
-              <span className="text-muted-foreground font-normal">{questions.length}</span>
+              <span className="text-muted-foreground font-normal">{questions.length} Answered</span>
             </div>
 
             {/* Language Switcher Pills */}
@@ -699,6 +993,23 @@ export default function FieldCollectionPage() {
                 </button>
               ))}
             </div>
+
+            {/* Exit to Dashboard Button */}
+            <button
+              type="button"
+              onClick={() => {
+                if (Object.keys(answers).length > 0) {
+                  setShowExitConfirm(true);
+                } else {
+                  router.push("/collector/dashboard");
+                }
+              }}
+              title="Exit to Dashboard"
+              className="inline-flex items-center gap-1.5 p-2 text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted transition shrink-0"
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline text-xs font-semibold">Exit</span>
+            </button>
           </div>
         </header>
 
@@ -706,444 +1017,459 @@ export default function FieldCollectionPage() {
         <div className="h-1.5 w-full bg-muted overflow-hidden shrink-0">
           <div
             className="h-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 transition-all duration-300 ease-out"
-            style={{ width: `${progress}%` }}
+            style={{ width: `${progressPercent}%` }}
           />
         </div>
 
-        {/* Question Workspace (Scrollable Middle Area) */}
-        <main className="flex-1 overflow-y-auto px-4 py-5 sm:px-8 sm:py-7 overscroll-contain space-y-5">
-          {languageWarning && (
-            <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-800 dark:text-amber-200 flex items-center gap-2">
-              <Globe className="w-4 h-4 shrink-0 text-amber-600" />
-              <span>{languageWarning}</span>
-            </div>
-          )}
+        {/* Scrollable Question Content */}
+        <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-10 sm:py-8 overscroll-contain pb-28">
+          <div className="max-w-3xl xl:max-w-4xl mx-auto space-y-6">
+            {languageWarning && (
+              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-800 dark:text-amber-200 flex items-center gap-2">
+                <Globe className="w-4 h-4 shrink-0 text-amber-600" />
+                <span>{languageWarning}</span>
+              </div>
+            )}
 
-          {errorMessage && (
-            <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-xs text-destructive flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0" />
-              <span>{errorMessage}</span>
-            </div>
-          )}
+            {errorMessage && (
+              <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-xs text-destructive flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{errorMessage}</span>
+              </div>
+            )}
 
-          {/* Question Metadata Header */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">
-                Question {currentStep + 1}
-              </span>
-              {q.required ? (
-                <span className="inline-flex items-center gap-1 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 px-2 py-0.5 text-[10px] font-semibold">
-                  * {t.required}
+            {/* Section & Question Metadata Header */}
+            <div className="space-y-2.5 border-b border-border/60 pb-5">
+              <div className="flex items-center gap-2 flex-wrap">
+                {currentSection && (
+                  <span className="inline-flex items-center rounded-lg bg-muted text-muted-foreground px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider border border-border/60">
+                    {currentSection.part}: {currentSection.title}
+                  </span>
+                )}
+                <span className="inline-flex items-center rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">
+                  Question {currentStep + 1} of {questions.length}
                 </span>
-              ) : (
-                <span className="inline-flex items-center rounded-lg bg-muted text-muted-foreground px-2 py-0.5 text-[10px] font-medium">
-                  {t.optional}
-                </span>
+                {q.required ? (
+                  <span className="inline-flex items-center gap-1 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 px-2 py-0.5 text-[10px] font-semibold">
+                    * {t.required}
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center rounded-lg bg-muted text-muted-foreground px-2 py-0.5 text-[10px] font-medium">
+                    {t.optional}
+                  </span>
+                )}
+              </div>
+
+              <h2 className="text-base sm:text-xl md:text-2xl font-bold text-foreground leading-snug break-words">
+                {questionTranslations[q.id]?.text || q.text}
+              </h2>
+            </div>
+
+            {/* Input Controls Container */}
+            <div className="pt-2">
+              {/* SINGLE_CHOICE */}
+              {q.type === "SINGLE_CHOICE" && (
+                <div
+                  className={`gap-3 ${
+                    q.options && q.options.length >= 4
+                      ? "grid grid-cols-1 md:grid-cols-2"
+                      : "space-y-3"
+                  }`}
+                >
+                  {q.options?.map((opt: any, optIndex: number) => {
+                    const isSelected = answers[q.id] === opt.value;
+                    return (
+                      <button
+                        type="button"
+                        key={opt.id}
+                        onClick={() =>
+                          setAnswers((prev) => ({ ...prev, [q.id]: opt.value }))
+                        }
+                        className={`w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between gap-3.5 ${
+                          isSelected
+                            ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 shadow-xs ring-1 ring-emerald-600"
+                            : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/30 active:scale-[0.99]"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3.5 flex-1 min-w-0">
+                          <span
+                            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 mt-0.5 transition ${
+                              isSelected
+                                ? "border-emerald-600 bg-emerald-600 text-white"
+                                : "border-muted-foreground/40"
+                            }`}
+                          >
+                            {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                          </span>
+                          <span className="text-xs sm:text-sm font-semibold break-words flex-1 leading-snug">
+                            {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
+                          </span>
+                        </div>
+                        <span className="hidden sm:inline-block text-[10px] font-mono font-semibold text-muted-foreground/60 shrink-0">
+                          [{optIndex + 1}]
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               )}
-            </div>
 
-            <h2 className="text-base sm:text-xl font-bold text-foreground leading-snug">
-              {questionTranslations[q.id]?.text || q.text}
-            </h2>
-          </div>
-
-          {/* Input Controls */}
-          <div className="pt-2">
-            {/* SINGLE_CHOICE */}
-            {q.type === "SINGLE_CHOICE" && (
-              <div
-                className={`grid gap-2.5 ${
-                  Array.isArray(q.options) && q.options.length > 5
-                    ? "grid-cols-1 sm:grid-cols-2"
-                    : "grid-cols-1"
-                }`}
-              >
-                {q.options?.map((opt: any, optIndex: number) => {
-                  const isSelected = answers[q.id] === opt.value;
-                  return (
-                    <button
-                      type="button"
-                      key={opt.id}
-                      onClick={() =>
-                        setAnswers((prev) => ({ ...prev, [q.id]: opt.value }))
-                      }
-                      className={`w-full text-left p-3.5 sm:p-4 rounded-2xl border-2 transition-all flex items-center justify-between gap-3 ${
-                        isSelected
-                          ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 shadow-xs ring-1 ring-emerald-600"
-                          : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/30 active:scale-[0.99]"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3 min-w-0">
+              {/* YES_NO */}
+              {q.type === "YES_NO" && (
+                <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                  {[
+                    { label: t.yes, value: "Yes" },
+                    { label: t.no, value: "No" },
+                  ].map((option) => {
+                    const isSelected = answers[q.id] === option.value;
+                    return (
+                      <button
+                        type="button"
+                        key={option.value}
+                        onClick={() =>
+                          setAnswers((prev) => ({ ...prev, [q.id]: option.value }))
+                        }
+                        className={`p-5 sm:p-6 rounded-2xl border-2 transition-all text-center flex flex-col items-center justify-center gap-2.5 ${
+                          isSelected
+                            ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 shadow-sm ring-1 ring-emerald-600"
+                            : "border-border bg-card text-foreground hover:border-emerald-500/40 active:scale-[0.98]"
+                        }`}
+                      >
                         <span
-                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition ${
+                          className={`flex h-9 w-9 items-center justify-center rounded-full border-2 transition ${
                             isSelected
                               ? "border-emerald-600 bg-emerald-600 text-white"
                               : "border-muted-foreground/40"
                           }`}
                         >
-                          {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                          {isSelected && <Check className="w-4 h-4 stroke-[3]" />}
                         </span>
-                        <span className="text-xs sm:text-sm font-semibold truncate">
-                          {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
+                        <span className="text-base font-bold">
+                          {option.label}
                         </span>
-                      </div>
-                      <span className="hidden sm:inline-block text-[10px] font-mono font-semibold text-muted-foreground/60 shrink-0">
-                        [{optIndex + 1}]
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* YES_NO */}
-            {q.type === "YES_NO" && (
-              <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
-                {[
-                  { label: t.yes, value: "Yes" },
-                  { label: t.no, value: "No" },
-                ].map((option) => {
-                  const isSelected = answers[q.id] === option.value;
-                  return (
-                    <button
-                      type="button"
-                      key={option.value}
-                      onClick={() =>
-                        setAnswers((prev) => ({ ...prev, [q.id]: option.value }))
-                      }
-                      className={`p-4 sm:p-5 rounded-2xl border-2 transition-all text-center flex flex-col items-center justify-center gap-2 ${
-                        isSelected
-                          ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 shadow-sm ring-1 ring-emerald-600"
-                          : "border-border bg-card text-foreground hover:border-emerald-500/40 active:scale-[0.98]"
-                      }`}
-                    >
-                      <span
-                        className={`flex h-8 w-8 items-center justify-center rounded-full border-2 transition ${
-                          isSelected
-                            ? "border-emerald-600 bg-emerald-600 text-white"
-                            : "border-muted-foreground/40"
-                        }`}
-                      >
-                        {isSelected && <Check className="w-4 h-4 stroke-[3]" />}
-                      </span>
-                      <span className="text-sm sm:text-base font-bold">
-                        {option.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* MULTIPLE_CHOICE */}
-            {q.type === "MULTIPLE_CHOICE" && (
-              <div className="space-y-2">
-                <p className="text-[11px] text-muted-foreground font-medium mb-1">
-                  Select all options that apply:
-                </p>
-                <div
-                  className={`grid gap-2.5 ${
-                    Array.isArray(q.options) && q.options.length > 5
-                      ? "grid-cols-1 sm:grid-cols-2"
-                      : "grid-cols-1"
-                  }`}
-                >
-                  {q.options?.map((opt: any) => {
-                    const selected: string[] = Array.isArray(answers[q.id])
-                      ? answers[q.id]
-                      : [];
-                    const checked = selected.includes(opt.value);
-                    return (
-                      <label
-                        key={opt.id}
-                        className={`flex cursor-pointer items-center gap-3 rounded-2xl border-2 p-3.5 sm:p-4 font-semibold transition-all ${
-                          checked
-                            ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 ring-1 ring-emerald-600"
-                            : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/30"
-                        }`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={() =>
-                            setAnswers((prev) => ({
-                              ...prev,
-                              [q.id]: checked
-                                ? selected.filter((v) => v !== opt.value)
-                                : [...selected, opt.value],
-                            }))
-                          }
-                          className="h-4 w-4 rounded accent-emerald-600"
-                        />
-                        <span className="text-xs sm:text-sm">
-                          {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
-                        </span>
-                      </label>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {/* NUMBER */}
-            {q.type === "NUMBER" && (
-              <div className="max-w-md mx-auto space-y-4">
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const cur = Number(answers[q.id]) || 0;
-                      if (cur > 0) {
-                        setAnswers((prev) => ({ ...prev, [q.id]: cur - 1 }));
-                      }
-                    }}
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-foreground hover:bg-muted transition"
-                  >
-                    <Minus className="w-5 h-5" />
-                  </button>
-
-                  <input
-                    type="number"
-                    inputMode="numeric"
-                    value={answers[q.id] ?? ""}
-                    onChange={(e) =>
-                      setAnswers((prev) => ({
-                        ...prev,
-                        [q.id]: e.target.value === "" ? "" : Number(e.target.value),
-                      }))
-                    }
-                    className="flex-1 p-3.5 text-center text-xl sm:text-2xl font-mono font-bold rounded-2xl border-2 border-border focus:border-emerald-600 focus:outline-none bg-background text-foreground"
-                    placeholder="0"
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const cur = Number(answers[q.id]) || 0;
-                      setAnswers((prev) => ({ ...prev, [q.id]: cur + 1 }));
-                    }}
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-foreground hover:bg-muted transition"
-                  >
-                    <Plus className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Quick Number Presets */}
-                <div className="flex items-center justify-center gap-2">
-                  {[0, 1, 2, 3, 4, 5].map((preset) => (
-                    <button
-                      type="button"
-                      key={preset}
-                      onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: preset }))}
-                      className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition ${
-                        answers[q.id] === preset
-                          ? "border-emerald-600 bg-emerald-600 text-white"
-                          : "border-border bg-card text-foreground hover:bg-muted"
-                      }`}
-                    >
-                      {preset}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* LINEAR_SCALE */}
-            {q.type === "LINEAR_SCALE" && (
-              <div className="space-y-4 max-w-lg mx-auto">
-                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-                  {Array.from(
-                    { length: (q.scaleMax ?? 5) - (q.scaleMin ?? 1) + 1 },
-                    (_, index) => (q.scaleMin ?? 1) + index
-                  ).map((value) => {
-                    const isSelected = answers[q.id] === value;
-                    return (
-                      <button
-                        type="button"
-                        key={value}
-                        onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: value }))}
-                        className={`h-12 w-12 sm:h-14 sm:w-14 rounded-2xl border-2 font-bold text-sm sm:text-base transition-all ${
-                          isSelected
-                            ? "border-emerald-600 bg-emerald-600 text-white shadow-md shadow-emerald-600/25"
-                            : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/40"
-                        }`}
-                      >
-                        {value}
                       </button>
                     );
                   })}
                 </div>
-                {(q.scaleMinLabel || q.scaleMaxLabel) && (
-                  <div className="flex justify-between text-xs text-muted-foreground font-medium px-2">
-                    <span>{q.scaleMinLabel || "Min"}</span>
-                    <span>{q.scaleMaxLabel || "Max"}</span>
-                  </div>
-                )}
-              </div>
-            )}
+              )}
 
-            {/* SHORT_TEXT */}
-            {q.type === "SHORT_TEXT" && (
-              <div className="relative">
-                <input
-                  type="text"
-                  value={answers[q.id] || ""}
-                  onChange={(e) =>
-                    setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
-                  }
-                  className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none transition pr-10"
-                  placeholder="Enter response here..."
-                />
-                {answers[q.id] && (
-                  <button
-                    type="button"
-                    onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: "" }))}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1"
+              {/* MULTIPLE_CHOICE */}
+              {q.type === "MULTIPLE_CHOICE" && (
+                <div className="space-y-3">
+                  <p className="text-[11px] text-muted-foreground font-medium mb-1">
+                    Select all options that apply:
+                  </p>
+                  <div
+                    className={`gap-3 ${
+                      q.options && q.options.length >= 4
+                        ? "grid grid-cols-1 md:grid-cols-2"
+                        : "space-y-2.5"
+                    }`}
                   >
-                    <X className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-            )}
+                    {q.options?.map((opt: any) => {
+                      const selected: string[] = Array.isArray(answers[q.id])
+                        ? answers[q.id]
+                        : [];
+                      const checked = selected.includes(opt.value);
+                      return (
+                        <label
+                          key={opt.id}
+                          className={`flex cursor-pointer items-start gap-3.5 rounded-2xl border-2 p-4 font-semibold transition-all ${
+                            checked
+                              ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 ring-1 ring-emerald-600"
+                              : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/30"
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() =>
+                              setAnswers((prev) => ({
+                                ...prev,
+                                [q.id]: checked
+                                  ? selected.filter((v) => v !== opt.value)
+                                  : [...selected, opt.value],
+                              }))
+                            }
+                            className="h-4 w-4 rounded accent-emerald-600 mt-0.5 shrink-0"
+                          />
+                          <span className="text-xs sm:text-sm break-words flex-1 leading-snug">
+                            {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
+                          </span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
-            {/* LONG_TEXT */}
-            {q.type === "LONG_TEXT" && (
-              <div className="space-y-1">
-                <textarea
-                  value={answers[q.id] || ""}
-                  onChange={(e) =>
-                    setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
-                  }
-                  rows={4}
-                  className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border focus:border-emerald-600 focus:outline-none bg-background text-foreground resize-none transition"
-                  placeholder="Enter detailed field observations or notes..."
-                />
-              </div>
-            )}
+              {/* NUMBER */}
+              {q.type === "NUMBER" && (
+                <div className="max-w-md mx-auto space-y-5">
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const cur = Number(answers[q.id]) || 0;
+                        if (cur > 0) {
+                          setAnswers((prev) => ({ ...prev, [q.id]: cur - 1 }));
+                        }
+                      }}
+                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-foreground hover:bg-muted active:scale-95 transition"
+                    >
+                      <Minus className="w-5 h-5" />
+                    </button>
 
-            {/* DROPDOWN */}
-            {q.type === "DROPDOWN" && (
-              <select
-                value={answers[q.id] || ""}
-                onChange={(e) =>
-                  setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
-                }
-                className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
-              >
-                <option value="">-- Select an option --</option>
-                {q.options?.map((opt: any) => (
-                  <option key={opt.id} value={opt.value}>
-                    {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
-                  </option>
-                ))}
-              </select>
-            )}
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      value={answers[q.id] ?? ""}
+                      onChange={(e) =>
+                        setAnswers((prev) => ({
+                          ...prev,
+                          [q.id]: e.target.value === "" ? "" : Number(e.target.value),
+                        }))
+                      }
+                      className="flex-1 p-4 text-center text-2xl sm:text-3xl font-mono font-bold rounded-2xl border-2 border-border focus:border-emerald-600 focus:outline-none bg-background text-foreground"
+                      placeholder="0"
+                    />
 
-            {/* DATE & TIME */}
-            {(q.type === "DATE" || q.type === "TIME") && (
-              <input
-                type={q.type.toLowerCase()}
-                value={answers[q.id] || ""}
-                onChange={(e) =>
-                  setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
-                }
-                className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
-              />
-            )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const cur = Number(answers[q.id]) || 0;
+                        setAnswers((prev) => ({ ...prev, [q.id]: cur + 1 }));
+                      }}
+                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-foreground hover:bg-muted active:scale-95 transition"
+                    >
+                      <Plus className="w-5 h-5" />
+                    </button>
+                  </div>
 
-            {/* GRIDS */}
-            {(q.type === "MULTIPLE_CHOICE_GRID" || q.type === "CHECKBOX_GRID") && (
-              <div className="space-y-4">
-                {q.rows?.map((row: any) => {
-                  const grid = answers[q.id] || {};
-                  const rowAnswer = grid[row.value];
-                  return (
-                    <fieldset key={row.id} className="space-y-2 rounded-2xl border border-border p-4 bg-muted/20">
-                      <legend className="px-2 text-xs sm:text-sm font-bold text-foreground">
-                        {row.text}
-                      </legend>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {q.options?.map((opt: any) => {
-                          const checked =
-                            q.type === "MULTIPLE_CHOICE_GRID"
-                              ? rowAnswer === opt.value
-                              : Array.isArray(rowAnswer) && rowAnswer.includes(opt.value);
-                          return (
-                            <label
-                              key={opt.id}
-                              className={`flex cursor-pointer items-center gap-2 rounded-xl border p-2.5 text-xs font-medium transition ${
-                                checked
-                                  ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100"
-                                  : "border-border bg-card text-foreground"
-                              }`}
-                            >
-                              <input
-                                type={q.type === "MULTIPLE_CHOICE_GRID" ? "radio" : "checkbox"}
-                                name={`${q.id}-${row.id}`}
-                                checked={checked}
-                                onChange={() =>
-                                  setAnswers((prev) => {
-                                    const prevGrid = prev[q.id] || {};
-                                    if (q.type === "MULTIPLE_CHOICE_GRID") {
-                                      return { ...prev, [q.id]: { ...prevGrid, [row.value]: opt.value } };
-                                    }
-                                    const curRow: string[] = Array.isArray(prevGrid[row.value])
-                                      ? prevGrid[row.value]
-                                      : [];
-                                    return {
-                                      ...prev,
-                                      [q.id]: {
-                                        ...prevGrid,
-                                        [row.value]: checked
-                                          ? curRow.filter((v) => v !== opt.value)
-                                          : [...curRow, opt.value],
-                                      },
-                                    };
-                                  })
-                                }
-                                className="h-3.5 w-3.5 accent-emerald-600"
-                              />
-                              <span className="truncate">{opt.text}</span>
-                            </label>
-                          );
-                        })}
-                      </div>
-                    </fieldset>
-                  );
-                })}
-              </div>
-            )}
+                  {/* Quick Number Presets */}
+                  <div className="flex items-center justify-center gap-2 flex-wrap">
+                    {[0, 1, 2, 3, 4, 5].map((preset) => (
+                      <button
+                        type="button"
+                        key={preset}
+                        onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: preset }))}
+                        className={`h-10 w-11 rounded-xl border text-xs font-bold transition ${
+                          answers[q.id] === preset
+                            ? "border-emerald-600 bg-emerald-600 text-white shadow-xs"
+                            : "border-border bg-card text-foreground hover:bg-muted"
+                        }`}
+                      >
+                        {preset}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* LINEAR_SCALE */}
+              {q.type === "LINEAR_SCALE" && (
+                <div className="space-y-4 max-w-xl mx-auto">
+                  <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
+                    {Array.from(
+                      { length: (q.scaleMax ?? 5) - (q.scaleMin ?? 1) + 1 },
+                      (_, index) => (q.scaleMin ?? 1) + index
+                    ).map((value) => {
+                      const isSelected = answers[q.id] === value;
+                      return (
+                        <button
+                          type="button"
+                          key={value}
+                          onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: value }))}
+                          className={`h-12 w-12 sm:h-14 sm:w-14 rounded-2xl border-2 font-bold text-sm sm:text-base transition-all ${
+                            isSelected
+                              ? "border-emerald-600 bg-emerald-600 text-white shadow-md shadow-emerald-600/25"
+                              : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/40"
+                          }`}
+                        >
+                          {value}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {(q.scaleMinLabel || q.scaleMaxLabel) && (
+                    <div className="flex justify-between text-xs text-muted-foreground font-medium px-2">
+                      <span>{q.scaleMinLabel || "Min"}</span>
+                      <span>{q.scaleMaxLabel || "Max"}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* SHORT_TEXT */}
+              {q.type === "SHORT_TEXT" && (
+                <div className="relative max-w-2xl mx-auto">
+                  <input
+                    type="text"
+                    value={answers[q.id] || ""}
+                    onChange={(e) =>
+                      setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
+                    }
+                    className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none transition pr-10"
+                    placeholder="Enter response here..."
+                  />
+                  {answers[q.id] && (
+                    <button
+                      type="button"
+                      onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: "" }))}
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* LONG_TEXT */}
+              {q.type === "LONG_TEXT" && (
+                <div className="max-w-2xl mx-auto space-y-1">
+                  <textarea
+                    value={answers[q.id] || ""}
+                    onChange={(e) =>
+                      setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
+                    }
+                    rows={4}
+                    className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border focus:border-emerald-600 focus:outline-none bg-background text-foreground resize-none transition"
+                    placeholder="Enter detailed field observations or notes..."
+                  />
+                </div>
+              )}
+
+              {/* DROPDOWN */}
+              {q.type === "DROPDOWN" && (
+                <div className="max-w-2xl mx-auto">
+                  <select
+                    value={answers[q.id] || ""}
+                    onChange={(e) =>
+                      setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
+                    }
+                    className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
+                  >
+                    <option value="">-- Select an option --</option>
+                    {q.options?.map((opt: any) => (
+                      <option key={opt.id} value={opt.value}>
+                        {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {/* DATE & TIME */}
+              {(q.type === "DATE" || q.type === "TIME") && (
+                <div className="max-w-md mx-auto">
+                  <input
+                    type={q.type.toLowerCase()}
+                    value={answers[q.id] || ""}
+                    onChange={(e) =>
+                      setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
+                    }
+                    className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
+                  />
+                </div>
+              )}
+
+              {/* GRIDS */}
+              {(q.type === "MULTIPLE_CHOICE_GRID" || q.type === "CHECKBOX_GRID") && (
+                <div className="space-y-4 max-w-3xl mx-auto">
+                  {q.rows?.map((row: any) => {
+                    const grid = answers[q.id] || {};
+                    const rowAnswer = grid[row.value];
+                    return (
+                      <fieldset key={row.id} className="space-y-2 rounded-2xl border border-border p-4 bg-muted/20">
+                        <legend className="px-2 text-xs sm:text-sm font-bold text-foreground break-words">
+                          {row.text}
+                        </legend>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                          {q.options?.map((opt: any) => {
+                            const checked =
+                              q.type === "MULTIPLE_CHOICE_GRID"
+                                ? rowAnswer === opt.value
+                                : Array.isArray(rowAnswer) && rowAnswer.includes(opt.value);
+                            return (
+                              <label
+                                key={opt.id}
+                                className={`flex cursor-pointer items-start gap-2.5 rounded-xl border p-2.5 text-xs font-medium transition ${
+                                  checked
+                                    ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100"
+                                    : "border-border bg-card text-foreground"
+                                }`}
+                              >
+                                <input
+                                  type={q.type === "MULTIPLE_CHOICE_GRID" ? "radio" : "checkbox"}
+                                  name={`${q.id}-${row.id}`}
+                                  checked={checked}
+                                  onChange={() =>
+                                    setAnswers((prev) => {
+                                      const prevGrid = prev[q.id] || {};
+                                      if (q.type === "MULTIPLE_CHOICE_GRID") {
+                                        return { ...prev, [q.id]: { ...prevGrid, [row.value]: opt.value } };
+                                      }
+                                      const curRow: string[] = Array.isArray(prevGrid[row.value])
+                                        ? prevGrid[row.value]
+                                        : [];
+                                      return {
+                                        ...prev,
+                                        [q.id]: {
+                                          ...prevGrid,
+                                          [row.value]: checked
+                                            ? curRow.filter((v) => v !== opt.value)
+                                            : [...curRow, opt.value],
+                                        },
+                                      };
+                                    })
+                                  }
+                                  className="h-4 w-4 accent-emerald-600 mt-0.5 shrink-0"
+                                />
+                                <span className="break-words leading-tight">{opt.text}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </fieldset>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         </main>
 
         {/* Fixed Bottom Action Bar */}
-        <footer className="shrink-0 border-t border-border bg-card/95 backdrop-blur-md px-4 py-3 sm:px-6 sm:py-3.5 z-20">
-          <div className="flex items-center justify-between gap-3">
-            {/* Left: Previous Button */}
+        <footer className="shrink-0 border-t border-border bg-card/95 backdrop-blur-md px-4 py-3 sm:px-8 sm:py-4 z-30">
+          <div className="flex items-center justify-between gap-3 max-w-4xl mx-auto w-full">
+            {/* Left: Previous Question */}
             <button
               type="button"
               onClick={() => setCurrentStep((c) => Math.max(-1, c - 1))}
-              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-border text-xs sm:text-sm font-semibold bg-background text-foreground hover:bg-muted active:scale-[0.98] transition"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-3 rounded-xl border border-border text-xs sm:text-sm font-semibold bg-background text-foreground hover:bg-muted active:scale-[0.98] transition"
               aria-label="Previous question"
             >
               <ChevronLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">{t.prev}</span>
+              <span>{t.prev}</span>
             </button>
 
-            {/* Center keyboard hint on desktop */}
+            {/* Center: Desktop Key Indicator or Required Hint */}
             <div className="hidden md:flex items-center gap-2 text-[11px] text-muted-foreground font-medium">
-              {canAdvance && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted border border-border text-[10px] font-mono">
+              {canAdvance ? (
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted border border-border text-[11px] font-mono">
                   <span>Press</span>
-                  <CornerDownLeft className="w-3 h-3" />
-                  <span>Enter</span>
+                  <CornerDownLeft className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="font-bold text-foreground">Enter</span>
                 </span>
-              )}
+              ) : q.required ? (
+                <span className="text-amber-600 dark:text-amber-400 text-xs font-semibold">
+                  * Answer required to continue
+                </span>
+              ) : null}
             </div>
 
             {/* Right: Skip & Next Button */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 sm:gap-3">
               {!q.required && !hasCurrentAnswer && (
                 <button
                   type="button"
@@ -1163,7 +1489,7 @@ export default function FieldCollectionPage() {
                   }
                 }}
                 disabled={!canAdvance}
-                className={`inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md ${
+                className={`inline-flex items-center justify-center gap-2 px-5 sm:px-8 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md ${
                   canAdvance
                     ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 active:scale-[0.98] shadow-emerald-600/20"
                     : "bg-muted text-muted-foreground cursor-not-allowed border border-border/50"
@@ -1178,6 +1504,107 @@ export default function FieldCollectionPage() {
           </div>
         </footer>
       </div>
+
+      {/* ============================================================== */}
+      {/* MOBILE DRAWER OVERLAY                                          */}
+      {/* ============================================================== */}
+      {mobileDrawerOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col justify-end lg:hidden bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="w-full max-h-[80dvh] rounded-t-3xl border-t border-border bg-card p-5 shadow-2xl flex flex-col">
+            <div className="flex items-center justify-between pb-3 border-b border-border">
+              <div>
+                <h3 className="text-sm font-bold text-foreground">Question Navigator</h3>
+                <p className="text-xs text-muted-foreground">{answeredCount} of {questions.length} answered</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setMobileDrawerOpen(false)}
+                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto py-3 space-y-4">
+              {sections.map((section, sIdx) => {
+                const sectionQuestions = questions.slice(section.start, section.end + 1);
+                return (
+                  <div key={sIdx} className="space-y-1.5">
+                    <div className="text-[11px] font-bold text-emerald-600 uppercase">
+                      {section.part}: {section.title}
+                    </div>
+                    <div className="grid grid-cols-6 gap-2">
+                      {sectionQuestions.map((sq: any, offset: number) => {
+                        const idx = section.start + offset;
+                        const isCurrent = currentStep === idx;
+                        const isAnswered = hasAnswer(answers[sq.id]);
+
+                        return (
+                          <button
+                            key={sq.id}
+                            type="button"
+                            onClick={() => {
+                              setCurrentStep(idx);
+                              setMobileDrawerOpen(false);
+                            }}
+                            className={`h-9 rounded-xl text-xs font-bold flex items-center justify-center transition ${
+                              isCurrent
+                                ? "bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-500"
+                                : isAnswered
+                                ? "bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30"
+                                : "bg-muted text-muted-foreground border border-border"
+                            }`}
+                          >
+                            <span>{idx + 1}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Exit Confirmation Dialog */}
+      {showExitConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="w-full max-w-sm rounded-3xl border border-border bg-card p-6 shadow-2xl space-y-4">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600">
+                <AlertCircle className="w-5 h-5" />
+              </span>
+              <div>
+                <h3 className="text-base font-bold text-foreground">Exit Collection?</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Your answers will remain saved as a draft.
+                </p>
+              </div>
+            </div>
+            <p className="text-xs text-foreground/80 leading-relaxed">
+              You can return to this study later and resume filling answers from where you stopped.
+            </p>
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowExitConfirm(false)}
+                className="rounded-xl border border-border px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted transition"
+              >
+                Stay
+              </button>
+              <button
+                type="button"
+                onClick={() => router.push("/collector/dashboard")}
+                className="rounded-xl bg-destructive px-4 py-2 text-xs font-semibold text-white hover:bg-destructive/90 transition"
+              >
+                Exit to Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
