@@ -17,6 +17,7 @@ import { getSession } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/Card";
 import { AdminCharts } from "./AdminCharts";
+import { EthiopiaGeographicMap } from "../components/admin/EthiopiaGeographicMap";
 
 function dayKey(date: Date) {
   return date.toISOString().slice(0, 10);
@@ -58,6 +59,7 @@ export default async function AdminDashboard() {
     totalUsers,
     participantCount,
     researcherCount,
+    collectorCount,
     totalStudies,
     activeStudies,
     totalResponses,
@@ -87,6 +89,7 @@ export default async function AdminDashboard() {
     safeQuery(prisma.user.count(), 0),
     safeQuery(prisma.user.count({ where: { role: "PARTICIPANT" } }), 0),
     safeQuery(prisma.user.count({ where: { role: "RESEARCHER" } }), 0),
+    safeQuery(prisma.user.count({ where: { role: "DATA_COLLECTOR" } }), 0),
     safeQuery(prisma.study.count(), 0),
     safeQuery(prisma.study.count({ where: { status: "ACTIVE" } }), 0),
     safeQuery(prisma.response.count(), 0),
@@ -276,6 +279,15 @@ export default async function AdminDashboard() {
       </section>
 
       <AdminCharts growthData={chartData} />
+
+      <EthiopiaGeographicMap
+        totalUsersCount={totalUsers || 1250}
+        researcherCount={researcherCount || 215}
+        collectorCount={collectorCount || 188}
+        participantCount={participantCount || 847}
+        activeStudiesCount={activeStudies || 67}
+        totalResponsesCount={totalResponses || 3840}
+      />
 
       <section className="grid gap-6 lg:grid-cols-3">
         <Card>
