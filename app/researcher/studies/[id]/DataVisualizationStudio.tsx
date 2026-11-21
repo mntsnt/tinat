@@ -565,7 +565,7 @@ export function DataVisualizationStudio({
           summaryText += `   - ${item.label}: n = ${item.count} (${item.percent}%)\n`;
         });
       } else if (stats.type === "likert") {
-        summaryText += `   - Mean Score: ${stats.mean.toFixed(2)} (SD = ${stats.stdDev.toFixed(2)})\n`;
+        summaryText += `   - Mean Score: ${stats.mean} (SD = ${stats.stdDev})\n`;
       }
     });
 
