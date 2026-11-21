@@ -281,12 +281,12 @@ export default async function AdminDashboard() {
       <AdminCharts growthData={chartData} />
 
       <EthiopiaGeographicMap
-        totalUsersCount={totalUsers || 1250}
-        researcherCount={researcherCount || 215}
-        collectorCount={collectorCount || 188}
-        participantCount={participantCount || 847}
-        activeStudiesCount={activeStudies || 67}
-        totalResponsesCount={totalResponses || 3840}
+        totalUsersCount={totalUsers}
+        researcherCount={researcherCount}
+        collectorCount={collectorCount}
+        participantCount={participantCount}
+        activeStudiesCount={activeStudies}
+        totalResponsesCount={totalResponses}
       />
 
       <section className="grid gap-6 lg:grid-cols-3">
