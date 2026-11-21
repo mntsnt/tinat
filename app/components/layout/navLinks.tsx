@@ -8,6 +8,7 @@ import {
   HeartPulse,
   MessageCircleMore,
   Microscope,
+  Stethoscope,
   Radar,
   ScanSearch,
   ScrollText,
@@ -25,7 +26,8 @@ import { SidebarLink } from "./Sidebar";
 
 export const publicLinks: SidebarLink[] = [
   { title: "How It Works", href: "/#how-it-works", icon: <Layers /> },
-  { title: "Health Studies", href: "/participant/studies", icon: <Microscope /> },
+  { title: "Data Collection", href: "/#pathways", icon: <Microscope /> },
+  { title: "Disciplines", href: "/#disciplines", icon: <Stethoscope /> },
   { title: "FAQ", href: "/#faq", icon: <HelpCircle /> },
 ];
 

@@ -74,8 +74,21 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/participant/studies" className="hover:text-foreground dark:hover:text-white transition-colors">
-                  Research Studies
+                <Link
+                  href="/#pathways"
+                  onClick={(e) => handleAnchorClick(e, "/#pathways")}
+                  className="hover:text-foreground dark:hover:text-white transition-colors"
+                >
+                  Data Collection
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/#disciplines"
+                  onClick={(e) => handleAnchorClick(e, "/#disciplines")}
+                  className="hover:text-foreground dark:hover:text-white transition-colors"
+                >
+                  Health Disciplines
                 </Link>
               </li>
               <li>
@@ -122,7 +135,14 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="py-8 sm:py-14 select-none overflow-hidden text-center">
+        {/* Giant Animated Brand Wordmark with Backlight Glow & Hover Kinetic Motion */}
+        <div className="relative py-10 sm:py-16 select-none overflow-hidden text-center group">
+          {/* Ambient Radial Backlight Glow */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-32 sm:h-44 w-3/4 max-w-4xl rounded-full bg-emerald-500/15 dark:bg-emerald-500/20 blur-3xl transition-all duration-700 ease-out group-hover:scale-115 group-hover:bg-emerald-500/30 animate-tinat-glow"
+          />
+
           <Link
             href="/"
             onClick={(e) => {
@@ -132,11 +152,15 @@ export function Footer() {
                 window.history.pushState(null, "", "/");
               }
             }}
-            className="block text-center cursor-pointer group"
+            className="relative inline-block text-center cursor-pointer group"
+            title="Tinat - Return to top"
           >
-            <h2 className="text-[15vw] sm:text-[16vw] font-black tracking-tighter leading-none text-black dark:text-white uppercase transition-colors">
+            <h2 className="text-[15vw] sm:text-[16vw] font-black tracking-tighter leading-none uppercase bg-gradient-to-r from-neutral-800 via-emerald-600 to-neutral-800 dark:from-neutral-200 dark:via-emerald-400 dark:to-neutral-200 bg-clip-text text-transparent animate-tinat-shimmer transition-all duration-500 ease-out group-hover:tracking-normal group-hover:drop-shadow-[0_0_40px_rgba(16,185,129,0.35)]">
               Tinat
             </h2>
+            <span className="inline-flex items-center gap-1.5 mt-2 text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-muted-foreground/60 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+              Back to top &uarr;
+            </span>
           </Link>
         </div>
 

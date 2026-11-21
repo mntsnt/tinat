@@ -100,42 +100,6 @@ export default async function Home() {
                 </ButtonLink>
               </div>
 
-              {/* Social Proof Avatars */}
-              <div className="flex items-center gap-3 pt-1">
-                <div className="flex -space-x-2 overflow-hidden">
-                  <Image
-                    src="/avatar-1.jpg"
-                    alt="Medical researcher avatar"
-                    width={34}
-                    height={34}
-                    className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover shadow-2xs"
-                  />
-                  <Image
-                    src="/woman.png"
-                    alt="Participant avatar"
-                    width={34}
-                    height={34}
-                    className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover bg-emerald-100 dark:bg-emerald-950 shadow-2xs"
-                  />
-                  <Image
-                    src="/man.png"
-                    alt="Field enumerator avatar"
-                    width={34}
-                    height={34}
-                    className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover bg-teal-100 dark:bg-teal-950 shadow-2xs"
-                  />
-                </div>
-                <div className="text-xs">
-                  <div className="flex items-center gap-1 font-semibold text-foreground">
-                    <span className="flex text-amber-500 text-xs">★★★★★</span>
-                    <span className="text-[11px] text-muted-foreground font-medium">4.9/5 Rating</span>
-                  </div>
-                  <p className="text-[11px] text-muted-foreground">
-                    Trusted by 1,200+ doctors, enumerators &amp; participants
-                  </p>
-                </div>
-              </div>
-
               {/* Feature List (Screenshot list with ScholarXIV removed, simplified to plain English) */}
               <div className="flex flex-wrap gap-x-5 gap-y-2 pt-2">
                 {[
@@ -486,7 +450,7 @@ export default async function Home() {
       </section>
 
       {/* Health Categories (Clean visual chips with just 1 link at the bottom) */}
-      <section className="relative z-10 py-14 lg:py-18 bg-background border-b border-border">
+      <section id="disciplines" className="relative z-10 py-14 lg:py-18 bg-background border-b border-border scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">

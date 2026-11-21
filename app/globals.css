@@ -199,6 +199,29 @@ html {
   }
 }
 
+@keyframes tinat-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes tinat-glow-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
 .animate-tinat-mark {
   animation: 3.2s ease-in-out infinite tinat-mark-breathe;
 }
@@ -208,9 +231,20 @@ html {
   transform-origin: center;
 }
 
+.animate-tinat-shimmer {
+  background-size: 200% auto;
+  animation: 6s ease-in-out infinite tinat-shimmer;
+}
+
+.animate-tinat-glow {
+  animation: 5s ease-in-out infinite tinat-glow-pulse;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-tinat-mark,
-  .animate-tinat-index {
+  .animate-tinat-index,
+  .animate-tinat-shimmer,
+  .animate-tinat-glow {
     animation: none;
   }
 }
