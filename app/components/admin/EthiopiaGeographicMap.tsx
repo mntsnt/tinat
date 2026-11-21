@@ -89,18 +89,18 @@ export function EthiopiaGeographicMap({
       {/* Background Ambience & Orbital Radial Glows */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-20 -top-20 h-96 w-96 rounded-full bg-amber-500/10 blur-[100px]"
+        className="pointer-events-none absolute -left-20 -top-20 h-96 w-96 rounded-full bg-emerald-500/15 blur-[100px]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-emerald-500/10 blur-[100px]"
+        className="pointer-events-none absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-teal-500/15 blur-[100px]"
       />
 
       {/* Header & Metrics Strip */}
       <div className="relative z-10 border-b border-white/10 px-6 py-6 sm:px-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-[11px] font-semibold text-amber-400">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold text-emerald-400">
               <Compass className="h-3.5 w-3.5" />
               Nationwide Coverage &bull; Ethiopia
             </div>
@@ -112,10 +112,10 @@ export function EthiopiaGeographicMap({
             </p>
           </div>
 
-          {/* Quick Metrics KPI Counters (matching user's second screenshot) */}
+          {/* Quick Metrics KPI Counters */}
           <div className="grid grid-cols-2 gap-4 sm:flex sm:items-center sm:gap-6">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-md">
-              <p className="text-2xl font-black text-amber-400">
+              <p className="text-2xl font-black text-emerald-400">
                 {totalUsersCount.toLocaleString()}
               </p>
               <p className="text-[11px] uppercase tracking-wider text-neutral-400 font-medium">
@@ -123,7 +123,7 @@ export function EthiopiaGeographicMap({
               </p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-md">
-              <p className="text-2xl font-black text-emerald-400">
+              <p className="text-2xl font-black text-white">
                 {String(hubs.length).padStart(2, "0")}
               </p>
               <p className="text-[11px] uppercase tracking-wider text-neutral-400 font-medium">
@@ -131,7 +131,7 @@ export function EthiopiaGeographicMap({
               </p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-md">
-              <p className="text-2xl font-black text-white">
+              <p className="text-2xl font-black text-teal-400">
                 {activeStudiesCount}
               </p>
               <p className="text-[11px] uppercase tracking-wider text-neutral-400 font-medium">
@@ -149,7 +149,7 @@ export function EthiopiaGeographicMap({
               onClick={() => setRoleFilter("all")}
               className={`rounded-lg px-3 py-1 text-xs font-semibold transition-all ${
                 roleFilter === "all"
-                  ? "bg-amber-500 text-black shadow-xs"
+                  ? "bg-emerald-600 text-white shadow-xs"
                   : "text-neutral-400 hover:text-white"
               }`}
             >
@@ -160,7 +160,7 @@ export function EthiopiaGeographicMap({
               onClick={() => setRoleFilter("researchers")}
               className={`rounded-lg px-3 py-1 text-xs font-semibold transition-all ${
                 roleFilter === "researchers"
-                  ? "bg-amber-500 text-black shadow-xs"
+                  ? "bg-emerald-600 text-white shadow-xs"
                   : "text-neutral-400 hover:text-white"
               }`}
             >
@@ -171,7 +171,7 @@ export function EthiopiaGeographicMap({
               onClick={() => setRoleFilter("collectors")}
               className={`rounded-lg px-3 py-1 text-xs font-semibold transition-all ${
                 roleFilter === "collectors"
-                  ? "bg-amber-500 text-black shadow-xs"
+                  ? "bg-emerald-600 text-white shadow-xs"
                   : "text-neutral-400 hover:text-white"
               }`}
             >
@@ -182,7 +182,7 @@ export function EthiopiaGeographicMap({
               onClick={() => setRoleFilter("participants")}
               className={`rounded-lg px-3 py-1 text-xs font-semibold transition-all ${
                 roleFilter === "participants"
-                  ? "bg-amber-500 text-black shadow-xs"
+                  ? "bg-emerald-600 text-white shadow-xs"
                   : "text-neutral-400 hover:text-white"
               }`}
             >
@@ -201,7 +201,7 @@ export function EthiopiaGeographicMap({
         {/* Left Column: Chapters & Community Hub List (matching first screenshot) */}
         <div className="lg:col-span-5 p-6 sm:p-8 space-y-4 border-b lg:border-b-0 lg:border-r border-white/10">
           <div className="space-y-1">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-amber-400">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-emerald-400">
               Regional Teaching &amp; Sentinel Hubs
             </h3>
             <p className="text-xs text-neutral-400">
@@ -231,7 +231,7 @@ export function EthiopiaGeographicMap({
                   onMouseLeave={() => setHoveredHubId(null)}
                   className={`w-full group flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
                     isSelected
-                      ? "border-amber-500/60 bg-amber-500/10 ring-1 ring-amber-500/30"
+                      ? "border-emerald-500/50 bg-emerald-500/10 ring-1 ring-emerald-500/30"
                       : "border-white/5 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]"
                   }`}
                 >
@@ -239,7 +239,7 @@ export function EthiopiaGeographicMap({
                     <p
                       className={`text-xs font-bold transition-colors ${
                         isSelected
-                          ? "text-amber-400"
+                          ? "text-emerald-400"
                           : "text-neutral-200 group-hover:text-white"
                       }`}
                     >
@@ -254,8 +254,8 @@ export function EthiopiaGeographicMap({
                     <span className="text-[11px] font-mono text-neutral-300 font-semibold">
                       {countForRole}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-400">
-                      <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-400">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       Active
                     </span>
                   </div>
@@ -264,14 +264,14 @@ export function EthiopiaGeographicMap({
             })}
           </div>
 
-          {/* Planned Expansion Target Footer (matching user screenshot) */}
+          {/* Planned Expansion Target Footer */}
           <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
             <span className="text-neutral-400">
               15 chapters planned by January 2027
             </span>
             <Link
               href="/admin/users"
-              className="text-amber-400 hover:text-amber-300 font-semibold inline-flex items-center gap-1"
+              className="text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center gap-1"
             >
               View directory &rarr;
             </Link>
@@ -303,13 +303,13 @@ export function EthiopiaGeographicMap({
                 </filter>
               </defs>
 
-              {/* Concentric Radar Guides around Addis Ababa (matching user's second screenshot) */}
+              {/* Concentric Radar Guides around Addis Ababa */}
               <circle
                 cx={centerHub.x}
                 cy={centerHub.y}
                 r={60}
                 fill="none"
-                stroke="rgba(245, 158, 11, 0.15)"
+                stroke="rgba(16, 185, 129, 0.18)"
                 strokeDasharray="3 4"
                 strokeWidth={1}
               />
@@ -318,7 +318,7 @@ export function EthiopiaGeographicMap({
                 cy={centerHub.y}
                 r={120}
                 fill="none"
-                stroke="rgba(245, 158, 11, 0.12)"
+                stroke="rgba(16, 185, 129, 0.14)"
                 strokeDasharray="4 5"
                 strokeWidth={1}
               />
@@ -327,7 +327,7 @@ export function EthiopiaGeographicMap({
                 cy={centerHub.y}
                 r={185}
                 fill="none"
-                stroke="rgba(245, 158, 11, 0.08)"
+                stroke="rgba(16, 185, 129, 0.09)"
                 strokeDasharray="4 6"
                 strokeWidth={1}
               />
@@ -336,7 +336,7 @@ export function EthiopiaGeographicMap({
                 cy={centerHub.y}
                 r={250}
                 fill="none"
-                stroke="rgba(245, 158, 11, 0.05)"
+                stroke="rgba(16, 185, 129, 0.06)"
                 strokeDasharray="5 7"
                 strokeWidth={1}
               />
@@ -358,7 +358,7 @@ export function EthiopiaGeographicMap({
                       r={isNear ? 2.1 : 1.6}
                       className={`transition-colors duration-300 ${
                         isNear
-                          ? "fill-amber-400/90"
+                          ? "fill-emerald-400/90"
                           : "fill-neutral-400/40 hover:fill-neutral-200"
                       }`}
                     />
@@ -376,7 +376,7 @@ export function EthiopiaGeographicMap({
                     y1={selectedHub.y}
                     x2={hub.x}
                     y2={hub.y}
-                    stroke="rgba(245, 158, 11, 0.15)"
+                    stroke="rgba(16, 185, 129, 0.18)"
                     strokeWidth={0.8}
                     strokeDasharray="2 3"
                   />
@@ -402,7 +402,7 @@ export function EthiopiaGeographicMap({
                         cy={hub.y}
                         r={14}
                         fill="none"
-                        stroke="#f59e0b"
+                        stroke="#10b981"
                         strokeWidth={1.5}
                         className="animate-ping origin-center opacity-75"
                       />
@@ -413,7 +413,7 @@ export function EthiopiaGeographicMap({
                       cx={hub.x}
                       cy={hub.y}
                       r={isSelected ? 8 : 5}
-                      fill={isSelected ? "#f59e0b" : "#d97706"}
+                      fill={isSelected ? "#10b981" : "#059669"}
                       filter="url(#pin-glow)"
                       className="transition-all duration-300"
                     />
@@ -426,7 +426,7 @@ export function EthiopiaGeographicMap({
                       fill="#ffffff"
                     />
 
-                    {/* Pin Label Box (matching user's screenshot e.g. NEKUM St.Paul, Nekum Arbaminch) */}
+                    {/* Pin Label Box */}
                     <g
                       transform={`translate(${hub.x + 9}, ${hub.y - 10})`}
                       className="pointer-events-none"
@@ -437,15 +437,15 @@ export function EthiopiaGeographicMap({
                         width={hub.shortName.length * 6.5 + 16}
                         height={18}
                         rx={4}
-                        fill={isSelected ? "#1e1b18" : "#14151a"}
-                        stroke={isSelected ? "#f59e0b" : "rgba(255,255,255,0.2)"}
+                        fill={isSelected ? "#04241a" : "#0a1713"}
+                        stroke={isSelected ? "#10b981" : "rgba(16,185,129,0.3)"}
                         strokeWidth={1}
                         className="transition-colors"
                       />
                       <text
                         x={8}
                         y={12.5}
-                        fill={isSelected ? "#fef3c7" : "#e5e5e5"}
+                        fill={isSelected ? "#d1fae5" : "#e5e5e5"}
                         fontSize={9}
                         fontWeight={isSelected ? 700 : 600}
                         fontFamily="sans-serif"
@@ -460,17 +460,17 @@ export function EthiopiaGeographicMap({
 
             {/* Floating Live Inspection Card (Bottom Right of Map) */}
             {hubMetrics && (
-              <div className="absolute bottom-2 right-2 max-w-xs rounded-2xl border border-amber-500/30 bg-[#14151b]/95 p-4 shadow-xl backdrop-blur-md animate-in fade-in duration-200">
+              <div className="absolute bottom-2 right-2 max-w-xs rounded-2xl border border-emerald-500/30 bg-[#071612]/95 p-4 shadow-xl backdrop-blur-md animate-in fade-in duration-200">
                 <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-2 mb-2">
                   <div className="min-w-0">
-                    <p className="text-xs font-bold text-amber-400 truncate">
+                    <p className="text-xs font-bold text-emerald-400 truncate">
                       {hubMetrics.name}
                     </p>
                     <p className="text-[10px] text-neutral-400">
                       {hubMetrics.region}
                     </p>
                   </div>
-                  <span className="shrink-0 rounded-md bg-amber-500/20 px-2 py-0.5 text-[10px] font-bold text-amber-300 border border-amber-500/30">
+                  <span className="shrink-0 rounded-md bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-300 border border-emerald-500/30">
                     {hubMetrics.status}
                   </span>
                 </div>
@@ -489,7 +489,7 @@ export function EthiopiaGeographicMap({
                     </p>
                   </div>
                   <div className="rounded-lg bg-white/[0.04] p-1.5 border border-white/5">
-                    <p className="text-xs font-bold text-amber-400">
+                    <p className="text-xs font-bold text-teal-400">
                       {hubMetrics.collectors}
                     </p>
                     <p className="text-[9px] uppercase tracking-wider text-neutral-400">

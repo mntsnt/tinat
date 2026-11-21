@@ -22,8 +22,8 @@ export interface EthiopianHub {
 export const INITIAL_ETHIOPIAN_HUBS: EthiopianHub[] = [
   {
     id: 'addis',
-    name: 'NEKUM St.Paul, Addis Ababa',
-    shortName: 'NEKUM St.Paul',
+    name: "SPHMMC St. Paul's, Addis Ababa",
+    shortName: "SPHMMC St. Paul",
     city: 'Addis Ababa',
     region: 'Addis Ababa',
     lng: 38.74,
@@ -39,8 +39,8 @@ export const INITIAL_ETHIOPIAN_HUBS: EthiopianHub[] = [
   },
   {
     id: 'arbaminch',
-    name: 'Nekum Arbaminch',
-    shortName: 'Nekum Arbaminch',
+    name: 'Arba Minch University Hub',
+    shortName: 'Arba Minch Hub',
     city: 'Arba Minch',
     region: 'South Ethiopia / Gamo',
     lng: 37.55,

@@ -91,7 +91,7 @@ export default async function GeographicReachPage() {
             <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
               Geographic Distribution
             </h1>
-            <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-500 dark:text-amber-400">
+            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
               Ethiopia Nationwide
             </span>
           </div>
@@ -119,11 +119,11 @@ export default async function GeographicReachPage() {
         </div>
       </div>
 
-      {/* Strategic Milestone Banner matching user UI */}
-      <div className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent p-5">
+      {/* Strategic Milestone Banner matching Tinat brand styling */}
+      <div className="relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-transparent p-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-500 dark:text-amber-400">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
               <TrendingUp className="h-4 w-4" />
               Strategic Expansion Goal
             </div>
@@ -138,7 +138,7 @@ export default async function GeographicReachPage() {
 
           <div className="flex items-center gap-6 shrink-0">
             <div className="text-right">
-              <span className="text-2xl font-black text-amber-500 dark:text-amber-400">
+              <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400">
                 {progressPercent}%
               </span>
               <p className="text-[11px] text-muted-foreground">Milestone Achieved</p>
@@ -187,16 +187,16 @@ export default async function GeographicReachPage() {
           {INITIAL_ETHIOPIAN_HUBS.map((hub) => (
             <Card
               key={hub.id}
-              className="group border border-border/80 transition-all hover:border-amber-500/40 hover:shadow-md"
+              className="group border border-border/80 transition-all hover:border-emerald-500/40 hover:shadow-md"
             >
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-500 dark:text-amber-400">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
                       <MapPin className="h-3 w-3" />
                       {hub.city}, {hub.region}
                     </span>
-                    <CardTitle className="text-base font-bold text-foreground mt-0.5 truncate group-hover:text-amber-500 transition-colors">
+                    <CardTitle className="text-base font-bold text-foreground mt-0.5 truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                       {hub.name}
                     </CardTitle>
                   </div>
@@ -219,7 +219,7 @@ export default async function GeographicReachPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-amber-500 dark:text-amber-400">
+                    <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
                       {hub.collectors}
                     </p>
                     <p className="text-[10px] text-muted-foreground uppercase font-medium">
@@ -227,7 +227,7 @@ export default async function GeographicReachPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-emerald-500 dark:text-emerald-400">
+                    <p className="text-xs font-bold text-teal-600 dark:text-teal-400">
                       {hub.activeStudies}
                     </p>
                     <p className="text-[10px] text-muted-foreground uppercase font-medium">
@@ -240,7 +240,7 @@ export default async function GeographicReachPage() {
                   <span>Participants: {hub.participants}</span>
                   <Link
                     href={`/admin/studies?hub=${hub.id}`}
-                    className="inline-flex items-center gap-1 text-xs font-medium text-amber-500 hover:text-amber-600 dark:text-amber-400 dark:hover:text-amber-300"
+                    className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"
                   >
                     View Hub Studies
                     <ArrowRight className="h-3 w-3" />
