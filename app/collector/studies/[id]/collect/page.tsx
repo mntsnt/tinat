@@ -22,16 +22,23 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   ListOrdered,
-  Search,
-  Filter,
-  Layers,
+  Sparkles,
   Edit3,
+  Users,
 } from "lucide-react";
 import {
   formatCollectorAnswers,
   hasRequiredAnswer,
   hasAnswer,
 } from "@/lib/collectorAnswers";
+import {
+  isQuestionSkipped,
+  getNextActiveStep,
+  getPreviousActiveStep,
+  DEFAULT_STUDY_SKIP_RULES,
+  HouseholdRosterData,
+} from "@/lib/studyLogic";
+import { HouseholdRosterComponent } from "@/app/collector/components/HouseholdRosterComponent";
 import { SUPPORTED_LOCALES, SupportedLocale } from "@/lib/i18n";
 
 interface SectionDef {
@@ -94,7 +101,6 @@ export default function FieldCollectionPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [filterUnanswered, setFilterUnanswered] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
   const t = {
     en: {
@@ -376,32 +382,53 @@ export default function FieldCollectionPage() {
   const sections: SectionDef[] = useMemo(() => getSectionsForStudy(questions), [questions]);
   const q = questions[currentStep];
 
+  // Real-time skip logic evaluation for the active question
+  const currentSkip = useMemo(() => {
+    if (!q) return { skipped: false };
+    return isQuestionSkipped(q.order + 1, questions, answers, DEFAULT_STUDY_SKIP_RULES);
+  }, [q, questions, answers]);
+
   const currentSection = useMemo(() => {
     if (currentStep < 0 || currentStep >= questions.length) return null;
     return sections.find((s) => currentStep >= s.start && currentStep <= s.end) || null;
   }, [currentStep, questions.length, sections]);
 
+  const isRosterQuestion = useMemo(() => {
+    if (!q) return false;
+    return q.order === 11 || q.text.toLowerCase().includes("family size");
+  }, [q]);
+
   const hasCurrentAnswer = useMemo(() => {
     if (!q) return false;
+    if (currentSkip.skipped) return true; // Skipped questions do not block advancement
     return hasRequiredAnswer(
       answers[q.id],
       q.type === "MULTIPLE_CHOICE_GRID" || q.type === "CHECKBOX_GRID"
         ? q.rows?.map((row: any) => row.value) || []
         : undefined
     );
-  }, [answers, q]);
+  }, [answers, q, currentSkip.skipped]);
 
   const canAdvance = useMemo(() => {
     if (!q) return true;
+    if (currentSkip.skipped) return true;
     if (!q.required) return true;
     return hasCurrentAnswer;
-  }, [q, hasCurrentAnswer]);
+  }, [q, currentSkip.skipped, hasCurrentAnswer]);
 
+  // Next Question with Skip Logic Branching
   const handleNext = useCallback(() => {
     if (canAdvance) {
-      setCurrentStep((c) => c + 1);
+      const nextStep = getNextActiveStep(currentStep, questions, answers, DEFAULT_STUDY_SKIP_RULES);
+      setCurrentStep(nextStep);
     }
-  }, [canAdvance]);
+  }, [canAdvance, currentStep, questions, answers]);
+
+  // Previous Question with Skip Logic Branching
+  const handlePrev = useCallback(() => {
+    const prevStep = getPreviousActiveStep(currentStep, questions, answers, DEFAULT_STUDY_SKIP_RULES);
+    setCurrentStep(prevStep);
+  }, [currentStep, questions, answers]);
 
   // Keyboard navigation shortcuts for Desktop (Enter to advance, numbers for single choice)
   useEffect(() => {
@@ -421,7 +448,7 @@ export default function FieldCollectionPage() {
       }
 
       // 1-9 single choice quick selection
-      if (!isInput && q?.type === "SINGLE_CHOICE" && Array.isArray(q.options)) {
+      if (!isInput && q?.type === "SINGLE_CHOICE" && Array.isArray(q.options) && !currentSkip.skipped) {
         const num = parseInt(e.key, 10);
         if (!isNaN(num) && num >= 1 && num <= q.options.length) {
           const opt = q.options[num - 1];
@@ -434,7 +461,7 @@ export default function FieldCollectionPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [canAdvance, currentStep, q, questions.length, handleNext]);
+  }, [canAdvance, currentStep, q, questions.length, handleNext, currentSkip.skipped]);
 
   // Loading state
   if (isLoading) {
@@ -475,14 +502,16 @@ export default function FieldCollectionPage() {
   }
 
   const isDone = currentStep >= questions.length;
-  const answeredCount = questions.filter((item: any) =>
-    hasRequiredAnswer(
+  const answeredCount = questions.filter((item: any) => {
+    const skipCheck = isQuestionSkipped(item.order + 1, questions, answers, DEFAULT_STUDY_SKIP_RULES);
+    if (skipCheck.skipped) return true; // Skipped questions count towards completion
+    return hasRequiredAnswer(
       answers[item.id],
       item.type === "MULTIPLE_CHOICE_GRID" || item.type === "CHECKBOX_GRID"
         ? item.rows?.map((row: any) => row.value) || []
         : undefined
-    )
-  ).length;
+    );
+  }).length;
   const progressPercent = Math.round((answeredCount / (questions.length || 1)) * 100);
 
   // Success Screen
@@ -581,9 +610,14 @@ export default function FieldCollectionPage() {
 
             {/* Study Sections Overview */}
             <div className="rounded-2xl border border-border p-4 bg-background space-y-2.5">
-              <span className="text-xs font-bold text-foreground uppercase tracking-wider block">
-                Questionnaire Sections ({sections.length} Parts &bull; {questions.length} Indicators)
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-foreground uppercase tracking-wider block">
+                  Questionnaire Sections ({sections.length} Parts &bull; {questions.length} Indicators)
+                </span>
+                <span className="text-[11px] font-bold text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                  Real-Time Logic Active
+                </span>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                 {sections.map((s, idx) => (
                   <div key={idx} className="flex items-center gap-2 p-2 rounded-xl bg-muted/40 border border-border/60">
@@ -640,7 +674,7 @@ export default function FieldCollectionPage() {
             </button>
             <div className="flex items-center gap-2">
               <span className="text-xs sm:text-sm font-bold text-emerald-600 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-                {answeredCount} / {questions.length} Answered ({progressPercent}%)
+                {answeredCount} / {questions.length} Verified ({progressPercent}%)
               </span>
             </div>
           </header>
@@ -667,7 +701,10 @@ export default function FieldCollectionPage() {
             <div className="space-y-6">
               {sections.map((section, sIdx) => {
                 const sectionQuestions = questions.slice(section.start, section.end + 1);
-                const sectionAnswered = sectionQuestions.filter((sq) => hasAnswer(answers[sq.id])).length;
+                const sectionAnswered = sectionQuestions.filter((sq) => {
+                  const sCheck = isQuestionSkipped(sq.order + 1, questions, answers, DEFAULT_STUDY_SKIP_RULES);
+                  return sCheck.skipped || hasAnswer(answers[sq.id]);
+                }).length;
 
                 return (
                   <div key={sIdx} className="rounded-2xl border border-border bg-muted/15 p-4 sm:p-5 space-y-3">
@@ -689,11 +726,16 @@ export default function FieldCollectionPage() {
                       {sectionQuestions.map((question: any, idxOffset: number) => {
                         const globalIndex = section.start + idxOffset;
                         const answer = answers[question.id];
+                        const skipStatus = isQuestionSkipped(question.order + 1, questions, answers, DEFAULT_STUDY_SKIP_RULES);
                         const isProvided = hasAnswer(answer);
 
                         let displayAnswer = "No answer recorded";
-                        if (isProvided) {
-                          if (Array.isArray(answer)) {
+                        if (skipStatus.skipped) {
+                          displayAnswer = `Skipped by Logic: ${skipStatus.reason}`;
+                        } else if (isProvided) {
+                          if (answer && typeof answer === "object" && "members" in answer) {
+                            displayAnswer = `Dynamic Roster (${answer.total} members: ${answer.maleCount} Male, ${answer.femaleCount} Female)`;
+                          } else if (Array.isArray(answer)) {
                             displayAnswer = answer.join(", ");
                           } else if (typeof answer === "object") {
                             displayAnswer = Object.entries(answer)
@@ -708,14 +750,22 @@ export default function FieldCollectionPage() {
                           <div
                             key={question.id}
                             onClick={() => setCurrentStep(globalIndex)}
-                            className="group cursor-pointer rounded-xl border border-border/80 bg-card hover:border-emerald-500/50 p-3.5 transition flex flex-col justify-between gap-2 shadow-xs"
+                            className={`group cursor-pointer rounded-xl border p-3.5 transition flex flex-col justify-between gap-2 shadow-xs ${
+                              skipStatus.skipped
+                                ? "border-dashed border-border/60 bg-muted/30 opacity-75"
+                                : "border-border/80 bg-card hover:border-emerald-500/50"
+                            }`}
                           >
                             <div className="space-y-1">
                               <div className="flex items-center justify-between gap-2">
                                 <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-muted text-[10px] font-bold text-foreground">
                                   Q{globalIndex + 1}
                                 </span>
-                                {question.required ? (
+                                {skipStatus.skipped ? (
+                                  <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase bg-amber-500/10 px-1.5 py-0.5 rounded">
+                                    Skipped
+                                  </span>
+                                ) : question.required ? (
                                   <span className="text-[10px] font-bold text-rose-500 uppercase">
                                     Required
                                   </span>
@@ -732,7 +782,11 @@ export default function FieldCollectionPage() {
 
                             <div className="flex items-center justify-between gap-2 pt-1 border-t border-border/40 text-xs">
                               <div className="truncate flex-1">
-                                {isProvided ? (
+                                {skipStatus.skipped ? (
+                                  <span className="text-amber-700 dark:text-amber-300 italic text-[11px] truncate block">
+                                    {displayAnswer}
+                                  </span>
+                                ) : isProvided ? (
                                   <span className="text-emerald-700 dark:text-emerald-300 font-medium bg-emerald-500/10 px-2 py-0.5 rounded-md text-[11px] truncate block">
                                     {displayAnswer}
                                   </span>
@@ -828,7 +882,12 @@ export default function FieldCollectionPage() {
 
         {/* Filter Toggle */}
         <div className="px-3 py-2 border-b border-border bg-muted/20 flex items-center justify-between text-[11px]">
-          <span className="font-semibold text-muted-foreground">Outline</span>
+          <span className="font-semibold text-muted-foreground flex items-center gap-1.5">
+            <span>Outline</span>
+            <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-600 font-mono">
+              Branching ON
+            </span>
+          </span>
           <button
             type="button"
             onClick={() => setFilterUnanswered(!filterUnanswered)}
@@ -865,30 +924,36 @@ export default function FieldCollectionPage() {
                     const idx = section.start + offset;
                     const isCurrent = currentStep === idx;
                     const isAnswered = hasAnswer(answers[sq.id]);
+                    const skipCheck = isQuestionSkipped(sq.order + 1, questions, answers, DEFAULT_STUDY_SKIP_RULES);
 
-                    if (filterUnanswered && isAnswered) return null;
+                    if (filterUnanswered && (isAnswered || skipCheck.skipped)) return null;
 
                     return (
                       <button
                         key={sq.id}
                         type="button"
                         onClick={() => setCurrentStep(idx)}
-                        title={`Q${idx + 1}: ${sq.text}`}
+                        title={`Q${idx + 1}: ${sq.text}${skipCheck.skipped ? ` (Skipped by logic: ${skipCheck.reason})` : ""}`}
                         className={`relative h-8 rounded-lg text-xs font-bold flex items-center justify-center transition ${
                           isCurrent
                             ? "bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-500 ring-offset-1 ring-offset-card"
-                            : isAnswered
-                            ? "bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 hover:bg-emerald-500/25"
-                            : "bg-card text-muted-foreground border border-border hover:border-emerald-500/40 hover:text-foreground"
+                            : skipStatusClass(skipCheck.skipped, isAnswered)
                         }`}
                       >
-                        <span>{idx + 1}</span>
-                        {isAnswered && !isCurrent && (
+                        <span className={skipCheck.skipped ? "line-through opacity-60 text-[10px]" : ""}>
+                          {idx + 1}
+                        </span>
+                        {isAnswered && !isCurrent && !skipCheck.skipped && (
                           <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-emerald-600 text-[8px] text-white">
                             ✓
                           </span>
                         )}
-                        {sq.required && !isAnswered && !isCurrent && (
+                        {skipCheck.skipped && !isCurrent && (
+                          <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-amber-500 text-[8px] text-white">
+                            -
+                          </span>
+                        )}
+                        {sq.required && !isAnswered && !isCurrent && !skipCheck.skipped && (
                           <span className="absolute top-0.5 right-1 text-[9px] text-rose-500">
                             *
                           </span>
@@ -936,7 +1001,7 @@ export default function FieldCollectionPage() {
             {/* Previous Question Chevron */}
             <button
               type="button"
-              onClick={() => setCurrentStep((c) => Math.max(-1, c - 1))}
+              onClick={handlePrev}
               className="p-2 -ml-1 text-muted-foreground hover:text-foreground rounded-xl hover:bg-muted transition shrink-0"
               aria-label="Previous question"
             >
@@ -973,7 +1038,7 @@ export default function FieldCollectionPage() {
             <div className="hidden md:flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-500/20">
               <span>{answeredCount}</span>
               <span className="text-muted-foreground font-normal">/</span>
-              <span className="text-muted-foreground font-normal">{questions.length} Answered</span>
+              <span className="text-muted-foreground font-normal">{questions.length} Verified</span>
             </div>
 
             {/* Language Switcher Pills */}
@@ -1049,7 +1114,12 @@ export default function FieldCollectionPage() {
                 <span className="inline-flex items-center rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">
                   Question {currentStep + 1} of {questions.length}
                 </span>
-                {q.required ? (
+                {currentSkip.skipped ? (
+                  <span className="inline-flex items-center gap-1 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 px-2 py-0.5 text-[10px] font-bold border border-amber-500/30">
+                    <Sparkles className="w-3 h-3" />
+                    Skipped by Logic
+                  </span>
+                ) : q.required ? (
                   <span className="inline-flex items-center gap-1 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 px-2 py-0.5 text-[10px] font-semibold">
                     * {t.required}
                   </span>
@@ -1065,377 +1135,442 @@ export default function FieldCollectionPage() {
               </h2>
             </div>
 
-            {/* Input Controls Container */}
-            <div className="pt-2">
-              {/* SINGLE_CHOICE */}
-              {q.type === "SINGLE_CHOICE" && (
-                <div
-                  className={`gap-3 ${
-                    q.options && q.options.length >= 4
-                      ? "grid grid-cols-1 md:grid-cols-2"
-                      : "space-y-3"
-                  }`}
-                >
-                  {q.options?.map((opt: any, optIndex: number) => {
-                    const isSelected = answers[q.id] === opt.value;
-                    return (
-                      <button
-                        type="button"
-                        key={opt.id}
-                        onClick={() =>
-                          setAnswers((prev) => ({ ...prev, [q.id]: opt.value }))
+            {/* ========================================================== */}
+            {/* REAL-TIME LOGIC SKIP BANNER OR QUESTION INPUT              */}
+            {/* ========================================================== */}
+            {currentSkip.skipped ? (
+              <div className="rounded-3xl border-2 border-dashed border-amber-500/30 bg-gradient-to-b from-amber-500/10 via-amber-500/5 to-transparent p-6 sm:p-8 text-center space-y-4 max-w-xl mx-auto my-6 animate-in zoom-in-95 duration-200 shadow-sm">
+                <div className="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-700 dark:text-amber-300 flex items-center justify-center mx-auto shadow-xs">
+                  <Sparkles className="w-7 h-7" />
+                </div>
+                <div className="space-y-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30 inline-block">
+                    Real-Time Logic Branch
+                  </span>
+                  <h3 className="text-base sm:text-lg font-bold text-foreground">
+                    Indicator Automatically Skipped
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-md mx-auto">
+                    {currentSkip.reason}
+                  </p>
+                </div>
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs sm:text-sm font-bold shadow-md shadow-emerald-500/20 hover:from-emerald-700 hover:to-teal-700 transition active:scale-[0.98]"
+                  >
+                    <span>Continue to Next Active Indicator</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* Normal Input Controls */
+              <div className="pt-2">
+                {/* DYNAMIC HOUSEHOLD ROSTER (Q12) */}
+                {isRosterQuestion && (
+                  <div className="space-y-4">
+                    <HouseholdRosterComponent
+                      value={answers[q.id]}
+                      onChange={(rosterData: HouseholdRosterData) => {
+                        setAnswers((prev) => ({
+                          ...prev,
+                          [q.id]: rosterData,
+                        }));
+                      }}
+                      onSyncCounts={(maleCount: number, femaleCount: number) => {
+                        const q13 = questions.find((item: any) => item.order === 12);
+                        const q14 = questions.find((item: any) => item.order === 13);
+                        if (q13) {
+                          setAnswers((prev) => ({ ...prev, [q13.id]: maleCount }));
                         }
-                        className={`w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between gap-3.5 ${
-                          isSelected
-                            ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 shadow-xs ring-1 ring-emerald-600"
-                            : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/30 active:scale-[0.99]"
-                        }`}
-                      >
-                        <div className="flex items-start gap-3.5 flex-1 min-w-0">
+                        if (q14) {
+                          setAnswers((prev) => ({ ...prev, [q14.id]: femaleCount }));
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+
+                {/* SINGLE_CHOICE */}
+                {q.type === "SINGLE_CHOICE" && (
+                  <div
+                    className={`gap-3 ${
+                      q.options && q.options.length >= 4
+                        ? "grid grid-cols-1 md:grid-cols-2"
+                        : "space-y-3"
+                    }`}
+                  >
+                    {q.options?.map((opt: any, optIndex: number) => {
+                      const isSelected = answers[q.id] === opt.value;
+                      return (
+                        <button
+                          type="button"
+                          key={opt.id}
+                          onClick={() =>
+                            setAnswers((prev) => ({ ...prev, [q.id]: opt.value }))
+                          }
+                          className={`w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between gap-3.5 ${
+                            isSelected
+                              ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 shadow-xs ring-1 ring-emerald-600"
+                              : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/30 active:scale-[0.99]"
+                          }`}
+                        >
+                          <div className="flex items-start gap-3.5 flex-1 min-w-0">
+                            <span
+                              className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 mt-0.5 transition ${
+                                isSelected
+                                  ? "border-emerald-600 bg-emerald-600 text-white"
+                                  : "border-muted-foreground/40"
+                              }`}
+                            >
+                              {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                            </span>
+                            <span className="text-xs sm:text-sm font-semibold break-words flex-1 leading-snug">
+                              {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
+                            </span>
+                          </div>
+                          <span className="hidden sm:inline-block text-[10px] font-mono font-semibold text-muted-foreground/60 shrink-0">
+                            [{optIndex + 1}]
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* YES_NO */}
+                {q.type === "YES_NO" && (
+                  <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                    {[
+                      { label: t.yes, value: "Yes" },
+                      { label: t.no, value: "No" },
+                    ].map((option) => {
+                      const isSelected = answers[q.id] === option.value;
+                      return (
+                        <button
+                          type="button"
+                          key={option.value}
+                          onClick={() =>
+                            setAnswers((prev) => ({ ...prev, [q.id]: option.value }))
+                          }
+                          className={`p-5 sm:p-6 rounded-2xl border-2 transition-all text-center flex flex-col items-center justify-center gap-2.5 ${
+                            isSelected
+                              ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 shadow-sm ring-1 ring-emerald-600"
+                              : "border-border bg-card text-foreground hover:border-emerald-500/40 active:scale-[0.98]"
+                          }`}
+                        >
                           <span
-                            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 mt-0.5 transition ${
+                            className={`flex h-9 w-9 items-center justify-center rounded-full border-2 transition ${
                               isSelected
                                 ? "border-emerald-600 bg-emerald-600 text-white"
                                 : "border-muted-foreground/40"
                             }`}
                           >
-                            {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                            {isSelected && <Check className="w-4 h-4 stroke-[3]" />}
                           </span>
-                          <span className="text-xs sm:text-sm font-semibold break-words flex-1 leading-snug">
-                            {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
+                          <span className="text-base font-bold">
+                            {option.label}
                           </span>
-                        </div>
-                        <span className="hidden sm:inline-block text-[10px] font-mono font-semibold text-muted-foreground/60 shrink-0">
-                          [{optIndex + 1}]
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* YES_NO */}
-              {q.type === "YES_NO" && (
-                <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-                  {[
-                    { label: t.yes, value: "Yes" },
-                    { label: t.no, value: "No" },
-                  ].map((option) => {
-                    const isSelected = answers[q.id] === option.value;
-                    return (
-                      <button
-                        type="button"
-                        key={option.value}
-                        onClick={() =>
-                          setAnswers((prev) => ({ ...prev, [q.id]: option.value }))
-                        }
-                        className={`p-5 sm:p-6 rounded-2xl border-2 transition-all text-center flex flex-col items-center justify-center gap-2.5 ${
-                          isSelected
-                            ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 shadow-sm ring-1 ring-emerald-600"
-                            : "border-border bg-card text-foreground hover:border-emerald-500/40 active:scale-[0.98]"
-                        }`}
-                      >
-                        <span
-                          className={`flex h-9 w-9 items-center justify-center rounded-full border-2 transition ${
-                            isSelected
-                              ? "border-emerald-600 bg-emerald-600 text-white"
-                              : "border-muted-foreground/40"
-                          }`}
-                        >
-                          {isSelected && <Check className="w-4 h-4 stroke-[3]" />}
-                        </span>
-                        <span className="text-base font-bold">
-                          {option.label}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* MULTIPLE_CHOICE */}
-              {q.type === "MULTIPLE_CHOICE" && (
-                <div className="space-y-3">
-                  <p className="text-[11px] text-muted-foreground font-medium mb-1">
-                    Select all options that apply:
-                  </p>
-                  <div
-                    className={`gap-3 ${
-                      q.options && q.options.length >= 4
-                        ? "grid grid-cols-1 md:grid-cols-2"
-                        : "space-y-2.5"
-                    }`}
-                  >
-                    {q.options?.map((opt: any) => {
-                      const selected: string[] = Array.isArray(answers[q.id])
-                        ? answers[q.id]
-                        : [];
-                      const checked = selected.includes(opt.value);
-                      return (
-                        <label
-                          key={opt.id}
-                          className={`flex cursor-pointer items-start gap-3.5 rounded-2xl border-2 p-4 font-semibold transition-all ${
-                            checked
-                              ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 ring-1 ring-emerald-600"
-                              : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/30"
-                          }`}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={checked}
-                            onChange={() =>
-                              setAnswers((prev) => ({
-                                ...prev,
-                                [q.id]: checked
-                                  ? selected.filter((v) => v !== opt.value)
-                                  : [...selected, opt.value],
-                              }))
-                            }
-                            className="h-4 w-4 rounded accent-emerald-600 mt-0.5 shrink-0"
-                          />
-                          <span className="text-xs sm:text-sm break-words flex-1 leading-snug">
-                            {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
-                          </span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* NUMBER */}
-              {q.type === "NUMBER" && (
-                <div className="max-w-md mx-auto space-y-5">
-                  <div className="flex items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const cur = Number(answers[q.id]) || 0;
-                        if (cur > 0) {
-                          setAnswers((prev) => ({ ...prev, [q.id]: cur - 1 }));
-                        }
-                      }}
-                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-foreground hover:bg-muted active:scale-95 transition"
-                    >
-                      <Minus className="w-5 h-5" />
-                    </button>
-
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      value={answers[q.id] ?? ""}
-                      onChange={(e) =>
-                        setAnswers((prev) => ({
-                          ...prev,
-                          [q.id]: e.target.value === "" ? "" : Number(e.target.value),
-                        }))
-                      }
-                      className="flex-1 p-4 text-center text-2xl sm:text-3xl font-mono font-bold rounded-2xl border-2 border-border focus:border-emerald-600 focus:outline-none bg-background text-foreground"
-                      placeholder="0"
-                    />
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const cur = Number(answers[q.id]) || 0;
-                        setAnswers((prev) => ({ ...prev, [q.id]: cur + 1 }));
-                      }}
-                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-foreground hover:bg-muted active:scale-95 transition"
-                    >
-                      <Plus className="w-5 h-5" />
-                    </button>
-                  </div>
-
-                  {/* Quick Number Presets */}
-                  <div className="flex items-center justify-center gap-2 flex-wrap">
-                    {[0, 1, 2, 3, 4, 5].map((preset) => (
-                      <button
-                        type="button"
-                        key={preset}
-                        onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: preset }))}
-                        className={`h-10 w-11 rounded-xl border text-xs font-bold transition ${
-                          answers[q.id] === preset
-                            ? "border-emerald-600 bg-emerald-600 text-white shadow-xs"
-                            : "border-border bg-card text-foreground hover:bg-muted"
-                        }`}
-                      >
-                        {preset}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* LINEAR_SCALE */}
-              {q.type === "LINEAR_SCALE" && (
-                <div className="space-y-4 max-w-xl mx-auto">
-                  <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
-                    {Array.from(
-                      { length: (q.scaleMax ?? 5) - (q.scaleMin ?? 1) + 1 },
-                      (_, index) => (q.scaleMin ?? 1) + index
-                    ).map((value) => {
-                      const isSelected = answers[q.id] === value;
-                      return (
-                        <button
-                          type="button"
-                          key={value}
-                          onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: value }))}
-                          className={`h-12 w-12 sm:h-14 sm:w-14 rounded-2xl border-2 font-bold text-sm sm:text-base transition-all ${
-                            isSelected
-                              ? "border-emerald-600 bg-emerald-600 text-white shadow-md shadow-emerald-600/25"
-                              : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/40"
-                          }`}
-                        >
-                          {value}
                         </button>
                       );
                     })}
                   </div>
-                  {(q.scaleMinLabel || q.scaleMaxLabel) && (
-                    <div className="flex justify-between text-xs text-muted-foreground font-medium px-2">
-                      <span>{q.scaleMinLabel || "Min"}</span>
-                      <span>{q.scaleMaxLabel || "Max"}</span>
-                    </div>
-                  )}
-                </div>
-              )}
+                )}
 
-              {/* SHORT_TEXT */}
-              {q.type === "SHORT_TEXT" && (
-                <div className="relative max-w-2xl mx-auto">
-                  <input
-                    type="text"
-                    value={answers[q.id] || ""}
-                    onChange={(e) =>
-                      setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
-                    }
-                    className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none transition pr-10"
-                    placeholder="Enter response here..."
-                  />
-                  {answers[q.id] && (
-                    <button
-                      type="button"
-                      onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: "" }))}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1"
+                {/* MULTIPLE_CHOICE */}
+                {q.type === "MULTIPLE_CHOICE" && (
+                  <div className="space-y-3">
+                    <p className="text-[11px] text-muted-foreground font-medium mb-1">
+                      Select all options that apply:
+                    </p>
+                    <div
+                      className={`gap-3 ${
+                        q.options && q.options.length >= 4
+                          ? "grid grid-cols-1 md:grid-cols-2"
+                          : "space-y-2.5"
+                      }`}
                     >
-                      <X className="w-4 h-4" />
-                    </button>
-                  )}
-                </div>
-              )}
+                      {q.options?.map((opt: any) => {
+                        const selected: string[] = Array.isArray(answers[q.id])
+                          ? answers[q.id]
+                          : [];
+                        const checked = selected.includes(opt.value);
+                        return (
+                          <label
+                            key={opt.id}
+                            className={`flex cursor-pointer items-start gap-3.5 rounded-2xl border-2 p-4 font-semibold transition-all ${
+                              checked
+                                ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 ring-1 ring-emerald-600"
+                                : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/30"
+                            }`}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={() =>
+                                setAnswers((prev) => ({
+                                  ...prev,
+                                  [q.id]: checked
+                                    ? selected.filter((v) => v !== opt.value)
+                                    : [...selected, opt.value],
+                                }))
+                              }
+                              className="h-4 w-4 rounded accent-emerald-600 mt-0.5 shrink-0"
+                            />
+                            <span className="text-xs sm:text-sm break-words flex-1 leading-snug">
+                              {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
 
-              {/* LONG_TEXT */}
-              {q.type === "LONG_TEXT" && (
-                <div className="max-w-2xl mx-auto space-y-1">
-                  <textarea
-                    value={answers[q.id] || ""}
-                    onChange={(e) =>
-                      setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
-                    }
-                    rows={4}
-                    className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border focus:border-emerald-600 focus:outline-none bg-background text-foreground resize-none transition"
-                    placeholder="Enter detailed field observations or notes..."
-                  />
-                </div>
-              )}
+                {/* NUMBER (Only if not a roster question) */}
+                {q.type === "NUMBER" && !isRosterQuestion && (
+                  <div className="max-w-md mx-auto space-y-5">
+                    {/* Census auto-sync notice on Q13 and Q14 */}
+                    {(q.order === 12 || q.order === 13) && answers[q.id] !== undefined && (
+                      <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 shrink-0 text-emerald-600" />
+                        <span>Pre-filled from Household Roster (Q12). You can adjust if needed.</span>
+                      </div>
+                    )}
 
-              {/* DROPDOWN */}
-              {q.type === "DROPDOWN" && (
-                <div className="max-w-2xl mx-auto">
-                  <select
-                    value={answers[q.id] || ""}
-                    onChange={(e) =>
-                      setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
-                    }
-                    className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
-                  >
-                    <option value="">-- Select an option --</option>
-                    {q.options?.map((opt: any) => (
-                      <option key={opt.id} value={opt.value}>
-                        {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const cur = Number(answers[q.id]) || 0;
+                          if (cur > 0) {
+                            setAnswers((prev) => ({ ...prev, [q.id]: cur - 1 }));
+                          }
+                        }}
+                        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-foreground hover:bg-muted active:scale-95 transition"
+                      >
+                        <Minus className="w-5 h-5" />
+                      </button>
 
-              {/* DATE & TIME */}
-              {(q.type === "DATE" || q.type === "TIME") && (
-                <div className="max-w-md mx-auto">
-                  <input
-                    type={q.type.toLowerCase()}
-                    value={answers[q.id] || ""}
-                    onChange={(e) =>
-                      setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
-                    }
-                    className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
-                  />
-                </div>
-              )}
+                      <input
+                        type="number"
+                        inputMode="numeric"
+                        value={answers[q.id] ?? ""}
+                        onChange={(e) =>
+                          setAnswers((prev) => ({
+                            ...prev,
+                            [q.id]: e.target.value === "" ? "" : Number(e.target.value),
+                          }))
+                        }
+                        className="flex-1 p-4 text-center text-2xl sm:text-3xl font-mono font-bold rounded-2xl border-2 border-border focus:border-emerald-600 focus:outline-none bg-background text-foreground"
+                        placeholder="0"
+                      />
 
-              {/* GRIDS */}
-              {(q.type === "MULTIPLE_CHOICE_GRID" || q.type === "CHECKBOX_GRID") && (
-                <div className="space-y-4 max-w-3xl mx-auto">
-                  {q.rows?.map((row: any) => {
-                    const grid = answers[q.id] || {};
-                    const rowAnswer = grid[row.value];
-                    return (
-                      <fieldset key={row.id} className="space-y-2 rounded-2xl border border-border p-4 bg-muted/20">
-                        <legend className="px-2 text-xs sm:text-sm font-bold text-foreground break-words">
-                          {row.text}
-                        </legend>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                          {q.options?.map((opt: any) => {
-                            const checked =
-                              q.type === "MULTIPLE_CHOICE_GRID"
-                                ? rowAnswer === opt.value
-                                : Array.isArray(rowAnswer) && rowAnswer.includes(opt.value);
-                            return (
-                              <label
-                                key={opt.id}
-                                className={`flex cursor-pointer items-start gap-2.5 rounded-xl border p-2.5 text-xs font-medium transition ${
-                                  checked
-                                    ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100"
-                                    : "border-border bg-card text-foreground"
-                                }`}
-                              >
-                                <input
-                                  type={q.type === "MULTIPLE_CHOICE_GRID" ? "radio" : "checkbox"}
-                                  name={`${q.id}-${row.id}`}
-                                  checked={checked}
-                                  onChange={() =>
-                                    setAnswers((prev) => {
-                                      const prevGrid = prev[q.id] || {};
-                                      if (q.type === "MULTIPLE_CHOICE_GRID") {
-                                        return { ...prev, [q.id]: { ...prevGrid, [row.value]: opt.value } };
-                                      }
-                                      const curRow: string[] = Array.isArray(prevGrid[row.value])
-                                        ? prevGrid[row.value]
-                                        : [];
-                                      return {
-                                        ...prev,
-                                        [q.id]: {
-                                          ...prevGrid,
-                                          [row.value]: checked
-                                            ? curRow.filter((v) => v !== opt.value)
-                                            : [...curRow, opt.value],
-                                        },
-                                      };
-                                    })
-                                  }
-                                  className="h-4 w-4 accent-emerald-600 mt-0.5 shrink-0"
-                                />
-                                <span className="break-words leading-tight">{opt.text}</span>
-                              </label>
-                            );
-                          })}
-                        </div>
-                      </fieldset>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const cur = Number(answers[q.id]) || 0;
+                          setAnswers((prev) => ({ ...prev, [q.id]: cur + 1 }));
+                        }}
+                        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border bg-card text-foreground hover:bg-muted active:scale-95 transition"
+                      >
+                        <Plus className="w-5 h-5" />
+                      </button>
+                    </div>
+
+                    {/* Quick Number Presets */}
+                    <div className="flex items-center justify-center gap-2 flex-wrap">
+                      {[0, 1, 2, 3, 4, 5].map((preset) => (
+                        <button
+                          type="button"
+                          key={preset}
+                          onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: preset }))}
+                          className={`h-10 w-11 rounded-xl border text-xs font-bold transition ${
+                            answers[q.id] === preset
+                              ? "border-emerald-600 bg-emerald-600 text-white shadow-xs"
+                              : "border-border bg-card text-foreground hover:bg-muted"
+                          }`}
+                        >
+                          {preset}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* LINEAR_SCALE */}
+                {q.type === "LINEAR_SCALE" && (
+                  <div className="space-y-4 max-w-xl mx-auto">
+                    <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
+                      {Array.from(
+                        { length: (q.scaleMax ?? 5) - (q.scaleMin ?? 1) + 1 },
+                        (_, index) => (q.scaleMin ?? 1) + index
+                      ).map((value) => {
+                        const isSelected = answers[q.id] === value;
+                        return (
+                          <button
+                            type="button"
+                            key={value}
+                            onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: value }))}
+                            className={`h-12 w-12 sm:h-14 sm:w-14 rounded-2xl border-2 font-bold text-sm sm:text-base transition-all ${
+                              isSelected
+                                ? "border-emerald-600 bg-emerald-600 text-white shadow-md shadow-emerald-600/25"
+                                : "border-border bg-card text-foreground hover:border-emerald-500/40 hover:bg-muted/40"
+                            }`}
+                          >
+                            {value}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {(q.scaleMinLabel || q.scaleMaxLabel) && (
+                      <div className="flex justify-between text-xs text-muted-foreground font-medium px-2">
+                        <span>{q.scaleMinLabel || "Min"}</span>
+                        <span>{q.scaleMaxLabel || "Max"}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* SHORT_TEXT */}
+                {q.type === "SHORT_TEXT" && (
+                  <div className="relative max-w-2xl mx-auto">
+                    <input
+                      type="text"
+                      value={answers[q.id] || ""}
+                      onChange={(e) =>
+                        setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
+                      }
+                      className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none transition pr-10"
+                      placeholder="Enter response here..."
+                    />
+                    {answers[q.id] && (
+                      <button
+                        type="button"
+                        onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: "" }))}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {/* LONG_TEXT */}
+                {q.type === "LONG_TEXT" && (
+                  <div className="max-w-2xl mx-auto space-y-1">
+                    <textarea
+                      value={answers[q.id] || ""}
+                      onChange={(e) =>
+                        setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
+                      }
+                      rows={4}
+                      className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border focus:border-emerald-600 focus:outline-none bg-background text-foreground resize-none transition"
+                      placeholder="Enter detailed field observations or notes..."
+                    />
+                  </div>
+                )}
+
+                {/* DROPDOWN */}
+                {q.type === "DROPDOWN" && (
+                  <div className="max-w-2xl mx-auto">
+                    <select
+                      value={answers[q.id] || ""}
+                      onChange={(e) =>
+                        setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
+                      }
+                      className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
+                    >
+                      <option value="">-- Select an option --</option>
+                      {q.options?.map((opt: any) => (
+                        <option key={opt.id} value={opt.value}>
+                          {questionTranslations[q.id]?.options?.[opt.id] || opt.text}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {/* DATE & TIME */}
+                {(q.type === "DATE" || q.type === "TIME") && (
+                  <div className="max-w-md mx-auto">
+                    <input
+                      type={q.type.toLowerCase()}
+                      value={answers[q.id] || ""}
+                      onChange={(e) =>
+                        setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))
+                      }
+                      className="w-full p-4 text-xs sm:text-sm rounded-2xl border-2 border-border bg-background text-foreground focus:border-emerald-600 focus:outline-none"
+                    />
+                  </div>
+                )}
+
+                {/* GRIDS */}
+                {(q.type === "MULTIPLE_CHOICE_GRID" || q.type === "CHECKBOX_GRID") && (
+                  <div className="space-y-4 max-w-3xl mx-auto">
+                    {q.rows?.map((row: any) => {
+                      const grid = answers[q.id] || {};
+                      const rowAnswer = grid[row.value];
+                      return (
+                        <fieldset key={row.id} className="space-y-2 rounded-2xl border border-border p-4 bg-muted/20">
+                          <legend className="px-2 text-xs sm:text-sm font-bold text-foreground break-words">
+                            {row.text}
+                          </legend>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                            {q.options?.map((opt: any) => {
+                              const checked =
+                                q.type === "MULTIPLE_CHOICE_GRID"
+                                  ? rowAnswer === opt.value
+                                  : Array.isArray(rowAnswer) && rowAnswer.includes(opt.value);
+                              return (
+                                <label
+                                  key={opt.id}
+                                  className={`flex cursor-pointer items-start gap-2.5 rounded-xl border p-2.5 text-xs font-medium transition ${
+                                    checked
+                                      ? "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-100"
+                                      : "border-border bg-card text-foreground"
+                                  }`}
+                                >
+                                  <input
+                                    type={q.type === "MULTIPLE_CHOICE_GRID" ? "radio" : "checkbox"}
+                                    name={`${q.id}-${row.id}`}
+                                    checked={checked}
+                                    onChange={() =>
+                                      setAnswers((prev) => {
+                                        const prevGrid = prev[q.id] || {};
+                                        if (q.type === "MULTIPLE_CHOICE_GRID") {
+                                          return { ...prev, [q.id]: { ...prevGrid, [row.value]: opt.value } };
+                                        }
+                                        const curRow: string[] = Array.isArray(prevGrid[row.value])
+                                          ? prevGrid[row.value]
+                                          : [];
+                                        return {
+                                          ...prev,
+                                          [q.id]: {
+                                            ...prevGrid,
+                                            [row.value]: checked
+                                              ? curRow.filter((v) => v !== opt.value)
+                                              : [...curRow, opt.value],
+                                          },
+                                        };
+                                      })
+                                    }
+                                    className="h-4 w-4 accent-emerald-600 mt-0.5 shrink-0"
+                                  />
+                                  <span className="break-words leading-tight">{opt.text}</span>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </main>
 
@@ -1445,7 +1580,7 @@ export default function FieldCollectionPage() {
             {/* Left: Previous Question */}
             <button
               type="button"
-              onClick={() => setCurrentStep((c) => Math.max(-1, c - 1))}
+              onClick={handlePrev}
               className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-3 rounded-xl border border-border text-xs sm:text-sm font-semibold bg-background text-foreground hover:bg-muted active:scale-[0.98] transition"
               aria-label="Previous question"
             >
@@ -1455,7 +1590,12 @@ export default function FieldCollectionPage() {
 
             {/* Center: Desktop Key Indicator or Required Hint */}
             <div className="hidden md:flex items-center gap-2 text-[11px] text-muted-foreground font-medium">
-              {canAdvance ? (
+              {currentSkip.skipped ? (
+                <span className="text-amber-600 dark:text-amber-400 text-xs font-semibold flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Skipped by survey branching logic</span>
+                </span>
+              ) : canAdvance ? (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted border border-border text-[11px] font-mono">
                   <span>Press</span>
                   <CornerDownLeft className="w-3.5 h-3.5 text-emerald-600" />
@@ -1470,10 +1610,10 @@ export default function FieldCollectionPage() {
 
             {/* Right: Skip & Next Button */}
             <div className="flex items-center gap-2 sm:gap-3">
-              {!q.required && !hasCurrentAnswer && (
+              {!q.required && !hasCurrentAnswer && !currentSkip.skipped && (
                 <button
                   type="button"
-                  onClick={() => setCurrentStep((c) => c + 1)}
+                  onClick={handleNext}
                   className="inline-flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition"
                 >
                   <span>{t.skip}</span>
@@ -1483,11 +1623,7 @@ export default function FieldCollectionPage() {
 
               <button
                 type="button"
-                onClick={() => {
-                  if (canAdvance) {
-                    setCurrentStep((c) => c + 1);
-                  }
-                }}
+                onClick={handleNext}
                 disabled={!canAdvance}
                 className={`inline-flex items-center justify-center gap-2 px-5 sm:px-8 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md ${
                   canAdvance
@@ -1538,6 +1674,7 @@ export default function FieldCollectionPage() {
                         const idx = section.start + offset;
                         const isCurrent = currentStep === idx;
                         const isAnswered = hasAnswer(answers[sq.id]);
+                        const skipCheck = isQuestionSkipped(sq.order + 1, questions, answers, DEFAULT_STUDY_SKIP_RULES);
 
                         return (
                           <button
@@ -1550,6 +1687,8 @@ export default function FieldCollectionPage() {
                             className={`h-9 rounded-xl text-xs font-bold flex items-center justify-center transition ${
                               isCurrent
                                 ? "bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-500"
+                                : skipCheck.skipped
+                                ? "bg-muted/40 text-muted-foreground line-through opacity-60"
                                 : isAnswered
                                 ? "bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30"
                                 : "bg-muted text-muted-foreground border border-border"
@@ -1607,4 +1746,14 @@ export default function FieldCollectionPage() {
       )}
     </div>
   );
+}
+
+function skipStatusClass(isSkipped: boolean, isAnswered: boolean): string {
+  if (isSkipped) {
+    return "bg-muted/40 text-muted-foreground/60 border border-border/40 hover:bg-muted";
+  }
+  if (isAnswered) {
+    return "bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 hover:bg-emerald-500/25";
+  }
+  return "bg-card text-muted-foreground border border-border hover:border-emerald-500/40 hover:text-foreground";
 }

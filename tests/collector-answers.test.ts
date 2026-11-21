@@ -34,3 +34,24 @@ test("formats only answered questions and keeps numeric values numeric", () => {
     ]
   );
 });
+
+test("formats household roster correctly preserving total as numberValue and JSON as textValue", () => {
+  const roster = {
+    total: 3,
+    maleCount: 2,
+    femaleCount: 1,
+    members: [
+      { id: "m1", role: "Household Head", sex: "Male", age: 40 },
+      { id: "m2", role: "Spouse", sex: "Female", age: 36 },
+      { id: "m3", role: "Child", sex: "Male", age: 10 },
+    ],
+  };
+
+  assert.equal(hasAnswer(roster), true);
+
+  const formatted = formatCollectorAnswers({ q12: roster });
+  assert.equal(formatted.length, 1);
+  assert.equal(formatted[0].questionId, "q12");
+  assert.equal(formatted[0].numberValue, 3);
+  assert.ok(formatted[0].textValue?.includes("Household Head"));
+});
