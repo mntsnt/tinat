@@ -136,17 +136,17 @@ export default async function Home() {
                 </div>
 
                 {/* Visual Research Context Banner */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl mb-4 border border-border/80 shadow-2xs">
+                <div className="relative h-36 sm:h-40 w-full overflow-hidden rounded-xl mb-4 border border-border/80 shadow-2xs">
                   <Image
                     src="/researcher-hero.jpg"
                     alt="Clinical researcher reviewing epidemiological health data"
                     fill
                     priority
                     sizes="(max-width: 768px) 100vw, 550px"
-                    className="object-cover object-center"
+                    className="object-cover object-top"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30 pointer-events-none" />
-                  <div className="absolute top-2.5 left-3 right-3 flex items-center justify-between text-white">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white pointer-events-none">
                     <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider bg-emerald-700/90 backdrop-blur-xs px-2.5 py-0.5 rounded shadow-2xs">
                       {featuredStudy?.category || "Medical Research"}
                     </span>
