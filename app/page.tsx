@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ButtonLink } from "./components/ui/Button";
 import {
   ArrowRight,
@@ -13,6 +14,7 @@ import {
   GraduationCap,
   MapPin,
   CheckCircle2,
+  Users,
 } from "lucide-react";
 import type { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
@@ -173,12 +175,30 @@ export default async function Home() {
             {/* Pathway 1: Digital Surveys */}
             <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-xs flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
+                <div className="relative h-48 w-full rounded-xl overflow-hidden mb-6 border border-border/80 group">
+                  <Image
+                    src="/participant-study.jpg"
+                    alt="Ethiopian participant answering health questionnaire on smartphone"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-white bg-emerald-700/90 backdrop-blur-xs px-2.5 py-1 rounded-full shadow-2xs">
+                      Online Participants
+                    </span>
+                    <span className="text-[11px] font-medium text-white/90 bg-black/40 backdrop-blur-xs px-2 py-0.5 rounded">
+                      Self-Administered
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between mb-3">
+                  <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
                     <Coins className="w-5 h-5" />
                   </div>
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full">
-                    Online Participants
+                    Platform TC Credits
                   </span>
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Digital Surveys</h3>
@@ -211,12 +231,30 @@ export default async function Home() {
             {/* Pathway 2: Field Data Collection */}
             <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-xs flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
+                <div className="relative h-48 w-full rounded-xl overflow-hidden mb-6 border border-border/80 group">
+                  <Image
+                    src="/field-collector.jpg"
+                    alt="Field enumerator conducting health survey in community"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-white bg-emerald-700/90 backdrop-blur-xs px-2.5 py-1 rounded-full shadow-2xs">
+                      Field Enumerators
+                    </span>
+                    <span className="text-[11px] font-medium text-white/90 bg-black/40 backdrop-blur-xs px-2 py-0.5 rounded">
+                      In-Person &bull; Offline Sync
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between mb-3">
+                  <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full">
-                    Field Enumerators &bull; Paid in ETB
+                    Paid in Cash (ETB)
                   </span>
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Field Data Collection</h3>
@@ -306,30 +344,49 @@ export default async function Home() {
 
       {/* Final Call to Action */}
       <section className="relative z-10 py-16 lg:py-20 bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
-            Ready to publish your study?
-          </h2>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Create your questionnaire in a few minutes, start collecting data from verified participants, and download your results in Excel or CSV.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-            <ButtonLink
-              href="/researcher/studies/new"
-              size="lg"
-              className="h-12 w-full sm:w-auto rounded-xl bg-emerald-700 text-white hover:bg-emerald-800 px-6 font-semibold dark:bg-emerald-600 dark:hover:bg-emerald-700"
-            >
-              Publish a Study
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </ButtonLink>
-            <ButtonLink
-              href="/participant/studies"
-              variant="outline"
-              size="lg"
-              className="h-12 w-full sm:w-auto rounded-xl border-border bg-card px-6 font-semibold hover:bg-muted"
-            >
-              Browse Active Studies
-            </ButtonLink>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-lg">
+            <div className="grid lg:grid-cols-12 items-center">
+              <div className="p-8 sm:p-12 lg:col-span-7 space-y-6">
+                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-700/15 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-800 dark:text-emerald-300">
+                  <Users className="h-3.5 w-3.5" />
+                  Ethiopian Medical &amp; Public Health Community
+                </span>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
+                  Ready to publish your study?
+                </h2>
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-xl">
+                  Create questionnaires with skip logic and rosters, gather responses from verified participants across Ethiopia, or deploy field enumerators with offline sync and direct Birr (ETB) compensation.
+                </p>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+                  <ButtonLink
+                    href="/researcher/studies/new"
+                    size="lg"
+                    className="h-12 rounded-xl bg-emerald-700 text-white hover:bg-emerald-800 px-6 font-semibold dark:bg-emerald-600 dark:hover:bg-emerald-700 shadow-md shadow-emerald-900/10 text-center justify-center"
+                  >
+                    Publish a Study
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </ButtonLink>
+                  <ButtonLink
+                    href="/participant/studies"
+                    variant="outline"
+                    size="lg"
+                    className="h-12 rounded-xl border-border bg-card px-6 font-semibold hover:bg-muted text-center justify-center"
+                  >
+                    Browse Active Studies
+                  </ButtonLink>
+                </div>
+              </div>
+              <div className="relative h-64 sm:h-80 lg:h-full lg:min-h-[380px] lg:col-span-5 overflow-hidden">
+                <Image
+                  src="/collaborative-team.jpg"
+                  alt="Ethiopian medical researchers and public health collaborators"
+                  fill
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-card via-card/30 to-transparent" />
+              </div>
+            </div>
           </div>
         </div>
       </section>

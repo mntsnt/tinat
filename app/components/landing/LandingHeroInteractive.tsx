@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Stethoscope,
@@ -38,6 +39,24 @@ interface LandingHeroInteractiveProps {
 }
 
 type RoleType = "researcher" | "participant" | "collector";
+
+const ROLE_HERO_IMAGES: Record<RoleType, { src: string; alt: string; badge: string }> = {
+  researcher: {
+    src: "/researcher-hero.jpg",
+    alt: "Medical researcher reviewing clinical health data",
+    badge: "Medical Research",
+  },
+  participant: {
+    src: "/participant-study.jpg",
+    alt: "Study participant completing health questionnaire",
+    badge: "Online Participant Cohort",
+  },
+  collector: {
+    src: "/field-collector.jpg",
+    alt: "Field enumerator collecting community health data",
+    badge: "Community Field Survey",
+  },
+};
 
 export function LandingHeroInteractive({ featuredStudy }: LandingHeroInteractiveProps) {
   const [role, setRole] = useState<RoleType>("researcher");
@@ -233,6 +252,42 @@ export function LandingHeroInteractive({ featuredStudy }: LandingHeroInteractive
           )}
         </div>
 
+        {/* Social Proof Avatars */}
+        <div className="flex items-center gap-3 pt-1">
+          <div className="flex -space-x-2 overflow-hidden">
+            <Image
+              src="/avatar-1.jpg"
+              alt="Medical researcher avatar"
+              width={34}
+              height={34}
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover shadow-2xs"
+            />
+            <Image
+              src="/woman.png"
+              alt="Participant avatar"
+              width={34}
+              height={34}
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover bg-emerald-100 dark:bg-emerald-950 shadow-2xs"
+            />
+            <Image
+              src="/man.png"
+              alt="Field enumerator avatar"
+              width={34}
+              height={34}
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover bg-teal-100 dark:bg-teal-950 shadow-2xs"
+            />
+          </div>
+          <div className="text-xs">
+            <div className="flex items-center gap-1 font-semibold text-foreground">
+              <span className="flex text-amber-500 text-xs">★★★★★</span>
+              <span className="text-[11px] text-muted-foreground font-medium">4.9/5 Rating</span>
+            </div>
+            <p className="text-[11px] text-muted-foreground">
+              Trusted by 1,200+ doctors, enumerators &amp; participants
+            </p>
+          </div>
+        </div>
+
         {/* Feature Pills */}
         <div className="flex flex-wrap gap-x-5 gap-y-2 pt-2">
           {(role === "researcher"
@@ -310,15 +365,32 @@ export function LandingHeroInteractive({ featuredStudy }: LandingHeroInteractive
             <div>
               {featuredStudy ? (
                 <div className="space-y-4 animate-in fade-in duration-200">
-                  <div className="rounded-xl border border-emerald-700/15 bg-emerald-50/50 p-4 dark:bg-emerald-950/20 sm:p-5">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
-                        {featuredStudy.category || "Public Health"}
-                      </span>
-                      <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                  {/* Persona-Aware Photography Banner */}
+                  <div className="relative h-28 w-full overflow-hidden rounded-xl border border-border/80 shadow-2xs">
+                    <Image
+                      src={ROLE_HERO_IMAGES[role].src}
+                      alt={ROLE_HERO_IMAGES[role].alt}
+                      fill
+                      priority
+                      className="object-cover object-top transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                    <div className="absolute top-2.5 right-2.5">
+                      <span className="text-[11px] font-semibold text-white bg-black/50 backdrop-blur-md px-2 py-0.5 rounded-md border border-white/15">
                         {featuredStudy.rewardCredits > 0 ? `+${featuredStudy.rewardCredits} TC` : "Open Data"}
                       </span>
                     </div>
+                    <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-white uppercase tracking-wider bg-emerald-700/85 backdrop-blur-xs px-2 py-0.5 rounded">
+                        {featuredStudy.category || ROLE_HERO_IMAGES[role].badge}
+                      </span>
+                      <span className="text-[10px] text-white/80 font-medium">
+                        Verified Study
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl border border-emerald-700/15 bg-emerald-50/50 p-4 dark:bg-emerald-950/20 sm:p-5">
                     <p className="text-base font-semibold leading-snug text-foreground">
                       {featuredStudy.title}
                     </p>
@@ -364,7 +436,22 @@ export function LandingHeroInteractive({ featuredStudy }: LandingHeroInteractive
                   </ButtonLink>
                 </div>
               ) : (
-                <div className="py-8 text-center space-y-3">
+                <div className="py-6 text-center space-y-3">
+                  <div className="relative h-32 w-full overflow-hidden rounded-xl border border-border mb-3">
+                    <Image
+                      src={ROLE_HERO_IMAGES[role].src}
+                      alt={ROLE_HERO_IMAGES[role].alt}
+                      fill
+                      priority
+                      className="object-cover object-top transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                    <div className="absolute bottom-2.5 left-3">
+                      <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-600/90 text-white px-2 py-0.5 rounded">
+                        {ROLE_HERO_IMAGES[role].badge}
+                      </span>
+                    </div>
+                  </div>
                   <p className="text-sm font-semibold text-foreground">No active studies currently</p>
                   <p className="text-xs text-muted-foreground">Be the first to publish a health questionnaire.</p>
                   <ButtonLink href="/researcher/studies/new" size="sm" className="bg-emerald-700 text-white">
