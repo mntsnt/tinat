@@ -3,21 +3,25 @@ import { redirect } from "next/navigation";
 import { getSession } from "../../../lib/auth";
 import { prisma } from "../../../lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../components/ui/Card";
-import { getButtonClasses } from "../../components/ui/Button";
 import { Badge } from "../../components/ui/Badge";
 import { formatCredits } from "@/lib/config/features";
 import { checkIsUserCollector } from "@/lib/collector/status";
 import {
-  Coins,
-  Banknote,
   Wallet,
-  CheckCircle2,
-  ChevronRight,
+  ArrowRight,
   Sparkles,
   ArrowUpRight,
   ClipboardList,
   ShieldCheck,
-  Building2,
+  CheckCircle2,
+  Coins,
+  CreditCard,
+  Wifi,
+  History,
+  TrendingUp,
+  Banknote,
+  Gift,
+  ChevronRight,
 } from "lucide-react";
 
 export default async function ParticipantWalletPage() {
@@ -32,8 +36,21 @@ export default async function ParticipantWalletPage() {
     include: {
       wallet: {
         include: {
-          transactions: { orderBy: { createdAt: "desc" } },
+          transactions: { orderBy: { createdAt: "desc" }, take: 15 },
         },
+      },
+      participantLinks: {
+        include: {
+          study: {
+            select: {
+              id: true,
+              title: true,
+              rewardCredits: true,
+            },
+          },
+        },
+        orderBy: { createdAt: "desc" },
+        take: 5,
       },
     },
   });
@@ -42,12 +59,12 @@ export default async function ParticipantWalletPage() {
     redirect("/dashboard");
   }
 
-  // Check if user is a field collector
+  // Check if user is a field data collector
   const isCollectorStatus =
     user.role === "DATA_COLLECTOR" ||
     (await checkIsUserCollector(user.id));
 
-  // Load collector data (assignments, field responses, and settled ETB payouts)
+  // Field collector statistics (if applicable)
   const [assignedStudies, collectedResponsesGrouped, collectorPayouts] = await Promise.all([
     prisma.studyDataCollector.findMany({
       where: { userId: user.id },
@@ -59,11 +76,9 @@ export default async function ParticipantWalletPage() {
             status: true,
             collectorPayType: true,
             collectorPayRateCents: true,
-            researcher: { select: { name: true } },
           },
         },
       },
-      orderBy: { assignedAt: "desc" },
     }),
     prisma.response.groupBy({
       by: ["studyId"],
@@ -72,15 +87,7 @@ export default async function ParticipantWalletPage() {
     }),
     prisma.collectorPayout.findMany({
       where: { collectorUserId: user.id },
-      include: {
-        study: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
-      },
-      orderBy: { createdAt: "desc" },
+      select: { amountCents: true },
     }),
   ]);
 
@@ -91,30 +98,17 @@ export default async function ParticipantWalletPage() {
     totalResponsesCollected += group._count.id;
   }
 
-  // Calculate ETB earnings per study after starting field collection
-  const studyEarnings = assignedStudies.map((assignment) => {
+  let totalEarnedEtbCents = 0;
+  for (const assignment of assignedStudies) {
     const s = assignment.study;
-    const responsesCount = responsesMap.get(s.id) || 0;
-    let earnedCents = 0;
+    const count = responsesMap.get(s.id) || 0;
     if (s.collectorPayType === "FIXED") {
-      // Fixed compensation activates once field collection has started (at least 1 response collected)
-      earnedCents = responsesCount > 0 ? s.collectorPayRateCents : 0;
+      totalEarnedEtbCents += count > 0 ? s.collectorPayRateCents : 0;
     } else if (s.collectorPayType === "PER_RESPONSE") {
-      earnedCents = responsesCount * s.collectorPayRateCents;
+      totalEarnedEtbCents += count * s.collectorPayRateCents;
     }
-    return {
-      studyId: s.id,
-      title: s.title,
-      researcherName: s.researcher?.name || "Researcher",
-      status: s.status,
-      payType: s.collectorPayType,
-      payRateCents: s.collectorPayRateCents,
-      responsesCount,
-      earnedCents,
-    };
-  });
+  }
 
-  const totalEarnedEtbCents = studyEarnings.reduce((sum, s) => sum + s.earnedCents, 0);
   const totalPaidEtbCents = collectorPayouts.reduce((sum, p) => sum + p.amountCents, 0);
   const pendingEtbCents = Math.max(0, totalEarnedEtbCents - totalPaidEtbCents);
 
@@ -124,7 +118,7 @@ export default async function ParticipantWalletPage() {
     totalResponsesCollected > 0 ||
     collectorPayouts.length > 0;
 
-  // Participant Tinat Credits (TC) metrics
+  // Participant Wallet metrics
   const balance = user.wallet?.balance ?? 0;
   const transactions = user.wallet?.transactions ?? [];
 
@@ -132,431 +126,305 @@ export default async function ParticipantWalletPage() {
     .filter((tx) => tx.type === "EARN" || tx.type === "REFUND" || tx.type === "REWARD_CREDIT")
     .reduce((total, tx) => total + tx.amount, 0);
 
-  function formatTransactionType(type: string) {
-    switch (type) {
-      case "REWARD_CREDIT":
-      case "EARN":
-        return "Reward";
-      case "REFUND":
-        return "Refund";
-      case "ADMIN_ADJUSTMENT":
-      case "ADJUSTMENT":
-        return "Adjustment";
-      case "SPEND":
-        return "Spent";
-      case "WITHDRAW":
-        return "Archived";
-      default:
-        return type;
-    }
-  }
-
-  function getTransactionBadge(type: string) {
-    if (type === "EARN" || type === "REFUND" || type === "REWARD_CREDIT") {
-      return <Badge variant="success">{formatTransactionType(type)}</Badge>;
-    }
-    if (type === "WITHDRAW" || type === "SPEND") {
-      return <Badge variant="secondary">{formatTransactionType(type)}</Badge>;
-    }
-    return <Badge variant="secondary">{formatTransactionType(type)}</Badge>;
-  }
+  const cardMemberId = user.id.slice(-4).toUpperCase();
 
   return (
-    <div className="w-full px-4 py-6 md:px-7 md:py-8 space-y-10">
-      {/* Header */}
-      <div>
-        <Link href="/participant" className={getButtonClasses("ghost", "md", "-ml-4 mb-4")}>
-          &larr; Back to Dashboard
-        </Link>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                <Wallet className="w-6 h-6" />
-              </div>
-              <h1 className="text-2xl font-black tracking-tight text-foreground">My Wallet</h1>
-            </div>
-            <p className="text-sm text-muted-foreground mt-1">
-              Manage your field data collection earnings and study participation rewards.
-            </p>
+    <div className="w-full px-4 py-6 md:px-7 md:py-8 space-y-8 max-w-6xl mx-auto">
+      {/* Minimal Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+            <Link href="/participant" className="hover:text-foreground transition-colors">
+              Participant
+            </Link>
+            <span>/</span>
+            <span className="text-foreground font-medium">Wallet &amp; Card</span>
           </div>
-
-          <div className="flex items-center gap-2">
-            {isCollector && (
-              <Badge className="bg-emerald-600/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 text-xs px-3 py-1 font-semibold flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5" /> Field Collector Active
-              </Badge>
-            )}
-            <Badge variant="outline" className="text-xs px-3 py-1 font-semibold">
-              Ethiopian Birr &bull; Tinat Credits
-            </Badge>
-          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            My Wallet
+          </h1>
         </div>
-      </div>
 
-      {/* ─────────────────────────────────────────────────────────────
-          DECK 1: FIELD DATA COLLECTION COMPENSATION (ETB)
-          Shows the amount of ETB a participant has after starting field collection
-         ───────────────────────────────────────────────────────────── */}
-      {isCollector ? (
-        <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-b from-emerald-500/[0.07] via-card to-card p-5 md:p-7 shadow-sm space-y-6">
-          {/* Deck Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/80">
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-emerald-600 text-white shadow-sm">
-                <Banknote className="w-6 h-6" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="text-xl font-bold text-foreground">Field Collection Compensation</h2>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-500/15 px-2 py-0.5 rounded-md">
-                    ETB Wallet
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Real-money compensation accrued for gathering verified field responses on assigned studies.
-                </p>
-              </div>
-            </div>
-
+        <div className="flex items-center gap-2">
+          <Link
+            href="/participant/studies"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-2 text-xs font-semibold text-primary-foreground shadow-xs hover:bg-primary/90 transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            Earn Credits
+          </Link>
+          {isCollector && (
             <Link
               href="/collector/dashboard"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition self-start sm:self-auto"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground shadow-xs hover:bg-muted transition-colors"
             >
-              <ClipboardList className="w-3.5 h-3.5" />
-              <span>Field Collection Tasks</span>
-              <ArrowUpRight className="w-3 h-3" />
+              <ClipboardList className="w-3.5 h-3.5 text-emerald-500" />
+              Field Portal
             </Link>
-          </div>
-
-          {/* ETB Metrics Deck */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* Accrued / Payable Balance */}
-            <div className="p-4 rounded-xl bg-card border border-emerald-500/30 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/10 rounded-bl-full pointer-events-none" />
-              <span className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold block mb-1">
-                Accrued Balance
-              </span>
-              <div className="text-3xl font-black text-emerald-600 dark:text-emerald-400">
-                {(pendingEtbCents / 100).toFixed(2)}{" "}
-                <span className="text-sm font-semibold text-muted-foreground">ETB</span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1.5">
-                Payable by researchers upon study verification.
-              </p>
-            </div>
-
-            {/* Lifetime Earned */}
-            <div className="p-4 rounded-xl bg-card border border-border shadow-sm">
-              <span className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold block mb-1">
-                Lifetime ETB Earned
-              </span>
-              <div className="text-3xl font-black text-foreground">
-                {(totalEarnedEtbCents / 100).toFixed(2)}{" "}
-                <span className="text-sm font-semibold text-muted-foreground">ETB</span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1.5">
-                Total compensation accrued from field surveys.
-              </p>
-            </div>
-
-            {/* Total Paid Out */}
-            <div className="p-4 rounded-xl bg-card border border-border shadow-sm">
-              <span className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold block mb-1">
-                Disbursed to Date
-              </span>
-              <div className="text-3xl font-black text-foreground">
-                {(totalPaidEtbCents / 100).toFixed(2)}{" "}
-                <span className="text-sm font-semibold text-muted-foreground">ETB</span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1.5">
-                {collectorPayouts.length} settled payout disbursement(s).
-              </p>
-            </div>
-
-            {/* Surveys Collected */}
-            <div className="p-4 rounded-xl bg-card border border-border shadow-sm">
-              <span className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold block mb-1">
-                Surveys Collected
-              </span>
-              <div className="text-3xl font-black text-foreground">
-                {totalResponsesCollected}
-              </div>
-              <p className="text-xs text-muted-foreground mt-1.5">
-                Across {assignedStudies.length} study assignment(s).
-              </p>
-            </div>
-          </div>
-
-          {/* Assigned Studies & Rate Deck */}
-          <div className="bg-card rounded-xl border border-border p-4 md:p-5">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h3 className="text-base font-bold text-foreground">Active Field Collection Assignments</h3>
-                <p className="text-xs text-muted-foreground">
-                  Compensation rates and accrued earnings per assigned research study.
-                </p>
-              </div>
-              <span className="text-xs font-semibold text-muted-foreground">
-                {studyEarnings.length} {studyEarnings.length === 1 ? "Study" : "Studies"}
-              </span>
-            </div>
-
-            {studyEarnings.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground text-sm border border-dashed border-border rounded-lg">
-                <ShieldCheck className="w-8 h-8 mx-auto mb-2 text-emerald-500 opacity-60" />
-                <p className="font-semibold text-foreground">No active study assignments yet</p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Once assigned by a researcher, your collection compensation rates and progress will appear here.
-                </p>
-              </div>
-            ) : (
-              <div className="divide-y divide-border">
-                {studyEarnings.map((study) => (
-                  <div
-                    key={study.studyId}
-                    className="py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 first:pt-0 last:pb-0"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-bold text-sm text-foreground truncate">
-                          {study.title}
-                        </span>
-                        <Badge
-                          variant={study.status === "ACTIVE" ? "success" : "secondary"}
-                          className="text-[10px] uppercase font-bold"
-                        >
-                          {study.status}
-                        </Badge>
-                      </div>
-                      <p className="text-xs text-muted-foreground flex items-center gap-1.5">
-                        <Building2 className="w-3.5 h-3.5 text-muted-foreground/70" />
-                        Researcher: Dr. {study.researcherName}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-between md:justify-end gap-6 text-sm">
-                      <div className="text-left md:text-right">
-                        <span className="text-[11px] text-muted-foreground uppercase font-semibold block">
-                          Compensation Rate
-                        </span>
-                        <span className="font-bold text-foreground text-xs sm:text-sm">
-                          {study.payType === "FIXED"
-                            ? `${(study.payRateCents / 100).toFixed(2)} ETB (Fixed)`
-                            : `${(study.payRateCents / 100).toFixed(2)} ETB / response`}
-                        </span>
-                      </div>
-
-                      <div className="text-left md:text-right">
-                        <span className="text-[11px] text-muted-foreground uppercase font-semibold block">
-                          Collected
-                        </span>
-                        <span className="font-bold text-foreground text-xs sm:text-sm">
-                          {study.responsesCount} responses
-                        </span>
-                      </div>
-
-                      <div className="text-left md:text-right min-w-[90px]">
-                        <span className="text-[11px] text-muted-foreground uppercase font-semibold block">
-                          Accrued ETB
-                        </span>
-                        <span className="font-black text-emerald-600 dark:text-emerald-400 text-sm">
-                          {(study.earnedCents / 100).toFixed(2)} ETB
-                        </span>
-                      </div>
-
-                      <Link
-                        href={`/collector/studies/${study.studyId}/collect`}
-                        className="p-2 rounded-lg bg-muted hover:bg-muted/80 text-foreground transition flex-shrink-0"
-                        title="Collect Responses"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Settled ETB Payouts Deck */}
-          {collectorPayouts.length > 0 && (
-            <div className="bg-card rounded-xl border border-border p-4 md:p-5">
-              <div className="mb-4">
-                <h3 className="text-base font-bold text-foreground">Disbursed Field Payouts</h3>
-                <p className="text-xs text-muted-foreground">
-                  Official disbursement receipts verified and settled by study researchers.
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                {collectorPayouts.map((payout) => (
-                  <div
-                    key={payout.id}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border pb-3 last:border-0 last:pb-0 gap-2"
-                  >
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <Badge variant="success" className="text-[10px]">
-                          Settled
-                        </Badge>
-                        <span className="text-xs font-mono font-medium text-foreground">
-                          Ref: {payout.paymentReference}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          &bull; {payout.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                        </span>
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Study: <span className="text-foreground font-medium">{payout.study?.title || "Research Study"}</span>
-                      </p>
-                    </div>
-
-                    <div className="text-base font-bold text-emerald-600 dark:text-emerald-400">
-                      +{(payout.amountCents / 100).toFixed(2)} ETB
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           )}
         </div>
-      ) : (
-        /* Invitation / Program Card for non-collectors */
-        <div className="rounded-2xl border border-dashed border-emerald-500/30 bg-emerald-500/[0.03] p-5 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mt-0.5">
-              <Banknote className="w-5 h-5" />
+      </div>
+
+      {/* Main Grid: Mastercard Virtual Card & Balance Hub */}
+      <div className="grid gap-6 lg:grid-cols-12 items-start">
+        {/* Left Column: Mastercard-Style Physical Virtual Card */}
+        <div className="lg:col-span-5 flex justify-center lg:justify-start">
+          <div className="relative w-full max-w-[430px] aspect-[1.586/1] rounded-2xl p-5 sm:p-6 text-white shadow-2xl overflow-hidden border border-emerald-500/30 transition-all duration-300 hover:scale-[1.01] bg-gradient-to-br from-[#0c1813] via-[#081e16] to-[#040e0b]">
+            {/* Glossy Metallic Gradient Overlays */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/20 blur-3xl"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-teal-500/15 blur-3xl"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.14),transparent_65%)]"
+            />
+
+            {/* Card Header: Brand & Contactless Symbol */}
+            <div className="relative z-10 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="h-6 w-6 rounded-md bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center">
+                  <Sparkles className="h-3.5 w-3.5 text-emerald-300" />
+                </div>
+                <div>
+                  <p className="text-xs font-black tracking-[0.25em] text-white">TINAT</p>
+                  <p className="text-[8px] uppercase tracking-wider text-emerald-400/90 font-semibold leading-none">
+                    {isCollector ? "Field Contributor Pass" : "Health Contributor Pass"}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 text-white/70">
+                <Wifi className="h-4 w-4 rotate-90 opacity-80" />
+              </div>
             </div>
-            <div>
-              <h3 className="font-bold text-foreground text-sm flex items-center gap-2">
-                Field Data Collection Program (ETB)
-                <span className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-500/15 px-2 py-0.5 rounded-md">
-                  Earn Real Money
-                </span>
-              </h3>
-              <p className="text-xs text-muted-foreground mt-1 max-w-xl">
-                Participants who become data collectors can conduct in-person surveys on behalf of researchers and earn direct ETB cash compensation. When you are assigned as a collector and start field collection, your ETB wallet deck activates here.
+
+            {/* EMV Microchip & Balance Display */}
+            <div className="relative z-10 my-3 sm:my-4 flex items-center justify-between">
+              {/* Microchip */}
+              <div className="relative h-8 w-11 sm:h-9 sm:w-12 rounded-md bg-gradient-to-br from-amber-200 via-amber-400 to-amber-600 p-1 shadow-inner border border-amber-300/50 flex flex-col justify-between">
+                <div className="w-full h-px bg-amber-800/40" />
+                <div className="flex justify-between">
+                  <div className="w-2 h-2 rounded-xs border border-amber-800/40" />
+                  <div className="w-2 h-2 rounded-xs border border-amber-800/40" />
+                </div>
+                <div className="w-full h-px bg-amber-800/40" />
+              </div>
+
+              {/* Big Minimal Balance */}
+              <div className="text-right">
+                <p className="text-[9px] uppercase tracking-wider text-emerald-400 font-semibold">
+                  Available Balance
+                </p>
+                <p className="text-2xl sm:text-3xl font-black tracking-tight text-white font-mono">
+                  {formatCredits(balance)}{" "}
+                  <span className="text-xs font-bold text-emerald-400">TC</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Virtual Card Number */}
+            <div className="relative z-10 pt-1">
+              <p className="font-mono text-sm sm:text-base tracking-[0.25em] text-white/90 font-medium select-all">
+                •••• •••• •••• {cardMemberId}
               </p>
             </div>
-          </div>
-          <Link
-            href="/collector/dashboard"
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition whitespace-nowrap self-start md:self-auto"
-          >
-            <ClipboardList className="w-4 h-4" />
-            <span>Field Collection Portal</span>
-          </Link>
-        </div>
-      )}
 
-      {/* ─────────────────────────────────────────────────────────────
-          DECK 2: RESEARCH PARTICIPATION CREDITS (TC)
-          Platform-determined credits for survey participation
-         ───────────────────────────────────────────────────────────── */}
-      <div className="space-y-6">
-        <div className="flex items-center gap-2 border-b border-border pb-3">
-          <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-            <Coins className="w-4 h-4" />
-          </div>
-          <div>
-            <h2 className="text-lg font-bold text-foreground">Tinat Credits (TC) Wallet</h2>
-            <p className="text-xs text-muted-foreground">
-              Standardized platform credits automatically awarded for completing research surveys.
-            </p>
+            {/* Card Footer: Cardholder, Valid Thru, and Mastercard Circles */}
+            <div className="relative z-10 mt-3 flex items-end justify-between pt-1">
+              <div className="min-w-0 pr-2">
+                <p className="text-[8px] uppercase tracking-wider text-white/50 font-medium">
+                  Cardholder
+                </p>
+                <p className="text-xs font-bold tracking-wider uppercase text-white truncate max-w-[170px]">
+                  {user.name}
+                </p>
+              </div>
+
+              <div className="text-center px-2">
+                <p className="text-[8px] uppercase tracking-wider text-white/50 font-medium">
+                  Valid Thru
+                </p>
+                <p className="text-xs font-mono font-bold text-white">12/28</p>
+              </div>
+
+              {/* Mastercard-Style Interlocking Circles */}
+              <div className="flex items-center -space-x-3 shrink-0">
+                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-emerald-500/95 shadow-md" />
+                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-teal-300/90 mix-blend-screen shadow-md" />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          <Card className="md:col-span-1 bg-card border-border shadow-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Available Credits</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-extrabold text-foreground">
+        {/* Right Column: Minimal Balance Summary & Quick Actions */}
+        <div className="lg:col-span-7 space-y-4">
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="rounded-xl border border-border bg-card p-4 shadow-2xs">
+              <div className="flex items-center gap-2 text-muted-foreground mb-1 text-xs">
+                <Coins className="w-3.5 h-3.5 text-emerald-500" />
+                <span>Available TC</span>
+              </div>
+              <p className="text-xl font-bold text-foreground">
                 {formatCredits(balance)}
-              </div>
-              <p className="text-xs text-muted-foreground mt-2">
-                Standardized platform credits awarded for participating in verified research studies.
               </p>
-            </CardContent>
-          </Card>
+              <p className="text-[11px] text-muted-foreground mt-0.5">
+                Participation credits
+              </p>
+            </div>
 
-          <Card className="md:col-span-2">
-            <CardHeader>
-              <CardTitle className="text-base">Credit Recognition Summary</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col p-4 bg-muted/50 rounded-lg border border-border">
-                  <span className="text-xs text-muted-foreground mb-1 uppercase tracking-wider font-semibold">
-                    Lifetime Earned
-                  </span>
-                  <span className="text-2xl font-bold text-foreground">{formatCredits(totalEarnedCredits)}</span>
+            <div className="rounded-xl border border-border bg-card p-4 shadow-2xs">
+              <div className="flex items-center gap-2 text-muted-foreground mb-1 text-xs">
+                <TrendingUp className="w-3.5 h-3.5 text-primary" />
+                <span>Lifetime Earned</span>
+              </div>
+              <p className="text-xl font-bold text-foreground">
+                {formatCredits(totalEarnedCredits)}
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-0.5">
+                Total study rewards
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-4 shadow-2xs">
+              <div className="flex items-center gap-2 text-muted-foreground mb-1 text-xs">
+                <CheckCircle2 className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+                <span>Submissions</span>
+              </div>
+              <p className="text-xl font-bold text-foreground">
+                {user.participantLinks.length}
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-0.5">
+                Completed studies
+              </p>
+            </div>
+          </div>
+
+          {/* Active Field Collector Compensation Bar (if collector) */}
+          {isCollector && (
+            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-emerald-600 text-white">
+                  <Banknote className="w-4 h-4" />
                 </div>
-                <div className="flex flex-col p-4 bg-muted/50 rounded-lg border border-border">
-                  <span className="text-xs text-muted-foreground mb-1 uppercase tracking-wider font-semibold">
-                    Total Transactions
-                  </span>
-                  <span className="text-2xl font-bold text-foreground">{transactions.length}</span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-bold text-foreground">
+                      Field Enumerator Accruals
+                    </p>
+                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 px-1.5 py-0.5 rounded">
+                      ETB Birr
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Accrued: <span className="font-bold text-foreground">{(pendingEtbCents / 100).toFixed(2)} ETB</span> &bull; {totalResponsesCollected} door-to-door surveys submitted.
+                  </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <Link
+                href="/collector/dashboard"
+                className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline shrink-0"
+              >
+                Collection tasks &rarr;
+              </Link>
+            </div>
+          )}
+
+          {/* Quick Info & Action Bar */}
+          <div className="rounded-xl border border-border bg-muted/30 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+              <span>
+                Rewards are automatically deposited upon verified questionnaire completion.
+              </span>
+            </div>
+            <Link
+              href="/participant/studies"
+              className="inline-flex items-center gap-1 font-semibold text-primary hover:underline shrink-0"
+            >
+              Browse active studies <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
+      </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Credit Transaction History</CardTitle>
-            <CardDescription>A complete ledger record of all your earned study rewards.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {transactions.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground text-sm">
-                You don&apos;t have any credit transactions yet. Complete funded research studies to earn credits.
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {transactions.map((tx) => {
-                  const isPositive =
-                    tx.type === "EARN" ||
-                    tx.type === "REFUND" ||
-                    tx.type === "REWARD_CREDIT" ||
-                    tx.type === "ADMIN_ADJUSTMENT";
-                  return (
-                    <div
-                      key={tx.id}
-                      className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border pb-4 last:border-0 last:pb-0"
-                    >
-                      <div className="flex flex-col mb-2 sm:mb-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          {getTransactionBadge(tx.type)}
-                          <span className="text-xs text-muted-foreground">
-                            {tx.createdAt.toLocaleDateString("en-US", {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            })}
-                          </span>
-                        </div>
-                        {tx.reason && <p className="text-sm font-medium text-foreground">{tx.reason}</p>}
+      {/* Minimal Transaction Ledger */}
+      <Card className="border border-border/80">
+        <CardHeader className="pb-3 flex flex-row items-center justify-between">
+          <div>
+            <CardTitle className="text-base font-bold flex items-center gap-2">
+              <History className="w-4 h-4 text-muted-foreground" />
+              Recent Reward Activity
+            </CardTitle>
+            <CardDescription className="text-xs">
+              Ledger of credits earned from research studies and field surveys.
+            </CardDescription>
+          </div>
+        </CardHeader>
+
+        <CardContent>
+          {transactions.length === 0 ? (
+            <div className="text-center py-10">
+              <Coins className="w-10 h-10 text-muted-foreground/30 mx-auto mb-2" />
+              <p className="text-sm font-semibold text-foreground">No reward transactions yet</p>
+              <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto">
+                Participate in verified health research surveys to earn credits on your card.
+              </p>
+              <Link
+                href="/participant/studies"
+                className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                Browse Studies
+              </Link>
+            </div>
+          ) : (
+            <div className="divide-y divide-border">
+              {transactions.map((tx) => {
+                const isPositive =
+                  tx.type === "EARN" ||
+                  tx.type === "REFUND" ||
+                  tx.type === "REWARD_CREDIT" ||
+                  tx.type === "ADMIN_ADJUSTMENT";
+
+                return (
+                  <div
+                    key={tx.id}
+                    className="py-3 flex items-center justify-between gap-3 first:pt-0 last:pb-0"
+                  >
+                    <div className="min-w-0 flex items-center gap-3">
+                      <div className={`p-2 rounded-lg shrink-0 ${isPositive ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"}`}>
+                        <Sparkles className="w-4 h-4" />
                       </div>
-                      <div
-                        className={`text-base font-bold ${
-                          isPositive ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground"
-                        }`}
-                      >
-                        {isPositive ? "+" : "-"}
-                        {formatCredits(tx.amount)}
+                      <div className="min-w-0">
+                        <p className="text-xs font-semibold text-foreground truncate">
+                          {tx.reason || (isPositive ? "Research Study Reward" : "Credit Adjustment")}
+                        </p>
+                        <p className="text-[11px] text-muted-foreground">
+                          {tx.createdAt.toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </p>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
+
+                    <div className="text-right shrink-0">
+                      <span className={`text-sm font-bold font-mono ${isPositive ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground"}`}>
+                        {isPositive ? "+" : "-"}
+                        {formatCredits(tx.amount)} TC
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

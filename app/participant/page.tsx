@@ -7,7 +7,7 @@ import {
 } from "../components/ui/Card";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
-import { Wallet, CheckCircle, BookOpen, Compass, ArrowRight, ClipboardList } from "lucide-react";
+import { CheckCircle, BookOpen, Compass, ArrowRight, ClipboardList } from "lucide-react";
 import { StudyBanner } from "../components/studies/StudyBanner";
 import { checkIsUserCollector } from "@/lib/collector/status";
 
@@ -18,7 +18,6 @@ export default async function ParticipantDashboard() {
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
     include: {
-      wallet: true,
       bookmarks: {
         include: { study: true },
         orderBy: { createdAt: "desc" },
@@ -59,56 +58,9 @@ export default async function ParticipantDashboard() {
       (s.rewardCredits <= 0 || s.budgetCredits - s.creditsPaid >= s.rewardCredits)
   );
 
-  const totalCreditsEarned = user.participantLinks.reduce(
-    (total, r) => total + r.study.rewardCredits,
-    0
-  );
-
   const isCollector = await checkIsUserCollector(user.id);
-  let collectorEtbEarnedCents = 0;
-  if (isCollector) {
-    const [assignedStudies, responsesGrouped] = await Promise.all([
-      prisma.studyDataCollector.findMany({
-        where: { userId: user.id },
-        include: {
-          study: {
-            select: {
-              id: true,
-              collectorPayType: true,
-              collectorPayRateCents: true,
-            },
-          },
-        },
-      }),
-      prisma.response.groupBy({
-        by: ["studyId"],
-        where: { collectorId: user.id },
-        _count: { id: true },
-      }),
-    ]);
-    const responsesMap = new Map<string, number>();
-    responsesGrouped.forEach((r) => responsesMap.set(r.studyId, r._count.id));
-    for (const a of assignedStudies) {
-      const count = responsesMap.get(a.study.id) || 0;
-      if (a.study.collectorPayType === "FIXED") {
-        collectorEtbEarnedCents += count > 0 ? a.study.collectorPayRateCents : 0;
-      } else if (a.study.collectorPayType === "PER_RESPONSE") {
-        collectorEtbEarnedCents += count * a.study.collectorPayRateCents;
-      }
-    }
-  }
 
   const statsCards = [
-    {
-      label: "Wallet Balance",
-      value: `${(user.wallet?.balance ?? 0).toLocaleString()} TC`,
-      sub: isCollector && collectorEtbEarnedCents > 0
-        ? `+ ${(collectorEtbEarnedCents / 100).toFixed(2)} ETB collector earnings`
-        : `${totalCreditsEarned.toLocaleString()} TC earned total`,
-      icon: <Wallet className="w-5 h-5" />,
-      color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400",
-      href: "/participant/wallet",
-    },
     {
       label: "Studies Completed",
       value: user.participantLinks.length,
@@ -159,23 +111,20 @@ export default async function ParticipantDashboard() {
                 Active Field Data Collector
               </p>
               <p className="text-xs text-muted-foreground">
-                {(collectorEtbEarnedCents / 100).toFixed(2)} ETB accrued &bull; Collect survey responses on behalf of participants.
+                Conduct in-person surveys on behalf of researchers with offline sync.
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <ButtonLink href="/participant/wallet" variant="outline" size="sm" className="text-xs">
-              View ETB Wallet
-            </ButtonLink>
             <ButtonLink href="/collector/dashboard" size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs">
-              Field Portal
+              Field Collection Portal
             </ButtonLink>
           </div>
         </div>
       )}
 
       {/* Stat Cards */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div className="grid gap-4 sm:grid-cols-3 mb-8">
         {statsCards.map((card) => (
           <Link key={card.label} href={card.href}>
             <Card className="hover:border-primary/40 transition-colors cursor-pointer h-full">
