@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { ArtifactRenderer } from "@/app/ai/components/ArtifactRenderer";
 import {
   type ScholarXivPaper,
   SCHOLARXIV_CATEGORIES,
@@ -1232,9 +1233,7 @@ export default function ResearcherLiteraturePage() {
 
                       {insightsData.aiContent ? (
                         <div className="rounded-2xl border border-border/80 bg-muted/20 p-5 shadow-xs text-foreground">
-                          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                            {insightsData.aiContent}
-                          </ReactMarkdown>
+                          <ArtifactRenderer content={insightsData.aiContent} />
                         </div>
                       ) : (
                         <div className="space-y-3">

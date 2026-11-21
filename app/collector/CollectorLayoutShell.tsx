@@ -19,18 +19,7 @@ type CollectorLayoutShellProps = {
 
 export function CollectorLayoutShell({ children, links, user }: CollectorLayoutShellProps) {
   const pathname = usePathname();
-
-  // On active field collection page (/collector/studies/[id]/collect),
-  // provide a dedicated full-screen interface without dashboard sidebar and topnav collisions
   const isCollectPage = pathname?.includes("/collect") ?? false;
-
-  if (isCollectPage) {
-    return (
-      <div className="fixed inset-0 h-[100dvh] max-h-[100dvh] w-full overflow-hidden bg-background">
-        {children}
-      </div>
-    );
-  }
 
   return (
     <div className="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-background">
@@ -43,9 +32,13 @@ export function CollectorLayoutShell({ children, links, user }: CollectorLayoutS
         avatarUrl={user.avatarUrl}
         roleColor="participant"
       />
-      <main className="min-h-0 min-w-0 flex-1 overflow-y-auto [scrollbar-gutter:stable] bg-muted/10 flex flex-col">
-        <DashboardTopNav />
-        <div className="flex-1 min-w-0 flex flex-col">
+      <main
+        className={`min-h-0 min-w-0 flex-1 bg-muted/10 flex flex-col ${
+          isCollectPage ? "overflow-hidden" : "overflow-y-auto [scrollbar-gutter:stable]"
+        }`}
+      >
+        {!isCollectPage && <DashboardTopNav />}
+        <div className={`flex-1 min-w-0 flex flex-col ${isCollectPage ? "min-h-0 overflow-hidden" : ""}`}>
           {children}
         </div>
       </main>

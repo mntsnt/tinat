@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/Card";
 import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
 import { Badge } from "../../../components/ui/Badge";
+import { useToast } from "@/app/components/ui/Toast";
 import {
   Copy,
   ShieldCheck,
@@ -98,6 +99,7 @@ export default function StudyQuestionnaire({
   initialLikeCount?: number;
 }) {
   const router = useRouter();
+  const { success: toastSuccess } = useToast();
 
   // Core state
   const [answers, setAnswers] = useState<Record<string, any>>({});
@@ -111,6 +113,20 @@ export default function StudyQuestionnaire({
   const [withdrawReason, setWithdrawReason] = useState("");
   const [withdrawing, setWithdrawing] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
+
+  const answeredCount = useMemo(() => {
+    return study.questions.filter((q) => {
+      const val = answers[q.id];
+      if (val === undefined || val === null || val === "") return false;
+      if (Array.isArray(val)) return val.length > 0;
+      if (typeof val === "object") return Object.keys(val).length > 0;
+      return true;
+    }).length;
+  }, [study.questions, answers]);
+
+  const progressPercent = study.questions.length > 0
+    ? Math.round((answeredCount / study.questions.length) * 100)
+    : 0;
 
   // Multilingual state
   const [locale, setLocale] = useState<SupportedLocale>("en");
@@ -224,6 +240,7 @@ export default function StudyQuestionnaire({
   function handleCopyLink() {
     navigator.clipboard.writeText(window.location.href);
     setCopied(true);
+    toastSuccess("Study link copied!", "URL is ready to share.");
     setTimeout(() => setCopied(false), 2000);
   }
 
@@ -745,8 +762,51 @@ export default function StudyQuestionnaire({
         />
       )}
 
+      {/* Pinned Top Viewport Progress Line */}
+      {consented && !submitted && study.questions.length > 0 && (
+        <div
+          className="fixed top-0 left-0 right-0 h-1 bg-muted/40 z-[999] pointer-events-none"
+          role="progressbar"
+          aria-valuenow={progressPercent}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
+          <div
+            className="h-full bg-emerald-600 transition-all duration-300 ease-out shadow-xs"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
+      )}
+
       {consented && (
         <>
+          {/* Progress & Live Auto-Save Status Bar */}
+          {!submitted && study.questions.length > 0 && (
+            <div className="mb-4 rounded-xl border border-border bg-card p-3 sm:px-4 sm:py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-foreground">
+                  Questionnaire Progress:
+                </span>
+                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                  {answeredCount} of {study.questions.length} answered ({progressPercent}%)
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                {isOffline ? (
+                  <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-medium">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+                    Offline Mode &bull; Saved locally
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                    All progress auto-saved
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
           {/* STUDY HEADER BANNER (Hidden or simplified in Low-Bandwidth Mode) */}
           {!lowBandwidth && study.bannerTheme ? (
             <div className="mb-6">
@@ -785,7 +845,7 @@ export default function StudyQuestionnaire({
             </div>
           )}
 
-          <div className="flex items-center justify-between pb-4 border-b border-border mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-border mb-6">
             <div className="text-xs text-muted-foreground">
               Conducted by{" "}
               {study.researcher.id ? (
@@ -801,7 +861,7 @@ export default function StudyQuestionnaire({
               )}
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <BecomeCollectorButton
                 studyId={study.id}
                 studyTitle={study.title}
@@ -825,7 +885,7 @@ export default function StudyQuestionnaire({
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>Share Study Link</span>
+                    <span>Share<span className="hidden sm:inline"> Study Link</span></span>
                   </>
                 )}
               </Button>

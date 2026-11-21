@@ -173,7 +173,10 @@ export function AIAnalysisTab({
   }
 
   function handleCopy(id: string, text: string) {
-    navigator.clipboard.writeText(text);
+    const cleanText = text
+      .replace(/\$(?!\s|\d+(?:\.\d+)?(?:\s|,|\)|$))([^$\n]+?)(?<!\s)\$/g, "$1")
+      .replace(/\$\$/g, "");
+    navigator.clipboard.writeText(cleanText);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   }
@@ -576,14 +579,16 @@ export function AIAnalysisTab({
 
         {/* Floating jump to bottom */}
         {hasNewMessagesBelow && (
-          <button
-            type="button"
-            onClick={() => scrollToBottom("smooth")}
-            className="self-center -mb-8 z-10 flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-lg transition-transform hover:scale-105"
-          >
-            <ArrowDown className="h-3.5 w-3.5 animate-bounce" />
-            <span>New response below</span>
-          </button>
+          <div className="relative flex justify-center h-0 pointer-events-none">
+            <button
+              type="button"
+              onClick={() => scrollToBottom("smooth")}
+              className="pointer-events-auto absolute -top-11 z-20 flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-lg transition-transform hover:scale-105"
+            >
+              <ArrowDown className="h-3.5 w-3.5 animate-bounce" />
+              <span>New response below</span>
+            </button>
+          </div>
         )}
 
         {/* Quick Prompts Row */}

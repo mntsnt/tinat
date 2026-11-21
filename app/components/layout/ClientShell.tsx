@@ -3,6 +3,8 @@
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 import { IntroAnimation } from "../ui/IntroAnimation";
+import { ToastProvider } from "../ui/Toast";
+import { CommandPalette } from "./CommandPalette";
 
 // Routes that use their own shell, or auth screens that should not show the dashboard navbar.
 // The global Navbar and Footer must NOT render inside these.
@@ -52,19 +54,21 @@ export function ClientShell({ navbar, footer, children }: ClientShellProps) {
 
   if (isDashboard) {
     return (
-      <>
+      <ToastProvider>
         <IntroAnimation />
+        <CommandPalette />
         {children}
-      </>
+      </ToastProvider>
     );
   }
 
   return (
-    <>
+    <ToastProvider>
       <IntroAnimation />
+      <CommandPalette />
       {navbar}
       <main className="flex-1 flex flex-col">{children}</main>
       {shouldShowFooter && footer}
-    </>
+    </ToastProvider>
   );
 }

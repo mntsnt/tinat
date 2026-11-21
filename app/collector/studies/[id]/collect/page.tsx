@@ -466,7 +466,7 @@ export default function FieldCollectionPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="fixed inset-0 h-[100dvh] w-full flex flex-col items-center justify-center p-6 text-center bg-background">
+      <div className="relative h-full w-full flex flex-col items-center justify-center p-6 text-center bg-background">
         <div className="relative">
           <div className="absolute -inset-3 rounded-full bg-emerald-500/20 blur-lg animate-pulse" />
           <LoaderCircle className="relative h-10 w-10 animate-spin text-emerald-600" />
@@ -480,7 +480,7 @@ export default function FieldCollectionPage() {
   // Error loading study
   if (!study) {
     return (
-      <div className="fixed inset-0 h-[100dvh] w-full flex flex-col items-center justify-center p-6 text-center bg-background">
+      <div className="relative h-full w-full flex flex-col items-center justify-center p-6 text-center bg-background">
         <div className="max-w-md w-full space-y-4 rounded-3xl border border-border bg-card p-8 shadow-xl">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-destructive/10 text-destructive">
             <AlertCircle className="h-7 w-7" />
@@ -517,7 +517,7 @@ export default function FieldCollectionPage() {
   // Success Screen
   if (isSuccess) {
     return (
-      <div className="fixed inset-0 h-[100dvh] w-full flex flex-col items-center justify-center bg-background p-4 sm:p-6">
+      <div className="relative h-full w-full flex flex-col items-center justify-center bg-background p-4 sm:p-6">
         <div className="w-full max-w-lg rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-2xl text-center space-y-6 animate-in zoom-in-95 duration-200">
           <div className="relative mx-auto w-20 h-20">
             <div className="absolute -inset-3 rounded-full bg-emerald-500/20 blur-xl animate-pulse" />
@@ -564,7 +564,7 @@ export default function FieldCollectionPage() {
   // Consent Screen (Step -1)
   if (currentStep === -1) {
     return (
-      <div className="fixed inset-0 h-[100dvh] w-full flex flex-col overflow-hidden bg-background">
+      <div className="relative h-full w-full flex flex-col overflow-hidden bg-background">
         <div className="mx-auto w-full max-w-4xl h-full flex flex-col bg-card sm:border-x border-border/50 sm:shadow-2xl overflow-hidden relative">
           {/* Top Bar */}
           <header className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-20">
@@ -660,7 +660,7 @@ export default function FieldCollectionPage() {
   // Review & Submit Screen (Step === questions.length)
   if (isDone) {
     return (
-      <div className="fixed inset-0 h-[100dvh] w-full flex flex-col overflow-hidden bg-background">
+      <div className="relative h-full w-full flex flex-col overflow-hidden bg-background">
         <div className="mx-auto w-full max-w-5xl h-full flex flex-col bg-card sm:border-x border-border/50 sm:shadow-2xl overflow-hidden relative">
           {/* Top Bar */}
           <header className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-20">
@@ -849,13 +849,26 @@ export default function FieldCollectionPage() {
   // Active Question Screen (0 <= currentStep < questions.length)
   // Renders a modern Desktop Two-Panel Layout with collapsible Question & Section Navigator
   return (
-    <div className="fixed inset-0 h-[100dvh] w-full flex overflow-hidden bg-background">
+    <div className="relative h-full w-full flex overflow-hidden bg-background">
+      {/* Pinned Top Viewport Progress Line */}
+      <div
+        className="fixed top-0 left-0 right-0 h-1 bg-muted/40 z-[999] pointer-events-none"
+        role="progressbar"
+        aria-valuenow={progressPercent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        <div
+          className="h-full bg-emerald-600 transition-all duration-300 ease-out shadow-xs"
+          style={{ width: `${progressPercent}%` }}
+        />
+      </div>
       {/* ============================================================== */}
       {/* DESKTOP QUESTION & SECTION NAVIGATOR SIDEBAR                   */}
       {/* ============================================================== */}
       <aside
         className={`hidden lg:flex flex-col shrink-0 border-r border-border bg-card transition-all duration-200 z-20 ${
-          sidebarOpen ? "w-80" : "w-0 overflow-hidden border-r-0"
+          sidebarOpen ? "w-72 xl:w-80" : "w-0 overflow-hidden border-r-0"
         }`}
       >
         {/* Sidebar Header */}

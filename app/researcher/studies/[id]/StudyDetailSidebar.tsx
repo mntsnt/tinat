@@ -6,6 +6,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { TinatLogo } from "@/app/components/ui/TinatLogo";
+import { ThemeToggle } from "@/app/components/ThemeToggle";
+import { DashboardNotificationBell } from "@/app/components/layout/DashboardNotificationBell";
 import {
   LayoutDashboard,
   Brain,
@@ -418,20 +420,36 @@ export function StudyDetailSidebar({
       </aside>
 
       {/* ── MOBILE TOP BAR & DRAWER ── */}
-      <div className="md:hidden flex shrink-0 items-center justify-between px-4 py-2.5 border-b border-border bg-card/95 backdrop-blur-md sticky top-0 z-40">
-        <Link href="/researcher/studies" className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span className="truncate max-w-[180px] font-semibold text-foreground">{studyTitle}</span>
+      <div className="md:hidden flex shrink-0 items-center justify-between px-3 py-2 border-b border-border bg-card/95 backdrop-blur-md sticky top-0 z-40 gap-2">
+        <Link href="/researcher/studies" className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground min-w-0">
+          <ArrowLeft className="w-3.5 h-3.5 shrink-0" />
+          <span className="truncate max-w-[120px] sm:max-w-[200px] font-semibold text-foreground">{studyTitle}</span>
         </Link>
-        <button
-          ref={menuButtonRef}
-          onClick={() => setMobileOpen(true)}
-          aria-expanded={mobileOpen}
-          aria-label="Open study menu"
-          className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <span
+            className={cn(
+              "rounded-full px-2 py-0.5 text-[10px] font-bold uppercase",
+              studyStatus === "ACTIVE"
+                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                : studyStatus === "COMPLETED"
+                ? "bg-muted text-muted-foreground"
+                : "bg-amber-500/10 text-amber-600"
+            )}
+          >
+            {studyStatus}
+          </span>
+          <ThemeToggle />
+          <DashboardNotificationBell />
+          <button
+            ref={menuButtonRef}
+            onClick={() => setMobileOpen(true)}
+            aria-expanded={mobileOpen}
+            aria-label="Open study menu"
+            className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (

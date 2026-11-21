@@ -188,9 +188,10 @@ export function Sidebar({
       {links.map((link) => {
         const isExact = pathname === link.href;
         const isPrefix = link.href !== "/" && (pathname.startsWith(link.href + "/") || pathname.startsWith(link.href + "?"));
-        let isActive = isExact || isPrefix;
+        const isFieldCollection = link.href === "/collector/dashboard" && (pathname === "/collector/dashboard" || pathname.startsWith("/collector/"));
+        let isActive = isExact || isPrefix || isFieldCollection;
 
-        if (!isExact && links.some((l) => l.href !== link.href && (pathname === l.href || pathname.startsWith(l.href + "/")))) {
+        if (!isExact && !isFieldCollection && links.some((l) => l.href !== link.href && (pathname === l.href || pathname.startsWith(l.href + "/")))) {
           isActive = false;
         }
 

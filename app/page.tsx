@@ -13,12 +13,12 @@ import {
   GraduationCap,
   MapPin,
   CheckCircle2,
-  FileSpreadsheet,
 } from "lucide-react";
 import type { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 import { HEALTH_CATEGORIES } from "@/lib/healthCategories";
 import { LandingFaq } from "./components/landing/LandingFaq";
+import { LandingHeroInteractive } from "./components/landing/LandingHeroInteractive";
 
 type FeaturedStudy = Prisma.StudyGetPayload<{
   include: { _count: { select: { responses: true; questions: true } } };
@@ -59,147 +59,7 @@ export default async function Home() {
         <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-24 h-[20rem] w-[20rem] rounded-full border border-emerald-900/[0.06] dark:border-emerald-100/[0.06]" />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-            {/* Left Column: Core Value Proposition */}
-            <div className="relative z-10 space-y-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-700/15 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-emerald-800 shadow-xs dark:border-emerald-300/20 dark:bg-emerald-950/50 dark:text-emerald-300">
-                <Stethoscope className="h-3.5 w-3.5" />
-                Health Research &amp; Data Collection
-              </div>
-
-              <h1 className="max-w-xl text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl text-foreground">
-                Publish health studies.
-                <br />
-                <span className="text-emerald-700 dark:text-emerald-400">
-                  Collect reliable data.
-                </span>
-              </h1>
-
-              <p className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Create questionnaires, reach participants across Ethiopia, and download clean data in Excel or CSV. Free for researchers, doctors, and students.
-              </p>
-
-              <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
-                <ButtonLink
-                  href="/researcher/studies/new"
-                  size="lg"
-                  className="group h-12 w-full rounded-xl bg-emerald-700 text-white hover:bg-emerald-800 px-6 text-sm font-semibold shadow-md shadow-emerald-900/10 sm:w-auto dark:bg-emerald-600 dark:hover:bg-emerald-700"
-                >
-                  Publish a Study
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </ButtonLink>
-                <ButtonLink
-                  href="/participant/studies"
-                  variant="outline"
-                  size="lg"
-                  className="h-12 w-full rounded-xl border-border bg-card px-6 text-sm font-semibold hover:bg-muted sm:w-auto"
-                >
-                  Browse Studies
-                </ButtonLink>
-              </div>
-
-              {/* Feature List (Screenshot list with ScholarXIV removed, simplified to plain English) */}
-              <div className="flex flex-wrap gap-x-5 gap-y-2 pt-2">
-                {[
-                  "Platform-Determined TC Rewards",
-                  "Ground Field Enumerators (ETB)",
-                  "Collaborative Workspaces & Kanban",
-                  "Independent Tinat Forms",
-                  "Coded & Confidential Data",
-                ].map((feature) => (
-                  <span key={feature} className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
-                    {feature}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Column: Active Study Snapshot */}
-            <div className="relative z-10">
-              <div className="rounded-2xl border border-emerald-900/10 bg-card p-5 shadow-xl shadow-emerald-950/[0.05] sm:p-6 dark:border-emerald-100/10">
-                <div className="flex items-center justify-between mb-5 pb-3 border-b border-border">
-                  <div className="flex items-center gap-2">
-                    <div className="rounded-md bg-emerald-500/10 p-1.5 text-emerald-700 dark:text-emerald-400">
-                      <Activity className="h-4 w-4" />
-                    </div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      Live Study on Tinat
-                    </span>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-800 dark:text-emerald-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" />
-                    Active &bull; Accepting Responses
-                  </span>
-                </div>
-
-                {featuredStudy ? (
-                  <div className="space-y-4">
-                    <div className="rounded-xl border border-emerald-700/15 bg-emerald-50/50 p-4 dark:bg-emerald-950/20 sm:p-5">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
-                          {featuredStudy.category || "Public Health"}
-                        </span>
-                        <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">
-                          {featuredStudy.rewardCredits > 0 ? `${featuredStudy.rewardCredits} Credits` : "Open Data"}
-                        </span>
-                      </div>
-                      <p className="text-base font-semibold leading-snug text-foreground">
-                        {featuredStudy.title}
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-2 line-clamp-2 leading-relaxed">
-                        {featuredStudy.objective || featuredStudy.description || "Healthcare research study collecting participant responses on Tinat."}
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-3">
-                      <div className="rounded-lg bg-muted/50 border border-border p-3 text-center">
-                        <p className="text-xl font-bold text-foreground">
-                          {featuredStudy._count.responses}
-                        </p>
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-0.5">
-                          Responses
-                        </p>
-                      </div>
-                      <div className="rounded-lg bg-muted/50 border border-border p-3 text-center">
-                        <p className="text-xl font-bold text-foreground">
-                          {featuredStudy._count.questions}
-                        </p>
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-0.5">
-                          Questions
-                        </p>
-                      </div>
-                      <div className="rounded-lg bg-muted/50 border border-border p-3 text-center">
-                        <p className="text-xl font-bold text-emerald-700 dark:text-emerald-400">
-                          ~{featuredStudy.estimatedMinutes || 5} min
-                        </p>
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-0.5">
-                          Est. Time
-                        </p>
-                      </div>
-                    </div>
-
-                    <ButtonLink
-                      href={`/participant/studies/${featuredStudy.id}`}
-                      variant="outline"
-                      size="sm"
-                      className="mt-1 w-full text-xs gap-1.5 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 dark:hover:bg-emerald-950/30"
-                    >
-                      View &amp; Answer Questionnaire <ArrowRight className="w-3.5 h-3.5" />
-                    </ButtonLink>
-                  </div>
-                ) : (
-                  <div className="py-8 text-center space-y-3">
-                    <p className="text-sm font-semibold text-foreground">No active studies currently</p>
-                    <p className="text-xs text-muted-foreground">Be the first to publish a health questionnaire.</p>
-                    <ButtonLink href="/researcher/studies/new" size="sm" className="bg-emerald-700 text-white">
-                      Create Study
-                    </ButtonLink>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          <LandingHeroInteractive featuredStudy={featuredStudy} />
         </div>
       </section>
 

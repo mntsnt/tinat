@@ -28,10 +28,59 @@ const markdownTableComponents = {
   ),
 };
 
+function isLikelyMath(str: string): boolean {
+  if (!str) return false;
+  const trimmed = str.trim();
+  if (!trimmed) return false;
+  if (/\\([a-zA-Z]+|%|_)/.test(trimmed)) return true;
+  if (/^\d+(?:\.\d+)?\s*-\s*\d+(?:\.\d+)?$/.test(trimmed)) return false;
+  if (/[=<>≤≥±≈≠~^_+*/]/.test(trimmed)) {
+    if (/^[a-zA-Z]+-[a-zA-Z]+$/.test(trimmed)) return false;
+    return true;
+  }
+  if (/^(?:[a-zA-Z]|df|SD|SE|CI|OR|RR|HR|p-value)$/i.test(trimmed)) return true;
+  if (/^[a-zA-Z]+_[a-zA-Z0-9]+$/.test(trimmed)) return true;
+  if (/^\d+(?:\.\d+)?%$/.test(trimmed)) return true;
+  return false;
+}
+
 function normalizeMarkdownTables(raw: string): string {
   if (!raw) return "";
-  // Ensure a blank line before any markdown table row if preceded by text without a blank line
-  return raw.replace(/([^\n])\n(\|[^\n]+\|\n\|[-: |]+\|)/g, "$1\n\n$2");
+  let text = raw;
+
+  // 1. Ensure a blank line before any markdown table row if preceded by text without a blank line
+  text = text.replace(/([^\n])\n(\s*\|?[^\n]+\|\s*\n\s*\|?[\s:\-=\+]+\|)/g, "$1\n\n$2");
+
+  // 2. Normalize inline LaTeX math like $n = 36$, $\alpha = 0.05$, $\chi^2 = 4.2$ into clean markdown
+  text = text.replace(
+    /\$(?!\s|\d+(?:\.\d+)?(?:\s|,|\)|$))([^$\n]+?)(?<!\s)\$/g,
+    (fullMatch, math) => {
+      if (!isLikelyMath(math)) return fullMatch;
+      const varMatch = math.match(/^([a-zA-Z]|df|CI|SD|SE|OR|RR|HR)(\s*[=<>≤≥±≈≠~]\s*.+)$/);
+      if (varMatch) {
+        return `*${varMatch[1]}*${varMatch[2]}`;
+      }
+      return math
+        .replace(/\\alpha\b/g, "α")
+        .replace(/\\beta\b/g, "β")
+        .replace(/\\gamma\b/g, "γ")
+        .replace(/\\delta\b/g, "δ")
+        .replace(/\\chi\b/g, "χ")
+        .replace(/\\mu\b/g, "μ")
+        .replace(/\\sigma\b/g, "σ")
+        .replace(/\\pm\b/g, "±")
+        .replace(/\\leq\b|\\le\b/g, "≤")
+        .replace(/\\geq\b|\\ge\b/g, "≥")
+        .replace(/\\approx\b/g, "≈")
+        .replace(/\\neq\b|\\ne\b/g, "≠")
+        .replace(/\\bar\{([a-zA-Z])\}/g, "$1̄")
+        .replace(/\^2\b/g, "²")
+        .replace(/\\text\{([^}]+)\}/g, "$1")
+        .replace(/\\%/g, "%");
+    }
+  );
+
+  return text;
 }
 
 type ArtifactRow = Record<string, unknown>;

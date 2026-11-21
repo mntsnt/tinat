@@ -12,7 +12,9 @@ import {
   TrendingUp,
   X,
   Table as TableIcon,
+  Sparkles,
 } from "lucide-react";
+import { useToast } from "@/app/components/ui/Toast";
 import { Badge } from "../../../components/ui/Badge";
 import { Button } from "../../../components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/Card";
@@ -546,6 +548,33 @@ export function DataVisualizationStudio({
     }, 500);
   };
 
+  const { success: toastSuccess } = useToast();
+
+  const handleCopyThesisAbstract = () => {
+    let summaryText = `METHODOLOGY & SAMPLE SUMMARY\n`;
+    summaryText += `Study Title: "${studyTitle}"\n`;
+    summaryText += `Total Sample Size: N = ${totalN} participants.\n`;
+    summaryText += `Data Collection Protocol: Responses gathered via Tinat research platform with verified participant consent and digital/field verification.\n\n`;
+    summaryText += `PRIMARY VARIABLE DISTRIBUTIONS:\n`;
+
+    questions.slice(0, 4).forEach((q, idx) => {
+      summaryText += `${idx + 1}. ${q.text}\n`;
+      const stats = getQuestionStats(q);
+      if (stats.type === "categorical" || stats.type === "multichoice") {
+        stats.items.slice(0, 3).forEach((item) => {
+          summaryText += `   - ${item.label}: n = ${item.count} (${item.percent}%)\n`;
+        });
+      } else if (stats.type === "likert") {
+        summaryText += `   - Mean Score: ${stats.mean.toFixed(2)} (SD = ${stats.stdDev.toFixed(2)})\n`;
+      }
+    });
+
+    summaryText += `\nEthical Assurance: Participant data anonymized, coded, and compliant with health research data governance.`;
+
+    navigator.clipboard.writeText(summaryText);
+    toastSuccess("Thesis Abstract Copied!", "Academic methodology summary copied to clipboard.");
+  };
+
   return (
     <div className="space-y-6">
       {/* ── Studio Header & Sub-Navigation ──────────────────────── */}
@@ -568,6 +597,16 @@ export function DataVisualizationStudio({
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={handleCopyThesisAbstract}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 px-3 py-2 text-xs font-semibold transition-colors shadow-2xs"
+            title="Generate & copy academic thesis abstract"
+          >
+            <Sparkles className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+            <span>Copy Thesis Abstract</span>
+          </button>
+
           <button
             onClick={() => setActiveTab("charts")}
             aria-pressed={activeTab === "charts"}

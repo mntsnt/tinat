@@ -133,7 +133,7 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
       {/* ── Right Content Area: Minimal Top Bar + Scrollable Study View ── */}
       <div className="flex-1 flex flex-col min-h-0 min-w-0 overflow-hidden">
         {/* Top Header Bar */}
-        <header className="sticky top-0 z-20 shrink-0 h-14 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between gap-4">
+        <header className="hidden md:flex sticky top-0 z-20 shrink-0 h-14 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-6 items-center justify-between gap-4">
           <div className="flex items-center gap-2.5 min-w-0">
             <span className="truncate text-xs sm:text-sm font-semibold text-foreground/90 block max-w-sm sm:max-w-md">
               {study.title}
