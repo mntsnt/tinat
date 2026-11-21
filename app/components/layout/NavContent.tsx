@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import LogoutButton from "../LogoutButton";
 import { ThemeToggle } from "../ThemeToggle";
 import { useState, useEffect } from "react";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { TinatLogo } from "../ui/TinatLogo";
 
 type NavLink = {
@@ -106,16 +106,6 @@ export default function NavContent({ user, links }: NavContentProps) {
 
         {/* Desktop Right */}
         <div className="hidden md:flex items-center gap-2 ml-auto">
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
-            className="flex items-center gap-1.5 rounded-lg border border-border/70 bg-muted/40 px-2.5 py-1 text-xs text-muted-foreground hover:bg-muted hover:text-foreground transition-colors mr-1"
-            title="Search or press Ctrl + K"
-          >
-            <Search className="h-3.5 w-3.5" />
-            <span className="text-[11px] font-medium">Search</span>
-            <kbd className="rounded border border-border bg-card px-1 text-[9px] font-mono">⌘K</kbd>
-          </button>
           <ThemeToggle />
           {user ? (
             <div className="flex items-center gap-2 border-l border-border pl-3 ml-1">
