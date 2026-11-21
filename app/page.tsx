@@ -78,7 +78,7 @@ export default async function Home() {
               </h1>
 
               <p className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Run health surveys with verified participants across Ethiopia. Collect responses online or in the field with offline sync.
+                Run health surveys with verified participants across Ethiopia. Collect data online or in the field.
               </p>
 
               <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
@@ -405,7 +405,7 @@ export default async function Home() {
                       Field Enumerators
                     </span>
                     <span className="text-[11px] font-medium text-white/90 bg-black/40 backdrop-blur-xs px-2 py-0.5 rounded">
-                      In-Person &bull; Offline Sync
+                      In-Person &bull; Community Field
                     </span>
                   </div>
                 </div>
@@ -517,7 +517,7 @@ export default async function Home() {
                   Ready to publish your study?
                 </h2>
                 <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-xl">
-                  Create questionnaires with skip logic and rosters, gather responses from verified participants across Ethiopia, or deploy field enumerators with offline sync and direct Birr (ETB) compensation.
+                  Create questionnaires with skip logic and rosters, gather responses from verified participants across Ethiopia, or deploy field enumerators with direct Birr (ETB) compensation.
                 </p>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                   <ButtonLink

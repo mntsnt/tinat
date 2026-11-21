@@ -111,7 +111,7 @@ export default async function ParticipantDashboard() {
                 Active Field Data Collector
               </p>
               <p className="text-xs text-muted-foreground">
-                Conduct in-person surveys on behalf of researchers with offline sync.
+                Conduct in-person surveys on behalf of researchers.
               </p>
             </div>
           </div>
