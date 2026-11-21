@@ -172,20 +172,21 @@ export default async function Home() {
                 </div>
 
                 {/* Visual Research Context Banner */}
-                <div className="relative h-36 w-full overflow-hidden rounded-xl mb-4 border border-border/80 shadow-2xs">
+                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl mb-4 border border-border/80 shadow-2xs">
                   <Image
                     src="/researcher-hero.jpg"
                     alt="Clinical researcher reviewing epidemiological health data"
                     fill
                     priority
-                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, 550px"
+                    className="object-cover object-center"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white">
-                    <span className="text-[11px] font-bold uppercase tracking-wider bg-emerald-700/90 backdrop-blur-xs px-2.5 py-0.5 rounded shadow-2xs">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30 pointer-events-none" />
+                  <div className="absolute top-2.5 left-3 right-3 flex items-center justify-between text-white">
+                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider bg-emerald-700/90 backdrop-blur-xs px-2.5 py-0.5 rounded shadow-2xs">
                       {featuredStudy?.category || "Medical Research"}
                     </span>
-                    <span className="text-[11px] font-medium bg-black/40 backdrop-blur-xs px-2 py-0.5 rounded">
+                    <span className="text-[10px] sm:text-[11px] font-medium bg-black/50 backdrop-blur-xs px-2 py-0.5 rounded border border-white/10">
                       Verified Health Science
                     </span>
                   </div>
