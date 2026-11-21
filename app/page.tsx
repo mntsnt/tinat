@@ -78,7 +78,7 @@ export default async function Home() {
               </h1>
 
               <p className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Built for Ethiopian medical researchers, doctors, and students. Run clinical and thesis studies with verified participants, deploy door-to-door enumerators nationwide, and collect publication-ready data.
+                Run health surveys with verified participants across Ethiopia. Collect responses online or in the field with offline sync.
               </p>
 
               <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
