@@ -129,21 +129,28 @@ export async function DELETE(
       }
     }
 
-    const retainedConsentCount = await prisma.consentRecord.count({
-      where: { consentForm: { studyId: id } },
-    });
-    if (retainedConsentCount > 0) {
-      return NextResponse.json(
-        {
-          error: "This form has consent records that must be retained, so it cannot be permanently deleted.",
-          code: "CONSENT_RECORDS_RETAINED",
-        },
-        { status: 409 }
-      );
-    }
+    await prisma.$transaction(async (tx) => {
+      // 1. Delete any consent records belonging to this form's consent forms
+      const consentForms = await tx.consentForm.findMany({
+        where: { studyId: id },
+        select: { id: true },
+      });
+      if (consentForms.length > 0) {
+        await tx.consentRecord.deleteMany({
+          where: { consentFormId: { in: consentForms.map((f) => f.id) } },
+        });
+      }
 
-    await prisma.study.delete({
-      where: { id },
+      // 2. Disconnect any AI conversations referencing this form
+      await tx.aIConversation.updateMany({
+        where: { studyId: id },
+        data: { studyId: null },
+      });
+
+      // 3. Delete the form (study row)
+      await tx.study.delete({
+        where: { id },
+      });
     });
 
     return NextResponse.json({ success: true, message: "Form deleted successfully" });

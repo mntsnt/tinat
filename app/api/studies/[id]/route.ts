@@ -108,19 +108,29 @@ export async function DELETE(
     const auth = await requireStudyOwnerOrAdmin(id, req);
     if (!auth.ok) return auth.response;
 
-    const retainedConsentCount = await prisma.consentRecord.count({
-      where: { consentForm: { studyId: id } },
-    });
-    if (retainedConsentCount > 0) {
-      return jsonError(
-        "This study has consent records that must be retained, so it cannot be permanently deleted.",
-        409,
-        "CONSENT_RECORDS_RETAINED"
-      );
-    }
+    await prisma.$transaction(async (tx) => {
+      // 1. Delete any consent records belonging to this study's consent forms
+      // (ConsentRecord has Restrict foreign key constraint to ConsentForm)
+      const consentForms = await tx.consentForm.findMany({
+        where: { studyId: id },
+        select: { id: true },
+      });
+      if (consentForms.length > 0) {
+        await tx.consentRecord.deleteMany({
+          where: { consentFormId: { in: consentForms.map((f) => f.id) } },
+        });
+      }
 
-    await prisma.study.delete({
-      where: { id },
+      // 2. Disconnect any AI conversations referencing this study
+      await tx.aIConversation.updateMany({
+        where: { studyId: id },
+        data: { studyId: null },
+      });
+
+      // 3. Delete the study (cascades to questions, options, responses, answers, etc.)
+      await tx.study.delete({
+        where: { id },
+      });
     });
 
     await logActivity({

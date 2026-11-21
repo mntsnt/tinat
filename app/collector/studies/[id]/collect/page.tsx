@@ -1046,30 +1046,12 @@ export default function FieldCollectionPage() {
             </div>
           </div>
 
-          {/* Right: Step Counter, Language Switcher, Exit */}
+          {/* Right: Step Counter, Exit */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <div className="hidden md:flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-500/20">
               <span>{answeredCount}</span>
               <span className="text-muted-foreground font-normal">/</span>
               <span className="text-muted-foreground font-normal">{questions.length} Verified</span>
-            </div>
-
-            {/* Language Switcher Pills */}
-            <div className="flex items-center p-0.5 rounded-xl border border-border bg-muted/40">
-              {(["en", "am", "om"] as SupportedLocale[]).map((langCode) => (
-                <button
-                  key={langCode}
-                  type="button"
-                  onClick={() => handleLanguageChange(langCode)}
-                  className={`px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold uppercase transition ${
-                    language === langCode
-                      ? "bg-emerald-600 text-white shadow-xs"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {langCode === "en" ? "EN" : langCode === "am" ? "አማ" : "OR"}
-                </button>
-              ))}
             </div>
 
             {/* Exit to Dashboard Button */}
@@ -1102,13 +1084,6 @@ export default function FieldCollectionPage() {
         {/* Scrollable Question Content */}
         <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-10 sm:py-8 overscroll-contain pb-28">
           <div className="max-w-3xl xl:max-w-4xl mx-auto space-y-6">
-            {languageWarning && (
-              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-800 dark:text-amber-200 flex items-center gap-2">
-                <Globe className="w-4 h-4 shrink-0 text-amber-600" />
-                <span>{languageWarning}</span>
-              </div>
-            )}
-
             {errorMessage && (
               <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-xs text-destructive flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />

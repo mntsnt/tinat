@@ -33,7 +33,9 @@ export async function executeBalancedReward(params: AwardRewardParams) {
 
   if (amount <= 0) return null;
 
-  const idempotencyKey = `reward-${studyId}-${participantId}`;
+  // A participantId alone is not unique: a collector can award many field responses,
+  // and retries must be identified by the specific response being rewarded.
+  const idempotencyKey = `reward-${studyId}-${responseId}`;
 
   // 1. Check if reward was already journaled (idempotency guard)
   const existingJournal = await tx.ledgerJournal.findUnique({

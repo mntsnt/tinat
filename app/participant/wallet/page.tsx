@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../..
 import { Badge } from "../../components/ui/Badge";
 import { formatCredits } from "@/lib/config/features";
 import { checkIsUserCollector } from "@/lib/collector/status";
+import { InteractiveWalletCard } from "./InteractiveWalletCard";
 import {
   Wallet,
   ArrowRight,
@@ -167,97 +168,14 @@ export default async function ParticipantWalletPage() {
 
       {/* Main Grid: Mastercard Virtual Card & Balance Hub */}
       <div className="grid gap-6 lg:grid-cols-12 items-start">
-        {/* Left Column: Mastercard-Style Physical Virtual Card */}
+        {/* Left Column: Interactive 3D Mastercard-Style Virtual Card */}
         <div className="lg:col-span-5 flex justify-center lg:justify-start">
-          <div className="relative w-full max-w-[430px] aspect-[1.586/1] rounded-2xl p-5 sm:p-6 text-white shadow-2xl overflow-hidden border border-emerald-500/30 transition-all duration-300 hover:scale-[1.01] bg-gradient-to-br from-[#0c1813] via-[#081e16] to-[#040e0b]">
-            {/* Glossy Metallic Gradient Overlays */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/20 blur-3xl"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-teal-500/15 blur-3xl"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.14),transparent_65%)]"
-            />
-
-            {/* Card Header: Brand & Contactless Symbol */}
-            <div className="relative z-10 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded-md bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center">
-                  <Sparkles className="h-3.5 w-3.5 text-emerald-300" />
-                </div>
-                <div>
-                  <p className="text-xs font-black tracking-[0.25em] text-white">TINAT</p>
-                  <p className="text-[8px] uppercase tracking-wider text-emerald-400/90 font-semibold leading-none">
-                    {isCollector ? "Field Contributor Pass" : "Health Contributor Pass"}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-1 text-white/70">
-                <Wifi className="h-4 w-4 rotate-90 opacity-80" />
-              </div>
-            </div>
-
-            {/* EMV Microchip & Balance Display */}
-            <div className="relative z-10 my-3 sm:my-4 flex items-center justify-between">
-              {/* Microchip */}
-              <div className="relative h-8 w-11 sm:h-9 sm:w-12 rounded-md bg-gradient-to-br from-amber-200 via-amber-400 to-amber-600 p-1 shadow-inner border border-amber-300/50 flex flex-col justify-between">
-                <div className="w-full h-px bg-amber-800/40" />
-                <div className="flex justify-between">
-                  <div className="w-2 h-2 rounded-xs border border-amber-800/40" />
-                  <div className="w-2 h-2 rounded-xs border border-amber-800/40" />
-                </div>
-                <div className="w-full h-px bg-amber-800/40" />
-              </div>
-
-              {/* Big Minimal Balance */}
-              <div className="text-right">
-                <p className="text-[9px] uppercase tracking-wider text-emerald-400 font-semibold">
-                  Available Balance
-                </p>
-                <p className="text-2xl sm:text-3xl font-black tracking-tight text-white font-mono">
-                  {formatCredits(balance)}{" "}
-                  <span className="text-xs font-bold text-emerald-400">TC</span>
-                </p>
-              </div>
-            </div>
-
-            {/* Virtual Card Number */}
-            <div className="relative z-10 pt-1">
-              <p className="font-mono text-sm sm:text-base tracking-[0.25em] text-white/90 font-medium select-all">
-                •••• •••• •••• {cardMemberId}
-              </p>
-            </div>
-
-            {/* Card Footer: Cardholder, Valid Thru, and Mastercard Circles */}
-            <div className="relative z-10 mt-3 flex items-end justify-between pt-1">
-              <div className="min-w-0 pr-2">
-                <p className="text-[8px] uppercase tracking-wider text-white/50 font-medium">
-                  Cardholder
-                </p>
-                <p className="text-xs font-bold tracking-wider uppercase text-white truncate max-w-[170px]">
-                  {user.name}
-                </p>
-              </div>
-
-              <div className="text-center px-2">
-                <p className="text-[8px] uppercase tracking-wider text-white/50 font-medium">
-                  Valid Thru
-                </p>
-                <p className="text-xs font-mono font-bold text-white">12/28</p>
-              </div>
-
-              {/* Mastercard-Style Interlocking Circles */}
-              <div className="flex items-center -space-x-3 shrink-0">
-                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-emerald-500/95 shadow-md" />
-                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-teal-300/90 mix-blend-screen shadow-md" />
-              </div>
-            </div>
-          </div>
+          <InteractiveWalletCard
+            balance={balance}
+            cardMemberId={cardMemberId}
+            userName={user.name}
+            isCollector={isCollector}
+          />
         </div>
 
         {/* Right Column: Minimal Balance Summary & Quick Actions */}
