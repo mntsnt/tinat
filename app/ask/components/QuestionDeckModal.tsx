@@ -773,7 +773,7 @@ export function QuestionDeckModal({
         await navigator.share({
           files: [file],
           title: `Tinat Ask - ${recipient.displayName}`,
-          text: `Ask me anything confidentially at tinat.app/ask/${recipient.username}`,
+          text: `Ask me anything privately at ${askUrl}`,
         });
       } else {
         handleDownload();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   ShieldCheck,
@@ -12,7 +12,6 @@ import {
   Lock,
   MessageCircleQuestion,
   Share2,
-  Heart,
 } from "lucide-react";
 
 interface PublicQuestion {
@@ -35,9 +34,9 @@ interface AskPublicClientProps {
 }
 
 const STARTER_PROMPTS = [
-  "What is your biggest goal for this year?",
-  "What is one piece of advice you would give your younger self?",
-  "What is something people misunderstand about you?",
+  "What is your biggest research focus right now?",
+  "What is one piece of advice you would give to health students?",
+  "What is something people misunderstand about your work?",
   "What are you most passionate about right now?",
 ];
 
@@ -94,64 +93,86 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
     .toUpperCase();
 
   return (
-    <div className="flex-1 max-w-xl w-full mx-auto px-4 py-8 sm:py-12 space-y-8">
-      {/* Recipient Profile Card */}
-        <div className="text-center space-y-4">
+    <div className="min-h-screen bg-background flex flex-col justify-between">
+      {/* Top Navbar */}
+      <header className="h-14 border-b border-border/70 bg-card/60 backdrop-blur-md px-4 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-2xs">
+            <Sparkles className="h-3.5 w-3.5" />
+          </div>
+          <span className="text-xs font-bold tracking-tight text-foreground">Tinat Ask</span>
+        </Link>
+
+        <Link
+          href="/ask"
+          className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
+        >
+          Create your own link <ArrowRight className="w-3 h-3" />
+        </Link>
+      </header>
+
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-lg w-full mx-auto px-4 py-8 sm:py-12 space-y-6">
+        {/* Recipient Profile Card */}
+        <div className="text-center space-y-3">
           <div className="relative inline-block">
-            <div className="w-20 h-20 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-background mx-auto">
+            <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xl sm:text-2xl font-bold shadow-md ring-4 ring-background mx-auto">
               {initials}
             </div>
-            <div className="absolute -bottom-1 -right-1 bg-emerald-500 text-white rounded-full p-1 shadow">
+            <div
+              className="absolute -bottom-0.5 -right-0.5 bg-emerald-500 text-white rounded-full p-1 shadow-xs"
+              title="Verified Ask Profile"
+            >
               <ShieldCheck className="w-3.5 h-3.5" />
             </div>
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
               {profile.displayName}
             </h1>
-            <p className="text-sm text-muted-foreground font-medium">
+            <p className="text-xs font-mono text-muted-foreground mt-0.5">
               @{profile.username}
             </p>
             {profile.bio && (
-              <p className="text-sm text-foreground/80 mt-2 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-foreground/80 mt-2 max-w-sm mx-auto leading-relaxed">
                 {profile.bio}
               </p>
             )}
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-muted/80 text-foreground text-xs font-medium border border-border">
-            <Lock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-            Ask a confidential question
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-[11px] font-medium border border-emerald-500/20 shadow-2xs">
+            <Lock className="w-3 h-3 text-emerald-500" />
+            <span>100% Private &amp; Anonymous Submission</span>
           </div>
         </div>
 
         {/* Question Submission / Post-Submission Box */}
         {!submitted ? (
-          <div className="bg-card border border-border/80 rounded-2xl shadow-xl p-5 sm:p-5 space-y-5 transition-all">
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="rounded-2xl border border-border/80 bg-card p-4 sm:p-5 shadow-2xs space-y-4 transition-all">
+            <form onSubmit={handleSubmit} className="space-y-3.5">
               <div>
-                <label htmlFor="ask-question" className="sr-only">Your Question</label>
+                <label htmlFor="ask-question" className="sr-only">
+                  Your Question
+                </label>
                 <textarea
                   id="ask-question"
                   rows={4}
                   value={questionText}
                   onChange={(e) => setQuestionText(e.target.value)}
-                  placeholder={`Send a question to ${profile.displayName}...\nYour name and account profile aren't attached to the question.`}
-                  className="w-full rounded-xl border border-input bg-background/50 p-4 text-base placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none transition-all"
+                  placeholder={`Ask ${profile.displayName} a question...\nYour identity is completely private.`}
+                  className="w-full rounded-xl border border-input bg-background/60 p-3.5 text-base sm:text-xs leading-relaxed placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 resize-none transition-all"
                   maxLength={maxChars}
                   disabled={isSubmitting}
                 />
-                <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
+                <div className="flex items-center justify-between mt-1.5 text-[11px] text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Lock className="w-3 h-3 text-emerald-500" />
-                    No sender profile attached
+                    No account required
                   </span>
                   <span
                     className={
-                      charCount > 450
-                        ? "text-amber-500 font-semibold"
-                        : "text-muted-foreground"
+                      charCount > 450 ? "text-amber-500 font-semibold" : "text-muted-foreground"
                     }
                   >
                     {charCount} / {maxChars}
@@ -159,10 +180,10 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                 </div>
               </div>
 
-              {/* Starter Prompts */}
-              <div className="space-y-2">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground block">
-                  Need inspiration? Tap to use:
+              {/* Inspiration Chips */}
+              <div className="space-y-1.5">
+                <span className="text-[10.5px] font-semibold uppercase tracking-wider text-muted-foreground/80 block">
+                  Need inspiration? Tap a prompt:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {STARTER_PROMPTS.map((prompt, idx) => (
@@ -170,7 +191,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                       key={idx}
                       type="button"
                       onClick={() => setQuestionText(prompt)}
-                      className="text-xs px-2.5 py-1.5 rounded-lg border border-border bg-muted/40 hover:bg-muted text-foreground/80 hover:text-foreground transition-colors text-left"
+                      className="text-[11px] px-2.5 py-1 rounded-lg border border-border/80 bg-muted/40 hover:bg-muted text-foreground/80 hover:text-foreground transition-colors text-left"
                     >
                       {prompt}
                     </button>
@@ -179,7 +200,7 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
               </div>
 
               {error && (
-                <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-xs text-destructive font-medium">
+                <div className="p-2.5 rounded-xl bg-destructive/10 border border-destructive/20 text-xs text-destructive font-medium">
                   {error}
                 </div>
               )}
@@ -187,126 +208,104 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
               <button
                 type="submit"
                 disabled={isSubmitting || charCount < 3}
-                className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-primary text-primary-foreground font-semibold text-sm sm:text-base shadow-md hover:bg-primary/95 active:scale-[0.99] transition-all disabled:opacity-50 disabled:pointer-events-none"
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm shadow-sm active:scale-[0.99] transition-all disabled:opacity-40 disabled:pointer-events-none"
               >
                 {isSubmitting ? (
                   <>
-                    <span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                    Sending confidentially...
+                    <span className="animate-spin w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full" />
+                    Sending anonymously...
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4" />
-                    Send Confidentially
+                    <Send className="w-3.5 h-3.5" />
+                    Send Question
                   </>
                 )}
               </button>
             </form>
 
-            {/* Zero Identification Disclaimer */}
             <div className="pt-2 border-t border-border/40 text-center">
-              <p className="text-[11px] text-muted-foreground/80 flex items-center justify-center gap-1">
+              <p className="text-[10.5px] text-muted-foreground flex items-center justify-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                Your name and account profile are not saved with this question. IP addresses are processed temporarily in memory for rate limiting, not stored with the question.
+                Submitted confidentially. Your identity and credentials are never recorded.
               </p>
             </div>
           </div>
         ) : (
-          /* Post-Submission Viral Conversion Card */
-          <div className="bg-card border border-border/80 rounded-2xl shadow-xl p-5 sm:p-6 space-y-6 text-center animate-in fade-in zoom-in-95 duration-200">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-8 h-8" />
+          /* Clean Confirmation State */
+          <div className="rounded-2xl border border-border/80 bg-card p-6 sm:p-7 space-y-5 text-center shadow-2xs animate-in fade-in zoom-in-95 duration-200">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto shadow-2xs">
+              <CheckCircle2 className="w-6 h-6" />
             </div>
 
             <div className="space-y-1">
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
-                Question Sent Confidentially
+              <h2 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
+                Question Sent Privately
               </h2>
-              <p className="text-sm text-muted-foreground">
-                Your question was delivered to {profile.displayName}.                 The question is delivered without your name or account profile attached.
+              <p className="text-xs text-muted-foreground leading-relaxed max-w-xs mx-auto">
+                Your question was delivered to {profile.displayName} without any account or profile details.
               </p>
             </div>
 
-            {/* High-converting prompt to sign up and get their own link */}
-            <div className="p-5 rounded-2xl bg-primary/5 border border-primary/20 space-y-3">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/20 text-primary text-xs font-bold">
-                <Lock className="w-3.5 h-3.5" /> Confidential Q&amp;A
-              </div>
-              <h3 className="text-base font-bold text-foreground">
-                Want people to ask YOU anything confidentially?
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Create your own free Tinat Ask link in 10 seconds. Share it on Instagram Stories, Telegram, WhatsApp, or X, and export sleek visual question decks!
-              </p>
+            <div className="pt-2 flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={handleReset}
+                className="w-full py-2 px-3 rounded-xl border border-border/80 bg-muted/40 hover:bg-muted text-xs font-semibold text-foreground transition-colors flex items-center justify-center gap-1.5"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                Ask another question
+              </button>
 
-              <div className="pt-2 flex flex-col sm:flex-row gap-2.5">
-                <Link
-                  href="/register?redirect=/ask"
-                  className="flex-1 py-2.5 px-4 rounded-xl bg-primary text-primary-foreground font-semibold text-xs sm:text-sm shadow hover:bg-primary/90 transition-all flex items-center justify-center gap-1.5"
-                >
-                  Create Your Free Ask Link <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/login?redirect=/ask"
-                  className="py-2.5 px-4 rounded-xl border border-border bg-card font-medium text-xs sm:text-sm hover:bg-muted transition-all flex items-center justify-center"
-                >
-                  Log In
-                </Link>
-              </div>
+              <Link
+                href="/ask"
+                className="w-full py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-2xs transition-colors flex items-center justify-center gap-1.5"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                Create your own Ask link
+              </Link>
             </div>
-
-            {/* Send Another Button */}
-            <button
-              type="button"
-              onClick={handleReset}
-              className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              Ask another question to {profile.displayName}
-            </button>
           </div>
         )}
 
-        {/* Public Answered Questions Section (if enabled) */}
+        {/* Public Answered Questions Section */}
         {profile.allowPublicAnswers && publicQuestions.length > 0 && (
-          <div className="space-y-4 pt-6">
-            <div className="flex items-center justify-between border-b border-border/60 pb-3">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
-                <MessageCircleQuestion className="w-4 h-4 text-primary" />
-                Answered by {profile.displayName} ({publicQuestions.length})
+          <div className="space-y-3 pt-4">
+            <div className="flex items-center justify-between border-b border-border/60 pb-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                <MessageCircleQuestion className="w-3.5 h-3.5 text-emerald-500" />
+                Answered Questions ({publicQuestions.length})
               </h3>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {publicQuestions.map((q) => (
                 <div
                   key={q.id}
-                  className="bg-card border border-border rounded-xl p-4 sm:p-5 space-y-3 shadow-sm"
+                  className="rounded-2xl border border-border/80 bg-card p-4 space-y-2.5 shadow-2xs"
                 >
-                  {/* Question */}
-                  <div className="p-3.5 rounded-xl bg-muted/40 border border-border/40">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-primary block mb-1">
-                      Confidential Question Asked
+                  <div className="p-3 rounded-xl bg-muted/30 border border-border/40">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 block mb-0.5">
+                      Question
                     </span>
-                    <p className="text-sm font-medium text-foreground">
+                    <p className="text-xs sm:text-sm font-medium text-foreground">
                       &ldquo;{q.questionText}&rdquo;
                     </p>
                   </div>
 
-                  {/* Recipient's Answer */}
                   {q.answerText && (
-                    <div className="pl-3 border-l-2 border-primary/60 space-y-1">
-                      <div className="flex items-center gap-2">
+                    <div className="pl-3 border-l-2 border-emerald-500/80 space-y-1">
+                      <div className="flex items-center gap-1.5">
                         <span className="text-xs font-semibold text-foreground">
                           {profile.displayName}
                         </span>
                         {q.answeredAt && (
                           <span className="text-[10px] text-muted-foreground">
-                            • {new Date(q.answeredAt).toLocaleDateString()}
+                            &bull; {new Date(q.answeredAt).toLocaleDateString()}
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-foreground/90 whitespace-pre-wrap leading-relaxed">
+                      <p className="text-xs sm:text-sm text-foreground/90 whitespace-pre-wrap leading-relaxed">
                         {q.answerText}
                       </p>
                     </div>
@@ -316,6 +315,12 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
             </div>
           </div>
         )}
+      </main>
+
+      {/* Footer */}
+      <footer className="py-4 text-center text-[11px] text-muted-foreground border-t border-border/60">
+        Powered by <Link href="/" className="font-semibold hover:text-foreground">Tinat Health Network</Link>
+      </footer>
     </div>
   );
 }
