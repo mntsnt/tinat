@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import Link from "next/link";
 import {
   AlertCircle,
@@ -8,12 +8,20 @@ import {
   BrainCircuit,
   Check,
   ChevronDown,
+  Copy,
   Database,
+  History,
   Loader2,
   Menu,
   MessageSquare,
+  PanelLeftClose,
+  PanelLeftOpen,
   Plus,
+  RefreshCw,
+  Search,
+  SlidersHorizontal,
   Sparkles,
+  Square,
   Trash2,
   X,
 } from "lucide-react";
@@ -59,7 +67,23 @@ function errorMessage(data: { error?: string }, fallback: string) {
 }
 
 function displayTitle(title: string | null) {
-  return title?.trim() || "New research chat";
+  return title?.trim() || "New research session";
+}
+
+function formatChatDate(dateStr: string): string {
+  try {
+    const d = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now.getTime() - d.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "Today";
+    if (diffDays === 1) return "Yesterday";
+    if (diffDays < 7) return `${diffDays}d ago`;
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  } catch {
+    return "";
+  }
 }
 
 export default function AIChatPage() {
@@ -74,12 +98,17 @@ export default function AIChatPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingConversation, setIsLoadingConversation] = useState(false);
   const [isSavingSettings, setIsSavingSettings] = useState(false);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false); // Mobile drawer
+  const [isDesktopSidebarCollapsed, setIsDesktopSidebarCollapsed] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [error, setError] = useState("");
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [deletingConversationId, setDeletingConversationId] = useState<string | null>(null);
   const [isDeletingConversation, setIsDeletingConversation] = useState(false);
   const [showDeleteActiveConfirm, setShowDeleteActiveConfirm] = useState(false);
   const [deletingMessageId, setDeletingMessageId] = useState<string | null>(null);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -142,6 +171,7 @@ export default function AIChatPage() {
     };
   }, []);
 
+  // Smooth auto-scroll on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, isGenerating]);
@@ -377,523 +407,694 @@ export default function AIChatPage() {
     }
   };
 
+  const handleCopyMessage = (content: string, index: number) => {
+    navigator.clipboard.writeText(content);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000);
+  };
+
   const selectedStudyTitle =
-    studies.find((study) => study.id === selectedStudyId)?.title || "No study context";
+    studies.find((study) => study.id === selectedStudyId)?.title || "General / No Study";
+  const currentModelInfo = getAIModel(selectedModel) || AVAILABLE_MODELS[0];
   const isBusy = isGenerating || isLoadingConversation || isSavingSettings;
 
+  // Filtered conversation list
+  const filteredConversations = useMemo(() => {
+    if (!searchQuery.trim()) return conversations;
+    const q = searchQuery.toLowerCase();
+    return conversations.filter((c) => (c.title || "").toLowerCase().includes(q));
+  }, [conversations, searchQuery]);
+
   return (
-    <main className="flex h-dvh min-h-[480px] overflow-hidden bg-background font-sans text-foreground">
+    <div className="flex h-dvh w-full overflow-hidden bg-background font-sans text-foreground selection:bg-emerald-500/20">
+      {/* ───────────────────────────────────────────────────────────── */}
+      {/* MOBILE BACKDROP                                                */}
+      {/* ───────────────────────────────────────────────────────────── */}
       {isSidebarOpen && (
         <button
           aria-label="Close chat history"
-          className="fixed inset-0 z-20 bg-black/60 md:hidden"
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs md:hidden animate-in fade-in duration-200"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
+      {/* ───────────────────────────────────────────────────────────── */}
+      {/* SIDEBAR: RECENT SESSIONS                                       */}
+      {/* ───────────────────────────────────────────────────────────── */}
       <aside
-        className={`fixed inset-y-0 left-0 z-30 flex w-[280px] shrink-0 flex-col border-r border-border bg-card transition-transform md:static md:translate-x-0 ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 flex flex-col border-r border-border bg-card/95 backdrop-blur-md transition-all duration-200 md:static md:translate-x-0 ${
+          isSidebarOpen ? "translate-x-0 w-[280px]" : "-translate-x-full md:translate-x-0"
+        } ${isDesktopSidebarCollapsed ? "md:w-0 md:border-r-0 md:overflow-hidden" : "md:w-[280px] md:shrink-0"}`}
       >
-        <div className="flex h-[68px] items-center justify-between border-b border-border px-4">
-          <Link href="/researcher" className="flex min-w-0 items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white">
-              <Sparkles className="h-4 w-4" />
-            </span>
-            <span className="truncate text-sm font-semibold tracking-tight">Tinat AI</span>
-          </Link>
-          <button
-            aria-label="Close chat history"
-            className="rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
-            onClick={() => setSidebarOpen(false)}
+        {/* Sidebar Header */}
+        <div className="flex h-14 items-center justify-between border-b border-border/80 px-3.5">
+          <Link
+            href="/researcher"
+            className="flex items-center gap-2 group transition-opacity hover:opacity-85"
           >
-            <X className="h-4 w-4" />
-          </button>
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-xs shadow-emerald-600/30">
+              <Sparkles className="h-4 w-4" />
+            </div>
+            <div>
+              <span className="text-sm font-bold tracking-tight text-foreground">Tinat AI</span>
+              <span className="ml-1.5 rounded-sm bg-emerald-500/10 px-1 py-0.2 text-[9px] font-semibold text-emerald-600 dark:text-emerald-400">
+                PRO
+              </span>
+            </div>
+          </Link>
+
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
+              aria-label="Close sidebar"
+            >
+              <X className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => setIsDesktopSidebarCollapsed(true)}
+              className="hidden md:flex rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+              title="Collapse sidebar"
+              aria-label="Collapse sidebar"
+            >
+              <PanelLeftClose className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
+        {/* New Session Button */}
         <div className="p-3">
           <button
             onClick={startNewChat}
             disabled={isGenerating}
-            className="flex w-full items-center gap-2.5 rounded-lg border border-border bg-background px-3 py-2.5 text-left text-sm font-medium text-foreground transition-colors hover:border-primary/30 hover:bg-muted disabled:opacity-50"
+            className="group flex w-full items-center justify-between rounded-xl border border-border/80 bg-background px-3 py-2 text-xs font-semibold text-foreground shadow-2xs hover:border-emerald-500/40 hover:bg-muted transition-all disabled:opacity-50"
           >
-            <Plus className="h-4 w-4 text-emerald-700 dark:text-emerald-400" />
-            New chat
-            <span className="ml-auto text-[11px] text-muted-foreground">Ctrl + N</span>
+            <span className="flex items-center gap-2">
+              <Plus className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform" />
+              New Session
+            </span>
+            <kbd className="hidden sm:inline-block rounded border border-border bg-muted/60 px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground">
+              Ctrl+N
+            </kbd>
           </button>
         </div>
 
-        <div className="flex items-center gap-2 px-4 pb-2 pt-3 text-[11px] font-semibold uppercase tracking-[0.13em] text-muted-foreground">
-          <MessageSquare className="h-3.5 w-3.5" />
-          Recent chats
-        </div>
-
-        <div className="min-h-0 flex-1 overflow-y-auto px-2 pb-3">
-          {isLoading ? (
-            <div className="space-y-2 px-2 py-3" aria-label="Loading chat history">
-              <div className="h-10 animate-pulse rounded-md bg-muted" />
-              <div className="h-10 animate-pulse rounded-md bg-muted" />
-              <div className="h-10 animate-pulse rounded-md bg-muted" />
+        {/* Search bar inside sidebar */}
+        {conversations.length > 5 && (
+          <div className="px-3 pb-2">
+            <div className="relative flex items-center">
+              <Search className="absolute left-2.5 h-3.5 w-3.5 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Search history..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full rounded-lg border border-border/60 bg-muted/30 py-1.5 pl-8 pr-3 text-xs text-foreground placeholder:text-muted-foreground/70 outline-none focus:border-emerald-500/40 focus:bg-background transition-colors"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              )}
             </div>
-          ) : conversations.length === 0 ? (
-            <p className="px-3 py-3 text-xs leading-5 text-muted-foreground">
-              Your saved chats will appear here.
-            </p>
+          </div>
+        )}
+
+        {/* Sessions List */}
+        <div className="flex-1 overflow-y-auto px-2 py-1 space-y-0.5 text-xs">
+          {isLoading ? (
+            <div className="space-y-1.5 p-2">
+              <div className="h-8 animate-pulse rounded-lg bg-muted/60" />
+              <div className="h-8 animate-pulse rounded-lg bg-muted/60" />
+              <div className="h-8 animate-pulse rounded-lg bg-muted/60" />
+            </div>
+          ) : filteredConversations.length === 0 ? (
+            <div className="p-4 text-center text-muted-foreground text-[11px]">
+              {searchQuery ? "No matching chats found." : "No previous chats yet."}
+            </div>
           ) : (
-            <div className="space-y-1">
-              {conversations.map((conversation) => {
-                const isActive = conversation.id === activeConversationId;
-                const isConfirmingDelete = deletingConversationId === conversation.id;
+            filteredConversations.map((conversation) => {
+              const isActive = conversation.id === activeConversationId;
+              const isConfirmingDelete = deletingConversationId === conversation.id;
 
-                if (isConfirmingDelete) {
-                  return (
-                    <div
-                      key={conversation.id}
-                      className="rounded-md border border-destructive/30 bg-destructive/5 p-2 text-xs space-y-2"
-                    >
-                      <p className="text-foreground font-medium truncate">
-                        Delete this chat?
-                      </p>
-                      <div className="flex items-center gap-1.5 justify-end">
-                        <button
-                          type="button"
-                          disabled={isDeletingConversation}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setDeletingConversationId(null);
-                          }}
-                          className="rounded px-2 py-1 text-[11px] text-muted-foreground hover:bg-muted font-medium transition-colors"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="button"
-                          disabled={isDeletingConversation}
-                          onClick={(e) => void handleDeleteConversation(conversation.id, e)}
-                          className="flex items-center gap-1 rounded bg-destructive text-destructive-foreground px-2 py-1 text-[11px] font-medium hover:bg-destructive/90 transition-colors disabled:opacity-50"
-                        >
-                          {isDeletingConversation ? (
-                            <Loader2 className="h-3 w-3 animate-spin" />
-                          ) : (
-                            <Trash2 className="h-3 w-3" />
-                          )}
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  );
-                }
-
+              if (isConfirmingDelete) {
                 return (
                   <div
                     key={conversation.id}
-                    className={`group relative flex w-full items-center rounded-md transition ${
-                      isActive
-                        ? "bg-primary/10 text-foreground"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                    }`}
+                    className="my-1 rounded-lg border border-destructive/30 bg-destructive/5 p-2 text-xs space-y-1.5 animate-in fade-in"
                   >
-                    <button
-                      onClick={() => void openConversation(conversation.id)}
-                      disabled={isBusy}
-                      className="flex min-w-0 flex-1 items-start gap-2.5 px-3 py-2.5 text-left disabled:opacity-60"
-                    >
-                      <MessageSquare
-                        className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${
-                          isActive ? "text-emerald-700 dark:text-emerald-400" : "text-muted-foreground"
-                        }`}
-                      />
-                      <span className="min-w-0 flex-1 pr-6">
-                        <span className="block truncate text-[13px]">
-                          {displayTitle(conversation.title)}
-                        </span>
-                        <span className="mt-1 block text-[11px] text-muted-foreground">
-                          {new Date(conversation.updatedAt).toLocaleDateString(undefined, {
-                            month: "short",
-                            day: "numeric",
-                          })}
-                        </span>
-                      </span>
-                    </button>
-                    <button
-                      type="button"
-                      aria-label={`Delete chat: ${displayTitle(conversation.title)}`}
-                      title="Delete chat from history"
-                      disabled={isBusy}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setDeletingConversationId(conversation.id);
-                      }}
-                      className="absolute right-2 top-2.5 rounded p-1.5 text-muted-foreground opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:bg-destructive/10 hover:text-destructive transition-opacity"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </button>
+                    <p className="font-medium text-foreground truncate">Delete this chat?</p>
+                    <div className="flex items-center gap-1.5 justify-end">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setDeletingConversationId(null);
+                        }}
+                        className="rounded px-2 py-0.5 text-[11px] text-muted-foreground hover:bg-muted transition-colors"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => void handleDeleteConversation(conversation.id, e)}
+                        className="rounded bg-destructive text-destructive-foreground px-2 py-0.5 text-[11px] font-semibold hover:bg-destructive/90 transition-colors"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 );
-              })}
-            </div>
+              }
+
+              return (
+                <div
+                  key={conversation.id}
+                  className={`group relative flex items-center rounded-lg transition-colors ${
+                    isActive
+                      ? "bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 font-medium"
+                      : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                  }`}
+                >
+                  <button
+                    onClick={() => void openConversation(conversation.id)}
+                    disabled={isBusy}
+                    className="flex min-w-0 flex-1 items-center gap-2 px-2.5 py-2 text-left"
+                  >
+                    <MessageSquare
+                      className={`h-3.5 w-3.5 shrink-0 ${
+                        isActive ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground/70"
+                      }`}
+                    />
+                    <span className="truncate text-xs flex-1">
+                      {displayTitle(conversation.title)}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground/60 shrink-0 font-normal">
+                      {formatChatDate(conversation.updatedAt)}
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label="Delete chat"
+                    title="Delete session"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeletingConversationId(conversation.id);
+                    }}
+                    className="absolute right-1.5 opacity-0 group-hover:opacity-100 p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded transition-all"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </button>
+                </div>
+              );
+            })
           )}
         </div>
 
-        <div className="border-t border-border px-4 py-3 text-[11px] text-muted-foreground">
-          Your research, thoughtfully supported.
+        {/* Sidebar Footer */}
+        <div className="border-t border-border/80 p-3 text-[11px] text-muted-foreground flex items-center justify-between">
+          <span>Grounded in Ethiopian Research</span>
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
         </div>
       </aside>
 
-      <section className="flex min-w-0 flex-1 flex-col">
-        <header className="flex min-h-[68px] items-center justify-between gap-3 border-b border-border bg-background px-3 sm:px-5">
-          <div className="flex min-w-0 items-center gap-2">
+      {/* ───────────────────────────────────────────────────────────── */}
+      {/* MAIN CHAT STAGE                                                */}
+      {/* ───────────────────────────────────────────────────────────── */}
+      <main className="flex min-w-0 flex-1 flex-col overflow-hidden bg-background">
+        {/* Compact, Ultra-Sleek Top Bar (Single-Row, Mobile & Desktop Perfect) */}
+        <header className="flex h-14 shrink-0 items-center justify-between border-b border-border/70 bg-card/60 backdrop-blur-md px-3 sm:px-5 z-20">
+          <div className="flex items-center gap-2 min-w-0">
+            {/* Mobile menu toggle */}
             <button
-              aria-label="Open chat history"
-              className="rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
               onClick={() => setSidebarOpen(true)}
+              className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
+              aria-label="Open sidebar"
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="h-4 w-4" />
             </button>
+
+            {/* Desktop uncollapse button (if collapsed) */}
+            {isDesktopSidebarCollapsed && (
+              <button
+                onClick={() => setIsDesktopSidebarCollapsed(false)}
+                className="hidden md:flex rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors mr-1"
+                title="Expand sidebar"
+                aria-label="Expand sidebar"
+              >
+                <PanelLeftOpen className="h-4 w-4" />
+              </button>
+            )}
+
+            {/* Active Session Info */}
             <div className="min-w-0">
-              <h1 className="truncate text-sm font-semibold text-foreground">
+              <h1 className="text-xs sm:text-sm font-semibold text-foreground truncate max-w-[220px] sm:max-w-md">
                 {activeConversationId
                   ? displayTitle(conversations.find((item) => item.id === activeConversationId)?.title || null)
-                  : "New research chat"}
+                  : "New research session"}
               </h1>
-              <p className="hidden text-[11px] text-muted-foreground sm:block">
-                Tinat AI Research Assistant
-              </p>
+              <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground truncate">
+                <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium truncate">
+                  <Database className="h-2.5 w-2.5 shrink-0" />
+                  {selectedStudyTitle}
+                </span>
+                <span>&bull;</span>
+                <span className="truncate">{currentModelInfo.name}</span>
+              </div>
             </div>
           </div>
 
-          <div className="flex shrink-0 items-center gap-2">
+          {/* Right Header Actions */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* Mobile Quick Action for New Session */}
+            <button
+              type="button"
+              onClick={startNewChat}
+              className="flex md:hidden items-center justify-center h-8 w-8 rounded-lg border border-border bg-card text-foreground hover:bg-muted transition-colors"
+              title="New Chat"
+            >
+              <Plus className="h-4 w-4 text-emerald-600" />
+            </button>
+
+            {/* Desktop Study Selector Pill */}
+            <div className="relative hidden md:block">
+              <label className="flex items-center gap-1.5 rounded-lg border border-border/80 bg-card/80 px-2.5 py-1.5 text-xs text-foreground hover:border-emerald-500/40 transition-colors cursor-pointer">
+                <Database className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                <select
+                  value={selectedStudyId}
+                  disabled={isBusy}
+                  onChange={(e) => void saveChatSettings(e.target.value, selectedModel)}
+                  className="appearance-none bg-transparent pr-4 text-xs text-foreground outline-none font-medium max-w-[170px] truncate cursor-pointer"
+                >
+                  <option value="">General Research (No Study)</option>
+                  {studies.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.title}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-2 h-3 w-3 text-muted-foreground" />
+              </label>
+            </div>
+
+            {/* Desktop Model Selector Pill */}
+            <div className="relative hidden md:block">
+              <label className="flex items-center gap-1.5 rounded-lg border border-border/80 bg-card/80 px-2.5 py-1.5 text-xs text-foreground hover:border-emerald-500/40 transition-colors cursor-pointer">
+                <BrainCircuit className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                <select
+                  value={selectedModel}
+                  disabled={isBusy}
+                  onChange={(e) => {
+                    const m = getAIModel(e.target.value);
+                    if (m) void saveChatSettings(selectedStudyId, m.id);
+                  }}
+                  className="appearance-none bg-transparent pr-4 text-xs text-foreground outline-none font-medium max-w-[150px] truncate cursor-pointer"
+                >
+                  {AVAILABLE_MODELS.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.name}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-2 h-3 w-3 text-muted-foreground" />
+              </label>
+            </div>
+
+            {/* Mobile Settings Trigger (Single Clean Modal, Zero Clutter) */}
+            <button
+              type="button"
+              onClick={() => setShowSettingsModal(true)}
+              className="flex md:hidden items-center justify-center h-8 w-8 rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              title="Context & Model Settings"
+            >
+              <SlidersHorizontal className="h-3.5 w-3.5" />
+            </button>
+
+            {/* Delete Chat Button (understated) */}
             {activeConversationId && (
               <button
                 type="button"
                 onClick={() => setShowDeleteActiveConfirm((prev) => !prev)}
-                aria-label="Delete active chat"
-                title="Delete this chat from history"
-                disabled={isBusy}
-                className="flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1.5 text-xs text-muted-foreground hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive transition-colors shrink-0"
+                className="h-8 w-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                title="Delete this chat"
               >
                 <Trash2 className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline font-medium">Delete chat</span>
               </button>
             )}
-            <label className="relative hidden max-w-[220px] items-center gap-2 rounded-md border border-border bg-card px-2.5 py-2 sm:flex">
-              <Database className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-              <select
-                aria-label="Study context"
-                value={selectedStudyId}
-                disabled={isBusy}
-                onChange={(event) => void saveChatSettings(event.target.value, selectedModel)}
-                className="w-full min-w-0 appearance-none bg-transparent pr-4 text-xs text-foreground outline-none disabled:opacity-60"
-              >
-                <option value="">No study context</option>
-                {studies.map((study) => (
-                  <option key={study.id} value={study.id}>
-                    {study.title}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
-            </label>
-            <label className="relative hidden max-w-[200px] items-center gap-2 rounded-md border border-border bg-card px-2.5 py-2 sm:flex">
-              <BrainCircuit className="h-3.5 w-3.5 shrink-0 text-primary" />
-              <span className="sr-only">AI model</span>
-              <select
-                aria-label="AI model"
-                value={selectedModel}
-                disabled={isBusy}
-                onChange={(event) => {
-                  const model = getAIModel(event.target.value);
-                  if (model) void saveChatSettings(selectedStudyId, model.id);
-                }}
-                className="w-full min-w-0 appearance-none bg-transparent pr-4 text-xs text-foreground outline-none disabled:opacity-60"
-              >
-                {AVAILABLE_MODELS.map((model) => (
-                  <option key={model.id} value={model.id}>
-                    {model.name}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
-            </label>
           </div>
         </header>
 
+        {/* Delete Confirmation Alert Banner */}
         {showDeleteActiveConfirm && activeConversationId && (
-          <div
-            role="alert"
-            className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-destructive/20 bg-destructive/10 px-4 py-2.5 text-xs text-foreground animate-in fade-in-50"
-          >
+          <div className="flex items-center justify-between gap-3 border-b border-destructive/20 bg-destructive/10 px-4 py-2 text-xs text-foreground animate-in slide-in-from-top-2">
             <div className="flex items-center gap-2">
-              <AlertCircle className="h-4 w-4 text-destructive shrink-0" />
-              <span>Are you sure you want to delete this chat history? This action cannot be undone.</span>
+              <AlertCircle className="h-3.5 w-3.5 text-destructive shrink-0" />
+              <span>Permanently delete this chat history?</span>
             </div>
-            <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+            <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
-                disabled={isDeletingConversation}
                 onClick={() => setShowDeleteActiveConfirm(false)}
-                className="rounded px-2.5 py-1 text-xs text-muted-foreground hover:bg-muted font-medium transition-colors"
+                className="rounded px-2 py-0.5 text-xs text-muted-foreground hover:bg-muted font-medium"
               >
                 Cancel
               </button>
               <button
                 type="button"
-                disabled={isDeletingConversation}
                 onClick={() => void handleDeleteConversation(activeConversationId)}
-                className="flex items-center gap-1.5 rounded bg-destructive text-destructive-foreground px-2.5 py-1 text-xs font-semibold hover:bg-destructive/90 transition-colors disabled:opacity-50"
+                className="rounded bg-destructive text-destructive-foreground px-2.5 py-0.5 text-xs font-semibold hover:bg-destructive/90 transition-colors"
               >
-                {isDeletingConversation ? (
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                ) : (
-                  <Trash2 className="h-3 w-3" />
-                )}
-                Delete Chat
+                Delete
               </button>
             </div>
           </div>
         )}
 
-        {/* Mobile Toolbar for Study Context and Model Selection */}
-        <div className="flex sm:hidden items-center gap-2 border-b border-border bg-card/60 px-3 py-2 overflow-x-auto no-scrollbar">
-          <label className="relative flex max-w-[170px] flex-1 items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs text-foreground shrink-0">
-            <Database className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-            <select
-              aria-label="Study context"
-              value={selectedStudyId}
-              disabled={isBusy}
-              onChange={(event) => void saveChatSettings(event.target.value, selectedModel)}
-              className="w-full min-w-0 appearance-none bg-transparent pr-4 text-xs text-foreground outline-none disabled:opacity-60"
-            >
-              <option value="">No study context</option>
-              {studies.map((study) => (
-                <option key={study.id} value={study.id}>
-                  {study.title}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
-          </label>
-
-          <label className="relative flex max-w-[150px] flex-1 items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs text-foreground shrink-0">
-            <BrainCircuit className="h-3.5 w-3.5 shrink-0 text-primary" />
-            <span className="sr-only">AI model</span>
-            <select
-              aria-label="AI model"
-              value={selectedModel}
-              disabled={isBusy}
-              onChange={(event) => {
-                const model = getAIModel(event.target.value);
-                if (model) void saveChatSettings(selectedStudyId, model.id);
-              }}
-              className="w-full min-w-0 appearance-none bg-transparent pr-4 text-xs text-foreground outline-none disabled:opacity-60"
-            >
-              {AVAILABLE_MODELS.map((model) => (
-                <option key={model.id} value={model.id}>
-                  {model.name}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-2 h-3.5 w-3.5 text-muted-foreground" />
-          </label>
-        </div>
-
-        <div className="flex min-h-0 flex-1 flex-col">
-          <div className="flex-1 overflow-y-auto px-4 pb-10 pt-5 sm:px-8 lg:px-12">
-            <div className="mx-auto w-full max-w-5xl space-y-8">
-              {isLoadingConversation ? (
-                <div className="flex items-center justify-center py-24 text-sm text-muted-foreground">
-                  <span className="mr-3 h-4 w-4 animate-spin rounded-full border-2 border-emerald-600 border-t-transparent" />
-                  Loading conversation...
+        {/* ───────────────────────────────────────────────────────────── */}
+        {/* CHAT MESSAGES STREAM                                           */}
+        {/* ───────────────────────────────────────────────────────────── */}
+        <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-6 md:px-8 overscroll-contain">
+          <div className="mx-auto max-w-3xl space-y-6 pb-28">
+            {isLoadingConversation ? (
+              <div className="flex flex-col items-center justify-center py-20 text-xs text-muted-foreground space-y-2">
+                <Loader2 className="h-6 w-6 animate-spin text-emerald-600" />
+                <span>Loading research session...</span>
+              </div>
+            ) : messages.length === 0 ? (
+              /* Sleek Empty State Hero */
+              <div className="flex min-h-[50vh] flex-col items-center justify-center text-center px-2 py-6">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/20 via-emerald-500/10 to-transparent border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shadow-lg shadow-emerald-500/10">
+                  <Sparkles className="h-6 w-6 animate-pulse" />
                 </div>
-              ) : messages.length === 0 ? (
-                <div className="flex min-h-[min(62vh,560px)] flex-col items-center justify-center px-4 text-center">
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-600/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
-                    <Sparkles className="h-5 w-5" />
-                  </div>
-                  <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-                    What are you researching?
-                  </h2>
-                  <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-                    Ask a question, explore your study data, or get help shaping your next analysis.
-                  </p>
-                  <div className="mt-7 grid w-full max-w-4xl gap-3 sm:grid-cols-2">
-                    {[
-                      "Summarize the key findings in my study",
-                      "What patterns stand out in the responses?",
-                      "Help me refine my research question",
-                      "Suggest an analysis plan for this dataset",
-                    ].map((suggestion) => (
-                      <button
-                        key={suggestion}
-                        onClick={() => {
-                          setInput(suggestion);
-                          inputRef.current?.focus();
-                        }}
-                        className="rounded-xl border border-border bg-card px-4 py-3.5 text-left text-sm leading-6 text-muted-foreground transition-colors hover:border-emerald-600/40 hover:bg-muted hover:text-foreground"
-                      >
-                        {suggestion}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                messages.map((message, index) => (
-                  <div
-                    key={`${activeConversationId}-${index}`}
-                    className={`flex gap-3.5 ${
-                      message.role === "user" ? "justify-end" : "justify-start"
-                    }`}
-                  >
-                    {message.role !== "user" && (
-                      <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
-                        <Sparkles className="h-3.5 w-3.5" />
-                      </div>
-                    )}
-                    <div
-                      className={`min-w-0 ${
-                        message.role === "user"
-                          ? "max-w-[92%] rounded-2xl rounded-tr-md border border-border bg-muted px-4 py-3 text-sm leading-6 text-foreground sm:max-w-[82%] lg:max-w-[75%]"
-                          : "max-w-full flex-1 pt-1 text-sm leading-7 text-foreground"
-                      }`}
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                  Tinat Research Copilot
+                </h2>
+                <p className="mt-1.5 max-w-md text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  Analyze clinical study data, draft validated questions, or synthesize epidemiological hypotheses across Ethiopia.
+                </p>
+
+                {/* Prompt Suggestions Grid */}
+                <div className="mt-6 grid w-full max-w-2xl gap-2.5 sm:grid-cols-2 text-left">
+                  {[
+                    {
+                      label: "Summarize Study Findings",
+                      prompt: "Summarize the key descriptive findings and response trends from my active study.",
+                    },
+                    {
+                      label: "Draft Survey Questions",
+                      prompt: "Draft 5 Likert-scale questions on treatment adherence and barrier perception.",
+                    },
+                    {
+                      label: "Analyze Demographics",
+                      prompt: "Break down sample demographics and evaluate geographic distribution across regions.",
+                    },
+                    {
+                      label: "Ethics & Compliance Review",
+                      prompt: "Highlight participant consent and data confidentiality safeguards for this protocol.",
+                    },
+                  ].map((item) => (
+                    <button
+                      key={item.label}
+                      type="button"
+                      onClick={() => {
+                        setInput(item.prompt);
+                        inputRef.current?.focus();
+                      }}
+                      className="group rounded-xl border border-border/80 bg-card/60 p-3 text-left transition-all hover:border-emerald-500/40 hover:bg-muted hover:shadow-xs active:scale-[0.99]"
                     >
-                      {message.role === "user" ? (
-                        <div className="group relative">
-                          <p className="whitespace-pre-wrap">{message.content}</p>
-                          <div className="mt-1 flex items-center justify-end">
-                            <button
-                              type="button"
-                              onClick={() => void handleDeleteMessage(message.id, index)}
-                              disabled={deletingMessageId === message.id}
-                              aria-label="Delete message from history"
-                              title="Delete message from history"
-                              className="rounded p-1 text-muted-foreground/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:text-destructive hover:bg-background/80 transition-all"
-                            >
-                              {deletingMessageId === message.id ? (
-                                <Loader2 className="h-3 w-3 animate-spin" />
-                              ) : (
-                                <Trash2 className="h-3 w-3" />
-                              )}
-                            </button>
-                          </div>
+                      <p className="text-xs font-semibold text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                        {item.label}
+                      </p>
+                      <p className="mt-0.5 text-[11px] text-muted-foreground line-clamp-2 leading-snug">
+                        {item.prompt}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              /* Conversational Messages */
+              messages.map((message, index) => {
+                const isUser = message.role === "user";
+
+                if (isUser) {
+                  return (
+                    <div key={index} className="flex justify-end group">
+                      <div className="max-w-[88%] sm:max-w-[78%] rounded-2xl rounded-tr-xs bg-emerald-600 text-white px-4 py-2.5 text-xs sm:text-sm leading-relaxed shadow-xs">
+                        <p className="whitespace-pre-wrap">{message.content}</p>
+                        <div className="flex items-center justify-end gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <button
+                            type="button"
+                            onClick={() => handleCopyMessage(message.content, index)}
+                            className="p-1 text-white/70 hover:text-white"
+                            title="Copy message"
+                          >
+                            {copiedIndex === index ? (
+                              <Check className="h-3 w-3 text-emerald-200" />
+                            ) : (
+                              <Copy className="h-3 w-3" />
+                            )}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => void handleDeleteMessage(message.id, index)}
+                            className="p-1 text-white/70 hover:text-red-200"
+                            title="Delete message"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </button>
                         </div>
-                      ) : (
-                        <article className="overflow-hidden rounded-2xl border border-border/80 bg-card/70 shadow-sm">
-                          <header className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-4 py-3">
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
-                                <Sparkles className="h-3.5 w-3.5" />
-                              </span>
-                              <div className="min-w-0">
-                                <p className="text-xs font-semibold text-foreground">Tinat AI</p>
-                                <p className="text-[10px] text-muted-foreground">Research assistant</p>
-                              </div>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => void handleDeleteMessage(message.id, index)}
-                              disabled={deletingMessageId === message.id}
-                              aria-label="Delete response from history"
-                              title="Delete response from history"
-                              className="rounded p-1 text-muted-foreground/60 hover:text-destructive hover:bg-destructive/10 transition-colors"
-                            >
-                              {deletingMessageId === message.id ? (
-                                <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                              ) : (
-                                <Trash2 className="h-3.5 w-3.5" />
-                              )}
-                            </button>
-                          </header>
-                          <div className="px-4 py-4 sm:px-5 sm:py-5">
-                            <ArtifactRenderer content={message.content} />
-                          </div>
-                        </article>
-                      )}
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Assistant Message: Sleek, fluid, no clunky nested cards
+                return (
+                  <div key={index} className="flex gap-3 group">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 mt-0.5">
+                      <Sparkles className="h-3.5 w-3.5" />
+                    </div>
+
+                    <div className="min-w-0 flex-1 space-y-2">
+                      <div className="text-xs sm:text-sm leading-relaxed text-foreground">
+                        <ArtifactRenderer content={message.content} />
+                      </div>
+
+                      {/* Quiet Action Toolbar */}
+                      <div className="flex items-center gap-3 pt-1 text-[11px] text-muted-foreground opacity-60 group-hover:opacity-100 transition-opacity">
+                        <button
+                          type="button"
+                          onClick={() => handleCopyMessage(message.content, index)}
+                          className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                        >
+                          {copiedIndex === index ? (
+                            <>
+                              <Check className="h-3 w-3 text-emerald-500" />
+                              <span className="text-emerald-500">Copied</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="h-3 w-3" />
+                              <span>Copy response</span>
+                            </>
+                          )}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => void handleDeleteMessage(message.id, index)}
+                          className="inline-flex items-center gap-1 hover:text-destructive transition-colors"
+                          title="Delete response"
+                        >
+                          <Trash2 className="h-3 w-3" />
+                          <span>Delete</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                ))
-              )}
-              {isGenerating && (
-                <div className="flex items-center gap-3.5 text-sm text-muted-foreground">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10">
-                    <span className="h-3 w-3 animate-spin rounded-full border-2 border-emerald-600 border-t-transparent" />
-                  </span>
-                  Thinking...
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-          </div>
+                );
+              })
+            )}
 
-          <div className="shrink-0 border-t border-border bg-background px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6 sm:pb-5">
-            <div className="mx-auto w-full max-w-5xl">
-              {error && (
-                <div
-                  role="alert"
-                  className="mb-3 flex items-start gap-2 rounded-lg border border-destructive/20 bg-destructive/10 px-3 py-2.5 text-xs text-destructive"
-                >
-                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                  <span className="flex-1">{error}</span>
-                  <button
-                    aria-label="Dismiss error"
-                    onClick={() => setError("")}
-                    className="rounded p-0.5 text-destructive/70 hover:text-destructive"
-                  >
-                    <X className="h-3.5 w-3.5" />
-                  </button>
+            {/* Thinking / Generating Indicator */}
+            {isGenerating && (
+              <div className="flex items-center gap-3 text-xs text-muted-foreground animate-in fade-in">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
                 </div>
-              )}
-              <div className="rounded-xl border border-input bg-card shadow-sm transition-colors focus-within:border-emerald-600/50">
-                <textarea
-                  ref={inputRef}
-                  aria-label="Message Tinat AI"
-                  className="max-h-56 min-h-[68px] w-full resize-none bg-transparent px-4 pb-2 pt-4 text-base sm:text-sm leading-6 text-foreground outline-none placeholder:text-muted-foreground"
-                  rows={1}
-                  placeholder={`Message Tinat AI${selectedStudyId ? ` about ${selectedStudyTitle}` : ""}...`}
-                  value={input}
-                  disabled={isBusy}
-                  onChange={(event) => {
-                    setInput(event.target.value);
-                    event.target.style.height = "auto";
-                    event.target.style.height = `${Math.min(event.target.scrollHeight, 192)}px`;
-                  }}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" && !event.shiftKey) {
-                      event.preventDefault();
-                      void handleSend();
-                    }
-                  }}
-                />
-                <div className="flex items-center justify-between px-3 pb-2.5">
-                  <div className="flex min-w-0 items-center gap-2 text-xs text-muted-foreground">
-                    <span className="truncate max-w-[200px]">
-                      {selectedStudyTitle}
-                    </span>
-                    {isSavingSettings && <span className="text-[11px]">Saving...</span>}
-                    {!isSavingSettings && (
-                      <span className="hidden items-center gap-1 sm:flex text-[11px]">
-                        <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
-                        Chat history saves automatically
-                      </span>
-                    )}
-                  </div>
+                <span>Tinat AI is analyzing your study context...</span>
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+        </div>
+
+        {/* ───────────────────────────────────────────────────────────── */}
+        {/* COMPOSER / INPUT DOCK                                          */}
+        {/* ───────────────────────────────────────────────────────────── */}
+        <div className="shrink-0 border-t border-border/80 bg-background/95 backdrop-blur-md px-3 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6">
+          <div className="mx-auto max-w-3xl">
+            {error && (
+              <div className="mb-2 flex items-center justify-between gap-2 rounded-lg border border-destructive/20 bg-destructive/10 px-3 py-1.5 text-xs text-destructive animate-in fade-in">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <AlertCircle className="h-3.5 w-3.5 shrink-0" />
+                  <span className="truncate">{error}</span>
+                </div>
+                <button onClick={() => setError("")} className="shrink-0 p-0.5">
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            )}
+
+            {/* Elevated Floating Composer Box */}
+            <div className="rounded-2xl border border-border/90 bg-card shadow-sm transition-all focus-within:border-emerald-500/50 focus-within:ring-2 focus-within:ring-emerald-500/10">
+              <textarea
+                ref={inputRef}
+                rows={1}
+                aria-label="Ask Tinat AI"
+                placeholder={
+                  selectedStudyId
+                    ? `Ask about ${selectedStudyTitle}...`
+                    : "Ask Tinat AI a question, explore hypotheses..."
+                }
+                value={input}
+                disabled={isBusy}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  e.target.style.height = "auto";
+                  e.target.style.height = `${Math.min(e.target.scrollHeight, 180)}px`;
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    void handleSend();
+                  }
+                }}
+                className="max-h-44 min-h-[52px] w-full resize-none bg-transparent px-4 pt-3.5 pb-2 text-base sm:text-sm text-foreground placeholder:text-muted-foreground outline-none"
+              />
+
+              {/* Composer Bottom Row */}
+              <div className="flex items-center justify-between px-3 pb-2.5 pt-1 border-t border-border/30">
+                <div className="flex items-center gap-2 min-w-0">
+                  {/* Context Pill Indicator */}
+                  <span
+                    className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground max-w-[200px] sm:max-w-xs truncate"
+                    title={selectedStudyTitle}
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+                    <span className="truncate">{selectedStudyTitle}</span>
+                  </span>
+
+                  {isSavingSettings && (
+                    <span className="text-[10px] text-muted-foreground">Saving...</span>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="hidden sm:inline text-[10px] text-muted-foreground/70">
+                    Shift + Enter for new line
+                  </span>
+
                   <button
-                    aria-label="Send message"
+                    type="button"
                     onClick={() => void handleSend()}
                     disabled={!input.trim() || isBusy}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-xs hover:bg-emerald-700 active:scale-95 disabled:opacity-40 disabled:pointer-events-none transition-all"
+                    aria-label="Send prompt"
                   >
-                    <ArrowUp className="h-4 w-4" />
+                    {isGenerating ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <ArrowUp className="h-4 w-4" />
+                    )}
                   </button>
                 </div>
               </div>
-              <p className="mt-2 text-center text-[10px] text-muted-foreground">
-                AI can make mistakes. Verify important research findings against your source data.
-              </p>
             </div>
+
+            <p className="mt-1.5 text-center text-[10px] text-muted-foreground/70">
+              Tinat AI models clinical hypotheses. Always verify vital medical decisions against primary field data.
+            </p>
           </div>
         </div>
-      </section>
-    </main>
+      </main>
+
+      {/* ───────────────────────────────────────────────────────────── */}
+      {/* MOBILE CONTEXT & MODEL SETTINGS MODAL                          */}
+      {/* ───────────────────────────────────────────────────────────── */}
+      {showSettingsModal && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs p-3">
+          <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-5 shadow-xl space-y-4 animate-in slide-in-from-bottom-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="h-4 w-4 text-emerald-600" />
+                <h3 className="text-sm font-bold text-foreground">AI Research Context</h3>
+              </div>
+              <button
+                onClick={() => setShowSettingsModal(false)}
+                className="rounded-lg p-1 text-muted-foreground hover:bg-muted"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Study Select */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                <Database className="h-3.5 w-3.5 text-emerald-500" />
+                Target Study Context
+              </label>
+              <select
+                value={selectedStudyId}
+                onChange={(e) => void saveChatSettings(e.target.value, selectedModel)}
+                className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground outline-none focus:border-emerald-500"
+              >
+                <option value="">General Research (No Study)</option>
+                {studies.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Model Select */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-foreground flex items-center gap-1.5">
+                <BrainCircuit className="h-3.5 w-3.5 text-emerald-500" />
+                Intelligence Model
+              </label>
+              <select
+                value={selectedModel}
+                onChange={(e) => {
+                  const m = getAIModel(e.target.value);
+                  if (m) void saveChatSettings(selectedStudyId, m.id);
+                }}
+                className="w-full rounded-xl border border-border bg-background px-3 py-2 text-xs text-foreground outline-none focus:border-emerald-500"
+              >
+                {AVAILABLE_MODELS.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.name} &bull; {m.badge}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <button
+              onClick={() => setShowSettingsModal(false)}
+              className="w-full rounded-xl bg-emerald-600 py-2.5 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors shadow-xs"
+            >
+              Apply Settings
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
