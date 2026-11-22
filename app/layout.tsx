@@ -32,6 +32,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className="h-full antialiased scroll-smooth"
+      data-scroll-behavior="smooth"
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

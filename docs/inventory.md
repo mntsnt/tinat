@@ -1,7 +1,7 @@
 # System Inventory & Architecture Index
 
 **Auto-generated via:** `scripts/generate-inventory.ts`<br />
-**Generated At:** 2026-11-14T12:22:13.168Z<br />
+**Generated At:** 2026-11-22T06:17:39.177Z<br />
 **Platform:** Tinat Health Research Ecosystem (Ethiopia)<br />
 **Regulatory Standard:** Ethiopian Personal Data Protection Proclamation No. 1321/2024
 
@@ -21,19 +21,21 @@
 
 ## 2. Database Schema Summary
 
-- **Total Models:** 61
-- **Total Enums:** 33
+- **Total Models:** 66
+- **Total Enums:** 35
 
-### 2.1 Enums (33 Enums)
+### 2.1 Enums (35 Enums)
 
 | Enum Name | Allowed Values Count | Values |
 | :--- | :--- | :--- |
 | `AIArtifactType` | 4 | `TABLE`, `FIGURE`, `MARKDOWN`, `CODE` |
 | `AIMessageRole` | 4 | `USER`, `ASSISTANT`, `SYSTEM`, `TOOL` |
-| `AIProvider` | 3 | `GEMINI`, `OPENROUTER`, `GROQ` |
+| `AIProvider` | 4 | `GEMINI`, `OPENROUTER`, `GROQ`, `NVIDIA` |
 | `ApplicationStatus` | 3 | `PENDING`, `APPROVED`, `DECLINED` |
 | `AskQuestionStatus` | 4 | `UNANSWERED`, `ANSWERED`, `ARCHIVED`, `DELETED` |
 | `CollectionMethod` | 2 | `SELF`, `FIELD_COLLECTED` |
+| `CollectorFundingStatus` | 3 | `PENDING`, `VERIFIED`, `FAILED` |
+| `CollectorPayType` | 2 | `FIXED`, `PER_RESPONSE` |
 | `DataSubjectRequestStatus` | 4 | `PENDING`, `IN_REVIEW`, `COMPLETED`, `REJECTED` |
 | `DataSubjectRequestType` | 4 | `ACCESS`, `RECTIFICATION`, `ERASURE`, `WITHDRAW_CONSENT` |
 | `DecisionStatus` | 2 | `ACTIVE`, `SUPERSEDED` |
@@ -62,7 +64,7 @@
 | `VerificationType` | 2 | `RESEARCHER`, `DATA_COLLECTOR` |
 | `WithdrawalStatus` | 4 | `PENDING`, `APPROVED`, `REJECTED`, `COMPLETED` |
 
-### 2.2 Models (61 Models)
+### 2.2 Models (66 Models)
 
 | Model Name | Field Count | Primary Key / Index Summary |
 | :--- | :--- | :--- |
@@ -77,7 +79,9 @@
 | `AskQuestion` | 13 | `id: String` |
 | `CollectionSession` | 9 | `id: String` |
 | `CollectorApplication` | 9 | `id: String` |
+| `CollectorFundingVerification` | 17 | `id: String` |
 | `CollectorInvitation` | 10 | `id: String` |
+| `CollectorPayout` | 10 | `id: String` |
 | `ConsentForm` | 10 | `id: String` |
 | `ConsentRecord` | 9 | `id: String` |
 | `DataSubjectRequest` | 11 | `id: String` |
@@ -103,6 +107,7 @@
 | `ProjectFileVersion` | 10 | `id: String` |
 | `ProjectInvitation` | 12 | `id: String` |
 | `ProjectLinkedStudy` | 9 | `id: String` |
+| `ProjectLiteratureReference` | 14 | `id: String` |
 | `ProjectMember` | 9 | `id: String` |
 | `ProjectMilestone` | 13 | `id: String` |
 | `ProjectNote` | 11 | `id: String` |
@@ -112,32 +117,36 @@
 | `QuestionOption` | 6 | `id: String` |
 | `QuestionRow` | 6 | `id: String` |
 | `QuestionTranslation` | 8 | `id: String` |
-| `ResearchProject` | 35 | `id: String` |
+| `ResearchProject` | 36 | `id: String` |
 | `Response` | 14 | `id: String` |
-| `Study` | 54 | `id: String` |
+| `Study` | 61 | `id: String` |
 | `StudyBookmark` | 6 | `id: String` |
 | `StudyComment` | 11 | `id: String` |
 | `StudyDataCollector` | 6 | `id: String` |
 | `StudyLike` | 6 | `id: String` |
+| `StudyParticipant` | 6 | `id: String` |
 | `StudyPayment` | 12 | `id: String` |
 | `StudyRating` | 8 | `id: String` |
 | `StudyTranslation` | 10 | `id: String` |
 | `TinatCreditTransaction` | 9 | `id: String` |
-| `User` | 74 | `id: String` |
+| `User` | 79 | `id: String` |
 | `Verification` | 13 | `id: String` |
+| `VerifyEtWebhookEvent` | 4 | `id: String` |
 | `Wallet` | 10 | `id: String` |
 | `Withdrawal` | 9 | `id: String` |
 
 ---
 
-## 3. Web Application Page Routes (51 Pages)
+## 3. Web Application Page Routes (54 Pages)
 
 | Page Route | Relative Path |
 | :--- | :--- |
 | `/` | `app/page.tsx` |
 | `/admin` | `app/admin/page.tsx` |
+| `/admin/ai` | `app/admin/ai/page.tsx` |
 | `/admin/community` | `app/admin/community/page.tsx` |
 | `/admin/ethics-board` | `app/admin/ethics-board/page.tsx` |
+| `/admin/geographic` | `app/admin/geographic/page.tsx` |
 | `/admin/incidents` | `app/admin/incidents/page.tsx` |
 | `/admin/logs` | `app/admin/logs/page.tsx` |
 | `/admin/moderation` | `app/admin/moderation/page.tsx` |
@@ -178,6 +187,7 @@
 | `/projects/new` | `app/projects/new/page.tsx` |
 | `/register` | `app/register/page.tsx` |
 | `/researcher` | `app/researcher/page.tsx` |
+| `/researcher/literature` | `app/researcher/literature/page.tsx` |
 | `/researcher/settings` | `app/researcher/settings/page.tsx` |
 | `/researcher/studies` | `app/researcher/studies/page.tsx` |
 | `/researcher/studies/[id]` | `app/researcher/studies/[id]/page.tsx` |
@@ -188,10 +198,12 @@
 
 ---
 
-## 4. API Route Handlers (117 Handlers)
+## 4. API Route Handlers (128 Handlers)
 
 | Endpoint Path | HTTP Methods | Required Authorization / Role Gate | Source File |
 | :--- | :--- | :--- | :--- |
+| `/api/admin/ai/chat` | `GET` `POST` `DELETE` | `SESSION_CHECKED` | `app/api/admin/ai/chat/route.ts` |
+| `/api/admin/ai/summary` | `GET` | `SESSION_CHECKED` | `app/api/admin/ai/summary/route.ts` |
 | `/api/admin/chat/members` | `GET` | `[ADMIN]` | `app/api/admin/chat/members/route.ts` |
 | `/api/admin/chat/messages` | `GET` `POST` | `[ADMIN]` | `app/api/admin/chat/messages/route.ts` |
 | `/api/admin/dashboard/stats` | `GET` | `[ADMIN]` | `app/api/admin/dashboard/stats/route.ts` |
@@ -214,7 +226,7 @@
 | `/api/ai/chat` | `POST` | `SESSION_CHECKED` | `app/api/ai/chat/route.ts` |
 | `/api/ai/conversations` | `GET` `POST` | `SESSION_CHECKED` | `app/api/ai/conversations/route.ts` |
 | `/api/ai/conversations/[id]` | `GET` `PATCH` `DELETE` | `AUTHENTICATED_USER` | `app/api/ai/conversations/[id]/route.ts` |
-| `/api/ai/conversations/[id]/messages` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/ai/conversations/[id]/messages/route.ts` |
+| `/api/ai/conversations/[id]/messages` | `GET` `POST` `DELETE` | `AUTHENTICATED_USER` | `app/api/ai/conversations/[id]/messages/route.ts` |
 | `/api/ask/profile` | `GET` `POST` `DELETE` | `SESSION_CHECKED` | `app/api/ask/profile/route.ts` |
 | `/api/ask/questions` | `GET` | `SESSION_CHECKED` | `app/api/ask/questions/route.ts` |
 | `/api/ask/questions/[id]` | `PATCH` `DELETE` | `SESSION_CHECKED` | `app/api/ask/questions/[id]/route.ts` |
@@ -251,10 +263,13 @@
 | `/api/collector/studies/[id]/sessions` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/collector/studies/[id]/sessions/route.ts` |
 | `/api/f/[id]` | `GET` | `PUBLIC / UNGUARDED` | `app/api/f/[id]/route.ts` |
 | `/api/f/[id]/submit` | `POST` | `SESSION_CHECKED` | `app/api/f/[id]/submit/route.ts` |
-| `/api/forms` | `GET` `POST` | `SESSION_CHECKED` | `app/api/forms/route.ts` |
-| `/api/forms/[id]` | `GET` `PATCH` `DELETE` | `SESSION_CHECKED` | `app/api/forms/[id]/route.ts` |
+| `/api/forms` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/forms/route.ts` |
+| `/api/forms/[id]` | `GET` `PATCH` `DELETE` | `AUTHENTICATED_USER` | `app/api/forms/[id]/route.ts` |
 | `/api/forms/[id]/export` | `GET` | `SESSION_CHECKED` | `app/api/forms/[id]/export/route.ts` |
 | `/api/forms/[id]/responses` | `GET` | `SESSION_CHECKED` | `app/api/forms/[id]/responses/route.ts` |
+| `/api/literature` | `GET` `POST` | `SESSION_CHECKED` | `app/api/literature/route.ts` |
+| `/api/literature/insights` | `POST` | `SESSION_CHECKED` | `app/api/literature/insights/route.ts` |
+| `/api/literature/projects` | `GET` | `SESSION_CHECKED` | `app/api/literature/projects/route.ts` |
 | `/api/notifications` | `GET` `PATCH` | `SESSION_CHECKED` | `app/api/notifications/route.ts` |
 | `/api/projects` | `GET` `POST` | `SESSION_CHECKED` | `app/api/projects/route.ts` |
 | `/api/projects/[id]` | `GET` `PATCH` `DELETE` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/route.ts` |
@@ -268,6 +283,8 @@
 | `/api/projects/[id]/discussions/[discussionId]/reply` | `POST` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/discussions/[discussionId]/reply/route.ts` |
 | `/api/projects/[id]/files` | `GET` `POST` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/files/route.ts` |
 | `/api/projects/[id]/files/[fileId]` | `PATCH` `DELETE` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/files/[fileId]/route.ts` |
+| `/api/projects/[id]/literature` | `GET` `POST` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/literature/route.ts` |
+| `/api/projects/[id]/literature/[referenceId]` | `DELETE` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/literature/[referenceId]/route.ts` |
 | `/api/projects/[id]/members` | `GET` `POST` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/members/route.ts` |
 | `/api/projects/[id]/members/[memberId]` | `PATCH` `DELETE` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/members/[memberId]/route.ts` |
 | `/api/projects/[id]/milestones` | `GET` `POST` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/milestones/route.ts` |
@@ -281,11 +298,13 @@
 | `/api/projects/[id]/tasks/[taskId]` | `PATCH` `DELETE` | `PUBLIC / UNGUARDED` | `app/api/projects/[id]/tasks/[taskId]/route.ts` |
 | `/api/projects/invite/[token]` | `GET` `POST` | `SESSION_CHECKED` | `app/api/projects/invite/[token]/route.ts` |
 | `/api/reports` | `POST` | `SESSION_CHECKED` | `app/api/reports/route.ts` |
-| `/api/studies` | `GET` `POST` | `[RESEARCHER, ADMIN]` | `app/api/studies/route.ts` |
+| `/api/studies` | `GET` `POST` | `[RESEARCHER]` | `app/api/studies/route.ts` |
 | `/api/studies/[id]` | `GET` `PATCH` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/route.ts` |
 | `/api/studies/[id]/applications` | `GET` | `SESSION_CHECKED` | `app/api/studies/[id]/applications/route.ts` |
 | `/api/studies/[id]/applications/[applicationId]` | `PATCH` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/applications/[applicationId]/route.ts` |
 | `/api/studies/[id]/apply-collector` | `POST` | `SESSION_CHECKED` | `app/api/studies/[id]/apply-collector/route.ts` |
+| `/api/studies/[id]/collector-funding` | `POST` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/collector-funding/route.ts` |
+| `/api/studies/[id]/collector-payouts` | `POST` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/collector-payouts/route.ts` |
 | `/api/studies/[id]/collectors` | `GET` `POST` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/collectors/route.ts` |
 | `/api/studies/[id]/comment` | `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/comment/route.ts` |
 | `/api/studies/[id]/consent` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/consent/route.ts` |
@@ -295,6 +314,7 @@
 | `/api/studies/[id]/export/excel` | `GET` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/export/excel/route.ts` |
 | `/api/studies/[id]/fund` | `POST` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/fund/route.ts` |
 | `/api/studies/[id]/like` | `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/like/route.ts` |
+| `/api/studies/[id]/participants` | `GET` `POST` `DELETE` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/participants/route.ts` |
 | `/api/studies/[id]/rate` | `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/rate/route.ts` |
 | `/api/studies/[id]/responses` | `POST` | `AUTHENTICATED_USER` | `app/api/studies/[id]/responses/route.ts` |
 | `/api/studies/[id]/status` | `PATCH` | `RESEARCHER (OWNER) | ADMIN` | `app/api/studies/[id]/status/route.ts` |
@@ -309,6 +329,7 @@
 | `/api/user/dsr/requests` | `GET` | `AUTHENTICATED_USER` | `app/api/user/dsr/requests/route.ts` |
 | `/api/user/platform-consent` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/user/platform-consent/route.ts` |
 | `/api/user/policy-acceptance` | `GET` `POST` | `AUTHENTICATED_USER` | `app/api/user/policy-acceptance/route.ts` |
+| `/api/webhooks/verify-et` | `POST` | `PUBLIC / UNGUARDED` | `app/api/webhooks/verify-et/route.ts` |
 
 ---
 
