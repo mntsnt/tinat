@@ -6,8 +6,10 @@ import {
   ArrowRight,
   BookOpen,
   CheckCircle2,
+  Compass,
   Database,
   Mail,
+  MapPin,
   ShieldAlert,
   ShieldCheck,
   Sparkles,
@@ -17,7 +19,6 @@ import { getSession } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/Card";
 import { AdminCharts } from "./AdminCharts";
-import { EthiopiaGeographicMap } from "../components/admin/EthiopiaGeographicMap";
 
 function dayKey(date: Date) {
   return date.toISOString().slice(0, 10);
@@ -280,14 +281,39 @@ export default async function AdminDashboard() {
 
       <AdminCharts growthData={chartData} />
 
-      <EthiopiaGeographicMap
-        totalUsersCount={totalUsers}
-        researcherCount={researcherCount}
-        collectorCount={collectorCount}
-        participantCount={participantCount}
-        activeStudiesCount={activeStudies}
-        totalResponsesCount={totalResponses}
-      />
+      {/* Nationwide Geographic Reach Quick Access */}
+      <Link
+        href="/admin/geographic"
+        className="group relative block overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-xs transition-all hover:border-emerald-500/40 hover:bg-muted/30"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3.5">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+              <Compass className="h-5 w-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-bold text-foreground">
+                  Nationwide Geographic Reach
+                </h3>
+                <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                  10 Regional Medical Hubs
+                </span>
+              </div>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Distribution of {researcherCount} verified health researchers and {participantCount} participants across Ethiopian medical faculties and teaching centers.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 self-end sm:self-center">
+            <span className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-3.5 py-1.5 text-xs font-semibold text-foreground group-hover:border-emerald-500/40 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+              Open Interactive Reach Map
+              <ArrowRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
+        </div>
+      </Link>
 
       <section className="grid gap-6 lg:grid-cols-3">
         <Card>

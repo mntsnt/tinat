@@ -22,7 +22,8 @@ export function AdminLayoutShell({ children, links, user }: AdminLayoutShellProp
   const isCommunityChat = pathname === "/admin/community";
   const isAiChat = pathname?.startsWith("/admin/ai") ?? false;
   const isSettings = pathname?.startsWith("/admin/settings") ?? false;
-  const isFixedLayout = isCommunityChat || isSettings || isAiChat;
+  const isGeographic = pathname?.startsWith("/admin/geographic") ?? false;
+  const isFixedLayout = isCommunityChat || isSettings || isAiChat || isGeographic;
 
   return (
     <div className="fixed inset-0 h-[100dvh] max-h-[100dvh] flex flex-col md:flex-row overflow-hidden bg-background">
