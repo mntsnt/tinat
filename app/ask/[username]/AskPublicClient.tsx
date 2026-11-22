@@ -33,13 +33,6 @@ interface AskPublicClientProps {
   publicQuestions: PublicQuestion[];
 }
 
-const STARTER_PROMPTS = [
-  "What is your biggest research focus right now?",
-  "What is one piece of advice you would give to health students?",
-  "What is something people misunderstand about your work?",
-  "What are you most passionate about right now?",
-];
-
 export function AskPublicClient({ profile, publicQuestions }: AskPublicClientProps) {
   const [questionText, setQuestionText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -177,25 +170,6 @@ export function AskPublicClient({ profile, publicQuestions }: AskPublicClientPro
                   >
                     {charCount} / {maxChars}
                   </span>
-                </div>
-              </div>
-
-              {/* Inspiration Chips */}
-              <div className="space-y-1.5">
-                <span className="text-[10.5px] font-semibold uppercase tracking-wider text-muted-foreground/80 block">
-                  Need inspiration? Tap a prompt:
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {STARTER_PROMPTS.map((prompt, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setQuestionText(prompt)}
-                      className="text-[11px] px-2.5 py-1 rounded-lg border border-border/80 bg-muted/40 hover:bg-muted text-foreground/80 hover:text-foreground transition-colors text-left"
-                    >
-                      {prompt}
-                    </button>
-                  ))}
                 </div>
               </div>
 

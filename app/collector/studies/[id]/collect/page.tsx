@@ -564,8 +564,8 @@ export default function FieldCollectionPage() {
   // Consent Screen (Step -1)
   if (currentStep === -1) {
     return (
-      <div className="relative h-full w-full flex flex-col overflow-hidden bg-background">
-        <div className="mx-auto w-full max-w-4xl h-full flex flex-col bg-card sm:border-x border-border/50 sm:shadow-2xl overflow-hidden relative">
+      <div className="relative h-full w-full flex flex-col overflow-hidden bg-background min-h-0">
+        <div className="mx-auto w-full max-w-4xl h-full flex flex-col bg-card sm:border-x border-border/50 sm:shadow-2xl overflow-hidden relative min-h-0">
           {/* Top Bar */}
           <header className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-20">
             <button
@@ -582,7 +582,7 @@ export default function FieldCollectionPage() {
           </header>
 
           {/* Scrollable Consent Body */}
-          <main className="flex-1 overflow-y-auto p-5 sm:p-10 space-y-6 max-w-2xl mx-auto w-full">
+          <main className="flex-1 min-h-0 overflow-y-auto p-5 sm:p-10 space-y-6 max-w-2xl mx-auto w-full touch-pan-y overscroll-y-auto [scrollbar-gutter:stable]">
             <div className="text-center space-y-3">
               <div className="w-16 h-16 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mx-auto shadow-xs">
                 <ShieldCheck className="w-8 h-8" />
@@ -660,8 +660,8 @@ export default function FieldCollectionPage() {
   // Review & Submit Screen (Step === questions.length)
   if (isDone) {
     return (
-      <div className="relative h-full w-full flex flex-col overflow-hidden bg-background">
-        <div className="mx-auto w-full max-w-5xl h-full flex flex-col bg-card sm:border-x border-border/50 sm:shadow-2xl overflow-hidden relative">
+      <div className="relative h-full w-full flex flex-col overflow-hidden bg-background min-h-0">
+        <div className="mx-auto w-full max-w-5xl h-full flex flex-col bg-card sm:border-x border-border/50 sm:shadow-2xl overflow-hidden relative min-h-0">
           {/* Top Bar */}
           <header className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-20">
             <button
@@ -680,7 +680,7 @@ export default function FieldCollectionPage() {
           </header>
 
           {/* Scrollable Summary Grouped by Section */}
-          <main className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6 pb-24">
+          <main className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-8 space-y-6 pb-28 touch-pan-y overscroll-y-auto [scrollbar-gutter:stable]">
             <div className="text-center space-y-1.5 pb-2">
               <h2 className="text-lg sm:text-2xl font-bold text-foreground">
                 Review Household Responses
@@ -849,7 +849,7 @@ export default function FieldCollectionPage() {
   // Active Question Screen (0 <= currentStep < questions.length)
   // Renders a modern Desktop Two-Panel Layout with collapsible Question & Section Navigator
   return (
-    <div className="relative h-full w-full flex overflow-hidden bg-background">
+    <div className="relative h-full w-full flex overflow-hidden bg-background min-h-0">
       {/* Pinned Top Viewport Progress Line */}
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-muted/40 z-[999] pointer-events-none"
@@ -996,7 +996,7 @@ export default function FieldCollectionPage() {
       {/* ============================================================== */}
       {/* MAIN QUESTION WORKSPACE AREA                                  */}
       {/* ============================================================== */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-background relative">
+      <div className="flex-1 min-w-0 flex flex-col h-full min-h-0 overflow-hidden bg-background relative">
         {/* Fixed Top Header */}
         <header className="h-14 sm:h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between z-20">
           {/* Left: Sidebar Toggle, Back, and Section Badge */}
@@ -1082,7 +1082,7 @@ export default function FieldCollectionPage() {
         </div>
 
         {/* Scrollable Question Content */}
-        <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-10 sm:py-8 overscroll-contain pb-28">
+        <main className="flex-1 min-h-0 overflow-y-auto px-4 py-5 sm:px-10 sm:py-8 touch-pan-y overscroll-y-auto pb-32 [scrollbar-gutter:stable]">
           <div className="max-w-3xl xl:max-w-4xl mx-auto space-y-6">
             {errorMessage && (
               <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-xs text-destructive flex items-center gap-2">
