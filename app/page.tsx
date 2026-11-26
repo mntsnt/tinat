@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import type { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { HEALTH_CATEGORIES } from "@/lib/healthCategories";
 import { LandingFaq } from "./components/landing/LandingFaq";
 import {
@@ -34,6 +36,11 @@ type FeaturedStudy = Prisma.StudyGetPayload<{
 }>;
 
 export default async function Home() {
+  const session = await getSession();
+  if (session) {
+    redirect("/dashboard");
+  }
+
   let stats: { totalUsers: number; activeStudies: number; totalResponses: number } | null = null;
   let featuredStudy: FeaturedStudy | null = null;
 
@@ -529,6 +536,76 @@ export default async function Home() {
               Browse all {HEALTH_CATEGORIES.length} health categories <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* Frequently Asked Questions */}
+      {/* Tinat Academy Feature Section */}
+      <section className="relative z-10 py-16 lg:py-24 bg-gradient-to-b from-muted/30 via-background to-muted/20 border-y border-border">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-700/20 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-800 dark:text-emerald-300">
+              <GraduationCap className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+              TINAT ACADEMY • OPEN HEALTH RESEARCH EDUCATION
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+              Learn to conduct world-class health research in Africa.
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+              A public, practice-first learning environment for medical, public health, and epidemiological research. Free and open to all students, clinicians, and researchers without mandatory sign-in.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
+            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-700 dark:text-emerald-400 mb-4 font-bold text-sm">
+                01
+              </div>
+              <h3 className="text-lg font-bold text-foreground mb-2">Practice-First Curriculum</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                From formulating PICO hypotheses to biostatistics, epidemiological design, and WHO ethical review standards.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-700 dark:text-emerald-400 mb-4 font-bold text-sm">
+                02
+              </div>
+              <h3 className="text-lg font-bold text-foreground mb-2">Embedded Live Tools</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Live Sample Size &amp; Statistical Calculators built directly into lessons with real Ethiopian epidemiological scenarios.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-700 dark:text-emerald-400 mb-4 font-bold text-sm">
+                03
+              </div>
+              <h3 className="text-lg font-bold text-foreground mb-2">Verified Credentials</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Pass interactive module quizzes to earn tamper-proof, publicly verifiable Tinat Academy Certificates of Completion.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <ButtonLink
+              href="/academy"
+              size="lg"
+              className="h-12 rounded-xl bg-emerald-700 text-white hover:bg-emerald-800 px-7 font-semibold dark:bg-emerald-600 dark:hover:bg-emerald-700 shadow-md shadow-emerald-900/10"
+            >
+              Start Learning Now
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </ButtonLink>
+            <ButtonLink
+              href="/academy#curriculum"
+              variant="outline"
+              size="lg"
+              className="h-12 rounded-xl border-border bg-card px-7 font-semibold hover:bg-muted"
+            >
+              Browse Syllabus (13 Modules)
+            </ButtonLink>
+          </div>
         </div>
       </section>
 

@@ -1595,6 +1595,56 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     researcher_other: [403],
     collector: [403],
     admin: [200, 404]
+  },
+
+  // Tinat Academy Learning Engine
+  "GET /api/academy/notes": {
+    anonymous: [200, 400],
+    participant: [200, 400],
+    researcher_owner: [200, 400],
+    researcher_other: [200, 400],
+    collector: [200, 400],
+    admin: [200, 400]
+  },
+  "POST /api/academy/notes": {
+    anonymous: [200, 400],
+    participant: [200, 400],
+    researcher_owner: [200, 400],
+    researcher_other: [200, 400],
+    collector: [200, 400],
+    admin: [200, 400]
+  },
+  "GET /api/academy/progress": {
+    anonymous: [200],
+    participant: [200],
+    researcher_owner: [200],
+    researcher_other: [200],
+    collector: [200],
+    admin: [200]
+  },
+  "POST /api/academy/progress": {
+    anonymous: [200, 400],
+    participant: [200, 400],
+    researcher_owner: [200, 400],
+    researcher_other: [200, 400],
+    collector: [200, 400],
+    admin: [200, 400]
+  },
+  "POST /api/academy/progress/toggle": {
+    anonymous: [200, 400],
+    participant: [200, 400],
+    researcher_owner: [200, 400],
+    researcher_other: [200, 400],
+    collector: [200, 400],
+    admin: [200, 400]
+  },
+  "POST /api/academy/quiz/grade": {
+    anonymous: [200, 400, 404],
+    participant: [200, 400, 404],
+    researcher_owner: [200, 400, 404],
+    researcher_other: [200, 400, 404],
+    collector: [200, 400, 404],
+    admin: [200, 400, 404]
   }
 };
 

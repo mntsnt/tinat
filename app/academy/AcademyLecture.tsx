@@ -7,13 +7,15 @@ import { getAcademyLecture } from "./academyContent";
 
 export function AcademyLecture({ academyModule }: { academyModule: AcademyModule }) {
   const [openLesson, setOpenLesson] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
   const lecture = getAcademyLecture(academyModule.slug);
+
+  if (!lecture) {
+    throw new Error(`Missing Academy lecture content for module "${academyModule.slug}".`);
+  }
 
   return (
     <div className="space-y-5">
-      {lecture ? (
-        <>
+      <>
           <section className="overflow-hidden rounded-2xl border border-border bg-card">
             <div className="border-b border-border bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 px-5 py-4">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-400">
@@ -88,12 +90,14 @@ export function AcademyLecture({ academyModule }: { academyModule: AcademyModule
                   </button>
                   {openLesson === index && (
                     <div className="px-5 pb-5 pl-[68px]">
-                      <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
-                        In this part of <strong className="text-foreground">{academyModule.title}</strong>, focus on how <span className="text-foreground">{lesson.toLowerCase()}</span> changes what you would plan, collect, analyze or report. Use the worked example as a model, then test the idea against your own study.
-                      </p>
+                      <p className="max-w-2xl text-sm leading-7 text-muted-foreground">{lecture.lessonContent[index]}</p>
                       <div className="mt-4 rounded-xl border border-primary/15 bg-primary/5 p-4">
                         <p className="text-xs font-bold uppercase tracking-wider text-primary">Try it</p>
-                        <p className="mt-1 text-sm leading-6">{lecture.reflection}</p>
+                        <p className="mt-1 text-sm leading-6">
+                          {index === academyModule.lessons.length - 1
+                            ? lecture.reflection
+                            : `Apply this idea to your study: ${lecture.workedExample.prompt}`}
+                        </p>
                       </div>
                     </div>
                   )}
@@ -101,30 +105,7 @@ export function AcademyLecture({ academyModule }: { academyModule: AcademyModule
               ))}
             </div>
           </section>
-
-          <section className="rounded-2xl border border-border bg-card p-5">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-400">Knowledge check</p>
-            <p className="mt-2 text-sm font-semibold">Which action best demonstrates understanding of this module?</p>
-            <div className="mt-4 grid gap-2 sm:grid-cols-2">
-              {["Memorize every term", "Apply the ideas to a study scenario"].map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => setShowAnswer(true)}
-                  className="rounded-xl border border-border px-4 py-3 text-left text-sm hover:border-primary/50 hover:bg-muted/30"
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-            {showAnswer && (
-              <div className="mt-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm leading-6">
-                <strong>Correct: Apply the ideas to a study scenario.</strong> Real learning appears when you can choose, justify and adapt a method for a specific research context.
-              </div>
-            )}
-          </section>
-        </>
-      ) : null}
+      </>
     </div>
   );
 }

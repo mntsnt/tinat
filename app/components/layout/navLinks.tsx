@@ -59,7 +59,6 @@ export const researcherLinks: SidebarLink[] = [
 
 export const adminLinks: SidebarLink[] = [
   { title: "Overview", href: "/admin", icon: <Radar /> },
-  { title: "Tinat Academy", href: "/academy", icon: <GraduationCap /> },
   { title: "Geographic Reach", href: "/admin/geographic", icon: <MapPin /> },
   { title: "Tinat AI", href: "/admin/ai", icon: <Sparkles /> },
   { title: "Manage Studies", href: "/admin/studies", icon: <ScanSearch /> },

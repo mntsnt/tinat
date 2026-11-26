@@ -462,7 +462,11 @@ export const ModelName = {
   EthicsBoardDecision: 'EthicsBoardDecision',
   StudyTranslation: 'StudyTranslation',
   QuestionTranslation: 'QuestionTranslation',
-  PlatformConsentRecord: 'PlatformConsentRecord'
+  PlatformConsentRecord: 'PlatformConsentRecord',
+  AcademyProgress: 'AcademyProgress',
+  AcademyQuizAttempt: 'AcademyQuizAttempt',
+  AcademyNote: 'AcademyNote',
+  AcademyCertificate: 'AcademyCertificate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -478,7 +482,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "incidentLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "participantLink" | "dataSubjectRequest" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "ledgerAccount" | "ledgerJournal" | "ledgerEntry" | "studyPayment" | "collectorFundingVerification" | "verifyEtWebhookEvent" | "collectorPayout" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectLiteratureReference" | "projectDiscussion" | "projectDiscussionReply" | "projectDiscussionReaction" | "projectDiscussionReplyReaction" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "studyParticipant" | "collectorInvitation" | "collectorApplication" | "collectionSession" | "ethicsApproval" | "consentForm" | "consentRecord" | "moderationReport" | "ethicsBoardMember" | "ethicsBoardDecision" | "studyTranslation" | "questionTranslation" | "platformConsentRecord"
+    modelProps: "user" | "study" | "studyBookmark" | "studyRating" | "studyLike" | "studyComment" | "notification" | "activityLog" | "incidentLog" | "adminChatMessage" | "question" | "questionRow" | "questionOption" | "participantLink" | "dataSubjectRequest" | "response" | "answer" | "wallet" | "tinatCreditTransaction" | "ledgerAccount" | "ledgerJournal" | "ledgerEntry" | "studyPayment" | "collectorFundingVerification" | "verifyEtWebhookEvent" | "collectorPayout" | "withdrawal" | "askProfile" | "askQuestion" | "researchProject" | "projectMember" | "projectInvitation" | "projectMilestone" | "projectTask" | "projectFile" | "projectFileVersion" | "projectNote" | "projectLiteratureReference" | "projectDiscussion" | "projectDiscussionReply" | "projectDiscussionReaction" | "projectDiscussionReplyReaction" | "projectDecision" | "projectActivity" | "projectChatMessage" | "projectLinkedStudy" | "projectOutput" | "aIConversation" | "aIMessage" | "aIArtifact" | "aIUsage" | "verification" | "studyDataCollector" | "studyParticipant" | "collectorInvitation" | "collectorApplication" | "collectionSession" | "ethicsApproval" | "consentForm" | "consentRecord" | "moderationReport" | "ethicsBoardMember" | "ethicsBoardDecision" | "studyTranslation" | "questionTranslation" | "platformConsentRecord" | "academyProgress" | "academyQuizAttempt" | "academyNote" | "academyCertificate"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -5366,6 +5370,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AcademyProgress: {
+      payload: Prisma.$AcademyProgressPayload<ExtArgs>
+      fields: Prisma.AcademyProgressFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AcademyProgressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AcademyProgressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload>
+        }
+        findFirst: {
+          args: Prisma.AcademyProgressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AcademyProgressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload>
+        }
+        findMany: {
+          args: Prisma.AcademyProgressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload>[]
+        }
+        create: {
+          args: Prisma.AcademyProgressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload>
+        }
+        createMany: {
+          args: Prisma.AcademyProgressCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AcademyProgressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload>[]
+        }
+        delete: {
+          args: Prisma.AcademyProgressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload>
+        }
+        update: {
+          args: Prisma.AcademyProgressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload>
+        }
+        deleteMany: {
+          args: Prisma.AcademyProgressDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AcademyProgressUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AcademyProgressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload>[]
+        }
+        upsert: {
+          args: Prisma.AcademyProgressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyProgressPayload>
+        }
+        aggregate: {
+          args: Prisma.AcademyProgressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAcademyProgress>
+        }
+        groupBy: {
+          args: Prisma.AcademyProgressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyProgressGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AcademyProgressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyProgressCountAggregateOutputType> | number
+        }
+      }
+    }
+    AcademyQuizAttempt: {
+      payload: Prisma.$AcademyQuizAttemptPayload<ExtArgs>
+      fields: Prisma.AcademyQuizAttemptFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AcademyQuizAttemptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AcademyQuizAttemptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload>
+        }
+        findFirst: {
+          args: Prisma.AcademyQuizAttemptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AcademyQuizAttemptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload>
+        }
+        findMany: {
+          args: Prisma.AcademyQuizAttemptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload>[]
+        }
+        create: {
+          args: Prisma.AcademyQuizAttemptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload>
+        }
+        createMany: {
+          args: Prisma.AcademyQuizAttemptCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AcademyQuizAttemptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload>[]
+        }
+        delete: {
+          args: Prisma.AcademyQuizAttemptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload>
+        }
+        update: {
+          args: Prisma.AcademyQuizAttemptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload>
+        }
+        deleteMany: {
+          args: Prisma.AcademyQuizAttemptDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AcademyQuizAttemptUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AcademyQuizAttemptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload>[]
+        }
+        upsert: {
+          args: Prisma.AcademyQuizAttemptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyQuizAttemptPayload>
+        }
+        aggregate: {
+          args: Prisma.AcademyQuizAttemptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAcademyQuizAttempt>
+        }
+        groupBy: {
+          args: Prisma.AcademyQuizAttemptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyQuizAttemptGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AcademyQuizAttemptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyQuizAttemptCountAggregateOutputType> | number
+        }
+      }
+    }
+    AcademyNote: {
+      payload: Prisma.$AcademyNotePayload<ExtArgs>
+      fields: Prisma.AcademyNoteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AcademyNoteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AcademyNoteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload>
+        }
+        findFirst: {
+          args: Prisma.AcademyNoteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AcademyNoteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload>
+        }
+        findMany: {
+          args: Prisma.AcademyNoteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload>[]
+        }
+        create: {
+          args: Prisma.AcademyNoteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload>
+        }
+        createMany: {
+          args: Prisma.AcademyNoteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AcademyNoteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload>[]
+        }
+        delete: {
+          args: Prisma.AcademyNoteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload>
+        }
+        update: {
+          args: Prisma.AcademyNoteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload>
+        }
+        deleteMany: {
+          args: Prisma.AcademyNoteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AcademyNoteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AcademyNoteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload>[]
+        }
+        upsert: {
+          args: Prisma.AcademyNoteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyNotePayload>
+        }
+        aggregate: {
+          args: Prisma.AcademyNoteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAcademyNote>
+        }
+        groupBy: {
+          args: Prisma.AcademyNoteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyNoteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AcademyNoteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyNoteCountAggregateOutputType> | number
+        }
+      }
+    }
+    AcademyCertificate: {
+      payload: Prisma.$AcademyCertificatePayload<ExtArgs>
+      fields: Prisma.AcademyCertificateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AcademyCertificateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AcademyCertificateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload>
+        }
+        findFirst: {
+          args: Prisma.AcademyCertificateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AcademyCertificateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload>
+        }
+        findMany: {
+          args: Prisma.AcademyCertificateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload>[]
+        }
+        create: {
+          args: Prisma.AcademyCertificateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload>
+        }
+        createMany: {
+          args: Prisma.AcademyCertificateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AcademyCertificateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload>[]
+        }
+        delete: {
+          args: Prisma.AcademyCertificateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload>
+        }
+        update: {
+          args: Prisma.AcademyCertificateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload>
+        }
+        deleteMany: {
+          args: Prisma.AcademyCertificateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AcademyCertificateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AcademyCertificateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload>[]
+        }
+        upsert: {
+          args: Prisma.AcademyCertificateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AcademyCertificatePayload>
+        }
+        aggregate: {
+          args: Prisma.AcademyCertificateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAcademyCertificate>
+        }
+        groupBy: {
+          args: Prisma.AcademyCertificateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyCertificateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AcademyCertificateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AcademyCertificateCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -6419,6 +6719,64 @@ export const PlatformConsentRecordScalarFieldEnum = {
 export type PlatformConsentRecordScalarFieldEnum = (typeof PlatformConsentRecordScalarFieldEnum)[keyof typeof PlatformConsentRecordScalarFieldEnum]
 
 
+export const AcademyProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  moduleSlug: 'moduleSlug',
+  lessonSlug: 'lessonSlug',
+  completed: 'completed',
+  completedAt: 'completedAt',
+  lastReadAt: 'lastReadAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AcademyProgressScalarFieldEnum = (typeof AcademyProgressScalarFieldEnum)[keyof typeof AcademyProgressScalarFieldEnum]
+
+
+export const AcademyQuizAttemptScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  moduleSlug: 'moduleSlug',
+  score: 'score',
+  totalQuestions: 'totalQuestions',
+  correctCount: 'correctCount',
+  passed: 'passed',
+  answersPayload: 'answersPayload',
+  createdAt: 'createdAt'
+} as const
+
+export type AcademyQuizAttemptScalarFieldEnum = (typeof AcademyQuizAttemptScalarFieldEnum)[keyof typeof AcademyQuizAttemptScalarFieldEnum]
+
+
+export const AcademyNoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  lessonSlug: 'lessonSlug',
+  content: 'content',
+  selection: 'selection',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AcademyNoteScalarFieldEnum = (typeof AcademyNoteScalarFieldEnum)[keyof typeof AcademyNoteScalarFieldEnum]
+
+
+export const AcademyCertificateScalarFieldEnum = {
+  id: 'id',
+  verificationCode: 'verificationCode',
+  userId: 'userId',
+  learnerName: 'learnerName',
+  type: 'type',
+  targetSlug: 'targetSlug',
+  title: 'title',
+  issueDate: 'issueDate',
+  averageScore: 'averageScore'
+} as const
+
+export type AcademyCertificateScalarFieldEnum = (typeof AcademyCertificateScalarFieldEnum)[keyof typeof AcademyCertificateScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -7256,6 +7614,10 @@ export type GlobalOmitConfig = {
   studyTranslation?: Prisma.StudyTranslationOmit
   questionTranslation?: Prisma.QuestionTranslationOmit
   platformConsentRecord?: Prisma.PlatformConsentRecordOmit
+  academyProgress?: Prisma.AcademyProgressOmit
+  academyQuizAttempt?: Prisma.AcademyQuizAttemptOmit
+  academyNote?: Prisma.AcademyNoteOmit
+  academyCertificate?: Prisma.AcademyCertificateOmit
 }
 
 /* Types for Logging */

@@ -347,3 +347,23 @@ export type QuestionTranslation = Prisma.QuestionTranslationModel
  * 
  */
 export type PlatformConsentRecord = Prisma.PlatformConsentRecordModel
+/**
+ * Model AcademyProgress
+ * 
+ */
+export type AcademyProgress = Prisma.AcademyProgressModel
+/**
+ * Model AcademyQuizAttempt
+ * 
+ */
+export type AcademyQuizAttempt = Prisma.AcademyQuizAttemptModel
+/**
+ * Model AcademyNote
+ * 
+ */
+export type AcademyNote = Prisma.AcademyNoteModel
+/**
+ * Model AcademyCertificate
+ * 
+ */
+export type AcademyCertificate = Prisma.AcademyCertificateModel

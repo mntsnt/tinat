@@ -116,7 +116,11 @@ export const ModelName = {
   EthicsBoardDecision: 'EthicsBoardDecision',
   StudyTranslation: 'StudyTranslation',
   QuestionTranslation: 'QuestionTranslation',
-  PlatformConsentRecord: 'PlatformConsentRecord'
+  PlatformConsentRecord: 'PlatformConsentRecord',
+  AcademyProgress: 'AcademyProgress',
+  AcademyQuizAttempt: 'AcademyQuizAttempt',
+  AcademyNote: 'AcademyNote',
+  AcademyCertificate: 'AcademyCertificate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1147,6 +1151,64 @@ export const PlatformConsentRecordScalarFieldEnum = {
 } as const
 
 export type PlatformConsentRecordScalarFieldEnum = (typeof PlatformConsentRecordScalarFieldEnum)[keyof typeof PlatformConsentRecordScalarFieldEnum]
+
+
+export const AcademyProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  moduleSlug: 'moduleSlug',
+  lessonSlug: 'lessonSlug',
+  completed: 'completed',
+  completedAt: 'completedAt',
+  lastReadAt: 'lastReadAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AcademyProgressScalarFieldEnum = (typeof AcademyProgressScalarFieldEnum)[keyof typeof AcademyProgressScalarFieldEnum]
+
+
+export const AcademyQuizAttemptScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  moduleSlug: 'moduleSlug',
+  score: 'score',
+  totalQuestions: 'totalQuestions',
+  correctCount: 'correctCount',
+  passed: 'passed',
+  answersPayload: 'answersPayload',
+  createdAt: 'createdAt'
+} as const
+
+export type AcademyQuizAttemptScalarFieldEnum = (typeof AcademyQuizAttemptScalarFieldEnum)[keyof typeof AcademyQuizAttemptScalarFieldEnum]
+
+
+export const AcademyNoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  lessonSlug: 'lessonSlug',
+  content: 'content',
+  selection: 'selection',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AcademyNoteScalarFieldEnum = (typeof AcademyNoteScalarFieldEnum)[keyof typeof AcademyNoteScalarFieldEnum]
+
+
+export const AcademyCertificateScalarFieldEnum = {
+  id: 'id',
+  verificationCode: 'verificationCode',
+  userId: 'userId',
+  learnerName: 'learnerName',
+  type: 'type',
+  targetSlug: 'targetSlug',
+  title: 'title',
+  issueDate: 'issueDate',
+  averageScore: 'averageScore'
+} as const
+
+export type AcademyCertificateScalarFieldEnum = (typeof AcademyCertificateScalarFieldEnum)[keyof typeof AcademyCertificateScalarFieldEnum]
 
 
 export const SortOrder = {

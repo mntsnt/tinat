@@ -465,6 +465,10 @@ export type UserWhereInput = {
   ledgerAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   withdrawals?: Prisma.WithdrawalListRelationFilter
   platformConsentRecords?: Prisma.PlatformConsentRecordListRelationFilter
+  academyProgress?: Prisma.AcademyProgressListRelationFilter
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptListRelationFilter
+  academyNotes?: Prisma.AcademyNoteListRelationFilter
+  academyCertificates?: Prisma.AcademyCertificateListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -547,6 +551,10 @@ export type UserOrderByWithRelationInput = {
   ledgerAccount?: Prisma.LedgerAccountOrderByWithRelationInput
   withdrawals?: Prisma.WithdrawalOrderByRelationAggregateInput
   platformConsentRecords?: Prisma.PlatformConsentRecordOrderByRelationAggregateInput
+  academyProgress?: Prisma.AcademyProgressOrderByRelationAggregateInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptOrderByRelationAggregateInput
+  academyNotes?: Prisma.AcademyNoteOrderByRelationAggregateInput
+  academyCertificates?: Prisma.AcademyCertificateOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -632,6 +640,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   ledgerAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   withdrawals?: Prisma.WithdrawalListRelationFilter
   platformConsentRecords?: Prisma.PlatformConsentRecordListRelationFilter
+  academyProgress?: Prisma.AcademyProgressListRelationFilter
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptListRelationFilter
+  academyNotes?: Prisma.AcademyNoteListRelationFilter
+  academyCertificates?: Prisma.AcademyCertificateListRelationFilter
 }, "id" | "username" | "email" | "faydaFanHash">
 
 export type UserOrderByWithAggregationInput = {
@@ -788,6 +800,10 @@ export type UserCreateInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -870,6 +886,10 @@ export type UserUncheckedCreateInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -952,6 +972,10 @@ export type UserUpdateInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -1034,6 +1058,10 @@ export type UserUncheckedUpdateInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1982,6 +2010,64 @@ export type UserUpdateOneRequiredWithoutPlatformConsentRecordsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlatformConsentRecordsInput, Prisma.UserUpdateWithoutPlatformConsentRecordsInput>, Prisma.UserUncheckedUpdateWithoutPlatformConsentRecordsInput>
 }
 
+export type UserCreateNestedOneWithoutAcademyProgressInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcademyProgressInput, Prisma.UserUncheckedCreateWithoutAcademyProgressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcademyProgressInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAcademyProgressNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcademyProgressInput, Prisma.UserUncheckedCreateWithoutAcademyProgressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcademyProgressInput
+  upsert?: Prisma.UserUpsertWithoutAcademyProgressInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAcademyProgressInput, Prisma.UserUpdateWithoutAcademyProgressInput>, Prisma.UserUncheckedUpdateWithoutAcademyProgressInput>
+}
+
+export type UserCreateNestedOneWithoutAcademyQuizAttemptsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcademyQuizAttemptsInput, Prisma.UserUncheckedCreateWithoutAcademyQuizAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcademyQuizAttemptsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAcademyQuizAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcademyQuizAttemptsInput, Prisma.UserUncheckedCreateWithoutAcademyQuizAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcademyQuizAttemptsInput
+  upsert?: Prisma.UserUpsertWithoutAcademyQuizAttemptsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAcademyQuizAttemptsInput, Prisma.UserUpdateWithoutAcademyQuizAttemptsInput>, Prisma.UserUncheckedUpdateWithoutAcademyQuizAttemptsInput>
+}
+
+export type UserCreateNestedOneWithoutAcademyNotesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcademyNotesInput, Prisma.UserUncheckedCreateWithoutAcademyNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcademyNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAcademyNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcademyNotesInput, Prisma.UserUncheckedCreateWithoutAcademyNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcademyNotesInput
+  upsert?: Prisma.UserUpsertWithoutAcademyNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAcademyNotesInput, Prisma.UserUpdateWithoutAcademyNotesInput>, Prisma.UserUncheckedUpdateWithoutAcademyNotesInput>
+}
+
+export type UserCreateNestedOneWithoutAcademyCertificatesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcademyCertificatesInput, Prisma.UserUncheckedCreateWithoutAcademyCertificatesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcademyCertificatesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAcademyCertificatesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcademyCertificatesInput, Prisma.UserUncheckedCreateWithoutAcademyCertificatesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcademyCertificatesInput
+  upsert?: Prisma.UserUpsertWithoutAcademyCertificatesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAcademyCertificatesInput, Prisma.UserUpdateWithoutAcademyCertificatesInput>, Prisma.UserUncheckedUpdateWithoutAcademyCertificatesInput>
+}
+
 export type UserCreateWithoutStudiesInput = {
   id?: string
   name: string
@@ -2061,6 +2147,10 @@ export type UserCreateWithoutStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudiesInput = {
@@ -2142,6 +2232,10 @@ export type UserUncheckedCreateWithoutStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudiesInput = {
@@ -2239,6 +2333,10 @@ export type UserUpdateWithoutStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudiesInput = {
@@ -2320,6 +2418,10 @@ export type UserUncheckedUpdateWithoutStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBookmarksInput = {
@@ -2401,6 +2503,10 @@ export type UserCreateWithoutBookmarksInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBookmarksInput = {
@@ -2482,6 +2588,10 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBookmarksInput = {
@@ -2579,6 +2689,10 @@ export type UserUpdateWithoutBookmarksInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookmarksInput = {
@@ -2660,6 +2774,10 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRatingsInput = {
@@ -2741,6 +2859,10 @@ export type UserCreateWithoutRatingsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRatingsInput = {
@@ -2822,6 +2944,10 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRatingsInput = {
@@ -2919,6 +3045,10 @@ export type UserUpdateWithoutRatingsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -3000,6 +3130,10 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLikesInput = {
@@ -3081,6 +3215,10 @@ export type UserCreateWithoutLikesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLikesInput = {
@@ -3162,6 +3300,10 @@ export type UserUncheckedCreateWithoutLikesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLikesInput = {
@@ -3259,6 +3401,10 @@ export type UserUpdateWithoutLikesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLikesInput = {
@@ -3340,6 +3486,10 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -3421,6 +3571,10 @@ export type UserCreateWithoutCommentsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -3502,6 +3656,10 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -3599,6 +3757,10 @@ export type UserUpdateWithoutCommentsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -3680,6 +3842,10 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3761,6 +3927,10 @@ export type UserCreateWithoutNotificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3842,6 +4012,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3939,6 +4113,10 @@ export type UserUpdateWithoutNotificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -4020,6 +4198,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivityLogsInput = {
@@ -4101,6 +4283,10 @@ export type UserCreateWithoutActivityLogsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityLogsInput = {
@@ -4182,6 +4368,10 @@ export type UserUncheckedCreateWithoutActivityLogsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityLogsInput = {
@@ -4279,6 +4469,10 @@ export type UserUpdateWithoutActivityLogsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityLogsInput = {
@@ -4360,6 +4554,10 @@ export type UserUncheckedUpdateWithoutActivityLogsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAdminChatMessagesInput = {
@@ -4441,6 +4639,10 @@ export type UserCreateWithoutAdminChatMessagesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
@@ -4522,6 +4724,10 @@ export type UserUncheckedCreateWithoutAdminChatMessagesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAdminChatMessagesInput = {
@@ -4619,6 +4825,10 @@ export type UserUpdateWithoutAdminChatMessagesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
@@ -4700,6 +4910,10 @@ export type UserUncheckedUpdateWithoutAdminChatMessagesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutParticipantLinksInput = {
@@ -4781,6 +4995,10 @@ export type UserCreateWithoutParticipantLinksInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutParticipantLinksInput = {
@@ -4862,6 +5080,10 @@ export type UserUncheckedCreateWithoutParticipantLinksInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutParticipantLinksInput = {
@@ -4959,6 +5181,10 @@ export type UserUpdateWithoutParticipantLinksInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutParticipantLinksInput = {
@@ -5040,6 +5266,10 @@ export type UserUncheckedUpdateWithoutParticipantLinksInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDataSubjectRequestsInput = {
@@ -5121,6 +5351,10 @@ export type UserCreateWithoutDataSubjectRequestsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDataSubjectRequestsInput = {
@@ -5202,6 +5436,10 @@ export type UserUncheckedCreateWithoutDataSubjectRequestsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDataSubjectRequestsInput = {
@@ -5299,6 +5537,10 @@ export type UserUpdateWithoutDataSubjectRequestsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDataSubjectRequestsInput = {
@@ -5380,6 +5622,10 @@ export type UserUncheckedUpdateWithoutDataSubjectRequestsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCollectedResponsesInput = {
@@ -5461,6 +5707,10 @@ export type UserCreateWithoutCollectedResponsesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCollectedResponsesInput = {
@@ -5542,6 +5792,10 @@ export type UserUncheckedCreateWithoutCollectedResponsesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCollectedResponsesInput = {
@@ -5639,6 +5893,10 @@ export type UserUpdateWithoutCollectedResponsesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
@@ -5720,6 +5978,10 @@ export type UserUncheckedUpdateWithoutCollectedResponsesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWalletInput = {
@@ -5801,6 +6063,10 @@ export type UserCreateWithoutWalletInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWalletInput = {
@@ -5882,6 +6148,10 @@ export type UserUncheckedCreateWithoutWalletInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWalletInput = {
@@ -5979,6 +6249,10 @@ export type UserUpdateWithoutWalletInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWalletInput = {
@@ -6060,6 +6334,10 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLedgerAccountInput = {
@@ -6141,6 +6419,10 @@ export type UserCreateWithoutLedgerAccountInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLedgerAccountInput = {
@@ -6222,6 +6504,10 @@ export type UserUncheckedCreateWithoutLedgerAccountInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLedgerAccountInput = {
@@ -6319,6 +6605,10 @@ export type UserUpdateWithoutLedgerAccountInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLedgerAccountInput = {
@@ -6400,6 +6690,10 @@ export type UserUncheckedUpdateWithoutLedgerAccountInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudyPaymentsInput = {
@@ -6481,6 +6775,10 @@ export type UserCreateWithoutStudyPaymentsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudyPaymentsInput = {
@@ -6562,6 +6860,10 @@ export type UserUncheckedCreateWithoutStudyPaymentsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudyPaymentsInput = {
@@ -6659,6 +6961,10 @@ export type UserUpdateWithoutStudyPaymentsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
@@ -6740,6 +7046,10 @@ export type UserUncheckedUpdateWithoutStudyPaymentsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCollectorFundingVerificationsInput = {
@@ -6821,6 +7131,10 @@ export type UserCreateWithoutCollectorFundingVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCollectorFundingVerificationsInput = {
@@ -6902,6 +7216,10 @@ export type UserUncheckedCreateWithoutCollectorFundingVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCollectorFundingVerificationsInput = {
@@ -6999,6 +7317,10 @@ export type UserUpdateWithoutCollectorFundingVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCollectorFundingVerificationsInput = {
@@ -7080,6 +7402,10 @@ export type UserUncheckedUpdateWithoutCollectorFundingVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCollectorPayoutsInput = {
@@ -7161,6 +7487,10 @@ export type UserCreateWithoutCollectorPayoutsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCollectorPayoutsInput = {
@@ -7242,6 +7572,10 @@ export type UserUncheckedCreateWithoutCollectorPayoutsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCollectorPayoutsInput = {
@@ -7328,6 +7662,10 @@ export type UserCreateWithoutRecordedCollectorPayoutsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRecordedCollectorPayoutsInput = {
@@ -7409,6 +7747,10 @@ export type UserUncheckedCreateWithoutRecordedCollectorPayoutsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRecordedCollectorPayoutsInput = {
@@ -7506,6 +7848,10 @@ export type UserUpdateWithoutCollectorPayoutsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCollectorPayoutsInput = {
@@ -7587,6 +7933,10 @@ export type UserUncheckedUpdateWithoutCollectorPayoutsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutRecordedCollectorPayoutsInput = {
@@ -7679,6 +8029,10 @@ export type UserUpdateWithoutRecordedCollectorPayoutsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecordedCollectorPayoutsInput = {
@@ -7760,6 +8114,10 @@ export type UserUncheckedUpdateWithoutRecordedCollectorPayoutsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWithdrawalsInput = {
@@ -7841,6 +8199,10 @@ export type UserCreateWithoutWithdrawalsInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWithdrawalsInput = {
@@ -7922,6 +8284,10 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWithdrawalsInput = {
@@ -8019,6 +8385,10 @@ export type UserUpdateWithoutWithdrawalsInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWithdrawalsInput = {
@@ -8100,6 +8470,10 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAskProfileInput = {
@@ -8181,6 +8555,10 @@ export type UserCreateWithoutAskProfileInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAskProfileInput = {
@@ -8262,6 +8640,10 @@ export type UserUncheckedCreateWithoutAskProfileInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAskProfileInput = {
@@ -8359,6 +8741,10 @@ export type UserUpdateWithoutAskProfileInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAskProfileInput = {
@@ -8440,6 +8826,10 @@ export type UserUncheckedUpdateWithoutAskProfileInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLeadProjectsInput = {
@@ -8521,6 +8911,10 @@ export type UserCreateWithoutLeadProjectsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLeadProjectsInput = {
@@ -8602,6 +8996,10 @@ export type UserUncheckedCreateWithoutLeadProjectsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLeadProjectsInput = {
@@ -8699,6 +9097,10 @@ export type UserUpdateWithoutLeadProjectsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLeadProjectsInput = {
@@ -8780,6 +9182,10 @@ export type UserUncheckedUpdateWithoutLeadProjectsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectMembershipsInput = {
@@ -8861,6 +9267,10 @@ export type UserCreateWithoutProjectMembershipsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectMembershipsInput = {
@@ -8942,6 +9352,10 @@ export type UserUncheckedCreateWithoutProjectMembershipsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectMembershipsInput = {
@@ -9039,6 +9453,10 @@ export type UserUpdateWithoutProjectMembershipsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
@@ -9120,6 +9538,10 @@ export type UserUncheckedUpdateWithoutProjectMembershipsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentProjectInvitationsInput = {
@@ -9201,6 +9623,10 @@ export type UserCreateWithoutSentProjectInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
@@ -9282,6 +9708,10 @@ export type UserUncheckedCreateWithoutSentProjectInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentProjectInvitationsInput = {
@@ -9379,6 +9809,10 @@ export type UserUpdateWithoutSentProjectInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
@@ -9460,6 +9894,10 @@ export type UserUncheckedUpdateWithoutSentProjectInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssignedProjectTasksInput = {
@@ -9541,6 +9979,10 @@ export type UserCreateWithoutAssignedProjectTasksInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
@@ -9622,6 +10064,10 @@ export type UserUncheckedCreateWithoutAssignedProjectTasksInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssignedProjectTasksInput = {
@@ -9708,6 +10154,10 @@ export type UserCreateWithoutCreatedProjectTasksInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
@@ -9789,6 +10239,10 @@ export type UserUncheckedCreateWithoutCreatedProjectTasksInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedProjectTasksInput = {
@@ -9886,6 +10340,10 @@ export type UserUpdateWithoutAssignedProjectTasksInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
@@ -9967,6 +10425,10 @@ export type UserUncheckedUpdateWithoutAssignedProjectTasksInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutCreatedProjectTasksInput = {
@@ -10059,6 +10521,10 @@ export type UserUpdateWithoutCreatedProjectTasksInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
@@ -10140,6 +10606,10 @@ export type UserUncheckedUpdateWithoutCreatedProjectTasksInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUploadedProjectFilesInput = {
@@ -10221,6 +10691,10 @@ export type UserCreateWithoutUploadedProjectFilesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
@@ -10302,6 +10776,10 @@ export type UserUncheckedCreateWithoutUploadedProjectFilesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUploadedProjectFilesInput = {
@@ -10399,6 +10877,10 @@ export type UserUpdateWithoutUploadedProjectFilesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
@@ -10480,6 +10962,10 @@ export type UserUncheckedUpdateWithoutUploadedProjectFilesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUploadedProjectFileVersionsInput = {
@@ -10561,6 +11047,10 @@ export type UserCreateWithoutUploadedProjectFileVersionsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
@@ -10642,6 +11132,10 @@ export type UserUncheckedCreateWithoutUploadedProjectFileVersionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUploadedProjectFileVersionsInput = {
@@ -10739,6 +11233,10 @@ export type UserUpdateWithoutUploadedProjectFileVersionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
@@ -10820,6 +11318,10 @@ export type UserUncheckedUpdateWithoutUploadedProjectFileVersionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectNotesInput = {
@@ -10901,6 +11403,10 @@ export type UserCreateWithoutProjectNotesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectNotesInput = {
@@ -10982,6 +11488,10 @@ export type UserUncheckedCreateWithoutProjectNotesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectNotesInput = {
@@ -11079,6 +11589,10 @@ export type UserUpdateWithoutProjectNotesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectNotesInput = {
@@ -11160,6 +11674,10 @@ export type UserUncheckedUpdateWithoutProjectNotesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectLiteratureReferencesInput = {
@@ -11241,6 +11759,10 @@ export type UserCreateWithoutProjectLiteratureReferencesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectLiteratureReferencesInput = {
@@ -11322,6 +11844,10 @@ export type UserUncheckedCreateWithoutProjectLiteratureReferencesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectLiteratureReferencesInput = {
@@ -11419,6 +11945,10 @@ export type UserUpdateWithoutProjectLiteratureReferencesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectLiteratureReferencesInput = {
@@ -11500,6 +12030,10 @@ export type UserUncheckedUpdateWithoutProjectLiteratureReferencesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectDiscussionsInput = {
@@ -11581,6 +12115,10 @@ export type UserCreateWithoutProjectDiscussionsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
@@ -11662,6 +12200,10 @@ export type UserUncheckedCreateWithoutProjectDiscussionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectDiscussionsInput = {
@@ -11759,6 +12301,10 @@ export type UserUpdateWithoutProjectDiscussionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
@@ -11840,6 +12386,10 @@ export type UserUncheckedUpdateWithoutProjectDiscussionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectDiscussionRepliesInput = {
@@ -11921,6 +12471,10 @@ export type UserCreateWithoutProjectDiscussionRepliesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
@@ -12002,6 +12556,10 @@ export type UserUncheckedCreateWithoutProjectDiscussionRepliesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectDiscussionRepliesInput = {
@@ -12099,6 +12657,10 @@ export type UserUpdateWithoutProjectDiscussionRepliesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
@@ -12180,6 +12742,10 @@ export type UserUncheckedUpdateWithoutProjectDiscussionRepliesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectDiscussionReactionsInput = {
@@ -12261,6 +12827,10 @@ export type UserCreateWithoutProjectDiscussionReactionsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectDiscussionReactionsInput = {
@@ -12342,6 +12912,10 @@ export type UserUncheckedCreateWithoutProjectDiscussionReactionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectDiscussionReactionsInput = {
@@ -12439,6 +13013,10 @@ export type UserUpdateWithoutProjectDiscussionReactionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectDiscussionReactionsInput = {
@@ -12520,6 +13098,10 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReactionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectDiscussionReplyReactionsInput = {
@@ -12601,6 +13183,10 @@ export type UserCreateWithoutProjectDiscussionReplyReactionsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput = {
@@ -12682,6 +13268,10 @@ export type UserUncheckedCreateWithoutProjectDiscussionReplyReactionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectDiscussionReplyReactionsInput = {
@@ -12779,6 +13369,10 @@ export type UserUpdateWithoutProjectDiscussionReplyReactionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput = {
@@ -12860,6 +13454,10 @@ export type UserUncheckedUpdateWithoutProjectDiscussionReplyReactionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectDecisionsInput = {
@@ -12941,6 +13539,10 @@ export type UserCreateWithoutProjectDecisionsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectDecisionsInput = {
@@ -13022,6 +13624,10 @@ export type UserUncheckedCreateWithoutProjectDecisionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectDecisionsInput = {
@@ -13119,6 +13725,10 @@ export type UserUpdateWithoutProjectDecisionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
@@ -13200,6 +13810,10 @@ export type UserUncheckedUpdateWithoutProjectDecisionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectActivitiesInput = {
@@ -13281,6 +13895,10 @@ export type UserCreateWithoutProjectActivitiesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectActivitiesInput = {
@@ -13362,6 +13980,10 @@ export type UserUncheckedCreateWithoutProjectActivitiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectActivitiesInput = {
@@ -13459,6 +14081,10 @@ export type UserUpdateWithoutProjectActivitiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
@@ -13540,6 +14166,10 @@ export type UserUncheckedUpdateWithoutProjectActivitiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectChatMessagesInput = {
@@ -13621,6 +14251,10 @@ export type UserCreateWithoutProjectChatMessagesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
@@ -13702,6 +14336,10 @@ export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectChatMessagesInput = {
@@ -13799,6 +14437,10 @@ export type UserUpdateWithoutProjectChatMessagesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
@@ -13880,6 +14522,10 @@ export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLinkedProjectStudiesInput = {
@@ -13961,6 +14607,10 @@ export type UserCreateWithoutLinkedProjectStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
@@ -14042,6 +14692,10 @@ export type UserUncheckedCreateWithoutLinkedProjectStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLinkedProjectStudiesInput = {
@@ -14139,6 +14793,10 @@ export type UserUpdateWithoutLinkedProjectStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
@@ -14220,6 +14878,10 @@ export type UserUncheckedUpdateWithoutLinkedProjectStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAiConversationsInput = {
@@ -14301,6 +14963,10 @@ export type UserCreateWithoutAiConversationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAiConversationsInput = {
@@ -14382,6 +15048,10 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAiConversationsInput = {
@@ -14479,6 +15149,10 @@ export type UserUpdateWithoutAiConversationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiConversationsInput = {
@@ -14560,6 +15234,10 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAiUsagesInput = {
@@ -14641,6 +15319,10 @@ export type UserCreateWithoutAiUsagesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAiUsagesInput = {
@@ -14722,6 +15404,10 @@ export type UserUncheckedCreateWithoutAiUsagesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAiUsagesInput = {
@@ -14819,6 +15505,10 @@ export type UserUpdateWithoutAiUsagesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiUsagesInput = {
@@ -14900,6 +15590,10 @@ export type UserUncheckedUpdateWithoutAiUsagesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewedVerificationsInput = {
@@ -14981,6 +15675,10 @@ export type UserCreateWithoutReviewedVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
@@ -15062,6 +15760,10 @@ export type UserUncheckedCreateWithoutReviewedVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewedVerificationsInput = {
@@ -15148,6 +15850,10 @@ export type UserCreateWithoutVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVerificationsInput = {
@@ -15229,6 +15935,10 @@ export type UserUncheckedCreateWithoutVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVerificationsInput = {
@@ -15326,6 +16036,10 @@ export type UserUpdateWithoutReviewedVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
@@ -15407,6 +16121,10 @@ export type UserUncheckedUpdateWithoutReviewedVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutVerificationsInput = {
@@ -15499,6 +16217,10 @@ export type UserUpdateWithoutVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerificationsInput = {
@@ -15580,6 +16302,10 @@ export type UserUncheckedUpdateWithoutVerificationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssignedStudiesInput = {
@@ -15661,6 +16387,10 @@ export type UserCreateWithoutAssignedStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssignedStudiesInput = {
@@ -15742,6 +16472,10 @@ export type UserUncheckedCreateWithoutAssignedStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssignedStudiesInput = {
@@ -15839,6 +16573,10 @@ export type UserUpdateWithoutAssignedStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
@@ -15920,6 +16658,10 @@ export type UserUncheckedUpdateWithoutAssignedStudiesInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssignedStudyParticipationsInput = {
@@ -16001,6 +16743,10 @@ export type UserCreateWithoutAssignedStudyParticipationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssignedStudyParticipationsInput = {
@@ -16082,6 +16828,10 @@ export type UserUncheckedCreateWithoutAssignedStudyParticipationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssignedStudyParticipationsInput = {
@@ -16179,6 +16929,10 @@ export type UserUpdateWithoutAssignedStudyParticipationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedStudyParticipationsInput = {
@@ -16260,6 +17014,10 @@ export type UserUncheckedUpdateWithoutAssignedStudyParticipationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReceivedCollectorInvitationsInput = {
@@ -16341,6 +17099,10 @@ export type UserCreateWithoutReceivedCollectorInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
@@ -16422,6 +17184,10 @@ export type UserUncheckedCreateWithoutReceivedCollectorInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedCollectorInvitationsInput = {
@@ -16508,6 +17274,10 @@ export type UserCreateWithoutSentCollectorInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
@@ -16589,6 +17359,10 @@ export type UserUncheckedCreateWithoutSentCollectorInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentCollectorInvitationsInput = {
@@ -16686,6 +17460,10 @@ export type UserUpdateWithoutReceivedCollectorInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
@@ -16767,6 +17545,10 @@ export type UserUncheckedUpdateWithoutReceivedCollectorInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutSentCollectorInvitationsInput = {
@@ -16859,6 +17641,10 @@ export type UserUpdateWithoutSentCollectorInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
@@ -16940,6 +17726,10 @@ export type UserUncheckedUpdateWithoutSentCollectorInvitationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCollectorApplicationsInput = {
@@ -17021,6 +17811,10 @@ export type UserCreateWithoutCollectorApplicationsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCollectorApplicationsInput = {
@@ -17102,6 +17896,10 @@ export type UserUncheckedCreateWithoutCollectorApplicationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCollectorApplicationsInput = {
@@ -17199,6 +17997,10 @@ export type UserUpdateWithoutCollectorApplicationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCollectorApplicationsInput = {
@@ -17280,6 +18082,10 @@ export type UserUncheckedUpdateWithoutCollectorApplicationsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCollectionSessionsInput = {
@@ -17361,6 +18167,10 @@ export type UserCreateWithoutCollectionSessionsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCollectionSessionsInput = {
@@ -17442,6 +18252,10 @@ export type UserUncheckedCreateWithoutCollectionSessionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCollectionSessionsInput = {
@@ -17539,6 +18353,10 @@ export type UserUpdateWithoutCollectionSessionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
@@ -17620,6 +18438,10 @@ export type UserUncheckedUpdateWithoutCollectionSessionsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutVerifiedEthicsApprovalsInput = {
@@ -17701,6 +18523,10 @@ export type UserCreateWithoutVerifiedEthicsApprovalsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput = {
@@ -17782,6 +18608,10 @@ export type UserUncheckedCreateWithoutVerifiedEthicsApprovalsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVerifiedEthicsApprovalsInput = {
@@ -17879,6 +18709,10 @@ export type UserUpdateWithoutVerifiedEthicsApprovalsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerifiedEthicsApprovalsInput = {
@@ -17960,6 +18794,10 @@ export type UserUncheckedUpdateWithoutVerifiedEthicsApprovalsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutModerationReportsInput = {
@@ -18041,6 +18879,10 @@ export type UserCreateWithoutModerationReportsInput = {
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutModerationReportsInput = {
@@ -18122,6 +18964,10 @@ export type UserUncheckedCreateWithoutModerationReportsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutModerationReportsInput = {
@@ -18219,6 +19065,10 @@ export type UserUpdateWithoutModerationReportsInput = {
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModerationReportsInput = {
@@ -18300,6 +19150,10 @@ export type UserUncheckedUpdateWithoutModerationReportsInput = {
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
   platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPlatformConsentRecordsInput = {
@@ -18381,6 +19235,10 @@ export type UserCreateWithoutPlatformConsentRecordsInput = {
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPlatformConsentRecordsInput = {
@@ -18462,6 +19320,10 @@ export type UserUncheckedCreateWithoutPlatformConsentRecordsInput = {
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPlatformConsentRecordsInput = {
@@ -18559,6 +19421,10 @@ export type UserUpdateWithoutPlatformConsentRecordsInput = {
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlatformConsentRecordsInput = {
@@ -18640,6 +19506,1434 @@ export type UserUncheckedUpdateWithoutPlatformConsentRecordsInput = {
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAcademyProgressInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  assignedStudyParticipations?: Prisma.StudyParticipantCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAcademyProgressInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAcademyProgressInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcademyProgressInput, Prisma.UserUncheckedCreateWithoutAcademyProgressInput>
+}
+
+export type UserUpsertWithoutAcademyProgressInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAcademyProgressInput, Prisma.UserUncheckedUpdateWithoutAcademyProgressInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcademyProgressInput, Prisma.UserUncheckedCreateWithoutAcademyProgressInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAcademyProgressInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAcademyProgressInput, Prisma.UserUncheckedUpdateWithoutAcademyProgressInput>
+}
+
+export type UserUpdateWithoutAcademyProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAcademyProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAcademyQuizAttemptsInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  assignedStudyParticipations?: Prisma.StudyParticipantCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAcademyQuizAttemptsInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAcademyQuizAttemptsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcademyQuizAttemptsInput, Prisma.UserUncheckedCreateWithoutAcademyQuizAttemptsInput>
+}
+
+export type UserUpsertWithoutAcademyQuizAttemptsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAcademyQuizAttemptsInput, Prisma.UserUncheckedUpdateWithoutAcademyQuizAttemptsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcademyQuizAttemptsInput, Prisma.UserUncheckedCreateWithoutAcademyQuizAttemptsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAcademyQuizAttemptsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAcademyQuizAttemptsInput, Prisma.UserUncheckedUpdateWithoutAcademyQuizAttemptsInput>
+}
+
+export type UserUpdateWithoutAcademyQuizAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAcademyQuizAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAcademyNotesInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  assignedStudyParticipations?: Prisma.StudyParticipantCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAcademyNotesInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAcademyNotesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcademyNotesInput, Prisma.UserUncheckedCreateWithoutAcademyNotesInput>
+}
+
+export type UserUpsertWithoutAcademyNotesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAcademyNotesInput, Prisma.UserUncheckedUpdateWithoutAcademyNotesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcademyNotesInput, Prisma.UserUncheckedCreateWithoutAcademyNotesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAcademyNotesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAcademyNotesInput, Prisma.UserUncheckedUpdateWithoutAcademyNotesInput>
+}
+
+export type UserUpdateWithoutAcademyNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAcademyNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyCertificates?: Prisma.AcademyCertificateUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAcademyCertificatesInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceCreateNestedManyWithoutAddedByInput
+  assignedProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorCreateNestedManyWithoutUserInput
+  assignedStudyParticipations?: Prisma.StudyParticipantCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAcademyCertificatesInput = {
+  id?: string
+  name: string
+  username?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.UserRole
+  phone?: string | null
+  institution?: string | null
+  fieldOfStudy?: string | null
+  yearOfStudy?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  avatarUrl?: string | null
+  bio?: string | null
+  isVerified?: boolean
+  faydaVerified?: boolean
+  faydaFanHash?: string | null
+  faydaVerifiedAt?: Date | string | null
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | string | null
+  termsAcceptedVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  charterAcceptedVersion?: string | null
+  charterAcceptedAt?: Date | string | null
+  codeOfConductAcceptedVersion?: string | null
+  codeOfConductAcceptedAt?: Date | string | null
+  dpaAcceptedVersion?: string | null
+  dpaAcceptedAt?: Date | string | null
+  privacyNoticeVersion?: string
+  privacyAcceptedAt?: Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedCreateNestedManyWithoutUserInput
+  aiUsages?: Prisma.AIUsageUncheckedCreateNestedManyWithoutUserInput
+  activityLogs?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutUserInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  askProfile?: Prisma.AskProfileUncheckedCreateNestedOneWithoutUserInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedCreateNestedManyWithoutCollectorInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviteeInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedCreateNestedManyWithoutInviterInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  projectActivities?: Prisma.ProjectActivityUncheckedCreateNestedManyWithoutUserInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedCreateNestedManyWithoutMadeByInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedCreateNestedManyWithoutAuthorInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedCreateNestedManyWithoutUserInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedCreateNestedManyWithoutUserInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedCreateNestedManyWithoutUploaderInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedCreateNestedManyWithoutUploaderInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedCreateNestedManyWithoutInviterInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedCreateNestedManyWithoutLinkedByInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  projectNotes?: Prisma.ProjectNoteUncheckedCreateNestedManyWithoutAuthorInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedCreateNestedManyWithoutAddedByInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedCreateNestedManyWithoutCreatorInput
+  leadProjects?: Prisma.ResearchProjectUncheckedCreateNestedManyWithoutLeadInput
+  collectedResponses?: Prisma.ResponseUncheckedCreateNestedManyWithoutCollectorInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedCreateNestedManyWithoutUserInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedCreateNestedManyWithoutUserInput
+  moderationReports?: Prisma.ModerationReportUncheckedCreateNestedManyWithoutReporterInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedCreateNestedManyWithoutVerifiedByAdminInput
+  studies?: Prisma.StudyUncheckedCreateNestedManyWithoutResearcherInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.StudyCommentUncheckedCreateNestedManyWithoutUserInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedCreateNestedManyWithoutUserInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUncheckedCreateNestedManyWithoutUserInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutCollectorInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedCreateNestedManyWithoutRecordedByInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedCreateNestedManyWithoutResearcherInput
+  likes?: Prisma.StudyLikeUncheckedCreateNestedManyWithoutUserInput
+  studyPayments?: Prisma.StudyPaymentUncheckedCreateNestedManyWithoutResearcherInput
+  ratings?: Prisma.StudyRatingUncheckedCreateNestedManyWithoutUserInput
+  reviewedVerifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutReviewedByInput
+  verifications?: Prisma.VerificationUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedCreateNestedOneWithoutUserInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutUserInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedCreateNestedManyWithoutUserInput
+  academyProgress?: Prisma.AcademyProgressUncheckedCreateNestedManyWithoutUserInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedCreateNestedManyWithoutUserInput
+  academyNotes?: Prisma.AcademyNoteUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAcademyCertificatesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcademyCertificatesInput, Prisma.UserUncheckedCreateWithoutAcademyCertificatesInput>
+}
+
+export type UserUpsertWithoutAcademyCertificatesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAcademyCertificatesInput, Prisma.UserUncheckedUpdateWithoutAcademyCertificatesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcademyCertificatesInput, Prisma.UserUncheckedCreateWithoutAcademyCertificatesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAcademyCertificatesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAcademyCertificatesInput, Prisma.UserUncheckedUpdateWithoutAcademyCertificatesInput>
+}
+
+export type UserUpdateWithoutAcademyCertificatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUpdateManyWithoutAddedByNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUpdateManyWithoutUserNestedInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAcademyCertificatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  institution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldOfStudy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearOfStudy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  faydaFanHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  faydaVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationCodeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  charterAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  charterAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  codeOfConductAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dpaAcceptedVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dpaAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyNoticeVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  privacyAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiConversations?: Prisma.AIConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiUsages?: Prisma.AIUsageUncheckedUpdateManyWithoutUserNestedInput
+  activityLogs?: Prisma.ActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  adminChatMessages?: Prisma.AdminChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  askProfile?: Prisma.AskProfileUncheckedUpdateOneWithoutUserNestedInput
+  collectionSessions?: Prisma.CollectionSessionUncheckedUpdateManyWithoutCollectorNestedInput
+  receivedCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviteeNestedInput
+  sentCollectorInvitations?: Prisma.CollectorInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  projectActivities?: Prisma.ProjectActivityUncheckedUpdateManyWithoutUserNestedInput
+  projectChatMessages?: Prisma.ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  projectDecisions?: Prisma.ProjectDecisionUncheckedUpdateManyWithoutMadeByNestedInput
+  projectDiscussions?: Prisma.ProjectDiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReplies?: Prisma.ProjectDiscussionReplyUncheckedUpdateManyWithoutAuthorNestedInput
+  projectDiscussionReactions?: Prisma.ProjectDiscussionReactionUncheckedUpdateManyWithoutUserNestedInput
+  projectDiscussionReplyReactions?: Prisma.ProjectDiscussionReplyReactionUncheckedUpdateManyWithoutUserNestedInput
+  uploadedProjectFiles?: Prisma.ProjectFileUncheckedUpdateManyWithoutUploaderNestedInput
+  uploadedProjectFileVersions?: Prisma.ProjectFileVersionUncheckedUpdateManyWithoutUploaderNestedInput
+  sentProjectInvitations?: Prisma.ProjectInvitationUncheckedUpdateManyWithoutInviterNestedInput
+  linkedProjectStudies?: Prisma.ProjectLinkedStudyUncheckedUpdateManyWithoutLinkedByNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+  projectNotes?: Prisma.ProjectNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  projectLiteratureReferences?: Prisma.ProjectLiteratureReferenceUncheckedUpdateManyWithoutAddedByNestedInput
+  assignedProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  createdProjectTasks?: Prisma.ProjectTaskUncheckedUpdateManyWithoutCreatorNestedInput
+  leadProjects?: Prisma.ResearchProjectUncheckedUpdateManyWithoutLeadNestedInput
+  collectedResponses?: Prisma.ResponseUncheckedUpdateManyWithoutCollectorNestedInput
+  participantLinks?: Prisma.ParticipantLinkUncheckedUpdateManyWithoutUserNestedInput
+  dataSubjectRequests?: Prisma.DataSubjectRequestUncheckedUpdateManyWithoutUserNestedInput
+  moderationReports?: Prisma.ModerationReportUncheckedUpdateManyWithoutReporterNestedInput
+  verifiedEthicsApprovals?: Prisma.EthicsApprovalUncheckedUpdateManyWithoutVerifiedByAdminNestedInput
+  studies?: Prisma.StudyUncheckedUpdateManyWithoutResearcherNestedInput
+  bookmarks?: Prisma.StudyBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.StudyCommentUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudies?: Prisma.StudyDataCollectorUncheckedUpdateManyWithoutUserNestedInput
+  assignedStudyParticipations?: Prisma.StudyParticipantUncheckedUpdateManyWithoutUserNestedInput
+  collectorApplications?: Prisma.CollectorApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  collectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutCollectorNestedInput
+  recordedCollectorPayouts?: Prisma.CollectorPayoutUncheckedUpdateManyWithoutRecordedByNestedInput
+  collectorFundingVerifications?: Prisma.CollectorFundingVerificationUncheckedUpdateManyWithoutResearcherNestedInput
+  likes?: Prisma.StudyLikeUncheckedUpdateManyWithoutUserNestedInput
+  studyPayments?: Prisma.StudyPaymentUncheckedUpdateManyWithoutResearcherNestedInput
+  ratings?: Prisma.StudyRatingUncheckedUpdateManyWithoutUserNestedInput
+  reviewedVerifications?: Prisma.VerificationUncheckedUpdateManyWithoutReviewedByNestedInput
+  verifications?: Prisma.VerificationUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  ledgerAccount?: Prisma.LedgerAccountUncheckedUpdateOneWithoutUserNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  platformConsentRecords?: Prisma.PlatformConsentRecordUncheckedUpdateManyWithoutUserNestedInput
+  academyProgress?: Prisma.AcademyProgressUncheckedUpdateManyWithoutUserNestedInput
+  academyQuizAttempts?: Prisma.AcademyQuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+  academyNotes?: Prisma.AcademyNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -18694,6 +20988,10 @@ export type UserCountOutputType = {
   verifications: number
   withdrawals: number
   platformConsentRecords: number
+  academyProgress: number
+  academyQuizAttempts: number
+  academyNotes: number
+  academyCertificates: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -18743,6 +21041,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   verifications?: boolean | UserCountOutputTypeCountVerificationsArgs
   withdrawals?: boolean | UserCountOutputTypeCountWithdrawalsArgs
   platformConsentRecords?: boolean | UserCountOutputTypeCountPlatformConsentRecordsArgs
+  academyProgress?: boolean | UserCountOutputTypeCountAcademyProgressArgs
+  academyQuizAttempts?: boolean | UserCountOutputTypeCountAcademyQuizAttemptsArgs
+  academyNotes?: boolean | UserCountOutputTypeCountAcademyNotesArgs
+  academyCertificates?: boolean | UserCountOutputTypeCountAcademyCertificatesArgs
 }
 
 /**
@@ -19077,6 +21379,34 @@ export type UserCountOutputTypeCountPlatformConsentRecordsArgs<ExtArgs extends r
   where?: Prisma.PlatformConsentRecordWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAcademyProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AcademyProgressWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAcademyQuizAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AcademyQuizAttemptWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAcademyNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AcademyNoteWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAcademyCertificatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AcademyCertificateWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -19158,6 +21488,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   ledgerAccount?: boolean | Prisma.User$ledgerAccountArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   platformConsentRecords?: boolean | Prisma.User$platformConsentRecordsArgs<ExtArgs>
+  academyProgress?: boolean | Prisma.User$academyProgressArgs<ExtArgs>
+  academyQuizAttempts?: boolean | Prisma.User$academyQuizAttemptsArgs<ExtArgs>
+  academyNotes?: boolean | Prisma.User$academyNotesArgs<ExtArgs>
+  academyCertificates?: boolean | Prisma.User$academyCertificatesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -19311,6 +21645,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   ledgerAccount?: boolean | Prisma.User$ledgerAccountArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   platformConsentRecords?: boolean | Prisma.User$platformConsentRecordsArgs<ExtArgs>
+  academyProgress?: boolean | Prisma.User$academyProgressArgs<ExtArgs>
+  academyQuizAttempts?: boolean | Prisma.User$academyQuizAttemptsArgs<ExtArgs>
+  academyNotes?: boolean | Prisma.User$academyNotesArgs<ExtArgs>
+  academyCertificates?: boolean | Prisma.User$academyCertificatesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -19368,6 +21706,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     ledgerAccount: Prisma.$LedgerAccountPayload<ExtArgs> | null
     withdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
     platformConsentRecords: Prisma.$PlatformConsentRecordPayload<ExtArgs>[]
+    academyProgress: Prisma.$AcademyProgressPayload<ExtArgs>[]
+    academyQuizAttempts: Prisma.$AcademyQuizAttemptPayload<ExtArgs>[]
+    academyNotes: Prisma.$AcademyNotePayload<ExtArgs>[]
+    academyCertificates: Prisma.$AcademyCertificatePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -19843,6 +22185,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   ledgerAccount<T extends Prisma.User$ledgerAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ledgerAccountArgs<ExtArgs>>): Prisma.Prisma__LedgerAccountClient<runtime.Types.Result.GetResult<Prisma.$LedgerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   withdrawals<T extends Prisma.User$withdrawalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$withdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   platformConsentRecords<T extends Prisma.User$platformConsentRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$platformConsentRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformConsentRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  academyProgress<T extends Prisma.User$academyProgressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$academyProgressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AcademyProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  academyQuizAttempts<T extends Prisma.User$academyQuizAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$academyQuizAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AcademyQuizAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  academyNotes<T extends Prisma.User$academyNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$academyNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AcademyNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  academyCertificates<T extends Prisma.User$academyCertificatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$academyCertificatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AcademyCertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21453,6 +23799,102 @@ export type User$platformConsentRecordsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.PlatformConsentRecordScalarFieldEnum | Prisma.PlatformConsentRecordScalarFieldEnum[]
+}
+
+/**
+ * User.academyProgress
+ */
+export type User$academyProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AcademyProgress
+   */
+  select?: Prisma.AcademyProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AcademyProgress
+   */
+  omit?: Prisma.AcademyProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AcademyProgressInclude<ExtArgs> | null
+  where?: Prisma.AcademyProgressWhereInput
+  orderBy?: Prisma.AcademyProgressOrderByWithRelationInput | Prisma.AcademyProgressOrderByWithRelationInput[]
+  cursor?: Prisma.AcademyProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AcademyProgressScalarFieldEnum | Prisma.AcademyProgressScalarFieldEnum[]
+}
+
+/**
+ * User.academyQuizAttempts
+ */
+export type User$academyQuizAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AcademyQuizAttempt
+   */
+  select?: Prisma.AcademyQuizAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AcademyQuizAttempt
+   */
+  omit?: Prisma.AcademyQuizAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AcademyQuizAttemptInclude<ExtArgs> | null
+  where?: Prisma.AcademyQuizAttemptWhereInput
+  orderBy?: Prisma.AcademyQuizAttemptOrderByWithRelationInput | Prisma.AcademyQuizAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.AcademyQuizAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AcademyQuizAttemptScalarFieldEnum | Prisma.AcademyQuizAttemptScalarFieldEnum[]
+}
+
+/**
+ * User.academyNotes
+ */
+export type User$academyNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AcademyNote
+   */
+  select?: Prisma.AcademyNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AcademyNote
+   */
+  omit?: Prisma.AcademyNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AcademyNoteInclude<ExtArgs> | null
+  where?: Prisma.AcademyNoteWhereInput
+  orderBy?: Prisma.AcademyNoteOrderByWithRelationInput | Prisma.AcademyNoteOrderByWithRelationInput[]
+  cursor?: Prisma.AcademyNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AcademyNoteScalarFieldEnum | Prisma.AcademyNoteScalarFieldEnum[]
+}
+
+/**
+ * User.academyCertificates
+ */
+export type User$academyCertificatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AcademyCertificate
+   */
+  select?: Prisma.AcademyCertificateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AcademyCertificate
+   */
+  omit?: Prisma.AcademyCertificateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AcademyCertificateInclude<ExtArgs> | null
+  where?: Prisma.AcademyCertificateWhereInput
+  orderBy?: Prisma.AcademyCertificateOrderByWithRelationInput | Prisma.AcademyCertificateOrderByWithRelationInput[]
+  cursor?: Prisma.AcademyCertificateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AcademyCertificateScalarFieldEnum | Prisma.AcademyCertificateScalarFieldEnum[]
 }
 
 /**

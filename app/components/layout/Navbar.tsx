@@ -18,5 +18,6 @@ export async function Navbar() {
     }
   }
   const links = getLinksForUser(user ? { ...user, isCollector } : null);
-  return <NavContent user={user} links={links} />;
+  const navbarLinks = links.filter((link) => !link.href.startsWith("/research-tools/"));
+  return <NavContent user={user} links={navbarLinks} />;
 }

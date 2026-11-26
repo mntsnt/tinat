@@ -12,6 +12,8 @@ const DASHBOARD_PREFIXES = [
   "/admin",
   "/participant",
   "/researcher",
+  "/research-tools",
+  "/academy",
   "/collector",
   "/projects",
   "/ask",
