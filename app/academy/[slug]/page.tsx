@@ -6,6 +6,7 @@ import { Badge } from "../../components/ui/Badge";
 import { ButtonLink } from "../../components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card";
 import { academyModules } from "../academyData";
+import { AcademyLecture } from "../AcademyLecture";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -64,16 +65,9 @@ export default async function AcademyModulePage({ params }: Props) {
           </Card>
 
           <Card>
-            <CardHeader><CardTitle>Lessons</CardTitle></CardHeader>
+            <CardHeader><CardTitle>Interactive lecture</CardTitle></CardHeader>
             <CardContent>
-              <ol className="space-y-3">
-                {academyModule.lessons.map((lesson, index) => (
-                  <li key={lesson} className="flex items-center gap-3 rounded-md border border-border px-3 py-3 text-sm">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">{index + 1}</span>
-                    <span className="font-medium">{lesson}</span>
-                  </li>
-                ))}
-              </ol>
+              <AcademyLecture academyModule={academyModule} />
             </CardContent>
           </Card>
 

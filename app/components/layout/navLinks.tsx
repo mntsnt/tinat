@@ -14,7 +14,6 @@ import {
   ScrollText,
   ShieldCheck,
   ShieldUser,
-  AlertTriangle,
   WalletCards,
   Workflow,
   Layers,
@@ -29,8 +28,6 @@ import { SidebarLink } from "./Sidebar";
 
 export const publicLinks: SidebarLink[] = [
   { title: "Tinat Academy", href: "/academy", icon: <GraduationCap /> },
-  { title: "Statistical Calculator", href: "/research-tools/statistical-calculator", icon: <Calculator /> },
-  { title: "Sample Size Calculator", href: "/research-tools/sample-size-calculator", icon: <Calculator /> },
   { title: "How It Works", href: "/#how-it-works", icon: <Layers /> },
   { title: "Data Collection", href: "/#pathways", icon: <Microscope /> },
   { title: "Disciplines", href: "/#disciplines", icon: <Stethoscope /> },
