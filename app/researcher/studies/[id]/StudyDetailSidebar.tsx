@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   Brain,
   BarChart3,
+  Calculator,
   ClipboardCheck,
   Users,
   MessageSquare,
@@ -144,6 +145,12 @@ export function StudyDetailSidebar({
       id: "visualizations",
       label: "Data visualizations",
       icon: BarChart3,
+      badge: null,
+    },
+    {
+      id: "calculators",
+      label: "Research Calculators",
+      icon: Calculator,
       badge: null,
     },
     {

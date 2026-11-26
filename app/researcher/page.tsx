@@ -8,7 +8,7 @@ import {
 } from "../components/ui/Card";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
-import { BookOpen, Users, TrendingUp, Coins, ArrowRight, FilePlus } from "lucide-react";
+import { BookOpen, Users, TrendingUp, Coins, ArrowRight, FilePlus, GraduationCap, Calculator } from "lucide-react";
 
 export default async function ResearcherDashboard() {
   const session = await getSession();
@@ -110,6 +110,38 @@ export default async function ResearcherDashboard() {
             </Card>
           </Link>
         ))}
+      </div>
+
+      {/* Tinat Academy Feature for Researchers */}
+      <div className="mb-8">
+        <Link href="/academy" className="group block">
+          <Card className="border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-card to-teal-500/5 hover:border-emerald-500/60 transition-all p-1 shadow-xs">
+            <CardContent className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3.5">
+                <div className="rounded-xl bg-emerald-600/15 p-2.5 text-emerald-700 dark:text-emerald-300 shrink-0">
+                  <GraduationCap className="h-6 w-6" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[10px] uppercase font-bold">
+                      Researcher Education
+                    </Badge>
+                    <span className="text-xs text-muted-foreground">13 Modules &bull; Ethiopian Case Studies</span>
+                  </div>
+                  <h3 className="font-bold text-base text-foreground mt-1 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                    Tinat Academy: Health &amp; Public-Health Research Methodology
+                  </h3>
+                  <p className="text-xs text-muted-foreground mt-1 max-w-2xl leading-relaxed">
+                    Master PICO hypothesis formulation, observational &amp; trial designs, sample size formulas, biostatistical analysis, and EQUATOR reporting guidelines.
+                  </p>
+                </div>
+              </div>
+              <Button size="sm" className="shrink-0 gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold">
+                Open Academy <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </Button>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
 
       {/* Studies Section */}

@@ -46,8 +46,6 @@ export const participantLinks: SidebarLink[] = [
 export const researcherLinks: SidebarLink[] = [
   { title: "Dashboard", href: "/researcher", icon: <ChartNoAxesCombined /> },
   { title: "Tinat Academy", href: "/academy", icon: <GraduationCap /> },
-  { title: "Statistical Calculator", href: "/research-tools/statistical-calculator", icon: <Calculator /> },
-  { title: "Sample Size Calculator", href: "/research-tools/sample-size-calculator", icon: <Calculator /> },
   { title: "Tinat AI", href: "/ai", icon: <Sparkles /> },
   { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },

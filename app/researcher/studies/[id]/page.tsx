@@ -13,6 +13,7 @@ import { DataVisualizationStudio } from "./DataVisualizationStudio";
 import { StudyEngagement } from "./StudyEngagement";
 import { StudyShareLink } from "./StudyShareLink";
 import { StudySettingsTab } from "./StudySettingsTab";
+import { StudyCalculatorsTab } from "./StudyCalculatorsTab";
 import { Star, Paperclip, ShieldAlert, ArrowLeft, BarChart3, Globe, Lock } from "lucide-react";
 import { TinatLogo } from "../../../components/ui/TinatLogo";
 import { ThemeToggle } from "../../../components/ThemeToggle";
@@ -28,6 +29,7 @@ const studyViews = [
   { id: "overview", label: "Overview" },
   { id: "analysis", label: "AI analysis" },
   { id: "visualizations", label: "Data visualizations" },
+  { id: "calculators", label: "Research Calculators" },
   { id: "responses", label: "Responses" },
   { id: "collectors", label: "Data Collectors" },
   { id: "discussion", label: "Discussion & feedback" },
@@ -432,6 +434,22 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
               </CardContent>
             </Card>
           )}
+        </div>
+      )}
+
+      {/* ── View: Integrated Study Calculators ── */}
+      {activeView === "calculators" && (
+        <div className="space-y-6 animate-in fade-in duration-150">
+          <StudyCalculatorsTab
+            study={{
+              id: activeStudy.id,
+              title: activeStudy.title,
+              participantTarget: activeStudy.participantTarget,
+              targetPopulation: activeStudy.targetPopulation,
+            }}
+            questions={activeStudy.questions}
+            responses={activeStudy.responses}
+          />
         </div>
       )}
 

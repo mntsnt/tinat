@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/Card";
 import { Input } from "../../../components/ui/Input";
 import { Button, ButtonLink, getButtonClasses } from "../../../components/ui/Button";
+import { Badge } from "../../../components/ui/Badge";
 import {
   HEALTH_CATEGORIES,
   MEDICAL_DISCLAIMER,
@@ -18,6 +19,7 @@ import {
   Clock,
   Users,
   Target,
+  Calculator,
   AlertCircle,
   Sparkles,
   CheckCircle2,
@@ -90,6 +92,10 @@ function CreateStudyForm() {
   const [coverImageAspect, setCoverImageAspect] = useState<"16:9" | "1:1" | "4:3" | "3:4">("16:9");
 
   const [participantTarget, setParticipantTarget] = useState(25);
+  const [showSampleSizeHelper, setShowSampleSizeHelper] = useState(false);
+  const [helperP, setHelperP] = useState(0.5);
+  const [helperMargin, setHelperMargin] = useState(0.05);
+  const [helperAttrition, setHelperAttrition] = useState(10);
   const [fieldMode, setFieldMode] = useState<"NONE" | "FREE" | "PAID">("NONE");
   const [collectorsNeeded, setCollectorsNeeded] = useState(0);
   const [collectorPayType, setCollectorPayType] = useState<"FIXED" | "PER_RESPONSE">("FIXED");
@@ -830,9 +836,19 @@ function CreateStudyForm() {
 
               <div className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-foreground">
-                    Participant Target Cap <span className="text-destructive">*</span>
-                  </label>
+                  <div className="flex items-center justify-between">
+                    <label className="block text-sm font-medium text-foreground">
+                      Participant Target Cap <span className="text-destructive">*</span>
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setShowSampleSizeHelper(!showSampleSizeHelper)}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+                    >
+                      <Calculator className="h-3.5 w-3.5" />
+                      {showSampleSizeHelper ? "Hide Calculator" : "Calculate Sample Size"}
+                    </button>
+                  </div>
                   <input
                     type="number"
                     min="1"
@@ -843,6 +859,90 @@ function CreateStudyForm() {
                   <p className="text-xs text-muted-foreground">
                     Maximum number of participant responses. The study automatically closes when reached.
                   </p>
+
+                  {/* Integrated Sample Size Assistant */}
+                  {showSampleSizeHelper && (
+                    <div className="mt-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 space-y-3 animate-in fade-in duration-150">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                          <Calculator className="h-4 w-4" /> Integrated Sample Size Estimator
+                        </span>
+                        <Badge variant="outline" className="text-[10px]">
+                          95% CI (Z=1.96)
+                        </Badge>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                          <label className="block text-[11px] font-semibold text-foreground mb-1">
+                            Expected Prevalence ($P$): {(helperP * 100).toFixed(0)}%
+                          </label>
+                          <input
+                            type="range"
+                            min="0.05"
+                            max="0.95"
+                            step="0.05"
+                            value={helperP}
+                            onChange={(e) => setHelperP(Number(e.target.value))}
+                            className="w-full accent-emerald-600"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-semibold text-foreground mb-1">
+                            Margin of Error ($d$): {(helperMargin * 100).toFixed(1)}%
+                          </label>
+                          <input
+                            type="range"
+                            min="0.02"
+                            max="0.10"
+                            step="0.01"
+                            value={helperMargin}
+                            onChange={(e) => setHelperMargin(Number(e.target.value))}
+                            className="w-full accent-emerald-600"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-semibold text-foreground mb-1">
+                            Non-Response Buffer: {helperAttrition}%
+                          </label>
+                          <input
+                            type="number"
+                            min="0"
+                            max="30"
+                            value={helperAttrition}
+                            onChange={(e) => setHelperAttrition(Math.max(0, Number(e.target.value)))}
+                            className="w-full rounded-md border border-input bg-background p-1.5 text-xs"
+                          />
+                        </div>
+                      </div>
+
+                      {(() => {
+                        const calculatedN = Math.ceil(
+                          (1.96 * 1.96 * helperP * (1 - helperP)) /
+                            (helperMargin * helperMargin) /
+                            (1 - helperAttrition / 100)
+                        );
+                        return (
+                          <div className="flex items-center justify-between border-t border-border/60 pt-3">
+                            <span className="text-xs font-semibold text-foreground">
+                              Estimated Target: <strong className="font-mono text-emerald-600 text-sm">{calculatedN}</strong> participants
+                            </span>
+                            <Button
+                              type="button"
+                              size="sm"
+                              onClick={() => {
+                                setParticipantTarget(calculatedN);
+                                setShowSampleSizeHelper(false);
+                              }}
+                              className="gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs h-8"
+                            >
+                              <Check className="h-3.5 w-3.5" /> Apply to Target
+                            </Button>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
                 </div>
 
                 <div className="rounded-xl border border-border bg-muted/20 p-3.5 space-y-2">
