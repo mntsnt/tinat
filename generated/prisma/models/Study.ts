@@ -57,6 +57,8 @@ export type StudyMinAggregateOutputType = {
   title: string | null
   description: string | null
   bannerTheme: string | null
+  coverImageUrl: string | null
+  coverImageAspect: string | null
   status: $Enums.StudyStatus | null
   fundingType: $Enums.StudyFundingType | null
   creditPerResponse: number | null
@@ -98,6 +100,8 @@ export type StudyMaxAggregateOutputType = {
   title: string | null
   description: string | null
   bannerTheme: string | null
+  coverImageUrl: string | null
+  coverImageAspect: string | null
   status: $Enums.StudyStatus | null
   fundingType: $Enums.StudyFundingType | null
   creditPerResponse: number | null
@@ -139,6 +143,8 @@ export type StudyCountAggregateOutputType = {
   title: number
   description: number
   bannerTheme: number
+  coverImageUrl: number
+  coverImageAspect: number
   status: number
   fundingType: number
   creditPerResponse: number
@@ -209,6 +215,8 @@ export type StudyMinAggregateInputType = {
   title?: true
   description?: true
   bannerTheme?: true
+  coverImageUrl?: true
+  coverImageAspect?: true
   status?: true
   fundingType?: true
   creditPerResponse?: true
@@ -250,6 +258,8 @@ export type StudyMaxAggregateInputType = {
   title?: true
   description?: true
   bannerTheme?: true
+  coverImageUrl?: true
+  coverImageAspect?: true
   status?: true
   fundingType?: true
   creditPerResponse?: true
@@ -291,6 +301,8 @@ export type StudyCountAggregateInputType = {
   title?: true
   description?: true
   bannerTheme?: true
+  coverImageUrl?: true
+  coverImageAspect?: true
   status?: true
   fundingType?: true
   creditPerResponse?: true
@@ -420,6 +432,8 @@ export type StudyGroupByOutputType = {
   title: string
   description: string | null
   bannerTheme: string
+  coverImageUrl: string | null
+  coverImageAspect: string
   status: $Enums.StudyStatus
   fundingType: $Enums.StudyFundingType
   creditPerResponse: number
@@ -485,6 +499,8 @@ export type StudyWhereInput = {
   title?: Prisma.StringFilter<"Study"> | string
   description?: Prisma.StringNullableFilter<"Study"> | string | null
   bannerTheme?: Prisma.StringFilter<"Study"> | string
+  coverImageUrl?: Prisma.StringNullableFilter<"Study"> | string | null
+  coverImageAspect?: Prisma.StringFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusFilter<"Study"> | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFilter<"Study"> | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFilter<"Study"> | number
@@ -549,6 +565,8 @@ export type StudyOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
+  coverImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverImageAspect?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fundingType?: Prisma.SortOrder
   creditPerResponse?: Prisma.SortOrder
@@ -616,6 +634,8 @@ export type StudyWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Study"> | string
   description?: Prisma.StringNullableFilter<"Study"> | string | null
   bannerTheme?: Prisma.StringFilter<"Study"> | string
+  coverImageUrl?: Prisma.StringNullableFilter<"Study"> | string | null
+  coverImageAspect?: Prisma.StringFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusFilter<"Study"> | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFilter<"Study"> | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFilter<"Study"> | number
@@ -680,6 +700,8 @@ export type StudyOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
+  coverImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverImageAspect?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fundingType?: Prisma.SortOrder
   creditPerResponse?: Prisma.SortOrder
@@ -730,6 +752,8 @@ export type StudyScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Study"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
   bannerTheme?: Prisma.StringWithAggregatesFilter<"Study"> | string
+  coverImageUrl?: Prisma.StringNullableWithAggregatesFilter<"Study"> | string | null
+  coverImageAspect?: Prisma.StringWithAggregatesFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusWithAggregatesFilter<"Study"> | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeWithAggregatesFilter<"Study"> | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntWithAggregatesFilter<"Study"> | number
@@ -772,6 +796,8 @@ export type StudyCreateInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -835,6 +861,8 @@ export type StudyUncheckedCreateInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -898,6 +926,8 @@ export type StudyUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -961,6 +991,8 @@ export type StudyUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1024,6 +1056,8 @@ export type StudyCreateManyInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -1066,6 +1100,8 @@ export type StudyUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1107,6 +1143,8 @@ export type StudyUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1167,6 +1205,8 @@ export type StudyCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
+  coverImageUrl?: Prisma.SortOrder
+  coverImageAspect?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fundingType?: Prisma.SortOrder
   creditPerResponse?: Prisma.SortOrder
@@ -1222,6 +1262,8 @@ export type StudyMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
+  coverImageUrl?: Prisma.SortOrder
+  coverImageAspect?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fundingType?: Prisma.SortOrder
   creditPerResponse?: Prisma.SortOrder
@@ -1263,6 +1305,8 @@ export type StudyMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   bannerTheme?: Prisma.SortOrder
+  coverImageUrl?: Prisma.SortOrder
+  coverImageAspect?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fundingType?: Prisma.SortOrder
   creditPerResponse?: Prisma.SortOrder
@@ -1700,6 +1744,8 @@ export type StudyCreateWithoutResearcherInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -1762,6 +1808,8 @@ export type StudyUncheckedCreateWithoutResearcherInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -1853,6 +1901,8 @@ export type StudyScalarWhereInput = {
   title?: Prisma.StringFilter<"Study"> | string
   description?: Prisma.StringNullableFilter<"Study"> | string | null
   bannerTheme?: Prisma.StringFilter<"Study"> | string
+  coverImageUrl?: Prisma.StringNullableFilter<"Study"> | string | null
+  coverImageAspect?: Prisma.StringFilter<"Study"> | string
   status?: Prisma.EnumStudyStatusFilter<"Study"> | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFilter<"Study"> | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFilter<"Study"> | number
@@ -1895,6 +1945,8 @@ export type StudyCreateWithoutBookmarksInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -1957,6 +2009,8 @@ export type StudyUncheckedCreateWithoutBookmarksInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -2035,6 +2089,8 @@ export type StudyUpdateWithoutBookmarksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2097,6 +2153,8 @@ export type StudyUncheckedUpdateWithoutBookmarksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2159,6 +2217,8 @@ export type StudyCreateWithoutRatingsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -2221,6 +2281,8 @@ export type StudyUncheckedCreateWithoutRatingsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -2299,6 +2361,8 @@ export type StudyUpdateWithoutRatingsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2361,6 +2425,8 @@ export type StudyUncheckedUpdateWithoutRatingsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2423,6 +2489,8 @@ export type StudyCreateWithoutLikesInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -2485,6 +2553,8 @@ export type StudyUncheckedCreateWithoutLikesInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -2563,6 +2633,8 @@ export type StudyUpdateWithoutLikesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2625,6 +2697,8 @@ export type StudyUncheckedUpdateWithoutLikesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2687,6 +2761,8 @@ export type StudyCreateWithoutCommentsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -2749,6 +2825,8 @@ export type StudyUncheckedCreateWithoutCommentsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -2827,6 +2905,8 @@ export type StudyUpdateWithoutCommentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2889,6 +2969,8 @@ export type StudyUncheckedUpdateWithoutCommentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2951,6 +3033,8 @@ export type StudyCreateWithoutQuestionsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -3013,6 +3097,8 @@ export type StudyUncheckedCreateWithoutQuestionsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -3091,6 +3177,8 @@ export type StudyUpdateWithoutQuestionsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3153,6 +3241,8 @@ export type StudyUncheckedUpdateWithoutQuestionsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3215,6 +3305,8 @@ export type StudyCreateWithoutParticipantLinksInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -3277,6 +3369,8 @@ export type StudyUncheckedCreateWithoutParticipantLinksInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -3355,6 +3449,8 @@ export type StudyUpdateWithoutParticipantLinksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3417,6 +3513,8 @@ export type StudyUncheckedUpdateWithoutParticipantLinksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3479,6 +3577,8 @@ export type StudyCreateWithoutResponsesInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -3541,6 +3641,8 @@ export type StudyUncheckedCreateWithoutResponsesInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -3619,6 +3721,8 @@ export type StudyUpdateWithoutResponsesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3681,6 +3785,8 @@ export type StudyUncheckedUpdateWithoutResponsesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3743,6 +3849,8 @@ export type StudyCreateWithoutPaymentsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -3805,6 +3913,8 @@ export type StudyUncheckedCreateWithoutPaymentsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -3883,6 +3993,8 @@ export type StudyUpdateWithoutPaymentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3945,6 +4057,8 @@ export type StudyUncheckedUpdateWithoutPaymentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4007,6 +4121,8 @@ export type StudyCreateWithoutCollectorFundingVerificationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -4069,6 +4185,8 @@ export type StudyUncheckedCreateWithoutCollectorFundingVerificationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -4147,6 +4265,8 @@ export type StudyUpdateWithoutCollectorFundingVerificationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4209,6 +4329,8 @@ export type StudyUncheckedUpdateWithoutCollectorFundingVerificationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4271,6 +4393,8 @@ export type StudyCreateWithoutCollectorPayoutsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -4333,6 +4457,8 @@ export type StudyUncheckedCreateWithoutCollectorPayoutsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -4411,6 +4537,8 @@ export type StudyUpdateWithoutCollectorPayoutsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4473,6 +4601,8 @@ export type StudyUncheckedUpdateWithoutCollectorPayoutsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4535,6 +4665,8 @@ export type StudyCreateWithoutLinkedProjectsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -4597,6 +4729,8 @@ export type StudyUncheckedCreateWithoutLinkedProjectsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -4675,6 +4809,8 @@ export type StudyUpdateWithoutLinkedProjectsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4737,6 +4873,8 @@ export type StudyUncheckedUpdateWithoutLinkedProjectsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -4799,6 +4937,8 @@ export type StudyCreateWithoutAiConversationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -4861,6 +5001,8 @@ export type StudyUncheckedCreateWithoutAiConversationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -4939,6 +5081,8 @@ export type StudyUpdateWithoutAiConversationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5001,6 +5145,8 @@ export type StudyUncheckedUpdateWithoutAiConversationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5063,6 +5209,8 @@ export type StudyCreateWithoutDataCollectorsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -5125,6 +5273,8 @@ export type StudyUncheckedCreateWithoutDataCollectorsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -5203,6 +5353,8 @@ export type StudyUpdateWithoutDataCollectorsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5265,6 +5417,8 @@ export type StudyUncheckedUpdateWithoutDataCollectorsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5327,6 +5481,8 @@ export type StudyCreateWithoutAssignedParticipantsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -5389,6 +5545,8 @@ export type StudyUncheckedCreateWithoutAssignedParticipantsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -5467,6 +5625,8 @@ export type StudyUpdateWithoutAssignedParticipantsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5529,6 +5689,8 @@ export type StudyUncheckedUpdateWithoutAssignedParticipantsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5591,6 +5753,8 @@ export type StudyCreateWithoutCollectorInvitationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -5653,6 +5817,8 @@ export type StudyUncheckedCreateWithoutCollectorInvitationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -5731,6 +5897,8 @@ export type StudyUpdateWithoutCollectorInvitationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5793,6 +5961,8 @@ export type StudyUncheckedUpdateWithoutCollectorInvitationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -5855,6 +6025,8 @@ export type StudyCreateWithoutCollectorApplicationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -5917,6 +6089,8 @@ export type StudyUncheckedCreateWithoutCollectorApplicationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -5995,6 +6169,8 @@ export type StudyUpdateWithoutCollectorApplicationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6057,6 +6233,8 @@ export type StudyUncheckedUpdateWithoutCollectorApplicationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6119,6 +6297,8 @@ export type StudyCreateWithoutCollectionSessionsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -6181,6 +6361,8 @@ export type StudyUncheckedCreateWithoutCollectionSessionsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -6259,6 +6441,8 @@ export type StudyUpdateWithoutCollectionSessionsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6321,6 +6505,8 @@ export type StudyUncheckedUpdateWithoutCollectionSessionsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6383,6 +6569,8 @@ export type StudyCreateWithoutEthicsApprovalInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -6445,6 +6633,8 @@ export type StudyUncheckedCreateWithoutEthicsApprovalInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -6523,6 +6713,8 @@ export type StudyUpdateWithoutEthicsApprovalInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6585,6 +6777,8 @@ export type StudyUncheckedUpdateWithoutEthicsApprovalInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6647,6 +6841,8 @@ export type StudyCreateWithoutConsentFormsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -6709,6 +6905,8 @@ export type StudyUncheckedCreateWithoutConsentFormsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -6787,6 +6985,8 @@ export type StudyUpdateWithoutConsentFormsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6849,6 +7049,8 @@ export type StudyUncheckedUpdateWithoutConsentFormsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -6911,6 +7113,8 @@ export type StudyCreateWithoutModerationReportsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -6973,6 +7177,8 @@ export type StudyUncheckedCreateWithoutModerationReportsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -7051,6 +7257,8 @@ export type StudyUpdateWithoutModerationReportsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7113,6 +7321,8 @@ export type StudyUncheckedUpdateWithoutModerationReportsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7175,6 +7385,8 @@ export type StudyCreateWithoutTranslationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -7237,6 +7449,8 @@ export type StudyUncheckedCreateWithoutTranslationsInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -7315,6 +7529,8 @@ export type StudyUpdateWithoutTranslationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7377,6 +7593,8 @@ export type StudyUncheckedUpdateWithoutTranslationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7439,6 +7657,8 @@ export type StudyCreateManyResearcherInput = {
   title: string
   description?: string | null
   bannerTheme?: string
+  coverImageUrl?: string | null
+  coverImageAspect?: string
   status?: $Enums.StudyStatus
   fundingType?: $Enums.StudyFundingType
   creditPerResponse?: number
@@ -7480,6 +7700,8 @@ export type StudyUpdateWithoutResearcherInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7542,6 +7764,8 @@ export type StudyUncheckedUpdateWithoutResearcherInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7604,6 +7828,8 @@ export type StudyUncheckedUpdateManyWithoutResearcherInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerTheme?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverImageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStudyStatusFieldUpdateOperationsInput | $Enums.StudyStatus
   fundingType?: Prisma.EnumStudyFundingTypeFieldUpdateOperationsInput | $Enums.StudyFundingType
   creditPerResponse?: Prisma.IntFieldUpdateOperationsInput | number
@@ -7847,6 +8073,8 @@ export type StudySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   title?: boolean
   description?: boolean
   bannerTheme?: boolean
+  coverImageUrl?: boolean
+  coverImageAspect?: boolean
   status?: boolean
   fundingType?: boolean
   creditPerResponse?: boolean
@@ -7912,6 +8140,8 @@ export type StudySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   title?: boolean
   description?: boolean
   bannerTheme?: boolean
+  coverImageUrl?: boolean
+  coverImageAspect?: boolean
   status?: boolean
   fundingType?: boolean
   creditPerResponse?: boolean
@@ -7955,6 +8185,8 @@ export type StudySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   title?: boolean
   description?: boolean
   bannerTheme?: boolean
+  coverImageUrl?: boolean
+  coverImageAspect?: boolean
   status?: boolean
   fundingType?: boolean
   creditPerResponse?: boolean
@@ -7998,6 +8230,8 @@ export type StudySelectScalar = {
   title?: boolean
   description?: boolean
   bannerTheme?: boolean
+  coverImageUrl?: boolean
+  coverImageAspect?: boolean
   status?: boolean
   fundingType?: boolean
   creditPerResponse?: boolean
@@ -8035,7 +8269,7 @@ export type StudySelectScalar = {
   isPrivate?: boolean
 }
 
-export type StudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "bannerTheme" | "status" | "fundingType" | "creditPerResponse" | "creditBudget" | "creditsSpent" | "requiresReapproval" | "rewardCredits" | "researcherId" | "createdAt" | "updatedAt" | "budgetCredits" | "creditsPaid" | "participantTarget" | "collectorsNeeded" | "collectorPayType" | "collectorPayRateCents" | "eligibilityCriteria" | "tags" | "category" | "estimatedMinutes" | "objective" | "studyType" | "targetPopulation" | "ethicsExempt" | "ethicsExemptionReason" | "ethicsExemptedByAdminId" | "ethicsExemptedAt" | "populationDescription" | "recruitmentMethod" | "containsSensitiveTopics" | "involvesMinors" | "safetyProtocolText" | "firstApprovedByAdminId" | "secondApprovedByAdminId" | "isPrivate", ExtArgs["result"]["study"]>
+export type StudyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "bannerTheme" | "coverImageUrl" | "coverImageAspect" | "status" | "fundingType" | "creditPerResponse" | "creditBudget" | "creditsSpent" | "requiresReapproval" | "rewardCredits" | "researcherId" | "createdAt" | "updatedAt" | "budgetCredits" | "creditsPaid" | "participantTarget" | "collectorsNeeded" | "collectorPayType" | "collectorPayRateCents" | "eligibilityCriteria" | "tags" | "category" | "estimatedMinutes" | "objective" | "studyType" | "targetPopulation" | "ethicsExempt" | "ethicsExemptionReason" | "ethicsExemptedByAdminId" | "ethicsExemptedAt" | "populationDescription" | "recruitmentMethod" | "containsSensitiveTopics" | "involvesMinors" | "safetyProtocolText" | "firstApprovedByAdminId" | "secondApprovedByAdminId" | "isPrivate", ExtArgs["result"]["study"]>
 export type StudyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ethicsApproval?: boolean | Prisma.Study$ethicsApprovalArgs<ExtArgs>
   consentForms?: boolean | Prisma.Study$consentFormsArgs<ExtArgs>
@@ -8099,6 +8333,8 @@ export type $StudyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     title: string
     description: string | null
     bannerTheme: string
+    coverImageUrl: string | null
+    coverImageAspect: string
     status: $Enums.StudyStatus
     fundingType: $Enums.StudyFundingType
     creditPerResponse: number
@@ -8583,6 +8819,8 @@ export interface StudyFieldRefs {
   readonly title: Prisma.FieldRef<"Study", 'String'>
   readonly description: Prisma.FieldRef<"Study", 'String'>
   readonly bannerTheme: Prisma.FieldRef<"Study", 'String'>
+  readonly coverImageUrl: Prisma.FieldRef<"Study", 'String'>
+  readonly coverImageAspect: Prisma.FieldRef<"Study", 'String'>
   readonly status: Prisma.FieldRef<"Study", 'StudyStatus'>
   readonly fundingType: Prisma.FieldRef<"Study", 'StudyFundingType'>
   readonly creditPerResponse: Prisma.FieldRef<"Study", 'Int'>

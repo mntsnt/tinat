@@ -5446,6 +5446,8 @@ export const StudyScalarFieldEnum = {
   title: 'title',
   description: 'description',
   bannerTheme: 'bannerTheme',
+  coverImageUrl: 'coverImageUrl',
+  coverImageAspect: 'coverImageAspect',
   status: 'status',
   fundingType: 'fundingType',
   creditPerResponse: 'creditPerResponse',
@@ -5592,6 +5594,8 @@ export const QuestionScalarFieldEnum = {
   studyId: 'studyId',
   text: 'text',
   type: 'type',
+  imageUrl: 'imageUrl',
+  imageAspect: 'imageAspect',
   required: 'required',
   isSkippable: 'isSkippable',
   preferNotToAnswerEnabled: 'preferNotToAnswerEnabled',
@@ -5622,7 +5626,8 @@ export const QuestionOptionScalarFieldEnum = {
   questionId: 'questionId',
   text: 'text',
   value: 'value',
-  order: 'order'
+  order: 'order',
+  imageUrl: 'imageUrl'
 } as const
 
 export type QuestionOptionScalarFieldEnum = (typeof QuestionOptionScalarFieldEnum)[keyof typeof QuestionOptionScalarFieldEnum]
@@ -5659,6 +5664,7 @@ export const ResponseScalarFieldEnum = {
   id: 'id',
   studyId: 'studyId',
   respondentCode: 'respondentCode',
+  submissionKey: 'submissionKey',
   submittedAt: 'submittedAt',
   collectionMethod: 'collectionMethod',
   collectorId: 'collectorId',

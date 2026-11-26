@@ -28,6 +28,7 @@ import { Button } from "../../../components/ui/Button";
 import { Badge } from "../../../components/ui/Badge";
 import { Input } from "../../../components/ui/Input";
 import { StudyDeleteButton } from "../../../components/StudyDeleteButton";
+import { ImageUploadField } from "../../../components/ui/ImageUploadField";
 
 interface StudySettingsTabProps {
   study: {
@@ -44,6 +45,8 @@ interface StudySettingsTabProps {
     studyType?: string;
     responsesCount: number;
     isPrivate?: boolean;
+    coverImageUrl?: string | null;
+    coverImageAspect?: "16:9" | "1:1" | "4:3" | "3:4";
   };
 }
 
@@ -78,6 +81,8 @@ export function StudySettingsTab({ study }: StudySettingsTabProps) {
       : "0"
   );
   const [isPrivate, setIsPrivate] = useState(Boolean(study.isPrivate));
+  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(study.coverImageUrl || null);
+  const [coverImageAspect, setCoverImageAspect] = useState<"16:9" | "1:1" | "4:3" | "3:4">(study.coverImageAspect || "16:9");
   const [participants, setParticipants] = useState<any[]>([]);
   const [loadingParticipants, setLoadingParticipants] = useState(false);
   const [newParticipantInput, setNewParticipantInput] = useState("");
@@ -176,6 +181,8 @@ export function StudySettingsTab({ study }: StudySettingsTabProps) {
           estimatedMinutes: Number(estimatedMinutes) || 5,
           participantTarget: Number(participantTarget) || 0,
           isPrivate,
+          coverImageUrl,
+          coverImageAspect,
         }),
       });
 
@@ -267,6 +274,15 @@ export function StudySettingsTab({ study }: StudySettingsTabProps) {
         </CardHeader>
         <form onSubmit={handleSaveSettings}>
           <CardContent className="space-y-4">
+            <ImageUploadField
+              label="Study cover image"
+              value={coverImageUrl}
+              aspect={coverImageAspect}
+              onChange={(value, aspect) => {
+                setCoverImageUrl(value);
+                setCoverImageAspect(aspect);
+              }}
+            />
             {/* Title */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-foreground">Study Title *</label>

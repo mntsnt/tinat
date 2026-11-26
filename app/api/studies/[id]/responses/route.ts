@@ -12,10 +12,18 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     if (!auth.ok) return auth.response;
     const user = auth.user;
 
-    const { collectionMethod, answers, collectionSessionId, language } = await req.json();
+    const { collectionMethod, answers, collectionSessionId, language, submissionKey, formRevision } = await req.json();
     const responseLanguage = typeof language === "string" ? language.slice(0, 10) : "en";
 
     if (collectionMethod === "FIELD_COLLECTED") {
+      if (typeof submissionKey === "string" && submissionKey.trim()) {
+        const existing = await prisma.response.findUnique({
+          where: { submissionKey: submissionKey.trim() },
+        });
+        if (existing) {
+          return NextResponse.json({ success: true, response: existing, duplicate: true });
+        }
+      }
       // Verify data collector authorization
       const assignment = await prisma.studyDataCollector.findUnique({
         where: { studyId_userId: { studyId: id, userId: user.id } }
@@ -53,6 +61,12 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
           if (!currentStudy) throw new Error("Study not found");
           if (currentStudy.status !== "ACTIVE") throw new Error("STUDY_NOT_ACTIVE");
+          if (typeof formRevision === "string" && formRevision.trim()) {
+            const cachedRevision = new Date(formRevision);
+            if (!Number.isNaN(cachedRevision.getTime()) && currentStudy.updatedAt.getTime() > cachedRevision.getTime()) {
+              throw new Error("FORM_CHANGED");
+            }
+          }
           if (
             currentStudy.participantTarget > 0 &&
             currentStudy._count.responses >= currentStudy.participantTarget
@@ -99,6 +113,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
               respondentCode,
               language: responseLanguage,
               collectionMethod: "FIELD_COLLECTED",
+              submissionKey: typeof submissionKey === "string" && submissionKey.trim() ? submissionKey.trim() : undefined,
               collectorId: user.id,
               collectionSessionId: collectionSessionId || undefined,
               answers: {
@@ -154,6 +169,12 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         }
         if (err.message === "PARTICIPANT_LIMIT") {
           return NextResponse.json({ error: "This study has already reached its participant limit." }, { status: 400 });
+        }
+        if (err.message === "FORM_CHANGED") {
+          return NextResponse.json({
+            error: "The study form changed after this response was prepared. Refresh the form and re-enter the response.",
+            code: "FORM_CHANGED",
+          }, { status: 409 });
         }
         if (err.message === "Study not found") {
           return NextResponse.json({ error: "Study not found." }, { status: 404 });

@@ -43,6 +43,8 @@ export type QuestionMinAggregateOutputType = {
   studyId: string | null
   text: string | null
   type: $Enums.QuestionType | null
+  imageUrl: string | null
+  imageAspect: string | null
   required: boolean | null
   isSkippable: boolean | null
   preferNotToAnswerEnabled: boolean | null
@@ -59,6 +61,8 @@ export type QuestionMaxAggregateOutputType = {
   studyId: string | null
   text: string | null
   type: $Enums.QuestionType | null
+  imageUrl: string | null
+  imageAspect: string | null
   required: boolean | null
   isSkippable: boolean | null
   preferNotToAnswerEnabled: boolean | null
@@ -75,6 +79,8 @@ export type QuestionCountAggregateOutputType = {
   studyId: number
   text: number
   type: number
+  imageUrl: number
+  imageAspect: number
   required: number
   isSkippable: number
   preferNotToAnswerEnabled: number
@@ -105,6 +111,8 @@ export type QuestionMinAggregateInputType = {
   studyId?: true
   text?: true
   type?: true
+  imageUrl?: true
+  imageAspect?: true
   required?: true
   isSkippable?: true
   preferNotToAnswerEnabled?: true
@@ -121,6 +129,8 @@ export type QuestionMaxAggregateInputType = {
   studyId?: true
   text?: true
   type?: true
+  imageUrl?: true
+  imageAspect?: true
   required?: true
   isSkippable?: true
   preferNotToAnswerEnabled?: true
@@ -137,6 +147,8 @@ export type QuestionCountAggregateInputType = {
   studyId?: true
   text?: true
   type?: true
+  imageUrl?: true
+  imageAspect?: true
   required?: true
   isSkippable?: true
   preferNotToAnswerEnabled?: true
@@ -240,6 +252,8 @@ export type QuestionGroupByOutputType = {
   studyId: string
   text: string
   type: $Enums.QuestionType
+  imageUrl: string | null
+  imageAspect: string
   required: boolean
   isSkippable: boolean
   preferNotToAnswerEnabled: boolean
@@ -279,6 +293,8 @@ export type QuestionWhereInput = {
   studyId?: Prisma.StringFilter<"Question"> | string
   text?: Prisma.StringFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
+  imageUrl?: Prisma.StringNullableFilter<"Question"> | string | null
+  imageAspect?: Prisma.StringFilter<"Question"> | string
   required?: Prisma.BoolFilter<"Question"> | boolean
   isSkippable?: Prisma.BoolFilter<"Question"> | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFilter<"Question"> | boolean
@@ -300,6 +316,8 @@ export type QuestionOrderByWithRelationInput = {
   studyId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageAspect?: Prisma.SortOrder
   required?: Prisma.SortOrder
   isSkippable?: Prisma.SortOrder
   preferNotToAnswerEnabled?: Prisma.SortOrder
@@ -324,6 +342,8 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   studyId?: Prisma.StringFilter<"Question"> | string
   text?: Prisma.StringFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
+  imageUrl?: Prisma.StringNullableFilter<"Question"> | string | null
+  imageAspect?: Prisma.StringFilter<"Question"> | string
   required?: Prisma.BoolFilter<"Question"> | boolean
   isSkippable?: Prisma.BoolFilter<"Question"> | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFilter<"Question"> | boolean
@@ -345,6 +365,8 @@ export type QuestionOrderByWithAggregationInput = {
   studyId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageAspect?: Prisma.SortOrder
   required?: Prisma.SortOrder
   isSkippable?: Prisma.SortOrder
   preferNotToAnswerEnabled?: Prisma.SortOrder
@@ -369,6 +391,8 @@ export type QuestionScalarWhereWithAggregatesInput = {
   studyId?: Prisma.StringWithAggregatesFilter<"Question"> | string
   text?: Prisma.StringWithAggregatesFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeWithAggregatesFilter<"Question"> | $Enums.QuestionType
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Question"> | string | null
+  imageAspect?: Prisma.StringWithAggregatesFilter<"Question"> | string
   required?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
   isSkippable?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
   preferNotToAnswerEnabled?: Prisma.BoolWithAggregatesFilter<"Question"> | boolean
@@ -384,6 +408,8 @@ export type QuestionCreateInput = {
   id?: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -405,6 +431,8 @@ export type QuestionUncheckedCreateInput = {
   studyId: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -424,6 +452,8 @@ export type QuestionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -445,6 +475,8 @@ export type QuestionUncheckedUpdateInput = {
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -465,6 +497,8 @@ export type QuestionCreateManyInput = {
   studyId: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -480,6 +514,8 @@ export type QuestionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -496,6 +532,8 @@ export type QuestionUncheckedUpdateManyInput = {
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -522,6 +560,8 @@ export type QuestionCountOrderByAggregateInput = {
   studyId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  imageAspect?: Prisma.SortOrder
   required?: Prisma.SortOrder
   isSkippable?: Prisma.SortOrder
   preferNotToAnswerEnabled?: Prisma.SortOrder
@@ -544,6 +584,8 @@ export type QuestionMaxOrderByAggregateInput = {
   studyId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  imageAspect?: Prisma.SortOrder
   required?: Prisma.SortOrder
   isSkippable?: Prisma.SortOrder
   preferNotToAnswerEnabled?: Prisma.SortOrder
@@ -560,6 +602,8 @@ export type QuestionMinOrderByAggregateInput = {
   studyId?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  imageAspect?: Prisma.SortOrder
   required?: Prisma.SortOrder
   isSkippable?: Prisma.SortOrder
   preferNotToAnswerEnabled?: Prisma.SortOrder
@@ -688,6 +732,8 @@ export type QuestionCreateWithoutStudyInput = {
   id?: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -707,6 +753,8 @@ export type QuestionUncheckedCreateWithoutStudyInput = {
   id?: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -756,6 +804,8 @@ export type QuestionScalarWhereInput = {
   studyId?: Prisma.StringFilter<"Question"> | string
   text?: Prisma.StringFilter<"Question"> | string
   type?: Prisma.EnumQuestionTypeFilter<"Question"> | $Enums.QuestionType
+  imageUrl?: Prisma.StringNullableFilter<"Question"> | string | null
+  imageAspect?: Prisma.StringFilter<"Question"> | string
   required?: Prisma.BoolFilter<"Question"> | boolean
   isSkippable?: Prisma.BoolFilter<"Question"> | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFilter<"Question"> | boolean
@@ -771,6 +821,8 @@ export type QuestionCreateWithoutRowsInput = {
   id?: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -791,6 +843,8 @@ export type QuestionUncheckedCreateWithoutRowsInput = {
   studyId: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -825,6 +879,8 @@ export type QuestionUpdateWithoutRowsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -845,6 +901,8 @@ export type QuestionUncheckedUpdateWithoutRowsInput = {
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -863,6 +921,8 @@ export type QuestionCreateWithoutOptionsInput = {
   id?: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -883,6 +943,8 @@ export type QuestionUncheckedCreateWithoutOptionsInput = {
   studyId: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -917,6 +979,8 @@ export type QuestionUpdateWithoutOptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -937,6 +1001,8 @@ export type QuestionUncheckedUpdateWithoutOptionsInput = {
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -955,6 +1021,8 @@ export type QuestionCreateWithoutAnswersInput = {
   id?: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -975,6 +1043,8 @@ export type QuestionUncheckedCreateWithoutAnswersInput = {
   studyId: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -1009,6 +1079,8 @@ export type QuestionUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1029,6 +1101,8 @@ export type QuestionUncheckedUpdateWithoutAnswersInput = {
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1047,6 +1121,8 @@ export type QuestionCreateWithoutTranslationsInput = {
   id?: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -1067,6 +1143,8 @@ export type QuestionUncheckedCreateWithoutTranslationsInput = {
   studyId: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -1101,6 +1179,8 @@ export type QuestionUpdateWithoutTranslationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1121,6 +1201,8 @@ export type QuestionUncheckedUpdateWithoutTranslationsInput = {
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1139,6 +1221,8 @@ export type QuestionCreateManyStudyInput = {
   id?: string
   text: string
   type: $Enums.QuestionType
+  imageUrl?: string | null
+  imageAspect?: string
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -1154,6 +1238,8 @@ export type QuestionUpdateWithoutStudyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1173,6 +1259,8 @@ export type QuestionUncheckedUpdateWithoutStudyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1192,6 +1280,8 @@ export type QuestionUncheckedUpdateManyWithoutStudyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumQuestionTypeFieldUpdateOperationsInput | $Enums.QuestionType
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageAspect?: Prisma.StringFieldUpdateOperationsInput | string
   required?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isSkippable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   preferNotToAnswerEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1266,6 +1356,8 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   studyId?: boolean
   text?: boolean
   type?: boolean
+  imageUrl?: boolean
+  imageAspect?: boolean
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -1288,6 +1380,8 @@ export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   studyId?: boolean
   text?: boolean
   type?: boolean
+  imageUrl?: boolean
+  imageAspect?: boolean
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -1305,6 +1399,8 @@ export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   studyId?: boolean
   text?: boolean
   type?: boolean
+  imageUrl?: boolean
+  imageAspect?: boolean
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -1322,6 +1418,8 @@ export type QuestionSelectScalar = {
   studyId?: boolean
   text?: boolean
   type?: boolean
+  imageUrl?: boolean
+  imageAspect?: boolean
   required?: boolean
   isSkippable?: boolean
   preferNotToAnswerEnabled?: boolean
@@ -1333,7 +1431,7 @@ export type QuestionSelectScalar = {
   scaleMinLabel?: boolean
 }
 
-export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studyId" | "text" | "type" | "required" | "isSkippable" | "preferNotToAnswerEnabled" | "order" | "createdAt" | "scaleMax" | "scaleMaxLabel" | "scaleMin" | "scaleMinLabel", ExtArgs["result"]["question"]>
+export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studyId" | "text" | "type" | "imageUrl" | "imageAspect" | "required" | "isSkippable" | "preferNotToAnswerEnabled" | "order" | "createdAt" | "scaleMax" | "scaleMaxLabel" | "scaleMin" | "scaleMinLabel", ExtArgs["result"]["question"]>
 export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   answers?: boolean | Prisma.Question$answersArgs<ExtArgs>
   study?: boolean | Prisma.StudyDefaultArgs<ExtArgs>
@@ -1363,6 +1461,8 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     studyId: string
     text: string
     type: $Enums.QuestionType
+    imageUrl: string | null
+    imageAspect: string
     required: boolean
     isSkippable: boolean
     preferNotToAnswerEnabled: boolean
@@ -1804,6 +1904,8 @@ export interface QuestionFieldRefs {
   readonly studyId: Prisma.FieldRef<"Question", 'String'>
   readonly text: Prisma.FieldRef<"Question", 'String'>
   readonly type: Prisma.FieldRef<"Question", 'QuestionType'>
+  readonly imageUrl: Prisma.FieldRef<"Question", 'String'>
+  readonly imageAspect: Prisma.FieldRef<"Question", 'String'>
   readonly required: Prisma.FieldRef<"Question", 'Boolean'>
   readonly isSkippable: Prisma.FieldRef<"Question", 'Boolean'>
   readonly preferNotToAnswerEnabled: Prisma.FieldRef<"Question", 'Boolean'>

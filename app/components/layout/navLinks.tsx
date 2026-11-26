@@ -22,10 +22,15 @@ import {
   Sparkles,
   BookOpen,
   MapPin,
+  GraduationCap,
+  Calculator,
 } from "lucide-react";
 import { SidebarLink } from "./Sidebar";
 
 export const publicLinks: SidebarLink[] = [
+  { title: "Tinat Academy", href: "/academy", icon: <GraduationCap /> },
+  { title: "Statistical Calculator", href: "/research-tools/statistical-calculator", icon: <Calculator /> },
+  { title: "Sample Size Calculator", href: "/research-tools/sample-size-calculator", icon: <Calculator /> },
   { title: "How It Works", href: "/#how-it-works", icon: <Layers /> },
   { title: "Data Collection", href: "/#pathways", icon: <Microscope /> },
   { title: "Disciplines", href: "/#disciplines", icon: <Stethoscope /> },
@@ -34,6 +39,7 @@ export const publicLinks: SidebarLink[] = [
 
 export const participantLinks: SidebarLink[] = [
   { title: "Dashboard", href: "/participant", icon: <HeartPulse /> },
+  { title: "Tinat Academy", href: "/academy", icon: <GraduationCap /> },
   { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },
   { title: "Discover Studies", href: "/participant/studies", icon: <Microscope /> },
@@ -43,6 +49,9 @@ export const participantLinks: SidebarLink[] = [
 
 export const researcherLinks: SidebarLink[] = [
   { title: "Dashboard", href: "/researcher", icon: <ChartNoAxesCombined /> },
+  { title: "Tinat Academy", href: "/academy", icon: <GraduationCap /> },
+  { title: "Statistical Calculator", href: "/research-tools/statistical-calculator", icon: <Calculator /> },
+  { title: "Sample Size Calculator", href: "/research-tools/sample-size-calculator", icon: <Calculator /> },
   { title: "Tinat AI", href: "/ai", icon: <Sparkles /> },
   { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },
@@ -53,6 +62,7 @@ export const researcherLinks: SidebarLink[] = [
 
 export const adminLinks: SidebarLink[] = [
   { title: "Overview", href: "/admin", icon: <Radar /> },
+  { title: "Tinat Academy", href: "/academy", icon: <GraduationCap /> },
   { title: "Geographic Reach", href: "/admin/geographic", icon: <MapPin /> },
   { title: "Tinat AI", href: "/admin/ai", icon: <Sparkles /> },
   { title: "Manage Studies", href: "/admin/studies", icon: <ScanSearch /> },

@@ -882,6 +882,10 @@ export default async function ResearchStudyPage({ params, searchParams }: Props)
               studyType: study.studyType,
               responsesCount: totalResponses,
               isPrivate: Boolean(study.isPrivate),
+              coverImageUrl: study.coverImageUrl,
+              coverImageAspect: ["16:9", "1:1", "4:3", "3:4"].includes(study.coverImageAspect)
+                ? study.coverImageAspect as "16:9" | "1:1" | "4:3" | "3:4"
+                : "16:9",
             }}
           />
         </div>

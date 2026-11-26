@@ -14,12 +14,14 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { Button, ButtonLink } from "../../components/ui/Button";
+import { cacheOfflineForm, getCachedOfflineForm, queueOfflineSubmission, updateOfflineSubmission, getOfflineSubmissions, deleteOfflineSubmission, type OfflineSubmissionStatus } from "@/lib/offlineQueue";
 
 type QuestionOption = {
   id: string;
   text: string;
   value: string;
   order: number;
+  imageUrl?: string | null;
 };
 
 type Question = {
@@ -33,6 +35,8 @@ type Question = {
   scaleMinLabel?: string | null;
   scaleMaxLabel?: string | null;
   options: QuestionOption[];
+  imageUrl?: string | null;
+  imageAspect?: string | null;
 };
 
 type FormData = {
@@ -42,6 +46,9 @@ type FormData = {
   status: "ACTIVE" | "PAUSED";
   author: string;
   questions: Question[];
+  updatedAt?: string;
+  coverImageUrl?: string | null;
+  coverImageAspect?: string | null;
 };
 
 export default function PublicFormFillingPage({
@@ -59,10 +66,58 @@ export default function PublicFormFillingPage({
   const [error, setError] = useState<string | null>(null);
 
   const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [syncStatus, setSyncStatus] = useState<OfflineSubmissionStatus | "SYNCED" | "OFFLINE">(
+    typeof navigator !== "undefined" && navigator.onLine ? "SYNCED" : "OFFLINE"
+  );
 
   useEffect(() => {
     fetchForm();
   }, [formId]);
+
+  useEffect(() => {
+    async function syncPending() {
+      if (!navigator.onLine) {
+        setSyncStatus("OFFLINE");
+        return;
+      }
+      const pending = await getOfflineSubmissions();
+      if (!pending.length) {
+        setSyncStatus("SYNCED");
+        return;
+      }
+      for (const item of pending) {
+        await updateOfflineSubmission({ ...item, status: "SYNCING" });
+        setSyncStatus("SYNCING");
+        try {
+          const res = await fetch(item.url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(item.body),
+          });
+          if (res.ok) await deleteOfflineSubmission(item.id);
+          else {
+            const data = await res.json().catch(() => ({}));
+            await updateOfflineSubmission({
+              ...item,
+              status: "FAILED",
+              attempts: item.attempts + 1,
+              lastError: res.status === 409 ? "The form changed. Refresh before resubmitting." : data.error || "Synchronization failed.",
+            });
+          }
+        } catch {
+          await updateOfflineSubmission({ ...item, status: "FAILED", attempts: item.attempts + 1, lastError: "Network unavailable." });
+        }
+      }
+      const remaining = await getOfflineSubmissions();
+      setSyncStatus(remaining.some((item) => item.status === "FAILED") ? "FAILED" : remaining.length ? "PENDING" : "SYNCED");
+    }
+    void syncPending();
+    window.addEventListener("online", syncPending);
+    window.addEventListener("offline", () => setSyncStatus("OFFLINE"));
+    return () => {
+      window.removeEventListener("online", syncPending);
+    };
+  }, []);
 
   async function fetchForm() {
     try {
@@ -70,11 +125,18 @@ export default function PublicFormFillingPage({
       setError(null);
       const res = await fetch(`/api/f/${formId}`);
       if (!res.ok) {
+        const cached = await getCachedOfflineForm(formId);
+        if (cached?.data) {
+          setForm((cached.data as { form: FormData }).form);
+          setSyncStatus("OFFLINE");
+          return;
+        }
         const data = await res.json();
         throw new Error(data.error || "Form not found");
       }
       const data = await res.json();
       setForm(data.form);
+      await cacheOfflineForm(formId, data.form.updatedAt || new Date().toISOString(), data);
     } catch (err: any) {
       setError(err.message || "Failed to load form.");
     } finally {
@@ -131,11 +193,42 @@ export default function PublicFormFillingPage({
 
     try {
       setSubmitting(true);
-      const res = await fetch(`/api/f/${formId}/submit`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answers }),
-      });
+      const submissionKey = (typeof crypto !== "undefined" && "randomUUID" in crypto)
+        ? crypto.randomUUID()
+        : `offline-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const body = { answers, submissionKey, formRevision: form.updatedAt };
+      const saveForSync = async () => {
+        await queueOfflineSubmission({
+          id: submissionKey,
+          kind: "form",
+          url: `/api/f/${formId}/submit`,
+          body,
+          createdAt: new Date().toISOString(),
+          formRevision: form.updatedAt,
+          status: "PENDING",
+          attempts: 0,
+        });
+        setSyncStatus("PENDING");
+        setSubmitted(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      if (!navigator.onLine) {
+        await saveForSync();
+        return;
+      }
+
+      let res: Response;
+      try {
+        res = await fetch(`/api/f/${formId}/submit`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+      } catch {
+        await saveForSync();
+        return;
+      }
 
       const data = await res.json();
       if (!res.ok) {
@@ -145,7 +238,7 @@ export default function PublicFormFillingPage({
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err: any) {
-      setError(err.message || "Failed to submit response.");
+      setError(err instanceof Error ? err.message : "Failed to submit response.");
     } finally {
       setSubmitting(false);
     }
@@ -304,9 +397,24 @@ export default function PublicFormFillingPage({
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-8 sm:py-12 px-4">
       <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">
+        <div className="flex justify-end" role="status" aria-live="polite">
+          <span className="rounded-full border border-border bg-card px-3 py-1 text-[11px] font-semibold text-muted-foreground">
+            {syncStatus === "SYNCED" ? "Synced" : syncStatus === "OFFLINE" ? "Offline" : syncStatus === "PENDING" ? "Pending" : syncStatus === "SYNCING" ? "Syncing" : "Sync failed"}
+          </span>
+          {syncStatus === "FAILED" && (
+            <button type="button" onClick={() => window.dispatchEvent(new Event("online"))} className="ml-2 text-[11px] font-bold text-primary underline">
+              Retry
+            </button>
+          )}
+        </div>
         {/* Form Header Card */}
         <div className="rounded-xl border bg-card shadow-sm overflow-hidden relative">
           <div className="h-3 bg-gradient-to-r from-emerald-500 to-teal-500" />
+          {form.coverImageUrl && (
+            <div className="relative overflow-hidden bg-muted" style={{ aspectRatio: form.coverImageAspect?.replace(":", " / ") || "16 / 9" }}>
+              <Image src={form.coverImageUrl} alt="Form cover" fill sizes="(max-width: 768px) 100vw, 672px" className="object-cover" unoptimized />
+            </div>
+          )}
           <div className="p-6 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600 flex items-center gap-1">
@@ -366,6 +474,11 @@ export default function PublicFormFillingPage({
                     {q.required && <span className="text-destructive ml-1">*</span>}
                   </h3>
                 </div>
+                {q.imageUrl && (
+                  <div className="relative mt-3 overflow-hidden rounded-lg bg-muted" style={{ aspectRatio: q.imageAspect?.replace(":", " / ") || "4 / 3" }}>
+                    <Image src={q.imageUrl} alt="" fill sizes="(max-width: 768px) 100vw, 672px" className="object-contain" unoptimized />
+                  </div>
+                )}
               </div>
 
               {/* Input Renderers */}
@@ -458,6 +571,16 @@ export default function PublicFormFillingPage({
                         <span className="text-foreground group-hover:text-emerald-600 transition-colors">
                           {opt.text}
                         </span>
+                        {opt.imageUrl && (
+                          <span className="relative ml-auto h-12 w-16 shrink-0 overflow-hidden rounded-md bg-muted">
+                            <Image src={opt.imageUrl} alt="" fill sizes="64px" className="object-cover" unoptimized />
+                          </span>
+                        )}
+                        {opt.imageUrl && (
+                          <span className="relative ml-auto h-12 w-16 shrink-0 overflow-hidden rounded-md bg-muted">
+                            <Image src={opt.imageUrl} alt="" fill sizes="64px" className="object-cover" unoptimized />
+                          </span>
+                        )}
                       </label>
                     ))}
                   </div>

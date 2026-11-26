@@ -14,7 +14,7 @@ export async function POST(
 
     const { id } = await props.params;
     const body = await req.json();
-    const { answers, respondentName } = body;
+    const { answers, respondentName, submissionKey, formRevision } = body;
     const responseLanguage = typeof body?.language === "string" ? body.language.slice(0, 10) : "en";
 
     if (!answers || typeof answers !== "object") {
@@ -40,6 +40,25 @@ export async function POST(
         { error: "This form is closed and is no longer accepting responses." },
         { status: 400 }
       );
+    }
+
+    if (typeof submissionKey === "string" && submissionKey.trim()) {
+      const existing = await prisma.response.findUnique({
+        where: { submissionKey: submissionKey.trim() },
+      });
+      if (existing) {
+        return NextResponse.json({ success: true, responseId: existing.id, duplicate: true, isGuest: true });
+      }
+    }
+
+    if (typeof formRevision === "string" && formRevision.trim()) {
+      const cachedRevision = new Date(formRevision);
+      if (!Number.isNaN(cachedRevision.getTime()) && form.updatedAt.getTime() > cachedRevision.getTime()) {
+        return NextResponse.json({
+          error: "This form changed after it was downloaded. Refresh and re-enter the response.",
+          code: "FORM_CHANGED",
+        }, { status: 409 });
+      }
     }
 
     // Validate required questions
@@ -158,6 +177,7 @@ export async function POST(
           respondentCode,
           language: responseLanguage,
           collectionMethod: "SELF",
+          submissionKey: typeof submissionKey === "string" && submissionKey.trim() ? submissionKey.trim() : undefined,
         },
       });
 

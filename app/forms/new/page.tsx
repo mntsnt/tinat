@@ -27,6 +27,7 @@ import { Button, ButtonLink } from "../../components/ui/Button";
 import { Card, CardContent } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
 import { useConfirm } from "../../components/ui/ConfirmDialog";
+import { ImageUploadField } from "../../components/ui/ImageUploadField";
 
 type QuestionTypeOption = {
   type: string;
@@ -58,6 +59,9 @@ interface FormQuestion {
   scaleMax?: number;
   scaleMinLabel?: string;
   scaleMaxLabel?: string;
+  imageUrl?: string | null;
+  imageAspect?: "16:9" | "1:1" | "4:3" | "3:4";
+  optionImages?: string[];
 }
 
 export default function NewFormPage() {
@@ -66,6 +70,8 @@ export default function NewFormPage() {
 
   const [title, setTitle] = useState("Untitled Form");
   const [description, setDescription] = useState("");
+  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null);
+  const [coverImageAspect, setCoverImageAspect] = useState<"16:9" | "1:1" | "4:3" | "3:4">("16:9");
   const [questions, setQuestions] = useState<FormQuestion[]>([
     {
       id: "q_1",
@@ -73,6 +79,7 @@ export default function NewFormPage() {
       type: "SINGLE_CHOICE",
       required: true,
       options: ["Option 1", "Option 2"],
+      optionImages: ["", ""],
     },
   ]);
 
@@ -101,6 +108,7 @@ export default function NewFormPage() {
       type: "SINGLE_CHOICE",
       required: false,
       options: ["Option 1"],
+      optionImages: [""],
     };
     setQuestions((prev) => [...prev, newQ]);
     setActiveQuestionId(newId);
@@ -118,6 +126,7 @@ export default function NewFormPage() {
       ...source,
       id: `q_${Date.now()}`,
       options: [...source.options],
+      optionImages: [...(source.optionImages || [])],
     };
     const nextQuestions = [...questions];
     nextQuestions.splice(index + 1, 0, newQ);
@@ -153,6 +162,7 @@ export default function NewFormPage() {
         return {
           ...q,
           options: [...q.options, `Option ${q.options.length + 1}`],
+          optionImages: [...(q.optionImages || []), ""],
         };
       })
     );
@@ -177,9 +187,28 @@ export default function NewFormPage() {
         return {
           ...q,
           options: q.options.filter((_, i) => i !== optIndex),
+          optionImages: (q.optionImages || []).filter((_, i) => i !== optIndex),
         };
       })
     );
+  }
+
+  async function uploadOptionImage(questionId: string, optIndex: number, file: File) {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      const response = await fetch("/api/research-images", { method: "POST", body: formData });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Failed to upload option image.");
+      setQuestions((prev) => prev.map((q) => {
+        if (q.id !== questionId) return q;
+        const optionImages = [...(q.optionImages || [])];
+        optionImages[optIndex] = data.dataUrl;
+        return { ...q, optionImages };
+      }));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to upload option image.");
+    }
   }
 
   async function handlePublish() {
@@ -203,6 +232,8 @@ export default function NewFormPage() {
       const payload = {
         title: title.trim(),
         description: description.trim() || null,
+        coverImageUrl,
+        coverImageAspect,
         questions: questions.map((q) => {
           const isChoice = ["SINGLE_CHOICE", "MULTIPLE_CHOICE", "DROPDOWN"].includes(q.type);
           let options = isChoice ? q.options.map((opt) => opt.trim()).filter(Boolean) : [];
@@ -217,6 +248,9 @@ export default function NewFormPage() {
             type: q.type,
             required: q.required,
             options,
+            optionImages: q.optionImages || [],
+            imageUrl: q.imageUrl || null,
+            imageAspect: q.imageAspect || "4:3",
             scaleMin: q.type === "LINEAR_SCALE" ? Number(q.scaleMin) || 1 : undefined,
             scaleMax: q.type === "LINEAR_SCALE" ? Number(q.scaleMax) || 5 : undefined,
             scaleMinLabel: q.type === "LINEAR_SCALE" ? q.scaleMinLabel || "Poor" : undefined,
@@ -307,6 +341,15 @@ export default function NewFormPage() {
             rows={2}
             className="w-full text-sm sm:text-base text-muted-foreground bg-transparent border-b border-transparent hover:border-border focus:border-emerald-500 focus:outline-none resize-none transition-colors"
           />
+          <ImageUploadField
+            label="Form cover image"
+            value={coverImageUrl}
+            aspect={coverImageAspect}
+            onChange={(value, aspect) => {
+              setCoverImageUrl(value);
+              setCoverImageAspect(aspect);
+            }}
+          />
         </div>
       </div>
 
@@ -375,6 +418,13 @@ export default function NewFormPage() {
                   </div>
                 </div>
 
+                <ImageUploadField
+                  label={`Image for question ${qIndex + 1}`}
+                  value={question.imageUrl}
+                  aspect={question.imageAspect || "4:3"}
+                  onChange={(value, aspect) => updateQuestion(question.id, { imageUrl: value, imageAspect: aspect })}
+                />
+
                 {/* Question Type Body */}
                 <div className="pt-2">
                   {/* Short Answer Preview */}
@@ -441,6 +491,22 @@ export default function NewFormPage() {
                             placeholder={`Option ${optIndex + 1}`}
                             className="flex-1 text-sm bg-transparent border-b border-border hover:border-emerald-500/50 focus:border-emerald-500 focus:outline-none py-1"
                           />
+                          <label className="cursor-pointer rounded-md border border-border px-2 py-1 text-[11px] text-muted-foreground hover:bg-muted" title="Upload option image">
+                            Image
+                            <input
+                              type="file"
+                              accept="image/jpeg,image/png,image/webp"
+                              className="hidden"
+                              onChange={(event) => event.target.files?.[0] && uploadOptionImage(question.id, optIndex, event.target.files[0])}
+                            />
+                          </label>
+                          {question.optionImages?.[optIndex] && (
+                            <img
+                              src={question.optionImages[optIndex]}
+                              alt=""
+                              className="h-8 w-10 rounded object-cover"
+                            />
+                          )}
 
                           {question.options.length > 1 && (
                             <button

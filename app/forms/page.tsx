@@ -303,7 +303,13 @@ export default function FormsDashboardPage() {
                 </CardContent>
 
                 <CardFooter className="pt-3 border-t flex flex-col gap-2">
-                  <div className="grid grid-cols-2 gap-2 w-full">
+                  <div className="grid grid-cols-3 gap-2 w-full">
+                    <Link
+                      href={`/forms/${form.id}/edit`}
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }), "w-full text-xs flex items-center justify-center")}
+                    >
+                      Edit
+                    </Link>
                     <Link
                       href={`/forms/${form.id}/responses`}
                       className={cn(buttonVariants({ variant: "outline", size: "sm" }), "w-full text-xs flex items-center justify-center")}

@@ -31,6 +31,8 @@ const FOOTER_PATHS = new Set([
   "/code-of-conduct",
   "/transparency",
   "/dpa",
+  "/academy",
+  "/research-tools",
 ]);
 
 interface ClientShellProps {
@@ -49,7 +51,7 @@ interface ClientShellProps {
 export function ClientShell({ navbar, footer, children }: ClientShellProps) {
   const pathname = usePathname();
   const isDashboard = DASHBOARD_PREFIXES.some((p) => pathname.startsWith(p));
-  const shouldShowFooter = FOOTER_PATHS.has(pathname);
+  const shouldShowFooter = FOOTER_PATHS.has(pathname) || pathname === "/academy" || pathname.startsWith("/academy/");
 
   if (isDashboard) {
     return (

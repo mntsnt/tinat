@@ -94,6 +94,8 @@ model Study {
   title                         String
   description                   String?
   bannerTheme                   String                         @default("canopy")
+  coverImageUrl                 String?                        @db.Text
+  coverImageAspect              String                         @default("16:9")
   status                        StudyStatus                    @default(DRAFT)
   fundingType                   StudyFundingType               @default(FREE)
   creditPerResponse             Int                            @default(0)
@@ -271,6 +273,8 @@ model Question {
   studyId                  String
   text                     String
   type                     QuestionType
+  imageUrl                 String?               @db.Text
+  imageAspect              String                @default("4:3")
   required                 Boolean               @default(true)
   isSkippable              Boolean               @default(false)
   preferNotToAnswerEnabled Boolean               @default(true)
@@ -302,6 +306,7 @@ model QuestionOption {
   text       String
   value      String
   order      Int
+  imageUrl   String?  @db.Text
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
 
@@ -356,6 +361,7 @@ model Response {
   id                  String             @id @default(cuid())
   studyId             String
   respondentCode      String             @unique
+  submissionKey       String?            @unique
   submittedAt         DateTime           @default(now())
   collectionMethod    CollectionMethod   @default(SELF)
   collectorId         String?

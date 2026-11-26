@@ -1096,6 +1096,14 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     collector: [403],
     admin: [200]
   },
+  "POST /api/research-images": {
+    anonymous: [401],
+    participant: [403],
+    researcher_owner: [400, 413],
+    researcher_other: [400, 413],
+    collector: [403],
+    admin: [400, 413]
+  },
   "POST /api/forms": {
     anonymous: [401],
     participant: [403],

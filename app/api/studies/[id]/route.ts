@@ -76,6 +76,14 @@ export async function PATCH(
     if (body.isPrivate !== undefined) {
       updateData.isPrivate = Boolean(body.isPrivate);
     }
+    if (typeof body.coverImageUrl === "string" && body.coverImageUrl.startsWith("data:image/")) {
+      updateData.coverImageUrl = body.coverImageUrl;
+    } else if (body.coverImageUrl === null) {
+      updateData.coverImageUrl = null;
+    }
+    if (["16:9", "1:1", "4:3", "3:4"].includes(body.coverImageAspect)) {
+      updateData.coverImageAspect = body.coverImageAspect;
+    }
 
     const updatedStudy = await prisma.study.update({
       where: { id },

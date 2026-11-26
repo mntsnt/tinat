@@ -28,6 +28,7 @@ export type ResponseMinAggregateOutputType = {
   id: string | null
   studyId: string | null
   respondentCode: string | null
+  submissionKey: string | null
   submittedAt: Date | null
   collectionMethod: $Enums.CollectionMethod | null
   collectorId: string | null
@@ -41,6 +42,7 @@ export type ResponseMaxAggregateOutputType = {
   id: string | null
   studyId: string | null
   respondentCode: string | null
+  submissionKey: string | null
   submittedAt: Date | null
   collectionMethod: $Enums.CollectionMethod | null
   collectorId: string | null
@@ -54,6 +56,7 @@ export type ResponseCountAggregateOutputType = {
   id: number
   studyId: number
   respondentCode: number
+  submissionKey: number
   submittedAt: number
   collectionMethod: number
   collectorId: number
@@ -69,6 +72,7 @@ export type ResponseMinAggregateInputType = {
   id?: true
   studyId?: true
   respondentCode?: true
+  submissionKey?: true
   submittedAt?: true
   collectionMethod?: true
   collectorId?: true
@@ -82,6 +86,7 @@ export type ResponseMaxAggregateInputType = {
   id?: true
   studyId?: true
   respondentCode?: true
+  submissionKey?: true
   submittedAt?: true
   collectionMethod?: true
   collectorId?: true
@@ -95,6 +100,7 @@ export type ResponseCountAggregateInputType = {
   id?: true
   studyId?: true
   respondentCode?: true
+  submissionKey?: true
   submittedAt?: true
   collectionMethod?: true
   collectorId?: true
@@ -181,6 +187,7 @@ export type ResponseGroupByOutputType = {
   id: string
   studyId: string
   respondentCode: string
+  submissionKey: string | null
   submittedAt: Date
   collectionMethod: $Enums.CollectionMethod
   collectorId: string | null
@@ -215,6 +222,7 @@ export type ResponseWhereInput = {
   id?: Prisma.StringFilter<"Response"> | string
   studyId?: Prisma.StringFilter<"Response"> | string
   respondentCode?: Prisma.StringFilter<"Response"> | string
+  submissionKey?: Prisma.StringNullableFilter<"Response"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"Response"> | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFilter<"Response"> | $Enums.CollectionMethod
   collectorId?: Prisma.StringNullableFilter<"Response"> | string | null
@@ -232,6 +240,7 @@ export type ResponseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
   respondentCode?: Prisma.SortOrder
+  submissionKey?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   collectionMethod?: Prisma.SortOrder
   collectorId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -248,6 +257,7 @@ export type ResponseOrderByWithRelationInput = {
 export type ResponseWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   respondentCode?: string
+  submissionKey?: string
   studyId_respondentCode?: Prisma.ResponseStudyIdRespondentCodeCompoundUniqueInput
   AND?: Prisma.ResponseWhereInput | Prisma.ResponseWhereInput[]
   OR?: Prisma.ResponseWhereInput[]
@@ -264,12 +274,13 @@ export type ResponseWhereUniqueInput = Prisma.AtLeast<{
   session?: Prisma.XOR<Prisma.CollectionSessionNullableScalarRelationFilter, Prisma.CollectionSessionWhereInput> | null
   collector?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   study?: Prisma.XOR<Prisma.StudyScalarRelationFilter, Prisma.StudyWhereInput>
-}, "id" | "respondentCode" | "studyId_respondentCode">
+}, "id" | "respondentCode" | "submissionKey" | "studyId_respondentCode">
 
 export type ResponseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
   respondentCode?: Prisma.SortOrder
+  submissionKey?: Prisma.SortOrderInput | Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   collectionMethod?: Prisma.SortOrder
   collectorId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -289,6 +300,7 @@ export type ResponseScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Response"> | string
   studyId?: Prisma.StringWithAggregatesFilter<"Response"> | string
   respondentCode?: Prisma.StringWithAggregatesFilter<"Response"> | string
+  submissionKey?: Prisma.StringNullableWithAggregatesFilter<"Response"> | string | null
   submittedAt?: Prisma.DateTimeWithAggregatesFilter<"Response"> | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodWithAggregatesFilter<"Response"> | $Enums.CollectionMethod
   collectorId?: Prisma.StringNullableWithAggregatesFilter<"Response"> | string | null
@@ -301,6 +313,7 @@ export type ResponseScalarWhereWithAggregatesInput = {
 export type ResponseCreateInput = {
   id?: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   ipHash?: string | null
@@ -316,6 +329,7 @@ export type ResponseUncheckedCreateInput = {
   id?: string
   studyId: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   collectorId?: string | null
@@ -329,6 +343,7 @@ export type ResponseUncheckedCreateInput = {
 export type ResponseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -344,6 +359,7 @@ export type ResponseUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -358,6 +374,7 @@ export type ResponseCreateManyInput = {
   id?: string
   studyId: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   collectorId?: string | null
@@ -370,6 +387,7 @@ export type ResponseCreateManyInput = {
 export type ResponseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -381,6 +399,7 @@ export type ResponseUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -409,6 +428,7 @@ export type ResponseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
   respondentCode?: Prisma.SortOrder
+  submissionKey?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   collectionMethod?: Prisma.SortOrder
   collectorId?: Prisma.SortOrder
@@ -422,6 +442,7 @@ export type ResponseMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
   respondentCode?: Prisma.SortOrder
+  submissionKey?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   collectionMethod?: Prisma.SortOrder
   collectorId?: Prisma.SortOrder
@@ -435,6 +456,7 @@ export type ResponseMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   studyId?: Prisma.SortOrder
   respondentCode?: Prisma.SortOrder
+  submissionKey?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   collectionMethod?: Prisma.SortOrder
   collectorId?: Prisma.SortOrder
@@ -596,6 +618,7 @@ export type ResponseUncheckedUpdateManyWithoutSessionNestedInput = {
 export type ResponseCreateWithoutCollectorInput = {
   id?: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   ipHash?: string | null
@@ -610,6 +633,7 @@ export type ResponseUncheckedCreateWithoutCollectorInput = {
   id?: string
   studyId: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   collectionSessionId?: string | null
@@ -652,6 +676,7 @@ export type ResponseScalarWhereInput = {
   id?: Prisma.StringFilter<"Response"> | string
   studyId?: Prisma.StringFilter<"Response"> | string
   respondentCode?: Prisma.StringFilter<"Response"> | string
+  submissionKey?: Prisma.StringNullableFilter<"Response"> | string | null
   submittedAt?: Prisma.DateTimeFilter<"Response"> | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFilter<"Response"> | $Enums.CollectionMethod
   collectorId?: Prisma.StringNullableFilter<"Response"> | string | null
@@ -664,6 +689,7 @@ export type ResponseScalarWhereInput = {
 export type ResponseCreateWithoutStudyInput = {
   id?: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   ipHash?: string | null
@@ -677,6 +703,7 @@ export type ResponseCreateWithoutStudyInput = {
 export type ResponseUncheckedCreateWithoutStudyInput = {
   id?: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   collectorId?: string | null
@@ -716,6 +743,7 @@ export type ResponseUpdateManyWithWhereWithoutStudyInput = {
 export type ResponseCreateWithoutAnswersInput = {
   id?: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   ipHash?: string | null
@@ -730,6 +758,7 @@ export type ResponseUncheckedCreateWithoutAnswersInput = {
   id?: string
   studyId: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   collectorId?: string | null
@@ -758,6 +787,7 @@ export type ResponseUpdateToOneWithWhereWithoutAnswersInput = {
 export type ResponseUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -772,6 +802,7 @@ export type ResponseUncheckedUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -784,6 +815,7 @@ export type ResponseUncheckedUpdateWithoutAnswersInput = {
 export type ResponseCreateWithoutSessionInput = {
   id?: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   ipHash?: string | null
@@ -798,6 +830,7 @@ export type ResponseUncheckedCreateWithoutSessionInput = {
   id?: string
   studyId: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   collectorId?: string | null
@@ -837,6 +870,7 @@ export type ResponseCreateManyCollectorInput = {
   id?: string
   studyId: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   collectionSessionId?: string | null
@@ -848,6 +882,7 @@ export type ResponseCreateManyCollectorInput = {
 export type ResponseUpdateWithoutCollectorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -862,6 +897,7 @@ export type ResponseUncheckedUpdateWithoutCollectorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   collectionSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -875,6 +911,7 @@ export type ResponseUncheckedUpdateManyWithoutCollectorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   collectionSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -886,6 +923,7 @@ export type ResponseUncheckedUpdateManyWithoutCollectorInput = {
 export type ResponseCreateManyStudyInput = {
   id?: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   collectorId?: string | null
@@ -898,6 +936,7 @@ export type ResponseCreateManyStudyInput = {
 export type ResponseUpdateWithoutStudyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -911,6 +950,7 @@ export type ResponseUpdateWithoutStudyInput = {
 export type ResponseUncheckedUpdateWithoutStudyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -924,6 +964,7 @@ export type ResponseUncheckedUpdateWithoutStudyInput = {
 export type ResponseUncheckedUpdateManyWithoutStudyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -937,6 +978,7 @@ export type ResponseCreateManySessionInput = {
   id?: string
   studyId: string
   respondentCode: string
+  submissionKey?: string | null
   submittedAt?: Date | string
   collectionMethod?: $Enums.CollectionMethod
   collectorId?: string | null
@@ -948,6 +990,7 @@ export type ResponseCreateManySessionInput = {
 export type ResponseUpdateWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -962,6 +1005,7 @@ export type ResponseUncheckedUpdateWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -975,6 +1019,7 @@ export type ResponseUncheckedUpdateManyWithoutSessionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   studyId?: Prisma.StringFieldUpdateOperationsInput | string
   respondentCode?: Prisma.StringFieldUpdateOperationsInput | string
+  submissionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   collectionMethod?: Prisma.EnumCollectionMethodFieldUpdateOperationsInput | $Enums.CollectionMethod
   collectorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1018,6 +1063,7 @@ export type ResponseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   studyId?: boolean
   respondentCode?: boolean
+  submissionKey?: boolean
   submittedAt?: boolean
   collectionMethod?: boolean
   collectorId?: boolean
@@ -1036,6 +1082,7 @@ export type ResponseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   studyId?: boolean
   respondentCode?: boolean
+  submissionKey?: boolean
   submittedAt?: boolean
   collectionMethod?: boolean
   collectorId?: boolean
@@ -1052,6 +1099,7 @@ export type ResponseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   studyId?: boolean
   respondentCode?: boolean
+  submissionKey?: boolean
   submittedAt?: boolean
   collectionMethod?: boolean
   collectorId?: boolean
@@ -1068,6 +1116,7 @@ export type ResponseSelectScalar = {
   id?: boolean
   studyId?: boolean
   respondentCode?: boolean
+  submissionKey?: boolean
   submittedAt?: boolean
   collectionMethod?: boolean
   collectorId?: boolean
@@ -1077,7 +1126,7 @@ export type ResponseSelectScalar = {
   language?: boolean
 }
 
-export type ResponseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studyId" | "respondentCode" | "submittedAt" | "collectionMethod" | "collectorId" | "collectionSessionId" | "ipHash" | "deviceFingerprint" | "language", ExtArgs["result"]["response"]>
+export type ResponseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studyId" | "respondentCode" | "submissionKey" | "submittedAt" | "collectionMethod" | "collectorId" | "collectionSessionId" | "ipHash" | "deviceFingerprint" | "language", ExtArgs["result"]["response"]>
 export type ResponseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   answers?: boolean | Prisma.Response$answersArgs<ExtArgs>
   session?: boolean | Prisma.Response$sessionArgs<ExtArgs>
@@ -1108,6 +1157,7 @@ export type $ResponsePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     studyId: string
     respondentCode: string
+    submissionKey: string | null
     submittedAt: Date
     collectionMethod: $Enums.CollectionMethod
     collectorId: string | null
@@ -1545,6 +1595,7 @@ export interface ResponseFieldRefs {
   readonly id: Prisma.FieldRef<"Response", 'String'>
   readonly studyId: Prisma.FieldRef<"Response", 'String'>
   readonly respondentCode: Prisma.FieldRef<"Response", 'String'>
+  readonly submissionKey: Prisma.FieldRef<"Response", 'String'>
   readonly submittedAt: Prisma.FieldRef<"Response", 'DateTime'>
   readonly collectionMethod: Prisma.FieldRef<"Response", 'CollectionMethod'>
   readonly collectorId: Prisma.FieldRef<"Response", 'String'>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/Card";
@@ -28,6 +29,7 @@ type Option = {
   text: string;
   value: string;
   order: number;
+  imageUrl?: string | null;
 };
 
 type Row = {
@@ -50,6 +52,8 @@ type Question = {
   scaleMax: number | null;
   scaleMinLabel: string | null;
   scaleMaxLabel: string | null;
+  imageUrl?: string | null;
+  imageAspect?: string | null;
 };
 
 type StudyComment = {
@@ -65,6 +69,8 @@ type Study = {
   id: string;
   title: string;
   bannerTheme?: string;
+  coverImageUrl?: string | null;
+  coverImageAspect?: string | null;
   description: string | null;
   studyType?: string;
   category?: string | null;
@@ -501,6 +507,16 @@ export default function StudyQuestionnaire({
                     disabled={loading || submitted}
                   />
                   <span className="text-sm">{optionLabel}</span>
+                  {option.imageUrl && (
+                    <span className="relative ml-auto h-12 w-16 shrink-0 overflow-hidden rounded-md bg-muted">
+                      <Image src={option.imageUrl} alt="" fill sizes="64px" className="object-cover" unoptimized />
+                    </span>
+                  )}
+                  {option.imageUrl && (
+                    <span className="relative ml-auto h-12 w-16 shrink-0 overflow-hidden rounded-md bg-muted">
+                      <Image src={option.imageUrl} alt="" fill sizes="64px" className="object-cover" unoptimized />
+                    </span>
+                  )}
                 </label>
               );
             })}
@@ -940,6 +956,11 @@ export default function StudyQuestionnaire({
 
           {!submitted && (
             <form onSubmit={handleSubmit} className="space-y-6">
+              {study.coverImageUrl && (
+                <div className="relative overflow-hidden rounded-xl border border-border bg-muted" style={{ aspectRatio: study.coverImageAspect?.replace(":", " / ") || "16 / 9" }}>
+                  <Image src={study.coverImageUrl} alt={`${activeTitle} cover`} fill sizes="(max-width: 768px) 100vw, 900px" className="object-cover" unoptimized />
+                </div>
+              )}
               {study.questions.map((question, index) => {
                 const trans = questionTranslations[question.id];
                 const displayQuestionText = trans?.text || question.text;
@@ -967,6 +988,11 @@ export default function StudyQuestionnaire({
                       </Button>
                     </CardHeader>
                     <CardContent className="pt-4 overflow-hidden">
+                      {question.imageUrl && (
+                        <div className="relative mb-4 overflow-hidden rounded-lg bg-muted" style={{ aspectRatio: question.imageAspect?.replace(":", " / ") || "4 / 3" }}>
+                          <Image src={question.imageUrl} alt="" fill sizes="(max-width: 768px) 100vw, 900px" className="object-contain" unoptimized />
+                        </div>
+                      )}
                       {renderQuestion(question)}
                     </CardContent>
                   </Card>

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { requireUser } from "@/lib/authGuard";
 import { prisma } from "@/lib/prisma";
+import type { QuestionType } from "@/generated/prisma/client";
 
 export async function GET(
   req: Request,
@@ -87,6 +88,60 @@ export async function PATCH(
     }
     if (typeof body.description === "string") {
       updateData.description = body.description.trim() || null;
+    }
+    if (typeof body.coverImageUrl === "string" && body.coverImageUrl.startsWith("data:image/")) {
+      updateData.coverImageUrl = body.coverImageUrl;
+    } else if (body.coverImageUrl === null) {
+      updateData.coverImageUrl = null;
+    }
+    if (["16:9", "1:1", "4:3", "3:4"].includes(body.coverImageAspect)) {
+      updateData.coverImageAspect = body.coverImageAspect;
+    }
+
+    if (Array.isArray(body.questions)) {
+      await prisma.$transaction(async (tx) => {
+        await tx.question.deleteMany({ where: { studyId: id } });
+        await tx.question.createMany({
+          data: body.questions.map((q: any, idx: number) => ({
+            studyId: id,
+            text: String(q.text || "").trim(),
+            type: ([
+              "SHORT_TEXT", "LONG_TEXT", "SINGLE_CHOICE", "MULTIPLE_CHOICE", "NUMBER",
+              "YES_NO", "DATE", "DROPDOWN", "LINEAR_SCALE",
+            ].includes(q.type) ? q.type : "SHORT_TEXT") as QuestionType,
+            required: Boolean(q.required),
+            order: idx,
+            scaleMin: q.type === "LINEAR_SCALE" ? Number(q.scaleMin) || 1 : null,
+            scaleMax: q.type === "LINEAR_SCALE" ? Number(q.scaleMax) || 5 : null,
+            scaleMinLabel: q.type === "LINEAR_SCALE" ? String(q.scaleMinLabel || "") : null,
+            scaleMaxLabel: q.type === "LINEAR_SCALE" ? String(q.scaleMaxLabel || "") : null,
+            imageUrl: typeof q.imageUrl === "string" && q.imageUrl.startsWith("data:image/") ? q.imageUrl : null,
+            imageAspect: ["16:9", "1:1", "4:3", "3:4"].includes(q.imageAspect) ? q.imageAspect : "4:3",
+          })),
+        });
+        const createdQuestions = await tx.question.findMany({
+          where: { studyId: id },
+          orderBy: { order: "asc" },
+        });
+        for (let idx = 0; idx < createdQuestions.length; idx++) {
+          const q = body.questions[idx];
+          const choices = Array.isArray(q.options) ? q.options.filter((option: unknown) => typeof option === "string" && String(option).trim()) : [];
+          if (q.type === "YES_NO") choices.splice(0, choices.length, "Yes", "No");
+          if (choices.length > 0) {
+            await tx.questionOption.createMany({
+              data: choices.map((option: string, optionIndex: number) => ({
+                questionId: createdQuestions[idx].id,
+                text: option.trim(),
+                value: option.trim(),
+                order: optionIndex,
+                imageUrl: Array.isArray(q.optionImages) && typeof q.optionImages[optionIndex] === "string" && q.optionImages[optionIndex].startsWith("data:image/")
+                  ? q.optionImages[optionIndex]
+                  : null,
+              })),
+            });
+          }
+        }
+      });
     }
     if (body.status && ["ACTIVE", "PAUSED"].includes(body.status)) {
       updateData.status = body.status;

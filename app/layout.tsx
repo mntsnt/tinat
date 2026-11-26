@@ -5,6 +5,7 @@ import { Footer } from "./components/layout/Footer";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { ConfirmProvider } from "./components/ui/ConfirmDialog";
 import { ClientShell } from "./components/layout/ClientShell";
+import { OfflineServiceWorker } from "./components/OfflineServiceWorker";
 
 export const metadata: Metadata = {
   title: "Tinat | Health Research Ecosystem",
@@ -43,6 +44,7 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning className="min-h-full flex flex-col bg-background text-foreground ">
+        <OfflineServiceWorker />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

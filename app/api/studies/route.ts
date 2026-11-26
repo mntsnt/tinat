@@ -177,6 +177,8 @@ export async function POST(request: Request) {
       title,
       description,
       bannerTheme = "canopy",
+      coverImageUrl,
+      coverImageAspect,
       fundingType,
       creditPerResponse,
       creditBudget,
@@ -514,6 +516,8 @@ export async function POST(request: Request) {
       data: {
         title: title.trim(),
         bannerTheme,
+        coverImageUrl: typeof coverImageUrl === "string" && coverImageUrl.startsWith("data:image/") ? coverImageUrl : null,
+        coverImageAspect: ["16:9", "1:1", "4:3", "3:4"].includes(coverImageAspect) ? coverImageAspect : "16:9",
         description:
           typeof description === "string" && description.trim()
             ? description.trim()
@@ -558,6 +562,9 @@ export async function POST(request: Request) {
             scaleMax?: number;
             scaleMinLabel?: string;
             scaleMaxLabel?: string;
+            imageUrl?: string;
+            imageAspect?: string;
+            optionImages?: string[];
           },
           index: number
         ) => ({
@@ -565,6 +572,8 @@ export async function POST(request: Request) {
           type: question.type as QuestionType,
           required: question.required ?? true,
           order: index,
+          imageUrl: typeof question.imageUrl === "string" && question.imageUrl.startsWith("data:image/") ? question.imageUrl : null,
+          imageAspect: ["16:9", "1:1", "4:3", "3:4"].includes(question.imageAspect || "") ? question.imageAspect : "4:3",
           
           scaleMin: question.scaleMin,
           scaleMax: question.scaleMax,
@@ -573,10 +582,15 @@ export async function POST(request: Request) {
 
           options: {
             create: Array.isArray(question.options)
-              ? question.options.map((option, optionIndex) => ({
-                  text: option.trim(),
-                  value: option.trim(),
+              ? question.options.map((option: string | { text: string; imageUrl?: string }, optionIndex) => ({
+                  text: typeof option === "string" ? option.trim() : option.text.trim(),
+                  value: typeof option === "string" ? option.trim() : option.text.trim(),
                   order: optionIndex,
+                  imageUrl: typeof option === "object" && option.imageUrl?.startsWith("data:image/")
+                    ? option.imageUrl
+                    : Array.isArray(question.optionImages) && typeof question.optionImages[optionIndex] === "string" && question.optionImages[optionIndex].startsWith("data:image/")
+                      ? question.optionImages[optionIndex]
+                      : null,
                 }))
               : [],
           },

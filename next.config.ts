@@ -29,6 +29,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    agentUpgrade: "security",
+  },
   output: "standalone",
   serverExternalPackages: ["fayda-decoder"],
   turbopack: {},

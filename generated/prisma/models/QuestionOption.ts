@@ -40,6 +40,7 @@ export type QuestionOptionMinAggregateOutputType = {
   text: string | null
   value: string | null
   order: number | null
+  imageUrl: string | null
 }
 
 export type QuestionOptionMaxAggregateOutputType = {
@@ -48,6 +49,7 @@ export type QuestionOptionMaxAggregateOutputType = {
   text: string | null
   value: string | null
   order: number | null
+  imageUrl: string | null
 }
 
 export type QuestionOptionCountAggregateOutputType = {
@@ -56,6 +58,7 @@ export type QuestionOptionCountAggregateOutputType = {
   text: number
   value: number
   order: number
+  imageUrl: number
   _all: number
 }
 
@@ -74,6 +77,7 @@ export type QuestionOptionMinAggregateInputType = {
   text?: true
   value?: true
   order?: true
+  imageUrl?: true
 }
 
 export type QuestionOptionMaxAggregateInputType = {
@@ -82,6 +86,7 @@ export type QuestionOptionMaxAggregateInputType = {
   text?: true
   value?: true
   order?: true
+  imageUrl?: true
 }
 
 export type QuestionOptionCountAggregateInputType = {
@@ -90,6 +95,7 @@ export type QuestionOptionCountAggregateInputType = {
   text?: true
   value?: true
   order?: true
+  imageUrl?: true
   _all?: true
 }
 
@@ -185,6 +191,7 @@ export type QuestionOptionGroupByOutputType = {
   text: string
   value: string
   order: number
+  imageUrl: string | null
   _count: QuestionOptionCountAggregateOutputType | null
   _avg: QuestionOptionAvgAggregateOutputType | null
   _sum: QuestionOptionSumAggregateOutputType | null
@@ -216,6 +223,7 @@ export type QuestionOptionWhereInput = {
   text?: Prisma.StringFilter<"QuestionOption"> | string
   value?: Prisma.StringFilter<"QuestionOption"> | string
   order?: Prisma.IntFilter<"QuestionOption"> | number
+  imageUrl?: Prisma.StringNullableFilter<"QuestionOption"> | string | null
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
 }
 
@@ -225,6 +233,7 @@ export type QuestionOptionOrderByWithRelationInput = {
   text?: Prisma.SortOrder
   value?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   question?: Prisma.QuestionOrderByWithRelationInput
 }
 
@@ -237,6 +246,7 @@ export type QuestionOptionWhereUniqueInput = Prisma.AtLeast<{
   text?: Prisma.StringFilter<"QuestionOption"> | string
   value?: Prisma.StringFilter<"QuestionOption"> | string
   order?: Prisma.IntFilter<"QuestionOption"> | number
+  imageUrl?: Prisma.StringNullableFilter<"QuestionOption"> | string | null
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
 }, "id">
 
@@ -246,6 +256,7 @@ export type QuestionOptionOrderByWithAggregationInput = {
   text?: Prisma.SortOrder
   value?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.QuestionOptionCountOrderByAggregateInput
   _avg?: Prisma.QuestionOptionAvgOrderByAggregateInput
   _max?: Prisma.QuestionOptionMaxOrderByAggregateInput
@@ -262,6 +273,7 @@ export type QuestionOptionScalarWhereWithAggregatesInput = {
   text?: Prisma.StringWithAggregatesFilter<"QuestionOption"> | string
   value?: Prisma.StringWithAggregatesFilter<"QuestionOption"> | string
   order?: Prisma.IntWithAggregatesFilter<"QuestionOption"> | number
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"QuestionOption"> | string | null
 }
 
 export type QuestionOptionCreateInput = {
@@ -269,6 +281,7 @@ export type QuestionOptionCreateInput = {
   text: string
   value: string
   order: number
+  imageUrl?: string | null
   question: Prisma.QuestionCreateNestedOneWithoutOptionsInput
 }
 
@@ -278,6 +291,7 @@ export type QuestionOptionUncheckedCreateInput = {
   text: string
   value: string
   order: number
+  imageUrl?: string | null
 }
 
 export type QuestionOptionUpdateInput = {
@@ -285,6 +299,7 @@ export type QuestionOptionUpdateInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   question?: Prisma.QuestionUpdateOneRequiredWithoutOptionsNestedInput
 }
 
@@ -294,6 +309,7 @@ export type QuestionOptionUncheckedUpdateInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type QuestionOptionCreateManyInput = {
@@ -302,6 +318,7 @@ export type QuestionOptionCreateManyInput = {
   text: string
   value: string
   order: number
+  imageUrl?: string | null
 }
 
 export type QuestionOptionUpdateManyMutationInput = {
@@ -309,6 +326,7 @@ export type QuestionOptionUpdateManyMutationInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type QuestionOptionUncheckedUpdateManyInput = {
@@ -317,6 +335,7 @@ export type QuestionOptionUncheckedUpdateManyInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type QuestionOptionListRelationFilter = {
@@ -335,6 +354,7 @@ export type QuestionOptionCountOrderByAggregateInput = {
   text?: Prisma.SortOrder
   value?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
 }
 
 export type QuestionOptionAvgOrderByAggregateInput = {
@@ -347,6 +367,7 @@ export type QuestionOptionMaxOrderByAggregateInput = {
   text?: Prisma.SortOrder
   value?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
 }
 
 export type QuestionOptionMinOrderByAggregateInput = {
@@ -355,6 +376,7 @@ export type QuestionOptionMinOrderByAggregateInput = {
   text?: Prisma.SortOrder
   value?: Prisma.SortOrder
   order?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
 }
 
 export type QuestionOptionSumOrderByAggregateInput = {
@@ -408,6 +430,7 @@ export type QuestionOptionCreateWithoutQuestionInput = {
   text: string
   value: string
   order: number
+  imageUrl?: string | null
 }
 
 export type QuestionOptionUncheckedCreateWithoutQuestionInput = {
@@ -415,6 +438,7 @@ export type QuestionOptionUncheckedCreateWithoutQuestionInput = {
   text: string
   value: string
   order: number
+  imageUrl?: string | null
 }
 
 export type QuestionOptionCreateOrConnectWithoutQuestionInput = {
@@ -452,6 +476,7 @@ export type QuestionOptionScalarWhereInput = {
   text?: Prisma.StringFilter<"QuestionOption"> | string
   value?: Prisma.StringFilter<"QuestionOption"> | string
   order?: Prisma.IntFilter<"QuestionOption"> | number
+  imageUrl?: Prisma.StringNullableFilter<"QuestionOption"> | string | null
 }
 
 export type QuestionOptionCreateManyQuestionInput = {
@@ -459,6 +484,7 @@ export type QuestionOptionCreateManyQuestionInput = {
   text: string
   value: string
   order: number
+  imageUrl?: string | null
 }
 
 export type QuestionOptionUpdateWithoutQuestionInput = {
@@ -466,6 +492,7 @@ export type QuestionOptionUpdateWithoutQuestionInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type QuestionOptionUncheckedUpdateWithoutQuestionInput = {
@@ -473,6 +500,7 @@ export type QuestionOptionUncheckedUpdateWithoutQuestionInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type QuestionOptionUncheckedUpdateManyWithoutQuestionInput = {
@@ -480,6 +508,7 @@ export type QuestionOptionUncheckedUpdateManyWithoutQuestionInput = {
   text?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -490,6 +519,7 @@ export type QuestionOptionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   text?: boolean
   value?: boolean
   order?: boolean
+  imageUrl?: boolean
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["questionOption"]>
 
@@ -499,6 +529,7 @@ export type QuestionOptionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   text?: boolean
   value?: boolean
   order?: boolean
+  imageUrl?: boolean
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["questionOption"]>
 
@@ -508,6 +539,7 @@ export type QuestionOptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   text?: boolean
   value?: boolean
   order?: boolean
+  imageUrl?: boolean
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["questionOption"]>
 
@@ -517,9 +549,10 @@ export type QuestionOptionSelectScalar = {
   text?: boolean
   value?: boolean
   order?: boolean
+  imageUrl?: boolean
 }
 
-export type QuestionOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "questionId" | "text" | "value" | "order", ExtArgs["result"]["questionOption"]>
+export type QuestionOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "questionId" | "text" | "value" | "order" | "imageUrl", ExtArgs["result"]["questionOption"]>
 export type QuestionOptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }
@@ -541,6 +574,7 @@ export type $QuestionOptionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     text: string
     value: string
     order: number
+    imageUrl: string | null
   }, ExtArgs["result"]["questionOption"]>
   composites: {}
 }
@@ -970,6 +1004,7 @@ export interface QuestionOptionFieldRefs {
   readonly text: Prisma.FieldRef<"QuestionOption", 'String'>
   readonly value: Prisma.FieldRef<"QuestionOption", 'String'>
   readonly order: Prisma.FieldRef<"QuestionOption", 'Int'>
+  readonly imageUrl: Prisma.FieldRef<"QuestionOption", 'String'>
 }
     
 

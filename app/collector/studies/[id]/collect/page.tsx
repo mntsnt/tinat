@@ -40,6 +40,16 @@ import {
 } from "@/lib/studyLogic";
 import { HouseholdRosterComponent } from "@/app/collector/components/HouseholdRosterComponent";
 import { SUPPORTED_LOCALES, SupportedLocale } from "@/lib/i18n";
+import {
+  cacheOfflineForm,
+  deleteOfflineSubmission,
+  getCachedOfflineForm,
+  getOfflineSubmissions,
+  queueOfflineSubmission,
+  updateOfflineSubmission,
+  type OfflineSubmission,
+  type OfflineSubmissionStatus,
+} from "@/lib/offlineQueue";
 
 interface SectionDef {
   part: string;
@@ -101,6 +111,9 @@ export default function FieldCollectionPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [filterUnanswered, setFilterUnanswered] = useState(false);
+  const [syncStatus, setSyncStatus] = useState<OfflineSubmissionStatus | "SYNCED" | "OFFLINE">(
+    typeof navigator !== "undefined" && navigator.onLine ? "SYNCED" : "OFFLINE"
+  );
 
   const t = {
     en: {
@@ -221,10 +234,19 @@ export default function FieldCollectionPage() {
         const response = await fetch(`/api/studies/${params.id}`);
         const data = await response.json();
         if (!response.ok || !data.study) {
-          throw new Error(data.error || "Failed to load study details.");
+          const cached = await getCachedOfflineForm(params.id);
+          if (cached?.data) {
+            setStudy((cached.data as { study: any }).study);
+            setSyncStatus("OFFLINE");
+          } else {
+            throw new Error(data.error || "Failed to load study details.");
+          }
         }
         if (cancelled) return;
-        setStudy(data.study);
+        if (data?.study) {
+          setStudy(data.study);
+          await cacheOfflineForm(params.id, data.study.updatedAt || new Date().toISOString(), data);
+        }
 
         // Restore draft answers from local storage if available
         try {
@@ -286,6 +308,68 @@ export default function FieldCollectionPage() {
     }
   }, [answers, study?.id]);
 
+  useEffect(() => {
+    async function syncPending() {
+      if (!navigator.onLine) {
+        setSyncStatus("OFFLINE");
+        return;
+      }
+      const pending = await getOfflineSubmissions();
+      if (!pending.length) {
+        setSyncStatus("SYNCED");
+        return;
+      }
+      for (const item of pending) {
+        const syncing: OfflineSubmission = { ...item, status: "SYNCING" };
+        await updateOfflineSubmission(syncing);
+        setSyncStatus("SYNCING");
+        try {
+          const response = await fetch(item.url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(item.body),
+          });
+          if (response.ok) {
+            await deleteOfflineSubmission(item.id);
+          } else if (response.status === 409) {
+            await updateOfflineSubmission({
+              ...item,
+              status: "FAILED",
+              attempts: item.attempts + 1,
+              lastError: "The form changed. Refresh it before resubmitting.",
+            });
+          } else {
+            const data = await response.json().catch(() => ({}));
+            await updateOfflineSubmission({
+              ...item,
+              status: "FAILED",
+              attempts: item.attempts + 1,
+              lastError: data.error || "Synchronization failed.",
+            });
+          }
+        } catch {
+          await updateOfflineSubmission({
+            ...item,
+            status: "FAILED",
+            attempts: item.attempts + 1,
+            lastError: "Network unavailable.",
+          });
+        }
+      }
+      const remaining = await getOfflineSubmissions();
+      setSyncStatus(remaining.some((item) => item.status === "FAILED") ? "FAILED" : remaining.length ? "PENDING" : "SYNCED");
+    }
+
+    void syncPending();
+    const handleOffline = () => setSyncStatus("OFFLINE");
+    window.addEventListener("online", syncPending);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", syncPending);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
   async function handleLanguageChange(nextLanguage: SupportedLocale) {
     setLanguage(nextLanguage);
     setLanguageWarning(null);
@@ -335,15 +419,39 @@ export default function FieldCollectionPage() {
     setErrorMessage(null);
     try {
       const formattedAnswers = formatCollectorAnswers(answers);
+      const submissionKey = (typeof crypto !== "undefined" && "randomUUID" in crypto)
+        ? crypto.randomUUID()
+        : `offline-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const body = {
+          collectionMethod: "FIELD_COLLECTED",
+          language,
+          answers: formattedAnswers,
+          submissionKey,
+          formRevision: typeof study?.updatedAt === "string" ? study.updatedAt : undefined,
+      };
+
+      if (!navigator.onLine) {
+        await queueOfflineSubmission({
+          id: submissionKey,
+          kind: "study",
+          url: `/api/studies/${params.id}/responses`,
+          body,
+          createdAt: new Date().toISOString(),
+          formRevision: body.formRevision,
+          status: "PENDING",
+          attempts: 0,
+        });
+        setSyncStatus("PENDING");
+        setIsSuccess(true);
+        setAnswers({});
+        localStorage.removeItem(`tinat_collector_draft_${params.id}`);
+        return;
+      }
 
       const res = await fetch(`/api/studies/${params.id}/responses`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          collectionMethod: "FIELD_COLLECTED",
-          language,
-          answers: formattedAnswers,
-        }),
+        body: JSON.stringify(body),
       });
 
       if (res.ok) {
@@ -359,7 +467,33 @@ export default function FieldCollectionPage() {
         setErrorMessage(data.error || "Failed to submit field response. Please try again.");
       }
     } catch {
-      setErrorMessage("Network error while submitting response. Ensure your internet connection is active.");
+      try {
+        const formattedAnswers = formatCollectorAnswers(answers);
+        const submissionKey = (typeof crypto !== "undefined" && "randomUUID" in crypto)
+          ? crypto.randomUUID()
+          : `offline-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        await queueOfflineSubmission({
+          id: submissionKey,
+          kind: "study",
+          url: `/api/studies/${params.id}/responses`,
+          body: {
+            collectionMethod: "FIELD_COLLECTED",
+            language,
+            answers: formattedAnswers,
+            submissionKey,
+            formRevision: typeof study?.updatedAt === "string" ? study.updatedAt : undefined,
+          },
+          createdAt: new Date().toISOString(),
+          status: "PENDING",
+          attempts: 0,
+        });
+        setSyncStatus("PENDING");
+        setIsSuccess(true);
+        setAnswers({});
+        localStorage.removeItem(`tinat_collector_draft_${params.id}`);
+      } catch {
+        setErrorMessage("The response could not be saved locally. Keep this page open and try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -1048,6 +1182,14 @@ export default function FieldCollectionPage() {
 
           {/* Right: Step Counter, Exit */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div className="hidden sm:inline-flex items-center rounded-full border border-border bg-muted/50 px-2.5 py-1 text-[11px] font-semibold text-muted-foreground" role="status" aria-live="polite">
+              {syncStatus === "SYNCED" ? "Synced" : syncStatus === "OFFLINE" ? "Offline" : syncStatus === "PENDING" ? "Pending" : syncStatus === "SYNCING" ? "Syncing" : "Sync failed"}
+            </div>
+            {syncStatus === "FAILED" && (
+              <button type="button" onClick={() => window.dispatchEvent(new Event("online"))} className="hidden text-[11px] font-bold text-primary underline sm:block">
+                Retry
+              </button>
+            )}
             <div className="hidden md:flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-bold border border-emerald-500/20">
               <span>{answeredCount}</span>
               <span className="text-muted-foreground font-normal">/</span>

@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     const user = auth.user;
 
     const body = await req.json();
-    const { title, description, questions } = body;
+    const { title, description, questions, coverImageUrl, coverImageAspect } = body;
 
     if (!title || typeof title !== "string" || !title.trim()) {
       return NextResponse.json({ error: "Form title is required." }, { status: 400 });
@@ -75,6 +75,8 @@ export async function POST(req: Request) {
       data: {
         title: title.trim(),
         description: typeof description === "string" && description.trim() ? description.trim() : null,
+        coverImageUrl: typeof coverImageUrl === "string" && coverImageUrl.startsWith("data:image/") ? coverImageUrl : null,
+        coverImageAspect: ["16:9", "1:1", "4:3", "3:4"].includes(coverImageAspect) ? coverImageAspect : "16:9",
         bannerTheme: "canopy",
         status: "ACTIVE", // Forms are immediately active & ready to receive responses
         studyType: "SURVEY",
@@ -97,15 +99,17 @@ export async function POST(req: Request) {
             const rawType = typeof q.type === "string" ? q.type.trim() : "SHORT_TEXT";
             const qType = validQuestionTypes.has(rawType) ? (rawType as QuestionType) : "SHORT_TEXT";
 
-            let optionsList: { text: string; value: string; order: number }[] = [];
+            let optionsList: { text: string; value: string; order: number; imageUrl?: string }[] = [];
             if (Array.isArray(q.options) && q.options.length > 0) {
               optionsList = q.options
-                .filter((opt: string) => typeof opt === "string" && opt.trim())
-                .map((opt: string, optIdx: number) => ({
-                  text: opt.trim(),
-                  value: opt.trim(),
-                  order: optIdx,
-                }));
+                .map((opt: unknown, optIdx: number) => {
+                  const text = typeof opt === "string" ? opt.trim() : "";
+                  const imageUrl = Array.isArray(q.optionImages) && typeof q.optionImages[optIdx] === "string" && q.optionImages[optIdx].startsWith("data:image/")
+                    ? q.optionImages[optIdx]
+                    : undefined;
+                  return text ? { text, value: text, order: optIdx, imageUrl } : null;
+                })
+                .filter((opt: { text: string; value: string; order: number; imageUrl?: string } | null): opt is { text: string; value: string; order: number; imageUrl?: string } => Boolean(opt));
             } else if (qType === "YES_NO") {
               optionsList = [
                 { text: "Yes", value: "Yes", order: 0 },
@@ -125,6 +129,8 @@ export async function POST(req: Request) {
               type: qType,
               required: Boolean(q.required),
               order: idx,
+              imageUrl: typeof q.imageUrl === "string" && q.imageUrl.startsWith("data:image/") ? q.imageUrl : null,
+              imageAspect: ["16:9", "1:1", "4:3", "3:4"].includes(q.imageAspect) ? q.imageAspect : "4:3",
               scaleMin: scaleMinNum,
               scaleMax: scaleMaxNum,
               scaleMinLabel: typeof q.scaleMinLabel === "string" && q.scaleMinLabel.trim() ? q.scaleMinLabel.trim() : null,

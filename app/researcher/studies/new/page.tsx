@@ -37,6 +37,7 @@ import {
 import { STUDY_BANNERS, type StudyBannerTheme } from "@/lib/studyBanners";
 import { StudyBanner as StudyBannerPreview } from "../../../components/studies/StudyBanner";
 import { calculateStudyRewardCredits } from "@/lib/credits/studyRewards";
+import { ImageUploadField } from "../../../components/ui/ImageUploadField";
 
 type Question = {
   text: string;
@@ -85,6 +86,8 @@ function CreateStudyForm() {
   const [safetyProtocolText, setSafetyProtocolText] = useState("");
   const [estimatedMinutes, setEstimatedMinutes] = useState(5);
   const [bannerTheme, setBannerTheme] = useState<StudyBannerTheme>("canopy");
+  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null);
+  const [coverImageAspect, setCoverImageAspect] = useState<"16:9" | "1:1" | "4:3" | "3:4">("16:9");
 
   const [participantTarget, setParticipantTarget] = useState(25);
   const [fieldMode, setFieldMode] = useState<"NONE" | "FREE" | "PAID">("NONE");
@@ -353,6 +356,8 @@ function CreateStudyForm() {
           title,
           description: finalDescription,
           bannerTheme,
+          coverImageUrl,
+          coverImageAspect,
           studyType: "SURVEY",
           fundingType: "FREE",
           category,
@@ -733,6 +738,17 @@ function CreateStudyForm() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="mb-5">
+              <ImageUploadField
+                label="Study cover image"
+                value={coverImageUrl}
+                aspect={coverImageAspect}
+                onChange={(value, aspect) => {
+                  setCoverImageUrl(value);
+                  setCoverImageAspect(aspect);
+                }}
+              />
+            </div>
             <fieldset>
               <legend className="sr-only">Choose a study banner</legend>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
