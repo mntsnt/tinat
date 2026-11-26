@@ -1,7 +1,17 @@
 import NavContent from "./NavContent";
-import { publicLinks } from "./navLinks";
 import { getSession } from "../../../lib/auth";
 import { prisma } from "../../../lib/prisma";
+
+export const dynamic = "force-dynamic";
+
+// The public landing page navbar strictly and exclusively displays section anchors.
+// Calculators and Academy are excluded from this navbar.
+const LANDING_NAV_LINKS = [
+  { title: "How It Works", href: "/#how-it-works" },
+  { title: "Data Collection", href: "/#pathways" },
+  { title: "Disciplines", href: "/#disciplines" },
+  { title: "FAQ", href: "/#faq" },
+];
 
 export async function Navbar() {
   const session = await getSession();
@@ -13,15 +23,6 @@ export async function Navbar() {
     });
   }
 
-  // Landing page navbar displays clean section anchors; calculators and academy are excluded
-  const navbarLinks = publicLinks.filter(
-    (link) =>
-      link.href !== "/academy" &&
-      link.title !== "Tinat Academy" &&
-      !link.href.includes("statistical-calculator") &&
-      !link.href.includes("sample-size-calculator") &&
-      !link.href.startsWith("/research-tools/")
-  );
-
-  return <NavContent user={user} links={navbarLinks} />;
+  return <NavContent user={user} links={LANDING_NAV_LINKS} />;
 }
+
