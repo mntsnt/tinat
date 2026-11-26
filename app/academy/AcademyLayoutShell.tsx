@@ -37,7 +37,7 @@ export function AcademyLayoutShell({
       />
       <main className="min-h-0 min-w-0 flex-1 bg-muted/10 overflow-y-auto [scrollbar-gutter:stable] flex flex-col">
         <DashboardTopNav />
-        <div className="flex-1 min-w-0 flex flex-col">{children}</div>
+        <div className="min-h-0 w-full min-w-0 flex-1 flex flex-col">{children}</div>
       </main>
     </div>
   );

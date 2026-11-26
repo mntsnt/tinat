@@ -4,19 +4,11 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Search,
-  BookOpen,
   Clock,
   ArrowRight,
-  GraduationCap,
-  Sparkles,
-  Layers3,
-  Award,
-  CheckCircle2,
-  Check,
 } from "lucide-react";
 import { AcademyModule, LearningPath } from "@/lib/academy/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/Card";
-import { Badge } from "@/app/components/ui/Badge";
 import { cn } from "@/lib/utils";
 
 interface AcademyCatalogClientProps {
@@ -65,48 +57,45 @@ export function AcademyCatalogClient({ paths, modules }: AcademyCatalogClientPro
   });
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       {/* Resume Learning Card if user has history */}
       {continueLesson && (
-        <div className="rounded-2xl border-2 border-emerald-600/30 bg-gradient-to-r from-emerald-500/10 via-card to-background p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col gap-4 rounded-md border border-border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
-              <GraduationCap className="h-6 w-6" />
-            </div>
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-                CONTINUE LEARNING WHERE YOU LEFT OFF
+              <span className="text-xs font-medium text-muted-foreground">
+                Continue learning
               </span>
-              <h4 className="text-base font-bold text-foreground m-0">
+              <h3 className="mt-1 text-base font-semibold text-foreground">
                 {continueLesson.lessonTitle}
-              </h4>
-              <p className="text-xs text-muted-foreground m-0">{continueLesson.moduleTitle}</p>
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">{continueLesson.moduleTitle}</p>
             </div>
           </div>
           <Link
             href={`/academy/${continueLesson.moduleSlug}/${continueLesson.lessonSlug}`}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-2.5 text-xs font-semibold text-white hover:bg-emerald-800 shadow-sm shrink-0"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
           >
-            Resume Lesson <ArrowRight className="h-3.5 w-3.5" />
+            Resume lesson <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       )}
 
       {/* Path Selector & Search Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-6">
+      <div className="flex flex-col gap-4 border-b border-border pb-5 md:flex-row md:items-center md:justify-between">
         {/* Pathway Pills */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap gap-2" aria-label="Filter modules by pathway">
           <button
             type="button"
             onClick={() => setSelectedPathId("all")}
             className={cn(
-              "rounded-full px-4 py-1.5 text-xs font-semibold transition-colors cursor-pointer",
+              "rounded-md border px-3 py-1.5 text-sm font-medium transition-colors",
               selectedPathId === "all"
-                ? "bg-foreground text-background shadow-xs"
-                : "border border-border text-muted-foreground hover:bg-muted"
+                ? "border-foreground bg-foreground text-background"
+                : "border-border text-muted-foreground hover:bg-muted"
             )}
           >
-            All Modules ({modules.length})
+            All ({modules.length})
           </button>
           {paths.map((path) => (
             <button
@@ -114,10 +103,10 @@ export function AcademyCatalogClient({ paths, modules }: AcademyCatalogClientPro
               type="button"
               onClick={() => setSelectedPathId(path.id)}
               className={cn(
-                "rounded-full px-4 py-1.5 text-xs font-semibold transition-colors cursor-pointer capitalize",
+                "rounded-md border px-3 py-1.5 text-sm font-medium capitalize transition-colors",
                 selectedPathId === path.id
-                  ? "bg-emerald-700 text-white shadow-xs"
-                  : "border border-border text-muted-foreground hover:bg-muted"
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border text-muted-foreground hover:bg-muted"
               )}
             >
               {path.id} ({modules.filter((m) => m.pathId === path.id).length})
@@ -127,50 +116,52 @@ export function AcademyCatalogClient({ paths, modules }: AcademyCatalogClientPro
 
         {/* Search Bar */}
         <div className="relative w-full md:w-72">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search lessons, methods, epidemiology..."
-            className="w-full rounded-full border border-input bg-card pl-9 pr-4 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-600/40"
+            aria-label="Search courses"
+            placeholder="Search courses or lessons"
+            className="w-full rounded-md border border-input bg-background py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
       </div>
 
       {/* Module Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {filteredModules.length ? (
+      <div className="grid grid-cols-1 gap-4 @3xl:grid-cols-2 @4xl:grid-cols-3">
         {filteredModules.map((module) => (
           <Link
             key={module.slug}
             href={`/academy/${module.slug}`}
             className="group block h-full"
           >
-            <Card className="h-full flex flex-col justify-between transition-all duration-200 group-hover:-translate-y-1 group-hover:border-emerald-600/50 group-hover:shadow-md">
+            <Card className="flex h-full flex-col justify-between transition-colors group-hover:border-foreground/40">
               <CardHeader className="pb-3">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="text-xs font-medium text-muted-foreground">
                     MODULE {module.number}
                   </span>
-                  <span className="text-[11px] text-muted-foreground flex items-center gap-1 font-medium">
-                    <Clock className="h-3 w-3" /> {module.duration}
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5" /> {module.duration}
                   </span>
                 </div>
-                <CardTitle className="text-base font-bold group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors leading-snug">
+                <CardTitle className="text-base font-semibold leading-snug group-hover:text-foreground">
                   {module.title}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-xs text-muted-foreground line-clamp-3 leading-relaxed">
+              <CardContent className="flex flex-1 flex-col justify-between gap-4">
+                <p className="line-clamp-3 text-sm leading-6 text-muted-foreground">
                   {module.summary}
                 </p>
 
-                <div className="pt-3 border-t border-border flex items-center justify-between text-xs">
-                  <span className="font-semibold text-muted-foreground">
-                    {module.lessons.length} lessons • {module.quiz?.questionBank?.length || 0} quiz Qs
+                <div className="flex items-center justify-between border-t border-border pt-3 text-sm">
+                  <span className="text-muted-foreground">
+                    {module.lessons.length} lessons
                   </span>
-                  <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                    Start <ArrowRight className="h-3.5 w-3.5" />
+                  <span className="flex items-center gap-1 font-medium text-foreground">
+                    View module <ArrowRight className="h-4 w-4" />
                   </span>
                 </div>
               </CardContent>
@@ -178,6 +169,11 @@ export function AcademyCatalogClient({ paths, modules }: AcademyCatalogClientPro
           </Link>
         ))}
       </div>
+      ) : (
+        <p className="rounded-md border border-border px-4 py-6 text-sm text-muted-foreground">
+          No courses match your search. Try another term or pathway.
+        </p>
+      )}
     </div>
   );
 }

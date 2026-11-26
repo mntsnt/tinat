@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 import { Button } from "@/app/components/ui/Button";
 
 interface LessonCompleteButtonProps {
@@ -20,7 +20,6 @@ export function LessonCompleteButton({
 }: LessonCompleteButtonProps) {
   const router = useRouter();
   const [isCompleted, setIsCompleted] = useState(false);
-  const [justCompleted, setJustCompleted] = useState(false);
 
   useEffect(() => {
     const completed = JSON.parse(
@@ -33,27 +32,26 @@ export function LessonCompleteButton({
     const completed = JSON.parse(
       localStorage.getItem(`tinat_academy_completed_${moduleSlug}`) || "[]"
     );
-    let nextList: string[];
-    if (completed.includes(lessonSlug)) {
-      nextList = completed.filter((s: string) => s !== lessonSlug);
-      setIsCompleted(false);
-    } else {
-      nextList = [...completed, lessonSlug];
-      setIsCompleted(true);
-      setJustCompleted(true);
-      setTimeout(() => setJustCompleted(false), 3000);
-    }
+    const nextCompleted = !completed.includes(lessonSlug);
+    const nextList = nextCompleted
+      ? [...completed, lessonSlug]
+      : completed.filter((s: string) => s !== lessonSlug);
+    setIsCompleted(nextCompleted);
 
     localStorage.setItem(`tinat_academy_completed_${moduleSlug}`, JSON.stringify(nextList));
 
-    // Also notify server in background if signed in
     try {
-      fetch("/api/academy/progress/toggle", {
+      const response = await fetch("/api/academy/progress/toggle", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ moduleSlug, lessonSlug }),
+        body: JSON.stringify({ moduleSlug, lessonSlug, completed: nextCompleted }),
       });
-    } catch {}
+      if (!response.ok) {
+        throw new Error(`Progress sync failed with status ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Failed to sync Academy progress:", error);
+    }
   };
 
   const handleAdvance = () => {
@@ -67,11 +65,11 @@ export function LessonCompleteButton({
   };
 
   return (
-    <div className="my-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border bg-card p-5 shadow-xs">
+    <div className="my-10 flex flex-wrap items-center justify-between gap-4 rounded-md border border-border bg-card p-5">
       <div>
-        <h4 className="text-sm font-bold text-foreground m-0">Finished studying this lesson?</h4>
-        <p className="text-xs text-muted-foreground mt-0.5 m-0">
-          Mark it complete to record your progress and unlock the module assessment.
+        <h2 className="m-0 text-base font-semibold text-foreground">Lesson progress</h2>
+        <p className="m-0 mt-1 text-sm text-muted-foreground">
+          Mark this lesson complete to save your progress.
         </p>
       </div>
 
@@ -80,18 +78,17 @@ export function LessonCompleteButton({
           size="sm"
           variant={isCompleted ? "outline" : "primary"}
           onClick={handleMarkComplete}
-          className="gap-2 transition-transform active:scale-95"
+          className="gap-2"
         >
-          <CheckCircle2 className={isCompleted ? "text-emerald-600 h-4 w-4" : "h-4 w-4"} />
-          {isCompleted ? "Completed" : "Mark as Complete"}
-          {justCompleted && <Sparkles className="h-3.5 w-3.5 text-amber-500 animate-spin" />}
+          <CheckCircle2 className="h-4 w-4" />
+          {isCompleted ? "Completed" : "Mark complete"}
         </Button>
 
         {(nextLessonSlug || nextModuleSlug) && (
           <Button
             size="sm"
             onClick={handleAdvance}
-            className="gap-2 bg-emerald-700 hover:bg-emerald-800 text-white"
+            className="gap-2"
           >
             {nextLessonSlug ? "Next Lesson" : "Next Module"}
             <ArrowRight className="h-3.5 w-3.5" />

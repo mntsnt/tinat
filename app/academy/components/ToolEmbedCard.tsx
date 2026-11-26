@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Calculator, ArrowRight, Check, Sparkles, Workflow, ClipboardList } from "lucide-react";
+import { Calculator, ArrowRight, Check, Workflow, ClipboardList } from "lucide-react";
 import { ToolIntegrationConfig } from "@/lib/academy/types";
 import { singleProportion } from "@/lib/sampleSize";
 import { mean, median, varianceAndSD } from "@/lib/statistics";
@@ -51,10 +51,10 @@ export function ToolEmbedCard({ config }: { config: ToolIntegrationConfig }) {
   const isForms = config.type === "tinat-forms";
 
   return (
-    <div className="my-8 overflow-hidden rounded-2xl border-2 border-emerald-600/30 bg-gradient-to-br from-emerald-500/5 via-card to-background p-6 shadow-md">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+    <div className="my-8 rounded-md border border-border bg-card p-5">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-muted text-foreground">
             {isSampleSize || isStats ? (
               <Calculator className="h-4 w-4" />
             ) : isWorkspace ? (
@@ -64,28 +64,28 @@ export function ToolEmbedCard({ config }: { config: ToolIntegrationConfig }) {
             )}
           </div>
           <div>
-            <span className="text-[10px] font-bold tracking-wider text-emerald-700 dark:text-emerald-400 uppercase">
-              TINAT RESEARCH TOOL INTEGRATION
+            <span className="text-xs font-medium text-muted-foreground">
+              Research tool
             </span>
-            <h4 className="text-base font-bold text-foreground m-0">{config.title}</h4>
+            <h3 className="m-0 text-base font-semibold text-foreground">{config.title}</h3>
           </div>
         </div>
         <Link
           href={config.ctaHref}
           target="_blank"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:underline"
         >
           Open standalone tool <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
 
-      <p className="text-xs sm:text-sm text-muted-foreground mb-5 leading-relaxed">
+      <p className="mb-5 text-sm leading-6 text-muted-foreground">
         {config.description}
       </p>
 
       {/* Interactive Sample Size Widget */}
       {isSampleSize && (
-        <div className="rounded-xl border border-border bg-card/80 p-4 space-y-4">
+        <div className="space-y-4 rounded-md border border-border p-4">
           <div className="grid grid-cols-2 gap-3">
             <label className="block text-xs font-semibold">
               Expected Prevalence (p: 0–1):
@@ -110,8 +110,7 @@ export function ToolEmbedCard({ config }: { config: ToolIntegrationConfig }) {
           </div>
           <div className="flex items-center gap-3">
             <Button size="sm" onClick={handleComputeSampleSize} className="gap-1.5">
-              <Sparkles className="h-3.5 w-3.5" />
-              Calculate Required Sample Size
+              Calculate sample size
             </Button>
             {sampleResult !== null && (
               <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-300">
@@ -125,7 +124,7 @@ export function ToolEmbedCard({ config }: { config: ToolIntegrationConfig }) {
 
       {/* Interactive Stats Widget */}
       {isStats && (
-        <div className="rounded-xl border border-border bg-card/80 p-4 space-y-4">
+        <div className="space-y-4 rounded-md border border-border p-4">
           <label className="block text-xs font-semibold">
             Comma-separated data values (e.g. Systolic Blood Pressure):
             <input
@@ -137,8 +136,7 @@ export function ToolEmbedCard({ config }: { config: ToolIntegrationConfig }) {
           </label>
           <div className="flex items-center gap-3">
             <Button size="sm" onClick={handleComputeStats} className="gap-1.5">
-              <Sparkles className="h-3.5 w-3.5" />
-              Compute Summary Statistics
+              Compute summary statistics
             </Button>
             {statsResult !== null && (
               <div className="flex flex-wrap items-center gap-3 text-xs font-semibold">
@@ -153,15 +151,15 @@ export function ToolEmbedCard({ config }: { config: ToolIntegrationConfig }) {
 
       {/* Deep Link to Workspace or Forms */}
       {(isWorkspace || isForms) && (
-        <div className="flex items-center justify-between rounded-xl border border-border bg-card/80 p-4">
-          <span className="text-xs text-muted-foreground">
+        <div className="flex items-center justify-between gap-3 rounded-md border border-border p-4">
+          <span className="text-sm text-muted-foreground">
             {isWorkspace
               ? "Prefill a new clinical or observational protocol in your collaborative research workspace."
               : "Design and test skip-logic questions in the visual drag-and-drop form builder."}
           </span>
           <Link
             href={config.ctaHref}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 text-xs font-semibold shadow-xs"
+            className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
           >
             {config.ctaText} <ArrowRight className="h-3.5 w-3.5" />
           </Link>

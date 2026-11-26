@@ -22,7 +22,6 @@ import {
   BookOpen,
   MapPin,
   GraduationCap,
-  Calculator,
 } from "lucide-react";
 import { SidebarLink } from "./Sidebar";
 
@@ -35,7 +34,6 @@ export const publicLinks: SidebarLink[] = [
 
 export const participantLinks: SidebarLink[] = [
   { title: "Dashboard", href: "/participant", icon: <HeartPulse /> },
-  { title: "Tinat Academy", href: "/academy", icon: <GraduationCap /> },
   { title: "Tinat Forms", href: "/forms", icon: <ClipboardList /> },
   { title: "Tinat Ask", href: "/ask", icon: <MessageCircleMore /> },
   { title: "Discover Studies", href: "/participant/studies", icon: <Microscope /> },

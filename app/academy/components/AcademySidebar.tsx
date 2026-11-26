@@ -53,27 +53,27 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
         <div className="border-b border-border pb-4">
           <Link
             href="/academy"
-            className="text-[11px] font-bold text-muted-foreground hover:text-foreground flex items-center gap-1 mb-1.5"
+            className="mb-1.5 flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground"
           >
-            <GraduationCap className="h-3.5 w-3.5 text-emerald-600" />
+            <GraduationCap className="h-4 w-4" />
             Tinat Academy
           </Link>
-          <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-            MODULE {module.number}
+          <span className="text-xs font-medium text-muted-foreground">
+            Module {module.number}
           </span>
-          <h2 className="text-sm font-bold text-foreground leading-snug m-0 mt-0.5">
+          <h2 className="m-0 mt-1 text-sm font-semibold leading-snug text-foreground">
             {module.title}
           </h2>
 
           {/* Progress bar */}
           <div className="mt-3 space-y-1">
-            <div className="flex justify-between text-[11px] text-muted-foreground font-semibold">
+            <div className="flex justify-between text-xs text-muted-foreground">
               <span>{completedCount} of {totalLessons} completed</span>
               <span>{progressPercent}%</span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
               <div
-                className="h-full bg-emerald-600 transition-all duration-300"
+                className="h-full bg-foreground transition-all duration-300"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -82,8 +82,8 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
 
         {/* Lesson List */}
         <div className="space-y-1">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block mb-2 px-1">
-            CURRICULUM LESSONS
+          <span className="mb-2 block px-1 text-xs font-medium text-muted-foreground">
+            Lessons
           </span>
           {module.lessons.map((lesson) => {
             const isActive = lesson.slug === activeLessonSlug;
@@ -95,15 +95,15 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
                 href={`/academy/${module.slug}/${lesson.slug}`}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
-                  "group flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-xs transition-colors",
+                  "group flex items-start gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors",
                   isActive
-                    ? "bg-emerald-500/10 text-emerald-950 dark:text-emerald-200 font-bold border-l-2 border-emerald-600"
+                    ? "border-l-2 border-foreground bg-muted font-medium text-foreground"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 )}
               >
                 <span className="mt-0.5 shrink-0">
                   {isCompleted ? (
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    <CheckCircle2 className="h-4 w-4 text-foreground" />
                   ) : (
                     <Circle className="h-4 w-4 opacity-40 group-hover:opacity-70" />
                   )}
@@ -116,8 +116,8 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
 
         {/* Evaluation & Practice */}
         <div className="space-y-1 pt-3 border-t border-border">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block mb-2 px-1">
-            ASSESSMENT & PRACTICE
+          <span className="mb-2 block px-1 text-xs font-medium text-muted-foreground">
+            Assessment and practice
           </span>
 
           {/* Module Quiz */}
@@ -127,7 +127,7 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
             className="flex items-center justify-between rounded-lg px-2.5 py-2 text-xs font-semibold text-foreground hover:bg-muted transition-colors border border-border"
           >
             <div className="flex items-center gap-2">
-              <HelpCircle className="h-4 w-4 text-emerald-600" />
+              <HelpCircle className="h-4 w-4 text-muted-foreground" />
               <span>Module Assessment</span>
             </div>
             {quizPassed ? (
@@ -146,7 +146,7 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
             className="flex items-center justify-between rounded-lg px-2.5 py-2 text-xs font-semibold text-foreground hover:bg-muted transition-colors border border-border"
           >
             <div className="flex items-center gap-2">
-              <ClipboardCheck className="h-4 w-4 text-sky-600" />
+              <ClipboardCheck className="h-4 w-4 text-muted-foreground" />
               <span>Practical Assignment</span>
             </div>
             <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
@@ -154,7 +154,7 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
         </div>
       </div>
 
-      <div className="pt-4 border-t border-border text-[11px] text-muted-foreground">
+      <div className="border-t border-border pt-4 text-sm text-muted-foreground">
         <Link href={`/academy/${module.slug}`} className="hover:underline block font-medium">
           &larr; Module Overview &amp; Syllabus
         </Link>
@@ -165,11 +165,12 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
   return (
     <>
       {/* Mobile Drawer Toggle */}
-      <div className="lg:hidden fixed bottom-5 left-5 z-40">
+      <div className="fixed bottom-5 left-5 z-40 @4xl:hidden">
         <button
           type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-700 text-white shadow-xl hover:bg-emerald-800 focus:outline-none"
+          aria-label={mobileOpen ? "Close lesson navigation" : "Open lesson navigation"}
+          className="flex h-11 w-11 items-center justify-center rounded-md border border-border bg-background text-foreground shadow-sm hover:bg-muted focus:outline-none"
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -178,7 +179,7 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
       {/* Mobile Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden"
+          className="fixed inset-0 z-40 bg-black/40 @4xl:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -186,7 +187,7 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
       {/* Mobile Drawer */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 w-72 bg-card shadow-2xl transition-transform duration-300 lg:hidden",
+          "fixed inset-y-0 left-0 z-40 w-72 border-r border-border bg-background transition-transform duration-300 @4xl:hidden",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -194,7 +195,7 @@ export function AcademySidebar({ module, activeLessonSlug }: AcademySidebarProps
       </aside>
 
       {/* Desktop Persistent Sidebar */}
-      <aside className="hidden lg:block w-72 shrink-0 border-r border-border bg-card/60 backdrop-blur-xs h-[calc(100vh-3.5rem)] sticky top-14">
+      <aside className="sticky top-0 hidden h-[calc(100dvh-7rem)] w-72 shrink-0 border-r border-border bg-background @4xl:block">
         {sidebarContent}
       </aside>
     </>

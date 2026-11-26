@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, ClipboardCheck, Sparkles, Workflow, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ClipboardCheck, Workflow } from "lucide-react";
 import { getModuleBySlug } from "@/lib/academy/content";
 import { ButtonLink } from "@/app/components/ui/Button";
+import { AcademyPageFrame } from "../../components/AcademyPageFrame";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -11,71 +11,55 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const module = getModuleBySlug(slug);
-  if (!module) return { title: "Assignment Not Found | Tinat Academy" };
+  const academyModule = getModuleBySlug(slug);
+  if (!academyModule) return { title: "Assignment Not Found | Tinat Academy" };
 
   return {
-    title: `Practical Assignment: ${module.title} | Tinat Academy`,
-    description: module.assignment?.overview || module.summary,
+    title: `Practical Assignment: ${academyModule.title} | Tinat Academy`,
+    description: academyModule.assignment?.overview || academyModule.summary,
   };
 }
 
 export default async function AcademyAssignmentPage({ params }: Props) {
   const { slug } = await params;
-  const module = getModuleBySlug(slug);
-  if (!module || !module.assignment) notFound();
+  const academyModule = getModuleBySlug(slug);
+  if (!academyModule || !academyModule.assignment) notFound();
 
-  const assignment = module.assignment;
+  const assignment = academyModule.assignment;
 
   return (
-    <div className="min-h-screen bg-background py-8 sm:py-12 px-4 sm:px-6">
-      <div className="mx-auto max-w-4xl space-y-8">
-        <div className="flex items-center justify-between">
-          <Link
-            href={`/academy/${module.slug}`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" /> Back to Module Overview
-          </Link>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-            MODULE {module.number} PRACTICAL ASSIGNMENT
-          </span>
-        </div>
-
-        <div className="space-y-3 border-b border-border pb-6">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground m-0">
-            {assignment.title}
-          </h1>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {assignment.overview}
-          </p>
-        </div>
-
+    <AcademyPageFrame
+      backLink={{ href: `/academy/${academyModule.slug}`, label: "Back to module" }}
+      eyebrow={`Module ${academyModule.number} · Practical assignment`}
+      title={assignment.title}
+      description={assignment.overview}
+      contentClassName="max-w-4xl space-y-6"
+    >
         {/* Scenario Card */}
         {assignment.scenario && (
-          <div className="rounded-2xl border border-sky-600/30 bg-sky-50/60 dark:bg-sky-950/20 p-6 space-y-2">
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-sky-700 dark:text-sky-400">
-              ETHIOPIAN CLINICAL &amp; FIELD SCENARIO
+          <div className="space-y-2 rounded-md border border-border bg-card p-5">
+            <span className="text-sm font-semibold text-foreground">
+              Scenario
             </span>
-            <p className="text-xs sm:text-sm text-sky-950 dark:text-sky-200 leading-relaxed m-0 whitespace-pre-line">
+            <p className="m-0 whitespace-pre-line text-sm leading-6 text-muted-foreground">
               {assignment.scenario}
             </p>
           </div>
         )}
 
         {/* Instructions */}
-        <div className="rounded-2xl border border-border bg-card p-6 space-y-4">
-          <h3 className="text-base font-bold text-foreground m-0 flex items-center gap-2">
-            <ClipboardCheck className="h-5 w-5 text-emerald-600" />
-            Assignment Instructions &amp; Step-by-Step Requirements
-          </h3>
-          <ul className="space-y-3 text-xs sm:text-sm text-foreground">
+        <div className="space-y-4 rounded-md border border-border bg-card p-5">
+          <h2 className="m-0 flex items-center gap-2 text-base font-semibold text-foreground">
+            <ClipboardCheck className="h-5 w-5" />
+            Instructions
+          </h2>
+          <ul className="space-y-3 text-sm text-foreground">
             {assignment.instructions.map((inst, i) => (
               <li key={i} className="flex items-start gap-2.5">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-bold">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-muted text-xs font-medium text-muted-foreground">
                   {i + 1}
                 </span>
-                <span className="leading-relaxed">{inst}</span>
+                <span className="pt-0.5 leading-6">{inst}</span>
               </li>
             ))}
           </ul>
@@ -83,20 +67,16 @@ export default async function AcademyAssignmentPage({ params }: Props) {
 
         {/* Grading Rubric */}
         {assignment.rubric?.length > 0 && (
-          <div className="rounded-2xl border border-border bg-card p-6 space-y-4">
-            <h3 className="text-base font-bold text-foreground m-0">
-              Evaluation Rubric (100 Points Total)
-            </h3>
+          <div className="space-y-4 rounded-md border border-border bg-card p-5">
+            <h2 className="m-0 text-base font-semibold text-foreground">Evaluation rubric</h2>
             <div className="divide-y divide-border">
               {assignment.rubric.map((r, i) => (
-                <div key={i} className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm">
+                <div key={i} className="flex flex-col justify-between gap-2 py-3 text-sm sm:flex-row sm:items-center">
                   <div>
-                    <strong className="block text-foreground">{r.criterion}</strong>
-                    <span className="text-muted-foreground text-xs">{r.description}</span>
+                    <strong className="block font-medium text-foreground">{r.criterion}</strong>
+                    <span className="text-muted-foreground">{r.description}</span>
                   </div>
-                  <span className="shrink-0 font-extrabold text-emerald-700 dark:text-emerald-400 text-sm">
-                    {r.points} pts
-                  </span>
+                  <span className="shrink-0 text-muted-foreground">{r.points} points</span>
                 </div>
               ))}
             </div>
@@ -104,24 +84,24 @@ export default async function AcademyAssignmentPage({ params }: Props) {
         )}
 
         {/* Interactive Workspace Integration CTA */}
-        <div className="rounded-2xl border-2 border-emerald-600/30 bg-emerald-500/5 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col justify-between gap-4 rounded-md border border-border p-5 sm:flex-row sm:items-center">
           <div>
-            <h4 className="text-base font-bold text-foreground m-0 flex items-center gap-2">
-              <Workflow className="h-5 w-5 text-emerald-600" />
-              Complete in Tinat Research Workspace
-            </h4>
-            <p className="text-xs text-muted-foreground mt-1 max-w-xl">
-              Collaborate with research peers, upload literature files, and draft your proposal protocol directly inside Tinat's dedicated workspace.
+            <h2 className="m-0 flex items-center gap-2 text-base font-semibold text-foreground">
+              <Workflow className="h-5 w-5" />
+              Use the research workspace
+            </h2>
+            <p className="mt-1 max-w-xl text-sm text-muted-foreground">
+              Draft and organize your work in a Tinat research project.
             </p>
           </div>
           <ButtonLink
             href="/projects/new"
-            className="shrink-0 gap-2 bg-emerald-700 hover:bg-emerald-800 text-white"
+            variant="outline"
+            className="shrink-0 gap-2"
           >
-            Open in Workspace <ArrowRight className="h-4 w-4" />
+            Open workspace <ArrowRight className="h-4 w-4" />
           </ButtonLink>
         </div>
-      </div>
-    </div>
+    </AcademyPageFrame>
   );
 }

@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getAcademyAccess } from "@/lib/academy/access";
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getSession();
+    const { session, user } = await getAcademyAccess();
+    if (!session?.userId) {
+      return NextResponse.json({ error: "Sign in to access the Academy" }, { status: 401 });
+    }
+    if (user?.role !== "RESEARCHER" || !user.isVerified) {
+      return NextResponse.json({ error: "Researcher access required" }, { status: 403 });
+    }
+
     const body = await req.json();
     const { moduleSlug, lessonSlug, completed } = body as {
       moduleSlug: string;
@@ -14,15 +21,6 @@ export async function POST(req: NextRequest) {
 
     if (!moduleSlug || !lessonSlug || typeof completed !== "boolean") {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-    }
-
-    if (!session?.userId) {
-      // Guest user: acknowledge toggle, stored in localStorage
-      return NextResponse.json({
-        synced: false,
-        completed,
-        message: "Progress recorded locally on device.",
-      });
     }
 
     const record = await prisma.academyProgress.upsert({

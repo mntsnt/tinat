@@ -35,18 +35,18 @@ export function TableOfContents({
   }, [sections]);
 
   return (
-    <aside className="hidden xl:block w-64 shrink-0 p-4 sticky top-28 self-start">
-      <div className="rounded-xl border border-border bg-card/60 p-4 shadow-2xs backdrop-blur-xs space-y-4">
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-semibold border-b border-border pb-2.5">
-          <Clock className="h-3.5 w-3.5 text-emerald-600" />
+    <aside className="sticky top-0 hidden w-56 shrink-0 self-start p-4 @5xl:block">
+      <div className="space-y-4">
+        <div className="flex items-center gap-1.5 border-b border-border pb-2.5 text-sm text-muted-foreground">
+          <Clock className="h-4 w-4" />
           <span>{readingTimeMinutes} min reading time</span>
         </div>
 
         <div>
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground block mb-2 flex items-center gap-1">
-            <ListTree className="h-3 w-3" /> ON THIS PAGE
+          <span className="mb-2 flex items-center gap-1 text-xs font-medium text-muted-foreground">
+            <ListTree className="h-3.5 w-3.5" /> On this page
           </span>
-          <nav className="space-y-1.5 text-xs">
+          <nav className="space-y-1 text-sm">
             {sections.map((sec) => {
               const isActive = activeId === sec.id;
               return (
@@ -56,7 +56,7 @@ export function TableOfContents({
                   className={cn(
                     "block truncate py-1 transition-colors hover:text-foreground",
                     isActive
-                      ? "text-emerald-700 dark:text-emerald-300 font-bold border-l-2 border-emerald-600 pl-2"
+                      ? "border-l-2 border-foreground pl-2 font-medium text-foreground"
                       : "text-muted-foreground pl-2"
                   )}
                 >

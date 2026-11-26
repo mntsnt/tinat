@@ -1,35 +1,32 @@
 import type { ReactNode } from "react";
-import { prisma } from "@/lib/prisma";
-import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { getAcademyAccess } from "@/lib/academy/access";
 import { getLinksForUser } from "../components/layout/navLinks";
 import { AcademyLayoutShell } from "./AcademyLayoutShell";
 
 export default async function AcademyLayout({ children }: { children: ReactNode }) {
-  const session = await getSession();
+  const { session, user } = await getAcademyAccess();
 
-  let user = null;
-  if (session?.userId) {
-    user = await prisma.user.findUnique({
-      where: { id: session.userId },
-      select: { id: true, role: true, name: true, email: true, avatarUrl: true, isVerified: true },
-    });
+  if (!session?.userId || !user) {
+    redirect("/login?redirect=%2Facademy");
   }
 
-  // If authenticated as a researcher, render with full Researcher sidebar
-  if (user && user.role.toUpperCase() === "RESEARCHER") {
-    const role = "RESEARCHER";
-    return (
-      <AcademyLayoutShell
-        links={getLinksForUser({ role })}
-        roleTitle="Researcher"
-        roleColor="researcher"
-        user={{ id: user.id, name: user.name, email: user.email, avatarUrl: user.avatarUrl }}
-      >
-        {children}
-      </AcademyLayoutShell>
-    );
+  if (user.role !== "RESEARCHER") {
+    redirect(user.role === "ADMIN" ? "/admin" : "/participant");
   }
 
-  // Open-access fallback for public visitors or participants
-  return <div className="min-h-screen bg-background">{children}</div>;
+  if (!user.isVerified) {
+    redirect(`/verify-email?email=${encodeURIComponent(user.email)}`);
+  }
+
+  return (
+    <AcademyLayoutShell
+      links={getLinksForUser({ role: "RESEARCHER" })}
+      roleTitle="Researcher"
+      roleColor="researcher"
+      user={{ id: user.id, name: user.name, email: user.email, avatarUrl: user.avatarUrl }}
+    >
+      {children}
+    </AcademyLayoutShell>
+  );
 }

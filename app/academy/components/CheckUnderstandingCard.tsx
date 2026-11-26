@@ -21,15 +21,15 @@ export function CheckUnderstandingCard({
   const isCorrect = selectedIdx === question.correctIndex;
 
   return (
-    <div className="my-6 rounded-xl border border-border bg-card p-5 shadow-xs transition-all">
-      <div className="flex items-center gap-2 mb-3">
-        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
-          <HelpCircle className="h-3 w-3" />
-          CHECK YOUR UNDERSTANDING
+    <div className="my-6 rounded-md border border-border bg-card p-5">
+      <div className="mb-3 flex items-center gap-2">
+        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
+          <HelpCircle className="h-4 w-4" />
+          Knowledge check
         </span>
       </div>
 
-      <p className="text-sm font-semibold text-foreground mb-4 leading-relaxed">
+      <p className="mb-4 text-sm font-semibold leading-relaxed text-foreground">
         {question.question}
       </p>
 
@@ -55,7 +55,7 @@ export function CheckUnderstandingCard({
               type="button"
               onClick={() => handleSelect(idx)}
               className={cn(
-                "w-full text-left rounded-lg border p-3 text-xs sm:text-sm transition-all flex items-start gap-2.5 cursor-pointer",
+                "flex w-full cursor-pointer items-start gap-2.5 rounded-md border p-3 text-left text-sm transition-colors",
                 btnClass
               )}
             >

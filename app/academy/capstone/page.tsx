@@ -1,22 +1,8 @@
-import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
-import {
-  Sparkles,
-  BookOpen,
-  ArrowRight,
-  Calculator,
-  CheckCircle2,
-  FileText,
-  FolderPlus,
-  ShieldCheck,
-  Layers,
-  HelpCircle,
-  ExternalLink,
-} from "lucide-react";
-import { Badge } from "@/app/components/ui/Badge";
+import { ArrowRight, CheckCircle2, ExternalLink, FolderPlus } from "lucide-react";
 import { ButtonLink } from "@/app/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/Card";
+import { AcademyPageFrame } from "../components/AcademyPageFrame";
 
 export const metadata: Metadata = {
   title: "Guided Research Proposal Capstone | Tinat Academy",
@@ -123,87 +109,54 @@ const capstoneSections = [
 
 export default function CapstonePage() {
   return (
-    <div className="w-full min-h-screen bg-background">
-      {/* Capstone Hero Header */}
-      <section className="border-b border-border bg-gradient-to-br from-emerald-950 via-slate-950 to-teal-950 px-4 py-14 text-white sm:px-8 sm:py-20">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-center gap-2 mb-4">
-            <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-xs">
-              ACADEMY CAPSTONE
-            </Badge>
-            <span className="text-xs text-emerald-200/70 font-medium">
-              Applied Health Research Proposal
-            </span>
-          </div>
-
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-3xl">
-            From Learning to Research: Guided Proposal Capstone
-          </h1>
-
-          <p className="mt-4 max-w-2xl text-base sm:text-lg text-emerald-100/80 leading-relaxed">
-            Transition from coursework to professional health research. Follow this step-by-step master proposal blueprint to design a rigorous, IRB-ready protocol ready for immediate deployment in the Tinat Research Workspace.
+    <AcademyPageFrame
+      backLink={{ href: "/academy", label: "All courses" }}
+      eyebrow="Academy capstone"
+      title="Research proposal capstone"
+      description="Use this six-stage checklist to turn your research question into a complete, review-ready proposal."
+      actions={
+        <>
+          <ButtonLink href="/projects/new" className="gap-2">
+            <FolderPlus className="h-4 w-4" /> Start a research project
+          </ButtonLink>
+          <ButtonLink href="/academy" variant="outline">
+            Browse courses
+          </ButtonLink>
+        </>
+      }
+      contentClassName="max-w-5xl space-y-8"
+    >
+        <section>
+          <h2 className="text-xl font-semibold tracking-tight">Proposal checklist</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Work through each stage at your own pace.
           </p>
+        </section>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink
-              href="/projects/new"
-              className="gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold shadow-lg shadow-emerald-950/50"
-            >
-              <FolderPlus className="h-4 w-4" /> Start Proposal in Workspace
-            </ButtonLink>
-            <ButtonLink
-              href="/academy"
-              variant="secondary"
-              className="border-white/20 bg-white/10 text-white hover:bg-white/20"
-            >
-              Browse All Modules
-            </ButtonLink>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Capstone Blueprint */}
-      <main className="mx-auto max-w-5xl px-4 py-12 sm:px-8">
-        <div className="mb-8 flex items-center justify-between border-b border-border pb-4">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-              Master Protocol Checklist & Integration Guide
-            </h2>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-              Follow these 6 stages to assemble a complete grant and ethical review proposal.
-            </p>
-          </div>
-        </div>
-
-        <div className="space-y-8">
+        <div className="space-y-4">
           {capstoneSections.map((sec) => (
-            <Card key={sec.step} className="border-border/70 overflow-hidden shadow-sm">
-              <CardHeader className="bg-muted/30 border-b border-border/50 pb-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                    STAGE {sec.step} OF 6
-                  </span>
-                  <Badge variant="outline" className="text-[11px] font-medium">
-                    Self-Directed Milestone
-                  </Badge>
-                </div>
-                <CardTitle className="text-lg sm:text-xl font-bold text-foreground mt-1">
+            <Card key={sec.step} className="overflow-hidden">
+              <CardHeader className="border-b border-border pb-4">
+                <span className="text-sm font-medium text-muted-foreground">
+                  Stage {sec.step} of 6
+                </span>
+                <CardTitle className="mt-1 text-lg font-semibold text-foreground">
                   {sec.title}
                 </CardTitle>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1 leading-relaxed">
+                <p className="mt-1 text-sm leading-6 text-muted-foreground">
                   {sec.description}
                 </p>
               </CardHeader>
 
-              <CardContent className="p-6 space-y-6">
+              <CardContent className="space-y-5 p-5">
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-foreground mb-3 flex items-center gap-1.5">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Essential Protocol Components
-                  </h4>
+                  <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <CheckCircle2 className="h-4 w-4" /> Checklist
+                  </h3>
                   <ul className="space-y-2.5">
-                    {sec.checklist.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-muted-foreground">
-                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 shrink-0" />
+                    {sec.checklist.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5 text-sm leading-6 text-muted-foreground">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/60" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -211,21 +164,22 @@ export default function CapstonePage() {
                 </div>
 
                 {sec.toolIntegration && (
-                  <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="flex flex-col justify-between gap-3 rounded-md border border-border p-4 sm:flex-row sm:items-center">
                     <div>
-                      <p className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                        <Sparkles className="h-3.5 w-3.5 text-emerald-600" /> Integrated Tinat Tool
+                      <p className="text-sm font-medium text-foreground">
+                        {sec.toolIntegration.label}
                       </p>
-                      <p className="text-xs text-muted-foreground mt-0.5">
+                      <p className="mt-0.5 text-sm text-muted-foreground">
                         {sec.toolIntegration.description}
                       </p>
                     </div>
                     <ButtonLink
                       href={sec.toolIntegration.href}
                       size="sm"
-                      className="shrink-0 gap-1.5 bg-emerald-700 hover:bg-emerald-600 text-white text-xs"
+                      variant="outline"
+                      className="shrink-0 gap-1.5"
                     >
-                      {sec.toolIntegration.label} <ExternalLink className="h-3 w-3" />
+                      Open <ExternalLink className="h-3.5 w-3.5" />
                     </ButtonLink>
                   </div>
                 )}
@@ -234,30 +188,12 @@ export default function CapstonePage() {
           ))}
         </div>
 
-        {/* Action Callout */}
-        <div className="mt-12 rounded-2xl border border-border bg-card p-8 sm:p-10 text-center shadow-lg">
-          <div className="mx-auto rounded-full bg-emerald-500/10 p-3 w-fit text-emerald-600 mb-4">
-            <Sparkles className="h-8 w-8" />
-          </div>
-          <h3 className="text-2xl font-bold text-foreground">
-            Ready to Build Your Proposal?
-          </h3>
-          <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground leading-relaxed">
-            Create a dedicated research project in Tinat Workspace. Manage collaborators, attach literature citations, generate sampling calculations, and deploy mobile forms all in one unified platform.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <ButtonLink
-              href="/projects/new"
-              className="gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 py-2.5"
-            >
-              <FolderPlus className="h-4 w-4" /> Initialize Project in Workspace
-            </ButtonLink>
-            <ButtonLink href="/academy" variant="outline" className="gap-2">
-              Back to Academy
-            </ButtonLink>
-          </div>
+        <div className="border-t border-border pt-5">
+          <ButtonLink href="/projects/new" variant="outline" className="gap-2">
+            <FolderPlus className="h-4 w-4" /> Start a research project
+            <ArrowRight className="h-4 w-4" />
+          </ButtonLink>
         </div>
-      </main>
-    </div>
+    </AcademyPageFrame>
   );
 }

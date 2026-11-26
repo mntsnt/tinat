@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getAcademyAccess } from "@/lib/academy/access";
 import { getModuleBySlug } from "@/lib/academy/content";
 
 export async function POST(req: NextRequest) {
   try {
+    const { session, user } = await getAcademyAccess();
+    if (!session?.userId) {
+      return NextResponse.json({ error: "Sign in to access the Academy" }, { status: 401 });
+    }
+    if (user?.role !== "RESEARCHER" || !user.isVerified) {
+      return NextResponse.json({ error: "Researcher access required" }, { status: 403 });
+    }
+
     const body = await req.json();
     const { moduleSlug, answers } = body as {
       moduleSlug: string;
@@ -75,21 +83,17 @@ export async function POST(req: NextRequest) {
     const score = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
     const passed = score >= academyModule.quiz.passPercentage;
 
-    // Record in database if user is signed in
-    const session = await getSession();
-    if (session?.userId) {
-      await prisma.academyQuizAttempt.create({
-        data: {
-          userId: session.userId,
-          moduleSlug,
-          score,
-          totalQuestions,
-          correctCount,
-          passed,
-          answersPayload: { answers, feedback },
-        },
-      });
-    }
+    await prisma.academyQuizAttempt.create({
+      data: {
+        userId: session.userId,
+        moduleSlug,
+        score,
+        totalQuestions,
+        correctCount,
+        passed,
+        answersPayload: { answers, feedback },
+      },
+    });
 
     return NextResponse.json({
       moduleSlug,

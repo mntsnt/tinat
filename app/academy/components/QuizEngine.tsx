@@ -1,18 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import {
-  CheckCircle2,
-  XCircle,
   HelpCircle,
   RotateCcw,
   Flag,
   ArrowRight,
   ArrowLeft,
-  Award,
-  Sparkles,
-  BookOpen,
   Check,
 } from "lucide-react";
 import { ModuleQuiz, QuizQuestion } from "@/lib/academy/types";
@@ -53,19 +47,10 @@ export function QuizEngine({ quiz }: QuizEngineProps) {
     const selected = bank.slice(0, Math.min(bank.length, quiz.displayCount || 10));
     setQuestions(selected);
 
-    // Load any saved best score from localStorage
-    const savedBest = localStorage.getItem(`tinat_academy_quiz_${quiz.moduleSlug}`);
-    if (savedBest) {
-      try {
-        const parsed = JSON.parse(savedBest);
-        // Available for display
-      } catch {}
-    }
   }, [quiz]);
 
   if (!questions.length) return null;
 
-  const currentQ = questions[currentIndex];
   const progressPercent = Math.round(((currentIndex + 1) / questions.length) * 100);
 
   const handleSelectOption = (qId: string, optId: string, isMulti: boolean) => {
@@ -135,21 +120,7 @@ export function QuizEngine({ quiz }: QuizEngineProps) {
   const activeQuestion = filteredQuestions[currentIndex] || filteredQuestions[0];
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 shadow-md transition-all">
-      {/* Quiz Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4 mb-6">
-        <div>
-          <span className="text-[10px] font-bold tracking-widest text-emerald-700 dark:text-emerald-400 uppercase">
-            FLAGSHIP MASTERY ASSESSMENT
-          </span>
-          <h3 className="text-xl font-bold text-foreground m-0">{quiz.title}</h3>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-muted-foreground">
-            Pass mark: <strong>{quiz.passPercentage}%</strong>
-          </span>
-        </div>
-      </div>
+    <div className="rounded-md border border-border bg-card p-5">
 
       {/* Results View */}
       {results && !reviewMistakesOnly && (
@@ -171,21 +142,15 @@ export function QuizEngine({ quiz }: QuizEngineProps) {
             />
           </div>
         ) : (
-          <div className="rounded-xl border border-amber-600/30 bg-amber-500/10 p-6 mb-8 text-center space-y-4 text-amber-950 dark:text-amber-100">
-            <div className="flex justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-600 text-white shadow-lg">
-                <RotateCcw className="h-8 w-8" />
-              </div>
-            </div>
-
+          <div className="mb-8 space-y-4 rounded-md border border-border bg-muted/30 p-5">
             <div>
-              <h4 className="text-2xl font-extrabold m-0">Needs Review</h4>
-              <p className="text-sm opacity-90 mt-1">
+              <h2 className="m-0 text-lg font-semibold">Review and try again</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
                 You scored <strong>{results.score}%</strong> ({results.correctCount} of {results.totalQuestions} questions correct). A minimum score of <strong>{quiz.passPercentage}%</strong> is required.
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <Button size="sm" variant="outline" onClick={retakeQuiz} className="gap-1.5">
                 <RotateCcw className="h-3.5 w-3.5" /> Retake Quiz
               </Button>
@@ -208,8 +173,8 @@ export function QuizEngine({ quiz }: QuizEngineProps) {
       )}
 
       {/* Progress & Navigator Bar */}
-      <div className="space-y-2 mb-6">
-        <div className="flex items-center justify-between text-xs text-muted-foreground font-semibold">
+      <div className="mb-6 space-y-2">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>
             Question {currentIndex + 1} of {filteredQuestions.length}
           </span>
@@ -219,12 +184,12 @@ export function QuizEngine({ quiz }: QuizEngineProps) {
                 <Flag className="h-3 w-3 fill-amber-500" /> Flagged for review
               </span>
             )}
-            <span>{progressPercent}% Complete</span>
+            <span>{progressPercent}% complete</span>
           </span>
         </div>
         <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
           <div
-            className="h-full bg-emerald-600 dark:bg-emerald-500 transition-all duration-300"
+            className="h-full bg-foreground transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>

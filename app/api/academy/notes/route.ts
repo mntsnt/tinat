@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getAcademyAccess } from "@/lib/academy/access";
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getSession();
+    const { session, user } = await getAcademyAccess();
     if (!session?.userId) {
-      return NextResponse.json({ authenticated: false, note: null });
+      return NextResponse.json({ error: "Sign in to access the Academy" }, { status: 401 });
+    }
+    if (user?.role !== "RESEARCHER" || !user.isVerified) {
+      return NextResponse.json({ error: "Researcher access required" }, { status: 403 });
     }
 
     const { searchParams } = new URL(req.url);
@@ -36,7 +39,14 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getSession();
+    const { session, user } = await getAcademyAccess();
+    if (!session?.userId) {
+      return NextResponse.json({ error: "Sign in to access the Academy" }, { status: 401 });
+    }
+    if (user?.role !== "RESEARCHER" || !user.isVerified) {
+      return NextResponse.json({ error: "Researcher access required" }, { status: 403 });
+    }
+
     const body = await req.json();
     const { lessonSlug, content } = body as {
       lessonSlug: string;
@@ -45,13 +55,6 @@ export async function POST(req: NextRequest) {
 
     if (!lessonSlug || typeof content !== "string") {
       return NextResponse.json({ error: "Missing lessonSlug or content" }, { status: 400 });
-    }
-
-    if (!session?.userId) {
-      return NextResponse.json({
-        synced: false,
-        message: "Guest user; note stored locally",
-      });
     }
 
     const existing = await prisma.academyNote.findFirst({
