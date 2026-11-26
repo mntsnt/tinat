@@ -27,7 +27,6 @@ import {
 import { SidebarLink } from "./Sidebar";
 
 export const publicLinks: SidebarLink[] = [
-  { title: "Tinat Academy", href: "/academy", icon: <GraduationCap /> },
   { title: "How It Works", href: "/#how-it-works", icon: <Layers /> },
   { title: "Data Collection", href: "/#pathways", icon: <Microscope /> },
   { title: "Disciplines", href: "/#disciplines", icon: <Stethoscope /> },

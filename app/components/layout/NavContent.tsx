@@ -68,6 +68,12 @@ export default function NavContent({ user, links }: NavContentProps) {
           <ThemeToggle />
           {user ? (
             <div className="flex items-center gap-2 border-l border-border pl-3 ml-1">
+              <Link
+                href={homeHref}
+                className="text-xs font-semibold px-2.5 py-1.5 rounded-md bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+              >
+                Dashboard
+              </Link>
               <span className="text-sm font-medium text-foreground">{user.name}</span>
               <LogoutButton />
             </div>
@@ -124,9 +130,18 @@ export default function NavContent({ user, links }: NavContentProps) {
             );
           })}
           {user ? (
-            <div className="pt-2 mt-2 border-t border-border flex items-center justify-between">
-              <span className="text-sm font-medium text-foreground px-3">{user.name}</span>
-              <LogoutButton />
+            <div className="pt-2 mt-2 border-t border-border space-y-2">
+              <Link
+                href={homeHref}
+                onClick={() => setMobileOpen(false)}
+                className="block px-3 py-2 rounded-md text-sm font-semibold bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-center"
+              >
+                Go to Dashboard
+              </Link>
+              <div className="flex items-center justify-between px-3">
+                <span className="text-sm font-medium text-foreground">{user.name}</span>
+                <LogoutButton />
+              </div>
             </div>
           ) : (
             <div className="pt-2 mt-2 border-t border-border space-y-1">

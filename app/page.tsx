@@ -581,9 +581,9 @@ export default async function Home() {
               <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-700 dark:text-emerald-400 mb-4 font-bold text-sm">
                 03
               </div>
-              <h3 className="text-lg font-bold text-foreground mb-2">Verified Credentials</h3>
+              <h3 className="text-lg font-bold text-foreground mb-2">Instant Mastery Feedback</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Pass interactive module quizzes to earn tamper-proof, publicly verifiable Tinat Academy Certificates of Completion.
+                Pass interactive module quizzes to test your understanding, review mistakes, and celebrate milestone achievements.
               </p>
             </div>
           </div>
