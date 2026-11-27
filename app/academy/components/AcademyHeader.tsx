@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft, FileText, Sparkles } from "lucide-react";
 
 interface AcademyHeaderProps {
   moduleNumber: number;
@@ -9,6 +9,8 @@ interface AcademyHeaderProps {
   lessonTitle: string;
   onNotesToggle: () => void;
   isNotesOpen: boolean;
+  onAiToggle: () => void;
+  isAiOpen: boolean;
 }
 
 export function AcademyHeader({
@@ -17,6 +19,8 @@ export function AcademyHeader({
   lessonTitle,
   onNotesToggle,
   isNotesOpen,
+  onAiToggle,
+  isAiOpen,
 }: AcademyHeaderProps) {
   return (
     <header className="flex min-h-14 w-full items-center justify-between gap-4 border-b border-border bg-background px-4 sm:px-6">
@@ -33,7 +37,18 @@ export function AcademyHeader({
         <span className="truncate text-foreground">{lessonTitle}</span>
       </div>
 
-      <div className="shrink-0">
+      <div className="flex shrink-0 items-center gap-2">
+        <button
+          type="button"
+          onClick={onAiToggle}
+          aria-expanded={isAiOpen}
+          aria-label={isAiOpen ? "Close AI study assistant" : "Open AI study assistant"}
+          className="inline-flex h-9 items-center gap-2 rounded-md border border-primary/30 px-3 text-sm font-medium text-primary transition-colors hover:bg-primary/10"
+        >
+          <Sparkles className="h-4 w-4" />
+          <span className="hidden sm:inline">AI Assistant</span>
+          <span className="sm:hidden">AI</span>
+        </button>
         <button
           type="button"
           onClick={onNotesToggle}

@@ -13,6 +13,7 @@ import { CheckUnderstandingCard } from "./CheckUnderstandingCard";
 import { ToolEmbedCard } from "./ToolEmbedCard";
 import { LessonCompleteButton } from "./LessonCompleteButton";
 import { LessonNotes } from "./LessonNotes";
+import { AcademyAIAssistant } from "./AcademyAIAssistant";
 
 interface LessonReaderContainerProps {
   module: AcademyModule;
@@ -31,6 +32,7 @@ export function LessonReaderContainer({
 }: LessonReaderContainerProps) {
   const router = useRouter();
   const [isNotesOpen, setIsNotesOpen] = useState(false);
+  const [isAiOpen, setIsAiOpen] = useState(false);
 
   // Keyboard navigation shortcuts (Alt + Left / Alt + Right)
   useEffect(() => {
@@ -57,8 +59,16 @@ export function LessonReaderContainer({
         moduleNumber={module.number}
         moduleSlug={module.slug}
         lessonTitle={lesson.title}
-        onNotesToggle={() => setIsNotesOpen(!isNotesOpen)}
+        onNotesToggle={() => {
+          setIsNotesOpen(!isNotesOpen);
+          setIsAiOpen(false);
+        }}
         isNotesOpen={isNotesOpen}
+        onAiToggle={() => {
+          setIsAiOpen(!isAiOpen);
+          setIsNotesOpen(false);
+        }}
+        isAiOpen={isAiOpen}
       />
 
       <div className="flex w-full flex-1">
@@ -215,6 +225,15 @@ export function LessonReaderContainer({
         lessonSlug={lesson.slug}
         isOpen={isNotesOpen}
         onClose={() => setIsNotesOpen(false)}
+      />
+      <AcademyAIAssistant
+        key={`${module.slug}:${lesson.slug}`}
+        moduleSlug={module.slug}
+        moduleTitle={module.title}
+        lessonSlug={lesson.slug}
+        lessonTitle={lesson.title}
+        isOpen={isAiOpen}
+        onClose={() => setIsAiOpen(false)}
       />
     </div>
   );

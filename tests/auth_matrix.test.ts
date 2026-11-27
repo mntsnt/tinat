@@ -1022,6 +1022,14 @@ export const ROUTE_AUTH_MATRIX: Record<string, MatrixRule> = {
     collector: [200, 400],
     admin: [200, 400]
   },
+  "POST /api/academy/ai": {
+    anonymous: [401],
+    participant: [200, 400, 403, 503],
+    researcher_owner: [200, 400, 403, 503],
+    researcher_other: [200, 400, 403, 503],
+    collector: [200, 400, 403, 503],
+    admin: [200, 400, 403, 503]
+  },
   "GET /api/ai/conversations": {
     anonymous: [401],
     participant: [200],
