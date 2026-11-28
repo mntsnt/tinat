@@ -36,6 +36,8 @@ type TinatForm = {
   title: string;
   description: string | null;
   bannerTheme?: string;
+  coverImageUrl?: string | null;
+  coverImageAspect?: string | null;
   status: "ACTIVE" | "PAUSED" | "DRAFT" | "COMPLETED";
   createdAt: string;
   _count: {
@@ -265,7 +267,19 @@ export default function FormsDashboardPage() {
                 key={form.id}
                 className="flex flex-col overflow-hidden hover:border-primary/40 transition-colors"
               >
-                <StudyBanner theme={form.bannerTheme || "canopy"} className="h-20" />
+                {form.coverImageUrl ? (
+                  <div className="relative h-28 w-full overflow-hidden bg-muted">
+                    <img
+                      src={form.coverImageUrl}
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                ) : (
+                  <StudyBanner theme={form.bannerTheme || "canopy"} className="h-20" />
+                )}
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <button

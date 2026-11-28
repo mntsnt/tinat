@@ -516,7 +516,11 @@ export async function POST(request: Request) {
       data: {
         title: title.trim(),
         bannerTheme,
-        coverImageUrl: typeof coverImageUrl === "string" && coverImageUrl.startsWith("data:image/") ? coverImageUrl : null,
+        coverImageUrl:
+          typeof coverImageUrl === "string" &&
+          (coverImageUrl.startsWith("data:image/") || coverImageUrl.startsWith("/") || coverImageUrl.startsWith("http"))
+            ? coverImageUrl
+            : null,
         coverImageAspect: ["16:9", "1:1", "4:3", "3:4"].includes(coverImageAspect) ? coverImageAspect : "16:9",
         description:
           typeof description === "string" && description.trim()

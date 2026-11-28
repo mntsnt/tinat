@@ -75,7 +75,11 @@ export async function POST(req: Request) {
       data: {
         title: title.trim(),
         description: typeof description === "string" && description.trim() ? description.trim() : null,
-        coverImageUrl: typeof coverImageUrl === "string" && coverImageUrl.startsWith("data:image/") ? coverImageUrl : null,
+        coverImageUrl:
+          typeof coverImageUrl === "string" &&
+          (coverImageUrl.startsWith("data:image/") || coverImageUrl.startsWith("/") || coverImageUrl.startsWith("http"))
+            ? coverImageUrl
+            : null,
         coverImageAspect: ["16:9", "1:1", "4:3", "3:4"].includes(coverImageAspect) ? coverImageAspect : "16:9",
         bannerTheme: "canopy",
         status: "ACTIVE", // Forms are immediately active & ready to receive responses

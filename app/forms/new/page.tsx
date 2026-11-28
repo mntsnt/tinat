@@ -193,24 +193,6 @@ export default function NewFormPage() {
     );
   }
 
-  async function uploadOptionImage(questionId: string, optIndex: number, file: File) {
-    try {
-      const formData = new FormData();
-      formData.append("image", file);
-      const response = await fetch("/api/research-images", { method: "POST", body: formData });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to upload option image.");
-      setQuestions((prev) => prev.map((q) => {
-        if (q.id !== questionId) return q;
-        const optionImages = [...(q.optionImages || [])];
-        optionImages[optIndex] = data.dataUrl;
-        return { ...q, optionImages };
-      }));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to upload option image.");
-    }
-  }
-
   async function handlePublish() {
     setError(null);
 
@@ -418,13 +400,6 @@ export default function NewFormPage() {
                   </div>
                 </div>
 
-                <ImageUploadField
-                  label={`Image for question ${qIndex + 1}`}
-                  value={question.imageUrl}
-                  aspect={question.imageAspect || "4:3"}
-                  onChange={(value, aspect) => updateQuestion(question.id, { imageUrl: value, imageAspect: aspect })}
-                />
-
                 {/* Question Type Body */}
                 <div className="pt-2">
                   {/* Short Answer Preview */}
@@ -491,22 +466,6 @@ export default function NewFormPage() {
                             placeholder={`Option ${optIndex + 1}`}
                             className="flex-1 text-sm bg-transparent border-b border-border hover:border-emerald-500/50 focus:border-emerald-500 focus:outline-none py-1"
                           />
-                          <label className="cursor-pointer rounded-md border border-border px-2 py-1 text-[11px] text-muted-foreground hover:bg-muted" title="Upload option image">
-                            Image
-                            <input
-                              type="file"
-                              accept="image/jpeg,image/png,image/webp"
-                              className="hidden"
-                              onChange={(event) => event.target.files?.[0] && uploadOptionImage(question.id, optIndex, event.target.files[0])}
-                            />
-                          </label>
-                          {question.optionImages?.[optIndex] && (
-                            <img
-                              src={question.optionImages[optIndex]}
-                              alt=""
-                              className="h-8 w-10 rounded object-cover"
-                            />
-                          )}
 
                           {question.options.length > 1 && (
                             <button

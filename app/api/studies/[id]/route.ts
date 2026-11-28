@@ -76,7 +76,10 @@ export async function PATCH(
     if (body.isPrivate !== undefined) {
       updateData.isPrivate = Boolean(body.isPrivate);
     }
-    if (typeof body.coverImageUrl === "string" && body.coverImageUrl.startsWith("data:image/")) {
+    if (
+      typeof body.coverImageUrl === "string" &&
+      (body.coverImageUrl.startsWith("data:image/") || body.coverImageUrl.startsWith("/") || body.coverImageUrl.startsWith("http"))
+    ) {
       updateData.coverImageUrl = body.coverImageUrl;
     } else if (body.coverImageUrl === null) {
       updateData.coverImageUrl = null;

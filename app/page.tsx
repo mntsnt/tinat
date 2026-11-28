@@ -164,7 +164,7 @@ export default async function Home() {
                   {/* Visual Research Context Banner */}
                   <div className="relative h-36 sm:h-40 w-full overflow-hidden rounded-xl mb-4 border border-border/80 shadow-2xs">
                     <Image
-                      src="/researcher-hero.jpg"
+                      src="/researcher-hero.png"
                       alt="Clinical researcher reviewing epidemiological health data"
                       fill
                       priority
@@ -379,7 +379,7 @@ export default async function Home() {
                   <div>
                     <div className="relative h-48 w-full rounded-xl overflow-hidden mb-6 border border-border/80 group">
                       <Image
-                        src="/participant-study.jpg"
+                        src="/participant-study.png"
                         alt="Ethiopian participant answering health questionnaire on smartphone"
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -439,7 +439,7 @@ export default async function Home() {
                   <div>
                     <div className="relative h-48 w-full rounded-xl overflow-hidden mb-6 border border-border/80 group">
                       <Image
-                        src="/field-collector.jpg"
+                        src="/field-collector.png"
                         alt="Field enumerator conducting health survey in community"
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -652,7 +652,7 @@ export default async function Home() {
                 </div>
                 <div className="relative h-64 sm:h-80 lg:h-full lg:min-h-[380px] lg:col-span-5 overflow-hidden">
                   <Image
-                    src="/collaborative-team.jpg"
+                    src="/collaborative-team.png"
                     alt="Ethiopian medical researchers and public health collaborators"
                     fill
                     className="object-cover object-center"

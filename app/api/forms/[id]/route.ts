@@ -89,7 +89,10 @@ export async function PATCH(
     if (typeof body.description === "string") {
       updateData.description = body.description.trim() || null;
     }
-    if (typeof body.coverImageUrl === "string" && body.coverImageUrl.startsWith("data:image/")) {
+    if (
+      typeof body.coverImageUrl === "string" &&
+      (body.coverImageUrl.startsWith("data:image/") || body.coverImageUrl.startsWith("/") || body.coverImageUrl.startsWith("http"))
+    ) {
       updateData.coverImageUrl = body.coverImageUrl;
     } else if (body.coverImageUrl === null) {
       updateData.coverImageUrl = null;
