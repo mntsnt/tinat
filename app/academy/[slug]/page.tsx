@@ -81,6 +81,9 @@ export default async function AcademyModuleOverviewPage({ params }: Props) {
             src={academyModule.coverImage}
             alt={academyModule.title}
             className="h-full w-full object-cover object-center"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
           />
         </div>
       )}

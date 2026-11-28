@@ -27,6 +27,7 @@ export function AcademyMarkdown({
                   alt={alt || "Tinat Academy illustration"}
                   className="mx-auto block h-auto max-h-[580px] w-full max-w-full rounded-lg object-contain"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               {(title || alt) && (

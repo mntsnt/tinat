@@ -131,7 +131,7 @@ export function AcademyCatalogClient({ paths, modules }: AcademyCatalogClientPro
       {/* Module Grid */}
       {filteredModules.length ? (
       <div className="grid grid-cols-1 gap-4 @3xl:grid-cols-2 @4xl:grid-cols-3">
-        {filteredModules.map((module) => (
+        {filteredModules.map((module, idx) => (
           <Link
             key={module.slug}
             href={`/academy/${module.slug}`}
@@ -144,7 +144,9 @@ export function AcademyCatalogClient({ paths, modules }: AcademyCatalogClientPro
                     src={module.coverImage}
                     alt={module.title}
                     className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                    loading="lazy"
+                    loading={idx < 3 ? "eager" : "lazy"}
+                    decoding="async"
+                    fetchPriority={idx < 3 ? "high" : "low"}
                   />
                   <div className="absolute top-2.5 left-2.5 rounded-md border border-border/50 bg-background/90 px-2 py-0.5 text-[11px] font-semibold text-foreground backdrop-blur-xs">
                     MODULE {module.number}
