@@ -16,6 +16,27 @@ import { module13 } from "./module13";
 
 export { learningPaths };
 
+export const moduleCoverMap: Record<number, string> = {
+  1: "/assets/academy/modules/module-01-intro-health-research.jpg",
+  2: "/assets/academy/modules/module-02-research-questions.jpg",
+  3: "/assets/academy/modules/module-03-literature-review.jpg",
+  4: "/assets/academy/modules/module-04-research-ethics.jpg",
+  5: "/assets/academy/modules/module-05-research-designs.jpg",
+  6: "/assets/academy/modules/module-06-sampling-methods.jpg",
+  7: "/assets/academy/modules/module-07-questionnaire-development.jpg",
+  8: "/assets/academy/modules/module-08-epidemiology.jpg",
+  9: "/assets/academy/modules/module-09-biostatistics.jpg",
+  10: "/assets/academy/modules/module-10-statistical-analysis.jpg",
+  11: "/assets/academy/modules/module-11-qualitative-methods.jpg",
+  12: "/assets/academy/modules/module-12-academic-writing.jpg",
+  13: "/assets/academy/modules/module-13-reporting-guidelines.jpg",
+};
+
+export function getModuleCover(moduleOrNumber: AcademyModule | number): string {
+  const num = typeof moduleOrNumber === "number" ? moduleOrNumber : moduleOrNumber.number;
+  return moduleCoverMap[num] || `/assets/academy/modules/module-${String(num).padStart(2, "0")}.jpg`;
+}
+
 export const academyModulesData: AcademyModule[] = [
   module1,
   module2,
@@ -30,7 +51,10 @@ export const academyModulesData: AcademyModule[] = [
   module11,
   module12,
   module13,
-];
+].map((mod) => ({
+  ...mod,
+  coverImage: mod.coverImage || moduleCoverMap[mod.number],
+}));
 
 export function getAllModules(): AcademyModule[] {
   return academyModulesData;

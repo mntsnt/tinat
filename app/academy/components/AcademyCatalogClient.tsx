@@ -137,22 +137,45 @@ export function AcademyCatalogClient({ paths, modules }: AcademyCatalogClientPro
             href={`/academy/${module.slug}`}
             className="group block h-full"
           >
-            <Card className="flex h-full flex-col justify-between transition-colors group-hover:border-foreground/40">
-              <CardHeader className="pb-3">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="text-xs font-medium text-muted-foreground">
+            <Card className="flex h-full flex-col justify-between overflow-hidden transition-all duration-200 group-hover:border-foreground/40 group-hover:shadow-md">
+              {module.coverImage && (
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
+                  <img
+                    src={module.coverImage}
+                    alt={module.title}
+                    className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-2.5 left-2.5 rounded-md border border-border/50 bg-background/90 px-2 py-0.5 text-[11px] font-semibold text-foreground backdrop-blur-xs">
                     MODULE {module.number}
-                  </span>
-                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Clock className="h-3.5 w-3.5" /> {module.duration}
-                  </span>
+                  </div>
                 </div>
+              )}
+              <CardHeader className={module.coverImage ? "pb-2 pt-4" : "pb-3"}>
+                {!module.coverImage && (
+                  <div className="mb-2 flex items-center justify-between">
+                    <span className="text-xs font-medium text-muted-foreground">
+                      MODULE {module.number}
+                    </span>
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Clock className="h-3.5 w-3.5" /> {module.duration}
+                    </span>
+                  </div>
+                )}
+                {module.coverImage && (
+                  <div className="mb-1.5 flex items-center justify-between text-xs text-muted-foreground">
+                    <span className="capitalize">{module.pathId} Pathway</span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" /> {module.duration}
+                    </span>
+                  </div>
+                )}
                 <CardTitle className="text-base font-semibold leading-snug group-hover:text-foreground">
                   {module.title}
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex flex-1 flex-col justify-between gap-4">
-                <p className="line-clamp-3 text-sm leading-6 text-muted-foreground">
+                <p className="line-clamp-2 text-sm leading-6 text-muted-foreground">
                   {module.summary}
                 </p>
 

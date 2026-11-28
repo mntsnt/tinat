@@ -16,7 +16,30 @@ export function AcademyMarkdown({
         className
       )}
     >
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          img: ({ src, alt, title }) => (
+            <figure className="my-6 block not-prose">
+              <div className="overflow-hidden rounded-xl border border-border bg-card p-2 sm:p-4 shadow-xs">
+                <img
+                  src={src}
+                  alt={alt || "Tinat Academy illustration"}
+                  className="mx-auto block h-auto max-h-[580px] w-full max-w-full rounded-lg object-contain"
+                  loading="lazy"
+                />
+              </div>
+              {(title || alt) && (
+                <figcaption className="mt-2 text-center text-xs font-medium text-muted-foreground">
+                  {title || alt}
+                </figcaption>
+              )}
+            </figure>
+          ),
+        }}
+      >
+        {content}
+      </ReactMarkdown>
     </div>
   );
 }

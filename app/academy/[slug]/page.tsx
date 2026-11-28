@@ -75,7 +75,16 @@ export default async function AcademyModuleOverviewPage({ params }: Props) {
         </>
       }
     >
-        <div className="grid min-w-0 grid-cols-1 gap-6 @4xl:grid-cols-3">
+      {academyModule.coverImage && (
+        <div className="relative mb-6 aspect-[21/9] w-full overflow-hidden rounded-xl border border-border bg-muted shadow-xs sm:aspect-[24/9]">
+          <img
+            src={academyModule.coverImage}
+            alt={academyModule.title}
+            className="h-full w-full object-cover object-center"
+          />
+        </div>
+      )}
+      <div className="grid min-w-0 grid-cols-1 gap-6 @4xl:grid-cols-3">
           {/* Main 2-Col: Syllabus & Objectives */}
           <div className="min-w-0 space-y-6 @4xl:col-span-2">
             {/* Learning Objectives */}

@@ -176,6 +176,7 @@ export interface AcademyModule {
   subtitle: string;
   duration: string;
   summary: string;
+  coverImage?: string;
   learningObjectives: string[];
   prerequisites: string[];
   expectedOutcomes: string[];
