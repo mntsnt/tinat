@@ -1,6 +1,6 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert';
-import { FEATURES, CREDITS_DISCLAIMER, formatCredits, validateStartupFeatureFlags } from '../lib/config/features';
+import { FEATURES, CREDITS_DISCLAIMER, formatCredits, validateStartupFeatureFlags, parseBool } from '../lib/config/features';
 import { initializeChapaPayment, verifyChapaTransaction, disburseToTelebirrOrCbe } from '../modules/payments-legacy';
 
 describe("No Money Paths & Payment-Regulation Guard (ADR 0001)", () => {
@@ -111,6 +111,36 @@ describe("No Money Paths & Payment-Regulation Guard (ADR 0001)", () => {
           LEGAL_APPROVAL_REF: "NBE-ONPS-2026-TINAT-001",
         } as NodeJS.ProcessEnv);
       });
+    });
+
+    test("Quote-tolerant parsing works for environment variables in cloud dashboards", () => {
+      assert.strictEqual(parseBool('"true"'), true);
+      assert.strictEqual(parseBool("'true'"), true);
+      assert.strictEqual(parseBool('true'), true);
+      assert.strictEqual(parseBool('"TRUE"'), true);
+      assert.strictEqual(parseBool('1'), true);
+      assert.strictEqual(parseBool('"false"'), false);
+      assert.strictEqual(parseBool("'false'"), false);
+      assert.strictEqual(parseBool('false'), false);
+      assert.strictEqual(parseBool('0'), false);
+      assert.strictEqual(parseBool(''), false);
+      assert.strictEqual(parseBool(undefined), false);
+      assert.strictEqual(parseBool(null), false);
+
+      // Startup check correctly recognizes quoted "true" as enabling real-money features
+      assert.throws(
+        () => {
+          validateStartupFeatureFlags({
+            NODE_ENV: "production",
+            WITHDRAWALS_ENABLED: "false",
+            CASH_PAYMENTS_ENABLED: '"true"',
+            LEGAL_APPROVAL_REF: "",
+          } as NodeJS.ProcessEnv);
+        },
+        {
+          message: /CRITICAL REGULATORY ERROR: Real-money features enabled in production without mandatory LEGAL_APPROVAL_REF/
+        }
+      );
     });
   });
 

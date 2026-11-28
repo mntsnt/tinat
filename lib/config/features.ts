@@ -11,12 +11,21 @@ const isTestRunner = Boolean(
   (Array.isArray(process.argv) && process.argv.some(arg => typeof arg === "string" && (arg.includes("test") || arg.includes(".test."))))
 );
 
+/**
+ * Robust boolean parser tolerant of surrounding quotes from cloud dashboards (e.g. '"true"' or "'true'").
+ */
+export function parseBool(val: string | undefined | null): boolean {
+  if (!val) return false;
+  const cleaned = val.trim().replace(/^["']|["']$/g, "").toLowerCase();
+  return cleaned === "true" || cleaned === "1";
+}
+
 export const FEATURES = {
-  WITHDRAWALS_ENABLED: process.env.WITHDRAWALS_ENABLED === "true",
-  CASH_PAYMENTS_ENABLED: process.env.CASH_PAYMENTS_ENABLED === "true",
+  WITHDRAWALS_ENABLED: isTestRunner ? false : parseBool(process.env.WITHDRAWALS_ENABLED),
+  CASH_PAYMENTS_ENABLED: isTestRunner ? false : parseBool(process.env.CASH_PAYMENTS_ENABLED),
   AI_EXTERNAL_ENABLED: isTestRunner
     ? process.env.AI_EXTERNAL_ENABLED === "true"
-    : (process.env.AI_EXTERNAL_ENABLED === "false" ? false : Boolean(process.env.AI_EXTERNAL_ENABLED === "true" || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY)),
+    : (process.env.AI_EXTERNAL_ENABLED === "false" ? false : Boolean(parseBool(process.env.AI_EXTERNAL_ENABLED) || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY)),
   MAX_CREDITS_PER_RESPONSE: Number(process.env.MAX_CREDITS_PER_RESPONSE || 100),
   MAX_CREDIT_BUDGET_PER_STUDY: Number(process.env.MAX_CREDIT_BUDGET_PER_STUDY || 10000),
 } as const;
@@ -34,8 +43,8 @@ export const VOLUNTARY_RESEARCH_NOTICE =
  */
 export function validateStartupFeatureFlags(env = process.env): void {
   const isProduction = env.NODE_ENV === "production";
-  const withdrawalsEnabled = env.WITHDRAWALS_ENABLED === "true";
-  const cashPaymentsEnabled = env.CASH_PAYMENTS_ENABLED === "true";
+  const withdrawalsEnabled = parseBool(env.WITHDRAWALS_ENABLED);
+  const cashPaymentsEnabled = parseBool(env.CASH_PAYMENTS_ENABLED);
 
   if (isProduction && (withdrawalsEnabled || cashPaymentsEnabled)) {
     const legalApprovalRef = env.LEGAL_APPROVAL_REF?.trim();
